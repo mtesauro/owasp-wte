@@ -1,0 +1,19 @@
+Burp Suite v1.2  by PortSwigger (mail@portswigger.net)
+===============
+
+
+Terms and conditions
+====================
+
+Burp Suite is developed by PortSwigger Ltd (a limited company registered in England and Wales, company registration number 6719143).
+
+Unless confirmed otherwise in writing, PortSwigger Ltd reserves all copyright and all intellectual property rights throughout the world to any information, idea, design, computer program, textual, graphical or other material developed or owned by PortSwigger Ltd. Material so protected may not be reproduced or copied by any means whether electronically or otherwise without the express permission of PortSwigger Ltd.
+
+PortSwigger Ltd retains title and ownership of Burp Suite and all of its component tools. Users agree not to engage in nor to permit the decompilation, disassembly, or other reverse engineering of Burp Suite. 
+
+Use of Burp Suite is free for personal and commercial purposes. 
+
+Burp Suite may only be used for lawful purposes.
+
+No warranties are expressed or implied with respect to Burp Suite, its quality, performance, accuracy or suitability for any purpose. In no circumstances will the copyright owner be liable for direct, indirect, incidental or consequential damages resulting from the use of Burp Suite.
+

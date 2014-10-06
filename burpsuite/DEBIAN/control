@@ -1,0 +1,12 @@
+Package: owasp-wte-burpsuite
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.5
+Depends: openjdk-6-jre | sun-java6-jre | sun-java5-jre 
+Recommends: firefox, owasp-wte-firefox
+Description: Burp Suite is an integrated platform for attacking web 
+ applications. It contains all of the Burp tools with numerous interfaces 
+ between them designed to facilitate and speed up the process of attacking 
+ an application. This package is for the free version of Burp Suite.

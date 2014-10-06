@@ -1,0 +1,121 @@
+#!/bin/bash
+#
+# Script written by Matt Tesauro <matt.tesauro@owasp.org>
+# as part of the OWASP WTE project
+# 
+# This file, burbsuite, is part of the .deb package created for use
+# with OWASP WTE.
+#
+# burpsuite is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# burpsuite is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with burpsuite.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Sat, 08 Jun 2013 21:03:37 -0500
+
+# This script was written with help from:
+# http://www.linuxjournal.com/article/10495
+# http://tldp.org/LDP/abs/html/extmisc.html
+# http://www.linuxquestions.org/questions/programming-9/bash-how-to-handle-options-479162/
+# and the zenity man page
+
+# Set some sane defaults
+RAM="64"
+PROMPT="false"
+SAVE="false"
+
+# Setup command line option parsing
+ARGS=`getopt --options r:h --longoptions ram:,help --name 'burpsuite' -- "$@"`
+
+# Handle getopt fails
+if [ $? != 0 ] ; then echo "Error parsing command line options" >&2 ; exit 1 ; fi
+
+# Prepare to loop through arguments
+eval set -- "$ARGS"
+
+# Handle varous options at the command line
+while [ ! -z "$1" ]
+do
+  case "$1" in
+    -r|--ram) 
+          RAM=$2 
+          break ;;
+
+    -h|--help)
+          echo "Usage: burpsuite [-h|--help]" 
+          echo "   or: burpsuite [-r|--ram]"
+          echo "Launches the Burp Suite local proxy"
+          echo ""
+          echo "  -r, --ram=NUMBER          adjust the Java RAM from the default 64 MB"
+          echo "                              Example: burpsuite --ram=1024"
+          echo "  -h, --help                help, aka this message"  
+          exit 0 ;;
+
+    *) 
+          PROMPT=true
+          break;;
+  esac
+done
+
+# See if the .owasp hidden directory exists under home and create if needed
+OWASPCONFIG=$HOME/.owasp
+if [ ! -d $OWASPCONFIG ] 
+then
+    mkdir $OWASPCONFIG
+fi
+
+# See if there's a webscarab.config, and create a default one if not
+BURPCONFIG=$OWASPCONFIG/burpsuite.config
+if [ ! -e $BURPCONFIG ]
+then
+    cat <<EOF > $BURPCONFIG
+FIRST_RUN=true
+SELECTED_RAM=
+EOF
+
+fi
+
+
+# If no command line options are given for RAM, read in the values in the burpsuite.config file
+if [ $PROMPT == "true" ]
+then
+    source $HOME/.owasp/burpsuite.config
+# We only get here if there's a command-line option for RAM so go ahead and launch Burp Suite now
+else
+    # Launch Burp Suite
+    java -Xmx${RAM}m -jar /opt/owasp/burpsuite/burpsuite
+    exit
+fi
+
+# If this is the first time the webscarab.config has been read, prompt user for RAM and if it should be saved
+if [ $FIRST_RUN == "true" ]
+then
+    # Prompt for the preferred RAM to run Burp Suite under
+    SELECTED_RAM=`zenity --list --radiolist --column "Select" --column "Burp Suite RAM" FALSE "64 MB (default)" TRUE "256 MB" FALSE "512 MB" FALSE "1024 MB"`
+    
+    # Prompt to see if this selection should be saved
+    zenity --question --title "Save RAM setting" --text "Would you like to save Burp Suite's RAM setting?\n\nNOTE: Click Cancel to be prompted again next time"
+    SAVE=$?
+fi
+
+# Clean up the RAM setting we got from Zenity since it has MB tacked on
+RAM=`echo $SELECTED_RAM | cut --delimiter=" " --fields=1`
+
+# If the user wants to save the settings, over write the burpsuite.config with the appropriate values
+if [ $SAVE == 0 ]
+then
+    # Write the new burpsuite.config file
+    echo "FIRST_RUN=false" > $HOME/.owasp/burpsuite.config
+    echo "SELECTED_RAM=$RAM" >> $HOME/.owasp/burpsuite.config
+fi
+
+# Launch Burp Suite
+java -Xmx${RAM}m -jar /opt/owasp/burpsuite/burpsuite

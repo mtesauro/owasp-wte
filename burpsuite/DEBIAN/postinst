@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Register the icons needed for Burpsuite and the OWASP menu
+xdg-icon-resource install --size 64 /tmp/owasp-wte-burpsuite/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /tmp/owasp-wte-burpsuite/owasp-wte-burpsuite-icon.png owasp-wte-burpsuite-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /tmp/owasp-wte-burpsuite/owasp-owasp.directory \
+                         /tmp/owasp-wte-burpsuite/owasp-proxies.directory \
+                         /tmp/owasp-wte-burpsuite/owasp-wte-burpsuite.desktop
+
+# Cleanup /tmp
+rm -rf /tmp/owasp-wte-burpsuite
+
+# Create a symbolic link to the currently installed burp version
+ln -sf /opt/owasp/burpsuite/burpsuite_free_v1.6.jar /opt/owasp/burpsuite/burpsuite
+
