@@ -1,0 +1,7 @@
+Installing pyjojo
+
+----
+$ sudo apt-get install python-pip
+$ sudo pip install pyjojo
+$ sudo mkdir /srv
+$ sudo pyjojo
