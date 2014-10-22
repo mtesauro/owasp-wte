@@ -3,8 +3,8 @@ Section: misc
 Priority: 
 Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
 Architecture: all
-Version: 1.5
-Depends: openjdk-6-jre | sun-java6-jre | sun-java5-jre 
+Version: 1.6
+Depends: openjdk-6-jre | sun-java6-jre  
 Recommends: firefox, owasp-wte-firefox
 Description: Burp Suite is an integrated platform for attacking web 
  applications. It contains all of the Burp tools with numerous interfaces 

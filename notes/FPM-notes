@@ -1,0 +1,13 @@
+FPM Notes:
+
+From the exported directory - e.g. /home/mtesauro/projects/export-wte/ende
+
+To create a Debian:
+fpm -t deb --after-install DEBIAN/postinst --after-remove DEBIAN/postrm --deb-custom-control DEBIAN/control -n owasp-wte-1.0rc11 -s dir ./contents/=/
+
+To create a RPM:
+fpm -t rpm --after-install DEBIAN/postinst --after-remove DEBIAN/postrm --deb-custom-control DEBIAN/control -n owasp-wte-1.0rc11 -s dir ./contents/=/
+
+** NOTE **
+RPM building required the following packages to be installed:
+# apt-get install rpm
