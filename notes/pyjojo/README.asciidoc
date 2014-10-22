@@ -5,3 +5,7 @@ $ sudo apt-get install python-pip
 $ sudo pip install pyjojo
 $ sudo mkdir -p /srv/pyjojo
 $ sudo pyjojo -d
+
+Get jerry-curl at: http://appseclive.org/apt/jerry-curl/distrib/
+
+Get jq at http://stedolan.github.io/jq/download/
