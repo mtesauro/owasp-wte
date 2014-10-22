@@ -5,7 +5,24 @@ $ sudo apt-get install python-pip
 $ sudo pip install pyjojo
 $ sudo mkdir -p /srv/pyjojo
 $ sudo pyjojo -d
+----
 
 Get jerry-curl at: http://appseclive.org/apt/jerry-curl/distrib/
 
 Get jq at http://stedolan.github.io/jq/download/
+
+Example curl commands:
+
+----
+curl -X POST http://localhost:3000/scripts/uptime -H "Content-Type: application/json" -H "Accept: application/json" --proxy=http://localhost:8080 -d '{"text": "hello world!"}' 
+
+curl -X POST http://localhost:3000/scripts/kernel -H "Content-Type: application/json" 
+----
+
+With pretty printing:
+
+----
+curl -X POST http://localhost:3000/scripts/echo -H "Content-Type: application/json" -d '{"text": "hello world!"}' | jq .
+
+----
+
