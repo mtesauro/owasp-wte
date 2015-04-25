@@ -21,7 +21,6 @@ DEBDEPENDS="--depends default-jre"
 RPMDEPENDS="--depends \"java >= 1:1.6.0\""
 # Architechture this packge is built for? Choose from: all, native, i386, amd64
 ARCH="all"
-DESCRIPT="Burp Suite is an integrated platform for attacking web applications. It contains all of the Burp tools with numerous interfaces between them designed to facilitate and speed up the process of attacking an application. This package is for the free version of Burp Suite."
 # Scripts to run before or after installation.  Once script per option below
 # --after-install FILE - A script to be run after package installation
 # --before-install FILE - A script to be run before package installation
@@ -31,6 +30,9 @@ INSTALLSCRIPTS="--after-install DEBIAN/postinst"
 # --after-remove FILE - A script to be run after package removal
 # --before-remove FILE - A script to be run before package removal
 REMOVESCRIPTS="--before-remove DEBIAN/prerm --after-remove DEBIAN/postrm"
+# Additional .deb or .rpm FPM arguments
+ADDDEB=""
+ADDRPM=""
 
 # Call the global build script
 source $LIB/build-from-previous

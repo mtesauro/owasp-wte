@@ -14,14 +14,14 @@ echo "Building packages for $TOOLNAME version $VERSION"
 
 echo "Building .deb"
 
-DEB="fpm -t deb --name \"$NAME\" --iteration $ITER $DEBDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" -s dir ./contents/=/"
+DEB="fpm -t deb --name \"$NAME\" --iteration $ITER $DEBDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" $ADDDEB -s dir ./contents/=/"
 
 # Run the FPM command to build the Debian package
 eval $DEB
 
 echo "Building .rpm"
 
-RPM="fpm -t rpm --name \"$NAME\" --iteration $ITER $RPMDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --rpm-os linux --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" --epoch $EPOCH -s dir ./contents/=/"
+RPM="fpm -t rpm --name \"$NAME\" --iteration $ITER $RPMDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --rpm-os linux --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" --epoch $EPOCH $ADDRPM -s dir ./contents/=/"
 
 # Run the FPM command to build the RPM package
 eval $RPM
