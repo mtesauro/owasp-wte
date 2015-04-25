@@ -8,6 +8,8 @@ VENDOR="OWASP WTE"
 LICENSE="GPLv3"
 EPOCH="0"
 
+# TODO - Check for fpm in path
+
 echo "Building packages for $TOOLNAME version $VERSION"
 
 echo "Building .deb"

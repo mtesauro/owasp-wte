@@ -32,8 +32,6 @@ INSTALLSCRIPTS="--after-install DEBIAN/postinst"
 # --before-remove FILE - A script to be run before package removal
 REMOVESCRIPTS="--before-remove DEBIAN/prerm --after-remove DEBIAN/postrm"
 
-# TODO - Check for fpm in path
-
 # Call the global build script
 source $LIB/build-from-previous
 
@@ -43,9 +41,19 @@ if [[ ! -d "./packages" ]]; then
   mkdir ./packages
 fi
 
-# Move packages into subdirectory
-mv *.deb ./packages/
-mv *.rpm ./packages/
+# Make sure the package creation worked as expected
+COUNT=`ls ./owasp-wte-* | wc -l`
+echo "Count is $COUNT"
+if [ $COUNT -eq 2 ] 
+then
+  echo "Both package types found"
+  # Move packages into subdirectory
+  mv *.deb ./packages/
+  mv *.rpm ./packages/
+  echo "Debian and RPM files moved to ./packages/"
+else
+  echo "ERROR: Both .deb and .rpm were not created.  Package files left if the current directory"
+fi
 
-echo "Debian and RPM files moved to ./packages/"
+
 
