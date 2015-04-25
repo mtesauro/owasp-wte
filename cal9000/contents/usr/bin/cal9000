@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Point Firefox at CAL9000
+firefox /opt/owasp/cal9000/CAL9000.html

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=firefox /opt/owasp/cal9000/CAL9000.html
+Icon=/usr/share/pixmaps/cal9000.png
+Type=Application
+Categories=Application;Network;
+Name=Web App Testing Tools
+Name[cs]=Web App Testing Tools
+GenericName=CAL9000
+GenericName[cs]=CAL9000
+MimeType=text/html
+X-KDE-StartupNotify=true
+

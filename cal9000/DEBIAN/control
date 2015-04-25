@@ -1,0 +1,11 @@
+Package: owasp-wte-cal9000
+Section: misc
+Priority: extra
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 2.0
+Depends: firefox
+Description: CAL9000 is a collection of web application security testing tools 
+ that complement the feature set of current web proxies and automated 
+ scanners. CAL9000 gives you the flexibility and functionality you need for 
+ more effective manual testing efforts.

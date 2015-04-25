@@ -1,0 +1,787 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+ * This file is part of CAL9000 
+ *
+ * CAL9000 Web Application Security Testing Assistant, Version 2.0
+ * Copyright (C) 2006 Christopher Loomis
+ *
+ * Distributed under the GNU General Public License
+ *
+ * CAL9000 is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free 
+ * Software Foundation; either version 2 of the License, or (at your option) 
+ * any later version.
+ * 
+ * CAL9000 is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with 
+ * CAL9000; if not, write to the Free Software Foundation, Inc., 51 Franklin 
+ * Street, Fifth Floor, Boston, MA 02110-1301 USA
+ *
+ * IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+ * DATA OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * See http://www.digilantesecurity.com/CAL9000/index.html for more info.
+ * You may direct email inquiries to cal9000tool at mac dot com
+ *
+-->
+
+<HTML>
+	<HEAD>
+		<TITLE>CAL9000 Help</TITLE>
+		<STYLE type="text/css" media="all">@import "style/helpStyle.css";</STYLE>
+		<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<!-- Very ugly hack to get the top banner to somewhat stay on-screen with Internet Explorer -->
+		<!--[if gte IE 5.5]>
+			<![if lt IE 7]>
+				<style type="text/css">
+				div#banner {
+		  			left: expression( ( 5 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+		  			top: expression( ( 5 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+				}
+				div#navmenu {
+		  			left: expression( ( -43 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+		  			top: expression( ( 60 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+				}
+				</style>
+			<![endif]>
+		<![endif]-->
+	</HEAD>
+	<BODY>
+		<DIV id="banner">
+		<H3>&nbsp;CAL9000<BR>
+		&nbsp;Help
+		<img src="../images/cal.jpg" height="28" width="28" alt="CAL">		
+		</H3>
+		</DIV>
+		<DIV id="navmenu">
+			<ul>
+				<li><a href="#general">General&nbsp;Info</a></li>
+				<li><a href="#xssAttacks">XSS&nbsp;Attacks</a></li>
+				<li><a href="#charEncoder">Encode&#47;Decode</a></li>
+				<li><a href="#httpRequests">HTTP&nbsp;Requests</a></li>
+				<li><a href="#httpResponses">HTTP&nbsp;Responses</a></li>
+				<li><a href="#scratchPad">Scratch&nbsp;Pad</a></li>
+				<li><a href="#cheatSheets">Cheat&nbsp;Sheets</a></li>
+				<li><a href="#misc">Misc&nbsp;Tools</a></li>
+				<li><a href="#checkList">Checklist</a></li>
+				<li><a href="#auto">AutoAttack</a></li>
+				<li><a href="#saveState">Save&nbsp;State</a></li>
+				<li><a href="#store">Store&#47;Restore</a></li>
+				<li><a href="#selected">Selected&nbsp;Text</a></li>
+				<li><a href="#owasp">OWASP</a></li>
+			</ul>
+		</DIV>
+		<DIV id="content">
+			<FORM action="">
+			<A NAME="general"> </A>
+			<BR>
+			<H2>General Info</H2>
+CAL9000 is a collection of web application security testing tools that complement the feature set of current web proxies and automated scanners. CAL9000 gives you the flexibility and functionality you need for more effective manual testing efforts.
+			<BR><BR>
+Since CAL9000 is written in a combination of html, javascript and xml files, you do not need to install anything in order to use it. Instead, just open up the <i>CAL9000.html</i> file in your browser. Note that browsers all have their quirks, so refer to the table below for guidance.
+			<BR>
+		<DIV ALIGN="CENTER"><H3>CAL9000 Browser Issues:</H3></DIV>
+		  <TABLE>
+			<TR>
+				<TH>Firefox</TH>
+				<TD>For the best functionality and performance, run CAL9000 in Firefox. The variety of useful testing-related add-ons (Tamper Data, Web Developer, etc.) makes it a great platform for security work.
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The only potential gotchas that I have been able to find relate to the setting of Request Headers. You are not allowed to modify or delete the &quot;Host&quot; Request Header while crafting and sending a CAL9000 Http Request in Firefox. Also, for certain Methods, Firefox will add particular headers even if they are not specified. I've found that the values for these headers can be overwritten with other values, but not nulls. I would recommend running the requests through an application proxy if you need to have complete control over the Request Headers that are being sent.
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You may disregard any &quot;<i>some function</i> is not defined&quot; errors at startup. Firefox has some issues with the onLoad event - it does actually find the functions, despite the error messages.
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;While using CAL9000, Firefox may pop up windows asking you to grant exceptions to its security policy. These are normal and may be safely accepted. If you are reluctant to approve granting these requests, you can review the source code. I can say with <I>reasonable</I> certainty that CAL9000 will not go crazy and try to kill you.</TD>
+			</TR>
+			<TR>
+				<TH>Internet Explorer</TH>
+				<TD>After much hardship and cursing, I have been able to get CAL9000 working in IE. If you are using IE7, you will need to go to the browser's Advanced Options and turn OFF the native support for xmlHttpRequests. It appears that the &quot;native&quot; XHR support in IE fouls up most everything in CAL9000, so we avoid that mess by using the old ActiveX XHR implementation. 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also, while crafting and sending an Http Request in IE, you are not allowed to modify or delete ANY of the Request Headers that are automatically set by the browser. You can see what these are by going to the <b>HTTP Requests</b> page and selecting the <b>IE</b> option from &quot;Add Browser Headers&quot;. As I stated above with Firefox, I would recommend running the requests through an application proxy if you need to have complete control over what Request Headers are being sent. Other IE issues with sending Requests are that it does not handle some redirects and URL Authentication does not seem to work.</TD>
+			</TR>
+			<TR>
+				<TH>Other Browsers</TH>
+				<TD>While many of CAL9000's features will work in other browsers, from what I have found only Firefox and IE allow you to easily save to disk. Since this such an integral feature of CAL9000 (customization options, request/response history, etc.), I would only recommend using some other browser as a last resort.</TD>
+			</TR>
+		</TABLE>		
+		<BR>
+CAL9000 is written in Javascript, so you have full access to the source code. Feel free to modify it to best suit your particular needs. CAL9000 has some powerful features (like executing cross-domain xmlHttpRequests and writing to disk). It is purposefully designed to do some horribly insecure things. Therefore, I would strongly encourage that you only run it locally and NOT off of a server.
+		<BR><BR>
+Though I am not actively supporting CAL9000, feel free to <A HREF="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%63&#97;%6C&#57;%30&#48;%30&#116;%6F&#111;%6C&#64;%6D&#97;%63&#46;%63&#111;%6D">contact me</A> if you have any questions about the application&#39;s usage or suggestions for improving it. Check out my <a href="http://www.digilantesecurity.com/CAL9000/" target="_blank">website</a> for program updates. Have fun - Chris Loomis.
+			<BR><BR>
+			<HR>
+			<A NAME="xssAttacks"> </A>
+			<H2>XSS Attack Library Help</H2>
+The XSS Attack Library is a collection of attacks that illustrates the myriad of ways that attackers may attempt to inject XSS code into web applications.  Right-click <A HREF="http://ha.ckers.org/xssAttacks.xml" target="_blank">Here</A> to download the latest <b>xssAttacks.xml</b> file from RSnake. Replace the file of the same name in the <b>CAL9000/files/xml/</b> folder.
+			<BR><BR>
+To view the details of a particular XSS attack, just click on a topic in the left-column list. The Code, Description and Browser Support information will then be displayed. The textareas are editable, so you can try modifying the attack in the Code textarea or even trying something completely different.
+			<BR>
+		<DIV ALIGN="CENTER"><H3>Browser support reference table for XSS Attacks:</H3></DIV>
+		  <TABLE>
+			<TR>
+				<TH>Browser</TH>
+				<TH>Description</TH>
+			</TR>
+		    <TR>
+				<TH>IE7.0</TH>
+				<TD>Vector works in Internet Explorer 7.0.  Most recently tested with Internet Explorer 7.0.5700.6 RC1, Windows XP Professional SP2.</TD>
+		    </TR>
+		    <TR>
+				<TH>IE6.0</TH>
+				<TD>Vector works in Internet Explorer 6.0.  Most recently tested with Internet Explorer 6.0.28.1.1106CO, SP2 on Windows 2000.</TD>
+		    </TR>
+		    <TR>
+				<TH>NS8.1-IE</TH>
+				<TD>Vector works in Netscape 8.1+ in IE rendering engine mode.  Most recently tested with Netscape 8.1 on Windows XP Professional.  This used to be called trusted mode, but Netscape has changed it's security model away from the trusted/untrusted model and has opted towards Gecko as a default and IE as an option.</TD>
+		    </TR>
+			<TR>
+				<TH>NS8.1-G</TH>
+				<TD>Vector works in Netscape 8.1+ in the Gecko rendering engine mode. Most recently tested with Netscape 8.1 on Windows XP Professional.</TD>
+		    </TR>
+		    <TR>
+				<TH>FF2.0</TH>
+				<TD>Vector works in Mozilla's Gecko rendering engine, used by Firefox.  Most recently tested with Firefox 2.0 on Windows XP Professional.</TD>
+		    </TR>
+		    <TR>
+				<TH>O9.02</TH>
+				<TD>Vector works in Opera.  Most recently tested with Opera 9.02, Build 8586 on Windows XP Professional.</TD>
+		    </TR>
+		    <TR>
+				<TH>NS4</TH>
+				<TD>NS4 attacks will be displayed if selected, but the NS4 filter category has been removed from CAL9000.</TD>
+		    </TR>
+		  </TABLE>
+			<BR>
+Note: if a vector is not marked it either does not work or it is untested. Some listings are informational and will not show as being supported in any particular browser.
+		<BR>
+<h3>Browser Filtering</h3>
+You can limit which attacks are displayed in the &quot;Attack Info&quot; drop-down box by making a selection from the &quot;Filter&quot; drop-down box. Here are the options:
+			<ul>
+				<li><b>Show All Attacks</b>
+- Display all of the attacks listed in the xssAttacks.xml and xssUserAttacks.xml files.</li>
+				<li><b>Works in All</b>
+- Display the attacks that are supported in all of the listed browsers.</li>
+				<li><b>Works in <i>browsername</i></b>
+- Display the attacks that work in that browser.</li>
+			</ul>
+<h3>Create Your Own Attacks</h3>
+Now you can create/edit/save/delete your own attacks. At the bottom the Attack List is a new category - <i>User Defined</i>. This is where your attacks will be listed. When you select one of the attacks, you may notice that the name of the attack is displayed in the &quot;Editor&quot; text field and some of the browser checkboxes may be checked. These are all editable values.
+			<BR>
+The &quot;Edit Actions&quot; drop-down box has several options:<BR>
+			<ul>
+				<li><b>Save Changes</b>
+- Saves the contents of the &quot;Code&quot;, &quot;Description&quot;, &quot;Editor&quot; fields and the browser checkbox information to the xssUserAttacks.xml file for the selected attack.</li>
+				<li><b>Add Attack</b>
+- Supply the &quot;Code&quot;, &quot;Description&quot;, &quot;Editor&quot; and browser checkbox information to add a new attack that is saved to the xssUserAttacks.xml file.</li>
+				<li><b>Delete Attack</b>
+- Deletes the selected attack from the xssUserAttacks.xml file.</li>
+				<li><b>Print-Ready List</b>
+- Displays the information for all of the User-Defined attacks in a new window.</li>
+			</ul>
+Since the User-Defined attack information is saved to the xssUserAttacks.xml file, it will not be over-written if you import an updated xssAttacks.xml file from <A HREF="http://ha.ckers.org/xss.html" target="_blank">RSnake</A>.
+			<BR><BR>
+You can test attacks using the <b>Selected Text Action:</b> <i>Test In New Window</i>. See the Selected Text help section for more information. This will open another browser window and attempt to execute the selected code. If successful, most of the attacks will cause an additional pop-up alert to be generated. Note that XSS results are browser-dependent, so you may want to conduct your reviews with more than one to make sure that you are testing the application, not just that particular browser.
+			<BR><BR>
+<h3>Regular Expressions</h3>
+The XSS Attack page also provides a means for testing regular expressions. Type in the regex that you want to test in the &quot;Regex Filter&quot; text field (the leading and trailing slashes are provided for you). Add any Flags (e.g. gim) in the Flags text field. If you want to replace the matches with some other text, add that in the &quot;Replace With&quot; text field. 
+			<BR>
+The &quot;Regex Actions&quot; drop-down box has four options for regex processing:
+			<ol>
+				<li><b>Show Matches</b>
+- Any regex matches to the data in the &quot;Code&quot; textarea will be displayed in the &quot;Regex Result&quot; textarea (it is the same as the &quot;Description&quot; textarea).</li>
+				<li><b>Replace Matches</b>
+- Any regex matches to the data in the &quot;Code&quot; textarea will be replaced by the &quot;Replace With&quot; text and displayed in the &quot;Regex Result&quot; textarea.</li>
+				<li><b>Split on Matches</b>
+- The data in the &quot;Code&quot; textarea will be split on any regex matches and displayed in the &quot;Regex Result&quot; textarea.</li>
+				<li><b>Test in New Window</b>
+- Any regex matches to the data in the &quot;Code&quot; textarea will be replaced by the &quot;Replace With&quot; text and CAL9000 will try to execute the filtered code in a new window.</li>
+			</ol><BR>
+Choose a field name from the &quot;Clear Fields&quot; drop-down box to clear out one or more XSS Attack page fields.
+			<BR><BR>
+The textareas and text fields of the XSS Attacks function are eligible for Selected Text processing. See the Selected Text help section for more information.
+			<BR><BR>
+The textareas are eligible for the Store&#47;Restore feature. See the Store&#47;Restore help section for more information.
+			<BR><BR>
+			<HR>
+			<A NAME="charEncoder"> </A>
+			<H2>Encoder&#47;Decoder Help</H2>
+The Character Encoder&#47;Decoder offers the ability to convert strings to&#47;from alternate encoding types. The following types are supported:
+			<BR><BR>		
+		<TABLE>
+			<TR>
+			<TH>Type</TH>
+			<TH>Format</TH>
+			<TH>Info</TH>
+			</TR><TR>
+			<TH>URL</TH>
+			<TH>%XX</TH>
+			<TD>Letters, numbers and these characters: &#36;&#95;&#46;&#43;&#33;&#42;&#126;&#40;&#41;&#44;&#38;&#47;&#58;&#59;&#61;&#63;&#64;&#35;&#39;&#45; are not encoded. All other characters (ASCII only) converted to&#47;from 2-digit hexadecimal (e.g. %20). This is not a pure URL Encoding scheme because the reserved and syntax characters are not encoded regardless of context.</TD>
+			</TR><TR>
+			<TH>Hex</TH>
+			<TH>%XX</TH>
+			<TD>All characters (iso-8859-1 only) converted to&#47;from 2-digit hexadecimal (e.g. %52).</TD>
+			</TR><TR>
+			<TH>Unicode</TH>
+			<TH>%uUUUU</TH>
+			<TD>All characters (no restrictions) converted to&#47;from 4-digit unicode (e.g. %u0031).</TD>
+			</TR><TR>
+			<TH>HTML-Entity: Named</TH>
+			<TH>&amp;AAA (varies)</TH>
+			<TD>All characters (iso-8859-1 only) are converted to&#47;from their respective HTML Named Entities (&amp;lt).</TD>
+			</TR><TR>
+			<TH>HTML-Entity: Decimal</TH>
+			<TH>&amp;#DDD (varies)</TH>
+			<TD>All characters (no restrictions) converted to&#47;from 2 to 5-digit decimal (e.g. &amp;#39321).</TD>
+			</TR><TR>
+			<TH>HTML-Entity: Hex</TH>
+			<TH>&amp;#xXX</TH>
+			<TD>All characters (iso-8859-1 only) converted to&#47;from 2-digit hexadecimal (e.g. &amp;#x26).</TD>
+			</TR><TR>
+			<TH>HTML-Entity: Hex (long)</TH>
+			<TH>&amp;#x00XX</TH>
+			<TD>All characters (iso-8859-1 only) converted to&#47;from 4-digit hexadecimal (e.g. &amp;#x0026).</TD>
+			</TR><TR>
+			<TH>Javascript Escaped</TH>
+			<TH>varies</TH>
+			<TD>The characters (&#39;&#34; [newline] [tab] &#92;&#92;) converted to&#47;from their Javascript escaped equivalents (&#92;&#39; &#92;&#34; &#92;&#110; &#92;&#116; &#92;&#92;&#92;&#92;).</TD>
+			</TR><TR>
+			<TH>XML Escaped</TH>
+			<TH>varies</TH>
+			<TD>The characters (&#60;&#62;&#39;&#34;&#38;) converted to&#47;from their XML escaped equivalents (&amp;lt;&amp;gt;&amp;apos;&amp;quot;&amp;amp;).</TD>
+			</TR><TR>
+			<TH>Straight Decimal</TH>
+			<TH>DD</TH>
+			<TD>All characters (no restrictions) converted to&#47;from 2 to 5-digit decimal (e.g. 39321). Note that you must have delimiters or trailing characters present in order to decode straight decimal encodings.</TD>
+			</TR><TR>
+			<TH>Straight Hex</TH>
+			<TH>XX</TH>
+			<TD>All characters (iso-8859-1 only) converted to&#47;from 2-digit hexadecimal (e.g. 52).</TD>
+			</TR><TR>
+			<TH>IE Hex</TH>
+			<TH>\xXX to \x00000XX</TH>
+			<TD>All characters (iso-8859-1 only) converted to&#47;from 2 to 7-digit hexadecimal (e.g. \x52).</TD>
+			</TR><TR>
+			<TH>IE Unicode</TH>
+			<TH>\uUUUU</TH>
+			<TD>All characters (no restrictions) converted to&#47;from 4-digit unicode (e.g. \u0031).</TD>
+			</TR><TR>
+			<TH>Base-64</TH>
+			<TH>hash</TH>
+			<TD>All characters (iso-8859-1 only) converted to&#47;from base-64 (e.g. Q0FMOTAwMA==).</TD>
+			</TR><TR>
+			<TH>Md4</TH>
+			<TH>hash</TH>
+			<TD>Encode Only. String converted to 32 character MD4 (e.g. 8a9d093f14f8701df17732b2bb182c74).</TD>
+			</TR><TR>
+			<TH>Md5</TH>
+			<TH>hash</TH>
+			<TD>String converted to&#47;from 32 character MD5 (e.g. 5f4dcc3b5aa765d61d8327deb882cf99).</TD>
+			</TR><TR>
+			<TH>Sha1</TH>
+			<TH>hash</TH>
+			<TD>Encode Only. String converted to 40 character Sha1 (e.g. 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8).</TD>
+			</TR>
+		</TABLE>
+			<BR><BR>
+<h3>Parameters</h3>
+Before you can encode or decode text, you need to know about some optional parameters:
+		<dl>
+			<dt>Uppercase Checkbox</dt>
+			<dd>Checking this box will cause any Hex-based, Unicode and HTML Entity-Name encodings to have uppercase letters (&#37;3C, &#37;U003C and &amp;LT instead of &#37;3c, &#37;u003c and &amp;lt). Uppercase Hex-based and Unicode values will decode properly, even if you do not have the Uppercase Checkbox checked, but HTML Entity-Name values will not. Note: There are several HTML Entity Names that have the same spellings, differentiated only by case (&amp;Ntilde != &amp;ntilde). This becomes an issue when you want to encode in uppercase, as both of these examples would encode to (&amp;NTILDE). When decoding back from this, it is not possible to determine which &quot;ntilde&quot; it should be - &quot;&amp;Ntilde&quot; or &quot;&amp;ntilde&quot;. Therefore, names that would have ambiguous meanings if in all-caps are left as is.
+			</dd>
+			<dt>Trailing Character</dt>
+			<dd>Any items in this text field will be added to the end of every character as it is encoded or removed from the end of every character sequence as it is decoded. It is most commonly a semi-colon(;), but you can set it to whatever you want. Note, however, that certain characters may interfere with CAL9000's decoding process, causing strange results.</dd>
+			<dt>Delimiter</dt>
+			<dd>Any items in this text field will be added between the characters as they are encoded or removed from between every character sequence as it is decoded. It is most commonly a comma(,), but you can set it to whatever you want. Note, however, that certain characters may interfere with CAL9000's decoding process, causing strange results.</dd>
+			<dt>Include Unselected Text Checkbox</dt>
+			<dd>If this is checked, it allows you to encode&#47;decode only part of the text and include the unselected text as part of the result in its original format. The most important thing to remember when using this feature is that you must have some of the text to be encoded&#47;decoded selected. If not, you will get some strange results.</dd>
+			<dt>Base64 Filler Characters</dt>
+			<dd>Base64 Encoding/Decoding uses a 64-character array - made up of the characters A to Z, a to z, 0 to 9 plus two special characters. These last two characters are usually + and /, but you may run into instances when you want to use different special characters instead. Just overwrite the existing values in the text fields to change them. The padding character is usually the = sign, but you can change this value as well.</dd>
+		</dl>
+<h3>Encoding</h3>
+Encoding with CAL9000 is easy. Just follow these steps:
+		<dl>
+			<dt>Fill &quot;Plain Text&quot; textarea</dt>
+			<dd>Make sure that there is some text in the &quot;Plain Text&quot; textarea.</dd>
+			<dt>Make Selection</dt>
+			<dd>If you want to encode the entire contents of the textarea, it is a good idea to either click anywhere in the textarea or use the <input type="button" class="button" value="Select All"> button to make sure that all of the text is included. If you only want to encode some of the text, select the portion you want (See the Selected Text help section for more information).</dd>
+			<dt>Choose Encoding Type</dt>
+			<dd>Click on the encoding type that you would like to use in the <b>Select Encoding Type</b> select box.</dd>
+			<dt>View Result</dt>
+			<dd>The encoded text should appear in the &quot;Encoded Text&quot; textarea.</dd>
+		</dl>
+<h3>Decoding</h3>
+For decoding, it is pretty much the same drill:
+		<dl>
+			<dt>Fill &quot;Encoded Text&quot; textarea</dt>
+			<dd>Make sure that there is some text in the &quot;Encoded Text&quot; textarea.</dd> 
+			<dt>Make Selection</dt>
+			<dd>If you want to decode the entire contents of the textarea, it is a good idea to either click anywhere in the textarea or use the <input type="button" class="button" value="Select All"> button to make sure that all of the text is included. If you only want to decode some of the text, select the portion you want (See the Selected Text help section for more information).</dd>
+			<dt>Choose Decoding Type</dt>
+			<dd>Click on the decoding type that you would like to use in the <b>Select Decoding Type</b> select box.</dd>
+			<dt>View Result</dt>
+			<dd>The decoded text should appear in the &quot;Plain Text&quot; textarea.</dd>
+		</dl>
+<h3>Wrappers</h3>
+Another interesting Encode&#47;Decode feature is the Wrapper. Wrappers are string combinations that are commonly used in XSS attacks (for example, Script Tags - &lt;script&gt;<i>YourCodeGoesHere</i>&lt;/script&gt;). 
+			<BR><BR>
+To use a wrapper, there are three steps:<BR>
+- First, select which wrapper that you would like to use from the <b>Wrapper</b> drop-down box.<BR>
+- Then, select where you would like to apply the wrapper by choosing an option from the <b>Apply</b> drop-down box. You can apply or remove plain text wrappers to or from either the &quot;Plain Text&quot; or &quot;Encoded Text&quot; textareas. 
+			<BR><BR>
+Wrappers are applied to the entire textarea. The Wrappers that are provided are simple building blocks. You can nest multiple Wrappers for more sophisticated combinations. Also, you can add&#47;edit&#47;remove wrappers in the drop-downs.js file.
+			<BR><BR><BR>
+The &quot;Plain Text&quot; and &quot;Encoded Text&quot; textareas of the Encode&#47;Decode function are eligible for Selected Text processing. See the Selected Text help section for more information.
+			<BR><BR>
+The &quot;Plain Text&quot; and &quot;Encoded Text&quot; textareas of the Encode&#47;Decode function are eligible for the Store&#47;Restore feature. See the Store&#47;Restore help section for more information.
+			<BR><BR>
+			<HR>
+			<A NAME="httpRequests"> </A>
+			<H2>Http Requests Help</H2>
+CAL9000 includes the ability to manually craft and send HTTP requests to servers and receive the responses. See the <i>RFC 2616</i> Cheatsheet for more information about server requests and responses. 			
+			<BR><BR>
+<b><small>schema://user:password@fqdn:port/Absolute/path/to/file;parameter?QStringName=QStringValue</small></b>
+			<BR><BR>
+<h3>HTTP Request User-editable Fields</h3>
+The Requests that you send are comprised of the values in the following fields:
+			<ol>
+				<li><b>Method</b>
+- Drop-down box with the following HTTP Methods: GET, POST, HEAD, TRACE, TRACK, OPTIONS, CONNECT, PUT, DELETE, COPY, LOCK, MKCOL, MOVE, PROPFIND, PROPPATCH, SEARCH and UNLOCK.</li>
+				<li><b>Authentication Type</b>
+- Drop-down box with Authentication choices Basic and URL. CAL9000 will automatically insert the User and Password into the xmlHttpRequest or the URL, depending on the selection.</li>
+				<li><b>Authentication User</b>
+- Text field for the User information.</li>
+				<li><b>Authentication Password</b>
+- Text field for the Password information.</li>
+				<li><b>Schema</b>
+- Drop-down box with schema choices http:&#47;&#47;, https:&#47;&#47;, file:&#47;&#47;&#47;, ftp:&#47;&#47;, ldap:&#47;&#47; and ldaps:&#47;&#47;.</li>
+				<li><b>FQDN (Hostname)</b>
+- The first (sometimes only) part of the URL path. Includes everything up to the first single &#47; in the path (e.g. www.cnn.com). With more complicated URLs, the slash and any remaining <u>path</u> info goes in the &quot;Absolute Path of URL&quot; field.</li>
+				<li><b>Port</b>
+- Port number to send the request to. Only need to specify in cases when it is not 80.</li>
+				<li><b>Absolute Path of URL</b>
+- See FQDN description above.</li>
+				<li><b>Parameter Separator</b>
+- URL indicator (usually ; / or |) that a Parameter follows. This is NOT the Query String Separator.</li>
+				<li><b>URL Parameter</b>
+- Mainly used for URL rewriting (e.g. sessionID). This is NOT the field for Query String parameters.</li>
+				<li><b>URL Query String Separator</b>
+- URL indicator (usually a ?) that a Query String follows.</li>
+				<li><b>URL Query String</b>
+- Name=Value pairs in the URL.</li>
+				<li><b>HTTP Request Headers</b>
+- The Headers for the request.</li>
+				<li><b>HTTP Request Body</b>
+- Name=Value pairs (POST) or file contents (PUT).</li>
+				<li><b>Upload File</b>
+- Enter the Absolute Path to the file you wish to upload. The file may reside on your local machine or a remote machine.</li>
+			</ol>
+There are three things, at a minimum, that you need to define before you can send a Request.
+	<ol>
+		<li>Method</li>
+		<li>Schema</li>
+		<li>FQDN (Hostname)</li>
+	</ol>
+<h3>Request Header Features</h3>
+CAL9000 makes it easy to add Request Headers. First, make a selection from the &quot;Header Name&quot; drop-down box. The &quot;Header Value&quot; drop-down box will then automatically populate itself with a list of common values for that Header. Select one of those values and the Header:Value pair will be added to the &quot;HTTP Request Headers&quot; textarea. Also, the textarea is editable, so you can put whatever Header information you want to in it directly.<BR><BR>
+<b>Add Browser Headers - </b>Adds all of the browser headers that are customarily included by the chosen browser (Firefox or IE).<BR>
+<b>Add Method Headers - </b>Adds all of the browser headers that are customarily included when using the chosen method.<BR><BR>
+<b>Important Note: </b>CAL9000 clears out the Headers that are automatically supplied by the browser. Whatever Headers are present in the &quot;HTTP Request Header&quot; textarea are the ones that get sent with the Request. However, with the Firefox browser, it is not possible to remove or overwrite the value for the <b>Host</b> header. 
+
+<h3>Request Body Features</h3>
+CAL9000 also makes it easy to add Name:Value parameter pairs to the Request. One way is to use the &quot;Add Request Parameter&quot; feature. Enter the Name and Value info into the respective text fields, then choose where to insert the pair with the &quot;Add Parameter&quot; drop-down box.<BR><BR>
+The &quot;Request Body Actions&quot; drop-down has several options:
+	<ol>
+		<li><b>Split Name/Value Pairs</b>
+- Often, when you are working with a Request Body that contains a bunch of Name/Value pairs, it can be confusing trying to keep everything straight. This option splits each pair onto it's own line.</li>
+		<li><b>Concat Name/Value Pairs</b>
+- This option concatenates the Name/Value pairs that you have split using the above option back into a single line for sending.</li>
+		<li><b>Show Character Count</b>
+- This option is useful in cases where you need to know the number of characters in the &quot;HTTP Request Body&quot;. The result is displayed as a pop-up message in the CAL9000 banner.</li>
+	</ol>
+As with &quot;HTTP Request Header&quot;, the &quot;HTTP Request Body&quot; textarea is fully editable, so you can make changes directly if you wish.
+
+<h3>Uploading Files</h3>
+Uploading files with CAL9000 requires two steps. Before you can send the request (usually a PUT or POST), you&#39;ll have to Preload the file that you want to upload. Type in the path to the file-to-be-uploaded in the &quot;Upload File&quot; text field and hit the <input type="button" class="button" value="Preload"> button. If successful, the contents of the file will be displayed in the &quot;HTTP Request Body&quot; textarea. Note that the upload file does <b>not</b> have to reside on your local machine.
+
+<h3>Quick Encode</h3>
+The Http Requests Page also includes the <b>Quick Encode</b> feature. Choose a field from the drop-down box and then choose which encoding to use. This will apply an encoding type (Url, Hex, Unicode, Base64 or MD5) to the selected text in the chosen field, or to all of the text in that field if nothing has been selected. The encodings are basic (no trailing chars, delimiters, etc).
+
+<h3>Load AutoAttack Features</h3>
+CAL9000 gives you the ability to send multiple Requests at one time. Say you have a Query String parameter that you want to try to exploit with some Injection attacks. Here is an example (ignore the URL encoding issues):<BR><BR>
+<B>Manual Requests:</B><BR>
+http://www.somesite.com/login.asp?password=0 or 1=1--<BR>
+http://www.somesite.com/login.asp?password=' or 'x'='x<BR>
+http://www.somesite.com/login.asp?password=' or 'x'='x'--<BR><BR>
+
+Instead of manually sending a Request for each attack, you can go to the <b>AutoAttack List Editor</b> page and create an Attack List (for this example, named <i>InjectionAttacks</i>) containing all of the attacks. Attack List items: 0 or 1=1--, ' or 'x'='x, ' or 'x'='x'--.
+<BR><BR>
+Back on the <b>HTTP Requests</b> page, choose the Attack List you wish to use from the &quot;List&quot; drop-down. The &quot;Placeholder&quot; text field will then automatically display the Placeholder value. Insert that value into the Request fields at all of the places where you want the Attack List value to be inserted. 
+<BR><BR>
+Now, you only need to send one AutoAttack Request. <BR><BR>
+<B>AutoAttack Request:</B><BR>
+http://www.somesite.com/login.asp?password=[InjectionAttacks]
+<BR><BR>
+CAL9000 will iterate through the List and send a Request for each item, substituting the [Placeholder] value with each value in the List. 
+<BR><BR>
+The total number of Requests sent for each AutoAttack will equal the number of items in the chosen Attack List. You can use AutoAttack substitutions for any user-editable fields in the Request. For now, only one Attack List may be used at a time.
+
+<h3>Sending the Request(s)</h3>
+To send a single Request, click on the <input type="button" class="button" value="Send this Request"> button.<BR>
+To send a multiple Request, click on the <input type="button" class="button" value="Launch AutoAttack"> button.<BR><BR>
+If everything works correctly, a case will be saved in the History and a CaseID will be added for every Request to the &quot;History&quot; drop-down box. Clicking on a CaseID will display the Request info for that case on the <b>HTTP Requests Page</b> and the Response info on the <b>HTTP Responses Page</b>.
+
+<h3>History Functions</h3>
+When you send a Request via the HTTP Requests Page, the Request and Response information is saved to an XML file. Click on a CaseID in the &quot;History&quot; drop-down box to view the ReqResp information for that case. If you navigate over to the HTTP Responses Page, you will see the Response information for that case. If there is more than one Case listed in the drop-down, you can iterate through them by using the <input type="button" class="button" value="&lt;"> and <input type="button" class="button" value="&gt;"> buttons. 
+<BR>There are two History Action options:
+			<ul>
+				<li><b>Delete Case</b>
+- Deletes the chosen case (all of the Request and Response info for that case).</li>
+				<li><b>Print-Ready Case</b>
+- Displays all of the Request and Response info for that case in a new window.</li>
+			</ul>
+The History information is saved in the reqRespHistory.xml file. 
+			<BR><BR>
+<b>Important Note:</b> For obvious reasons, javascript was not originally intended to be able to save to disk. The process that CAL9000 uses to save/delete items in the XML files is rather cumbersome. In a nutshell, the program has to manually rebuild the entire XML file for every save/delete. For the smaller files, this is not a problem, but for the reqRespHistory.xml file, in particular, once the size of the file gets substantial (imagine 50 GET requests) it will peg the CPU and sit there for what seems like an eternity when you try to delete a case. Just keep this in mind when setting up your tests. You may want to break them down into manageable chunks or just delete cases yourself manually directly from the reqRespHistory.xml file.
+			<BR>
+<CENTER>--------------------------------------------------------------------</CENTER>
+<h3>Examples</h3>
+Here are some examples to give you an idea of what types of information goes in the various fields. Of course, there are many different ways to accomplish the same thing.
+
+Say we want to send this <B>GET</B> request that has some URL parameters:
+			<BR><BR>
+<i>http:&#47;&#47;www.somesite.com&#47;pages&#47;login.php?user=someuser&amp;password=somepass</i>
+			<BR><BR>
+The Method would be: <B>GET</B><BR>
+The Schema would be: <B>http:&#47;&#47;</B><BR>
+The FQDN would be: <B>www.somesite.com</B><BR>
+The Absolute Path of URL would be: <B>&#47;pages&#47;login.php</B><BR>
+The URL Query Separator would be: <B>?</B><BR>
+The URL Query String would be: <B>user=someuser&amp;password=somepass</B><BR>
+The HTTP Request Headers could be:<b><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Host: www.somesite.com<BR>&nbsp;&nbsp;&nbsp;&nbsp;Connection: close</b>
+			<BR>
+<CENTER>--------------------------------------------------------------------</CENTER>
+			<BR>
+Here is a similar example with <B>POST</B>:
+			<BR><BR>
+<i>http:&#47;&#47;www.somesite.com&#47;pages&#47;login.php</i>
+			<BR><BR>
+The Method would be: <B>POST</B><BR>
+The Schema would be: <B>http:&#47;&#47;</B><BR>
+The FQDN would be: <B>www.somesite.com</B><BR>
+The Absolute Path of URL would be: <B>&#47;pages&#47;login.php</B><BR>
+The HTTP Request Headers could be:<b><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Host: www.somesite.com<BR>&nbsp;&nbsp;&nbsp;&nbsp;Content-Type: application/x-www-form-urlencoded; charset=UTF-8<BR>&nbsp;&nbsp;&nbsp;&nbsp;Content-Length: 31</b><BR>
+The HTTP Request Body could be:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<B>user=someuser&amp;password=somepass</B>
+			<BR>
+<CENTER>--------------------------------------------------------------------</CENTER>
+			<BR>
+The <B>HEAD</B>, <B>TRACE</B> and <B>OPTIONS</B> requests are pretty straightforward:
+			<BR><BR>
+<i>http:&#47;&#47;www.somesite.com&#47;</i>
+			<BR><BR>
+The Method would be: <B>HEAD</B>, <B>TRACE</B> or <B>OPTIONS</B><BR>
+The Schema would be: <B>http:&#47;&#47;</B><BR>
+The FQDN would be: <B>www.somesite.com</B><BR>
+The Absolute Path of URL would be: <B>&#47;</B><BR>
+The HTTP Request Headers would vary<BR>
+			<BR>
+Note regarding <b>TRACE</b> - Firefox does not currently support the TRACE function (via xmlHttpRequest). CAL9000 gets the TRACE info from a server-side script. Also, a reminder that any request directed at a resource (http:&#47;&#47;www.blah.com&#47;index.html) is not necessarily going to generate the same response as one directed at a directory (http:&#47;&#47;www.blah.com&#47;js&#47;), even though they are on the same site.
+			<BR>
+<CENTER>--------------------------------------------------------------------</CENTER>
+			<BR>
+The <B>PUT</B> method requires two steps. Say you want to create an <B>index.html</B> file at &#39;somesite.com&#39; with the contents of your file <B>myindex.html</B>. Before you can send the request, you&#39;ll have to Preload the file that you want to upload. Type in the path to the file-to-be-uploaded in the &quot;Upload File&quot; text field and hit the <input type="button" class="button" value="Load"> button. You should see a completion message to confirm the preload and the contents of the upload file will appear in the &quot;HTTP Request Body&quot; textarea. Note that the upload file does not have to reside on your local machine.
+			<BR><BR>
+<i>http:&#47;&#47;www.somesite.com&#47index.html</i>
+			<BR><BR>
+The Method would be: <B>PUT</B><BR>
+The Schema would be: <B>http:&#47;&#47;</B><BR>
+The FQDN would be: <B>www.somesite.com</B><BR>
+The Absolute Path of URL would be: <B>&#47;index.html</B><BR>
+The HTTP Request Headers could be:<b><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Host: www.somesite.com<BR>&nbsp;&nbsp;&nbsp;&nbsp;Content-Type: multipart/form-data; charset=UTF-8<BR>&nbsp;&nbsp;&nbsp;&nbsp;Content-Length: 1984 (length of upload file contents)</b><BR>
+The HTTP Request Body would be:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<B>(Contents of the upload file)</B>
+			<BR><BR>
+Once the preload is complete, you are ready to <input type="button" class="button" value="Send This Request">. The resource name that you use in the &quot;Absolute Path of URL&quot; field will be the name of the uploaded file on the target server. If there is no current resource on the server with that name, it will be created. If a resource with the same name exists on the server, it will be replaced by your file. Note - you may have issues uploading non-text-based files, as CAL9000 does not encode them as binary streams.
+			<BR>
+<CENTER>--------------------------------------------------------------------</CENTER>
+			<BR>
+Be careful with the <B>DELETE</B> method:
+			<BR><BR>
+<i>http:&#47;&#47;www.somesite.com&#47index.html</i>
+			<BR><BR>
+The Method would be: <B>DELETE</B><BR>
+The Schema would be: <B>http:&#47;&#47;</B><BR>
+The FQDN would be: <B>www.somesite.com</B><BR>
+The Absolute Path of URL would be: <B>&#47;index.html</B><BR>
+			<BR>
+In this example, the <B>index.html</B> file will be deleted. There is no &quot;undo&quot; so pay attention when you are using this. If you send a DELETE pointing to a directory and not a specific resource in a directory, that directory may be history!
+			<BR>
+<CENTER>--------------------------------------------------------------------</CENTER>
+			<BR><BR>
+The textareas and text fields are eligible for Selected Text processing. See the Selected Text help section for more information.<BR>
+Choose a field name from the &quot;Clear&quot; drop-down box to clear out one or more HTTP Requests Page fields.
+			<HR>
+			<A NAME="httpResponses"> </A>
+			<H2>Http Responses Help</H2>
+The HTTP Responses Page displays the server responses to the requests that have been created and executed on the HTTP Requests Page.
+			<BR><BR>
+The &quot;Target URL&quot; text field shows the request that generated this response. Clicking on the <input type="button" class="button" value="Reload URL"> button will send a simple GET request with the &quot;Target URL&quot; value and populate the result fields, without having to go back to the HTTP Requests Page. Note that these results are not saved to the History file. 
+			<BR><CENTER>-------------------------------------------------------------------------</CENTER><BR>
+<h3>History Functions</h3>
+The History functions operate the same way as on the HTTP Requests Page. Click on a CaseID in the &quot;History&quot; drop-down box to view the Response information for that case. If you navigate over to the HTTP Requests Page, you will see the Request information for that case. If there is more than one Case listed in the drop-down, you can iterate through them by using the <input type="button" class="button" value="&lt;"> and <input type="button" class="button" value="&gt;"> buttons. 
+<BR>There are two History Action options:
+			<ul>
+				<li><b>Delete Case</b>
+- Deletes the chosen case (all of the Request and Response info for that case).</li>
+				<li><b>Print-Ready Case</b>
+- Displays all of the Request and Response info for that case in a new window.</li>
+			</ul>
+The History information is saved in the reqRespHistory.xml file. 
+			<BR><BR>
+<b>Important Note:</b> For obvious reasons, javascript was not originally intended to be able to save to disk. The process that CAL9000 uses to save/delete items in the XML files is rather cumbersome. In a nutshell, the program has to manually rebuild the entire XML file for every save/delete. For the smaller files, this is not a problem, but for the reqRespHistory.xml file, in particular, once the size of the file gets up there (imagine 50 GET requests) it will peg the CPU and sit there for what seems like an eternity when you try to delete a case. Just keep this in mind when setting up your tests. You may want to break them down into manageable chunks or just delete cases yourself manually directly from the reqRespHistory.xml file.
+			<BR><h3>Elements Processing</h3><BR>
+The <b>Elements</b> drop-down allows you to view the Scripts (within the Response Body source or remotely called), Forms and Cookies for the &quot;Target URL&quot;.
+			<ul>
+				<li><b>View Scripts</b>
+- If there are any Scripts in the Response Body source, they will be displayed in the Elements textarea. If the full source of a Script is located outside of the Response Body, a <input type="button" class="button" value="View Source"> button will appear. Click on this button to display the Script source code in a new window.</li>
+				<li><b>View Forms</b>
+- If there are any Forms in the Response Body source, they will be displayed in the Elements textarea.</li>
+				<li><b>View Cookies</b>
+- If there are any Cookies set by the page via <i>Set-Cookie</i> in the Response Header, they will be displayed in the Elements textarea. Sometimes, you may need to reload the &quot;Target URL&quot; by clicking on the <input type="button" class="button" value="Reload URL"> button in order for the Cookies to be displayed.</li>
+			</ul>
+If there is more than one Script or Form listed in the elements textarea, you can iterate through the list by using the <input type="button" class="button" value="Previous"> and <input type="button" class="button" value="Next"> buttons. The <input type="button" class="button" value="Select All"> button will select all of the text currently in the Elements textarea. The <input type="button" class="button" value="Delete"> button will remove the currently-displayed Script or Form from the list and also from the Response Body. This is useful when you are trying to use the <input type="button" class="button" value="Browser View"> feature, but the display gets hung up on an advertisement or something. These are NOT permanent changes. To display the original Response Body, click on that Case-ID from the &quot;History&quot; drop-down box.
+			<BR><BR>
+The <input type="button" class="button" value="Browser View"> button will execute the contents of the Response Body textarea in a new window. Note that sometimes links in the page that rely on relative pathnames may not work correctly.
+			<BR><CENTER>--------------------------------------------------------------------</CENTER><BR>
+The textareas and text fields are eligible for Selected Text processing. See the Selected Text help section for more information. Note, however, that Script source code that is displayed in a new window is not eligible. Use the standard cut and paste techniques instead.
+			<BR><BR>
+Choose a field name from the &quot;Clear&quot; drop-down box to clear out one or more HTTP Responses Page fields.
+			<HR>
+			<A NAME="scratchPad"> </A>
+			<H2>Scratch Pad Help</H2>
+The Scratchpad provides a convenient way for you to store notes, attack info, code snippets, test results, etc. 
+			<BR><BR>
+The <input type="button" class="button" value="Clear"> button erases the text in the &quot;Scratchpad&quot; textarea.
+			<BR><BR>
+The Scratchpad textarea is eligible for Selected Text processing. See the Selected Text help section for more information.
+			<BR><BR>
+			<HR>
+			<A NAME="cheatSheets"> </A>
+			<H2>Cheat Sheets Help</H2>
+The Cheat Sheets are a collection of primers on various languages and platforms that you may encounter while conducting web application security reviews. While not all-inclusive, they provide a handy way to check things like the syntax of a certain HTML tag or the usage of a particular advanced operator in Google&#8482;.
+			<BR><BR>
+To view a cheat sheet, simply click on its respective button and the content will be displayed in the window. If the text is too small to read, try right-clicking and then opening the cheat sheet in its own window.
+			<BR><BR>
+			<HR>
+			<A NAME="misc"> </A>
+			<H2>Misc Tools Help</H2>
+The Miscellaneous Tools page has three different mini-tools on it. <a href="http://www.scroogle.org/" target="_blank">Scroogle Search</a> is a privacy-friendly relay of Google&#8482; search results. The IP Encoder&#47;Decoder allows you to convert an IP address to&#47;from its Dword, Hex or Octal equivalents. The String Generator allows you to create very long strings to expose an application&#39;s error handling or to do buffer overflow testing.
+			<BR><BR>
+<H3>Scroogle Search</H3>
+		<CENTER>This graphic shows how Scroogle Search works:</CENTER>
+			<BR>
+			<CENTER><img src="images/scworks2.gif" alt="Scroogle"></CENTER>
+			<BR><BR>
+To do a search on a particular search term, type it into the &quot;Term&quot; text field and click on the <input type="button" class="button" value="Search"> button. The Domain field defaults to &#42;, which means All Domains. To limit the search, type the domain in the text field. Use the Advanced Operator options to further refine your search. For more information about Advanced Operators, check out the &quot;Google&quot; Cheat Sheet.
+			<BR><BR>
+The <input type="button" class="button" value="Clear"> button will clear out the Term and Advanced Operator text fields. 
+			<BR><BR>
+<CENTER>--------------------------------------------------------------------</CENTER>
+<H3>IP Encoder&#47;Decoder</H3>
+
+The IP Encoder&#47;Decoder allows you to evade IP address filtering or to help track down spammers or attackers that use alternate encodings to obfuscate their origin. Start by typing in an IP, Dword, Hex or Octal address in the appropriate text field. Then, press the corresponding <input type="button" class="button" value="Convert"> button. This will display the address in each of the other encoding schemes. The Dword level is usually zero, but you can experiment with setting it to one.
+			<BR><BR>
+The <input type="button" class="button" value="Clear All"> button will clear out all of the address text fields. 
+			<BR><BR>
+All IP Encoder&#47;Decoder text fields are eligible for Selected Text processing. See the Selected Text help section for more information.
+			<BR><BR>
+<CENTER>--------------------------------------------------------------------</CENTER>
+<H3>String Generator</H3>
+
+The String Generator allows you to easily create input strings of a specific length. First, type in the length of the string you want to create in the &quot;String Length&quot; text field.
+			<BR><BR>
+Now, type in the character that you want to use in the &quot;Character&quot; text field. Once this is done, click on the <input type="button" class="button" value="Generate"> button to create the string.
+			<BR><BR>
+The <input type="button" class="button" value="Clear All"> button will clear out the text fields and the Result textarea. 
+			<BR><BR>
+The Result textarea is eligible for Selected Text processing. See the Selected Text help section for more information.
+			<BR><BR>
+			<HR>
+			<A NAME="checkList"> </A>
+			<H2>Testing Checklist Help</H2>
+The Checklist page has two components - a Testing Tips list and a Web Application Security Testing Checklist.
+			<BR><h3>Testing Tips</h3>
+The Testing Tips list is a collection of security testing tips and techniques. Of course, this list is not complete. Use it as a baseline for the types of things that you might consider exploring while conducting a web application security review. 
+			<BR><BR>
+To view a Testing Tip, just click on a topic in the left-side list. The Tip Description and Examples&#47;Actions information will then be displayed. The Testing Tip content is loaded in from the &#39;testTips.xml&#39; file.
+			<BR><h3>Testing Checklist</h3>
+The Testing Checklist function gives you the ability to track the progress of your testing efforts and record your findings. The Checklist categories roughly correlate with the Manual Testing Techniques from the OWASP Testing Guide - click <a href="http://www.owasp.org/index.php/OWASP_Testing_Guide_Table_of_Contents" target="_blank">here</a> for more details.
+			<BR><BR>
+Click on a checklist item to display the Results/Notes for that item. The Checklist information is stored in the checklist.xml file. There are two sets of Editor functions. The first are Category-level:<BR>
+			<ul>
+				<li><b>Add Category</b>
+- Supply the &quot;Category&quot; information to add a new Checklist Category. Default values for the &quot;Title&quot; and &quot;Results/Notes&quot; fields are automatically added.</li>
+				<li><b>Rename Category</b>
+- Select this option to save changes to the &quot;Category&quot; field.</li>
+				<li><b>Delete Category</b>
+- Deletes the entire parent category (and all items) of the selected item.</li>
+				<li><b>Print-Ready List</b>
+- Displays the information for all of the Checklist Items in a new window.</li>
+			</ul>
+The second set of Editor functions are Item-level:<BR>
+			<ul>
+				<li><b>Add New Item</b>
+- Supply the &quot;Title&quot; and &quot;Results/Notes&quot; information to add a new Checklist Item for the chosen Category. You may also supply a unique &quot;Category&quot; in order to create a new Item in a new Category.</li>
+				<li><b>Save Changes</b>
+- First, click on an existing Item. Then, select this option to save changes to the &quot;Title&quot; and/or &quot;Results/Notes&quot; fields. The Category information cannot be changed with this option.</li>
+				<li><b>Delete Item</b>
+- Deletes the selected Item. If it is the only Item in the Category, the Category will also be deleted.</li>
+			</ul>
+The checklistOrig.xml file contains the original Checklist values, if you ever need to revert to them. This file can be found in the files/xml folder. 
+			<BR><BR><BR>
+The textareas and text fields are eligible for Selected Text processing. See the Selected Text help section for more information.
+			<BR><BR>
+Choose a field name from the &quot;Clear&quot; drop-down box to clear out one or more Testing Checklist Page fields.
+			<BR><BR>
+			<HR>
+			<A NAME="auto"> </A>
+			<H2>AutoAttack Help</H2>
+Use this function to build and maintain the AutoAttack Lists that are used to drive the automated multiple-request capabilities on the HTTP Requests Page.
+			<BR><BR>
+Click on one of the AutoAttack List names in the &quot;Attack Lists&quot; drop-down to view the Items for that list. The details of each Item are displayed in the &quot;Individual Item Display&quot; textarea. Use the <input type="button" class="button" value="Previous"> and <input type="button" class="button" value="Next"> buttons to iterate through the list Items.
+			<BR><BR>
+The &quot;Attack List Workarea&quot; textarea holds the code snippets sent to this page via the <b>Selected Text Action:</b> <i>Send To AutoAttack</i> function. 
+			<BR><BR>
+There are two sets of Editor functions. The first are List-level:<BR>
+			<ul>
+				<li><b>Create New List</b>
+- Supply the &quot;List Name&quot; information to add a new AutoAttack List. A default value for the initial Item is automatically added.</li>
+				<li><b>Clone This List</b>
+- Makes a duplicate copy of the chosen List.</li>
+				<li><b>Change List Name</b>
+- Rename the chosen List.</li>
+				<li><b>Delete This List</b>
+- Deletes the chosen List and all of the Items in the List.</li>
+				<li><b>Print-Ready List</b>
+- Displays the information for this List in a new window.</li>
+			</ul>
+The second set of Editor functions are Item-level:<BR>
+			<ul>
+				<li><b>Create New Item</b>
+- Creates a new Item in the chosen List. If the &quot;Individual Item Display&quot; textarea is empty, a blank default value is automatically added.</li>
+				<li><b>Clone This Item</b>
+- Makes a duplicate copy of the chosen Item.</li>
+				<li><b>Save Item Changes</b>
+- Saves changes in the &quot;Individual Item Display&quot; textarea for this Item.</li>
+				<li><b>Delete This Item</b>
+- Deletes the selected Item.</li>
+			</ul>
+			<h3>Quick Encode</h3>
+The AutoAttack List Editor also includes the <b>Quick Encode</b> feature. This will apply an encoding type (Url, Hex, Unicode, Base64 or MD5) to the selected text in the &quot;Individual Item Display&quot; textarea, or all of the text if nothing is selected. The encodings are basic (no trailing chars, delimiters, etc). The changes are not permanently applied to the Item until you click on the Item Editor option <i>Save Item Changes</i>.
+			<BR><BR><BR>
+The automatorOrig.xml file contains the original AutoAttack values, if you ever need to revert to them. This file can be found in the files/xml folder. 
+			<BR><BR>
+The textareas and text fields are eligible for Selected Text processing. See the Selected Text help section for more information.
+			<BR><BR>
+Choose a field name from the &quot;Clear&quot; drop-down box to clear out one or more AutoAttack List Editor Page fields.
+			<BR><BR>
+			<HR>
+			<A NAME="saveState"> </A>
+			<H2>Save&#47;Load State Help</H2>
+The contents of textareas and text fields of CAL9000 can be saved permanently to disk via the <input type="button" class="button" value="Save State"> button found in the banner at the top of the page. Note that the dynamically-created Script, Form or Cookies listings from the HTTP Responses function will not be saved. So now you don&#39;t have to worry if your testing session gets interrupted by something important, like lunch. There are no limits to the number of characters that can be saved - the data is stored in a file, not a cookie. 
+			<BR><BR>
+When you are ready to resume testing, just click on the <input type="button" class="button" value="Load State"> button to repopulate the fields. 
+			<BR><BR>
+Note that every time you Save State, you overwrite the previous save. If you want to retain a particular session, go into the &quot;saves&quot; folder and rename the &#39;CAL9000.txt&#39; file to something else.
+			<BR><BR>
+			<HR>
+			<A NAME="store"> </A>
+			<H2>Store&#47;Restore Help</H2>
+The <input type="button" class="button" value="Store"> and <input type="button" class="button" value="Restore"> buttons are a handy way to temporarily hold the contents of some of the textareas, without having to resort to a full Save State. Say, for instance, if you want to try out some variations of an attack, but don't want to lose the initial attack text.
+			<BR><BR>
+To Store the entire contents of an eligible textarea, click on the <input type="button" class="button" value="Select All"> button to select all of the text (or just click somewhere in the textarea), then click on the <input type="button" class="button" value="Store"> button to Store the value. If you only want to Store part of the value, select (highlight) that portion and then click on the <input type="button" class="button" value="Store"> button.
+			<BR><BR>
+To Restore the value, click on the <input type="button" class="button" value="Restore"> button. The stored value will replace whatever is currently in the textarea.
+			<BR><BR>
+To see what value is currently stored, just position the cursor over the <input type="button" class="button" value="Store"> or <input type="button" class="button" value="Restore"> buttons. The value will appear in a window above the textarea. Note that the entire value may not be displayed in the window if it is beyond a certain length. Also, the displayed value is Decimal encoded (to prevent XSS issues), so you may see some strange characters at the end of a truncated value. When you Restore, however, the &quot;true&quot; value is restored.
+			<BR><BR>
+Stored values are not retained as part of the &quot;Save State&quot; function.
+			<BR><BR>
+			<HR>
+			<A NAME="selected"> </A>
+			<H2>Selected Text Processing Help</H2>
+The Selected Text Processing features of CAL9000 give you a lot of control and flexibility. They tie all of the functions together and make it easy to pass information between them.
+			<BR><BR>
+To use these features, you first need to select (highlight) some text. There are several ways to do this. Here are some examples:<BR>
+		<ul>
+			<li>Use the <input type="button" class="button" value="Select All"> button. Clicking on this button will select all of the text in its corresponding textarea or text field.</li>
+			<li>Left-click at the start of the text you want to select and drag to the end of the selection.</li>
+			<li>With some browsers, if you click several times in a textarea or text field, it will select all of the enclosed text. In some cases, it will just select that particular line of text.</li>
+		</ul>
+Each browser seems to have it's own individual quirks when you try to select text. You may need to do some experimentation in order to find the techniques that work best for you.
+			<BR><BR>
+OK, so now you have selected some text. So what can you do with it? CAL9000 gives you several options via the <b>Selected Text Actions</b> drop-down box:
+		<dl>
+			<dt>Show Current Selection</dt>
+			<dd>Displays the currently selected text in an alert window.</dd>
+			<dt>Test In New Window</dt>
+			<dd>Attempts to execute the selected text in a new window. This works for small code snippets all the way up to entire web pages.</dd>
+			<dt>Send For RegEx Test</dt>
+			<dd>Copies the selected text to the &quot;Code&quot; textarea of the XSS Attacks function.</dd>
+			<dt>Send For Encoding</dt>
+			<dd>Copies the selected text to the &quot;Plain Text&quot; textarea of the Encode&#47;Decode function.</dd>
+			<dt>Send For Decoding</dt>
+			<dd>Copies the selected text to the &quot;Encoded Text&quot; textarea of the Encode&#47;Decode function.</dd>
+			<dt>Send To Request FQDN</dt>
+			<dd>Copies the selected text to the &quot;FQDN (hostname)&quot; text field of the HTTP Requests function.</dd>
+			<dt>Send To Request QString</dt>
+			<dd>Copies the selected text to the &quot;URL Query String&quot; text field of the HTTP Requests function.</dd>
+			<dt>Send To Request Header</dt>
+			<dd>Copies the selected text to the &quot;HTTP Request Headers&quot; textarea of the HTTP Requests function.</dd>
+			<dt>Send To Request Body</dt>
+			<dd>Copies the selected text to the &quot;HTTP Request Body&quot; textarea of the HTTP Requests function.</dd>
+			<dt>Send To ScratchPad</dt>
+			<dd>Copies the selected text to the &quot;Scratchpad&quot; textarea of the Scratch Pad function.</dd>
+			<dt>Send To IP Encoder</dt>
+			<dd>Copies the selected text to the &quot;IP Address&quot; text field of the Misc Tools function.</dd>
+			<dt>Send To AutoAttack</dt>
+			<dd>Copies the selected text to the &quot;Attack List Workarea&quot; textarea of the AutoAttack function.</dd>
+			<dt>Clear Current Selection</dt>
+			<dd>Clears out the current Selected Text value.</dd>
+			<dt>Delete Current Selection</dt>
+			<dd>Deletes the current Selected Text from the field where you selected it.</dd>
+		</dl>
+			<BR>
+You may have noticed an additional drop-down box next to the <b>Selected Text Actions</b> drop-down. These are the options that you have when you select an action that copies selected text to another textarea or text field.
+		<dl>
+			<dt>Append</dt>
+			<dd>Adds the Selected Text to the end of the existing text in the target field.</dd>
+			<dt>Prepend</dt>
+			<dd>Adds the Selected Text to the beginning of the existing text in the target field.</dd>
+			<dt>Replace</dt>
+			<dd>Replaces the contents of the target field with the Selected Text.</dd>
+		</dl>
+Word of warning: Make sure to set this BEFORE you select one of the copying actions. Actions are executed as soon as an action is selected from the <b>Selected Text Actions</b> drop-down.
+		<BR><BR>
+		<HR>
+		<A NAME="owasp"> </A>
+		<H2>OWASP</H2>
+The Open Web Application Security Project (<A HREF="http://www.owasp.org" target="_blank">OWASP</A>) is a not-for-profit charitable organization dedicated to finding and fighting the causes of insecure software. All of the OWASP tools, documents, forums and chapters are free and open to anyone interested in improving application security. We advocate approaching application security as a people, process and technology problem because the most effective approaches to application security include improvements in all of these areas.
+		<BR><BR>
+Everyone is welcome to participate in our forums, projects, chapters and conferences. OWASP is a fantastic place to learn about application security, to network and even to build your reputation as an expert.		<BR><BR>If you find the OWASP materials valuable, please consider supporting our cause by becoming an OWASP member. All monies received by the OWASP Foundation go directly into supporting OWASP projects.
+  		<BR><BR>
+CAL9000 is an OWASP tool and has been selected for sponsorship in the 2006 
+<A HREF="http://www.owasp.org/index.php/OWASP_Autumn_Of_Code_2006_:_Selected_Projects_Press_Release" target="_blank">Autumn of Code</A>.
+		<BR><BR>
+		</FORM>	
+		</DIV>
+	</BODY>
+</HTML>

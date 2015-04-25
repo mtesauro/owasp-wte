@@ -1,0 +1,1001 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+ * This file is part of CAL9000 
+ *
+ * CAL9000 Web Application Security Testing Assistant, Version 2.0
+ * Copyright (C) 2006 Christopher Loomis
+ *
+ * Distributed under the GNU General Public License
+ *
+ * CAL9000 is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free 
+ * Software Foundation; either version 2 of the License, or (at your option) 
+ * any later version.
+ * 
+ * CAL9000 is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with 
+ * CAL9000; if not, write to the Free Software Foundation, Inc., 51 Franklin 
+ * Street, Fifth Floor, Boston, MA 02110-1301 USA
+ *
+ * IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+ * DATA OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * See http://www.digilantesecurity.com/CAL9000/index.html for more info.
+ * You may direct email inquiries to cal9000tool at mac dot com
+ *
+-->
+<HTML>
+	<HEAD>
+		<TITLE>CAL9000</TITLE>
+		<STYLE type="text/css" media="all">@import "files/style/style.css";</STYLE>
+		<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+		<!-- Very ugly hack to get the top banner to somewhat stay on-screen with Internet Explorer -->
+		<!--[if gte IE 5.5]>
+			<style type="text/css">
+			#content select {
+				width: expression(this.scrollWidth > 227? "225px": "auto");
+			}
+			</style>
+			<![if lt IE 7]>
+				<style type="text/css">
+				div#banner {
+		  			left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+		  			top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+				}
+				</style>
+			<![endif]>
+		<![endif]-->
+
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/misc.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/request.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/response.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/reqRespHistory.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/encode.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/md4.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/md5.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/sha1.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/saveState.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/xssEditor.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/checkEditor.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/autoAttack.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/dropdowns.js"></SCRIPT>
+		<SCRIPT language="javascript" type="text/javascript" SRC="files/js/importXml.js"></SCRIPT>
+
+	</HEAD>
+	<BODY onLoad="mainInit();">
+		<DIV id="banner">
+			<img src="files/images/cal.jpg" class="img" height="25" width="25" alt="CAL">
+			<H2>&nbsp;CAL9000</H2>
+			<DIV class="Message" id="message"></DIV>
+		
+			<ul id="tabmenu">
+				<li><a href="#xssAttacks">Xss&nbsp;Attacks</a></li>
+				<li><a href="#charEncoder">Encode&#47;Decode</a></li>
+				<li><a href="#httpRequests">Http&nbsp;Requests</a></li>
+				<li><a href="#httpResponses">Http&nbsp;Responses</a></li>
+				<li><a href="#scratchPad">Scratch&nbsp;Pad</a></li>
+				<li><a href="#cheatSheets">Cheat&nbsp;Sheets</a></li>
+				<li><a href="#misc">Misc&nbsp;Tools</a></li>
+				<li><a href="#checkList">Checklist</a></li>
+				<li><a href="#auto">AutoAttack</a></li>
+			</ul>
+			<FORM ACTION="">
+				<input type="button" class="button" value="Save State" onClick="saveData('saves','State','txt');">
+				<input type="button" class="button" value="Load State" onClick="loadData('saves','State','txt');">
+				<input type="button" class="button" value="Help" onClick="window.open('files/help/CAL9000Help.html')">
+			</FORM>
+		</DIV>
+		<DIV id="content">
+			<BR>
+			<CENTER>
+				<H2>CAL9000 Web Application Security Testing Assistant</H2>
+				 <BR>Unless you have one of these ...<BR>
+				<img src="files/images/JailCard.jpg" height="171" width="270" alt="JailCard">
+				<BR>... please only use this tool for testing your own applications or those that<BR>
+				you have been authorized to test.&nbsp;See the Help file for browser restrictions.
+				<BR><BR>
+				<img src="files/images/owasp.gif" height="40" width="40" alt="OWASP"><BR>
+				CAL9000 is an <A HREF="http://www.owasp.org" target="_blank">OWASP</A> tool and is  
+				one of the sponsored<BR>projects for the 2006 
+				<A HREF="http://www.owasp.org/index.php/OWASP_Autumn_Of_Code_2006_:_Selected_Projects_Press_Release" target="_blank">Autumn of Code</A>.
+				<BR><BR><BR>
+				CAL9000 v2.0, Copyright &#169; 2006 Christopher Loomis<BR>
+				Distributed under the GNU General Public License
+			</CENTER>
+			<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="xssAttacks"></A>
+		<H2>XSS Attack Library</H2>
+			<FORM NAME="XSS" ACTION="">
+				<TABLE>
+					<TR>
+						<TD width="25%">Attack info from
+						<A HREF="http://ha.ckers.org/xss.html" target="_blank">RSnake</A>
+						</TD>
+						<TD colspan="2">
+						<DIV id="browser">Browser support:&nbsp;</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD rowspan="5">
+						<select id="xssType" size="29" style="max-width:250px"
+							onClick="importXML(this.value,'files/xml/xssAttacks.xml', false, false);">
+							<option value="">XSS Attacks:</option>
+							<option></option>
+						</select>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2">
+						Code:&nbsp;<DIV class="Store" id="xssStore"></DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2">
+						<textarea id="attackCode" cols="60" rows="8"></textarea>
+						<BR>
+						<input type="hidden" id="xssAttackStore" value="">
+						<input type="button" class="button" value="Store"   
+							onClick="document.XSS.xssAttackStore.value=setSelectedText('attackCode')" 
+							onmouseover="showStore('xssStore','xssAttackStore',95,425);" 
+							onmouseout="hideStore('xssStore');">
+						<input type="button" class="button" value="Restore" 
+							onClick="document.XSS.attackCode.value=document.XSS.xssAttackStore.value" 
+							onmouseover="showStore('xssStore','xssAttackStore',95,425);" 
+							onmouseout="hideStore('xssStore');">
+						</TD>
+					</TR>
+					<TR>
+						<TD width="5%"><DIV id="xssTitle">Description:&nbsp;</DIV></TD>
+						<TD valign="top"><DIV class="Store" id="xssDStore"></DIV></TD>
+					</TR>
+					<TR>
+						<TD colspan="2"><textarea id="description" cols="60" rows="8"></textarea>
+						<BR>
+						<input type="hidden" id="xssDescStore" value="">
+						<input type="button" class="button" value="Store"   
+							onClick="document.XSS.xssDescStore.value=setSelectedText('description')" 
+							onmouseover="showStore('xssDStore','xssDescStore',95,400);" 
+							onmouseout="hideStore('xssDStore');">
+						<input type="button" class="button" value="Restore" 
+							onClick="document.XSS.description.value=document.XSS.xssDescStore.value" 
+							onmouseover="showStore('xssDStore','xssDescStore',95,400);" 
+							onmouseout="hideStore('xssDStore');">
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="3">
+						<DIV class="Box">
+						Filter:&nbsp;
+						<select id="browFilter" size="1" onClick="importXML('','files/xml/xssAttacks.xml', true, false);">
+							<option value="">Show All Attacks</option>
+						</select>
+						&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+						<select id="xssSelect" onClick="selectAllText(this.value)">
+							<option value="">Select All:</option>
+						</select>
+						Selected Text:
+						<select id="mode0">
+							<option value="append">Append</option>
+							<option value="prepend">Prepend</option>
+							<option value="replace">Replace</option>
+						</select>
+						<select id="sendIt0" 
+							onClick="processSelectedText(this.value,document.XSS.mode0.value);">
+							<option value="">SelectedText Actions:</option>
+						</select>
+						&nbsp;|&nbsp;Clear:
+						<select id="xssClear" size="1" onClick="clearXSSField(this.value)">
+							<option value="">Field Name:</option>
+						</select>
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="3">
+						<DIV class="Box">
+							Editor:&nbsp;<INPUT type="text" class="text" id="udAttackTitle" size="26"
+							title="User-Defined Attack Title">
+							<select id="editActions" size="1" 
+								onClick="prepUdXML(this.value,document.XSS.xssType.value,'files/xml/xssUserAttacks.xml');">
+								<option value="">Edit Actions:</option>
+								<option value="change">Save Changes</option>
+								<option value="add">Add Attack</option>
+								<option value="delete">Delete Attack</option>
+								<option value="print">Print-Ready List</option>
+							</select>
+							<SPAN id="browBox">
+							</SPAN>
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="3">
+						<DIV class="Box">
+						Regex:&nbsp;&#47;
+						<input type="text" class="text" id="regExpr" size="40" title="Regular Expression">
+						&#47;
+						<input type="text" class="text" id="regFlag" size="2" title="Flags (igm)">
+						&nbsp;Replace With:
+						<input type="text" class="text" id="regReplace" size="25" title="Replace Match with This">
+						<select id="regAction" onClick="processRegex(this.value)">
+							<option value="">Regex Actions:</option>
+						</select>
+						</DIV>
+						</TD>
+					</TR>
+				</TABLE>
+			</FORM>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="charEncoder"></A>
+		<H2>Character Encoder&#47;Decoder</H2>
+			<FORM NAME="ENCODE" ACTION="">
+				<TABLE>
+					<TR>
+						<TD colspan="2">
+						<DIV class="Box">
+						Uppercase
+						<input type="checkbox" class="checkbox" id="uppercase"
+							title="Encodes in uppercase: &amp;#X3C not &amp;#x3c">
+						&nbsp;&nbsp;Trailing&nbsp;Character:
+						<input type="text" class="text" id="trailChar" size="1" maxlength="1" value="" title="Usually a semicolon(&#59;)">
+						&nbsp;&nbsp;Delimiter:
+						<input type="text" class="text" id="delimiter" size="1" maxlength="1" value="" title="Not used with Url or Html Entity-Named">
+						&nbsp;&nbsp;
+						Include&nbsp;Unselected&nbsp;Text
+						<input type="checkbox" class="checkbox" id="keep" 
+							title="Result includes unselected text in original format">
+						&nbsp;|&nbsp;
+						Base64 Filler Chars:
+						<input type="text" class="text" id="b64Fill1" size="1" maxlength="1" value="+" title="Filler 1"><input type="text" class="text" id="b64Fill2" size="1" maxlength="1" value="/" title="Filler 2"><input type="text" class="text" id="b64Fill3" size="1" maxlength="1" value="=" title="Padding Character">
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2">
+						<DIV class="Box">
+							Wrapper:
+							<select id="wrapper" title="Wrap with this text">
+								<option value="0" selected>-- None --</option>
+							</select>
+							&nbsp;Apply:
+							<select id="wrapTiming"	title="Make selection to trigger wrapper action" 
+								onClick="setWrapper()">
+								<option value="" selected>Do Not Apply</option>
+							</select>
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD width="20%">Select Encoding Type:</TD>
+						<TD width="80%">Plain Text:&nbsp;&nbsp;<DIV class="Store" id="plainStore"></DIV></TD>
+					</TR>
+					<TR>
+						<TD>
+							<select id="encodingType" size="13" onClick="encode();">
+								<option value="">Enc Types:</option>  
+							</select>
+						</TD>
+						<TD>
+						<textarea cols="80" rows="9" id="plain"></textarea>
+						<BR>
+						<input type="hidden" id="plainTextStore" value="">
+						<input type="button" class="button" value="Store"   
+							onClick="document.ENCODE.plainTextStore.value=setSelectedText('plain')" 
+							onmouseover="showStore('plainStore','plainTextStore',95,425);" 
+							onmouseout="hideStore('plainStore');">
+						<input type="button" class="button" value="Restore" 
+							onClick="document.ENCODE.plain.value=document.ENCODE.plainTextStore.value" 
+							onmouseover="showStore('plainStore','plainTextStore',95,425);" 
+							onmouseout="hideStore('plainStore');">
+						&#32;|&#32;
+						<input type="button" class="button" value="Select All" onClick="selectAllText('plain')">
+						&#32;|&#32;
+						<input type="button" class="button" value="Clear" onClick="clearField('plain')">
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2"><HR></TD>
+					</TR>
+					<TR>
+						<TD>Select Decoding Type:</TD>
+						<TD>Encoded Text:&nbsp;&nbsp;<DIV class="Store" id="encStore"></DIV></TD>
+					</TR>
+					<TR>
+						<TD>
+							<select id="decodingType" size="13" onClick="decode();">
+								<option value="">Dec Types:</option>
+							</select>
+						</TD>
+						<TD>
+						<textarea cols="80" rows="9" id="encoded"></textarea>
+						<BR>
+						<input type="hidden" id="encTextStore" value="">
+						<input type="button" class="button" value="Store"   
+							onClick="document.ENCODE.encTextStore.value=setSelectedText('encoded')" 
+							onmouseover="showStore('encStore','encTextStore',95,425);" 
+							onmouseout="hideStore('encStore');">
+						<input type="button" class="button" value="Restore" 
+							onClick="document.ENCODE.encoded.value=document.ENCODE.encTextStore.value" 
+							onmouseover="showStore('encStore','encTextStore',95,425);" 
+							onmouseout="hideStore('encStore');">
+						&#32;|&#32;
+						<input type="button" class="button" value="Select All" 
+							onClick="selectAllText('encoded')">
+						&nbsp;
+						<select id="mode1">
+							<option value="append">Append</option>
+							<option value="prepend">Prepend</option>
+							<option value="replace">Replace</option>
+						</select>
+						<select id="sendIt1" 
+							onClick="processSelectedText(this.value,document.ENCODE.mode1.value);">
+							<option value="">SelectedText Actions:</option>
+						</select>
+						&#32;|&#32;
+						<input type="button" class="button" value="Clear" 
+							onClick="clearField('encoded')">
+						</TD>
+					</TR>
+				</TABLE>
+			</FORM>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="httpRequests"></A>
+		<H2>HTTP Requests</H2>
+			<FORM NAME="REQUEST" ACTION="">
+				<TABLE>
+					<TR>
+						<TD width="30%">
+						<DIV class="Box">
+						Load AutoAttack:
+						<BR>
+						List:
+						<select id="reqLists" size="1" onClick="loadPlaceholder(this.value)">
+							<option value="">Attack Lists:</option>
+						</select>
+						<BR>
+						Placeholder:
+						<input type="text" class="text" id="reqPlaceHold" size="20" 
+							title="Insert this string in the request where you want attack list strings to be inserted">
+						<BR><BR>
+						Quick Encode:
+						<BR>
+						<select id="reqInField" size="1" onClick="">
+							<option value="">Field:</option>
+						</select>
+						<select id="reqEncode" size="1" 
+							onClick="quickEncode(document.getElementById('reqInField').value,this.value, 'httpReq')">
+							<option value="">Encode Type:</option>
+						</select>
+						</DIV>
+						</TD>
+						<TD valign="top">
+						Method:
+						<select id="reqMethod" size="1" onClick=""> 
+							<option value=" ">None</option>
+						</select>
+						&nbsp;&nbsp;&nbsp;
+						Auth: 
+						<select id="reqAuth" size="1" onClick=""> 
+							<option value=" ">None</option>
+						</select> 	
+						User:
+						<input type="text" class="text" id="reqUser" size="7" 
+							title="Username for Authentication">
+						Password:
+						<input type="text" class="text" id="reqPass" size="7" 
+							title="Password for Authentication">
+						<BR>
+						<DIV class="Box">
+						<select id="reqSchema" size="1" onClick=""> 
+							<option value="">Schema</option>
+						</select>
+						<input type="text" class="text" id="reqFqdn" 
+							size="61" title="FQDN(Hostname)">:<input type="text" class="text" 
+							id="reqPort" size="5" title="Port" value="">
+						<BR>
+						<input type="text" class="text" id="reqPath" size="55" 
+							title="Absolute Path of URL" value="/"><input type="text" class="text" id="reqSeparator" size="1" title="Parameter Separator(;/|)" value=""><input type="text" class="text" id="reqParameter" size="20" title="URL Parameter(see Help file)">
+						<BR>
+						<input type="text" class="text" id="reqQSep" size="1"
+							title="URL Query Separator (usually '?')"><input type="text" class="text" id="reqQString" size="77" title="URL Query String">
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD valign="middle">
+						<DIV class="Box">
+						Add Request Header:					
+						<BR>
+						<select id="reqHeadName" size="1" onClick="loadReqHeadVal(this.value)"> 
+							<option value="">Header Name:</option>
+						</select>
+						<BR>
+						<select id="reqHeadVal" 
+							onClick="addRequestHeader(document.REQUEST.reqHeadName.value,
+								document.REQUEST.reqHeadVal.value)"> 
+							<option value="">Header Value:</option>
+						</select>
+						<BR><BR>
+						Add Browser Headers:
+						<select id="reqBrowHead" size="1" onClick="addBrowserHeaders(this.value)"> 
+							<option value="">Browser:</option>
+						</select>
+						<BR>
+						Add Method Headers:
+						<select id="reqMethHead" size="1" onClick="addMethodHeaders(this.value)">
+							<option value="">Method:</option>
+						</select>
+						</DIV>
+						</TD>
+						<TD valign="top">
+						<textarea cols="40" rows="7" id="reqHead" title="HTTP Request Headers"></textarea>
+						</TD>
+					</TR>
+					<TR>
+						<TD valign="top">
+						<DIV class="Box">
+						Add Request Parameter:
+						<BR>
+						Name:
+						<input type="text" class="text" id="reqParmName" size="25" 
+							title="Parameter Name">
+						<BR>
+						Value:
+						<input type="text" class="text" id="reqParmVal" size="25" 
+							title="Parameter Value">
+						<BR>
+						<select id="reqSetParm" onClick="addRequestParameter(this.value)"
+							title="Where to add Parameter">
+							<option value="">Add Parameter:</option>
+							<option value="parmUrl">To Query String</option>
+							<option value="parmBody">To Request Body</option>
+						</select>
+						<BR>
+						<select id="reqBodyAction" size="1" onClick="requestBodyActions(this.value)">
+							<option value="">Request Body Actions:</option>
+						</select>
+						<BR><BR>
+						<input type="text" class="text" id="reqUpFile" size="23"  
+							title="Local Path or Url for file to be uploaded">
+						<input type="button" class="button" value="Preload" onClick="applyPrivilege(preload)">
+						</DIV>
+						</TD>
+						<TD>
+						<textarea cols="40" rows="10" id="reqBody" title="HTTP Request Body"></textarea>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2">
+						<DIV class="Box">
+						<input type="button" class="button" value="Send This Request" 
+							onClick="applyPrivilege(singleRequest);">
+						&nbsp;|&nbsp;
+						<input type="button" class="button" value="Launch AutoAttack" 
+							onClick="prepAutoXML('launch',document.getElementById('reqLists').selectedIndex,'');">
+						&nbsp;|&nbsp;&nbsp;History:
+						<select id="reqHistory" size="1" onClick="displayDetails(this.value,'request')">
+							<option value="">History:</option>
+						</select>
+						<input type="button" class="button" value="&#60;" 
+							onClick="cycleAttacks('previous',document.REQUEST.reqHistory.selectedIndex,'request')">
+						<input type="button" class="button" value="&#62;" 
+							onClick="cycleAttacks('next',document.REQUEST.reqHistory.selectedIndex,'request')">
+						<select id="reqHistActions" size="1" 
+							onClick="prepHistXML(this.value,document.REQUEST.reqHistory.selectedIndex,'request',0);">
+							<option value="">History Actions:</option>
+							<option value="delete">Delete Case</option>
+							<option value="printItem">Print-Ready Case</option>
+						</select>
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2">
+						<DIV class="Box">
+						Selected Text:
+						<select id="reqSelect" onClick="selectAllText(this.value)">
+							<option value="">Select All:</option>
+						</select>
+						<select id="mode2">
+							<option value="append">Append</option>
+							<option value="prepend">Prepend</option>
+							<option value="replace">Replace</option>
+						</select>
+						<select id="sendIt2" 
+							onClick="processSelectedText(this.value, document.REQUEST.mode2.value);">
+							<option value="">SelectedText Actions:</option>
+						</select>
+						&nbsp;|&nbsp;
+						Clear:
+						<select id="reqClear" size="1" onClick="clearReqField(this.value)">
+							<option value="">Field Name:</option>
+						</select>
+						</DIV>
+						</TD>
+					</TR>
+				</TABLE>
+			</FORM>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="httpResponses"></A>
+		<H2>HTTP Responses</H2>
+			<FORM NAME="RESPONSE" ACTION="">
+				<TABLE>
+					<TR>
+						<TD>
+						Target Url (from Request):&nbsp;
+						<input type="text" class="text" id="resTargetUrl" size="70"  
+							title="Url used to generate Response">
+						<input type="button" class="button" value="Reload Url" 
+							title="Performs a GET on the Target Url" 
+							onClick="applyPrivilege(loadTarget)">
+					    <HR>
+						Response Status:
+						<input type="text" class="text" id="resStatCode" size="3"  
+							title="Response Status Code">
+						<input type="text" class="text" id="resStatText" size="50" 
+							title="Response Status Text">
+						<BR>
+						<CENTER><textarea cols="80" rows="5" id="resHead"></textarea></CENTER>
+						<select id="resSelect" onClick="selectAllText(this.value)">
+							<option value="">Select All:</option>
+						</select>
+						&nbsp;Selected Text:
+						<select id="mode3">
+							<option value="append">Append</option>
+							<option value="prepend">Prepend</option>
+							<option value="replace">Replace</option>
+						</select>
+						<select id="sendIt3" 
+							onClick="processSelectedText(this.value,document.RESPONSE.mode3.value);">
+							<option value="">SelectedText Actions:</option>
+						</select>
+						&nbsp;|&nbsp;
+						Clear:
+						<select id="resClear" size="1" onClick="clearResField(this.value, true)">
+							<option value="">Field Name:</option>
+						</select>
+						<BR>
+						<CENTER><textarea cols="80" rows="12" id="resBody"></textarea></CENTER>
+						Elements:
+						<select id="Elements" onclick="showElements(document.getElementById('resTargetUrl').value, this.value, 0);">
+							<option value="">Element Actions:</option>
+							<option value="Script">View Scripts</option>
+							<option value="Form">View Forms</option>
+							<option value="Cookie">View Cookies</option>
+						</select>
+						&nbsp;|&nbsp;
+						<input type="button" class="button" value="Browser View" 
+							onClick="browserView(document.getElementById('resTargetUrl').value, document.getElementById('resBody').value)" 
+							title="Executes Response Body in new window">
+						&nbsp;|&nbsp;&nbsp;History:
+						<select id="resHistory" size="1" onClick="displayDetails(this.value,'response')">
+							<option value="">Req/Resp History:</option>
+						</select>
+						<input type="button" class="button" value="&#60;" 
+							onClick="cycleAttacks('previous',document.RESPONSE.resHistory.selectedIndex,'response')">
+						<input type="button" class="button" value="&#62;" 
+							onClick="cycleAttacks('next',document.RESPONSE.resHistory.selectedIndex,'response')">
+							<select id="resHistActions" size="1" 
+								onClick="prepHistXML(this.value,document.RESPONSE.resHistory.selectedIndex,'response',0);">
+								<option value="">History Actions:</option>
+								<option value="delete">Delete Case</option>
+								<option value="printItem">Print-Ready Case</option>
+							</select>
+						<HR>
+						<DIV id="myDiv" style="overflow:hidden"></DIV>
+						</TD>
+					</TR>
+				</TABLE>
+			</FORM>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="scratchPad"></A>
+		<H2>Scratch Pad</H2>
+			<FORM NAME="NOTES" ACTION="">
+				<CENTER><textarea cols="80" rows="27" id="pad"></textarea></CENTER>
+				<HR>
+				<input type="button" class="button" value="Select All" onClick="selectAllText('pad')">
+				&#32;
+				Selected Text:
+				<select id="mode4">
+					<option value="append">Append</option>
+					<option value="prepend">Prepend</option>
+					<option value="replace">Replace</option>
+				</select>
+				<select id="sendIt4" 
+					onClick="processSelectedText(this.value,document.NOTES.mode4.value);">
+					<option value="">SelectedText Actions:</option>
+				</select>
+				&#32;|&#32;
+				<input type="button" class="button" value="Clear" onClick="clearField('pad')">
+			</FORM>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="cheatSheets"></A>
+		<H2>Cheat Sheets</H2>
+			<FORM NAME="CHEATSHEET" ACTION="">
+				<CENTER>
+					<input type="button" class="button" value="Apache" 
+						onClick="document.getElementById('display').src='files/cheatSheets/apache.html'">
+					<input type="button" class="button" value="Asp/Vb" 
+						onClick="document.getElementById('display').src='files/cheatSheets/asp.png'">
+					<input type="button" class="button" value="C" 
+						onClick="document.getElementById('display').src='files/cheatSheets/c.html'">
+					<input type="button" class="button" value="Css" 
+						onClick="document.getElementById('display').src='files/cheatSheets/css.png'">
+					<input type="button" class="button" value="Delphi" 
+						onClick="document.getElementById('display').src='files/cheatSheets/delphi.html'">
+					<input type="button" class="button" value="Google" 
+						onClick="document.getElementById('display').src='files/cheatSheets/google.html'">
+					<input type="button" class="button" value="Html1" 
+						onClick="document.getElementById('display').src='files/cheatSheets/html1.html'">
+					<input type="button" class="button" value="Html2" 
+						onClick="document.getElementById('display').src='files/cheatSheets/html2.html'">
+					<input type="button" class="button" value="Java" 
+						onClick="document.getElementById('display').src='files/cheatSheets/java.html'">
+					<input type="button" class="button" value="Javascript" 
+						onClick="document.getElementById('display').src='files/cheatSheets/javascript.html'">
+					<input type="button" class="button" value="Jsp" 
+						onClick="document.getElementById('display').src='files/cheatSheets/jsp.html'">
+					<BR>
+					<input type="button" class="button" value="Linux" 
+						onClick="document.getElementById('display').src='files/cheatSheets/linux.html'">
+					<input type="button" class="button" value="Modperl" 
+						onClick="document.getElementById('display').src='files/cheatSheets/modperl.html'">
+					<input type="button" class="button" value="Mysql" 
+						onClick="document.getElementById('display').src='files/cheatSheets/mysql.html'">
+					<input type="button" class="button" value="Oracle" 
+						onClick="document.getElementById('display').src='files/cheatSheets/oracle.html'">
+					<input type="button" class="button" value="Php" 
+						onClick="document.getElementById('display').src='files/cheatSheets/php.html'">
+					<input type="button" class="button" value="Regex" 
+						onClick="document.getElementById('display').src='files/cheatSheets/regex.html'">
+					<input type="button" class="button" value="rfc 2616" 
+						onClick="document.getElementById('display').src='files/cheatSheets/RFC2616.html'">
+					<input type="button" class="button" value="Unix" 
+						onClick="document.getElementById('display').src='files/cheatSheets/unix.html'">
+					<input type="button" class="button" value="Xml" 
+						onClick="document.getElementById('display').src='files/cheatSheets/xml.html'">
+					<input type="button" class="button" value="Xslt" 
+						onClick="document.getElementById('display').src='files/cheatSheets/xslt.html'">
+					<HR>
+					<IFRAME id="display" src="about:blank"></IFRAME>
+				</CENTER>
+			</FORM>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="misc"></A>
+		<H2>Misc Tools</H2>
+			<TABLE>
+				<TR>
+					<TD>
+					<H3>IP Encoder&nbsp;&#47;&nbsp;Decoder</H3>
+					<FORM NAME="IPHIDE" ACTION="">
+						Set Dword level:
+						<select id="level" size="1">
+							<option value="0" selected>Dword Level 0
+							<option value="1">Dword Level 1
+						</select>
+						<BR><BR>
+						IP:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="text" id="ip" size="20" value="">
+						<input type="button" class="button" value="Convert" 
+							onClick="validateIP(IPHIDE.ip.value,IPHIDE.level.value);">
+						&#32;|&#32;
+						<input type="button" class="button" value="Select All" 
+							onClick="selectAllText('ip')">
+						<BR>
+						Dword:
+						<input type="text" class="text" id="ipdword" size="20" value="">
+						<input type="button" class="button" value="Convert" 
+							onClick="convertDword(IPHIDE.ipdword.value,IPHIDE.level.value)">
+						&#32;|&#32;
+						<input type="button" class="button" value="Select All" 
+							onClick="selectAllText('ipdword')">
+						<BR>
+						Hex:&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="text" id="iphex" size="20" value="">
+						<input type="button" class="button" value="Convert" 
+							onClick="convertHexOct(IPHIDE.iphex.value,IPHIDE.level.value,16)">
+						&#32;|&#32;
+						<input type="button" class="button" value="Select All" 
+							onClick="selectAllText('iphex')">
+						<BR>
+						Octal:&nbsp;
+						<input type="text" class="text" id="ipoct" size="20" value="">
+						<input type="button" class="button" value="Convert" 
+							onClick="convertHexOct(IPHIDE.ipoct.value,IPHIDE.level.value,8)">
+						&#32;|&#32;
+						<input type="button" class="button" value="Select All" 
+							onClick="selectAllText('ipoct')">
+						<HR>
+						Selected Text:
+						<select id="mode5">
+							<option value="append">Append</option>
+							<option value="prepend">Prepend</option>
+							<option value="replace">Replace</option>
+						</select>
+						<select id="sendIt5" 
+							onClick="processSelectedText(this.value,document.IPHIDE.mode5.value);">
+							<option value="">SelectedText Actions:</option>
+						</select>
+						&#32;|&#32;
+						<input type="button" class="button" value="Clear All" onClick="clearIP();">
+					</FORM>
+					<H3>String Generator</H3>
+					<FORM NAME="STRGEN" ACTION="">
+						String Length:
+						<input type="text" class="text" id="len" size="5" value=""
+							title="How many chars to generate">
+						&nbsp;
+						Character:
+						<input type="text" class="text" id="type" size="1" value="" maxlength="1" 
+							title="Character to be Generated">
+						&nbsp;
+						<input type="button" class="button" value="Generate"  
+							onClick="generateString(document.STRGEN.len.value,document.STRGEN.type.value);">
+						<CENTER><textarea cols="40" rows="2" id="out"></textarea></CENTER>
+						<HR>
+						<input type="button" class="button" value="Select" 
+							onClick="selectAllText('out')">
+						&nbsp;
+						Selected Text:
+						<select id="mode6">
+							<option value="append">Append</option>
+							<option value="prepend">Prepend</option>
+							<option value="replace">Replace</option>
+						</select>
+						<select id="sendIt6" 
+							onClick="processSelectedText(this.value,document.STRGEN.mode6.value);">
+							<option value="">SelectedText Actions:</option>
+						</select>
+						&#32;|&#32;
+						<input type="button" class="button" value="Clear All" onClick="clearString();">
+					</FORM>
+					</TD>
+					<TD>
+					<H3>Scroogle Search</H3>
+						<FORM NAME="SEARCH" ACTION="">
+							<DIV align="right">Term:
+								<INPUT type="text" class="text" id="Gw" size="33" maxlength="210" value="">
+							</DIV>
+							<DIV align="right">Domain:
+								<INPUT type="text" class="text" id="d" size="33" value="*">
+							</DIV>
+							<INPUT type="hidden" id="n" value="2">
+							<BR>
+							<FIELDSET>
+								<LEGEND>Advanced Operators</LEGEND>
+								site: <INPUT type="text" class="text" id="siteText" size="30"><BR>
+								filetype: <INPUT type="text" class="text" id="filetypeText" size="30"><BR>
+								cache: <INPUT type="text" class="text" id="cacheText" size="30"><BR>
+								link: <INPUT type="text" class="text" id="linkText" size="30"><BR>
+								related: <INPUT type="text" class="text" id="relatedText" size="30"><BR>
+								define <INPUT type="text" class="text" id="defineText" size="30"><BR>
+								inurl: <INPUT type="text" class="text" id="inurlText" size="30"><BR>
+								allinurl: <INPUT type="text" class="text" id="allinurlText" size="30"><BR>
+								intitle: <INPUT type="text" class="text" id="intitleText" size="30"><BR>
+								allintitle: <INPUT type="text" class="text" id="allintitleText" size="30"><BR>
+								intext: <INPUT type="text" class="text" id="intextText" size="30"><BR>
+								allintext: <INPUT type="text" class="text" id="allintextText" size="30"><BR>
+							</FIELDSET>
+							<BR>
+							<INPUT type="button" class="button" value="Search" 
+								onClick="buildSearch(SEARCH.Gw.value, SEARCH.d.value)">
+							<INPUT type="button" class="button" value="Clear" onClick="clearSearch()">
+						</FORM>
+					</TD>
+				</TR>
+			</TABLE>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="checkList"></A>
+		<H2>Testing Checklist</H2>
+			<FORM NAME="CHECKLIST" ACTION="">
+				<TABLE>
+					<TR>
+						<TD valign="top"><center>Testing Tips:</center></TD>
+						<TD valign="top"><center>Tip Description:</center></TD>
+						<TD valign="top"><center>Examples / Actions:</center></TD>
+					</TR>
+					<TR>
+						<TD>
+							<select id="tips" size="12" 
+								onClick="importXML(this.value,'files/xml/testTips.xml', false);">
+								<option value="">Testing Tips:</option>
+							</select>
+						</TD>
+						<TD valign="top" width="50%"><textarea id="desc" cols="30" rows="10"></textarea></TD>
+						<TD valign="top" width="50%"><textarea id="examples" cols="30" rows="10"></textarea></TD>
+					</TR>
+					<TR>
+						<TD valign="top">Checklist:&nbsp;<A HREF="http://www.owasp.org/index.php/OWASP_Testing_Guide_Table_of_Contents" target="_blank">(see owasp guide)</A></TD>
+						<TD valign="top" colspan="2">Results / Notes:
+						</TD>
+					</TR>
+					<TR>
+						<TD>
+							<select id="checkItems" size="15" 
+								onClick="importXML(this.value,'files/xml/checklist.xml', false);">
+								<option value="">Testing Checklist:</option>
+							</select>
+						</TD>
+						<TD valign="top" width="100%" colspan="2">
+							<center><textarea id="checkResults" cols="30" rows="13"></textarea></center>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="3">
+						<DIV class="Box">
+							Editor:&nbsp;&nbsp;
+							Category:&nbsp;<INPUT type="text" class="text" id="checkLabel" size="25">
+							&nbsp;	
+							<select id="editChkActions" size="1" 
+								onClick="prepChkXML(this.value,document.CHECKLIST.checkItems.value);">
+								<option value="">Functions:</option>
+								<option value="addCat">Add Category</option>
+								<option value="renCat">Rename Category</option>
+								<option value="delCat">Delete Category</option>
+								<option value="print">Print-Ready List</option>
+							</select>
+							&nbsp;&nbsp;
+							Title:&nbsp;<INPUT type="text" class="text" id="checkTitle" size="30">
+							&nbsp;	
+							<select id="editChkItems" size="1" 
+								onClick="prepChkXML(this.value,document.CHECKLIST.checkItems.value);">
+								<option value="">Functions:</option>
+								<option value="addItem">Add New Item</option>
+								<option value="changeItem">Save Changes</option>
+								<option value="delItem">Delete Item</option>
+							</select>
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="3">
+						<DIV class="Box">
+						<select id="chkSelect" onClick="selectAllText(this.value)">
+							<option value="">Select All:</option>
+							<option value="desc">Tip Description</option>
+							<option value="examples">Tip Examples</option>
+							<option value="checkResults">Checklist Results</option>
+						</select>
+						&nbsp;Selected Text:
+						<select id="mode7">
+							<option value="append">Append</option>
+							<option value="prepend">Prepend</option>
+							<option value="replace">Replace</option>
+						</select>
+						<select id="sendIt7" 
+							onClick="processSelectedText(this.value,document.CHECKLIST.mode7.value);">
+							<option value="">SelectedText Actions:</option>
+						</select>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+						Clear:
+						<select id="chkClear" size="1" onClick="clearChkField(this.value)">
+							<option value="">Field Name:</option>
+							<option value="clearAllChk">ALL FIELDS</option>
+							<option value="checkLabel">Category</option>
+							<option value="checkTitle">Title</option>
+							<option value="checkResults">Results</option>
+						</select>
+						</DIV>
+						</TD>
+					</TR>
+				</TABLE>
+			</FORM>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		<A NAME="auto"></A>
+		<H2>AutoAttack List Editor</H2>
+			<FORM NAME="AUTO" ACTION="">
+				<TABLE>
+					<TR>
+						<TD valign="top" colspan="2">
+						<DIV class="Box">
+							<center>Attack Lists:&nbsp;<select id="lists" size="1" 
+								onClick="autoItemIndex=0;prepAutoXML('displayItem',this.selectedIndex,0);">
+								<option value="">List Names:</option>
+							</select>
+							</center>
+						</DIV>					
+						</TD>
+					</TR>
+					<TR>
+						<TD valign="top"><center>Individual Item Display:</center></TD>
+						<TD valign="top"><center>Attack List Workarea:</center></TD>
+					</TR>
+					<TR>
+						<TD valign="top" width="50%">
+							<textarea id="itemContents" cols="30" rows="16"></textarea>
+						</TD>
+						<TD valign="top" width="50%" rowspan="2">
+							<textarea id="workArea" cols="30" rows="19"></textarea>
+						</TD>
+					</TR>
+					<TR>
+						<TD>
+						<DIV class="Box">
+							<DIV id="autoDiv" style="overflow:hidden">Item # of #:&nbsp;&nbsp;<INPUT type="button" class="button" value="Previous" onClick="prepAutoXML('previous',document.AUTO.lists.selectedIndex,-1);"><INPUT type="button" class="button" value="Next" onClick="prepAutoXML('next',document.AUTO.lists.selectedIndex,1);"></DIV>
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2">
+						<DIV class="Box">
+							List Editor:&nbsp;
+							List Name:&nbsp;<INPUT type="text" class="text" id="listName" size="40" maxlength="30" title="Attack List Name">&nbsp;	
+							<select id="listActions" size="1" 
+								onClick="prepAutoXML(this.value,document.AUTO.lists.selectedIndex);">
+								<option value="">List Actions:</option>
+								<option value="createList">Create New List</option>
+								<option value="cloneList">Clone This List</option>
+								<option value="renameList">Change List Name</option>
+								<option value="deleteList">Delete This List</option>
+								<option value="printList">Print-Ready List</option>
+							</select>
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2">
+						<DIV class="Box">
+						Item Editor:&nbsp;
+						<select id="itemActions" size="1" 
+							onClick="prepAutoXML(this.value,document.AUTO.lists.selectedIndex,'');">
+							<option value="">Item Actions:</option>
+							<option value="addItem">Create New Item</option>
+							<option value="cloneItem">Clone this Item</option>
+							<option value="changeItem">Save Item Changes</option>
+							<option value="deleteItem">Delete This Item</option>
+						</select>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+						Quick Encode:
+						<select id="autoEncode" size="1" onClick="quickEncode('itemContents',this.value)">
+							<option value="">Encode Type:</option>
+						</select>
+						</DIV>
+						</TD>
+					</TR>
+					<TR>
+						<TD colspan="2">
+						<DIV class="Box">
+						<select id="autoSelect" onClick="selectAllText(this.value)">
+							<option value="">Select All:</option>
+							<option value="workArea">Workarea</option>
+							<option value="itemContents">Item Display</option>
+							<option value="listName">List Name</option>
+						</select>
+						&nbsp;Selected Text:
+						<select id="mode8">
+							<option value="append">Append</option>
+							<option value="prepend">Prepend</option>
+							<option value="replace">Replace</option>
+						</select>
+						<select id="sendIt8" 
+							onClick="processSelectedText(this.value,document.AUTO.mode8.value);">
+							<option value="">SelectedText Actions:</option>
+						</select>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+						Clear:
+						<select id="listClear" size="1" onClick="clearAutoField(this.value)">
+							<option value="">Field Name:</option>
+							<option value="autoClearAll">ALL FIELDS</option>
+							<option value="itemContents">Item Display</option>
+							<option value="workArea">Workarea</option>
+							<option value="listName">List Name</option>
+						</select>
+						</DIV>
+						</TD>
+					</TR>
+				</TABLE>
+			</FORM>
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+			<BR><BR><BR><BR><BR><BR><BR>&nbsp;
+		</DIV>
+	</BODY>
+</HTML>

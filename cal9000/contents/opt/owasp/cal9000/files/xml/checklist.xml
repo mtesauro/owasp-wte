@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<checklist>
+	<item>
+		<name>Examine Source Code</name>
+		<results>Your results here</results>
+		<label>Enumeration</label>
+	</item>
+	<item>
+		<name>Map Site Structure</name>
+		<results>Your results here</results>
+		<label>Enumeration</label>
+	</item>
+	<item>
+		<name>Identify All Files</name>
+		<results>Your results here</results>
+		<label>Enumeration</label>
+	</item>
+	<item>
+		<name>Test Error Handling</name>
+		<results>Your results here</results>
+		<label>Enumeration</label>
+	</item>
+	<item>
+		<name>Infrastructure</name>
+		<results>Your results here</results>
+		<label>Configuration Management</label>
+	</item>
+	<item>
+		<name>Application</name>
+		<results>Your results here</results>
+		<label>Configuration Management</label>
+	</item>
+	<item>
+		<name>Identify Mechanisms</name>
+		<results>Your results here</results>
+		<label>Authentication</label>
+	</item>
+	<item>
+		<name>Cookie Manipulation</name>
+		<results>Your results here</results>
+		<label>Authentication</label>
+	</item>
+	<item>
+		<name>Session Tokens</name>
+		<results>Your results here</results>
+		<label>Authentication</label>
+	</item>
+	<item>
+		<name>Password Guessing</name>
+		<results>Your results here</results>
+		<label>Passwords</label>
+	</item>
+	<item>
+		<name>Remembered Password</name>
+		<results>Your results here</results>
+		<label>Passwords</label>
+	</item>
+	<item>
+		<name>Password Reset</name>
+		<results>Your results here</results>
+		<label>Passwords</label>
+	</item>
+	<item>
+		<name>Account Lockout</name>
+		<results>Your results here</results>
+		<label>Passwords</label>
+	</item>
+	<item>
+		<name>Cross Site Scripting</name>
+		<results>Your results here</results>
+		<label>Application Attacks</label>
+	</item>
+	<item>
+		<name>Session Riding</name>
+		<results>Your results here</results>
+		<label>Application Attacks</label>
+	</item>
+	<item>
+		<name>SQL Injection</name>
+		<results>Your results here</results>
+		<label>Application Attacks</label>
+	</item>
+	<item>
+		<name>Buffer Overflows</name>
+		<results>Your results here</results>
+		<label>Application Attacks</label>
+	</item>
+	<item>
+		<name>Parameter Manipulation</name>
+		<results>Your results here</results>
+		<label>Application Attacks</label>
+	</item>
+	<item>
+		<name>Other Attacks</name>
+		<results>Your results here</results>
+		<label>Application Attacks</label>
+	</item>
+	<item>
+		<name>Weak Ciphers</name>
+		<results>Your results here</results>
+		<label>Certificates</label>
+	</item>
+	<item>
+		<name>Certificate Validity</name>
+		<results>Your results here</results>
+		<label>Certificates</label>
+	</item>
+	<item>
+		<name>Web Services Issues</name>
+		<results>Your results here</results>
+		<label>Web Services</label>
+	</item>
+</checklist>

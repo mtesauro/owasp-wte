@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Register the icons needed for Cal9000 and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-cal9000/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-cal9000/owasp-wte-cal9000-icon.png owasp-wte-cal9000-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-cal9000/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-cal9000/owasp-wte-cal9000.desktop
+
+# Cleanup /tmp
+rm -rf /opt/owasp/tmp/owasp-wte-cal9000

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<encodings>
+	<type>
+		<display>Url (%XX)</display>
+		<value>url</value>
+		<placeholder> </placeholder>
+		<label>URL/URI:</label>
+	</type>
+	<type>
+		<display>Hex (%XX)</display>
+		<value>standardHex</value>
+		<placeholder> </placeholder>
+		<label>URL/URI:</label>
+	</type>
+	<type>
+		<display>Unicode (%uUUUU)</display>
+		<value>unicode</value>
+		<placeholder> </placeholder>
+		<label>URL/URI:</label>
+	</type>
+	<type>
+		<display>Named (&amp;lt)</display>
+		<value>entityName</value>
+		<placeholder> </placeholder>
+		<label>HTML-Entity:</label>
+	</type>
+	<type>
+		<display>Decimal (&amp;#DD)</display>
+		<value>entityDec</value>
+		<placeholder> </placeholder>
+		<label>HTML-Entity:</label>
+	</type>
+	<type>
+		<display>Hex (&amp;#xXX)</display>
+		<value>entityHex</value>
+		<placeholder> </placeholder>
+		<label>HTML-Entity:</label>
+	</type>
+	<type>
+		<display>Hex long (&amp;#x00XX)  </display>
+		<value>entityHex4</value>
+		<placeholder> </placeholder>
+		<label>HTML-Entity:</label>
+	</type>
+	<type>
+		<display>JavaScript escaped</display>
+		<value>escapeJS</value>
+		<placeholder> </placeholder>
+		<label>Special Encoding:</label>
+	</type>
+	<type>
+		<display>XML escaped</display>
+		<value>escapeXML</value>
+		<placeholder> </placeholder>
+		<label>Special Encoding:</label>
+	</type>
+	<type>
+		<display>Decimal (DD)</display>
+		<value>straightDec</value>
+		<placeholder> </placeholder>
+		<label>Straight Encoding:</label>
+	</type>
+	<type>
+		<display>Hex (XX)</display>
+		<value>straightHex</value>
+		<placeholder> </placeholder>
+		<label>Straight Encoding:</label>
+	</type>
+	<type>
+		<display>\xXX</display>
+		<value>IE0</value>
+		<placeholder> </placeholder>
+		<label>IE Specific:</label>
+	</type>
+	<type>
+		<display>\x0XX</display>
+		<value>IE1</value>
+		<placeholder> </placeholder>
+		<label>IE Specific:</label>
+	</type>
+	<type>
+		<display>\x00XX</display>
+		<value>IE2</value>
+		<placeholder> </placeholder>
+		<label>IE Specific:</label>
+	</type>
+	<type>
+		<display>\x000XX</display>
+		<value>IE3</value>
+		<placeholder> </placeholder>
+		<label>IE Specific:</label>
+	</type>
+	<type>
+		<display>\x0000XX</display>
+		<value>IE4</value>
+		<placeholder> </placeholder>
+		<label>IE Specific:</label>
+	</type>
+	<type>
+		<display>\x00000XX</display>
+		<value>IE5</value>
+		<placeholder> </placeholder>
+		<label>IE Specific:</label>
+	</type>
+	<type>
+		<display>\uUUUU</display>
+		<value>IEu</value>
+		<placeholder> </placeholder>
+		<label>IE Specific:</label>
+	</type>
+	<type>
+		<display>Base64</display>
+		<value>base64</value>
+		<placeholder> </placeholder>
+		<label>Hash:</label>
+	</type>
+	<type>
+		<display>MD4</display>
+		<value>md4</value>
+		<placeholder> </placeholder>
+		<label>Hash:</label>
+	</type>
+	<type>
+		<display>MD5</display>
+		<value>md5</value>
+		<placeholder> </placeholder>
+		<label>Hash:</label>
+	</type>
+	<type>
+		<display>SHA1</display>
+		<value>sha1</value>
+		<placeholder> </placeholder>
+		<label>Hash:</label>
+	</type>
+</encodings>

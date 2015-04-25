@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<testing>
+	<tip>
+		<category>Source Code</category>
+		<desc>The first step in most assessments is a thorough review of the application's source code.
+
+You want to try to get a sense of what the application does, what sort of external systems it may communicate with and the presence(or lack) of sound secure coding principles.</desc>
+		<examples>Search for comments, hidden fields, SQL statements, scripting elements, includes, etc.
+
+Start developing a map of the structure and workflow of the application.
+
+Try re-activating commented-out code segments. Any interesting results?</examples>
+		<label>Enumeration</label>
+	</tip>
+
+	<tip>
+		<category>Directory Structure</category>
+		<desc>Search through all of the identified directories for important files. 
+
+Try to uncover additional directories by deduction.</desc>
+		<examples>Try default directory names for installed web application frameworks and technologies.
+Try supposedly secured directories: /admin/, /secure/, /adm/
+Try directories that may contain backup files or log files: /.bak/, /backup/, /back/, /log/, /logs/, /archive/, /old/
+Try directories that may contain included files: /include/, /inc/, /js/, /scripts/, /global/, /local/
+
+Does the application allow directory browsing?
+
+Is it possible to access files found in the directories?</examples>
+		<label>Enumeration</label>
+	</tip>
+
+	<tip>
+		<category>Files</category>
+		<desc>Identify every file that is part of the application. Enumeration tools can automate this process.
+		
+Some files(e.g. &quot;password.txt&quot;) have obvious value to attackers.
+
+Search each file for comments, variables, SQL statements, database connection strings and passwords. 
+
+Try appending .bak, .old or .txt to files in an effort to find previous versions.</desc>
+		<examples>asp
+css
+htc
+inc
+js
+php
+pl
+txt
+xml
+robots.txt</examples>
+		<label>Enumeration</label>
+	</tip>
+
+	<tip>
+		<category>Authentication Mechanism</category>
+		<desc>How does the application determine the user is who he says he is? 
+		
+A successful attack against the authentication mechanism has predictably devastating results.</desc>
+		<examples>Identify the following:
+Login Mechanism
+Password Storage Mechanism
+Password Change Mechanism
+&apos;Forgot My Password&apos; Mechanism
+Password Strength
+Lockout Policy
+
+What type of authentication(Basic, Digest, Forms-Based, Certificate, etc.) is used?
+Is it implemented correctly?</examples>
+		<label>App Functionality</label>
+	</tip>
+
+	<tip>
+		<category>Session Management</category>
+		<desc>How does the application manage user sessions?</desc>
+		<examples>Identify the following:
+Token Protection (Encrypted/Encoded/Plain-text)
+Session Duration
+Logout Mechanism
+
+Session ID Composition - possible to impersonate another user?
+Session ID stored in cookie/URL parameter/POST parameter?
+Is Session ID linked to the IP address? - possible to change Referer Tag?
+
+SSL Usage - Can the same URL be accessed with HTTP instead?</examples>
+		<label>App Functionality</label>
+	</tip>
+
+	<tip>
+		<category>Authorization Mechanism</category>
+		<desc>An application's authorization mechanism controls what functions a particular user is allowed to perform. 
+		
+Attackers will attempt to escalate their privileges in two ways:
+  Horizontal privilege escalation (e.g. from general user to another general user).
+  Vertical privilege escalation (e.g. from general user to admin).</desc>
+		<examples>How does the application differentiate what functions are available to different users? 
+
+How many tiers of users exist (vertical vs. horizontal privilege escalation)?
+		
+Record relevant cookies, headers, GET and POST parameters.</examples>
+		<label>App Functionality</label>
+	</tip>
+
+	<tip>
+		<category>Error Handling</category>
+		<desc>An attacker wants to know how an application handles errors.
+		
+Test every conceivable input and record the result.
+
+Applications often reveal WAY too much information in error messages.</desc>
+		<examples>Try basic input validation strings:
+
+&apos; , -- , 00%
+Delete/Modify parameters
+Insert long strings
+
+Record the responses:
+HTTP error messages (200, 401, 403, 404, 500, 501)
+Path/Filename/Variable information
+SQL syntax information</examples>
+		<label>App Functionality</label>
+	</tip>
+
+	<tip>
+		<category>Cross Site Scripting</category>
+		<desc>Cross Site Scripting (XSS) attacks an application&apos;s users instead of the application itself. It is caused by the failure of an application to validate output before returning it to the client&apos;s web browser. 
+
+Allows attacker-controlled HTML to be inserted into the vulnerable page. 
+
+Attackers may use this technique to steal valuable information (usernames, passwords, billing info, cookie data etc.) from unsuspecting site users.</desc>
+		<examples>Insert scripting elements into all application input parameters:
+
+&lt;script&gt;alert(document.cookie)&lt;/script&gt;
+
+Did the application allow the scripts?
+If yes, were the scripts embedded in the app response and executed?
+If no, what was the response?</examples>
+		<label>Attacks</label>
+	</tip>
+
+	<tip>
+		<category>SQL Injection</category>
+		<desc>Inadequate input validation may allow attackers to send unanticipated queries to the back-end database or even directly manipulate the database server itself.</desc>
+		<examples>Any input field that will eventually make up part of a where clause in a database query is a candidate for SQL Injection:
+
+&apos; (Single quote) Basic test to see what type of error message is generated
+&apos; OR &apos;x&apos; = &apos;x
+
+Did the application allow submission of SQL statements?
+If yes, did the application accept the request outright or return an error message from the back-end database?
+If no, what was the response?</examples>
+		<label>Attacks</label>
+	</tip>
+
+	<tip>
+		<category>Buffer Overflow</category>
+		<desc>Buffer overflow tests should be run against every portion of the web application that contains memory handling functions. This includes web-server components, COM objects, JAVA objects, database fields, input streams, message queues, validation servlets etc. 
+		
+Inject large strings to check if an exploitable buffer overflow can be triggered.</desc>
+		<examples>Insert values that contain a large number of characters for every application input(see Parameter Manipulation for examples):
+
+Did the application accept the large character string?
+If yes, did the application behave differently or fail?
+If no, what was the response?</examples>
+		<label>Attacks</label>
+	</tip>
+
+	<tip>
+		<category>Parameter Manipulation</category>
+		<desc>Parameter manipulation is the targeting of parameters in order to submit requests to an application that the developers may not have anticipated. This can be done via an HTTP page, form, URL or hand-crafted attack pages that imitate the real ones. 
+		
+Test every input to the application:
+URL requests
+Query strings
+Headers
+Cookies
+Form fields
+Hidden fields, etc.</desc>
+		<examples>Increase/Decrease/Remove values
+Insert null byte
+Insert hazardous character(s)
+Append new values to existing ones
+Toggle parameter values (change True to False, Yes to No, etc.)
+Remove or modify client-side validation
+
+Did the application accept the changed values?
+If yes, what impact did the submitted values have on the app?
+If no, what was the response? (Customized Error Page, Standard 404 or Other)</examples>
+		<label>Attacks</label>
+	</tip>	
+	
+	<tip>
+		<category>Forceful Browsing</category>
+		<desc>Use directory display and traversal techniques to force the app to display directory listings on the site and perhaps the server itself.</desc>
+		<examples>Change/Add/Remove path names
+
+Did the application accept the request for the directory listing?
+If yes, was it possible to access files found in the directory?
+If no, what was the response? 
+
+Try to traverse the file system &amp; access critical files:
+../../../../../winnt/repair/sam (Windows)
+../../conf/httpd.conf  (Unix)
+../../../../etc/passwd (Unix)</examples>
+		<label>Attacks</label>
+	</tip>
+
+	<tip>
+		<category>Stealth Commanding</category>
+		<desc>Attackers may insert commands via input parameters that get executed by the application. 
+
+Common attacks include opening up a command shell on a web server or sending commands to a database server.</desc>
+		<examples>Insert/append commands throughout the application:
+
+Did the application accept the command?
+If yes, did the application execute the command?
+If no, what was the response?</examples>
+		<label>Attacks</label>
+	</tip>
+
+	<tip>
+		<category>Backdoors &amp; Debug Options</category>
+		<desc>Attackers may obtain unauthorized administrative access to the application and site through backdoors left open by developers and administrators.</desc>
+		<examples>Add common debug and backdoor values to scripting URLs:
+Did the application accept the request with the debug/backdoor option turned on?
+If no, what was the response?</examples>
+		<label>Attacks</label>
+	</tip>
+</testing>

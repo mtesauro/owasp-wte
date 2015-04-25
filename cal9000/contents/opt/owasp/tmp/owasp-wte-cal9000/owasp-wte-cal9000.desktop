@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=CAL9000 (Web App Testing Tools)
+Exec=cal9000
+Icon=owasp-wte-cal9000-icon
+Categories=OWASP;

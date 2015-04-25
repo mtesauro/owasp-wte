@@ -1,0 +1,1017 @@
+<html>
+	<head>
+		<title>Javascript Cheat Sheet</title>
+	</head>
+	<body BGCOLOR="#FFFFF9">
+		<h1><CENTER><font size="6" color="#808080">JavaScript &quot;Cheat&quot; Sheet</font></CENTER></h1>
+
+		<table border="1" align="center" width="90%">
+			<tr>
+				<td ALIGN="center" COLSPAN="2"><FONT color=#669966>STATEMENTS</FONT></td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>break</FONT></td>
+				<td>Terminates the current while or for loop</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>comment</FONT></td>
+				<td>Comments</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>continue</FONT></td>
+				<td>Terminates execution of the block of statements in a while or for loop and continues
+					execution of the loop with the next iteration
+				</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>delete</FONT></td>
+				<td>Deletes an object's property or an element of an array</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>do...while</FONT></td>
+				<td>Executes its statements until the test condition evaluates to false</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>for</FONT></td>
+				<td>Creates a loop that consists of three optional expressions, enclosed in parentheses
+					and separated by semicolons, followed by a block of statements executed in the loop
+				</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>for...in</FONT></td>
+				<td>Iterates a specified variable over all the properties of an object</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>function</FONT></td>
+				<td>Declares a javascript function name with the specified parameters</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>if...else</FONT></td>
+				<td>Executes a set of statements if a specified condition is true or another set of
+					statements if false
+				</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>labeled</FONT></td>
+				<td>Provides an identifier that can be used with break or continue to indicate where the
+					program should continue execution
+				</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>return</FONT></td>
+				<td>Specifies the value to be returned by a function</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>var</FONT></td>
+				<td>Statement that declares a variable</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>while</FONT></td>
+				<td>Creates a loop that evaluates an expression and if true, executes a block of
+					statements
+				</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>with</FONT></td>
+				<td>Establishes the default object for a set of statements.</td>
+			</tr>
+		</table><br>
+		<table border="1" align="center" width="90%">
+			<tr>
+				<td ALIGN="center" COLSPAN="2"><FONT color=#669966>OBJECTS</FONT></td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>Array</FONT></td>
+				<td>An array</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>Boolean</FONT></td>
+				<td>A Boolean</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>Date</FONT></td>
+				<td>A date</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>Function</FONT></td>
+				<td>Javascript code to be compiled as a function</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>Math</FONT></td>
+				<td>Basic math constants and functions</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>Number</FONT></td>
+				<td>Numeric values</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>Object</FONT></td>
+				<td>Contains the base functionality shared by all javascript objects</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>RegExp</FONT></td>
+				<td>Represents a regular expression; also contains static properties that are shared among
+					all regular expression objects
+				</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>String</FONT></td>
+				<td>A string</td>
+			</tr>
+		</table><br>
+		<table BORDER="1" WIDTH="90%" ALIGN="center">
+			<tr>
+				<td ALIGN="center" COLSPAN="2"><FONT color=#669966>ARITHMETIC OPERATORS</font></td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>+</FONT></td>
+				<td>Addition</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>++</FONT></td>
+				<td>Increment</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>-</FONT></td>
+				<td>Subtraction</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>--</FONT></td>
+				<td>Decrement</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>*</FONT></td>
+				<td>Multiplication</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>/</FONT></td>
+				<td>Division</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>%</FONT></td>
+				<td>Modulus</td>
+			</tr>
+			<tr>
+				<td ALIGN="center" COLSPAN="2"><FONT color=#669966>STRING OPERATORS</font></td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>+</FONT></td>
+				<td>Concatenate 2 strings</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>+=</FONT></td>
+				<td>Concatenate 2 strings and assign the result to the first variable</td>
+			</tr>
+			<tr>
+				<td ALIGN="center" COLSPAN="2"><FONT color=#669966>LOGICAL OPERATORS</font></td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>&amp;&amp;</FONT></td>
+				<td>AND</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>||</FONT></td>
+				<td>OR</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>!</FONT></td>
+				<td>NOT</td>
+			</tr>
+			<tr>
+				<td ALIGN="center" COLSPAN="2"><FONT color=#669966>ASSIGNMENT OPERATORS</font></td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>=</FONT></td>
+				<td>Assign the value of the second variable to the first variable</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>+=</FONT></td>
+				<td>Add 2 numbers and assign the result to the first</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>-=</FONT></td>
+				<td>Subtract 2 numbers and assign the result to the first</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>*=</FONT></td>
+				<td>Multiply 2 numbers and assign the result to the first</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>/=</FONT></td>
+				<td>Divide 2 numbers and assign the result to the first</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>%=</FONT></td>
+				<td>Compute the modulus of 2 numbers and assign the result to the first</td>
+			</tr>
+			<tr>
+				<td ALIGN="center" COLSPAN="2"><FONT color=#669966>COMPARISON OPERATORS</font></td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>==</FONT></td>
+				<td>Equal</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>!=</FONT></td>
+				<td>Not equal</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>&gt;</FONT></td>
+				<td>Greater than</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>&gt;=</FONT></td>
+				<td>Greater than or equal to</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>&lt;</FONT></td>
+				<td>Less than</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>&lt;=</FONT></td>
+				<td>Less than or equal to</td>
+			</tr>
+			<tr>
+				<td ALIGN="center" COLSPAN="2"><FONT color=#669966>SPECIAL OPERATORS</font></td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>?:</FONT></td>
+				<td>A simple &quot;if...then...else&quot;</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>new</FONT></td>
+				<td>Create an instance of an object type</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>this</FONT></td>
+				<td>Refer to the current object</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>typeof</FONT></td>
+				<td>Returns a string indicating the type of variable</td>
+			</tr>
+			<tr>
+				<TD><FONT color=#336699>void</FONT></td>
+				<td>Specifies an expression to be evaluated without returning a value</td>
+			</tr>
+		</table><br>
+		<CENTER>
+			<table border="1" align="center" width="90%">
+				<tr>
+					<td ALIGN="center" COLSPAN="2"><FONT color=#669966>EVENTS</FONT></td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onAbort</FONT></td>
+					<td>The user aborts the loading of an image</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onBlur</FONT></td>
+					<td>A form element loses focus or when a window or frame loses focus</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onChange</FONT></td>
+					<td>A select, text, or textarea field loses focus and its value has been modified</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onClick</FONT></td>
+					<td>An object on a form is clicked</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onDblClick</FONT></td>
+					<td>The user double-clicks a form element or a link</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onDragDrop</FONT></td>
+					<td>The user drops an object onto the browser window, such as dropping a file on the
+						browser window
+					</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onError</FONT></td>
+					<td>The loading of a document or image causes an error</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onFocus</FONT></td>
+					<td>A window, frame, or frameset receives focus or when a form element receives input
+						focus
+					</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onKeyDown</FONT></td>
+					<td>The user depresses a key</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onKeyPress</FONT></td>
+					<td>The user presses or holds down a key</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onKeyUp</FONT></td>
+					<td>The user releases a key</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onLoad</FONT></td>
+					<td>The browser finishes loading a window or all of the frames within a FRAMESET tag</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onMouseDown</FONT></td>
+					<td>The user depresses a mouse button</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onMouseMove</FONT></td>
+					<td>The user moves the cursor</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onMouseOut</FONT></td>
+					<td>The cursor leaves an image-map area or link from inside that area or link</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onMouseOver</FONT></td>
+					<td>The cursor moves over an object or area from outside that object or area</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onMouseUp</FONT></td>
+					<td>The user releases a mouse button</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onMove</FONT></td>
+					<td>The user or script moves a window or frame</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onReset</FONT></td>
+					<td>The user resets a form (clicks a Reset button)</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onResize</FONT></td>
+					<td>A window or frame is resized</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onSelect</FONT></td>
+					<td>Text within a text or textarea field is selected</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onSubmit</FONT></td>
+					<td>A form is submitted</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>onUnload</FONT></td>
+					<td>The user exits a document</td>
+				</tr>
+			</table>
+		</center>
+		<BR>
+		<H3><B>The <I>Window</I> Object</B></H3>
+		<table border="1" align="center" width="90%">
+			<TBODY>
+				<TR>
+					<TD colSpan=2><CENTER><I><FONT color=#669966>Properties</font></I></CENTER></TD>
+					<tr>
+						<TD><FONT color=#336699>closed</FONT></TD>
+						<td>Specifies whether a window has been closed </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>defaultStatus</FONT></td>
+						<td>The default message displayed in the window's status bar </td>
+					</tr>
+					<tr>
+						<td><FONT color=#336699>frames</FONT></TD>
+						<td>An array reflecting all the frames in a window </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>history</FONT></td>
+						<td>Contains information on the URLs that the client has visited within a window </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>innerHeight</FONT></td>
+						<td>The vertical dimension, in pixels, of the window's content area </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>innerWidth</FONT></td>
+						<td>The horizontal dimension, in pixels, of the window's content area </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>length</FONT></td>
+						<td>The number of frames in the window </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>location</FONT></td>
+						<td>Contains information on the current URL </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>locationbar</FONT></td>
+						<td>The browser window's location bar </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>menubar</FONT></td>
+						<td>The browser window's menu bar </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>name</FONT></td>
+						<td>A unique name used to refer to this window </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>opener</FONT></td>
+						<td>The window name of the calling document when a window is opened using the open method </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>outerHeight</FONT></td>
+						<td>The vertical dimension, in pixels, of the window's outside boundary </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>outerWidth</FONT></td>
+						<td>The horizontal dimension, in pixels, of the window's outside boundary </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>pageXOffset</FONT></td>
+						<td>The current x-position, in pixels, of a window's viewed page </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>pageYOffset</FONT></td>
+						<td>The current y-position, in pixels, of a window's viewed page </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>parent</FONT></td>
+						<td>A synonym for a window or frame whose frameset contains the current frame </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>personalbar</FONT></td>
+						<td>The browser window's personal bar </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>scrollbars</FONT></td>
+						<td>The browser window's scroll bars </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>self</FONT></td>
+						<td>A synonym for the current window </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>status</FONT></td>
+						<td>A priority or transient message in the window's status bar </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>statusbar</FONT></td>
+						<td>The browser window's status bar </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>toolbar</FONT></td>
+						<td>The browser window's tool bar </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>top</FONT></td>
+						<td>A synonym for the topmost browser window </td>
+					</tr>
+					<tr>
+						<TD><FONT color=#336699>window</FONT></td>
+						<td>A synonym for the current window </td>
+					</tr>
+					<TR>
+						<TD colSpan=2><CENTER><I><FONT color=#669966>Methods</font></I></CENTER></TD>
+					</TR>
+					<TD><FONT color=#336699>alert</FONT></TD>
+					<TD>Displays an Alert dialog box with a message and an OK button </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>back</FONT></TD>
+					<TD>Undoes the last history step in any frame within the top-level window </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>blur</FONT></TD>
+					<TD>Removes focus from the specified object </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>captureEvents</FONT></TD>
+					<TD>Sets the window or document to capture all events of the specified type </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>clearInterval</FONT></TD>
+					<TD>Cancels a timeout that was set with the setInterval method </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>clearTimeout</FONT></TD>
+					<TD>Cancels a timeout that was set with the setTimeout method </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>close</FONT></TD>
+					<TD>Closes the specified window </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>confirm</FONT></TD>
+					<TD>Displays a Confirm dialog box with the specified message and OK and Cancel buttons</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>disableExternalCapture</FONT></TD>
+					<TD>Disables external event capturing set by the enableExternalCapture method </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>enableExternalCapture</FONT></TD>
+					<TD>Allows a window with frames to capture events in pages loaded from different locations</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>find</FONT></TD>
+					<TD>Finds the specified text string in the contents of the specified window </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>focus</FONT></TD>
+					<TD>Gives focus to the specified object </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>forward</FONT></TD>
+					<TD>Loads the next URL in the history list </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>handleEvent</FONT></TD>
+					<TD>Invokes the handler for the specified event </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>home</FONT></TD>
+					<TD>Points the browser to the URL specified in preferences as the user's home page</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>moveBy</FONT></TD>
+					<TD>Moves the window by the specified amounts </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>moveTo</FONT></TD>
+					<TD>Moves the top-left corner of the window to the specified screen coordinates</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>open</FONT></TD>
+					<TD>Opens a new web browser window </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>print</FONT></TD>
+					<TD>Prints the contents of the window or frame </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>prompt</FONT></TD>
+					<TD>Displays a Prompt dialog box with a message and an input field </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>releaseEvents</FONT></TD>
+					<TD>Sets the window to release captured events of the specified type, sending the event to objects further along the event hierarchy
+					</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>resizeBy</FONT></TD>
+					<TD>Resizes an entire window by moving the window's bottom-right corner by the specified amount</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>resizeTo</FONT></TD>
+					<TD>Resizes an entire window to the specified outer height and width </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>routeEvent</FONT></TD>
+					<TD>Passes a captured event along the normal event hierarchy </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>scroll</FONT></TD>
+					<TD>Scrolls a window to a specified coordinate </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>scrollBy</FONT></TD>
+					<TD>Scrolls the viewing area of a window by the specified amount </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>scrollTo</FONT></TD>
+					<TD>Scrolls the viewing area of the window to the specified coordinates, such that the specified point becomes the top-left corner
+					</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>setInterval</FONT></TD>
+					<TD>Evaluates an expression or calls a function every time a specified number of milliseconds elapses</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>setTimeout</FONT></TD>
+					<TD>Evaluates an expression or calls a function once after a specified number of milliseconds has elapsed
+					</td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>stop</FONT></TD>
+					<TD>Stops the current download </td>
+				</tr>
+			</TBODY>
+		</TABLE>
+		<BR>
+		<H3><B>The <I>Document</I> Object</B></H3>
+		<P>The <FONT color=#336699>Document</FONT> object is extremely useful
+			because it contains so much information about the current document, and it can
+			create HTML on-the-fly with its <FONT color=#336699>write</FONT> and
+			<FONT color=#336699>writeln</FONT> methods. The following table lists
+			the properties and methods of the document object, as well as short descriptions
+			of their purpose.
+		</P>
+		<table border="1" align="center" width="90%">
+			<TBODY>
+				<TR>
+				<TD colSpan=2><CENTER><I><FONT color=#669966>Properties</font></I></CENTER></TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>alinkColor</FONT></TD>
+					<TD>Reflects the <FONT color=#336699>ALINK</FONT> attribute
+						(in the <FONT color=#336699>&lt;body&gt;</FONT> tag).
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>anchors</FONT></TD>
+					<TD>An array listing all of the HTML anchors in the document
+						(<FONT color=#336699>&lt;a name&gt;</FONT>).
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>anchor</FONT></TD>
+					<TD>An anchor object.</TD>
+				</TR>
+				<tr>
+					<TD><FONT color=#336699>applets</FONT></td>
+					<td>An array containing an entry for each applet in the document </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>bgColor</FONT></TD>
+					<TD>Reflects the value of the <FONT color=#336699>BGCOLOR</FONT>attribute.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>cookie</FONT></TD>
+					<TD>Reflects the value of a Netscape cookie.</TD>
+				</TR>
+				<tr>
+					<TD><FONT color=#336699>domain</FONT></td>
+					<td>The domain name of the server that served the document </td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>embeds</FONT></td>
+					<td>An array containing an entry for each plug-in in the document </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>fgColor</FONT></TD>
+					<TD>The value of the <FONT color=#336699>TEXT</FONT>
+						attribute (in the <FONT color=#336699>&lt;body&gt;</FONT>
+						tag).
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>forms</FONT></TD>
+					<TD>An array listing all the forms in the document.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>form</FONT></TD>
+					<TD>A form object.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>history</FONT></TD>
+					<TD>An object containing the current browser history (links visited,
+						number of links visited, and link URLs).
+					</TD>
+				</TR>
+				<tr>
+					<TD><FONT color=#336699>images</FONT></td>
+					<td>An array containing an entry for each image in the document </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>lastModified</FONT></TD>
+					<TD>The date the document was last modified.</TD>
+				</TR>
+				<tr>
+					<TD><FONT color=#336699>layers</FONT></td>
+					<td>Array containing an entry for each layer within the document </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>linkColor</FONT></TD>
+					<TD>Reflects the <FONT color=#336699>LINK</FONT> attribute
+						of the <FONT color=#336699>&lt;body&gt;</FONT> tag.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>links</FONT> </TD>
+					<TD>An array of all HTML links in the document (<FONT 
+            color=#336699>&lt;a href&gt;</FONT>
+						).
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>link</FONT></TD>
+					<TD>A link object.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>location</FONT></TD>
+					<TD>The URL of the document.</TD>
+				</TR>
+				<tr>
+					<TD><FONT color=#336699>plugins</FONT></td>
+					<td>An array containing an entry for each plug-in in the document </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>referrer</FONT></TD>
+					<TD>The URL of the document that called the current document.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>title</FONT></TD>
+					<TD>Reflects the title of the document.</TD>
+				</TR>
+				<tr>
+					<TD><FONT color=#336699>URL</FONT></td>
+					<td>The complete URL of a document </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>vlinkColor</FONT></TD>
+					<TD>Reflects the color listed in the <FONT color=#336699>VLINK</FONT>attribute.</TD>
+				</TR>
+				<TR>
+					<TD colSpan=2><CENTER><I><FONT color=#669966>Methods</font></I></CENTER></TD>
+				</TR>
+				<tr>
+					<TD><FONT color=#336699>captureEvents</FONT></td>
+					<td>Sets the document to capture all events of the specified type. </td>
+				</tr>
+				<TR>
+					<TD><FONT color=#336699>clear</FONT></TD>
+					<TD>Clears the window of all content.</TD>
+				</TR>
+				<tr>
+					<TD><FONT color=#336699>close</FONT></td>
+					<td>Closes an output stream and forces data to display. </td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>getSelection</FONT></td>
+					<td>Returns a string containing the text of the current selection. </td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>handleEvent</FONT></td>
+					<td>Invokes the handler for the specified event. </td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>open</FONT></td>
+					<td>Opens a stream to collect the output of write or writeln methods. </td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>releaseEvents</FONT></td>
+					<td>Sets the window or document to release captured events of the specified type, sending
+						the event to objects further along the event hierarchy.
+					</td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>routeEvent</FONT></td>
+					<td>Passes a captured event along the normal event hierarchy. </td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>write</FONT></td>
+					<td>Writes one or more HTML expressions to a document in the specified window. </td>
+				</tr>
+				<tr>
+					<TD><FONT color=#336699>writeln</FONT></td>
+					<td>Writes one or more HTML expressions to a document in the specified window and follows
+						them with a newline character.
+					</td>
+				</tr>
+			</TBODY>
+		</TABLE>
+		<BR>
+		<H3><B>The <I>Form</I> Object</B></H3>
+		<P>This object is created every time JavaScript encounters a <FONT 
+color=#336699>&lt;form&gt;...&lt;/form&gt;</FONT>
+			in your HTML documents.
+			It contains all of the information stored in your form and can be used to submit
+			information to a function or back to the server. This Table describes the
+			properties and methods of the <FONT color=#336699>Form</FONT>
+			object.
+		</P>
+		<TABLE border=1 ALIGN="CENTER" WIDTH="90%">
+			<TBODY>
+				<TR>
+					<TD colSpan=2><CENTER><I><FONT color=#669966>Properties</font></I></CENTER></TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>action</FONT></TD>
+					<TD>Reflects the HTML <FONT color=#336699>ACTION</FONT>
+						attribute of the <FONT color=#336699>&lt;form&gt;</FONT>
+						tag.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>button</FONT></TD>
+					<TD>A button object (<FONT color=#336699>&lt;input type=button&gt;</FONT>).</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>checkbox</FONT></TD>
+					<TD>A checkbox object (<FONT color=#336699>&lt;input type=checkbox&gt;</FONT>).</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>elements</FONT></TD>
+					<TD>An array listing all elements in a form.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>encoding</FONT></TD>
+					<TD>The value of the <FONT color=#336699>ENCTYPE</FONT> attribute (for HTML uploads in Netscape).</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>hidden</FONT></TD>
+					<TD>A hidden object (<FONT color=#336699>&lt;input type=hidden&gt;</FONT>).</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>length</FONT></TD>
+					<TD>The number of elements in the form.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>method</FONT></TD>
+					<TD>The <FONT color=#336699>METHOD</FONT> attribute of <FONT color=#336699>&lt;form&gt;</FONT>.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>password</FONT></TD>
+					<TD>A password object (<FONT color=#336699>&lt;input type=password&gt;</FONT>).</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>radio</FONT></TD>
+					<TD>A radio object (<FONT color=#336699>&lt;input type=radio&gt;</FONT>).</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>reset</FONT></TD>
+					<TD>A reset button object.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>select</FONT></TD>
+					<TD>A select object (<FONT color=#336699>&lt;select&gt;...&lt;select&gt;</FONT>).</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>submit</FONT></TD>
+					<TD>A submit button object.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>target</FONT></TD>
+					<TD>The <FONT color=#336699>TARGET</FONT> attribute of
+						<FONT color=#336699>&lt;form&gt;</FONT>.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>text</FONT></TD>
+					<TD>A text object (<FONT color=#336699>&lt;input type=text&gt;</FONT>).</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>textarea</FONT></TD>
+					<TD>A textarea object (<FONT color=#336699>&lt;textarea&gt;...&lt;/textarea&gt;</FONT>).</TD>
+				</TR>
+				<TR>
+					<TD colSpan=2><CENTER><I><FONT color=#669966>Method</font></I></CENTER></TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>submit</FONT></TD>
+					<TD>Submits the form to the location in the <FONT color=#336699>ACTION</FONT> attribute.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+		<BR>
+		<H3><B>The <I>String</I> Object</B></H3>
+		<P>Other objects are built into JavaScript that are not specific to either the
+			browser or the window. The first of these is the <FONT 
+color=#336699>String</FONT>
+			object. This object is very useful because you
+			can use its methods to modify and add HTML modifications without changing the
+			string itself. One item to notice about this object is that you can string
+			together any number of its methods to create multilayers of HTML encoding. For
+			example,
+		</P>
+		<FONT color=#336699>"Hello!".bold().blink()</FONT> would return <FONT 
+color=#336699>&lt;blink&gt;&lt;b&gt;Hello!&lt;/b&gt;&lt;/blink&gt;</FONT><BR><BR>
+		<TABLE border=1 width="90%" align="center">
+			<TBODY>
+				<TR>
+					<TD colSpan=2><CENTER><I><FONT color=#669966>Property</font></I></CENTER></TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>length</FONT></TD>
+					<TD>The number of characters in the string.</TD>
+				</TR>
+				<TR>
+					<TD colSpan=2><CENTER><I><FONT color=#669966>Methods</font></I></CENTER></TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>anchor</FONT></TD>
+					<TD>Converts string to an HTML anchor.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>big</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;big&gt;...&lt;/big&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>blink</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;blink&gt;...&lt;/blink&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>bold</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;b&gt;...&lt;/b&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>charAt</FONT></TD>
+					<TD>Returns the character at some index value. Index reads from left
+						to right. If <FONT color=#336699>char</FONT> not found, it
+						returns a -1.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>fixed</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;tt&gt;...&lt;/tt&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>fontcolor</FONT></TD>
+					<TD>Encloses string in <FONT color=#336699>&lt;font
+							color=<I>somecolor</I>&gt;...&lt;/font&gt;
+						</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>indexOf</FONT></TD>
+					<TD>Looks for the first instance of some string and returns the
+						index of the first character in the target string, or gives a -1 if
+						not found.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>italics</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;i&gt;...&lt;/i&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>lastIndexOf</FONT></TD>
+					<TD>Same as <FONT color=#336699>indexOf</FONT>, only begins
+						searching from the right to find the last instance of the search
+						string, or -1 if not found.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>link</FONT></TD>
+					<TD>Converts string into a hyperlink.</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>small</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;small&gt;...&lt;/small&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>strike</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;strike&gt;...&lt;/strike&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>sub</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;sub&gt;...&lt;/sub&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>substring</FONT></TD>
+					<TD>Given a start and end index, returns the string contained by
+						those indices.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>sup</FONT></TD>
+					<TD>Encloses string in <FONT 
+            color=#336699>&lt;sup&gt;...&lt;/sup&gt;</FONT>
+						.
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>toLowerCase</FONT></TD>
+					<TD>All uppercase characters are converted to lowercase(<FONT 
+            color=#336699>UpPeRcAsE</FONT>
+						becomes <FONT 
+            color=#336699>uppercase</FONT>
+						).
+					</TD>
+				</TR>
+				<TR>
+					<TD><FONT color=#336699>toUpperCase</FONT></TD>
+					<TD>All lowercase characters are converted to
+						uppercase.
+					</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+		<br>
+		<hr>
+		<small> Contact me: mcturra2000 yahoo co uk <br>
+			Author: Mark Carter<br>
+			Date: 03-Aug-2004<br>
+			http://www.markcarter.me.uk/computing/javascript/cheat01.html<br>
+			mcref01x
+		</small>
+	</body>
+</html>

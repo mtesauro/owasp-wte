@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xss>
+	<attack>
+		<name>Add Your Attacks Here</name>
+		<code>Code</code>
+		<desc>Description</desc>
+		<label>User Defined</label>
+		<browser>IE7.0,IE6.0,NS8.1-IE,NS8.1-G,FF2.0,O9.02</browser>
+	</attack>
+</xss>
