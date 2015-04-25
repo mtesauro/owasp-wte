@@ -1,0 +1,8 @@
+Package: owasp-wte-dirbuster
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.0rc1 
+Depends: default-jre | sun-java6-jre | sun-java5-jre | openjdk-6-jre
+Description: DirBuster is a multi threaded java application designed to brute force directories and files names on web application servers.

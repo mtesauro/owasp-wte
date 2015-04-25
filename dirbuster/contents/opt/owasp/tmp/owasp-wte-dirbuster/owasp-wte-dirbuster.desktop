@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=DirBuster (Directory Brute Forcer)
+Exec=dirbuster
+Icon=owasp-wte-dirbuster-icon
+Categories=Fuzzers;
