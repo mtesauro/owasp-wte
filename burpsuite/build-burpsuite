@@ -45,7 +45,6 @@ fi
 
 # Make sure the package creation worked as expected
 COUNT=`ls ./owasp-wte-* | wc -l`
-echo "Count is $COUNT"
 if [ $COUNT -eq 2 ] 
 then
   echo "Both package types found"
