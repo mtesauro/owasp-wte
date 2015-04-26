@@ -47,7 +47,6 @@ fi
 COUNT=`ls ./owasp-wte-* | wc -l`
 if [ $COUNT -eq 2 ] 
 then
-  echo "Both package types found"
   # Move packages into subdirectory
   mv *.deb ./packages/
   mv *.rpm ./packages/
