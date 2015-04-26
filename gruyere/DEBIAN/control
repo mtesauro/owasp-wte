@@ -1,0 +1,12 @@
+Package: owasp-wte-gruyere
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.0
+Depends: python (>=2.4)  
+Description:  a small, cheesy web application that allows its users to publish 
+ snippets of text and store assorted files. "Unfortunately," Gruyere has 
+ multiple security bugs ranging from cross-site scripting and cross-site 
+ request forgery, to information disclosure, denial of service, and remote code
+ execution. 

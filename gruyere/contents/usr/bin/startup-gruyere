@@ -1,0 +1,21 @@
+#/bin/sh
+
+echo "  "
+echo "    ____                                 "
+echo '   / ___|_ __ _   _ _   _  ___ _ __ ___  '
+echo '  | |  _| '"'"'__| | | | | | |/ _ \ '"'"'__/ _ \ '
+echo "  | |_| | |  | |_| | |_| |  __/ | |  __/ "
+echo "   \____|_|   \__,_|\__, |\___|_|  \___| "
+echo "                    |___/                "
+echo " "
+echo " "
+echo "       Gruyere - a purposefully vulnerable web app"
+echo "                   (part of OWASP WTE)"
+echo " "
+echo " Type 'gruyere' to start up the app listening on "
+echo "                port 8008"
+echo " "
+echo " Close this window only when you are done with Gruyere"
+echo " "
+
+bash

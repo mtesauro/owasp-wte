@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Gruyere
+Exec=launch-gruyere
+Icon=owasp-wte-gruyere-icon
+Categories=OWASP;
