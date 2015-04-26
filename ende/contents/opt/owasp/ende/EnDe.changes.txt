@@ -1,0 +1,1048 @@
+
+CHANGE HISTORY
+	
+1.0rc11 09-jun-12
+    * LIB, API
+	"EnDeIP.js" new file: code seperated out of "EnDe.js" 
+	"EnDeTS.js" new file: code seperated out of "EnDe.js" 
+	"EnDeUser.js" bugfix: XML tags for viewstate must not contain .
+	"EnDeUser.js" use EnDe.maxloop if available
+	"EnDe.js" more tolerant "xdump" and "od -x" decoding
+	"EnDe.js" formal changes and code clean-up
+	"Makefile" generateion of "EnDeFunc.*" completed
+	"bin/EnDe2js.pl" bugfix: allow missing description: add \t\n in TXT mode
+	"bin/EnDe2js.pl" bugfix: correct object naming in HTML output; improved HTML and JS output;
+
+    * GUI
+	"EnDeGUI.js" legend in test output completed
+	"EnDeGUI.js" formal changes and code clean-up
+	"EnDe.man.txt" improved
+	"EnDeTest-Fuzz.txt" added
+	
+1.0rc10 31-mai-12
+    * LIB, API
+	"EnDeB64.js" bugfix: .DE.b62() does not yet exist; removed from dispatcher
+	"bin/EnDe2js.pl" generate EnDe.Func instead of EnDeFunc; some improvements
+	"*" some formal changes according coding style
+
+    * GUI
+	"EnDeGUI.js" "show payloads only" button to "guess" window added (quick&dirty solution)
+	"EnDeMenu.js" bugfix: workaround for strange behaviour with \u202d and \0202e
+	"EnDeMaps.js" bugfix: trace output supported
+	"EnDeUser.js" formal change: EnDeUser -> EnDe.User
+	"EnDeText.js" formal change: EnDeText -> EnDe.Text
+	"EnDeTest.js" formal change: EnDeTest -> EnDe.Test
+	"EnDeMaps.js" formal change: EnDeMaps -> EnDe.Maps
+	"EnDeFile.js" formal change: EnDeFile -> EnDe.File
+	"EnDeHTTP.js" formal change: EnDeHTTP -> EnDe.HTTP
+	"EnDeGUI.js"  this.checkupdate() implemented
+	"EnDe.code.txt" improved
+	"Makefile" some generation target improved
+	"license.txt" update
+	"*" some formal changes according coding style
+	
+1.0rc9 30-dec-11
+    * LIB, API
+	"EnDeForm.js" bugfix: EnDe.Form.format() handles embedded escaped strings correctly
+	"EnDe.js" Blowfish added (experimental)
+	"EnDeMaps.js" DIN66003Map added
+
+    * GUI
+	"EnDe.FAQ.txt", "EnDe.code.txt" improved
+	"EnDeREMap.js" bugfix: typo
+	"test-JSReg.xml" renamed to "EnDeTest-JSReg.xml"
+	"xssdb.json", "xss.h4k.xml", "sqlPattern.txt" invalid characters removed
+	"EnDeGUIx.js", "EnDeMenu.txt" toDIN66003, fromDIN66003
+	
+1.0rc8 06-nov-11
+    * LIB, API
+	"EnDe.man.txt" LIMITATIONS according Unicode code point with 2 UCS-2 characters
+	"EnDeUser.js" decoding Viewstate 2.0 improved
+	"EnDeREMap.js" bugfix: python capabilities corrected
+
+    * GUI
+	"EnDe.man.txt" improved
+	"sqlAttacks.xml" integer and number tests added
+	
+1.0rc7 10-sep-11
+    * LIB, API
+	"EnDeMaps.js" bugfix: quote mismatch corrected
+	"EnDe.js" 'EnDe.EN.ucs()' 'ucs4' as alias for 'IE4' (for convenience)
+
+    * GUI
+	"sqlAttacks.xml" improved
+	"EnDeText.js" new function to replace characters
+	"EnDe.html" RegEx tool has Hex tab also
+	
+1.0rc6 28-aug-11
+    * LIB, API
+	"Makefile" documentation improved
+	"Makefile" bugfix: ALL.gen macro corrected
+	"EnDeB64.js" bugfix: encoding does not return trailing \n
+
+    * GUI
+	"EnDe.html" tool tips for sections added
+	"sqlPattern.txt" improved
+	"EnDe.FAQ.txt" improved
+	"EnDe.man.txt" typos corrected
+	"EnDe.man.html" bugfix: use anchor to Ende.man.html if necessary
+	"EnDe.survey.txt" typos corrected
+	"EnDeGUI.js" bugfix: onlyXXX options corrected
+	
+1.0rc5 09-apr-11
+    * LIB, API
+	"EnDeFile.js" set EnDeFile.version (for .txt files only)
+	"bin/EnDe2js.pl" bugfix: EnDeFunc.SID added to EnDeFunc.js
+
+    * GUI
+	"EnDeUser.xml" new user function for CONCAT(), new encoding functions added
+	"EnDeCheck.js", EnDeCheck -> EnDe.Check
+	"EnDeGUIx.js", "EnDeMenu.txt" bugfix: onMouse* event added for (IP) option
+	"EnDeGUI.js" bugfix: misses leading zeros for binary UTF-8 in Characters
+	"EnDeGUI.js" bugfix: "Functions" functionality corrected (bug introduced in 1.0rc4)
+	
+1.0rc4 20-feb-11
+    * LIB, API
+	
+	"EnDe.js" EnDe.Maps.trace added
+	"EnDeB64.js" bugfix: missing encoding enabled
+	"Makefile" debian target to build package for OWASP Live CD
+
+    * GUI
+	
+	"bin/EnDe2js.pl", "EnDeFunc.txt" EnDeGUI.setFF() --> EnDeGUI.dispatch()
+	"EnDeMaps.js" bugfix: initializing .a2eMap and e2aMap corrected
+	"EnDeMenu.txt" bugfix: some text fore Base* corrected
+	"EnDeGUI.js" bugfix: onClick hack (.selectedIndex) for more SELECT menus added
+	"EnDeGUI.js" bugfix: adding payload from menu adds comment optional
+	"EnDeGUI.js" bugfix: missing .B64.* constants added to .showMap()
+	"EnDeGUI.js" cleanup: .setEN(), .setDE(), .setRE(), .setFF() removed
+	"EnDeGUI.js" EnDe.Maps.trace added
+	
+1.0rc3 05-feb-11
+    * LIB, API
+	
+	"EnDe.js" decode "hex String (4)" to decode from 4 byte hex values
+
+    * GUI
+	
+	menus for character contains 0xhhhh hex value in title
+	"EnDeMenu.txt" bugfix: OnlyMenu calls EnDeGUI.tool()
+	"EnDeREMap.js" perl's \gN for backreferences added
+	"EnDeRE.js" backreferences implemented (was configured, but not implemented)
+	"EnDe.man.*" minor format and typo fixes
+	"EnDe.html" `about' icon added, some inline styles removed; missing title= added
+	"EnDe.html" `Character/String' renamed to `En- / Decoding'
+	
+1.0rc2 25-dec-10
+    * LIB, API
+
+    * GUI
+
+	workaround: core-rules-2.0-part*.xml 'cause some browsers fail to read huge file
+	bugfix: "OWASP-regex.xml" with encoding="utf-8" (otherwise fails in some browsers)
+	"EnDeFile.txt" use 'EnDeGUI.dispatch()'
+	bugfix: "EnDeGUI.js" new 'EnDeGUI.dispatch()' (take care for selected menu item)
+	
+1.0rc1 19-dec-10
+    * LIB, API
+
+	"EnDe.js", 'str2chr()' added
+	"EnDeText.js", debugging improved
+	"JsColorizer.js" bugfix: for \-escaped quotes
+	"EnDeB64.js" new En-/Decoding: Base-N ; allow "Impedanz Mismatch"
+	"Makefile" simplified
+
+    * GUI
+
+	current (12/2010) versions of: default_filter.xml
+	"EnDe.FAQ.txt" added
+	error handling improved (in particular for Chrome browsers)
+	new [guess] menu using SELECT instead of BUTTON
+	new: xss-evation.txt
+	text manipulation menu improved (replacing quotes)
+	text manipulation menu: insert 1 Unicode Character; insert 2 Unicode Characters
+	[show payloads] button added in GUI Options
+	*.initGUI() renamed to *.init()
+	trace options improved
+	bugfix: Firefox 3.x specials removed (now w3c again:)
+	allow conversion "parsed" to "Hex" and "Hex" to "parsed" (no more alert)
+	toggle '-' '+' for tool buttons
+	new options for Character/String: 0x0a, 0x0d, 0x0d0a, 0x1a
+	"EnDeText.js" new function to delete and replace characters
+	"EnDeGUI.js" ?traceText for tracing EnDeText()
+	"EnDeGUI.js" Repeat button in En-/Decoding menu
+	"EnDeGUI.js" new En-/Decoding menu: Base-N (formerly Coding->Base64)
+	"EnDeGUI.js" new text manipulation menu: insert 2 UCS Characters
+	"EnDeGUI.js" menus (left) improved
+	"EnDeGUI.js" bugfix: binary strings for Characters are possible now
+	"EnDe.css" improved
+	"EnDe.html" some layout improvements
+	"EnDe.html" generates "index.html"
+	"index.html" renamed to "home.html"
+	"Makefile" target 'tree' for alternate directory structure (see below)
+	prepared for alternative directory structure:
+	   "lib/"   - all files need for the core en-/decoding functionality
+           "gui/"   - all files building the browser GUI
+           "img/"   - pictures and icons use din GUI
+           "doc/"   - all documentation (lib and GUI)
+           "src/"   - 3'rd party files used in GUI
+           "usr/"   - files modified by user (sould be empty at development)
+           "bin/"   - tools used for build and maintainance
+           "3rd/"   - original 3'rd party files
+	   NOTE that this causes some ugly (and some very ugly) hacks when
+	   including other files. But users want such a structure, sigh. That's
+	   what the 'tree' target in the Makefile (see above) is for.
+
+	
+0.1.69 07-apr-10
+    cleanup and bugfix release
+    * Migration Hints
+	Following external files are no longer used and replaced:
+	"EnDeFile.xml"   --> "EnDeFile.txt"
+	"EnDeOpts.xml"   --> "EnDeOpts.txt"
+	"EnDeFunc.xml"   --> "EnDeFunc.txt"
+	"_EnDeUser.xml"  --> "EnDeUser.xml"
+	   please save EnDeUser.xml first if it contains private changes
+	
+	If any of these files have been changed, these changes should
+	be ported to the new format manually.
+	
+	Following external files are renamed:
+	"_user.xml"      --> "REuser.xml"
+	
+	Following items from "EnDeMenu.txt" have been renamed:
+	"ucs16le"       --> "ucs16LEb"
+	"ucs16be"       --> "ucs16BEb"
+	"ucs32le"       --> "ucs32LEb"
+	"_escape"       --> "escJS"
+	"_serial"       --> "EnDeSerial"
+	"_XMLesc"       --> "EnDeXMLesc"
+	"_user_"        --> "EnDe_user"
+	"_2code"        --> "JS2code"
+	"_2char"        --> "JS2char"
+	
+	If any of these items have been used, they must be renamed too.
+	
+    * LIB, API
+
+	all data and functions for en-/decoding encapsulated in EnDe object
+	"EnDeMap.js" --> "EnDeMaps.js"
+	"EnDeMaps.js" removed (now in "EnDeMaps.txt")
+	"EnDeMap.js"  _*Chars removed, using EnDe.CONST.CHR.* instead
+	"EnDe.js" .EN.esc() and .DE.esc() implemented
+	"EnDe.js" 'urlUTF8' decoding implemented again (symetric to encoding)
+	"EnDe.js" JavaScript functions renamed (_2code() -> JS2code() _2char() -> JS2char())
+	"EnDe.js" Unicode functions renamed (str32xe() -> str32xE(), str16xe() - > str16xE() )
+	"EnDe.js" prepared for debugging: EnDe.dbx()
+	"EnDe.js" references/calls to EnDeGUI.*() functions removed
+	"EnDe.js" strict use of parseInt() with two parameters
+	"EnDe.js" uses strict JavaScript comparsions with === and !==
+	"EnDe.js" .EN.idn() and DE.idn() support libidn compatible punycode (traling '-' if nothing changed)
+	workaround: "EnDe.js" .DE.num() copy all leading characters before very first prefix
+	bugfix: "EnDe.js" .b2h() corrected if returned value is hex
+	bugfix: "sha512.js" support upper and lower case (hexCase -> hexcase)
+	bugfix: "EnDeCheck.js" duplicate entries removed
+	bugfix: "EnDeCheck.js" Luhn checksum corrected
+	bugfix: "EnDe.js" b64tou64 and u64tob64 replace all '+' '/' to '-' '_' and vice versa
+	bugfix: "EnDe.js" url64 en-/decoding accoding RFC 3548 implemented
+	bugfix: "EnDe.js" .DE.fuzz() %-escape decoding correceted (uses 'urlCR' instead of (invalid) 'urlUTF8')
+	bugfix: "EnDe.js" .DE.dmp() handles trailing delimiter (avoid error message)
+	bugfix: "EnDe.js" .DE.xml() and .EN.xml() missing '#' added
+	bugfix: "EnDe.js" .DE.idn() supports multiple trailing - characters
+	bugfix: "EnDe.js" .DE.idn() supports '-' characters also
+	bugfix: "EnDe.js" .DE.idn() puny2str() corrected (more than one puny character possible)
+	bugfix: "EnDe.js" .DE.qp() convert '\r\n' correctly
+	bugfix: "EnDe.js" 'ncrDEC' converts anything except alpha-numeric characters
+	bugfix: "EnDe.js" undefined global variable corrected (caused error: input too large > 9999)
+	bugfix: "EnDe.js" lots of undeclared variables declared
+	bugfix: (workaround) duplicate HTML named entities disabled: #732 tilde, #45 hyphen, #45 minus
+	bugfix: multiple var declaration sanatized
+	bugfix: decoding Caesar corrected (must be 23 instead of 3 'cause 23=26-3)
+	bugfix: decoding U64 corrected
+
+    * GUI
+
+	use "JSReg.js" 3.8.0.12
+	'EnDeUtil.file.*' and 'EnDeUser.file.*' migrated to "EnDeFile.js" and "EnDeGUI.js"
+	"EnDe.html" allow Character conversion from UTF-8 and binary input
+	"EnDeMenu.txt" new menu Escape Characters
+	"EnDeMenu.txt" menu items renamed according changes in "EnDe.js"
+	"_user.xml" is now "REuser.xml"
+	"_EnDeUser.xml" is now "EnDeUser.xml"
+	all .txt and .xml files can be customized in ./usr/ directory
+	better check of status returned by XMLHttpRequest()
+	Features removed; now integrated in GUI Options; loading local and remote files unified
+	Browser Quirks inset window implemented; all corresponding setting moved from GUI Options
+	"EnDe.man.html" can display .xml files
+	"EnDeUser.js", .setPriv() moved to "EnDeGUI.js"
+	"EnDe.html", "EnDeGUI.js" GUI Options simplified; Quick Bar improved
+	"EnDe.css" simplified
+	bugfix: "EnDeGUI.js" parsed and unparsed function improved for JavaScript comments /* */
+	bugfix: "EnDeGUI.js" replace "uppercase" variable in Functions window corrected
+	bugfix: "EnDeGUI.js" timestamp year corrected for browsers which return 109 but 2010
+	bugfix: "EnDeGUI.js", 'E*.txt' generated menus are named *.s to avoid multiple DOM IDs
+	bugfix: "EnDeGUI.js" some lint errors corrected
+	bugfix: "EnDeUtil.js" read content from file) will not squeeze tabs for strip mode
+	"EnDeFile.xml" replaced by "EnDeFile.txt"; EnDeOpts.xml" replaced by "EnDeOpts.txt"
+	bugfix: "EnDeGUI.js" texts for menus (< LI>< A>text</a>) are HTML Entity encoded
+	strict use of parseInt() with two parameters
+	"EnDeUtil.js" workaround for stupid JavaScript engines; avoid errors and warnings like:
+	* Opera
++-
+|		CSS - http://localhost/..../EnDe.html
+|		HTML style attribute
+|		Unexpected end of file
+|		Line 1:
+|		  em4
+|		  ---^
++-
+	* Firefox, Mozilla
++-
+|		Warning: Expected ':' but found 'em4'.  Declaration dropped.
+|		Source File: http://localhost/..../EnDe.html
+|		Line: 0
++-
+	* Firefox 3.5.x
++-
+|		Error: not well-formed
+|		Source File: http://localhost/..../EnDeMaps.txt
+|		Line: 1, Column: 2
+|		Source Code:
+|		# =========================================================================== #
++-
+	  (NOTE that these errors and warnings had had no impact on functionality)
+	dirty hacks for Firefox 3.x improved
+	Chrome, Safari and WebKit are forced to use 'useLabel'
+	new option 'useLabel' (for OPTION label attribute hack; title= still missing)
+	"EnDeMenu.txt" "od -x" style encoding added
+	"EnDeMenu.txt" Numbers added to Special Unicode menu
+	"EnDe.man.txt" Punycode, IDNA Punycode added
+	"EnDeOpts.txt" "Punycode (libidn)", settings for RTF and TeX
+	"EnDeOpts.txt" new data struture based on EnDemenu.txt
+	"Punycode (all)" and "IDN (all)" available with [esoteric] button
+	tests improved, test GUI simplified
+	'uuuser' disabled 'cause padding does not work for some characters
+	'txtXesc' convert to \x-escaped text manipulation implemented
+	[Tour] button **experimental**
+	bugfix: multiple var declaration sanatized
+	using id="EnDeDOM...." consistently
+	WARNING: "EnDeUser.js" must be adapted to new tag id attributes
+	bugfix: lots of undeclared variables declared
+	no more global variables; mainly encapsulated in EnDeTMP object
+	layout (css) improved
+	
+0.1.68 29-Oct-09
+    * GUI
+
+	bugfix: "EnDe2js.pl" generate .checked attribute for uppercate DOM variable
+	"Beautify": simple statistic implemented
+	new text menu entries: 'txtDELnon128', 'txtDELnon256'
+	WARNING: 'txtDELascii' renamed to 'txtDELnon7b'
+	broken < ?xml tag in "EnDe.html" removed
+	
+0.1.67 17-Oct-09
+    OWASP Live CD release.
+
+    * GUI
+
+	dirty hack for strange event bubbling in Firefox 3.x
+	Quick GUI Bar added
+	bugfix: menu on [guess] button with correct 'title=' attribute
+	[load] file button in Function inset window
+	Erlang as PCRE-clone in RegEx
+	"EnDe.man.html" visible in IE (using ugly hack):
+	layout (css) improved
+	documentation improved
+	
+0.1.66 20-Aug-09
+    * LIB, API
+
+	'.EN.guess' and '.DE.guess' obsolete
+
+    * GUI
+
+	[Spcial Unicode] menu improved
+	bugfix: "EnDe2js.pl" generates correct "EnDeFunc.xml"
+	bugfix: '.guess' decodes base64 with offset again
+	'.guess' layout improved
+	bugfix: "EnDeOpts.xml" corrected
+	"EnDeUser.xml" new functions
+	"image" format implemented
+	"Load Local File" implemented
+	"test-JSReg.xml" added
+	"guess" functionality improved
+	
+0.1.65 27-jul-09
+    * LIB, API
+
+	bugfix: "EnDeForm.js" 'try{ eval()} catch{}'
+
+    * GUI
+
+	[guess] buttons for en-/decoding have menu
+	"JSReg.js" update to 3.5.5
+	status bar implemented
+	bugfix: "_EnDeUser.xml" "EnDeUser.xml" uses 'document.getElementById()' everywhere
+	
+0.1.64 18-jul-09
+    * LIB, API
+
+	'EnDe.DE.dmp()' supports od -x style format
+
+    * GUI
+
+	"JSReg" and ".toSource" added for formatting
+	multiple encodings (text menu) implemented
+	help texts now with markup by default
+	special (browser dependant) ".css" no longer supported
+	loading files no longer relies on document.implementation.createDocument.load
+	  (drawback: no asyncronous loading possible)
+	"Character" tool improved for 3-byte UTF-8
+	bugfix: "ende.html" generation contains "EnDeMenu.txt"
+	
+0.1.63 22-jun-09
+    * GUI
+
+	"EnDeFunc.html" improved
+	menu definitions and creation simplified ("EnDeMenu.js", "EnDeREMenu.js"
+	  now in "EnDeMenu.txt"; reduce file size ~10%)
+	new definition format for maps "EnDeMaps.txt" (not yet complete)
+	replace characters map working
+	Unicode menu implemented for "Character" tool and Replace Map
+	bugfix: 'EnDeRE' help texts in Overview legend corrected
+	bugfix: 'EnDe.help' anchors corrected
+	bugfix: .CH.dispatch() binary values now 16 bit
+	bugfix: .CH.dispatch() corrected for hex and binary values
+	
+0.1.62 31-may-09
+    * LIB, API
+
+	"EnDe.js" '.isTyp()' wrapper for various type checks implemented
+	"EnDe.js" '.DE.numstr()' (fuzzy decding) implemented
+	"EnDe.js" "ncrNUM0" dezimal decoding implemented
+	generation of some files improved, documentation improved
+
+    * GUI
+
+	"suffix .0" added in "IP" tool
+	"EnDe.man.html" generating content table improved
+	"EnDe.js" '.DE.fuzz()' improved (all kind of brackets)
+	"EnDeGUI.js" [constants and maps] button shows EnDe. variables also
+	
+0.1.61 26-apr-09
+    * LIB, API
+
+	'EnDe.DE.fuzzy()' implemented
+
+    * GUI
+
+// ToDo: python mode modifier fails
+	'JSeval' implemented
+	experimental: "Password Strength" tool added
+	bugfix: "EDeRE.js" python specials implemented
+	bugfix: "EDeRE.js" some characters in character classes are not meta
+	
+0.1.60 29-mar-09
+    * GUI
+
+	bugfix: "EDeRE.js" ^ meta only as first character in character classes
+	bugfix: "EDeRE.js" identify POSIX classes corrected
+	"OWASP-regex.xml" (OWASP Validation Regex Repository) added
+	bugfix: 'EDeGUI.code()' returns false
+	bugfix: JSON Formater can handle huge data
+	bugfix: esoteric button works again
+	bugfix: consistant "return false;" for dispatcher functions
+	"User Options" menu improved
+	"EnDe.man.html" < noscript> to inform that JavaScript is required
+	"EnDeMaps.js" Unicode code point ranges improved
+	URL parameters now avaialable as GUI button/menu
+	documentation improved, typos etc.
+	
+0.1.59 19-feb-09
+    Clean-up release.
+    * LIB, API
+
+	'EnDeCheck.EAN.*' for checking EAN, GLN, GTIN, ILN numbers implemented
+	"EnDe.js" '.DE.guess()' does not call built-in functions which throw exceptions
+	"EnDe.js" '.isHex()' improved for stupid Safari/Webkit
+	"EnDe.js" new function to convert from/to binary
+	"EnDe.js" timestamp function a2d() a2o() as dummy added to avoid JavaScript runtime error
+	"EnDe.js" simple Braille implemented
+	RegEx support some special ModSecurity string initializers
+	RegEx support ISAPI Rewrite
+
+    * GUI
+
+	"EnDe.html" "EnDeGUI.js" OPTIONS seperated into GUI and API Options 
+	"EnDe.html" "EnDeGUI.js" "Character" tool implemented
+	"EnDeRE.js" describe \x and \u variants
+	"EnDe.man.html" bugfix: missing variable defined
+	"EnDeMenu.js" new menu "Numbers" (formerly part of "Straight"), new functions in "Numbers"
+	"EnDeText.js" new function to insert spaces after 4/8 characters from right
+	bugfix check when calling Caesar; Caesar (classic) added
+	bugfix timestamp function for different formats corrected
+	
+0.1.58 28-nov-08
+    Bugfix and clean-up release.
+    * LIB, API
+
+	"EnDe.js" support buggy Mozilla (which treats x=0 as x='' )-:
+	"EnDe.js" bugfix '.i2h()' returns corrected for integer<10; '.i2n()' corrected for integer<10
+	"EnDe.js" bugfix '.EN.guess()' renamed function calls corrected
+	"EnDe.js" bugfix 'h2n()' 1st and 2nd nibble encoding corrected
+	"EnDe.js" bugfix 'h2n()' undefined object property
+	RegEx support ActionScript 3 (AS3)
+	a lot formal changes to keep (JS) lint quiet
+	a lot of "defensive programming" to avoid useless values
+
+    * GUI
+
+	bugfix for onClick hack: selectedIndex used for SELECT tags only
+	global options in "IP" tool
+	handle 4-byte int in 64-bit input field for IPs (new option)
+	CSS simplified
+	"EnDeGUI.js" simplified
+	"EnDeGUI.js" bugfix use CSS2 instead of CSS3 attributes
+	simple JSON/JavaScript formatter in Beautify menu
+	"EnDeTest.js" bugfix (changed variable names)
+	formal changes to Options
+	
+0.1.57 12-oct-08
+    API improvements and new functions.
+    * LIB, API
+
+	"crc.js" CRC-8, CRC-32 and various CRC-16 implemented
+<!--
+	CRC-32 hash as raw (integer) and hex data
+-->
+	'EnDeCheck.SSN.is()' implemented
+	"EnDe.js" "UTF-8 fullwidth" encoding implemented
+	"EnDe.js" guessing improved
+	'EnDe.is*()' type check functions implemented
+	'EnDe.EN.guess()' implemented (was in "EnDeGUI.js")
+	'EnDe.h2n()' added; "Nibbles", "1st Nibble", "2nd Nibble" (double) encoding implemented
+	"EnDeTest.js" bugfix and improved
+	"EnDe.js" bugfix: converting URL with Unicode '%uhhhh' reactivated
+	"EnDe.js" bugfix: '.DE.dmp()' ignores empty lines to avoid "EnDe.DE.dmp: invalid format" error
+	RegEx support UltraEdit Unix mode; UltraEdit self mode experimental
+	RegEx bugfix: escape character now configurable in "EnDeREMaps.js" per language/flaviour
+	RegEx bugfix: warning if unescaped '[' inside class '[]'
+	RegEx bugfix: '(' as literal character inside class '[]'
+	'EnDe.spaceMap' added (see '?test' option)
+	'EnDeUser.XML.json()' for reading PHPIDS' "default_filter.json"
+
+    * GUI
+
+	"EnDeUser.xml" implemented ("_EnDeUser.xml")
+	bugfix: guess(Decoding) prints result with named character entities to avoid unvisible text
+	trace output improved
+	"default_filter.json" added to Features (for adding menu to RegEx)
+	display EnDe.spaceMap
+	
+0.1.56 12-sep-08
+    GUI improvements. New codings in API.
+    * LIB, API
+
+	new function to convert natural numbers to negative numbers ("IP" tool)
+	bugfix: converting from/to negative numbers corrected
+	new codings implemented:  BCD, Aiken, Stibitz (aka Dreiexzeß)
+
+    * GUI
+
+	JSDecode added
+	some special text manipulations for JavaScript implemented (txtREPstrq, ...)
+	all text manipulations in "EnDeText.js"
+	"sqlAttacks.xml" improved
+	basic support for Google Chrome (experimental)
+	improved for delayed XML loading
+	"EnDeRE.man.html" replaced by "EnDeRE.man.txt"
+	"EnDe.man.txt" improved (content and HTML rendering); all "*.txt" files handled by "EnDe.man.html"
+	jokes/nojokes URL option added
+	"EnDeGUI.js" handles 'hidden' menu entries with style attribute (see "EnDeMenu.js" also)
+	'EnDeTest.test()' improved
+	'EnDe.NN.dispatch()' improved
+	"Change History" moved from "index.html" to "EnDe.changes.txt" (simplified description)
+	onClick hack in "EnDeUser.js"
+	bugfix: links to own documentation corrected (wrong since 0.1.51)
+	bugfix: highlight in "IP" tool
+	
+0.1.55 23-jul-08
+    * LIB, API
+
+	'sha384()', 'sha512()' added
+	IP convertion 'EnDe.IP.num2ip()' handles negative numbers
+	'EnDe.DE.dmp()' improved
+	Viewstate 2.x parser improved (still experimental)
+
+    * GUI
+
+	SELECT menu behaviour improved (avoid some confusion by users); see comment in "EnDeGUI.js"
+	shortcut "Viewstate (base64)" in menu
+	code cleanup: mainly '*.dispatcher()', onClick hack
+	
+0.1.54 02-jul-08
+    * GUI
+
+	"core-rules.xml" added *experimental*
+	
+0.1.53 02-jul-08
+    * LIB, API
+
+	RegEx supports lookbehind
+
+    * GUI
+
+	bugfix: EnDeRE help page with correct tables
+	RegEx avoid error message when no text for match given
+	documentation and styles improved
+	
+0.1.52 24-jun-08
+    * LIB, API
+
+	'EnDeCheck.CC.*' for checking credit card numbers implemented
+	bugfix: some problems with packer
+
+    * GUI
+
+	new documentation style (.txt files)
+	loading menu with generated function definitions *experimental*
+	loading ".xml" files initially improved
+	timeout for loading XML data depends on schema (file://, http://)
+	EnDe.man.txt improved
+	
+0.1.51 23-jun-08
+    * LIB, API
+
+	redesign for 'EnDe.UCS.*' (UTF-*, BOM, etc.)
+	debugging in "EnDeUser.js" improved
+
+    * GUI
+
+	EnDe.man.txt (but not yet integrated in GUI)
+	Makefile improved; api* target added
+	"preset options" menu no longer hardcoded, now in "EnDeOpts.xml"
+	"preset options" menu improved
+	"URI/URL->URL UTF-8"  added
+	"Unicode/UTF->UTF-16" without BOM added
+	Shuffle window implemented (still a bit experimental)
+	'?experimental' option implemented (experimental/incomplete functions are hidden by default)
+	clear text complain for non-standard conform browsers
+	documentation improved, typos etc.
+	
+0.1.50 28-may-08
+    * GUI
+
+	bugfix: all varaiable replacements (Prefix, Suffix, Delimiter) in Functions need to escape '\' and '"' 
+	bugfix: wrong variable reference in '.FF.dispatch()' 
+	bugfix: table layout in 'EnDeUser.Check.guess()' corrected
+	bugfix: try-catch added to circumvent missing browser (mainly Safari) functionality ([guess] button in "EnDeGUI.js")
+	Webkit added to valid browsers
+	documentation improved, typos etc.
+	
+0.1.49 23-may-08
+    * LIB, API
+
+	full featured RegEx
+
+    * GUI
+
+	user files can be loaded on the fly, without configuering "EnDeFile.xml"
+	user menus from user files can be added to any area
+	"IP" tool GUI improved
+	more examples in help
+	some adaption to w3c (but still not w3c-conform)
+	
+0.1.42...1.1.48 -apr-08
+	just releases for RegEx part
+	
+0.1.41 02-mar-08
+    * LIB, API
+
+	"RegEx - Regular Expressions" tool added (experimental)
+	formal changes for constants 'EnDe.CONST.*'
+	tests for checksums added
+	tests improved
+	
+0.1.40 24-feb-08
+    * LIB, API
+
+	debugging improved
+
+    * GUI
+
+	"xss.h4k.xml" added
+	
+0.1.39 19-feb-08
+    * GUI
+
+	"sqlAttacks.xml" improved
+	append/replace check button implemented
+	
+0.1.38 17-feb-08
+    * LIB, API
+
+	"EnDeCheck.js" with checksum functions for Luhn, EFT, UPC, ISBN implemented
+
+    * GUI
+
+	"sqlAttacks.xml"
+	
+0.1.37 02-feb-08
+    * LIB, API
+
+	bugfix: handle IP lower to 0.0.0.17 (Integer 17) correctly
+	Makefile improved
+
+    * GUI
+
+	distribute ".xml" files (containing attack patterns)
+	bugfix: some minor return codes in GUI fixed (en-/decosing Ceasar)
+	"Features" section improved (loading XML files)
+	documentation for "Features" and "EnDeUser.js"
+	License added to EnDe.man.html
+	
+0.1.36 06-jan-08
+    * LIB, API
+
+	expand and fold ASP.NET VIEWSTATE 2.0 (experimental, incomplete)
+	"RIPEMD-160" password generation implemented
+
+    * GUI
+
+	select menu with XSS Attack pattern added
+	"Viewstate" in En-/Decoding menu
+	
+0.1.35 22-dec-07
+    * LIB, API
+
+	base64 encoding performance improved (for data >> 5k)
+	function to expand and fold ASP.NET VIEWSTATE 1.0 (experimental)
+	Makefile: .tgz contains original files which are used modified
+	Makefile: generation of files improved
+
+    * GUI
+
+	style sheet can be changed with query-string (if supported by browser)
+<!--	query-string written to bottom of body -->
+	iCab support (GUI still buggy)
+	basic Konqueror support
+	
+0.1.34 18-nov-07
+    * LIB, API
+
+	lot of memory leaks corrected (`so called' garbage collection is too stupid in most browsers)
+	octal en-/decoding with leading zeros (uses size option too)
+	bugfix: 'EnDe.DE.url()' works for old (mozilla) browsers too
+	bugfix: Punicode, IDN corrected for complex URLs
+	bugfix: 'guess()' for Timestamp corrected
+
+    * GUI
+
+	new menu for presetting common options
+	"selected text" works for en-/decoding fields (see seletion option)
+	bugfix: toggle display for some tags improved
+	some Safari bugs/problems documented; adaptions for Safari 3.x
+	
+0.1.33 15-nov-07
+    * LIB, API
+
+	convert to UTF-8 with BOM
+	'EnDe.DE.hex()' works with variable width numbers
+	bugfix: 'EnDe.DE.hex()' corrected for fixed width numbers
+	bugfix: missing variable in 'EnDe.EN.dez()' added
+
+    * GUI
+
+	'?trace' option implemented (simple version)
+	CSS improved
+	browser-dependant .css files generated from master .css file
+	
+0.1.32 21-oct-07
+    * LIB, API
+
+	bugfix: time conversion functions take care of selected format
+	UTF-16-* encoding implemented (UTF-32-* experimental)
+	'java.lang.Character()' implemented
+
+    * GUI
+
+	GUI for "IP" tool improved
+	some bugfixes in GUI
+	
+0.1.31 21-oct-07
+    * LIB, API
+
+	decoding hex or dezimal strings without prefix and/or delimiter but using fixed width value
+	straight 'hex2int()' and 'int2hex()' implemented
+	CRC32 implemented
+
+    * GUI
+
+	bugfix: hex values for prefix and suffix
+	bugfix: hex and decimal values with specified length
+	bugfix: linewrap for base64 encoding corrected
+	simple 'EnDeGUI.debug()' implemented
+	
+0.1.30 21-oct-07
+    * LIB, API
+
+<!--	packed ".js" files -->
+	Makefile improved (mainly dist target)
+	"EnDeMap.js" contains code, "EnDeMaps.js" contains tables
+
+    * GUI
+
+	ende.html generated correctly
+	
+0.1.29 20-oct-07
+    * LIB, API
+
+	bugfix: pedantic JavaScript syntax (required for packer)
+	API unified (keywords for dispatcher)
+
+    * GUI
+
+	bugfix: missing 'return()' in some 'onClick=' attributes added
+	EN-/Decoding menu simplified
+	new option value for length/size of coded result (hex, decimal)
+<!--	internal renames -->
+	documentation improved, typos etc.
+	
+0.1.28 15-oct-07
+    * LIB, API
+
+	bugfix: timestamp format takes care about milli seconds
+	Makefile.in added
+
+    * GUI
+
+	Safari hack which does not allow JSON name 'class' 
+	known issue with FormFox extension documented
+	bugfix: index.man.html typo calss => class
+	documentation improved, typos etc.
+	
+0.1.27 19-sep-07
+    * LIB, API
+
+	Timestamp format for Windows (32bit) and ASP.NET (64bit) added
+
+    * GUI
+
+	"Character Set"  menu for en-, decoding added
+	some CSS changes
+	
+<!--	buggy version
+0.1.26 19-sep-07
+	Timestamp format for Windows (32bit) and ASP.NET (64bit) added
+	some CSS changes
+-->
+	
+0.1.25 31-aug-07
+
+    * GUI
+
+	bugfix: GUI functionality for tests
+	bugfix: URL request when trying to convert from hex view
+	more "beautify" functions in nested window
+	"(quad) bin" and "binary" IP conversion added
+	layout for IP fields improved
+	documentation improved
+	better (not perfect) w3c conform HTML and CSS
+	lot of formal changes
+	
+0.1.24 24-aug-07
+    * LIB, API
+
+	"UTF-7 (all)" implemented; converts all characters
+	"reverse", "Atbash", "XOR" implemented
+	bugfix: IDN/Punycode handle multiple characters
+
+    * GUI
+
+	bugfix: "value" switch in nested window for all values
+	
+0.1.23 23-aug-07
+    * LIB, API
+
+	IDN/Punycode implemented
+	Octal implemented
+	EBCDIC implemented
+	Unicode halfwidth implemented
+
+    * GUI
+
+	improved additional menu
+	documentation typos etc.
+	
+0.1.22 03-aug-07
+    * LIB, API
+
+	'aes()' implemented
+	"IPv6" implemented
+	handling of Prefix for encoding functions improved
+
+    * GUI
+
+	documentation typos etc.
+	
+0.1.21 31-jul-07
+    * LIB, API
+
+	uuencode, uudecode implemented
+	quoted printable implemented
+
+    * GUI
+
+	bugfix: 'EnDeGUI.alert()' syntax error corrected
+	documentation improved, typos etc.
+	
+0.1.20 26-jul-07
+    * LIB, API
+
+	bugfix: IP conversions corrected
+	bugfix: Base64 encoding corrected for character codes greater to 255
+	extended Morse charcters added
+	a lot of formal and API changes
+
+    * GUI
+
+	bugfix: some HTML syntax errors corrected
+	menu "Unicode/UTF" added
+	menu in IP conversion improved
+	sample for "Charcter/String" and IP added
+	API unified in "EnDe.js"
+	typos and characters in menu definition corrected
+	tests with binary results improved
+	improvements (HTML, CSS) for Opera and Safari
+	function menu using CSS implemented
+	documentation improved, typos etc.
+	
+0.1.19 03-jul-07
+    * LIB, API
+
+	XML decoding handles NCE and NCR
+	force converting from CP-1252 charset
+	bugfix: CP-1252 corrected
+	bugfix: decoding named character references corrected
+	bugfix: strip off trailing space in sos()
+	bugfix: decoding numerical character references
+	decode URL-encoded IP
+
+    * GUI
+
+	sample button in "IP" tool
+	some fomral CSS changes
+	documentation improved
+	
+0.1.18 22-jun-07
+    * LIB, API
+
+	test implemented in "EnDe.js", "EnDeGUI.js", "EnDeTest.js"
+	bugfix: convertion of 16-bit values to hex corrected
+
+    * GUI
+
+	bugfix: convertion [Text] to [Hex] corrected
+	documentation improved
+	
+0.1.17 18-jun-07
+    * LIB, API
+
+	yEncoding/yDecoding implemented
+	"EnDe.js" does not need "EnDeUtil.js"
+
+    * GUI
+
+	documentation improved
+	
+0.1.16 18-jun-07
+    * LIB, API
+
+	"XXTEA" en-,decryption implemented
+	
+0.1.15 16-jun-07
+    * LIB, API
+
+	Block Tiny Encryption Algorithm implemented (not yet ready)
+
+    * GUI
+
+	bugfix: nested function can read variables or value
+	bugfix: nested function window works with very first click too
+	nested function window with parsed view
+	documentation improved
+	CSS improved
+	
+0.1.14 16-jun-07
+    * LIB, API
+
+	bugfix: 'EnDe.dez2hex()' returns 1-byte values corrctly 
+	simple version for converting CP-1252 (with charset CP-1252 in source only) 
+	improved handling of named and numeric character entities/references 
+
+    * GUI
+
+	nested functions window improved (HTML, CSS)
+	
+0.1.13 15-jun-07
+
+    * GUI
+
+	bugfix: function buttons in nested window work again
+	
+0.1.12 14-jun-07
+
+    * GUI
+
+	text manipulation functions added
+	
+0.1.11 13-jun-07
+    * LIB, API
+
+	bugfix: 'EnDe.DE.dmp()' corrected for multi-byte characters 
+	bugfix: 'EnDe.DE.dez()' uses 'this.hex()' instead of unescape() 
+	bugfix: 'EnDe.dez2hex()' corrected for returning 4 bytes
+	
+0.1.10 11-jun-07
+    * LIB, API
+
+	bugfix: 'EnDe.DE.hex()' improved
+	bugfix: decoding "%u00xx" corrected
+	bugfix: [parsed] to [Text] corrected
+	bugfix: Unicode decoding
+
+    * GUI
+
+	bugfix: bugfix: don't de-,encode  from [Hex] mode
+	more "Known Problems"
+	'charCodeAt()', 'fromCharCode()' implemented
+	
+0.1.9 07-jun-07
+    * LIB, API
+
+	'EnDe.DE.bin()' implemented 
+
+    * GUI
+
+	documentation adapted
+	bugfix: "xdump-style" does not generate trailing delimiters
+	bugfix: Safari CSS
+	bugfix: CSS
+	ugly workaround: Safari direct nested option
+	this history
+	
+0.1.7 05-jun-07
+	first working release
+	
+
+VERSION
+
+	@# EnDe <!-- @(#) EnDe.changes.txt 3.13 12/06/09 18:43:39 -->
+
+
+AUTHOR
+
+	24-Jul-08 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+
+			HOME http://ende.my-stp.net/ EnDe

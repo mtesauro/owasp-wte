@@ -1,0 +1,312 @@
+	
+KNOWN API PROBLEMS
+	
+    Character/String (Encoding)
+	
+	* URL UTF-8 (%XX)       - when feed with UTF-8 characters it may return unexpected results
+		this is not a bug but the implication that JavaScript is based on Unicode and not UTF-8
+		hence this action must be feed with real URL encoded UTF-8 characters
+	* Unicode halfwidth     - lazy implementation does not check for undefined halfwidth characters
+	* Block TEA (raw)       - most likely not reversible with corresponding decoding function
+	* Block TEA (*)         - works for character code <256 only
+	* x-bit binary          - works for character code <256 only
+	* xHMAC                 - HMAC Key not yet implemented
+	
+    Character/String (Decoding)
+	
+	* base64                - is ambigious for 2-Byte characters (like '&#8364;') in all browsers
+	* Block TEA (raw)       - most likely not reversible with corresponding encoding function
+	* Punycode              - may return wrong decoded text if input string is IDN coded
+	
+    uuencode
+	
+	Following restrictions apply currently:
+	
+	* uuencode              - '`' used as padding character; all lines are 62 characters + leading byte count character 'M' + final '\n'
+	* uuencode (hist)       - '&#160;' (space 0x20) used as padding character; last line of encoding may have different leading byte count character
+	* uuencode (user)       - "Prefix" used as begin line, "Suffix" used as end line and
+		"Delimiter" used as padding character. Note that '\n' must
+		be part of the prefix and suffix string if needed.
+	
+    uudecode
+	
+	* uudecode (user)       - "Prefix" as begin line and "Suffix" as end line must both be terminated by '\n' character.
+	
+    IP Converter
+	
+	* IPv6                  - lazy implementation for converting from IPv6 ;-)
+	
+    RegEx
+	
+	* descriptive text for meta characters sometimes wrong
+		workaround: reload page
+	
+	
+	
+KNOWN GUI PROBLEMS
+	
+	Starting with EnDe version 0.1.69 this section is obsolete.
+	It will no longer be updated.
+	
+	It's just here to show the known problems for historical reason and to
+	help identify current ones.
+	
+    general
+	
+    Mozilla Firefox < 3.0.4
+	* Permission denied to get property Element.childNodes
+	                - bug in Firefox 3, see
+			   https://bugzilla.mozilla.org/show_bug.cgi?id=434522
+	
+	
+<!-- fixed 0.1.64
+    Mozilla (1.7.x, 2.x, 3.x) (all)
+	* CSS           - does not support 'white-space:pre' hence empty lines
+			  are missing in help page
+	
+	
+    Mozilla (1.7.x, 2.x, 3.x) Windows
+	* Unicode fullwidth   - does not display fullwidth characters
+	
+	
+    Mozilla (1.7.x and older) Windows
+	* nested window: [x] [?] - both buttons have wrong y position
+	
+	
+    Mozilla (1.7.x and older) Linux/Unix
+	* style sheet   - needs to use special style sheet "EnDe-m17.css"; can
+			  be changed with browser's "View->Styles" menu
+	-->
+	
+    Mozilla (1.7.x and older) Linux/Unix
+	* nested function execution
+	                - produces internal  JavaScript exception  (but works)
+			  with characters <256
+	* '%u00XX'      - not supported, returns internal error (Linux only)
+	
+	
+    Opera (9.2x) Windows
+	* replace map window    - generated table smashed [1]
+	* help window           - some CSS settings not working [1]
+	* [SELECT] menu         - highlight of (IP) fields does not work [1]
+	* [SELECT] menu         - used  callback function for  'onClick=' does
+				  not work with first click; workaround: click
+				  on select arrow,  then click on selcted item
+				  (considered an Opera bug)
+<!-- fixed 0.1.64
+	* style sheet           - requires special style sheet  "EnDe-m17.css"
+	                          can be changed with browser's "View-Styles"
+     fixed 0.1.58
+	* help window           - generated content table placed wrong [1]
+	* nested window: [x] [?] - both buttons have wrong y position -->
+<!-- following obsolete since 0.1.34 
+	* CSS does not work proper   - use 'Opera' in QUERY_STRING of URL
+     following fixed somewhere 0.1.3x
+-->
+	
+    Opera < 9.7x
+	* esoteric button       - does not work proper because  'display:none'
+				  attribute not supported by OPTGROUP
+	* non printable characters
+				- does not show  none-printable characters and
+				  ignores all following characters
+	* nested window: [Text] - does not work proper (probably an Opera bug)
+	* test section          - some tests fail to insert their results into
+				  DOM (bug "EnDeGUI.js", somewhere)
+	
+    Konqueror (3.5.x)
+	* '?Konqueror'          - requires  'Konqueror' option in query-string
+				  to workaround some Konqueror quirks
+	* onClick               - 'onClick=' attribute not supported, needs to
+				  use 'onChange= ';  but 'onChange='  does not
+				  execute when selected again
+	* [Text], [Hex] button  - style does not change [3]
+	* layout                - layout is broken (size of SELECT menu), somehow,
+				  because Konqueror uses strange font sizes
+	* '?test'               - test result are not well sorted because Konqueror
+				  has its own decission how to sort hashes
+<!-- fixed 0.1.64
+	* style sheet           - requires special style sheet  "EnDe-m17.css"
+				  can be changed with browser's "View->Styles" -->
+	
+    Iceweasel (2.0.x.x)
+<!-- fixed 0.1.64
+	* CSS           - does not support 'white-space:pre' hence empty lines
+			  are missing in help page
+	-->
+	
+    Firefox (1.5.x, 2.0.x) Mac OS X
+	
+	* nested option         - does not overwrite  existing window elements
+				  like scrollbars and buttons [4]
+	* Euro sign             - '%20ac', '8364' not shown as Euro sign [4]
+	* click in RegEx        - needs 2 clicks in Menu of RegEx tool
+	
+	
+    Firefox (2.0.x) Extensions (all platforms)
+	
+	* FormFox               - the FormFox extension may overwrite some
+				  'title=' attributes for form buttons
+	
+	
+    Opera (9.62) Mac OS X
+	
+	* label                 - 'label=' attribute treated as 'title=' in SELECT OPTION [1]
+<!-- fixed 0.1.69
+	* OWASP-regex.xml       - does not work  -->
+	
+	
+    Safari Mac OS X
+	* SELECT OPTION 'title=' attribute     - does not show its value in some cases [2]
+	* SELECT OPTION         - does not "deaktivate" selection after click [2]; workaround: use ANCHOR instead of SELECT in "EnDeMenu.js"
+	* 'user' function       - function to use replace character map does not work (considered a Safari JavaScript bug)
+	* decodeURI(), decodeURIComponent()    - fails with 'URIError' if string contains '%' followed by invalid hex characters [2]
+	* HTML man page         - some LI tags are rendered (idented) wrong
+	* [experimental] button - does not complete menus [2]
+	* hover in IP menu      - does not work [2]
+<!-- fixed 0.1.58
+	* CSS                   - need to use special "EnDe-mac.css" file (for
+				  more improvements grep for `ToDo: Safari' and
+				  fix it:) workaround: use "EnDe-mac.html"
+	* [-]  button           - does not shrink the fieldset [2]
+	* BUTTON tag with 'disabled' attribute - does not work
+	* XML                   - does not support load of XML files, hence all user functions and FEATURES may be missing 
+	* SELECT OPTION         - requires double-click to use "aktive" selection again [2]
+	* SELECT menu           - highlight of (IP) fields does not work [2] -->
+<!-- fixed 0.1.57
+	* HTML man page         - some texts are missing -->
+	
+	
+    WebKit (3.1.x, 4.x) Mac OS X
+	* label                 - 'label=' attribute treated as 'title=' in SELECT OPTION [5]
+	* title                 - 'title=' attribute not supported in some SELECT OPTION menus
+	* HTML man page         - some LI tags are rendered (idented) wrong
+	* [experimental] button - does not complete menus [5]
+<!-- fixed 0.1.64
+	* CSS                   - needs to use special style sheet "EnDe-mac.css"
+     fixed 0.1.60 (works on Windows)
+	* XML                   - does not support load of XML files, hence all user functions and FEATURES may be missing 
+	* hover in IP menu      - does not work [5]
+     fixed 0.1.58
+	* HTML man page         - some texts are missing -->
+	
+	
+    Camino (1.5, 2.0) Mac OS X
+	* '?Camino'             - need to use 'Camino' option in query-string to workaround Camino quirks
+	* onClick               - 'onClick=' attribute not supported, needs to use onChange= ; onChange= does not execute when selected again
+	* title                 - 'title=' attribute not supported in some SELECT OPTION menus
+	* nested window: [x] [?] - both buttons have wrong x position
+	* [trace] button        - called function does not work
+	* [guess] button        - function (en-/decoding) does not work
+	* [guess] button        - menu on [guess] button does not work
+	* [Shuffle] button      - needs to be clicked twice to get it working
+	* Beautify->JSDecode    - not working [6]
+<!-- fixed 0.1.64
+	* CSS                   - does not support 'white-space:pre' hence empty lines are missing in help page
+	* [x] [?] button        - both buttons have wrong y position (probably OS X 10.4.x only)
+<!-- fixed 0.1.63 (due to changed XMLHttpRequest() call)
+	* XML                   - XML files are loaded, but menu action not called, hence menus not working [6] -->
+	
+	
+    iCab (3.0.x) Mac OS X
+	* packed .js            - iCab is terribly slow when .js files are packed
+	* '?iCab'               - need to use 'iCab' option in query-string to workaround iCab quirks
+	* title                 - 'title=' attribute not supported in some SELECT OPTION menus
+<!--	* '?EnDe-mac.html'      - need to use "EnDe-mac.html" (seems to occour in 10.5.x again) -->
+<!-- fixed 0.1.64
+	* CSS                   - needs to use special style sheet "EnDe-cab.css"; can be changed with browser's "View->Web Styles" menu
+     fixed 0.1.58
+	* [-] button            - same as Safari, see above -->
+	* [guess] button        - function (en-/decoding) does not work
+	* [Shuffle] button      - does not work
+	* various buttons       - some layout problems
+	* XMLHttpRequest()      - does not work with local XML files, hence Features are not usable
+	* XML                   - does not support load of XML files, hence all user functions and FEATURES are missing 
+	
+	
+    iCab (< 4.7.x) Mac OS X
+	* title                 - 'title=' attribute not supported in some SELECT OPTION menus
+	
+	
+    OmniWeb (5.9.x) Mac OS X
+	* title                 - 'title=' attribute not supported in some SELECT OPTION menus
+	
+	
+    Shiira (2.2) Mac OS X
+	* [guess] button        - function (decoding) does not work proper
+<!-- fixed 0.1.58
+	* [-] button            - same as Safari, see above
+	* XMLHttpRequest()      - does not work with local XML files, hence Features are not usable
+	* XML                   - does not support load of XML files, hence all user functions and FEATURES are missing  -->
+	
+	
+    Safari (3.2.1) Windows
+	* title                 - 'title=' attribute not supported in some SELECT OPTION menus
+	* XML                   - does not support load of XML files, hence all user functions and FEATURES may be missing 
+	
+	
+    Chrome (0.4.154.25) Windows
+	* onChange              - onChange= attribute not supported properly, needs to select menu twice to trigger function
+	* test section          - some tests fail to insert their results into
+				  DOM (chrome bug or bug in "EnDeGUI.js", somewhere)
+	* Unicode fullwidth     - does not display fullwidth characters
+	* SELECT menu           - highlight of (IP) fields does not work [7]
+	* esoteric button       - does not work proper because  'display:none'
+				  attribute not supported by OPTGROUP [7]
+	* help window           - bad generated HTML view
+	* --various--           - may return: TypeError: Object function String() { [native code] } has no method 'toUpperCase'
+	
+    Character/String (general)
+	
+	* help text in menu     - some browsers cut off the end
+	
+    Character/String (Encoding)
+	
+	* String.toLowerCase    - not supported by Safari
+	* String.toUpperCase    - not supported by Safari
+	* UTF-8                 - sometimes buggy
+	* Numbers               - does only work for values in the integer range 0 - 2^53 due to JavaScript limitations
+	
+    Character/String (Decoding)
+	
+	* force CP-1252         - not yet working proper
+	* CP-1252               - not yet working proper
+	* uudecode (hist)       - when decoding with uudecode (hist) but having other
+	* Numbers               - does only work for values in the integer range 0 - 2^53 due to JavaScript limitations
+	padding characters than '`', the reuslt may have some glubberisch
+	at the end, obviously 'cause the wrong encoding was chosen :)
+	* Prefix                - still buggy for some actions
+	
+    IP
+	
+	* Conversion from/to "64-bit" integer does only work for values in the range 0 - 2^53 due to JavaScript limitations.
+	* If option ". dot as delimiter" is unchecked some IP conversions will fail with result NaN. Input and output delimiter needs to be distingushed.
+	* Conversion from returns NaN (partial) if there're not at least 4 octets in the computed IP. use "incomplete dotted IP" option to prefix or suffix missing octets.
+	
+    Timestamp
+	
+	* Probably wrong with some TZ settings, needs to be verified ...
+		  -- some error messages in guess()
+	
+    RegEx
+	
+	* Conversion from [parsed] to [Text]
+		fails if there are spaces, tabs or newlines right after a '('
+		character. These characters are lost then. This is a known bug and
+		no fix is planed.
+	
+	
+---
+	
+Notes
+	[1] considered an Opera bug
+	[2] considered a Safari bug
+	[3] considered a Konqueror bug
+	[4] considered a Mac bug
+	[5] considered a WebKit bug
+	[6] considered a Camino bug
+	[7] considered a Chrome bug
+
+
+VERSION
+	@(#) EnDe.bug.txt 3.2 <!-- 11/02/05 16:33:27 -->

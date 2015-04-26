@@ -1,0 +1,1148 @@
+# =========================================================================== #
+# == NOTE: THIS FILE WILL NOT BE UPDATED ACCORDING CHANGES IN EnDeMenu.txt == #
+# =========================================================================== #
+#?
+#? NAME
+#?      EnDeMenu-sample.txt - definition of menus
+#?
+#? DESCRIPTION
+#?      This is a simplified version of EnDe's EnDeMenu.txt which uses flat
+#?      menu for most tools.
+#?
+#?      You may use this file as:  usr/EnDeMenu.txt
+#?
+#? SYNTAX
+#?      Please see EnDeMenu.txt .
+#?
+# =========================================================================== #
+
+# =========================================================================== #
+# configuration for parser/reader                                             #
+# =========================================================================== #
+
+warn	none
+error	continue
+
+__DATA
+
+# =========================================================================== #
+# some default characters in "Replace Characters Map"                         #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+menu	MP.Characters	Characters		character replacements
+html	TABLE
+inside	EnDeDOM.MP.list
+id	EnDeDOM.MP.Characters.s
+size	13
+onClick	return EnDeGUI.MP.setChar(this,this.value);
+
+#head	key		old	new		description
+#------+---------------+-------+---------------+------------------------------+
+item4	NUL		\x00	\x10		replace NUL \0
+item4	CR		\x13	\x10		replace CR  \r
+item4	NL		\x10	\x10		replace CR  \n
+item4	TAB		\x09	\x10		replace CR  \t
+item4	DEL		\x127	\x10		replace DEL
+#------+---------------+-------+---------------+------------------------------+
+
+# =========================================================================== #
+# menu for special GUI settings                                               #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+menu	BrowserMenu	BrowserMenu		special browser settings
+html	SELECT
+inside	EnDeDOM.GUI.Browser
+id	EnDeDOM.GUI.Browser.s
+size	1
+onClick	EnDeGUI.quirks(this.value);
+
+# the browser menu uses the seach string to be passed to the URL in second column
+#head	option	Browser	Description
+#------+-------+-------+----------------------------------
+item3	_none_	-------	no special settings; default
+item3	useANCHOR	Opera	Opera special settings
+item3	title	Safari	Safari special settings
+item3	onChange&title	Chrome	Chrome special settings
+
+#------+---------------+-----------------------+------------------------------+
+menu	OnlyMenu	OnlyMenu		display just one tool
+html	SELECT
+inside	EnDeDOM.GUI.Only
+id	EnDeDOM.GUI.Only.s
+size	1
+onClick	EnDeGUI.fset(this.value);
+item3	_all_		--default--	show all tools
+item3	EnDeDOM.f.CH	Character	show Character tool only
+item3	EnDeDOM.f.ED	En-/Decoding	show En-/Decoding tool only
+item3	EnDeDOM.f.IP	IP		show IP tool only
+item3	EnDeDOM.f.TS	Timestamp	show Timestamp tool only
+item3	EnDeDOM.f.RX	RegEx		show RegEx tool only
+item3	EnDeDOM.f.TST	+ test		also show test tool
+item3	EnDeDOM.f.DBX	+ trace		also show trace/debug output
+
+
+# =========================================================================== #
+# menus for text manipulations                                                #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+#head	key		text			description
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Sample	general actions		text samples
+item3	clear		clear			clear input field
+item3	sample		sample			fill with sample
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Beautify	Beautify		make text human readable
+item3	splitArg	split (parameter)	replace & by \n
+item3	splitKey	split (key=value)	replace = by \t
+item3	splitDel	split (delimiter)	replace delimiter by \n
+item3	joinArg		join (parameter)	replace \n by &
+item3	joinKey		join (key=value)	replace \t by =
+item3	joinDel		join (delimiter)	replace \n by delimiter
+hide3	JSeval		JS eval()		evaluate text with JavaScript's eval()
+item3	JSDecode	JS Decoder		decode obfuscated JavaScript
+item3	JSFormat	JS/JSON Formater	simple formatter for packed Json/JavaScript
+item3	JSReg		JSReg (JavaScript sandbox)	evaluate obfuscated JavaScript with JSReg
+item3	toSource	.toSource()		use built.in .toSource() for formatting
+item3	image		show as image		try to use data as image for IMG tag
+item3	statistic	show statistic		show statistic (character, word, line count)
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Brackets	Brackets		beautify text with round brackets
+intern	true
+item3	addnl		insert \n		insert \n after (
+item3	delnl		remove \n		remove \n after (
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Append	Append			append special characters
+intern	true
+item3	txtAPPnl	\n			append \n at end of input field
+item3	txtAPPcr	\r			append \r at end of input field
+item3	txtAPPht	\t			append \t at end of input field
+item3	txtAPPvt	\v			append \v at end of input field
+item3	txtAPP00	\0			append \0 at end of input field
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Remove	Remove			delete special characters
+intern	true
+item3	txtDELnl	\n			delete all \n
+item3	txtDELcr	\r			delete all \r
+item3	txtDELht	\t			delete all \t
+item3	txtDELvt	\v			delete all \v
+item3	txtDEL00	\0			delete all \0
+item3	txtDELsp	space			delete all spaces
+item3	txtDELnon7b	non-printable ASCII	delete all non-printable chars anywhere
+item3	txtDELnon7bn	non-printable ASCII\n	delete non-printable chars (except \t, \r, \n) anywhere
+item3	txtDELnon128	non-7-Bit ASCII		delete characters > chr(127) anywhere
+item3	txtDELnon256	non-ASCII		delete characters > chr(256) anywhere
+item3	txtDELalnum	non-alpha-numeric	delete all non-alhpanumeric characters
+item3	txtDELsgml	angle brackets < >	delete all < > </ /> <!
+item3	txtDELmixed	mixed			delete all spaces, ", +, \t, \r, \n
+item3	txtDELfffx	\xfff0..\xffff		delete all characters \xfff0..\xffff
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Insert	Insert			insert special characters
+intern	true
+item3	txtINSnl	\n			insert \n at cursor position
+item3	txtINScr	\r			insert \r at cursor position
+item3	txtINSht	\t			insert \t at cursor position
+item3	txtINSvt	\v			insert \v at cursor position
+item3	txtINS00	\0			insert \0 at cursor position
+item3	txtINS4sp	space 4			insert space after every 4'th character from right
+item3	txtINS8sp	space 8			insert space after every 8'th character from right
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.UCS-ISO	insert 1 UCS Character	Unicode/ISO-8859-1 mismatch characters sequences
+realUCS
+item3	0722		"			" prefixed by ISO-8859-1 character
+item3	0727		'			' prefixed by ISO-8859-1 character
+item3	072f		/			/ prefixed by ISO-8859-1 character
+item3	073c		<			< prefixed by ISO-8859-1 character
+item3	073e		>			> prefixed by ISO-8859-1 character
+item3	075c		\			\ prefixed by ISO-8859-1 character
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.UCS-UTF	insert 2 UCS Characters	Unicode/UTF-8 mismatch characters sequences
+realUCS
+item3	e9b1 9c5c	\			\ prefixed by UTF-8 character
+item3	e9b5 9d5d	]			] prefixed by UTF-8 character
+item3	ea88 a222	"			" prefixed by UTF-8 character
+item3	eaa8 aa2a	*			* prefixed by UTF-8 character
+item3	eaa8 af2f	/			/ prefixed by UTF-8 character
+item3	eaa4 a525	%			% prefixed by UTF-8 character
+item3	ea9c a727	'			' prefixed by UTF-8 character
+item3	eaa4 a929	)			) prefixed by UTF-8 character
+item3	eab8 ae2e	.			. prefixed by UTF-8 character
+item3	eba8 ba3a	:			: prefixed by UTF-8 character
+item3	ebac bb3b	;			; prefixed by UTF-8 character
+item3	ebb0 bc3c	<			< prefixed by UTF-8 character
+item3	ebb5 bd7d	}			} prefixed by UTF-8 character
+item3	ebb8 be3e	>			> prefixed by UTF-8 character
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Replace	Replace			replace special characters
+intern	true
+item3	txtREPnl	\n			replace all \n by literal \n
+item3	txtREPcr	\r			replace all \r by literal \r
+item3	txtREPht	\t			replace all \t by literal \t
+item3	txtREPvt	\v			replace all \v by literal \v
+item3	txtREP00	\0			replace all \0 by literal \0
+item3	txtREPplus	+ by space		replace all + by space
+item3	txtREPspace	space by +		replace all space by +
+item3	txtREPdqsq	" by '			replace all " by '
+item3	txtREPsqdq	' by "			replace all ' by "
+item3	txtREPsqbt	' by `			replace all ' by `
+item3	txtREPqqqq	' <-> "			replace ' by " and " by ' anywhere in text, honor \-escaped quotes
+item3	txtREPstrdq	"+"			concatenate strings (remove " + ")
+item3	txtREPstrsq	'+'			concatenate strings (remove ' + ')
+item3	txtREPalnum	alpha-numeric by space	replace all non-alhpanumeric characters by spaces
+item3	txtREPascii	ascii			replace all non-printable 7-bit ASCII with hex value
+item3	txtREPsgml	angle brackets < >	replace all < > </ /> <! by a single space
+item3	txtREPuser	user			replace all characters in input field according replace map
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Special	Special			special text manipulations
+item3	txtREPdouble	duplicate \		duplicate all \
+item3	txtREPreduce	reduce \\		reduce all \\ to \
+item3	txtTrim		trim spaces		remove all leading and trailing spaces
+item3	txtXesc		convert to \x-escaped	convert all hex values to \x-escaped hex values (in Hex tab only)
+#------+---------------+-----------------------+------------------------------+
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Recursive	Recursive		recursive encodings
+item3	txtRECurl2	%hx -> %%hxhx		convert %hx -> %%hxhx
+item3	txtRECurl4	%h23x -> %%h23xh23x	convert %h23x -> %%h23xh23x
+item3	txtRECncrNAME	&name; -> &&name;name;	convert &name; -> &&name;name;
+item3	txtRECncrNUMBER	&#dd; -> &&#dd;#dd;	convert &#dd; -> &&#dd;#dd;
+#------+---------------+-----------------------+------------------------------+
+
+# =========================================================================== #
+# some special menus                                                          #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+group	Numbers		Numbers			various number conversions
+intern	true
+item3	hexINT		hex to integer		convert hex (string) value to integer value
+item3	hexBIN		hex to binary		convert hex (string) value to binary value
+item3	hexCHR		hex to character	convert hex (string) value to characters
+item3	intHEX		integer to hex		convert integer (string) value to hex value
+item3	intBIN		integer to binary	convert integer (string) value to binary value
+item3	binINT		binary to integer	convert binary (string) value to integer value
+item3	binHEX		binary to hex		convert binary (string) value to hex value
+
+#------+---------------+-----------------------+------------------------------+
+group	Characters	Characters		various character conversions
+intern	true
+item3	ebcdic		ASCII			convert ASCII to EBCDIC characters
+item3	ascii		EBCDIC			convert EBCDIC to ASCII characters
+item3	toCP1252	to CP-1252		convert from unicode base to Windows CP-1252 characters
+item3	fromCP1252	from CP-1252		convert from Windows CP-1252 to unicode base characters
+item3	hexCHR		hex to character	convert hex (string) value to characters
+
+#------+---------------+-----------------------+------------------------------+
+group	Fuzzy		Fuzzy decoding		various fuzzy decosings
+intern	true
+item3	oct3str		Octal using Options	octal decodings inside prefix and suffix, delimiter from API Options
+item3	dez3str		Decimal using Options	decimal decodings inside prefix and suffix, delimiter from API Options
+item3	hex2str		Hex using Options	hex decodings inside prefix and suffix, delimiter from API Options
+item3	fuzOCTsq	\-escaped in '		various \-escaped octal decodings inside ' (single quotes)
+item3	fuzOCTdq	\-escaped in "		various \-escaped octal decodings inside " (double quotes)
+item3	fuzUCSsq	\u-escaped in '		various \u-escaped Unicode decodings inside ' (single quotes),
+item3	fuzUCSdq	\u-escaped in "		various \u-escaped Unicode decodings inside " (double quotes)
+item3	fuzHEXsq	\x-escaped in '		various \x-escaped hex decodings inside ' (single quotes),
+item3	fuzHEXdq	\x-escaped in "		various \x-escaped hex decodings inside " (double quotes)
+item3	fuzHEXrb	\x-escaped in ()	various \x-escaped hex decodings inside () (round brackets)
+item3	fuzHEXsb	\x-escaped in []	various \x-escaped hex decodings inside [] (square brackets)
+item3	fuz0XXrb	0x-escaped in ()	various 0x-escaped hex decodings inside () (round brackets)
+item3	fuz0XXsb	0x-escaped in []	various 0x-escaped hex decodings inside [] (square brackets)
+item3	fuzURLsq	%-escaped in '		various %-escaped decodings inside ' (single quotes)
+item3	fuzURLdq	%-escaped in "		various %-escaped decodings inside " (double quotes)
+item3	fuzURLrb	%-escaped in ()		various %-escaped decodings inside () (round brackets)
+item3	fuzURLsb	%-escaped in []		various %-escaped decodings inside [] (square brackets)
+item3	fuzNCRsq	HTML Entities in '	various HTML Entities decodings inside ' (single quotes)
+item3	fuzNCRdq	HTML Entities in "	various HTML Entities decodings inside " (double quotes)
+
+# some dummy menus, used for [guess] menu only in EN.guess and DE.guess
+
+#------+---------------+-----------------------+------------------------------+
+group	HEX		HEX			various hex conversions
+item3	hex0		hex			dummy
+item3	hex1		hex with 1 or 2 digits	dummy
+item3	hex2		hex with 2 digits	dummy
+item3	hex3		hex with 3 digits	dummy
+item3	hex4		hex with 4 digits	dummy
+item3	hex5		hex with 5 digits	dummy
+item3	hex6		hex with 6 digits	dummy
+item3	hex7		hex with 7 digits	dummy
+item3	urlHEX		Hex (%XX)		dummy
+item3	ncrHEX		Hex2 (&amp;#xXX;)	dummy
+item3	ncrHEX4		Hex4 (&amp;#x00XX;)	dummy
+
+#------+---------------+-----------------------+------------------------------+
+group	DEZ		DEZ			various decimal conversions
+item3	dez0		decimal			dummy
+item3	dez1		decimal with 1 or 2 digits	dummy
+item3	dez2		decimal with 2 digits	dummy
+item3	dez3		decimal with 3 digits	dummy
+item3	dez4		decimal with 4 digits	dummy
+item3	dez5		decimal with 5 digits	dummy
+item3	dez6		decimal with 6 digits	dummy
+item3	dez7		decimal with 7 digits	dummy
+item3	ncrDEC		Number (&amp;#DD;)	dummy
+item3	ncrNUM		Decimal (&amp;#DD;)	dummy
+
+#------+---------------+-----------------------+------------------------------+
+group	OCT		OCT			various octal conversions
+item3	oct0		octal			dummy
+item3	oct1		octal with 1 or 2 digits	dummy
+item3	oct2		octal with 2 digits	dummy
+item3	oct3		octal with 3 digits	dummy
+item3	oct4		octal with 4 digits	dummy
+item3	oct5		octal with 5 digits	dummy
+item3	oct6		octal with 6 digits	dummy
+item3	oct7		octal with 7 digits	dummy
+
+#------+---------------+-----------------------+------------------------------+
+group	BIN		BIN			various binary conversions
+item3	bin8		binary 8 bit		dummy
+item3	bin7		binary 7 bit		dummy
+item3	bin6		binary 6 bit		dummy
+
+# =========================================================================== #
+# Encoding                                                                    #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+menu	Encoding	Encoding		encode with selected function
+html	ANCHOR
+inside	EnDeDOM.EN.Actions
+id	EnDeDOM.EN.Actions.s
+size	11
+onClick	return EnDeGUI.EN.dispatch(this,this.value);
+
+item3	urlUTF8		Url UTF-8 (%XX)		convert plain text to URL encoded text (none US-ASCII as UTF-8)
+item3	urlUni		Url Unicode (%XX%XX)	convert plain text to URL encoded text (none US-ASCII as Unicode)
+item3	urlHEX		Hex (%XX)		convert plain text to hexadecimal encoded text (all characters)
+item3	ncrNAME		Named (&amp;ent;)	convert plain text to named HTML Entity (meta characters only)
+item3	ncrDEC		Number (&amp;#DD;)	convert plain text to decimal HTML Entity (meta characters only)
+item3	ncrNUM		Decimal (&amp;#DD;)	convert plain text to decimal HTML Entity (all characters)
+item3	ncrHEX		Hex2 (&amp;#xXX;)	convert plain text to 1 byte hexadecimal HTML Entity (all characters)
+item3	ucsUTF8		UTF-8			convert plain text to UTF-8 encoded text
+item3	base64		Base64			encode to Base64 ([a-zA-Z0-9+/])
+item3	base64u		Url64			encode to Url64 (modified Base64 for URL, RFC4648)
+item3	hex		Hex			encode each character to its hex value
+item3	dez		Decimal			encode each character to its decimal value
+item3	oct		Octal			encode each character to its octal value
+item3	md5hex		MD5 (hex)		encode using MD5, return hex
+item3	md5b64		MD5 (base64)		encode using MD5, return base64
+item3	escHTML		HTML			escape HTML meta characters with numeric HTML Entities
+item3	escURL		URL			escape URL meta characters with URL encoding
+item3	escCSS		CSS			escape CSS meta characters with numeric HTML Entities
+item3	escJS		JavaScript		escape JavaScript meta characters using EnDe's own escape() function
+item3	escXML		XML			escape XML meta characters using EnDe's own XMLescape() function
+item3	escJava		Java			escape Java meta characters
+item3	escSQL		SQL			escape SQL meta characters
+item3	escQuote	Quote			escape all quotes; prefix with a \
+item3	JSURI		encodeURI()		encode using browser's built-in function encodeURI()
+item3	JSURICom	encodeURIComonent()	encode using browser's built-in function encodeURIComponent()
+item3	JSescape	escape()		escape characters using browser's built-in function escape()
+item3	JSbtoa		btoa() - Base64 	encode	encode using browser built-in function btoa()
+item3	repeat		Repeat			repeat last action
+
+#------+---------------+-----------------------+------------------------------+
+menu	EN.Guess	guess encoding		guess various encodings
+html	SELECT
+inside	EnDeDOM.EN.guess
+id	EnDeDOM.EN.guess.s
+size	1
+style	width:8em;
+onClick	return EnDeGUI.EN.dispatch(this,this.value);
+use	EN.genGuess
+
+#------+---------------+-----------------------+------------------------------+
+menu	EN.guess	guess		use all encodings
+# special menu used for EN.Guess menu (to avoid hardcoded list in EnDeGUI.js)
+#    all  keys  are used as regex (in EnDeGUI.init()) to match a 'use' key in 
+#    menu 'Encoding' (see above)
+#
+use	^HEX$
+use	^DEZ$
+use	^OCT$
+use	^EN\.*
+use	^Numbers
+use	^Characters
+use	^Encryption
+
+# =========================================================================== #
+# Decoding                                                                    #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+menu	Decoding	Decoding		decode with selected function
+html	ANCHOR
+inside	EnDeDOM.DE.Actions
+id	EnDeDOM.DE.Actions.s
+size	11
+onClick	return EnDeGUI.DE.dispatch(this,this.value);
+item3	urlCHR		Url (%XX)		convert URL encoded (meta characters only) text to plain text
+item3	urlUni		Url Unicode (%XX%XX)	convert URL encoded (none US-ASCII as Unicode) text to plain text
+item3	urlHEX		Hex (%XX)		convert hexadecimal encoded text to plain text (all characters)
+item3	ncrNAME	Named (&amp;ent;)		convert named HTML Entity to plain text (meta characters only)
+item3	ncrDEC	Number (&amp;#DD;)		convert dezimal HTML Entity to HTML Entity (meta characters only)
+item3	ncrNUM	Decimal (&amp;#DD;)		convert all decimal HTML Entity to plain text
+item3	ncrHEX	Hex2 (&amp;#xXX;)		convert 1 byte hexadecimal HTML Entity to plain text (all characters)
+item3	ucsUTF8		UTF-8			convert UTF-8 encoded text to plain text
+item3	base64		Base64			decode from Base64 ([a-zA-Z0-9+/])
+item3	base64u		Url64			decode from Url64 (modified Base64 for URL, RFC4648)
+item3	hex		Hex			decode each character from hex value
+item3	dez		Decimal			decode each character from decimal value
+item3	oct		Octal			decode each character from octal value
+item3	escHTML		HTML			unescape numeric HTML Entities
+item3	escURL		URL			unescape URL encoding
+item3	escCSS		CSS			unescape CSS numeric HTML Entities
+item3	escJS		JavaScript		unescape JavaScript
+item3	escXML		XML			unescape XML
+item3	escJava		Java			unescape Java meta characters
+item3	escSQL		SQL			unescape SQL meta characters
+item3	escQuote	Quote			unescape all quotes; prefixed with a \
+item3	JSURI		decodeURI()		decode using browser's built-in function decodeURI()
+item3	JSURICom	decodeURIComonent()	decode using browser's built-in function decodeURIComponent()
+item3	JSescape	unescape()		unscape characters using browser's built-in function unescape()
+item3	JSatob		atob() - Base64 decode	decode using browser built-in function atob()
+item3	repeat		Repeat			repeat last action
+
+#------+---------------+-----------------------+------------------------------+
+menu	DE.Guess	guess decoding		guess various decodings
+html	SELECT
+inside	EnDeDOM.DE.guess
+id	EnDeDOM.DE.guess.s
+size	1
+style	width:8em;
+onClick	return EnDeGUI.DE.dispatch(this,this.value);
+use	DE.genGuess
+
+#------+---------------+-----------------------+------------------------------+
+menu	DE.guess	guess		use all encodings
+# special menu used for DE.Guess menu (to avoid hardcoded list in EnDeGUI.js)
+#    all  keys  are used as regex (in EnDeGUI.init()) to match a 'use' key in 
+#    menu 'Decoding' (see above)
+#
+use	^HEX$
+#use	^DEZ$	#// ToDo: don't use as it is matched somewhere else below
+use	^OCT$
+use	^BIN$
+use	^DE\.*
+use	^Numbers
+use	^Characters
+use	^Decryption
+use	^Fuzzy
+
+# =========================================================================== #
+# IP Convertion                                                               #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+group	fromDotted	from (quad dotted) source	from (quad dotted) source
+onMouseover	EnDeGUI.IP.dispatch(this,"in:" +this.value);
+onMouseout	EnDeGUI.IP.dispatch(this,"out:"+this.value);
+item3	ip		IP			IP with 4 dot-separated integers ip.ip.ip.ip
+item3	ip6		IPv6			IPv6 with 3 colon-separated hex values xxxx:xxxx:xxxx
+item3	url		URL-encoded		IP URL-encoded %xx%2e%xx%2e%xx%2e%xx
+item3	hex		hex			IP with 4 dot-separated hex value: XX.xx.XX.xx
+item3	oct		octal			IP with 4 dot-separated octal value: oooo.OOOO.oooo.OOOO
+item3	bin		bin			IP with 4 dot-separated binary value: bbbbbbbb.bbbbbbbb.bbbbbbbb.bbbbbbbb
+
+#------+---------------+-----------------------+------------------------------+
+group	fromPlain	from (plain text) source 	from (plain text) source
+onMouseover	EnDeGUI.IP.dispatch(this,"in:" +this.value);
+onMouseout	EnDeGUI.IP.dispatch(this,"out:"+this.value);
+item3	big		64-bit integer		IP as  long (64-bit) integer 5002373674
+item3	num		32-bit integer		IP as short (32-bit) integer 707406378
+item3	xeh		hex			IP as hex value: 0xXXXXXXXX
+item3	bit		binary			IP as binary value: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+
+#------+---------------+-----------------------+------------------------------+
+menu	IP		IP Convertion		convert from selected source
+html	SELECT
+inside	EnDeDOM.IP.Actions
+id	EnDeDOM.IP.Actions.s
+orientation	vertical
+size	14
+onClick	return EnDeGUI.IP.dispatch(this,this.value);
+use	fromDotted
+use	fromPlain
+item3	repeat		Repeat			repeat last action
+
+# =========================================================================== #
+# Timestamp formats                                                           #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+menu	TS		TS Convertion		convert timestamp format
+html	SELECT
+inside	EnDeDOM.TS.format
+id	EnDeDOM.TS.format.s
+size	1
+onClick	return EnDeGUI.TS.dispatch(this,this.value);
+item3	2unix	Unix	convert to Unix timestamp format
+item3	2win	Windows	convert to Windows FILETIME (32bit) format
+item3	2asp	ASP.NET	convert to Windows  ASP.NET (64bit) format
+item3	2dos	DOS	convert to DOS timestamp format
+item3	2ole	OLE	convert to OLE timestamp format
+
+# =========================================================================== #
+# RegEx                                                                       #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+menu	RegEx		RegEx Convertion		RegEx Convertion
+html	ANCHOR
+inside	EnDeDOM.RE.Actions
+id	EnDeDOM.RE.Actions.s
+size	27
+onClick	return EnDeGUI.RE.dispatch(this,this.value);
+
+item3	:POSIX		POSIX			POSIX regular expressions
+item3	:Perl		Perl			Perl regular expressions
+item3	:PCRE		PCRE			Perl Compatible Regular Expressions
+item3	:ECMA-262	ECMA-262		ECMA JavaScript v3
+item3	:Java-code	Java code		Java program code
+item3	:.NET		.NET			.NET
+item3	:PHP		PHP			PHP
+item3	:Python		Python			Python
+item3	:Ruby		Ruby			Ruby
+item3	:Tcl		Tcl			TCL
+item3	:awk		awk			awk
+item3	:gawk		GNU awk			GNU awk
+item3	:grep		grep			grep
+item3	:ggrep		GNU grep		GNU grep
+item3	:egrep		egrep			egrep
+item3	:sed		sed			sed
+item3	:Emacs		Emacs			Emacs
+item3	:vi		vi			vi
+item3	:MySQL		MySQL			MySQL
+item3	:JavaScript	JavaScript 1.5		(ECMA) JavaScript 1.5
+item3	:VBScript	VBScript 5.5		VBScripts claims to be ECMA
+item3	repeat		Repeat			repeat last action
+
+# =========================================================================== #
+# Nested/stacked functions                                                    #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+group	FF.Actions	Buttons			show result in ..
+item3	enc		encoding		store result of execution in Encoding textarea
+item3	dec		decoding		store result of execution in Encoding textarea
+item3	win		window			show result of execution in new window
+item3	pad		scratchpad		store result of execution in Scratchpad Window
+item3	alert		alert			show result of execution in alert window
+item3	eval		eval			show result of evaluation in window
+item3	param		(describe parameters)	show description of parameters and values
+#------+---------------+-----------------------+------------------------------+
+menu	Functions	Functions		show result in ..
+html	BUTTON
+inside	EnDeDOM.FF.Actions
+id	EnDeDOM.FF.Actions.s
+size	5
+onClick	return EnDeGUI.FF.dispatch(this,this.value);
+use	FF.Actions
+
+
+# =========================================================================== #
+# text-beautify functions                                                     #
+# =========================================================================== #
+
+#------+---------------+-----------------------+------------------------------+
+menu	EN.Text		text manipulation	text manipulation functions
+html	SELECT
+inside	EnDeDOM.EN.Menu
+id	EnDeDOM.EN.Menu.s
+size	1
+onClick	return EnDeGUI.NN.dispatch(this,this.value);
+use	TXT.Sample
+use	TXT.Insert
+use	TXT.UCS-ISO
+use	TXT.UCS-UTF
+use	TXT.Append
+use	TXT.Remove
+use	TXT.Replace
+use	TXT.Special
+use	TXT.Recursive
+
+#------+---------------+-----------------------+------------------------------+
+menu	DE.Text		text manipulation	text manipulation functions
+html	SELECT
+inside	EnDeDOM.DE.Menu
+id	EnDeDOM.DE.Menu.s
+size	1
+onClick	return EnDeGUI.NN.dispatch(this,this.value);
+use	TXT.Sample
+use	TXT.Insert
+use	TXT.UCS-UTF
+use	TXT.Append
+use	TXT.Remove
+use	TXT.Replace
+use	TXT.Special
+use	TXT.Recursive
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Chars	character actions	text manipulation functions
+# this menu used for IP only
+item3	rmdot		remove 			remove all . (dot)  in all fields
+item3	rmcol		remove :		remove all : (colon)  in all fields
+item3	rmdash		remove -		remove all - (dash) in all fields
+item3	rmperc		remove %		remove all % (percent) in all fields
+item3	delim		delimiter		remove all delimiters in all fields
+item3	minus		negativ?		toggle natural number to negative int
+
+#------+---------------+-----------------------+------------------------------+
+menu	IP.Text		text manipulation	text manipulation functions
+html	SELECT
+inside	EnDeDOM.IP.Menu
+id	EnDeDOM.IP.Menu.s
+size	1
+onClick	return EnDeGUI.IP.dispatch(this,this.value);
+use	TXT.Sample
+use	TXT.Chars
+
+#------+---------------+-----------------------+------------------------------+
+menu	RE.Text		text manipulation	text manipulation functions
+html	SELECT
+inside	EnDeDOM.RE.Menu
+id	EnDeDOM.RE.Menu.s
+size	1
+onClick	return EnDeGUI.RE.dispatch(this,this.value);
+use	TXT.Sample
+use	TXT.Insert
+use	TXT.Append
+use	TXT.Remove
+use	TXT.Replace
+use	RE.Special
+use	TXT.Brackets
+
+#------+---------------+-----------------------+------------------------------+
+group	TXT.Opts	general actions		text manipulation functions
+item3	clear		clear			clear input field
+item3	prefix		Prefix			replace all prefix variables with current prefix value
+item3	suffix		Suffix			replace all suffix variables with current suffix value
+item3	delimiter	Delimiter		replace all delimiter variables with current delimiter value
+item3	JSlc		lower case		replace all uppercase variables with "false"
+item3	JSuc		upper case		replace all uppercase variables with "true"
+
+#------+---------------+-----------------------+------------------------------+
+menu	FF.Text		text manipulation	text manipulation functions
+html	SELECT
+inside	EnDeDOM.FF.Menu
+id	EnDeDOM.FF.Menu.s
+size	1
+onClick	return EnDeGUI.FF.dispatch(this,this.value);
+use	TXT.Opts
+
+
+# =========================================================================== #
+# special unicode characters                                                  #
+# =========================================================================== #
+
+#------+-------+-------+----------------------------------
+#head	Int	ASCII	Description
+#------+-------+-------+----------------------------------
+group	UCS.Spaces	Unicode Spaces		Unicode space characters
+# we don't have printable ASCII characters for various spaces
+# hence we use a _ instead
+item3	160	_	no break (required) space
+item3	5760	_	ogham space mark
+item3	6158	_	mongolian vowel separator
+item3	8192	_	en space (1/2-em)
+item3	8193	_	em space
+item3	8194	_	en space (1/2-em)
+item3	8195	_	em space
+item3	8196	_	1/3-em space
+item3	8197	_	1/4-em space
+item3	8198	_	1/6-em space
+item3	8199	_	figure space
+item3	8199	_	tabular width space
+item3	8199	_	digit space (width of a number)
+item3	8200	_	punctuation space (width of comma))
+item3	8201	_	thin space (1/6-em)
+item3	8201	_	space of width 3/18 em (ISOpub thinsp
+item3	8202	_	hair space
+item3	8202	_	space of width 1/18 em (ISOpub hairsp)
+item3	8203	_	zero width space
+item3	8204	_	zero width non-joiner
+item3	8205	_	zero width joiner
+item3	8232	_	line separator
+item3	8233	_	paragraph separator
+item3	8234	_	left to right embedding (aka Double Prime)
+item3	8235	_	-unknown-
+item3	8236	_	-unknown-
+item3	8237	_	-unknown-
+item3	8238	_	right to left override
+item3	8239	_	narrow no break space
+item3	8287	_	4/18-em space (medium mathematical space)
+item3	8288	_	word joiner
+item3	8289	_	function application (mathematical)
+item3	8290	_	invisible times (mathematical)
+item3	8291	_	invisible separator (mathematical)
+item3	8298	_	-unknown-
+item3	8299	_	-unknown-
+item3	12288	_	ideographic space (for CJK character)
+item3	59543	_	space of width 5/18 em
+item3	59544	_	space of width -1/18 em
+item3	59545	_	space of width -3/18 em
+item3	59546	_	space of width -4/18 em
+item3	59547	_	space of width -5/18 em
+item3	65279	_	byte order mark, big endian
+item3	65534	_	zero width non-breaking space
+
+#------+-------+-------+----------------------------------
+group	UCS.Angle.l	Unicode (left) Angle Brackets		Unicode left/right, pointing, double angel bracket characters
+item3	171	<<	angle quotation mark, left
+item3	8249	<	CP-1252 best-fit mapping single left-pointing angle quotation mark
+item3	8592	<--	leftward arrow
+item3	8656	<=	left arrow; is implied by
+item3	8678	<=	leftward white arrow
+item3	8804	=<	less-than-or-equal
+item3	8810	<<	double less-than sign
+item3	8920	<<<	triple less-than
+item3	9001	<	CP-1252 best-fit mapping left-pointing angle bracket
+item3	10092	<	medium left-pointing angle bracket ornament
+item3	10094	<	heavy left-pointing angle quotation mark ornament
+item3	10096	<	heavy left-pointing angle bracket ornament
+item3	10216	<	mathematical left angle bracket
+item3	10218	<<	mathematical left double angle bracket
+item3	10229	<--	long leftwards arrow
+item3	10232	<==	long leftwards double arrow
+item3	10235	<-|	long leftwards arrow from bar
+item3	10237	<=|	long leftwards double arrow from bar
+item3	11013	<=	leftward black arrow
+item3	12296	<	CP-1252 best-fit mapping for left angle bracket
+item3	12298	<<	CJK left double angle bracket
+item3	12337	<	CJK vertical kana repeat mark
+item3	12338	<	CJK vertical kana repeat mark with voiced sound mark
+item3	49323	<<	UTF-8 angle quotation mark, left (c0ab)
+item3	49339	>>	UTF-8 angle quotation mark, right (c0bb)
+item3	65124	<	full width left arrow
+item3	65308	<	full width big left arrow
+item3	65513	<-	halfwidth leftwards arrow
+
+#------+-------+-------+----------------------------------
+group	UCS.Angle.r	Unicode (right) Angle Brackets		Unicode left/right, pointing, double angel bracket characters
+item3	187	>>	angle quotation mark, right
+item3	2023	>	-unknown-
+item3	8250	>	CP-1252 best-fit mapping single right-pointing angle quotation mark
+item3	8594	-->	rightward arrow
+item3	8658	=>	right arrow; implies
+item3	8805	>=	greater-than-or-equal
+item3	8811	>>	double greater-than sign
+item3	8921	>>>	triple gtr-than
+item3	9002	>	CP-1252 best-fit mapping right-pointing angle bracket
+item3	10093	>	medium right-pointing angle bracket ornament
+item3	10095	>	heavy right-pointing angle quotation mark ornament
+item3	10097	>	heavy right-pointing angle bracket ornament
+item3	10145	=>	reightward black arrow
+item3	10217	>	mathematical right angle bracket
+item3	10219	>>	mathematical right double angle bracket
+item3	10230	-->	long rightwards arrow
+item3	10233	==>	long rightwards double arrow
+item3	10236	|->	long rightwards arrow from bar
+item3	10238	|=>	long rightwards double arrow from bar
+item3	10239	-->	long rightwards squiggle arrow
+item3	12297	>	CP-1252 best-fit mapping for right angle bracket
+item3	12299	>>	CJK right double angle bracket
+item3	65125	>	full width right arrow
+item3	65310	>	full width big right arrow
+item3	65515	->	halfwidth rightwards arrow
+
+#------+-------+-------+----------------------------------
+group	UCS.Angle.d	Unicode left/right Angle Brackets		Unicode left/right, pointing, double angel bracket characters
+item3	8596	<->	left and right arrow
+item3	8660	<=>	left and right double arrow
+item3	10231	<->	long left right arrow
+item3	10234	<=>	long left right double arrow
+item3	11012	<=>	left right white arrow
+item3	11020	<=>	left right black arrow
+
+#------+-------+-------+----------------------------------
+group	UCS.Curly	Unicode Curly Brackets		Unicode left/right curly bracket characters
+item3	10100	{	medium left curly bracket ornament
+item3	10101	}	medium right curly bracket ornament
+item3	65115	{	fullwidth curly left bracket
+item3	65116	}	fullwidth curly right bracket
+item3	65371	{	fullwidth big curly left bracket
+item3	65373	}	fullwidth big curly right bracket
+
+#------+-------+-------+----------------------------------
+group	UCS.Square	Unicode Square Brackets		Unicode left/right square bracket characters
+item3	2045	[	-unknown-
+item3	2046	]	-unknown-
+item3	10098	[	light left totoise shell bracket ornament
+item3	10099	]	light right totoise shell bracket ornament
+item3	10214	[[	mathematical left white square bracket
+item3	10215	]]	mathematical right white square bracket
+item3	10220	[	mathematical left white totoise shell bracket
+item3	10221	]	mathematical right white totoise shell bracket
+item3	12304	[(	CJK left black lenticular bracket
+item3	12305	)]	CJK right black lenticular bracket
+item3	12308	[	CJK left totoise shell bracket
+item3	12309	]	CJK right totoise shell bracket
+item3	12310	[(	CJK left white lenticular bracket
+item3	12311	)]	CJK right white lenticular bracket
+item3	12312	[|	CJK left white totoise shell bracket
+item3	12313	|]	CJK right white totoise shell bracket
+item3	12314	[[	CJK left white square bracket
+item3	12315	]]	CJK right white square bracket
+
+#------+-------+-------+----------------------------------
+group	UCS.Round	Unicode Round Brackets		Unicode left/right round bracket characters
+item3	9789	(	first quarter moon
+item3	9790	)	last quarter moon
+item3	10088	(	medium left paranthesis ornament
+item3	10089	)	medium right paranthesis ornament
+item3	10090	(	medium flattened left paranthesis ornament
+item3	10091	)	medium flattened right paranthesis ornament
+item3	11816	(	left double paranthesis
+item3	11817	)	right double paranthesis
+item3	12304	[(	CJK left black lenticular bracket
+item3	12305	)]	CJK right black lenticular bracket
+item3	12308	(	CJK left tortoise shell bracket
+item3	12309	)	CJK right tortoise shell bracket
+item3	12310	[(	CJK left white lenticular bracket
+item3	12311	)]	CJK right white lenticular bracket
+item3	21202	(	subset of
+item3	21203	)	suoerset of
+item3	21206	(=	subset of or equal to
+item3	21207	)=	suoerset of or equal to
+item3	65375	((	full width left white paranthesis
+item3	65376	))	full width right white paranthesis
+
+#------+-------+-------+----------------------------------
+group	UCS.Slash	Unicode Slashes		Unicode Slashes
+item3	165	\	yen sign, best-fit mapping
+item3	2044	/	CP-1252 best-fit mapping fraction slash
+item3	8260	/	fraction slash (mathematical)
+item3	8725	/	CP-1252 best-fit mapping division slash (2215)
+item3	8726	\	CP-1252 best-fit mapping set minus (reverse solidus)
+item3	9585	/	Box drawing light diagonal slash (2571)
+item3	12339	/	CJK vertical kana repeat mark upper half
+item3	12340	/^	CJK vertical kana repeat mark upper half with voiced sound mark
+item3	12341	\	CJK vertical kana repeat mark lower half
+item3	49199	/	UTF-8 slash (c02f)
+item3	49244	\	UTF-8 backslash (c05c)
+item3	49436	/	-unknown- slash (c11c)
+item3	49327	/	UTF-8 slash (c0af: high bit in second nibble)
+item3	49372	\	UTF-8 backslash (c0dc: high bit in second nibble)
+item3	49564	/	-unknown- slash (c19c: high bit in second nibble)
+item3	49583	/	-unknown-
+item3	65294	/	Fullwidth Slash (ff0f)
+
+#------+-------+-------+----------------------------------
+group	UCS.Bar		Unicode Bars		Unicode Bars
+item3	8214	||	double bar
+
+#------+-------+-------+----------------------------------
+group	UCS.Dash	Unicode Dashes		Unicode Dashes
+item3	173	-	soft hyphen, aka shy (ad)
+item3	3851	-	Tibetan Mark Intersyllabic Tsheg (0f0b)
+item3	3852	-	Tibetan Mark Delimiter Tsheg Bstar (0f0c)
+item3	8208	-	non-breaking hyphen (short)
+item3	8209	-	non-breaking hyphen (long1)
+item3	8210	-	non-breaking hyphen (very long)
+item3	8211	-	non-breaking hyphen (medium1)
+item3	8212	-	non-breaking hyphen (medium2)
+item3	8213	-	non-breaking hyphen (long2)
+item3	8215	_	(fat) underscore
+
+#------+-------+-------+----------------------------------
+group	UCS.Dot	Unicode Dots		Unicode Dots
+item3	49198	.	UTF-8 dot (c02e)
+item3	49326	.	UTF-8 dot (c0ae: high bit in second nibble)
+item3	176	.	Degree Sign (b0)
+item3	183	.	Middle Dot (0b7)
+item3	1793	.	Syriac Supralinear Full Stop (0701)
+item3	1794	.	Syriac Sublinear Full Stop (0702)
+item3	1797	..	Syriac Horizontal Colon (0705)
+item3	730	o	Ring Above (2da)
+item3	778	o	Combining Ring Above (30a)
+item3	903	.	Greek ano Teleia (0387)
+item3	1748	.	Arabic Full Stop (06d4)
+item3	3851	-	Tibetan Mark Intersyllabic Tsheg (0f0b)
+item3	3852	.	Tibetan Mark Delimiter Tsheg Bstar (0f0c)
+item3	8226	.	Bullet (2022)
+item3	8228	.	CP-1252 best-fit mapping, One Dot Leader (2024)
+item3	8229	..	CP-1252 best-fit mapping, Two Dot Leader (2025)
+item3	8230	...	CP-1252 best-fit mapping, Three Dot Leader (2026)
+item3	8231	.	Hyphenation Point (2027)
+item3	8304	o	Superscript Zero (2070)
+item3	8728	o	Ring Operator (2218)
+item3	8729	.	Bullet Operator (2219)
+item3	8901	.	Dot Operator (22c5)
+item3	9688	.	inverse Bullet (25d8)
+item3	9702	.	white Bullet (25e6)
+item3	12539	.	Katakana Middle Dot (30fb)
+item3	65106	.	Small Full Stop (fe52)
+item3	65294	.	Fullwidth Full Stop (ff0e)
+
+#------+-------+-------+----------------------------------
+group	UCS.Comma	Unicode Commas		Unicode Commas
+item3	184	,	comma
+item3	1548	,	Arabic Comma (060c)
+item3	65104	,	Small Comma (fe50)
+item3	65292	,	Fullwidth Comma (ff0c)
+
+#------+-------+-------+----------------------------------
+group	UCS.Semicolon	Unicode Semicolons	Unicode Semicolons
+item3	894	;	Greek Question Mark (037e)
+item3	1563	;	Arabic Semicolon (061b)
+item3	8271	;	Reversed Semicolon (204f)
+item3	10783	;	Z Notation Schema Composition (2a1f)
+item3	10814	;	Z Notation Relational Composition (2a3e)
+item3	65108	;	Small Semicolon (fe54)
+item3	65307	.	Fullwidth Semicolon (ff1b)
+
+#------+-------+-------+----------------------------------
+group	UCS.Quote	Unicode Quotes		Unicode quotaion marks and comma
+item3	329	'n	small n, apostrophe
+item3	700	'	rising single quote, right (high)
+item3	712	'	apostrophe
+item3	8216	'	single quotation mark, left
+item3	8217	'	single quotation mark, right
+item3	8218	,	rising single quote, left (low)
+item3	8219	`	rising single quote, left (high)
+item3	8220	"	double quotation mark, left
+item3	8221	"	double quote, right (high)
+item3	8222	"	rising double quote, left (low)
+item3	8223	"	rising double quote, left (high)
+item3	8242	'	prime
+item3	8243	"	double prime
+item3	8244	'"	tripple prime
+item3	8245	`	reversed prime
+item3	8246	"	reversed double prime
+item3	8247	`"	reversed tripple prime
+item3	12319	"	double prime quotation mark (low)
+item3	33319	'	-unknown-
+item3	33376	'	-unknown-
+item3	65040	`	presentation from for vertical comma
+item3	65041	`	presentation from for vertical idiographic comma
+item3	65093	`	fullwidth sesame dot
+item3	65104	,	fullwidth comma (small comma)
+item3	65104	`	fullwidth small idiographic comma
+item3	65282	"	fullwidth double quote
+item3	65287	'	fullwidth single quote
+item3	65292	,	fullwidth big comma
+
+#------+-------+-------+----------------------------------
+group	UCS.Numbers	Unicode Numbers			Unicode Numbers
+item3	4969	[1]	Ethiopic Cherokee one
+item3	4970	[2]	Ethiopic Cherokee two
+item3	4971	[3]	Ethiopic Cherokee three
+item3	4972	[4]	Ethiopic Cherokee four
+item3	4973	[5]	Ethiopic Cherokee five
+item3	4974	[6]	Ethiopic Cherokee six
+item3	4975	[7]	Ethiopic Cherokee seven
+item3	4976	[8]	Ethiopic Cherokee eight
+item3	4977	[9]	Ethiopic Cherokee nine
+item3	4978	[10]	Ethiopic Cherokee ten
+item3	5102	6	Ethiopic Cherokee "6"
+item3	5101	9	Ethiopic Cherokee "9"
+item3	9312	o1	circled digit one
+item3	9313	o2	circled digit two
+item3	9314	o3	circled digit three
+item3	9315	o4	circled digit four
+item3	9316	o5	circled digit five
+item3	9317	o6	circled digit six
+item3	9318	o7	circled digit seven
+item3	9319	o8	circled digit eight
+item3	9320	o9	circled digit nine
+item3	9332	(1)	parenthesized digit one
+item3	9333	(2)	parenthesized digit two
+item3	9334	(3)	parenthesized digit three
+item3	9335	(4)	parenthesized digit four
+item3	9336	(5)	parenthesized digit five
+item3	9337	(6)	parenthesized digit six
+item3	9338	(7)	parenthesized digit seven
+item3	9339	(8)	parenthesized digit eight
+item3	9340	(9)	parenthesized digit nine
+item3	9352	1.	digit one full stop
+item3	9353	2.	digit two full stop
+item3	9354	3.	digit three full stop
+item3	9355	4.	digit four full stop
+item3	9356	5.	digit five full stop
+item3	9357	6.	digit six full stop
+item3	9358	7.	digit seven full stop
+item3	9359	8.	digit eight full stop
+item3	9360	9.	digit nine full stop
+
+#------+-------+-------+----------------------------------
+group	UCS.Dingbats	Unicode Dingbats		Unicode Dingbats
+item3	10132	->	heavy wide-headed rightwards arrow
+item3	10137	->	heavy rightwards arrow
+item3	10139	->	drafting point rightwards arrow
+item3	10140	->	heavy round-tripped rightwards arrow
+item3	10141	->	triangle-headed rightwards arrow
+item3	10142	->	heavy triangle-headed rightwards arrow
+item3	10143	->	dashed triangle-headed rightwards arrow
+item3	10144	->	heavy dashed triangle-headed rightwards arrow
+item3	10145	->	black rightwards arrow
+item3	10146	->	thre-D top-lighted rightwards arrow
+item3	10147	->	thre-D bottom-lighted rightwards arrow
+item3	10148	->	black rightwards arrowhead
+item3	10149	->	heavy black curved downwards and rightwards arrow
+item3	10150	->	heavy black curved upwards and rightwards arrow
+item3	10151	->	squat black rightwards arrow
+item3	10152	->	heavy concave-pointed black rightwards arrow
+item3	10153	->	right-shaded white rightwards arrow
+item3	10154	->	left-shaded white rightwards arrow
+item3	10155	->	black-tiled shadowed white rightwards arrow
+item3	10156	->	front-tiled shadowed white rightwards arrow
+item3	10157	->	heavy lower right-shadowed white rightwards arrow
+item3	10158	->	heavy upper right-shadowed white rightwards arrow
+item3	10159	->	notched lower right-shadowed withe rightwards arrow
+item3	10161	->	notched upper right-shadowed withe rightwards arrow
+item3	10168	->	heavy black-feathered rightwards arrow
+item3	10169	->	heavy black-feathered north east arrow
+item3	10170	->	teardrope-bared rightwards arrow
+item3	10171	->	heavyteardrope-shanked rightwards arrow
+item3	10172	->	wedge-tailed rightwards arrow
+item3	10173	->	heavy wedge-tailed rightwards arrow
+item3	10174	->	open-outlined rightwards arrow
+
+#------+-------+-------+----------------------------------
+group	UCS.Latin-eq	Unicode Latin equivalents		Unicode Latin Character equivalents
+item3	1047	3	capital ZE, Cyrillic
+item3	1040	A	capital A, Cyrillic
+item3	1044	A	capital DE, Cyrillic
+item3	1072	a	small a, Cyrillic
+item3	1041	b	capital BE, Cyrillic
+item3	1042	B	capital VE, Cyrillic
+item3	1089	C	capital C, Cyrillic
+item3	1073	d	small be, Cyrillic
+item3	1045	E	capital IE, Cyrillic
+item3	628	E	Cyrillic N
+item3	1077	e	small e, Cyrillic
+item3	1105	e"	small e with umlaut, Cyrillic
+item3	1110	i	small i, Cyrillic
+item3	1112	j	small j, Cyrillic
+item3	186	o	ordinal indicator, masculine
+item3	559	o	small o with dot
+item3	959	o	small omicron, Greek
+item3	1086	o	small o, Cyrillic
+item3	1147	o	(small o)
+item3	3664	o	(small o, Thai)
+item3	59178	o	small omega, Greek
+item3	59179	O	capital omega, Greek
+item3	65327	O	capital O, fullwidth
+item3	1086	O	capital O, Cyrillic
+item3	65359	o	small o, fullwidth
+item3	65463	O	(capital O)
+item3	447	p	(small p)
+item3	961	p	small rho, Greek
+item3	1511	p	(small p)
+item3	1056	P	capital ER, Cyrillic
+item3	1088	p	small er, Cyrillic
+item3	59164	p	small rho, Greek
+item3	65328	P	capital P, fullwidth
+item3	65360	p	small p, fullwidth
+item3	640	R	Cyrillic Extended-B
+item3	1000	s	(small S; Greek/Coptic)
+item3	1029	S	capital DSE, Macedonian
+item3	1109	s	small dse, Macedonian, Cyrillic
+item3	4285	S	(capital S)
+item3	65331	S	capital S, fullwidth
+item3	65363	S	small s, fullwidth
+item3	306	IJ	capital IJ ligature
+item3	307	ij	small ij ligature
+item3	1094	u,	small tse, Cyrillic
+item3	7796	U	capital Upsilon, Greek
+item3	8746	u	union or logical sum
+item3	8845	u.	union with dot
+item3	8846	u+	big plus sign in union
+item3	8852	u	square union operator
+item3	8899	U	union operator
+item3	8915	UU	doublecup; double union
+item3	1096	w	small sha, Cyrillic
+item3	1093	s	small x, Cyrillic
+item3	933	Y	capital Upsilon, Greek
+item3	965	y	small upsilon, Greek
+item3	978	Y	capital Upsilon, Greek
+item3	1091	y	small u, Cyrillic
+item3	59170	y	small upsilon, Greek
+item3	59171	Y	capital Upsilon, Greek
+
+#------+-------+-------+----------------------------------
+group	UCS.Typograph	Unicode typographic characters		Unicode typographic characters
+item3	2023	>	-unknown-
+item3	8249	<	CP-1252 best-fit mapping single left-pointing angle quotation mark
+item3	8250	>	CP-1252 best-fit mapping single right-pointing angle quotation mark
+item3	8208	-	non-breaking hyphen (short)
+item3	8216	'	single quotation mark, left
+item3	8217	'	single quotation mark, right
+item3	8218	,	rising single quote, left (low)
+item3	8219	`	rising single quote, left (high)
+item3	8220	"	double quotation mark, left
+item3	8221	"	double quote, right (high)
+item3	8222	"	rising double quote, left (low)
+item3	8223	"	rising double quote, left (high)
+item3	8242	'	prime
+item3	8243	"	double prime
+item3	8244	'"	tripple prime
+item3	8245	`	reversed prime
+item3	8246	"	reversed double prime
+item3	8247	`"	reversed tripple prime
+item3	8228	.	CP-1252 best-fit mapping, One Dot Leader (2024)
+item3	8231	.	Hyphenation Point (2027)
+
+#------+---------------+-----------------------+------------------------------+
+#head	key		text			description
+#------+---------------+-----------------------+------------------------------+
+menu	CH.Unicode	Unicode			various Unicode characters
+html	SELECT
+inside	EnDeDOM.CH.Menu
+id	EnDeDOM.CH.Menu.s
+realCHR	true
+size	1
+onClick	return EnDeGUI.CH.dispatch(this,this.value);
+use	UCS.Angle.l
+use	UCS.Angle.r
+use	UCS.Angle.d
+use	UCS.Curly
+use	UCS.Square
+use	UCS.Round
+use	UCS.Quote
+use	UCS.Slash
+use	UCS.Dash
+use	UCS.Bar
+use	UCS.Dot
+use	UCS.Comma
+use	UCS.Semicolon
+use	UCS.Spaces
+use	UCS.Numbers
+use	UCS.Dingbats
+use	UCS.Latin-eq
+use	UCS.Typograph
+
+#------+---------------+-----------------------+------------------------------+
+menu	MP.Unicode	Unicode			various Unicode characters
+html	SELECT
+inside	EnDeDOM.MP.Menu
+id	EnDeDOM.MP.Menu.s
+realCHR	true
+size	1
+onClick	return EnDeGUI.MP.setChar(this,this.value);
+use	UCS.Angle.l
+use	UCS.Angle.r
+use	UCS.Angle.d
+use	UCS.Curly
+use	UCS.Square
+use	UCS.Round
+use	UCS.Quote
+use	UCS.Slash
+use	UCS.Spaces
+use	UCS.Numbers
+use	UCS.Dingbats
+use	UCS.Latin-eq
+
+__END

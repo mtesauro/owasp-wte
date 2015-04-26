@@ -1,0 +1,98 @@
+#
+#?
+#? NAME
+#?      EnDeTest-base.txt - test data for all Base-XX encodings
+#?
+#? DESCRIPTION
+#?      Test data for EnDeBase.js
+#?      Test vectos mainly from: http://www.ietf.org/rfc/rfc4648.txt
+#?
+#? SEE ALSO
+#?      EnDeTest.js
+#?
+#? VERSION
+#?      @(#) EnDeTest-Base.txt 1.1 10/05/29 22:13:02
+#?
+#? AUTHOR
+#?      29-may-10 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =============================================================================
+
+__DATA
+
+#------+----------------------------------------------------------------
+#keyw.  string to be processed by coding/hashing/encryption/...
+#------+----------------------------------------------------------------
+_data	¤uro
+_salt	 
+_mode	encode
+#_mode	en-/decode
+
+_title	Base16
+#------+--------------------------------------------------------
+#   BASE16("")       = ""
+_data	f
+base16	66
+_data	fo
+base16	666F
+_data	foo
+base16	666F6F
+_data	foob
+base16	666F6F62
+_data	fooba
+base16	666F6F6261
+_data	foobar
+base16	666F6F626172
+
+_title	Base32
+#------+--------------------------------------------------------
+#   BASE32("")       = ""
+_data	f
+base32	MY======
+_data	fo
+base32	MZXQ====
+_data	foo
+base32	MZXW6===
+_data	foob
+base32	MZXW6YQ=
+_data	fooba
+base32	MZXW6YTB
+_data	foobar
+base32	MZXW6YTBOI======
+
+_title	Base32-Hex
+#------+--------------------------------------------------------
+#   BASE32-HEX("") = ""
+_data	f
+base32h	CO======
+_data	fo
+base32h	CPNG====
+_data	foo
+base32h	CPNMU===
+_data	foob
+base32h	CPNMUOG=
+_data	fooba
+base32h	CPNMUOJ1
+_data	foobar
+base32h	CPNMUOJ1E8======
+
+_title	Base64
+#------+--------------------------------------------------------
+#   BASE64("") = ""
+_data	f
+base64	Zg==
+_data	fo
+base64	Zm8=
+_data	foo
+base64	Zm9v
+_data	foob
+base64	Zm9vYg==
+_data	fooba
+base64	Zm9vYmE=
+_data	foobar
+base64	Zm9vYmFy
+
+_title	Base64
+#------+--------------------------------------------------------
+_data	¤uro
+_data	â‚¬uro
+base64	IKx1cm8=

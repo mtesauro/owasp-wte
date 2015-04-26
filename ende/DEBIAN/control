@@ -1,0 +1,10 @@
+Package: owasp-wte-ende
+Section: misc
+Priority: extra
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.0rc11
+Depends: firefox | iceweasel
+Recommends: owasp-wte-firefox
+Description: EnDe - Encoder, Decoder, Converter, Calculator, TU WAS DU WILLST ..
+ for various codings used in the wild wide web

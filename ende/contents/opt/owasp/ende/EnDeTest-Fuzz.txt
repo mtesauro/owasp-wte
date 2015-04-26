@@ -1,0 +1,38 @@
+#
+#?
+#? NAME
+#?      EnDeTest-Fuzz.txt - test data for all "fuzzy" decodings
+#?
+#? DESCRIPTION
+#?      Test data for various fuzzy and loose decings
+#?
+#? SEE ALSO
+#?      EnDeTest.js
+#?
+#? VERSION
+#?      @(#) EnDeTest-Fuzz.txt 1.1 12/06/09 20:36:20
+#?
+#? AUTHOR
+#?      29-may-12 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =============================================================================
+
+__DATA
+
+#------+----------------------------------------------------------------
+#keyw.  string to be processed by coding/hashing/encryption/...
+#------+----------------------------------------------------------------
+_data	dumm
+_salt	 
+#_mode	encode
+#_mode	en-/decode
+
+_mode	decode
+_title		Loose Decoding inside '
+_data		before'cafe\042quote\47d\42out'after
+fuzOCTsq	before'cafe"quote'd"out'after
+
+_title		Loose Decoding inside "
+_data		before"cafe\042quote\47d\42out"after
+fuzOCTdq	before"cafe"quote'd"out"after
+
+# more ...

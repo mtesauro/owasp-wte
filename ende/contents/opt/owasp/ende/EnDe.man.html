@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type"  content="text/html; charset=utf-8" >
+	<title>EnDe Help</title>
+	<meta name="DC.rights"        content="https://github.com/EnDe/EnDe license.txt" >
+	<meta name="DC.license"       content="https://github.com/EnDe/EnDe license.txt" >
+	<meta name="DC.Source"        content="@(#) EnDe.man.html 3.8 12/06/09 17:50:03" >
+	<meta name="DC.Date"          content="28-jun-08" >
+	<meta name="DC.creator"       content="Achim Hoffmann" >
+	<meta name="DC.Author"        content="Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net" >
+	<link rel="stylesheet" charset="utf-8" type="text/css"        href="EnDe.css" >
+	<script                charset="utf-8" type="text/javascript" language="JavaScript1.5" >
+//<![CDATA[
+if (typeof(EnDe)==='undefined') { EnDe = new function() {}; }
+EnDe.Man    = new function() {
+  function $(id) { return document.getElementById(id); };
+  this.SID  = '3.8';
+  this.mode = true;	// true if page should be in HTML format, otherwise plain text
+  this.html = 'EnDe.man.html';// myself
+  if (this.html == '%' + 'M%') { this.html = 'EnDe.man.html'; } // fix SCCS inconvenience
+  this.file = '';   // name of last read file
+  this.text = '';   // holds the text read from the file
+  this.flag = 0;    // initialisation count
+  this.force= false;// force HTMl escaping all data if set to true
+  this.nav  = function() {
+	return '<button class="go" title="go to previous location" onClick="history.back()">&#x3c;</button>&#160;'
+	     + '<button class="go" title="go to top of page"       onClick="location.href=\'#CONTENT\'">^</button>';
+  };
+  this.fileanchor = function() {
+  //#? check if anchor is myself, otherwise return this.html
+  	if (this.file == this.html) { return ''; }
+	return this.html;
+  };
+  this.str2anchor = function(src) {
+  //#? replace all characters excpet a-zA-Z0-9_ with _
+	src = src.replace(/^\s*/g, '');
+	src = src.replace(/\s*$/g, '');
+	src = src.replace(/\.$/g,  ''); // contribution to anchor followed by full stop
+	return(src.replace(/[^a-zA-Z0-9_]/g,'_'));
+  };
+  this.parse   = function(src) {
+  //#? read plain text and convert to HTML, return converted text
+	/* as the given text is mangeld with tags, DOM cannot be used
+	 */
+  	var bux = '';
+	var bbb = null;
+	var ccc = null;
+	var kkk = new Array(99);
+	var lll = new Array(99);
+	var ul  = 0;
+	var ol  = 0;
+	var hx  = 0;
+	var box = ''; // set empty for opening tag, set to '/' for closing tag
+	var arr = src.split('\n');
+
+	for (var i in arr) { // each line of text
+		if (bbb!=null) { bbb.length = 0; } // reset
+
+		if (arr[i].match(/^\s+@\(#\)/) != null) { // detect SCCS pattern
+			bux += arr[i] + EnDe.VERSION;
+			continue;
+		}
+// ToDo: make one function to be called as replacement function for all following anon functions
+// something like:  this.replace('mode',arg1,arg2,arg3,arg4);
+// ToDo: remove some dirty hacks below
+		/*
+^		 * first do the global replaces which apply to all lines
+		 */
+		/* EnDe */
+		bbb = arr[i].replace(/(EnDe(?:RE)?)(?![a-zA-Z\/*'>\.-])/g, function(c){return '<ende>'+c+'</ende>';});
+		arr[i] = bbb;
+		bbb = arr[i].replace(/(TU WAS DU WILLST \.\.)(?![a-zA-Z\.-])/g, function(c){return '<ende>'+c+'</ende>';});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+		bbb = arr[i].replace(/(Do what you w...)/, function(c){return '<ende>'+c+'</ende>';});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* replace brackets followed by a space with <"zero width space" */
+		/*
+		 * using tags like <tag would be rendered invisible in most
+		 * browsers; adding a space right to < looks ugly and inhibits
+		 * copy&paste the text; using the entity &#lt; will not be
+		 * rendered as <
+		 * hence we add a "zero width space" as real character
+		 * that looks perfect and copy&paste works too (except on Macs
+		 * which are too clever ;-)
+		 */
+		bbb = arr[i].replace(/(?:<\s+)([a-zA-Z\/])/g, function(c,d){return '<'+String.fromCharCode(8203)+d;});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* replace & with entity */
+		bbb = arr[i].replace(/(&)/g, '&#38;');
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* text marked as code is enclosed in ' */
+		bbb = arr[i].replace(/(\s)(?:')([^']*)(?:')/g, function(c,d,e){return d+'<tt>'+e+'</tt>';});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* exposed text is enclosed in " */
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+		if (arr[i].match(/^\|/)==null) {
+			/* do not markup if we are inside a codebox
+			 * detected "quoted" strings is tricky:
+			 * we also allow ("quoted"), hence the ( right behind the \s
+			 */
+			bbb = arr[i].replace(/(\s\(?)(?:")([^"]*)(?:")/g, function(c,d,e){return d+'<em>'+e+'</em>';});
+			arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+		}
+
+		/* [ < ] buttons for internal links */
+		/*	ugly hack: first match (\s*) required and used in replacement for proper formating */
+		bbb = arr[i].replace(/(\s*)\[( [\<\^] )\]/g, function(c,d,e){return d+'<button class="go">'+e+'</button>';});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* [text] buttons should be exposed */
+		bbb = arr[i].replace(/(\s)(\[[a-zA-Z>\?-][^\]]*\])/g, function(c,d,e){return d+'<dfn>'+e+'</dfn>';});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* references like [1] */
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+		bbb = arr[i].replace(/(?: )(\[[1-9]\d*\]*)/g, function(c,d){return '<sup><a class="ref" href="#_'+d+'">'+d+'</a></sup>';});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* local links http:xxx */
+		bbb = arr[i].replace(/(?:\shttp:)([^\/][^\s]+)/g, function(c,d){return ' <a class="man" target="_new" title="show in new window" href="'+d+'">'+d+'</a>';});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* external links http://xxx */
+		bbb = arr[i].replace(/(?:\s)(https?:\/\/[^\s]+)(?:\s+)(.*)$/g, function(c,d,e,f){return ' <a class="man" target="_new" title="external site in new window" href="'+d+'">'+d+'</a> '+e+'';});
+		arr[i] = bbb; if (bbb!=null) { bbb.length = 0; }
+
+		/* codebox starting/ending with +-- and inbetween starting with | */
+		if (arr[i].match(/^\|/) != null) {
+			bux += arr[i].replace(/^\|\t/,'') + '\n';
+			continue;
+		}
+		if (arr[i].match(/^\+[-]+/) != null) {
+			if (box == '') {
+				box = '/';
+				bux += '<div class="samp">';
+			} else {
+				bux += '</div>';
+				box = '';
+			}
+			continue;
+		}
+
+		/* references */
+		if (arr[i].match(/^\s+\[/) != null) {
+			bux += arr[i].replace(/(^\s+)(\[[\d]+\])/,function(c,d,e){return c+'<a name="_'+e+'"></a>';}) + '\n';
+			continue;
+		}
+
+		/* lists */
+// ToDo: nested lists do not work proper
+		bbb = arr[i].match(/^\s+([#*]) /);
+		if (bbb != null) {
+			if (bbb[1] == '*') {
+				if (ul==0) { bux += '<ul>\n'; } else { bux += '</li>'; }
+				ul   = 1;
+			} else {
+				if (ol==0) { bux += '<ol>\n'; } else { bux += '</li>'; }
+				ol   = 1;
+			}
+			/* links to inside anchors*/
+			bbb = arr[i].replace(/(  [A-Z ,]+?  )/g, function(c,d){return '<a class="ref" href="'+EnDe.Man.fileanchor()+'#'+EnDe.Man.str2anchor(c)+'">'+c+'</a>';});
+// ToDo see below:  links to inside anchors
+			bux += '<li>' + bbb.replace(/^\s+[#*]/,'');
+			bbb.length = 0;
+			continue;
+		}
+		/* empty line */
+		if (arr[i].match(/^\t$/) != null) {
+			if (hx!=1) { bux += '\n'; };      hx=0;
+			if (ol!=0) { bux += '</li></ol>'; ol=0; }
+			if (ul!=0) { bux += '</li></ul>'; ul=0; }
+			continue;
+		}
+		/* header lines, top level */
+		bbb = arr[i].match(/^([A-Z]+.*)/);
+		if (bbb != null) {
+			bux += this.nav();
+			ccc  = this.str2anchor(bbb[1]);
+			kkk[ccc] = bbb[1]; lll[ccc] = 1; // save anchors
+			bux += '<a name="' + ccc + '"></a><h2>' + arr[i] + '</h2>\n';
+			bbb.length = 0;
+			hx = 1;
+			continue;
+		}
+		/* header lines, second level */
+		bbb = arr[i].match(/^    ([A-Z]+.*)/);
+		if (bbb != null) {
+			bux += this.nav();
+			ccc  = this.str2anchor(bbb[1]);
+			kkk[ccc] = bbb[1]; lll[ccc] = 2; // save anchors
+			bux += '<a name="' + ccc + '"></a><h3>' + arr[i] + '</h3>\n';
+			bbb.length = 0;
+			hx = 1;
+			continue;
+		}
+		/* header lines, change history only */
+		bbb = arr[i].match(/^ *([0-9.]+) +([0-9]+-[a-z]+-[0-9]+).*/);
+		if (bbb != null) {
+			ccc = this.str2anchor(bbb[1]);
+			kkk[ccc] = bbb[1]; lll[ccc] = 3; // save anchors
+			bux += '<a name="' + ccc + '"></a><h4>' + arr[i] + '</h4>\n';
+			bbb.length = 0;
+			continue;
+		}
+		/* links to inside anchors*/
+		bbb = arr[i].replace(/(  [A-Z ,]+?(?:\.?)  )/g, function(c,d){return '<a class="ref" href="'+EnDe.Man.fileanchor()+'#'+EnDe.Man.str2anchor(c)+'">'+c+'</a>';});
+// ToDo: matches also THIS. where the final . is part of the anchor which is wrong
+
+		/* inside list: some specials */
+		if ((ol!=0) || (ul!=0)) {
+			/* lines starting with tab and space(s) inside a list */
+			if (arr[i].match(/^\t  /) != null) {
+				bux += arr[i].replace(/(^\t  )/, '\n ');
+				continue;
+			}
+			/* lines starting with 2 tabs inside a list */
+			if (arr[i].match(/^\t\t/) != null) {
+				bux += arr[i].replace(/(^\t\t)/, '\n\t');
+				continue;
+			}
+		}
+
+		/* nothing special, add with newline */
+		bux += bbb + '\n';
+
+		if (bbb != null) { bbb.length = 0; continue; }
+		bux += arr[i] + '\n'; // should never occour!
+	} // each line
+
+	// we're lazy, create CONTENT from existing headings
+	bbb = '<a name="CONTENT"></a><H2>CONTENT</h2><div class="nav">';
+	for (var i in kkk) {
+		bbb += '<a class="nav' + lll[i] + '" href="#' + i + '">' + kkk[i] + '</a>\n';
+	}
+	bbb += '</div>';
+	kkk.length = 0;
+	lll.length = 0;
+	return(bbb + bux);
+  }; // parse
+
+  this.readTXT = function(src) {
+  //#? read a file with browser's build-in functions
+	var bux = null;
+	if (src.match(/[a-zA-Z0-9]+:\//)!=null) { // got an URL ..
+		// .. try to enable browser's privileges
+		try { netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect'); }
+		catch(e) { alert('**ERROR: .readTXT: cannot set priviledge: '+e); }
+	}
+	try {
+		bux = new XMLHttpRequest();
+		bux.open('GET', src, false);
+		bux.send(null); // ToDo: results in an exception if file does not exist
+	} catch(e) { alert('**ERROR: .readTXT: '+e); }
+	return bux.responseText;
+  }; // readTXT
+
+  this.init    = function() {
+  //#? read manual text from file and display in window
+	var src = 'EnDe.man.txt';   // default
+	if (location.search.match(/forcete?xt/i)!==null) { this.force = true; }
+	if (location.search.match(/[A-Za-z0-9,_.-]*\.(?:html|txt|xml)$/i)!==null) { // specified file (leading ? stripped)
+		src = location.search.substr(1).replace(/forcete?xt&?/i,'');
+	}
+	if (navigator.userAgent.match(/Mozilla.*MSIE/i)!==null) {   // satisfy the stupid ones
+		document.location.href = src;
+		return;
+	}
+	if (src.match(/\.xml$/)!==null) {
+		this.force= true;
+	}
+	if (this.force===true) {
+		this.text = '';     // forced escaping; avoid multiple escapes
+	}
+	if (this.flag===0) {
+		EnDeGUI.setTitle(); // we're lazy, VERSION done by Makefile ...
+		this.flag++;
+	}
+	if (this.file!==src) {  // new file, reset cached content
+		this.text = '';
+		this.file = src;
+	}
+	if (this.text==='') {
+		this.text = this.readTXT(src);
+	}
+	if (this.force===true) {
+		this.text = this.text.replace(/&/g,'&amp;').replace(/</g,'&#60;');
+		this.mode = false;
+	}
+	if (this.mode===true) {
+		$('Oglamar').innerHTML = this.parse(this.text);
+	} else {
+		$('Oglamar').innerHTML = this.text;
+	}
+	// some magic for getting font-height
+	var ccc = document.getElementById('Argax');
+	var obj = document.createElement('SPAN');
+	obj.id  = 'body-font-height';
+	obj.innerHTML = '&#160;';
+	ccc.insertBefore(obj,ccc.firstChild);
+	/* no we can use obj.offsetHeight */
+	// scroll to requested text
+	if (location.hash.length > 0) { // avoid infinite loop if hash is missing
+		if (location.search.match(/(html|txt|xml)/) == null) {
+			// jump to anchor, see Note in EnDeGUI.help()
+			location.href = location.hash;
+/* Idee: beim Einlesen die Zeilennummer des Headers merken, dann Hoehe des Fonts lesen und
+ * zu   Fonthoehe*Zeilennummer scrollen
+//alert ('h:'+document.body.offsetHeight); // scrollHeight, clientHeight
+alert ('f:'+document.body.style.fontSize);
+var s = obj.offsetHeight * 30;
+alert('scrollTo: '+s);
+window.scrollTo(0,2000);
+window.find('JAVASCRIPT VERSIONS',true,false); // nur Mozilla, Firefox
+*/
+		}
+	}
+
+	// special for regEx help
+	if ((src == 'EnDeRE.man.txt')) { EnDeRE.initHLP(); } // the very first time only
+	if (src == 'EnDeRE.man.txt') {
+		$('REhelp').style.display = 'block';
+	} else {
+		$('REhelp').style.display = 'none';
+	}
+  }; // init
+
+}; EnDe.Man
+	//]]></script>
+	<script language="JavaScript1.3" charset="utf-8" type="text/javascript" src="EnDeGUI.js" ></script>
+	<script language="JavaScript1.3" charset="utf-8" type="text/javascript" src="EnDeGUIx.js" ></script>
+	<script language="JavaScript1.3" charset="utf-8" type="text/javascript" src="EnDeFile.js" ></script>
+	<script language="JavaScript1.5" charset="utf-8" type="text/javascript" src="EnDeText.js"></script>
+	<script language="JavaScript1.5" charset="utf-8" type="text/javascript" src="EnDeREMap.js" ></script>
+	<script language="JavaScript1.5" charset="utf-8" type="text/javascript" src="EnDeRE.js" ></script>
+	<script language="JavaScript1.5" charset="utf-8" type="text/javascript" src="EnDeREGUI.js" ></script>
+	<script language="JavaScript1.5" charset="utf-8" type="text/javascript" src="EnDeVersion.js"></script>
+</head>
+<body onload="EnDe.Man.init()">
+<noscript>
+	<hr><h1>** JavaScript required to use this page. **</h1><hr>
+</noscript>
+	<div id="Argax">
+		<button title="text <-> HTML" onclick="EnDe.Man.mode=!EnDe.Man.mode;EnDe.Man.init()">toggle style</button>
+		<button title="reset text"    class="blind"     onclick="EnDe.Man.text=''">clear</button>
+		<hr>
+	</div>
+	<div id="Oglamar"><!-- filled by EnDe.Man.init --></div>
+	<fieldset class="borderbox" id="REhelp"><legend><!-- required to get CSS working --></legend>
+		<form id="dumm" action="#">
+			<div class="left"   id="Blubb"  ><br><!-- SELECT added by EnDeRE.initHLP --></div>
+			<div class="middle" id="Tsahir" ><!-- filled by EnDeRE.help --></div>
+		</form>
+	</fieldset>
+	<div id="Gemmal"><!-- filled by EnDeRE.initHLP --></div>
+	<div class="owasp">
+		<a href="http://www.owasp.org/index.php/Category:OWASP_EnDe" title="OWASP EnDe"><img style="display:inline;border:0px" src="img/ende-128x128.png" width=32 height=32 /></a>&#160;
+		<a href="https://github.com/EnDe/EnDe"                       title="home"><ende>EnDe</ende></a>&#160;
+		<a href="http://www.owasp.org/index.php/Category:OWASP_Project" title="OWASP Projects"><img style="display:inline;border:0px" src="img/owasp.ico" /></a>
+	</div>
+
+
+</body>
+</html>

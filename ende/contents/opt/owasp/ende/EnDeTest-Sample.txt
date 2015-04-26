@@ -1,0 +1,123 @@
+#?
+#? NAME
+#?      EnDeTest-Sample.txt - sample for test data file
+#?
+#? DESCRIPTION
+#?      The format used for describing test patterns to be used for example in
+#?      EnDeTest.js (in particular in EnDeTest.test()) is simple:
+#?
+#?         empty lines are ignored
+#?         comment lines are ignored, comment lines start with a #
+#?         all other lines are a key value pair
+#?               key and value are separated by at least one TAB character
+#?         Keys:
+#?               __DATA     - data for test starts after this line
+#?               __END      - data for test ends before this line
+#?               _data      - string used for testing en-/decoding functions
+#?               _title     - title for group of tests; starts new group
+#?               _mode      - encode or decode or en-/decode
+#?               _size      - integer (passed to en-/decoding functions)
+#?               _salt      - (same as _cipher)
+#?               _cipher    - string (passed to en-/decoding functions)
+#?               _prefix    - string (passed to en-/decoding functions)
+#?               _suffix    - string (passed to en-/decoding functions)
+#?               _delimiter - string (passed to en-/decoding functions)
+#?               _uppercase - boolean (passed to en-/decoding functions)
+#?               all other keys are used as alias name for a test function
+#?         Values:
+#?               interger   - any integer value
+#?               boolean    - either true or false
+#?               string     - a literal string, or a string enclosed in quotes
+#?                            quotes are either ' or "  and must be very first
+#?                            (left most) and very last (right most) character
+#?                            enclosing quotes are not part of the string
+#?                            if string are not enclosed in quotes,  following
+#?                            encodings are allowed and will/must be converted
+#?                            to corresponding Unicode (UCS-2) character:
+#?                              \xHH    - hexadecimal value of a caracter
+#?                              \uHHHH  - hexadecimal value of a caracter
+#?               encode     - only call encoding
+#?               decode     - only call decoding
+#?               en-/decode - call encoding and decoding
+#?
+#?         A key-value pair looks like:
+#?               keyTABvalue
+#?         where key is any of the strings described above, and value is also
+#?         any of the strings described above.
+#?         At least one  TAB character (aka \t aka 0x09) separates a key from
+#?         its value.  Multible TABs are allowd.  Each value starts  right to
+#?         to the last continous TAB character. This allows TAB characters to
+#?         be part of the value (except as very first character).
+#?
+#?         Example see below starting with  __DATA  line.
+#?
+#?      The tests are expected to implemented with following sample patterns:
+#?         # start of data
+#?         _data	test this string
+#?         alias_1	encoded string
+#?         alias_2	other encoded string
+#?         # end of data
+#?      The string given with data is passed to the encoding function  alias_1
+#?      which should return  encoded string  as result.  This result then will
+#?      be passed to decoding function  alias_1 which must return the original
+#?      string  test this string .  Same applies to  en- and decoding function
+#?      alias_2 .
+#?      If the pattern file also contains:
+#?         _mode	encoding
+#?      then only the encoding function should be called.
+#?
+# HACKER's INFO
+#?
+#? SEE ALSO
+#?      EnDeTest.js
+#?      EnDeTest.txt
+#?
+#? VERSION
+#?      @(#) EnDeTest-Sample.txt 3.1 10/04/12 18:24:23
+#?
+#? AUTHOR
+#?      01-feb-10 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =============================================================================
+
+__DATA
+# a comment
+_data		use this string for testing
+_mode		encode
+_title		text used for documentation
+#----------+---------------------------------------
+# alias     string to be processed by function
+#----------+---------------------------------------
+aliasname	function-aliasname-returns-this-as-encoded-result-of_data-value
+aliasname2	other result
+#----------+---------------------------------------
+
+_mode		en-/decode
+_title		all following values evaluate to the same string
+#----------+---------------------------------------
+alias1		a simple string
+alias2		"a simple string"
+alias3		'a simple string'
+alias4		a\x20simple\x20srting
+alias5		a\u0020simple string
+#----------+---------------------------------------
+
+_title		all following values are literal strings
+#----------+---------------------------------------
+alias6		string with quote"
+alias7		string's quote
+
+_title		all following values are quoted strings
+#----------+---------------------------------------
+alias8		'string contains " (double quote)'
+alias9		"string with \x20"
+#----------+---------------------------------------
+
+_delimiter	,
+_title		result when called with above defined delimiter
+#----------+---------------------------------------
+alias10		r,e,s,u,l,t
+#----------+---------------------------------------
+
+__END
+
+any text simply ignored

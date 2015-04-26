@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Point Firefox at EnDe 
+firefox /opt/owasp/ende/index.html

@@ -1,0 +1,242 @@
+	
+NAME
+	
+        EnDe - Encoder, Decoder, Converter, Calculator, TU WAS DU WILLST .. [1]
+                for various codings used in the wild wide web
+	
+NAME
+	
+        Coding style guide for EnDe project.
+<!--    #-------#-------#-----------------------------------------------------# -->
+<!-- see also http://www.webkit.org/coding/coding-style.html for some examples -->
+
+INTRODUCTION
+	
+	This small description explains  some common rules used for writing the
+	JavaScript code in all "EnDe*" files.
+	Most of the rules are common practice for programming, some are special
+	here due to special requirements or other oddities, and others are just
+	the author's humble opinion about writing human readable code.
+	
+	NOTE: i.g. rules for coding style are for human readability only 'cause
+	machines don't care about `code style' but `code syntax'.
+	Exceptions here are some  `code styles'  for comments which are used by
+	additional tools. However, these comments  don't have any impact on the
+	functionality of the code.
+	
+	Also keep in mind that JavaScript syntax (ECMA-262)  has at least these
+	oddities:
+		* 'return' statements must be in a single line
+		* some blocks, even enclosed in '{' curly '}' brackets, require
+		  a final ';' semikolon.
+	The rules below keep track of that.
+
+	
+FORCED SYNTAX RULES
+	
+    Comments
+	There are roughly 4 types of comments:
+	
+	File Documentation
+		These comments are enclosed in lines with '/*' and '*/'  at top
+		of each file, where all lines inbetween these 2 start with '#?'
+		or '#'.
+		The '#?' lines are extracted by other external tools, while the
+		lines starting with '#' are most likely ignored there.
+
+	Function Documentation
+		The line immediately following the  function definition  starts
+		with '//#?' followed by some text.  This single-line comment is
+		used as a short description for the function.
+		There may be more following comments of the form '//#xx?' which
+		are used to describe parameters of the function.
+		Both types of comments are extracted by other external tools.
+		Examples:
++-
+|		function f() {
+|		//#? function to do something
+|		}
++-
++-
+|		function p(p) {
+|		//#? function to do something
+|		//#p? "foo": behave this way
+|		//#p? "bar": behave that way
+|		}
++-
+	
+	Inline Comments
+		Most inline comments use the  '//' syntax and are placed at end
+		of the line which it belongs too.
+	
+	Code / Functionality Documentation
+		These comments are enclosed in lines with '/*' and '*/'  at top
+		of the code to be described. Lines inbetween usually start with
+		a ' *'. Examples:
++-
+|		/*
+|		 * follwoing code will do something
+|                */
+|		dd = something;
++-
+	
+    Line Size
+	The length of code lines should be maximal 79 characters. That's not a
+	strong requirement as modern tools don't stick on such limits.
+	
+    Identation
+	Identation are 4 characters, where all leftmost are build by TABs.
+	A tabsize of 4 characters in the editor would be nice. The editor "must"
+	not change leading TABs to spaces (even TABs are not used for anything).
+	NOTE that TABS in other -- mainly .txt -- files are used different,  see
+	documentation there.
+	
+    Spaces
+	No spaces arround unary operators like '++' or '--' or '>>' etc..
+	No spaces before punctations like ':', or '.' or ',' or ';'.
+	No spaces beetween function name and its round brackets.
+	Place spaces betwwen statements and its round brackets.
+	Place spaces arround assignment operators like '=' or '+=' etc. (rule is
+        a very lazy one, currently ...).
+	
+	The code sometimes is alligned  with spaces to get some kind of tabular
+	view of the code (columns of  variables, values, parameters, comments).
+	These additional spaces follow the rules about spaces before.
+	
+    Block '{' curly '}' Brackets
+	Block brackets are always used in the traditional C-style:
++-
+|		some keyword {
+|			// inside block
+|		}
++-
+	Function definitions are done the same way. This allows functions to be
+	written in a single line.
+	Block brackets are always used,  even if JavaScript's syntax  would not
+	strictly require it  (for example in single-line if, else, while or for
+	statements).
+	
+    Semicolon ';'
+	All commands are terminated with a semicolon,  even JavaScript's syntax
+	does not require it.
+	
+    Keywords
+	
+    'var'
+	All variables are declared. The code does not use global variables.
+	Any exception is considered a bug.
+	
+    'switch .. case ..'
+	Even it's known that some JavaScript engines have performance problems,
+	the code makes heavy use of such statements.  It's the author's opinion
+	that simple  switch .. case  statements (often written in tabular form)
+	are much more human readable than netsted if .. else clauses.
+	
+    'return / goto'
+	Functions may be exited with a  return anywhere, not just at the end of
+	the function code. This avoids useless nested if statements or calls of
+	simple one-time-call-only functions.
+	This often happens in switch statements.
+	
+    'try .. catch'
+	All code of the API (EnDe.lib.tgz) must not use  try .. catch to handle
+	runtime exceptions, as all runtime errors need to be expected and hence 
+	properly handled in the code itself.
+	
+    'prototype'
+	Used rarely.
+	
+    SID
+	All files and/or their objects must be identified by a `source ID'. It
+	is a simple variable like 'this.sid = "4.2";'.
+	Additionally each file has its own uniq version string. The string can
+	be identified by '@(#) '.
+
+	
+LAZY RULES
+	
+    Multiple Commands
+	The code sometimes uses multiple commands or function calls in a single
+	line, even this is known as  "bad practice" due to  -mainly subjective-
+	reasons. This is always done to make the code readable for humans.
+	
+    Quotes
+	Even JavaScript allows both ' (single quote) and " (double quote) to be
+	used to enclose strings, ' (single quote) is prefered.  Exceptions  are
+	mainly when ' itself are part of the string to avoid \-escaping.
+	
+    File Names
+	
+	File names always start with "EnDe". Exception are files with 3'rd party
+	content (i.e. "aes.js", "md5.js", etc.).  Further more the file name for
+	JavaScript files reflect the object name (if any) defined in the file.
+
+	
+RULES for GENERATORS
+	
+	All JavaScript source files are used to generate other files.  Therefore
+	The generator programs and scripts rely on some  special syntax rules in
+	the source files.
+	These are mainly coments as described above in  FORCED SYNTAX RULES  .
+	To generate proper descriptions, JavaScript object must be as follows:
++-
+|		this.OBJECT = new function () {
+|		   // any code here
+|		}; // .OBJECT
++-
+	Generation, i.e. for "EnDeFunc.html", fails if the comment 'OBJECT' does
+	not math the object name for the 'new function ()' definition before.
+
+	
+INCLUDES
+	
+	JavaScript has no concept or functionality for including other files.
+	There'e a some reason where includes would be nice or even necessary for
+	example to integrate  foreign (3'rd party) source code,  or better human
+	readability.  We need to satisfy both types.
+
+	EnDe is organized as a single JavaScript object  'EnDe'. This object has
+	sub-objects for functionality like 'EnDe.MD5', 'EnDe.IP' or for grouping
+	methods like 'EnDe.EN' and 'EnDe.DE'.
+	Some functional objects are isolated in their  own file for better human
+	readability, i.e.  "EnDeB64.js" for 'Ende.B64'  object and  "EnDeIP.js"
+	for 'EnDe.IP' object.
+	To make the `includes' work, include  "EnDe.js" first and then all other
+	files like  "EnDeB64.js", "EnDeIP.js" and so on in your ".html" file.
+	Example:
++-
+|           < SCRIPT type="text/javascript" src="EnDe.js">< /SCRIPT>
+|           < SCRIPT type="text/javascript" src="EnDeIP.js">< /SCRIPT>
+|           < SCRIPT type="text/javascript" src="EnDeB64.js">< /SCRIPT>
+|		   . . . .
++-
+	
+	If you only want on ".js" file, you can simply create one like:
++-
+|           cat EnDe.js EnDeB64.js EnDeIP.js > fullEnDe.js
++-
+	
+	All files to be `included' must have a check and definition for 'EnDe'
+	object like:
++-
+|           if (typeof(EnDe)==='undefined') { EnDe = new function() {}; }
++-
+	Then the sub-object can be defined like:
++-
+|           EnDe.OBJECT = new function() {};
++-
+	There'e a some reason where includes would be nice or even necessary for
+	All 3'rd party source code have been modified this way (beside some more
+	necessary formal changes). Means that the original code is  wrapped like
++-
+|           if (typeof(EnDe)==='undefined') { EnDe = new function() {}; }
+|           EnDe.THIRD = new function() {
+|              // .. original code goes here ..
+|           }; //THIRD
++-
+	For examples see  "md5.js", "rmd.js", "aes.js".
+
+	
+VERSION
+	@(#) EnDe.code.txt 3.1 <!-- 12/06/04 22:36:14 -->
+

@@ -1,0 +1,275 @@
+# vi:   ts=8:encoding=ucs2
+# vim:  ts=8:encoding=ucs2
+#?
+#? NAME
+#?      EnDeTest.txt - test data
+#?
+#? DESCRIPTION
+#?      Simple test data for EnDeTest.js
+#?
+#? SEE ALSO
+#?      EnDeTest.js
+#?
+#? VERSION
+#?      @(#) EnDeTest.txt 3.2 10/05/30 20:05:30
+#?
+#? AUTHOR
+#?      01-feb-10 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =============================================================================
+
+__DATA
+
+#------+----------------------------------------------------------------
+#keyw.  string to be processed by coding/hashing/encryption/...
+#------+----------------------------------------------------------------
+_data	heureca!
+_salt	halos
+#_salt	h\xe1l\u014ds
+#_salt	á¼Î»Ï 
+#_salt	\u1f05\u03bb\u03c9\u03c2
+#_mode	encode
+#_mode	decode
+#_mode	en-/decode	# default if missing
+_mode	en-/decode
+
+_uppercase	false
+_delimiter	,
+
+#--------------+--------------------------------------------------------
+#alias		encoded(data)
+#--------------+--------------------------------------------------------
+_title		Hexadecimal (comma-separated)
+#--------------+--------------------------------------------------------
+hex0		68,65,75,72,65,63,61,21
+hex1		68,65,75,72,65,63,61,21
+hex2		68,65,75,72,65,63,61,21
+hex3		068,065,075,072,065,063,061,021
+hex4		0068,0065,0075,0072,0065,0063,0061,0021
+hex5		00068,00065,00075,00072,00065,00063,00061,00021
+hex6		000068,000065,000075,000072,000065,000063,000061,000021
+hex7		0000068,0000065,0000075,0000072,0000065,0000063,0000061,0000021
+
+_title		Decimal (comma-separated)
+#--------------+--------------------------------------------------------
+dez0		104,101,117,114,101,99,97,33
+dez1		104,101,117,114,101,99,97,33
+dez2		104,101,117,114,101,99,97,33
+dez3		104,101,117,114,101,099,097,033
+dez4		0104,0101,0117,0114,0101,0099,0097,0033
+dez5		00104,00101,00117,00114,00101,00099,00097,00033
+dez6		000104,000101,000117,000114,000101,000099,000097,000033
+dez7		0000104,0000101,0000117,0000114,0000101,0000099,0000097,0000033
+
+_title		Octal (comma-separated)
+#--------------+--------------------------------------------------------
+oct0		150,145,165,162,145,143,141,41
+oct1		150,145,165,162,145,143,141,41
+oct2		150,145,165,162,145,143,141,41
+oct3		150,145,165,162,145,143,141,041
+oct4		0150,0145,0165,0162,0145,0143,0141,0041
+oct5		00150,00145,00165,00162,00145,00143,00141,00041
+oct6		000150,000145,000165,000162,000145,000143,000141,000041
+oct7		0000150,0000145,0000165,0000162,0000145,0000143,0000141,0000041
+
+_mode	encode
+_title		CRC functions
+#--------------+--------------------------------------------------------
+crc_8		79
+crc_16		bc06
+crc_cciitt	1c8d
+crc_32		11b91008
+#crc_user	00
+
+JChar		heureca!
+
+_title		Hash functions
+#--------------+--------------------------------------------------------
+md4hex		ac3719b9d1fbd291bc7b4ee59d6c78fe
+md4b64		rDcZudH70pG8e07lnWx4/g
+md4hmachex	5d07d12dd76d2c3d5787de1bcc5a7358
+md4hmacb64	XQfRLddtLD1Xh94bzFpzWA
+md5hex		0ecf292c0b266b21f135123881adb06a
+md5b64		Ds8pLAsmayHxNRI4ga2wag
+md5hmachex	5701986c494a4c1f395341d6698972d5
+md5hmacb64	VwGYbElKTB85U0HWaYly1Q
+sha1hex		54c210fb3136b29987ef32fbf479036f973901ac
+sha1b64		VMIQ+zE2spmH7zL79HkDb5c5Aaw
+sha1hmachex	28598105694083e8b037b6a56d82db6d2c5796c4
+sha1hmacb64	KFmBBWlAg+iwN7albYLbbSxXlsQ
+sha256hex	fab33bdd68c3530bc4c85f9d552a60203219eb99734963780d1ca6787de1d5c8
+sha256b64	+rM73WjDUwvEyF+dVSpgIDIZ65lzSWN4DRymeH3h1cg
+sha384hex	711f4ce43d2be3af2ce214ca86c880370530f9395bf6c42494f62b302fa9b0b1156e474b7e2723234892d9b6bf850dce
+sha512hex	77389c067c6251c32bc7e3bd8f93d275021f2ccc65a9e0ba503271093c53525356af84bc0fd4cf1f536bd0ef92fb95383e2918afdc397166ee2ca91bc57726df
+ripemdword	twin fawn nib jim os gear
+ripemdhex	f1cf c8af 1023 0314
+
+_title		Encryption
+#--------------+--------------------------------------------------------
+aes128		\xa3\x98\x17\xc9\x26\x01\x00\x00\x2d\x7c\x4d\x3b\xfe\x1d\xc2\x01\x07
+aes192		\xd5\x53\x18\xc9\x26\x01\x00\x00\x2d\xd0\x9a\x62\x0f\xf2\x75\x90\xc0
+aes256		\xda\xf1\x18\xc9\x26\x01\x00\x00\x2d\x7d\x6f\x93\xb7\x01\xde\xed\x7a
+aes128r		\x14\x41\x19\xc9\x26\x01\x00\x00\x2d\x90\x64\x70\x6c\xfa\x19\xed\x4f
+aes192r		\x23\x8a\x19\xc9\x26\x01\x00\x00\x2d\x65\xbe\x34\x94\xda\x41\x4e\x9c
+aes256r		\x0e\xe6\x19\xc9\x26\x01\x00\x00\x2d\x69\xb5\x0c\x8f\x37\x09\x4d\x32
+teaesc		!1!!227!!7!!130!!159!!218!!26!!240!
+teacor		\x01\xe3\x07\x82\x9f\xda\x1a\xf0
+tearaw		\x01\xe3\x07\x82\x9f\xda\x1a\xf0
+
+_mode	en-/decode
+_title		URI/URL encoding
+#--------------+--------------------------------------------------------
+urlUni		heureca!
+urlUTF8		heureca!
+urlUTF8c	heureca!
+urlHEX		%68%65%75%72%65%63%61%21
+urlHEXc		%c0e8%c0e5%c0f5%c0f2%c0e5%c0e3%c0e1%c0a1
+urlNibbles	%%36%38%%36%35%%37%35%%37%32%%36%35%%36%33%%36%31%%32%31
+urlNibble1	%%368%%365%%375%%372%%365%%363%%361%%321
+urlNibble2	%6%38%6%35%7%35%7%32%6%35%6%33%6%31%2%31
+urlUCS		%u0068%u0065%u0075%u0072%u0065%u0063%u0061%u0021
+urlPNY		heureca!
+urlPNY_		heureca!
+urlIDN		heureca!
+urlIDN_		heureca!
+
+_title		HTML-Entity (NCR)
+#--------------+--------------------------------------------------------
+ncrNAME		heureca&excl;
+ncrDEC		heureca&#33;
+ncrNUM		&#104;&#101;&#117;&#114;&#101;&#99;&#97;&#33;
+ncrHEX		&#x68;&#x65;&#x75;&#x72;&#x65;&#x63;&#x61;&#x21;
+ncrHEX4		&#x0068;&#x0065;&#x0075;&#x0072;&#x0065;&#x0063;&#x0061;&#x0021;
+ncrWIN		heureca&excl;
+ncrWINf		heureca!
+
+_title		Unicode/UTF
+#--------------+--------------------------------------------------------
+ucsUTF8		heureca!
+ucsUTF7		heureca+ACE-
+ucsUTF7_	+AGgAZQB1AHIAZQBjAGEAIQ-
+ucsHALFw	heureca!
+ucsFULLw	\uff48\uff45\uff55\uff52\uff45\uff43\uff41\uff01
+ucsFULL8	\xef\xbd\x88\xef\xbd\x85\xef\xbd\x95\xef\xbd\x92\xef\xbd\x85\xef\xbd\x83\xef\xbd\x81\xef\xbc\x81
+_mode	encode
+ucsUTF16	\x00\x68\x00\x65\x00\x75\x00\x72\x00\x65\x00\x63\x00\x61\x00\x21
+ucsUTF8b	\uefbb\xbfheureca!
+ucs16LEb	\ufffe\x68\x00\x65\x00\x75\x00\x72\x00\x65\x00\x63\x00\x61\x00\x21\x00
+ucs16BEb	\ufeff\x00\x68\x00\x65\x00\x75\x00\x72\x00\x65\x00\x63\x00\x61\x00\x21
+ucs32LEb	\ufffe\x00\x00\x00\x68\x00\x00\x00\x65\x00\x00\x00\x75\x00\x00\x00\x72\x00\x00\x00\x65\x00\x00\x00\x63\x00\x00\x00\x61\x00\x00\x00\x21\x00
+
+_mode	en-/decode
+_title		Various Codings
+#--------------+--------------------------------------------------------
+base64		aGV1cmVjYSE=
+base64u		aGV1cmVjYSE=
+caesar		khxuhfd!
+rot13		urherpn!
+yenc		\x92\x8f\x9f\x9c\x8f\x8d\x8b\x4b
+xor		heureca!
+uu		begin 664, filename\x0aM:&5U<F5C82$````````````````````````````````````````````\x0a`\x0a====\x0a
+uuhist		begin 664, filename\x0aM:&5U<F5C82$                                            \x0a \x0aend\x0a
+uuraw		:&5U<F5C82$\x20
+qp		heureca!
+qpraw		heureca!
+
+_delimiter	,
+_title		Straight Codings
+#--------------+--------------------------------------------------------
+hex		68,65,75,72,65,63,61,21
+dez		104,101,117,114,101,99,97,33
+oct		150,145,165,162,145,143,141,41
+nibbles		36,38,36,35,37,35,37,32,36,35,36,33,36,31,32,31
+nibble1		36,8,36,5,37,5,37,2,36,5,36,3,36,1,32,1
+nibble2		6,38,6,35,7,35,7,32,6,35,6,33,6,31,2,31
+bin8		01101000,01100101,01110101,01110010,01100101,01100011,01100001,00100001
+bin7		1101000,1100101,1110101,1110010,1100101,1100011,1100001,0100001
+bin6		111111,111111,111111,111111,111111,111111,111111,100001
+dualBCD		heureca!
+dual_3		heureca!
+dualAiken	heureca!
+JSlc		heureca!
+JSuc		HEURECA!
+reverse		!acerueh
+atbash		svfivxz!
+copy		heureca!
+
+_title		Escape Characters
+#--------------+--------------------------------------------------------
+escHTML		heureca&excl;
+escURL		heureca!
+escCSS		heureca\21
+escJS		heureca!
+escJSesc	heureca%21
+escXML		heureca!
+escJava		heureca!
+escSQL		heureca!
+escQuote	heureca!
+
+_delimiter	,
+_title		Special
+#--------------+--------------------------------------------------------
+b64tou64	heureca!
+u64tob64	heureca!
+dumphex		68,65,75,72,65,63,61,21,                         |  h e u r e c a !\x0a
+dumpODx		00000000 6865 7572 6563 6121\x0a00000008
+dumpxDO		00000000 6568 7275 6365 2161\x0a00000008
+
+_mode	encode
+_title		Characters
+#--------------+--------------------------------------------------------
+ebcdic		\x88\x85\xa4\x99\x85\x83\x81\x5a
+ascii		\x00\x00\x00\x00\x00\x00\x2f\x00
+toCP1252	heureca!
+fromCP1252	heureca!
+hexCHR		heur\xec\x0a
+
+#_mode	decode
+#_title		Characters
+##--------------+--------------------------------------------------------
+#ebcdic		\x88\x85\xa4\x99\x85\x83\x81\x5a
+#ascii		\x00\x00\x00\x00\x00\x00\x2f\x00
+#toCP1252	heureca!
+#fromCP1252	heureca!
+#hexCHR		heur\xec\x0a
+
+_mode	en-/decode
+_title		Symbols
+#--------------+--------------------------------------------------------
+SOS		.... . .._ ._. . _._. ._
+Baudot		10100 00001 00111 01010 00001 01110 00011 11011 01101
+_mode	encode
+ASCIIBr		                        \x0a*, *, *, *, *, ** *, ,* \x0a** ,* ,, ** ,* ,, ,, *, \x0a,, ,, ** *, ,, ,, ,, ** \x0a
+dotBr		                        \x0a*, *, *, *, *, ** *, ,* \x0a** ,* ,, ** ,* ,, ,, *, \x0a,, ,, ** *, ,, ,, ,, ** \x0a
+DadaUrka	                         \x0a---+ ,,,| +--+ ---+ ,,,| |,,, |,,,     \x0a,,*| ,,*| |**| ,**| ,,*| |**, |,,,  !  \x0a,,,| ---+ |,,| ---+ ---+ +--- +---     \x0a
+
+_mode	en-/decode
+_title		EnDe internal text functions
+# -------------+--------------------------------------------------------
+dumphex		68,65,75,72,65,63,61,21,                         |  h e u r e c a !\x0a
+
+# â¬uro
+_data	\u20acuro
+
+_mode	en-/decode
+_title		URI/URL encoding
+#--------------+--------------------------------------------------------
+urlUni		%20%acuro
+urlUTF8		%e2%82%acuro
+urlHEX		%20%ac%75%72%6f
+urlUCS		%u20ac%u0075%u0072%u006f
+
+__END
+
+# following // ToDo
+JSURI	quick!
+JSURICom	quick!
+JSbtoa	cXVpY2sh
+JSescape	quick%21
+splitArg	quick!
+splitKey	quick!
+splitDel	quick!
+joinArg	quick!
+joinKey	quick!
+joinDel	quick!
+copy	quick!' ]
+

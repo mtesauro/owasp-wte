@@ -1,0 +1,72 @@
+
+Abstract
+	This questionary will be online soon, so that any user can fill in
+	comments which will help to improve further versions.
+
+Which tools are important (multiple selections possible)
+	[ ] Character
+	[ ] En-/Decoder
+	[ ] IP
+	[ ] Timestamp
+	[ ] RegEx
+
+Which tools lack functionality (please describe in simple words)?
+	Character
+		[                                              ]
+	En-/Decoder
+		[                                              ]
+	IP
+		[                                              ]
+	Timestamp
+		[                                              ]
+	RegEx
+		[                                              ]
+
+Which tool is the most important (tick one)?
+	( ) Character
+	( ) En-/Decoder
+	( ) IP
+	( ) Timestamp
+	( ) RegEx
+
+Which functionality is missing
+	[ ] more codings
+	[ ] more hashes
+	[ ] more encryptions
+	other (please describe in simple words)?
+		[                                              ]
+
+The documentation in EnDe.man.txt (EnDe.man.html) is
+	( ) complete
+	( ) sufficient
+	( ) incomplete
+	( ) less understandable/usefull
+
+The inline documentation provided in EnDe.html is
+	( ) sufficient	        ( ) not used
+
+Which is the main usage (tick one)?
+	( ) GUI (index.html)
+	( ) API (EnDe.lib.tgz)
+
+I'll use the library provided in EnDe.lib.tgz?
+        ( ) yes                 ( ) no
+
+I'd prefer a more sexy GUI rather than a strict logical functionality and design?
+        ( ) yes                 ( ) no
+
+The design fits my arty desires?
+	[ ] I know how to change EnDe.css to my needs
+	[ ] I know how to change EnDeMenu.txt to my needs
+	[ ] I know how to use files in the ./usr/ directory
+
+I'm willing to pay for a version working in Microsoft Internet Explorer (> 7.0)?
+        ( ) yes                 ( ) no
+
+I'd like to help improving EnDe?
+        ( ) yes                 ( ) no
+
+VERSION
+	@(#) EnDe.survey.txt 3.1 <!-- 12/06/05 00:02:42 -->
+
+<!-- //ToDo: https://www.surveymonkey.com -->

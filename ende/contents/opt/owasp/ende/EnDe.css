@@ -1,0 +1,800 @@
+@charset "utf-8";
+/* ========================================================================= //
+#?
+#? NAME
+#?      EnDe.css     - general CSS file for EnDe
+#?
+# SEE ALSO
+#       EnDe.html
+#       Makefile
+#?
+#? VERSION
+#?      @(#) EnDe.css 3.17 11/08/28 10:35:19
+#?
+#? AUTHOR
+#?      30-may-07 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+#?
+ * ========================================================================= */
+
+/*
+ * Notes:
+ *   -khtml-border-radius:  contribution to Midori, Epiphany, etc.
+ *   -khtml-box-shadow:     contribution to Midori, Epiphany, etc.
+ *   -moz-box-shadow:       contribution to Firefox but not supported in <3.x
+ *   -moz-border-radius:    contribution to Firefox < 3.x
+ *   -o-box-shadow:         not used as Opera >10.10 is w3c-compliant here
+ *   -o-border-radius:      not used as Opera >10.10 is w3c-compliant here
+ */
+/* geht nicht:
+ * alle Groessen-Relationen muessen neu bestimmt werden fuer Verdana
+ * in Timestamp ist Text zwischen den Inputfeldern nach oben verschoben
+body            { color:#000000; background:#e0e0e0; font-family:verdana,arial,helvetica,sans-serif; font-size:10pt; }
+ */
+body            { color:#000000; background:#e0e0e0; font-size:12pt; }
+h1              { font-size:200%; }
+.overlay        { z-index:91;    background-image: url(img/overlay.png); display:none; position:fixed; }
+.blind          { color:#e0e0e0; background:#e0e0e0; display:inline; text-decoration:none; border:0px; }
+.blind a        { color:#e0e0e0; background:#e0e0e0; display:inline; text-decoration:none; }
+.blind a:link   { color:#e0e0e0; background:#e0e0e0; display:inline; text-decoration:none; }
+.blind a:visited{ color:#e0e0e0; background:#e0e0e0; display:inline; text-decoration:none; }
+ende            { color:#424242; background:#e0e0e0; font-weight:bold; font-variant:small-caps; font-size:110%; }
+.owasp          { margin-left:auto; margin-right:auto; width:9em; }
+.center         { margin-left:auto; margin-right:auto; width:3em; }
+.line           { border-bottom: 1px solid #000000; }
+p               { margin-left: 2em; }
+dl:before       { content:"- "; margin-left:-0.2em; }
+dt              { font-weight:bold; display:inline; }
+a[id="EnDeDOM.icon"] { margin:0px; display:inline; position:absolute; top:0.1em; }
+a[id="EnDeDOM.logo"] { margin:0px; display:inline; position:absolute; top:0.05em; right:0.6em; }
+a img           { border:0px; display:inline; }
+/* following for debugging title= attributes
+*[title]:after {content:" ["attr(title)"]"; font-size:80%;}
+*/
+
+/* status bar */
+div[id="EnDeDOM.SB"]  {
+	z-index:        22;
+	color:          #808080;
+	background:     #ffffcf;
+	position:       fixed;
+	width:          99.5%;
+	border:         1px solid #000000;
+	font-family:    monospace;
+	font-size:      80%;
+}
+div[id="EnDeDOM.SB"]:before { content: "Status: "; }
+div[id="EnDeDOM.hide"]      { top:0; left:0; }
+/* button in Status Bar; */
+span.sb button {
+	position:       absolute;
+	margin-top:     -2.9ex;
+	margin-left:    -2em;
+	font-size:      70%;
+}
+
+/* quick GUI bar */
+span.quick  {
+	display:        inline;
+	z-index:        21;
+	color:          #000000;
+	background:     #f0f0f0;
+	position:       fixed;
+	top:            0.8em;
+	opacity:        .90;
+	border-bottom:  1px solid #808080;
+	border-right:   1px solid #808080;
+	border-left:    1px solid #808080;
+	padding-right:  1em;
+	padding-left:   1em;
+	padding-top:    1.6em;
+	margin-right:   14em;   /* Firefox hack (doesn't harm others) */
+	margin-left:    10em;   /* tweaked for netbooks */
+	margin-top:     -1.0em;
+	height:         1.5em;
+	border-radius:  6px;
+	-moz-border-radius:    6px;
+	-khtml-border-radius:  6px;
+}
+
+/* all textareas */
+textarea {
+	display:        block;
+	padding:        2px;
+	margin-bottom:  0px;
+/*
+	margin-bottom:  -5px;
+ * need negative margin for Opera < 9.4x to fit .tab and .bat without gap
+ * but that also "moves" the other buttons higher, ugly ... 
+ */
+	min-height:     16em;
+ 	width:          auto;
+ 	min-width:      54em;
+	background:     #ffffcf;
+	color:          #000000;
+	font-family:    monospace;
+	font-size:      80%;
+/* #07sep10 weg da Font jetz relativ zu body
+	font-size:      10pt;
+*/
+}
+textarea:focus {
+	z-index:        41;
+	border:         2px ridge #000000;
+	background:     #ffffcf;
+	color:          #000000;
+}
+
+/* all fieldsets */
+fieldset {
+	z-index:        1;
+	padding:        0px;
+	padding-bottom: 2px;
+	border:         1px solid #000000;
+
+}
+/* but Options have no border */
+fieldset.options {
+	margin-top:     0.5em;
+	border:         1px none  #ffffff;
+	border-radius:  5px;
+	-moz-border-radius:    5px;
+	-khtml-border-radius:  5px;
+	box-shadow:            0px 2px 3px #424242;
+	-moz-box-shadow:       0px 2px 3px #424242;
+	-khtml-box-shadow:     0px 2px 3px #424242;
+}
+fieldset fieldset {
+	margin-bottom:  2px;
+}
+legend {
+	padding:        0px;
+	padding-left:   0.5em;
+	padding-right:  0.5em;
+	margin:         0px;
+	border:         0px none  #000000;
+}
+/* header in fieldsets */
+.head     { background:url(); } /* pimp me */
+.head  h2 {
+	padding:        0px;
+	padding-left:   0.2em;
+	margin-top:     0.1ex;
+	margin-bottom:  0.2ex; /* this is just to have a nice round border in the parent */
+	border-bottom:  1px solid #000000;
+}
+/* buttons in fieldsets headers */
+.head span { float:right; padding:0px; margin:0.1em; }
+.head span button {
+	padding:        0px;
+	margin-right:   0.2em;
+	margin-bottom:  0.1em;
+	border:         1px solid #aaaaaa; /* chrome is too stupid for outset here */
+	min-width:      1em;
+	font-weight:    bold;
+	background:     #e0e0e0;
+	border-radius:  3px;
+	-moz-border-radius:    3px;
+	-khtml-border-radius:  3px;
+	box-shadow:            0px 1px 2px #424242;
+	-moz-box-shadow:       0px 1px 2px #424242;
+	-khtml-box-shadow:     0px 1px 2px #424242;
+}
+
+.borderbox {
+	clear:          both;
+	margin-top:     0.5em;
+	background:     #555fff;
+	border:         1px none  #ffffff;
+	border-radius:  8px;
+	-moz-border-radius:    8px;
+	-khtml-border-radius:  8px;
+	box-shadow:            0px 5px 5px #424242;
+	-moz-box-shadow:       0px 5px 5px #424242;
+	-khtml-box-shadow:     0px 5px 5px #424242;
+}
+.borderbox div {
+	padding-bottom: 0px;
+	margin-bottom:  0px;
+}
+.borderbox div div {
+	float:          left;
+	padding-top:    0.2em;
+	padding-left:   0.2em;
+	padding-bottom: 0.2em;
+	margin:         0px;
+	min-width:      10em;
+}
+.borderbox div.block {
+	float:          none;
+	padding-bottom: 0px;
+}
+.borderbox div.right {
+	float:          right;
+	min-width:      5em;
+}
+.borderbox div.middle {
+	width:          auto;
+}
+.borderbox div.middle:after { /* force clear:both after .middle */
+	display:        block;
+	visibility:     hidden;
+	height:         0px;
+	clear:          both;
+	content:        "";
+}
+.borderbox div.left {
+}
+
+.borderbox div.left select {
+	float:          left;
+	border:         1px solid #000000;
+	padding:        0px;
+	/* Opera needs auto, while all others work with 100% */
+	width:          auto;
+	font-size:      80%;
+	border-radius:  6px;
+	-moz-border-radius:    6px;
+	-khtml-border-radius:  6px;
+}
+
+/* select on left side */
+.borderbox div.left select option {
+	background:     #ffffff;
+	/*
+	background:     inherit;
+	 * value should be inherit, but Opera < 10 is too stupid for that
+	 * hence we need to use the parents background color
+	 */
+}
+.borderbox div.left select option:hover {
+	background:     #00dfff;
+}
+.borderbox div.left select optgroup {
+	/* required by some browsers, otherwise default size
+	 * for optgroup and option is used
+	 * Mozilla 1.7.x
+	 */
+	font-size:      inherit;
+	font-weight:    bold;
+}
+
+/* button on left side */
+.borderbox div.left div {
+	float:          left;
+	padding:        0px;
+	font-size:      80%;
+	width:          10em;
+}
+.borderbox div.left div input {
+	padding-left:   0px;
+	margin-bottom:  0.1em;
+	width:          8em;
+	background:     #00dfff;
+	color:          #000000;
+}
+.borderbox div.left button {
+	float:          right;
+	height:         1.7em;
+}
+
+input.button {
+	padding:        2px;
+	min-width:      2em;
+	text-align:     center;
+	background:	#00bfff;
+	color:          #000000;
+	font-size:      80%;
+	/* -moz-border-radius:    5px; /* CSS-Safari */
+	border:         1px outset #aaaaaa;
+	border-radius:  4px;
+	-moz-border-radius:    4px;
+	-khtml-border-radius:  4px;
+	box-shadow:            1px 1px 2px #424242;
+	-moz-box-shadow:       1px 1px 2px #424242;
+	-khtml-box-shadow:     1px 1px 2px #424242;
+}
+.opttable {
+	display:        inline;
+}
+.opttable th {
+	padding-left:   0.2em;
+	padding-right:  0.2em;
+	font-variant:   normal;
+	border-left:    1px solid #000000;
+}
+.opttable td {
+	text-align:     center;
+	border-left:    1px solid #000000;
+}
+.tsttable   { border-spacing: 0px; border-collapse:collapse; }
+.tsttable th { border-bottom: 1px solid #000000;  text-align: right; }
+.tsttable td { border-bottom: 1px solid #000000; }
+.tsttable caption { text-align: left; background: #ffffcf; }
+.tsttable caption { text-align: left; background: #ffffcf; }
+
+/* tables in IP area */
+.iptable th {
+	font-variant:   normal;
+	text-align:     right;
+}
+.iptable td {
+}
+.iptable td input {
+	padding:        0px;
+	width:          12em;
+	background:     #ffffcf;
+}
+.iptable .button {
+	width:          3em;
+	background:	#00bfff;
+}
+
+/* menu using UL LI DIV BUTTON */
+fieldset>div ul.guess   { background:#f0f0f0; display:inline; margin-top:0px; border-style:outset; border-width:2px; padding-left:0.5em; padding-right:0.5em; }
+fieldset>div ul.guess li{ background:#f0f0f0; display:inline; margin-top:0px; }
+li:hover div.menu  { display:inline; }
+div.menu        {
+	display:        none;
+	z-index:        42;
+	position:       absolute;
+	margin-left:    -3em; /* // ToDo: does not work */
+	border:         1px solid #000000;
+	background-color: #ffffff;
+}
+div.menu button {
+	display:        block;
+	width:          99%;
+	text-align:     left;
+}
+
+
+/* menu using UL and A */
+.select ul {
+	padding:        0.2em;
+	padding-right:  0.0em;
+	margin-top:    -0.1em;
+	margin-bottom:  0px;
+	min-width:      12em;
+	font-size:      80%;
+	font-weight:    bold;
+	color:          #000000;
+	background-color: #ffffff;
+	border:         2px inset #000000;
+	text-align:     left;
+/*
+	-webkit-appearance: menulist;
+	-moz-appearance: menulist;
+	appearance:     menulist;
+*/
+}
+.select ul li {
+	padding:        0px;
+	list-style:     none;
+}
+.select ul li:hover {
+	background:	#00bfff;
+}
+.select ul li a {
+	text-decoration: none;
+	margin:         0.2em;
+	color:          #000000;
+}
+.select ul li a:hover {
+	text-decoration: none;
+	color:          #000000;
+}
+.select ul li a:visited {
+	text-decoration: none;
+	color:          #000000;
+}
+.select ul li ul {
+	display:        none;
+	z-index:        42;
+	position:       absolute;
+	margin-left:    2.5em;
+	min-width:      12em;
+	border:         1px solid #000000;
+/*
+	margin-top:    -1.6em;
+	overflow: auto;
+*/
+}
+.select ul li:hover ul {
+	display:        block;
+}
+.select ul li ul li {
+	font-weight:    normal;
+}
+.select ul li ul li:hover {
+	background:	#00bfff;
+}
+.select ul li ul li a {
+	display:        block;
+	margin:         0px;
+	padding:        0px;
+}
+.select ul li ul li a:hover {
+	background:	#00bfff;
+}
+span.popup                 { float:     none; }
+/* all following .popup settings are for "flat menu" hack only */
+.popup ul                  { max-width: 20em; }
+.popup ul li:hover         { background:#e0e0e0; }
+.popup ul li ul li:hover   { background:#e0e0e0; }
+.popup ul li ul li a:hover { background:#e0e0e0; }
+.quirks .popup ul          { max-width: 6em; } /* less space here */
+
+/* Browser Quirks window */
+.quirks {
+	padding:        0px;
+	height:         24em;
+	width:          43em;
+	min-width:      43em;
+	max-width:      43em;
+	font-size:      90%; /* tweak for netbooks */
+}
+.quirks span {
+	position:       absolute;
+	margin-left:    9em;
+	margin-top:     6em;  /* below first 2 rows */
+	padding-left:   0.5em;
+	padding-right:  0.5em;
+	border-left:    1px solid #000000;
+	width:          33em; /* Mozilla 1.7 hack */
+}
+.quirks input { /* tweak for netbooks */
+	font-size:      98%;
+	font-family:    monospace;
+}
+.quirks ul {
+	margin:         0px;
+	padding:        0px;
+}
+.quirks ul li {
+	margin:         0px;
+	padding:        0px;
+	padding-left:   0.5em;
+	width:          98%; /* Safari hack */
+	list-style:     none;
+	border:         1px solid #ccdfff;
+}
+.quirks ul li div {
+	background:     #ffffcf;
+	display:        none;
+	position:       absolute;
+	margin:         0px;
+	margin-top:    -1px;
+	padding:        0.5em;
+	left:           9em;
+	width:          33em;
+	overflow:       auto;
+	/*font-weight:    bold; */
+	border:         1px solid #9a9a9a;
+	-moz-border-radius-bottomleft:     5px;
+	-moz-border-radius-bottomright:    5px;
+	-moz-border-radius-topright:       5px;
+	-khtml-border-radius-bottomleft:   5px;
+	-khtml-border-radius-bottomright:  5px;
+	-khtml-border-radius-topright:     5px;
+}
+.quirks ul li:hover {
+	background:     #ffffcf;
+	border:         1px solid #9a9a9a;
+	-moz-border-radius-bottomleft:     5px;
+	-moz-border-radius-topleft:        5px;
+	-khtml-border-radius-bottomleft:   5px;
+	-khtml-border-radius-topleft:      5px;
+}
+.quirks ul li:hover div {
+	z-index:        42;
+	display:        inline;
+	border:         1px solid #9a9a9a;
+}
+
+/* character */
+.chr { width:           4em; text-align:center;
+	background:     #ffffcf;
+}
+
+/* "direct/nested" and "replace map" inset window */
+.function {
+	display:        none;
+	position:       fixed;
+	padding:        5px;
+	margin:         5px;
+	z-index:        42;
+	top:            1.0em;
+	left:           11em;
+	min-width:      30em;
+	width:          auto;
+	background:     #ccdfff;
+	opacity:        .92;
+	border:         1px outset #808080;
+	border-radius:  8px;
+	-moz-border-radius:    8px;
+	-khtml-border-radius:  8px;
+}
+.function:hover { cursor: move; }
+.function div div.opt {
+	position:       relative;
+	padding-right:  0.5em;
+	margin-right:   0.5em;
+	float:          left;
+	border-right:   1px solid #000000;
+}
+.function fieldset {
+	padding:        2px;
+	margin:         2px;
+}
+/* 22jan10: following needed unless correct class set in EnDeGUI.create() */
+.function fieldset .button {
+	padding:        2px;
+	margin:         2px;
+	background:     #e0e0e0;
+	float:          left;
+}
+/* following buttons are special */
+.function fieldset input[id="EnDeDOM.FF.Actions.s.enc"] { background:#00dfff; }
+.function fieldset input[id="EnDeDOM.FF.Actions.s.dec"] { background:#00dfff; }
+
+.function textarea { min-height:  16em; } /* 16 should fit on netbooks too */
+.function div[id="EnDeDOM.MP"]      input[type="text"]  { width:4em; }
+.function div[id="EnDeDOM.MP.list"] input[type="text"]  { width:4em; }
+.function div[id="EnDeDOM.MP.list"] div span { float:none;width:5em; min-width:5em; }
+.function div[id="EnDeDOM.MP.list"] div span label { text-align:right; }
+
+.test table    { border:1px solid black; }
+.test table td { width:3em; min-width:3em; overflow: auto; }
+.test table td:first-child { text-align: right; }
+.test table td.data { text-align: left; border-top: 1px solid  black; background: #ffffcf; }
+.test table td.error{ text-align: left; border-top: 1px dotted black; background: #ffcfcf; }
+.test table td pre  { display: inline; overflow: auto; }
+.test table td span {             background:#ffcfcf; max-width:99%; overflow: auto; }
+.test table td span:first-child { background:#cfffcf; }
+
+.em2  { width:          2em; } /* does not work inside <td>, hence some inline style= required too */
+.em8  { width:          10em;  text-align:right; }
+.em9  { width:          10em;  text-align:right; float:left; }
+.em4  {
+	padding-top:    0px;
+	padding-bottom: 0px;
+	padding-left:   4px;
+	border-spacing: 0px;
+	margin:         0px;
+	border-width:   0px;
+	font-size:      8pt;
+	font-variant:   normal;
+	text-align:     center;
+	background:     #555fff;
+	color:          #000000;
+	min-width:      4.3em;
+	width:          4.3em;
+}
+/* definitions for tab-style buttons */
+.tab {
+	margin-left:    -6px;
+	margin-top:     -3px; /* for WebKit */
+	border-top:     3px solid  #ffffcf;
+	border-left:    2px solid  #ffffcf;
+	border-bottom:  2px solid  #404040;
+	border-right:   2px solid  #404040;
+	background-color: #ffffcf;
+	color:          #000000;
+	z-index:        22;
+	-moz-border-radius-bottomleft:     5px;
+	-moz-border-radius-bottomright:    5px;
+	-khtml-border-radius-bottomleft:   5px;
+	-khtml-border-radius-bottomright:  5px;
+}
+.bat {
+	margin-left:    -6px;
+	margin-top:     -3px; /* for WebKit */
+	border-top:     3px solid  #000000;
+	border-left:    2px solid  #000000;
+	border-bottom:  2px solid  #f0f0f0;
+	border-right:   2px solid  #f0f0f0;
+	background-color: #e0e0e0;
+	color:          #000000;
+	z-index:        21;
+	-moz-border-radius-bottomleft:     5px;
+	-moz-border-radius-bottomright:    5px;
+	-khtml-border-radius-bottomleft:   5px;
+	-khtml-border-radius-bottomright:  5px;
+
+}
+input.text {
+	background:     #ffffcf;
+	color:          #000000;
+}
+
+/* disabled (not visible) at startup */
+fieldset[id="EnDeDOM.f.TST"] { display:none; }
+fieldset[id="EnDeDOM.f.DBX"] { display:none; }
+fieldset[id="EnDeDOM.f.DBX"] textarea { width: 99%; }
+
+/* tabular data with a right aligned label text */
+.labeled    { font-family:monospace; font-size:80%; }
+.labeled th { min-width:5em; font-weight:bold; text-align:right; }
+.labeled td { }
+
+/* file load box: hide browser default */
+.browse { display:inline; font-size:80%; font-family:monospace; font-weight:bold; }
+.file	{ z-index:3; position:absolute; width:28.5em; }
+.fake	{ z-index:1; position:absolute; width:7em;    padding:0px; margin-top:1px; left:33em; } /* margin-top good for all, except FF2 */
+.hide	{ z-index:2; position:relative; width:37.5em; padding:0px; text-align:right; }
+.bold   { font-family:monospace; font-weight:bold; padding-left:0.5em; }
+
+/* monospaced code */
+.pre  { white-space:pre; font-family:monospace; }
+table.code      {
+	border-left:    1px solid #00f000;
+	border-collapse:collapse; /* separate; */
+	border-spacing: 0px;
+	width:          99%;
+	text-align:     right;
+	vertical-align: top;
+	white-space:    pre;
+	font-family:    monospace;
+	font-size:      80%;
+}
+.code td:first-child {
+	padding-right:  0.5em;
+	width:          3em;
+	background:     #f0a0a0;
+}
+.code td        {
+	border-left:    1px solid #000000;
+	padding-left:   0.3em;
+	background:     #e0e0e0;
+}
+
+/* pimp; all following used with pimp() button/function only */
+button.help {
+	border:         0px none #000000;
+	color:              #e0e0e0; /* same as ".head span button" */
+	background-color:   transparent;
+	background-image:   url("img/help.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+}
+button.fold {
+	border:         0px none #000000;
+	color:              #e0e0e0; /* same as ".head span button" */
+	background-color:   transparent;
+	background-image:   url("img/fold.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+}
+button.code {
+	border:         0px none #000000;
+	margin-left:        2em;
+	margin-bottom:      -0.9em; /* // ToDo: should be px */
+	background-color:   transparent;
+	background-image:   url("img/open.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+}
+button.scratch {
+	border:         0px none #000000;
+	margin-left:        2em;
+	margin-bottom:      -0.9em; /* // ToDo: should be px */
+	background-color:   transparent;
+	background-image:   url("img/edit.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+}
+button.guess {
+	border:         0px none #000000;
+	margin-left:        2em;
+	margin-bottom:      -0.9em; /* // ToDo: should be px */
+	background-color:   transparent;
+	background-image:   url("img/fish.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+}
+.rarr {
+	border:         0px none #000000;
+	color:              #fff;
+	background-color:   transparent;
+	background-image:   url("img/22x22/rarr.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+	max-width:          22px;
+}
+.larr {
+	border:         0px none #000000;
+	color:              #fff;
+	background-color:   transparent;
+	background-image:   url("img/22x22/larr.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+	max-width:          22px;
+}
+.swap {
+	border:         0px none #000000;
+	color:              #fff;
+	background-color:   transparent;
+	background-image:   url("img/22x22/swap.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+	max-width:          22px;
+}
+.time {
+	border:         0px none #000000;
+	background-color:   transparent;
+	background-image:   url("img/time.png");
+	background-repeat:  no-repeat;
+	background-position:center;
+	height:             22px;
+	width:              22px;
+}
+
+/* all following for RegEx*/
+/* help: monospaced code */
+div#Oglamar { border: 0px solid  #000000; margin-left: 0em;   white-space: pre;   display:inline; font-family: monospace; font-size: 80%; }
+samp        { border: 1px dashed #000000; margin-left: 5.5em; margin-top:  0.7em; margin-bottom:0.7em; overflow: auto; }
+.samp       { border: 1px dashed #000000; margin-left: 5.5em; margin-top:  0.7em; margin-bottom:0.7em; overflow: auto; }
+li .samp    { border: 1px dashed #000000; margin-left: 0.5em; margin-top:  0.7em; margin-bottom:0.7em; overflow: auto; }
+tt          { border: 1px dashed #000000; margin-left: 0.5em; padding-left:0.3em; padding-right:0.3em; background:#ffffcf;  }
+dfn         { border: 1px solid  #000000;                     padding-left:0.1em; padding-right:0.1em; padding-top:0.0em; font-weight:bold; }
+.go         { border: 1px solid  #aaaaaa;
+	padding-left:   0.5em;
+	padding-right:  0.5em;
+	padding-top:    0.2em;
+	font-weight:    bold;
+	background:     #ebeae0;
+	border-radius:  3px;
+	-moz-border-radius:    3px;
+	-khtml-border-radius:  3px;
+	box-shadow:            0px 1px 2px #424242;
+	-moz-box-shadow:       0px 1px 2px #424242;
+	-khtml-box-shadow:     0px 1px 2px #424242;
+}
+em          { font-weight:  bold; }
+div#Oglamar a                { text-decoration:none;      color:#555fff; }
+div#Oglamar a:active         { text-decoration:none;      color:#555fff; }
+div#Oglamar a:hover          { text-decoration:underline; color:#ff8abd; }
+div#Oglamar a:visited        { text-decoration:none;      color:#555fff; }
+div#Oglamar a:visited:hover  { text-decoration:underline; color:#ff8abd; }
+div#Oglamar a.man            { text-decoration:underline; }
+div#Oglamar a.man:hover      { text-decoration:underline; }
+div#Oglamar a.man:visited    { text-decoration:underline; }
+div#Oglamar a.ref            { text-decoration:none;      }
+div#Oglamar a.ref:hover      { text-decoration:underline; }
+div#Oglamar a.ref:visited    { text-decoration:none;      }
+div#Oglamar a.nav1           { margin-left:  1.0em; }
+div#Oglamar a.nav2           { margin-left:  3.0em; }
+div#Oglamar a.nav3           { margin-left:  5.0em; }
+div#Oglamar div.nav          { margin-left:  4.0em; }
+div#Oglamar ul               { margin-left:  3.2em; }
+div#Oglamar ol               { margin-left:  3.7em; }
+/* help RegEx*/
+div#Gemmal { font-family: monospace; }
+div#Tsahir { font-family: monospace; }
+table.lang th.top       { border:       1px solid black; text-align:left; }
+table.lang th           { border-bottom:1px solid black; }
+table.lang td           { border-bottom:1px solid black;                    padding-left:    1em; }
+table.overview th       { border-bottom:1px solid black; text-align:center; background-color:#d0d0d0; }
+table.overview td       {                                text-align:center; }
+table.overview td.x     {                                text-align:center; background-color:#f0f000; }
+table.overview td.k     {                                text-align:center; background-color:#00f000; }
+table.overview th.left  { border:       1px solid black; text-align:left;   background-color:#c0c0c0; }
+.legend                 { border:       1px solid black; padding: 1em;      background-color:#f0f0f0; }
+span#body-font-height   { position: absolute; top: -999px; left: -9999px; }
+

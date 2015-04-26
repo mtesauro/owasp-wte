@@ -1,0 +1,1277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" >
+<!--
+/*****************************************************************************\
+|                  Copyright (c) 2006 - 2012 Achim Hoffmann
+|------------------------------------------------------------------------------
+| You may obtain a copy of the license at  https://github.com/EnDe/EnDe
+|------------------------------------------------------------------------------
+| This software is provided "as is", without warranty of any kind, express or
+| implied,  including  but not limited to  the warranties of merchantability,
+| fitness for a particular purpose and noninfringement. In no event shall the
+| authors  or  copyright  holders be  liable for any claim, damages or  other
+| liability,  whether in  an action of contract,  tort or  otherwise, arising
+| from,  out of  or in connection  with the software  or  the  use  or  other
+| dealings in the software.
+|
+| This  software is licensed under GPLv2.
+| Also note that some parts come with their own license (see below).
+|
+| GPL - The GNU General Public License, version 2
+|                       as specified in:  http://www.gnu.org/licenses/gpl.txt
+|                   or a copy of it https://github.com/EnDe/EnDe  license.txt
+| Permits anyone the right to use and modify the software without limitations
+| as long as proper  credits are given  and the original  and modified source
+| code are included. Requires  that the final product, software derivate from
+| the original  source or any  software  utilizing a GPL  component, such  as
+| this, is also licensed under the same GPL license.
+|
+|------------------------------------------------------------------------------
+| For licenses of some used files see the files itself:
+|    aes.js     - see http://www.movable-type.co.uk/scripts/aes.html (this file
+|                 did not contain license information as copied on 20-jul-2007)
+|    md4.js     - see http://pajhome.org.uk/crypt/md5
+|    md5.js     - see http://pajhome.org.uk/crypt/md5
+|    sha.js     - see http://pajhome.org.uk/crypt/md5
+|                 and http://anmar.eu.org/projects/jssha2/files/sha2.js
+|    sha512.js  - see http://jssha.sourceforge.net/
+|    rmd.js     - see http://www.ocf.berkeley.edu/~jjlin/jsotp/rmd160.html
+|    blowfish.js    -  http://github.com/drench/blowfish.js
+|    http://www.augustana.ab.ca/~mohrj/algorithms/checkdigit.html
+|               used for Verhoeff's Dihedral Group D5 Check in EnDeCheck.js
+|               (no license information but copyright as copied on 17-feb-2008)
+|    JsDecoder.js   - see http://code.gosu.pl/dl/JsDecoder/demo/JsDecoder.js
+|------------------------------------------------------------------------------
+|    JsColorizer.js - see http://code.gosu.pl/dl/JsDecoder/demo/JsColorizer.js
+|    JSReq.js       - see http://www.businessinfo.co.uk/labs/jsreg/JSReg.js
+|    CoreRules2Html.jar - see http://www.jwall.org/core-rules/index.jsp
+|    ModSecurity Core Rule Set v2.0
+|       - see http://www.owasp.org/index.php/Category:OWASP_ModSecurity_Core_Rule_Set_Project
+|
+| The original files can be found in the 3rd/ directory here or in the  3rd/
+| directory at  https://github.com/EnDe/EnDe
+| Files as copied 07-apr-2007:
+|               aes.html
+|               md4.js
+|               md5.js
+|               sha1.js
+|               sha2.js
+|               rmd160.html
+| Files as copied 08-jul-2008:
+|               sha512.js
+|               CoreRules2Html.jar
+| Files as copied 08-sep-2008:
+|               JsDecoder.js
+|               JsColorizer.js
+| Files as copied 17-jul-2009:
+|               JSReg.js
+|               modsecurity-core-rules_2.0.tar.gz
+|               OWASP-ValidationRegexRepository.xml
+| Files as copied 06-jun-2011:
+|               blowfish.js
+|
+| Files without license information as copied on 30-dec-2007, 20-dec-2010:
+|     xssAttacks.xml        http://ha.ckers.org/xssAttacks.xml
+|     xss.mario.xml         http://mario.heideri.ch/xss.xml
+|     default_filter.xml    http://phpids.org/
+|               https://svn.php-ids.org/svn/trunk/lib/IDS/default_filter.xml
+\*****************************************************************************/
+-->
+<html>
+<head>
+	<meta http-equiv="Content-Type"  content="text/html; charset=utf-8" >
+	<title>EnDe </title>
+	<!-- link rel="schema.DC"         href="http://purl.org/dc/elements/1.1/" / -->
+	<meta name="DC.format"        content="text/html" >
+	<meta name="DC.title"         content="EnDe" >
+	<meta name="DC.subject"       content="EnDe - Encoder, Decoder, Converter, Transformer, Calculator for various codings used in the wild wide web " >
+	<meta name="DC.description"   content="EnDe - Encoder, Decoder, Converter, Transformer, Calculator for various codings used in the wild wide web " >
+	<meta name="DC.language"      content="en" >
+	<meta name="DC.rights"        content="https://github.com/EnDe/EnDe license.txt" >
+	<meta name="DC.license"       content="https://github.com/EnDe/EnDe license.txt" >
+	<meta name="DC.modified"      content="12/06/09" >
+	<meta name="DC.Source"        content="@(#) EnDe.html 3.35 12/06/09 17:39:43"  >
+	<meta name="DC.Date"          content="07-apr-07" >
+	<meta name="DC.creator"       content="Achim Hoffmann" >
+	<meta name="DC.Author"        content="Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net" >
+
+	<link rel="shortcut icon"        href="img/EnDe.ico">
+	<link rel="stylesheet"           type="text/css"        charset="utf-8" href="EnDe.css"     media="screen" title="most w3c-conform browsers" >
+
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDe.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="crc.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="md4.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="md5.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="aes.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="rmd.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="sha.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="sha512.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="blowfish.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeB64.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeIP.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeTS.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeMaps.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeVersion.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeFile.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeText.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeTest.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeGUI.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeGUIx.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeUser.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeCheck.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeREMap.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeRE.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeREGUI.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="JSReg.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="JsDecoder.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="JsColorizer.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeForm.js"></script>
+
+</head>
+<body>
+<noscript>
+	<hr><h1>** JavaScript required to use this page. **</h1><hr>
+</noscript>
+<img id="EnDeDOM.body" class="overlay" width="100%" height="100%" src="" >
+<div id="EnDeDOM.SB"><span id="EnDeDOM.SB.status"><!-- status text added here --></span>
+	<div  class="head">
+	<span class="sb">
+		<button id="EnDeDOM.SB.bp"          onClick="return EnDeGUI.show(this);">v</button>
+	</span>
+	</div>
+</div>
+<div id="EnDeDOM.hide">
+	<form id="EnDeDOM" name="EnDeDOM" accept-charset="utf-8" action="#" enctype="multipart/form-data" method="post" >
+	<br>
+	<a id="EnDeDOM.icon" title="about"  href="" onclick="return EnDeGUI.help('ABOUT');"><img src="img/ende-128x128.png" alt="EnDe Icon" width=28 height=28 ></a>
+	<a id="EnDeDOM.logo" title="sponsored by sic[!]sec GmbH" href="http://sicsec.de/" target="_sicsec"><img src="img/sicsec-87x26.png" alt="sic[!]sec" ></a>
+	<fieldset   id="EnDeDOM.f.DBX">
+		<div    id="EnDeDOM.DBX.bf" class="head">
+			<span>
+				<button id="EnDeDOM.DBX.bq"     onClick="return EnDeGUI.show(this);" >-</button>
+				<button id="EnDeDOM.DBX.bh"     onClick="return EnDeGUI.help('DBX');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.DBX.bq">trace</label></h2>
+		</div>
+		<div    id="EnDeDOM.DBX.opt">
+			<label class="bold"> trace levels: </label>
+			<label for="EnDeDOM.DBX.Trace"><input id="EnDeDOM.DBX.Trace" type="checkbox" onClick="return EnDeGUI.settrace(this);"> trace</label>
+			<label for="EnDeDOM.DBX.EnDe">  <input id="EnDeDOM.DBX.EnDe" type="checkbox" onClick="return EnDeGUI.settrace(this);"> EnDe (API) </label>
+			<label for="EnDeDOM.DBX.Obj">   <input id="EnDeDOM.DBX.Obj"  type="checkbox" onClick="return EnDeGUI.settrace(this);"> Obj  </label>
+			<label for="EnDeDOM.DBX.txt">   <input id="EnDeDOM.DBX.txt"  type="checkbox" onClick="return EnDeGUI.settrace(this);"> txt  </label>
+			<label for="EnDeDOM.DBX.Menu">  <input id="EnDeDOM.DBX.Menu" type="checkbox" onClick="return EnDeGUI.settrace(this);"> Menu </label>
+			<label for="EnDeDOM.DBX.File">  <input id="EnDeDOM.DBX.File" type="checkbox" onClick="return EnDeGUI.settrace(this);"> File </label>
+			<label for="EnDeDOM.DBX.Text">  <input id="EnDeDOM.DBX.Text" type="checkbox" onClick="return EnDeGUI.settrace(this);"> Text </label>
+			<label for="EnDeDOM.DBX.Form">  <input id="EnDeDOM.DBX.Form" type="checkbox" onClick="return EnDeGUI.settrace(this);"> Form </label>
+			<label for="EnDeDOM.DBX.Maps">  <input id="EnDeDOM.DBX.Maps" type="checkbox" onClick="return EnDeGUI.settrace(this);"> Maps </label>
+			<label for="EnDeDOM.DBX.B64">   <input id="EnDeDOM.DBX.B64"  type="checkbox" onClick="return EnDeGUI.settrace(this);"> B64  </label>
+			<label for="EnDeDOM.DBX.User">  <input id="EnDeDOM.DBX.User" type="checkbox" onClick="return EnDeGUI.settrace(this);"> User </label>
+<!--
+			<br>
+			<label for="EnDeDOM.DBX.IP">    <input id="EnDeDOM.DBX.IP"   type="checkbox" onClick="return EnDeGUI.settrace(this);"> IP   </label>
+			<label for="EnDeDOM.DBX.TS">    <input id="EnDeDOM.DBX.TS"   type="checkbox" onClick="return EnDeGUI.settrace(this);"> TS   </label>
+			<label for="EnDeDOM.DBX.UCS">   <input id="EnDeDOM.DBX.UCS"  type="checkbox" onClick="return EnDeGUI.settrace(this);"> UCS  </label>
+-->
+			<hr>
+		</div>
+		<div  id="EnDeDOM.DBX">
+			<textarea   id="EnDeDOM.DBX.text"></textarea>
+			&#160;&#160;
+			<button     id="EnDeDOM.DBX.bc" onClick="$('EnDeDOM.DBX.text').value='';return false;">clear</button>
+			&#160;&#160;
+			<button     id="EnDeDOM.DBX.bl" onClick="return EnDeGUI.showFiles();">loaded files</button>
+			<button     id="EnDeDOM.DBX.bm" onClick="return EnDeGUI.showMap();">constants and maps</button>
+			<button     id="EnDeDOM.DBX.bo" onClick="return EnDeGUI.showArr();">raw maps</button>
+			<button     id="EnDeDOM.DBX.bd" onClick="return EnDeGUI.showIds();">check tag IDs</button>
+			<button     id="EnDeDOM.DBX.bi" onClick="return EnDeGUI.showSID();">show SIDs</button>
+			<button     id="EnDeDOM.DBX.bu" onClick="return EnDeGUI.checkupdate();">check update</button>
+			<button     id="EnDeDOM.DBX.bs" onClick="return EnDeGUI.scratch('DBX', $('EnDeDOM.DBX.text').value)" >Scratchpad ..</button>
+		</div>
+	</fieldset>
+	<fieldset   id="EnDeDOM.f.TST">
+		<div    id="EnDeDOM.TST.bf" class="head">
+			<span>
+				<button id="EnDeDOM.TST.bq"     onClick="return EnDeGUI.show(this);" >-</button>
+				<button id="EnDeDOM.TST.bh"     onClick="return EnDeGUI.help('TST');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.TST.bq">test</label></h2>
+		</div>
+		<div  id="EnDeDOM.TST">
+			&#160;
+			<button     id="EnDeDOM.TST.b1" onClick="return EnDeGUI.test('-');">run tests from file</button>
+			<button     id="EnDeDOM.TST.b2" onClick="return EnDeGUI.test('E');">run tests from input</button>
+			<input      id="EnDeDOM.TST.str"  type="text"   value=""    size="30" >
+			<input     id="EnDeDOM.TST.toEN"  type="button" value=">E"  class="button"      onClick="$('EnDeDOM.EN.text').value=$('EnDeDOM.TST.str').value;return false;" >
+			<button     id="EnDeDOM.TST.bc" onClick="return EnDeGUI.testClear();">clear</button>
+			&#160; | &#160;
+			<button     id="EnDeDOM.TST.bd" onClick="return EnDeGUI.EN.dispatch(this,'test');" >dispatch(test)</button>
+			&#160; | &#160;
+			<a          id="EnDeDOM.TST.ac" href="EnDeCheck-Test.html">Check-Test</a> &#160;
+			<a          id="EnDeDOM.TST.ah" href="EnDeHTTP-Test.html" >HTTP-Test</a>
+			<div        id="EnDeDOM.TST.tst" class="test" ><!-- added by EnDeGUI.test() --></div>
+		</div>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.GUI"  class="options">
+		<div    id="EnDeDOM.GUI.bf" class="head">
+			<span>
+				<button id="EnDeDOM.GUI.bq"     onClick="return EnDeGUI.show(this);" >-</button>
+				<button id="EnDeDOM.GUI.bh"     onClick="return EnDeGUI.help('GUI');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.GUI.bq">GUI Options</label></h2>
+		</div>
+		<div  id="EnDeDOM.GUI">
+			<fieldset   id="EnDeDOM.f.file"><legend>Load File</legend>
+				<label for="EnDeDOM.GUI.menu"   class="bold">Menu:
+				<span   id="EnDeDOM.GUI.menu"   class="select popup"><!-- SELECT added by EnDeUser.ls() --></span>
+				</label>&#160;&#62;&#160;
+				<select id="EnDeDOM.GUI.obj">
+				<option value="EnDeDOM.f.GUI"   title="create menu in GUI Options">GUI Options</option>
+				<option value="EnDeDOM.f.API"   title="create menu in API Options">API Options</option>
+				<option value="EnDeDOM.f.EN"    title="create menu in Encoding" selected>   Encoding</option>
+				<option value="EnDeDOM.f.DE"    title="create menu in Decoding">   Decoding</option>
+				<option value="EnDeDOM.f.IP"    title="create menu in IP">         IP</option>
+				<option value="EnDeDOM.f.TS"    title="create menu in Timestamp">  Timestamp</option>
+				<option value="EnDeDOM.f.RE"    title="create menu in RegEx">      RegEx</option>
+				<option value="EnDeDOM.f.PW"    title="create menu in Password">   Password</option>
+				<option value="EnDeDOM.f.FF"    title="create menu in Functions">  Functions</option>
+				<option value="EnDeDOM.f.DBX"   title="create menu in trace">      trace</option>
+				<option value="EnDeDOM.f.TST"   title="create menu in Test">       Test</option>
+				</select>
+				<button id="EnDeDOM.GUI.bl"     onClick="return EnDeGUI.makelist($('EnDeDOM.GUI.file').value);" >show payloads</button>
+				<button id="EnDeDOM.GUI.bx"     onClick="return EnDeGUI.makemenu($('EnDeDOM.GUI.file').value);" >create menu</button>
+				<button id="EnDeDOM.GUI.br"     onClick="return EnDeUser.file.reset();"    class="blind"           >EnDeUser.file.reset</button>
+				<br>
+				<label for="EnDeDOM.GUI.file"   class="bold">File:
+				<input  id="EnDeDOM.GUI.file"   type="text" value=""        class="browse file" ></label>
+				<label for="EnDeDOM.GUI.fake">
+				<input  id="EnDeDOM.GUI.fake"   type="file" value=""        class="browse hide" onChange="EnDeGUI.setfile(this,'EnDeDOM.GUI.file');" ></label>
+				<input  id="EnDeDOM.GUI.browse" type=button value="browse"  class="browse fake" >
+				<input  id="EnDeDOM.GUI.toEN"   onClick="return EnDeGUI.readfile(this,$('EnDeDOM.GUI.file').value);" type="button"   value=">Encoding"   class="button" >
+				<input  id="EnDeDOM.GUI.toDE"   onClick="return EnDeGUI.readfile(this,$('EnDeDOM.GUI.file').value);" type="button"   value=">Decoding"   class="button" >
+				<input  id="EnDeDOM.GUI.toRE"   onClick="return EnDeGUI.readfile(this,$('EnDeDOM.GUI.file').value);" type="button"   value=">RegEx"      class="button" >
+			</fieldset>
+				<label class="bold">Info:</label>
+				<button id="EnDeDOM.GUI.DBX"    onClick="return EnDeGUI.tool('EnDeDOM.f.DBX');">Trace</button>
+				<button id="EnDeDOM.GUI.TST"    onClick="return EnDeGUI.tool('EnDeDOM.f.TST');">Test</button>
+				<button id="EnDeDOM.GUI.H"      onClick="return EnDeGUI.tour(this);">Tour</button>
+				<button id="EnDeDOM.GUI.SB"     onClick="return EnDeGUI.show(this);">Status Bar</button>
+				<label for="EnDeDOM.GUI.cmt">Comments <input  id="EnDeDOM.GUI.cmt" type="checkbox" ></label>
+				<br>
+				<label class="bold">Misc:</label>
+				<button id="EnDeDOM.GUI.be"     onClick="return EnDeGUI.hidden(null);"  >experimental</button>
+				<button id="EnDeDOM.GUI.bp"     onClick="return EnDeGUI.pimp();" hide="1">pimp</button>
+				<button id="EnDeDOM.GUI.bj"     onClick="return EnDeGUI.jokes(null);"   >esoteric</button>
+				<button id="EnDeDOM.GUI.QQ"     onClick="return EnDeGUI.show(this);">Browser Quirks</button>
+				<span   id="EnDeDOM.GUI.Only"   class="select"  ><!-- SELECT added by init() --></span>
+				<br>
+<!--
+				<label class="bold">&#160;&#160;&#160;&#160;:</label>
+-->
+		</div>
+		<span   id="EnDeDOM.GUI.QB" class="quick head">
+			<span>&#160;&#160;
+				<button id="EnDeDOM.GUI.qq"     onClick="return EnDeGUI.show(this);">x</button>
+				<button id="EnDeDOM.GUI.qh"     onClick="return EnDeGUI.help('GUI');">?</button>
+			</span>
+			<label for="EnDeDOM.GUI.append" >append    <input   id="EnDeDOM.GUI.append" type="checkbox" ></label>
+			<label for="EnDeDOM.GUI.select" >selection <input   id="EnDeDOM.GUI.select" type="checkbox" ></label>
+			<button     id="EnDeDOM.GUI.FF" onClick="return EnDeGUI.show(this);">Functions</button>
+			<button     id="EnDeDOM.GUI.MP" onClick="return EnDeGUI.show(this);">Replace Map</button>
+			<button     id="EnDeDOM.GUI.bS" onClick="return EnDeGUI.copy();" hide="1">Shuffle</button>
+		</span>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.API"  class="options">
+		<div    id="EnDeDOM.API.bf" class="head">
+			<span>
+				<button id="EnDeDOM.API.bq"     onClick="return EnDeGUI.show(this);" >-</button>
+				<button id="EnDeDOM.API.bh"     onClick="return EnDeGUI.help('API');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.API.bq">API Options</label></h2>
+		</div>
+		<div  id="EnDeDOM.API">
+			<table cellspacing="0" class="opttable" >
+				<tr>
+					<th>User API Options</th><th>values</th><th>Prefix</th><th>Suffix</th><th>Delimiter</th><th>Key/Cipher</th><th>output format</th><th hide="1">mode</th>
+				</tr>
+				<tr>
+					<td rowspan="2"><div    id="EnDeDOM.API.Menu"   class="select" ><!-- class="middle"     SELECT added by init() --></div><br><br></td>
+					<td>size <select id="EnDeDOM.API.size">
+						<option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></td>
+					<td><input  id="EnDeDOM.API.prefix" type="text" value=""   size="4"></td>
+					<td><input  id="EnDeDOM.API.suffix" type="text" value=""   size="4"></td>
+					<td><input  id="EnDeDOM.API.delimiter" type="text" value=","  size="4"></td>
+					<td><input  id="EnDeDOM.API.cipher" type="text" value=""   size="13"></td>
+					<td><label for="EnDeDOM.API.wrapbreak">wrap 
+						<input  id="EnDeDOM.API.wrapbreak" type="text" value="76" size="4"></label></td>
+					<td hide="1" rowspan="2">
+						<label for="EnDeDOM.API.mode0">strict
+						<input  id="EnDeDOM.API.mode0"  type="radio" value="strict"  name="mode"              ></label><br>
+						<label for="EnDeDOM.API.mode1">lazy
+						<input  id="EnDeDOM.API.mode1"  type="radio" value="lazy"    name="mode"  checked="1" ></label><br>
+						<label for="EnDeDOM.API.mode2">verbose
+						<input  id="EnDeDOM.API.mode2"  type="radio" value="verbose" name="mode"              ></label>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="EnDeDOM.API.uppercase">uppercase
+						<input  id="EnDeDOM.API.uppercase" type="checkbox" checked="1" ></label></td>
+					<td colspan="3">
+						<label for="EnDeDOM.API.ishex">values are hex
+						<input  id="EnDeDOM.API.ishex"  type="checkbox"                ></label></td>
+					<td>Iterations
+						<input  id="EnDeDOM.API.iteration" type="text" value="1"  size="2"></td>
+					<td hide="1">typ <select id="EnDeDOM.API.typ">
+						<option>raw</option><option selected>hex</option><option>base64</option></select></td>
+				</tr>
+				<tr>
+					<td colspan="8"><fieldset><legend>JSReg</legend>
+						<b>sandbox:&#160;&#160;&#160;</b>
+						<label for="EnDeDOM.API.JSRcheck">runCheck():
+						<input  id="EnDeDOM.API.JSRcheck" type="checkbox"  checked="1" ></label>
+						&#160;&#160;
+						<b>call eval: </b>
+						<label for="EnDeDOM.API.JSRcode">code:
+						<input  id="EnDeDOM.API.JSRcode"  type="checkbox"  checked="1" ></label>
+						<label for="EnDeDOM.API.JSRfunc">function:
+						<input  id="EnDeDOM.API.JSRfunc"  type="checkbox"  checked="1" ></label>
+						<label for="EnDeDOM.API.JSRmain">main:
+						<input  id="EnDeDOM.API.JSRmain"  type="checkbox"  checked="1" ></label>
+						</fieldset>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.MP"   class="function">
+		<div    id="EnDeDOM.MP.bf"  class="head">
+			<span>
+			<button id="EnDeDOM.MP.bq"      onClick="return EnDeGUI.show(this);" >x</button>
+			<button id="EnDeDOM.MP.bh"      onClick="return EnDeGUI.help('MAP');">?</button>
+			</span>
+			<h2>Replace Characters Map</h2>
+		</div>
+		<div  id="EnDeDOM.MP">
+			character encoding<br>
+			<!-- default setting must be hex, otherwise we cannot use all characters in menu definition -->
+			<input      id="EnDeDOM.MP.see" type="hidden"   value="hex" >
+			<label     for="EnDeDOM.MP.chr">char
+			   <input   id="EnDeDOM.MP.chr" type="radio"    value="chr" onClick="EnDeGUI.MP.setFormat(this,this.value)" name="fmt" ></label>
+			<label     for="EnDeDOM.MP.oct">\ooo
+			   <input   id="EnDeDOM.MP.oct" type="radio"    value="oct" onClick="EnDeGUI.MP.setFormat(this,this.value)" name="fmt" ></label>
+			<label     for="EnDeDOM.MP.hex">\xHH
+			   <input   id="EnDeDOM.MP.hex" type="radio"    value="hex" onClick="EnDeGUI.MP.setFormat(this,this.value)" name="fmt"  checked="1" ></label>
+			<label     for="EnDeDOM.MP.url"> %HH
+			   <input   id="EnDeDOM.MP.url" type="radio"    value="url" onClick="EnDeGUI.MP.setFormat(this,this.value)" name="fmt" ></label>
+			<label     for="EnDeDOM.MP.uni">\uHHHH
+			   <input   id="EnDeDOM.MP.uni" type="radio"    value="uni" onClick="EnDeGUI.MP.setFormat(this,this.value)" name="fmt" ></label>
+			<label     for="EnDeDOM.MP.NCE">&amp;#xHH;
+			   <input   id="EnDeDOM.MP.NCE" type="radio"    value="NCE" onClick="EnDeGUI.MP.setFormat(this,this.value)" name="fmt" ></label>
+			<label     for="EnDeDOM.MP.int">&amp;#DDD;
+			   <input   id="EnDeDOM.MP.int" type="radio"    value="int" onClick="EnDeGUI.MP.setFormat(this,this.value)" name="fmt" ></label>
+			<label     for="dummy" style="float:none"> </label><br>
+<br>
+			<sub>insert specified or selected character in selected field below</sub><br>
+			character :&#160;
+			<input      id="EnDeDOM.MP.oldC" type="text"    value=""    class="blind" >
+			<input      id="EnDeDOM.MP.newC" type="text"    value="" >
+			<input      id="EnDeDOM.MP.add"  type="button"  value="add" onClick="EnDeGUI.MP.setChar(this,EnDeGUI.MP.getUnicode($('EnDeDOM.MP.see').value,$('EnDeDOM.MP.newC').value))" >
+
+			<div      id="EnDeDOM.MP.Menu"  class="select" >specials :&#160;  <!-- SELECT added by init() --></div>
+			<input    id="EnDeDOM.MP.row"   type="button"   value="+"   onClick="EnDeGUI.MP.newrow()" >
+			&#160;&#160; | &#160;&#160;
+			&#160;&#160; | &#160;&#160;
+			<input    id="EnDeDOM.MP.swap"  type="button"   value="<>"  onClick="EnDeGUI.MP.swap()" >
+			<div      id="EnDeDOM.MP.list"  class="select" ><!-- table added by init() --></div>
+	&#160;&#160;<sub>^ checkboxes not yet used</sub>
+		</div>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.FF"   class="function">
+		<div    id="EnDeDOM.FF.bf"  class="head">
+			<span>
+				<button id="EnDeDOM.FF.bq"  onClick="return EnDeGUI.show(this);"  >x</button>
+				<button id="EnDeDOM.FF.bh"  onClick="return EnDeGUI.help('MODE');">?</button>
+			</span>
+			<h2>Functions</h2>
+		</div>
+		<div  id="EnDeDOM.FF">
+			<div class="opt">
+			<label for="EnDeDOM.FF.varval0">
+			<input  id="EnDeDOM.FF.varval0" type="radio" value="variable"   name="varval"   checked="1" >variable<br>
+			</label>
+			<label for="EnDeDOM.FF.varval1">
+			<input  id="EnDeDOM.FF.varval1" type="radio" value="value"      name="varval" >value
+			</label>
+			</div><!-- class="opt" // this comment mandatory for Makefile -->
+
+			<div class="select middle"  id="EnDeDOM.FF.Actions"><!-- SELECT added by init() --></div>
+			<div class="left">
+				<textarea   id="EnDeDOM.FF.text"    accesskey="F"></textarea>
+				&#160;
+				<input      id="EnDeDOM.FF.isMem"   type="hidden"   value="isTxt" >
+				<input      id="EnDeDOM.FF.isTxt"   type="button"   value="Text"    class="tab" checked="1" onClick="return EnDeGUI.data(this,'EnDeDOM.FF')" >
+				<input      id="EnDeDOM.FF.isHex"   type="hidden"   value="Hex"     class="bat" >
+				<input      id="EnDeDOM.FF.isURI"   type="button"   value="parsed"  class="bat"             onClick="return EnDeGUI.data(this,'EnDeDOM.FF')" >
+				&#160;&#160;
+				<span       id="EnDeDOM.FF.Menu"    class="select popup"><!-- SELECT added by init() --></span>
+				&#160;&#160;
+				<button     id="EnDeDOM.FF.bw"  onClick="return EnDeGUI.cont($('EnDeDOM.FF.text').value)" >Window ..</button>
+				<button     id="EnDeDOM.FF.bs"  onClick="return EnDeGUI.scratch('FF', $('EnDeDOM.FF.text').value)" >Scratchpad ..</button>
+			</div>
+			<label for="EnDeDOM.FF.file">
+			<input  id="EnDeDOM.FF.file"        type="file" value="" ></label>
+			<input  id="EnDeDOM.FF.load"        onClick="return EnDeGUI.readfile(this,$('EnDeDOM.FF.file').value);"  type="button"   value="load"    class="button" >
+		</div>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.CH"   class="borderbox">
+		<div    id="EnDeDOM.CH.bf"  class="head">
+			<span>
+				<button id="EnDeDOM.CH.bq"  onClick="return EnDeGUI.show(this);">-</button>
+				<button id="EnDeDOM.CH.bh"  onClick="return EnDeGUI.help('CH');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.CH.bq">Character</label></h2>
+		</div>
+			<table cellspacing="0" id="EnDeDOM.CH" >
+				<tr>
+					<th>Special Unicode Characters</th>
+					<th>Char</th>   <th>hex</th>   <th>decimal</th><th>octal</th>
+					<th>&#160;</th>
+					<th>hex</th>    <th>binary</th>
+				</tr>
+				<tr>
+				<td rowspan="6"><div  id="EnDeDOM.CH.Menu"    class="select popup"><!-- SELECT added by init() --></div><br></td>
+				<td><input id="EnDeDOM.CH.chr" type="text"      value=""    class="chr" accesskey="C" onKeyup="return EnDeGUI.CH.set($('EnDeDOM.CH.chr').value.substr(-1));" >
+				<td><input id="EnDeDOM.CH.hex" type="text"      value=""    class="chr"         onKeypress="return EnDeGUI.CH.dispatch(this,'hex');" >
+				<td><input id="EnDeDOM.CH.dec" type="text"      value=""    class="chr"         onKeypress="return EnDeGUI.CH.dispatch(this,'dec');" >
+				<td><input id="EnDeDOM.CH.oct" type="text"      value=""    class="chr"         onKeypress="return EnDeGUI.CH.dispatch(this,'oct');" >
+				<th>Unicode</th>
+				<td><input id="EnDeDOM.CH.ucs" type="text"      value=""    class="chr"         onKeypress="return EnDeGUI.CH.dispatch(this,'hex');" >
+				<td><input id="EnDeDOM.CH.bin" type="text"      value=""    class="text"        onKeypress="return EnDeGUI.CH.dispatch(this,'bin');" >
+				</tr>
+				<tr>
+				<td colspan="4">
+					<input id="EnDeDOM.CH.toEN" type="button"   value=">Encoding"   class="button"  onClick="$('EnDeDOM.EN.text').value+=$('EnDeDOM.CH.chr').value;return false;" >
+					<input id="EnDeDOM.CH.toDE" type="button"   value=">Decoding"   class="button"  onClick="$('EnDeDOM.DE.text').value+=$('EnDeDOM.CH.chr').value;return false;" >
+					<input id="EnDeDOM.CH.toRE" type="button"   value=">RegEx"      class="button"  onClick="$('EnDeDOM.RE.text').value+=$('EnDeDOM.CH.chr').value;return false;" >
+				</td>
+				<th>UTF-8</th>
+				<td><input  id="EnDeDOM.CH.utf" type="text"     value=""    class="chr"         onKeypress="return EnDeGUI.CH.dispatch(this,'utf');" ></td>
+				<td colspan="3">
+					<input id="EnDeDOM.CH.lng"  type="text"     value="" class="text" size="44" onKeypress="return EnDeGUI.CH.dispatch(this,'lng');" >
+				</td>
+				</tr>
+<!--
+				<tr><td>&#160;</td></tr>
+				<tr><td>&#160;</td></tr>
+				<tr><td>&#160;</td></tr>
+				<tr><td>&#160;</td></tr>
+-->
+			</table>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.ED"   class="borderbox">
+		<div  class="head">
+			<span>
+				<button id="EnDeDOM.ED.bq"  onClick="return EnDeGUI.show(this);">-</button>
+				<button id="EnDeDOM.ED.bh"  onClick="return EnDeGUI.help('ED');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.ED.bq">En- / Decoding</label></h2>
+		</div>
+		<div    id="EnDeDOM.f.EDO">
+			<label class="bold"> add: </label>
+			<label for="EnDeDOM.ED.00"> <input  id="EnDeDOM.ED.00"  type="checkbox" > 0x00 </label>
+			<label for="EnDeDOM.ED.0a"> <input  id="EnDeDOM.ED.0a"  type="checkbox" > 0x0a </label>
+			<label for="EnDeDOM.ED.0d"> <input  id="EnDeDOM.ED.0d"  type="checkbox" > 0x0d </label>
+			<label for="EnDeDOM.ED.da"> <input  id="EnDeDOM.ED.da"  type="checkbox" > 0x0d0a</label>
+			<label for="EnDeDOM.ED.aa"> <input  id="EnDeDOM.ED.aa"  type="checkbox" > 0x1a </label>
+			<hr>
+		</div>
+		<fieldset id="EnDeDOM.f.EN"><legend> Encoding</legend>
+			<div  id="EnDeDOM.EN">
+			<div  class="select left"  id="EnDeDOM.EN.Actions"><!-- SELECT added by init() --></div>
+			<div  class="middle">
+				<textarea   id="EnDeDOM.EN.text"    accesskey="E"></textarea>
+				&#160;
+				<input      id="EnDeDOM.EN.isMem"   type="hidden"   value="isTxt" >
+				<input      id="EnDeDOM.EN.isTxt"   type="button"   value="Text"    class="tab" checked="1" onClick="return EnDeGUI.data(this,'EnDeDOM.EN')" >
+				<input      id="EnDeDOM.EN.isHex"   type="button"   value="Hex"     class="bat"             onClick="return EnDeGUI.data(this,'EnDeDOM.EN')" >
+				<input      id="EnDeDOM.EN.isURI"   type="button"   value="parsed"  class="bat"             onClick="return EnDeGUI.data(this,'EnDeDOM.EN')" >
+				&#160;
+				<span       id="EnDeDOM.EN.Menu"    class="select popup"><!-- SELECT added by init() --></span>
+				&#160;
+				<span       id="EnDeDOM.EN.guess"   class="select popup"><!-- SELECT added by init() --></span>
+				&#160;
+				<button     id="EnDeDOM.EN.bw"      onClick="return EnDeGUI.cont($('EnDeDOM.EN.text').value)" >Window ..</button>
+				<button     id="EnDeDOM.EN.bs"      onClick="return EnDeGUI.scratch('EN', $('EnDeDOM.EN.text').value)" >Scratchpad ..</button>
+			</div>
+			</div>
+		</fieldset>
+		<fieldset id="EnDeDOM.f.DE"><legend> Decoding</legend>
+			<div  id="EnDeDOM.DE">
+			<div  class="select left"  id="EnDeDOM.DE.Actions"><!-- SELECT added by init() --></div>
+			<div  class="middle">
+				<textarea   id="EnDeDOM.DE.text"    accesskey="D"></textarea>
+				&#160;
+				<input      id="EnDeDOM.DE.isMem"   type="hidden"   value="isTxt" >
+				<input      id="EnDeDOM.DE.isTxt"   type="button"   value="Text"    class="tab" checked="1" onClick="return EnDeGUI.data(this,'EnDeDOM.DE')" >
+				<input      id="EnDeDOM.DE.isHex"   type="button"   value="Hex"     class="bat"             onClick="return EnDeGUI.data(this,'EnDeDOM.DE')" >
+				<input      id="EnDeDOM.DE.isURI"   type="button"   value="parsed"  class="bat"             onClick="return EnDeGUI.data(this,'EnDeDOM.DE')" >
+				&#160;
+				<span       id="EnDeDOM.DE.Menu"    class="select popup"><!-- SELECT added by init() --></span>
+				&#160;
+				<span       id="EnDeDOM.DE.guess"   class="select popup"><!-- SELECT added by init() --></span>
+				&#160;
+				<button     id="EnDeDOM.DE.bw"      onClick="return EnDeGUI.cont($('EnDeDOM.DE.text').value)" >Window ..</button>
+				<button     id="EnDeDOM.DE.bs"      onClick="return EnDeGUI.scratch('DE', $('EnDeDOM.DE.text').value)" >Scratchpad ..</button>
+			</div>
+			</div>
+		</fieldset>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.IP"   class="borderbox">
+		<div  class="head">
+			<span>
+				<button id="EnDeDOM.IP.bq"  onClick="return EnDeGUI.show(this);">-</button>
+				<button id="EnDeDOM.IP.bh"  onClick="return EnDeGUI.help('IP');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.IP.bq">IP</label></h2>
+		</div>
+		<div    id="EnDeDOM.IP">
+		<div  class="block">
+			<span style="width:14em" >&#160;</span>
+			<span hide="1">
+			<label for="EnDeDOM.IP.dot"><input  id="EnDeDOM.IP.dot"     type="checkbox" checked="1" >. as delimiter</label>
+			</span>
+			<label class="bold">Incomplete dotted IP:</label>
+			<label for="EnDeDOM.IP.add0"><input id="EnDeDOM.IP.add0"    type="radio" name="add"  value="none"   checked="1" >none</label>
+			<label for="EnDeDOM.IP.add1"><input id="EnDeDOM.IP.add1"    type="radio" name="add"  value="lead"  >prefix 0.</label>
+			<label for="EnDeDOM.IP.add2"><input id="EnDeDOM.IP.add2"    type="radio" name="add"  value="trail" >suffix .0</label>
+			<label for="EnDeDOM.IP.add3"><input id="EnDeDOM.IP.add3"    type="radio" name="add"  value="prefix">prefix</label>
+			<label for="EnDeDOM.IP.add4"><input id="EnDeDOM.IP.add4"    type="radio" name="add"  value="suffix">suffix</label>
+		</div>
+		<hr>
+		<div  class="select left"  id="EnDeDOM.IP.Actions"><!-- SELECT added by init() --></div>
+		<div  class="middle">
+			<table cellspacing="0" id="EnDeDOM.IP.table" class="iptable" >
+				<tr><th>     IP:</th><td><input id="EnDeDOM.IP.ip" type="text" accesskey="I" ></td>
+					<td align="center">
+						<input id="EnDeDOM.IP.bn" class="button" type="button" size="2" onClick="return EnDeGUI.IP.dispatch(this,'normal')"  value=" < " >
+						<input id="EnDeDOM.IP.bx" class="button" type="button" size="2" onClick="return EnDeGUI.IP.dispatch(this,'swap')"    value=" <> ">
+						<input id="EnDeDOM.IP.br" class="button" type="button" size="2" onClick="return EnDeGUI.IP.dispatch(this,'reverse')" value=" > " >
+					</td>
+					<td><input id="EnDeDOM.IP.rip" type="text"></td>
+				</tr>
+				<tr><th>  &#160;</th>
+					<td class="line">quad dotted value</td>
+					<td class="line">&#160;&#160;plain value</td>
+					<td>&#160;</td></tr>
+				<tr><th>   IPv6:</th>
+					<td>       <input  id="EnDeDOM.IP.ip6" type="text"></td>
+					<td>&#160; <input  id="EnDeDOM.IP.big" type="text"></td>
+					<td><b>: 64-bit int</b>&#160; | &#160;
+						<label for="EnDeDOM.IP.low">small int:
+							   <input   id="EnDeDOM.IP.low" type="checkbox">
+						</label>
+					</td></tr>
+				<tr><th>    URL:</th>
+					<td>       <input   id="EnDeDOM.IP.url" type="text"></td>
+					<td>&#160; <input   id="EnDeDOM.IP.num" type="text"></td>
+					<td><b>: 32-bit int</b></td></tr>
+				<tr><th>    hex:</th>
+					<td>       <input   id="EnDeDOM.IP.hex" type="text"></td>
+					<td>&#160; <input   id="EnDeDOM.IP.xeh" type="text"></td>
+					<td><b>: 0x prefixed hex</b></td></tr>
+				<tr><th>  octal:</th>
+					<td>       <input   id="EnDeDOM.IP.oct" type="text"></td>
+					<td>&#160; </td>
+					<td>&#160;</td></tr>
+				<tr><th> binary:</th>
+					<td>       <input   id="EnDeDOM.IP.bin" type="text"></td>
+					<td colspan="2">&#160;
+							   <input   id="EnDeDOM.IP.bit" type="text" style="width:25em;" ></td>
+					</tr>
+				<tr>
+					<td>       <input   id="EnDeDOM.IP.res" type="reset" value="reset" class="button" ></td><!-- // ToDo: contribution to buggy browsers -->
+					<td colspan="3">
+					    &#160;&#160;
+						<span           id="EnDeDOM.IP.Menu"    class="select popup"><!-- SELECT added by init() --></span>
+						&#160;&#160;
+			<button     id="EnDeDOM.IP.bg"  onClick="return EnDeGUI.IP.dispatch(this,'guess')" disabled >guess</button>
+			<button     id="EnDeDOM.IP.bw"  onClick="return EnDeGUI.IP.dispatch(this,'show')" >Window ..</button>
+			<button     id="EnDeDOM.IP.bs"  onClick="return EnDeGUI.IP.dispatch(this,'scratch')" >Scratchpad ..</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</div>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.TS"   class="borderbox">
+		<div  class="head">
+			<span>
+				<button id="EnDeDOM.TS.bq"  onClick="return EnDeGUI.show(this);">-</button>
+				<button id="EnDeDOM.TS.bh"  onClick="return EnDeGUI.help('TS');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.TS.bq">Timestamp</label></h2>
+		</div>
+		<div    id="EnDeDOM.TS">
+		<div class="Box">
+		<table cellspacing="0">
+			<tr>
+				<th class="em8"><label class="bold">General Options:</label></th>
+				<td class="em4"><input  id="EnDeDOM.TS.yY"  type="checkbox" class="checkbox" >2/4</td>
+				<td class="em4"><input  id="EnDeDOM.TS.mM"  type="checkbox" class="checkbox" >Name</td>
+				<td class="em4"><input  id="EnDeDOM.TS.strict" type="checkbox" class="checkbox" >strict</td>
+				<td class="em4"><input  id="EnDeDOM.TS.hm"  type="checkbox" class="checkbox" >now</td>
+				<td>&#160;</td>
+				<td class="em4"><input  id="EnDeDOM.TS.ms"  type="checkbox" class="checkbox" >ms</td>
+
+				<td class="em4"><input  id="EnDeDOM.TS.GMT" type="checkbox" class="checkbox" >GMT</td>
+				<td class="em4"><input  id="EnDeDOM.TS.TZ"  type="checkbox" class="checkbox" disabled>TZ</td>
+				<td colspan="2"><input  id="EnDeDOM.TS.neg" type="checkbox" class="checkbox" disabled >&gt;2001 is negative</td>
+				<td class="em4">
+					<span  class="select popup" id="EnDeDOM.TS.format"><!-- SELECT added by init() --></span>
+					<input class="blind" id="EnDeDOM.TS.isFmt"  type="hidden" value="2unix" >
+				</td>
+			</tr>
+			<tr><td colspan="12"><hr></td> </tr>
+<!-- not yet implemented
+			<tr>
+				<td rowspan="4">&#160;</td>
+				<td rowspan="4">
+				<select id="EnDeDOM.TS.Action" size="5" onClick="return EnDeGUI.TS.dispatch(this,'compute');">
+					<option value="" disabled>Convert Formats:</option>  
+				</select>
+				</td>
+			</tr>
+-->
+			<tr>
+				<th class="em4">&#160;</th>
+				<td class="em4">Year</td>
+				<td class="em4">Month</td>
+				<td class="em4">Day</td>
+				<td class="em4">Hour</td>
+				<td class="em4">Min.</td>
+				<td class="em4">Sec.</td>
+				<td            >&#160;</td>
+				<td            >&#160;</td>
+				<td            >&#160;</td>
+				<td align="right">Ref. Time.:</td>
+				<td align="left"><input class="text"        id="EnDeDOM.TS.reftime" type="text" size="18" ></td>
+			</tr>
+			<tr>
+				<th class="em8" >Date | Time: </th>
+				<td align="left">       <input class="text" id="EnDeDOM.TS.year"    type="text" size="4"  ></td>
+				<td align="left">.&#160;<input class="text" id="EnDeDOM.TS.mon"     type="text" size="2"  ></td>
+				<td align="left">.&#160;<input class="text" id="EnDeDOM.TS.day"     type="text" size="2"  ></td>
+				<td align="left">|&#160;<input class="text" id="EnDeDOM.TS.hour"    type="text" size="2"  ></td>
+				<td align="left">:&#160;<input class="text" id="EnDeDOM.TS.min"     type="text" size="2"  ></td>
+				<td align="left">:&#160;<input class="text" id="EnDeDOM.TS.sec"     type="text" size="2"  ></td>
+				<td align="center"> <input   class="button" id="EnDeDOM.TS.toTS"  type="button" value=" > "  onClick="return EnDeGUI.TS.dispatch(this,'date2ts')" ></td>
+				<td align="left">   <input   class="button" id="EnDeDOM.TS.toDT"  type="button" value=" < "  onClick="return EnDeGUI.TS.dispatch(this,'ts2date')" ></td>
+				<td>&#160;</td>
+				<td align="right" >Timestamp: </td>
+				<td align="left">   <input     class="text" id="EnDeDOM.TS.timestamp" type="text"   size="18" ></td>
+			</tr>
+			<tr>
+				<th class="em8" >human readable: </th>
+				<td colspan="5">    <input     class="text" id="EnDeDOM.TS.human"   type="text" size="40"   accesskey="T" ></td>
+				<td align="center"> <input   class="button" id="EnDeDOM.TS.toTSC" type="button"             value=" >> " onClick="return EnDeGUI.TS.dispatch(this,'compute')" ></td>
+				<td align="center"> <input   class="button" id="EnDeDOM.TS.toOf"  type="button" size="2"    value=" > "  onClick="return EnDeGUI.TS.dispatch(this,'date2offset')" ></td>
+				<td align="left">   <input   class="button" id="EnDeDOM.TS.FromOf" type="button" size="2"   value=" < "  onClick="return EnDeGUI.TS.dispatch(this,'offset2date')" ></td>
+				<td>&#160;</td>
+				<td align="right">  <input   class="button" id="EnDeDOM.TS.Add"   type="button" size="3"    value=" + "  onClick="return EnDeGUI.TS.dispatch(this,'addOffset')" > Offset:</td>
+				<td align="left">   <input     class="text" id="EnDeDOM.TS.offset"  type="text" size="18" ></td>
+			</tr>
+			<tr>
+				<th>&#160;</th>
+				<td colspan="2" align="center"><input       id="EnDeDOM.TS.now"   type="button" class="button" value="now"  onClick="return EnDeGUI.TS.dispatch(this,'now')" ></td>
+				<td colspan="2">
+					&#160;
+					<span   id="EnDeDOM.TS.Menu"    class="popup">
+					<!-- // ToDo: quick&dirty as long as we have no more functions
+				 	- - onClick= as select attribute is contribution to buggy Safari -->
+					<select onClick="return EnDeGUI.TS.reset()"><option>clear</option></select>
+					</span>
+				</td>
+				<td colspan="4">
+					&#160;
+					<button id="EnDeDOM.TS.bg"  onClick="return EnDeGUI.TS.dispatch(this,'guess')"  >guess</button>
+					<button id="EnDeDOM.TS.bm"  onClick="return EnDeGUI.TS.dispatch(this,'scratch')">Scratchpad ..</button>
+				</td>
+				<td>&#160;</td>
+				<td>&#160; &#160; &#160;<input  class="button"  type="button"   id="EnDeDOM.TS.isTimestamp" value="Ref + Offset"    onClick="return EnDeGUI.TS.dispatch(this,'isTS')" ></td>
+				<td>    <input  class="button"  type="button"   id="EnDeDOM.TS.isOffset"    value="Ref - Timestamp" onClick="return EnDeGUI.TS.dispatch(this,'isOffset')" ></td>
+			</tr>
+		</table>
+		</div>
+		</div>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.RX"   class="borderbox">
+		<div  class="head">
+			<span>
+				<button id="EnDeDOM.RE.bq"  onClick="return EnDeGUI.show(this);">-</button>
+				<button id="EnDeDOM.RE.bh"  onClick="return EnDeGUI.help('RE');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.RE.bq">RegEx - Regular Expressions</label></h2>
+		</div>
+		<div    id="EnDeDOM.RE">
+			Prefix:
+			<label for="EnDeDOM.RE.prefix"><input   id="EnDeDOM.RE.prefix"  type="text"     > &#160; </label>
+			<label for="EnDeDOM.RE.raw">   <input   id="EnDeDOM.RE.raw"     type="checkbox" checked="1" >raw RegEx &#160; </label>
+			<label for="EnDeDOM.RE.desc">  <input   id="EnDeDOM.RE.desc"    type="checkbox" checked="1" >description &#160;</label>
+			<span hide="1">
+			<label for="EnDeDOM.RE.ere">   <input   id="EnDeDOM.RE.ere"     type="checkbox"             >extended RegEx &#160; </label>
+			</span>
+			<hr>
+			<div  class="select left"   id="EnDeDOM.RE.Actions"><br><!-- SELECT added by init() --></div>
+			<div  class="middle">
+			<fieldset id="EnDeDOM.f.RE"><legend> RegEx</legend>
+				<textarea   id="EnDeDOM.RE.text"    accesskey="R"></textarea>
+				&#160;
+				<input      id="EnDeDOM.RE.isMem"   type="hidden"   value="isTxt" >
+				<input      id="EnDeDOM.RE.isTxt"   type="button"   value="Text"    class="tab" checked="1" onClick="return EnDeGUI.data(this,'EnDeDOM.RE')" >
+				<input      id="EnDeDOM.RE.isHex"   type="button"   value="Hex"     class="bat"             onClick="return EnDeGUI.data(this,'EnDeDOM.RE')" >
+				<input      id="EnDeDOM.RE.isURI"   type="button"   value="parsed"  class="bat"             onClick="return EnDeGUI.data(this,'EnDeDOM.RE')" >
+				&#160;&#160;
+				<span       id="EnDeDOM.RE.Menu"    class="select popup"><!-- SELECT added by init() --></span>
+				&#160;&#160;
+				<button     id="EnDeDOM.RE.bg" onClick="return EnDeGUI.RE.dispatch(this,'guess')" disabled>guess</button>
+				<button     id="EnDeDOM.RE.bw" onClick="return EnDeGUI.RE.dispatch(this,'code')"    >Window ..</button>
+				<button     id="EnDeDOM.RE.bs" onClick="return EnDeGUI.RE.dispatch(this,'scratch')" >Scratchpad ..</button>
+			</fieldset>
+			<fieldset id="EnDeDOM.f.TE"><legend> Text ..</legend>
+				<textarea   id="EnDeDOM.RE.str"></textarea>
+			</fieldset>
+			</div>
+		</div>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.PW"   class="borderbox" hide="1" >
+		<div  class="head">
+			<span>
+				<button id="EnDeDOM.PW.bq"  onClick="return EnDeGUI.show(this);">-</button>
+				<button id="EnDeDOM.PW.bh"  onClick="return EnDeGUI.help('PW');">?</button>
+			</span>
+			<h2><label for="EnDeDOM.PW.bq">Password Strength</label></h2>
+		</div>
+		<div    id="EnDeDOM.PW">
+			<table cellspacing="0" id="EnDeDOM.PW.table" >
+<!--
+/*
+    * Ban particular words (tested case-insensitively).
+*/
+-->
+				<tr>
+				    <th class="line">Score</th>   <th class="line"> Value</th> <th class="line">Description</th>
+				    <td class="line">|</td>
+				    <th class="line">Score</th>   <th class="line"> Value</th> <th class="line">Description</th>
+				</tr>
+				<tr><td><input  id="EnDeDOM.PW.scoremin"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.min"       value="8" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.min">Minimum Length</label></td>
+				    <td>|</td>
+				    <td><input  id="EnDeDOM.PW.scorelow"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.low"       value="1" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.low">Minimum number of lowercase characters</label></td>
+				</tr>
+				<tr><td><input  id="EnDeDOM.PW.scoremax"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.max"       value="0" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.max">Maximum Length (0 if unlimited)</label></td>
+				    <td>|</td>
+				    <td><input  id="EnDeDOM.PW.scoreupp"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.upp"       value="1" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.upp">Minimum number of uppercase characters</label></td>
+				</tr>
+				<tr><td><input  id="EnDeDOM.PW.scoreidl"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.idl"       value="2" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.idl">Maximum sequence of identical characters</label></td>
+				    <td>|</td>
+				    <td><input  id="EnDeDOM.PW.scorenum"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.num"       value="1" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.num">Minimum number of digits</label></td>
+				</tr>
+				<tr><td><input  id="EnDeDOM.PW.scorespc"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.spc"       value="2" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.spc">Maximum sequence of special characters</label></td>
+				    <td>|</td>
+				    <td><input  id="EnDeDOM.PW.scorensp"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.nsp"       value="1" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.nsp">Minimum number special characters</label></td>
+				</tr>
+				<tr><td><input  id="EnDeDOM.PW.scorecnt"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.cnt"       value="2" class="em2" ></td>
+				    <td><label for="EnDeDOM.PW.cnt">Maximum sequence of continous characters</label></td>
+				    <td>|</td>
+				    <td><input  id="EnDeDOM.PW.scorespn"  value="1" class="em2" size="2" ></td>
+				    <td><input  id="EnDeDOM.PW.spn"       value="0" class="em2" ></td>
+<!--
+				    <td><input  id="EnDeDOM.PW.spn"       value="0" class="chr" ></td>
+-->
+				    <td><label for="EnDeDOM.PW.spn">Maximum sequence of special characters</label></td>
+				</tr>
+				<tr><td><input  id="EnDeDOM.PW.scorehor"  value="1" class="em2" size="2" ></td>
+				    <td colspan="2"><input id="EnDeDOM.PW.hor"        class="text" size="50"
+					value="^1234567890&szlig;&acute;qwertzuiop&uuml;+asdfghjkl&ouml;&auml;#<yxcvbnm,.-" >
+					<select id="EnDeDOM.PW.lan" onchange="document.getElementById('EnDeDOM.PW.hor').value=this.value" >
+						<option value="^1234567890&szlig;&acute;qwertzuiop&uuml;+asdfghjkl&ouml;&auml;#<yxcvbnm,.-">de</option>
+						<option value="&ordm;1234567890'&iexcl;qwertyuiop&grave;+asdfghjkl&ntilde;&grave;&ccedil;<zxcvbnm,.-">es</option>
+						<option value="&sup2;1234567890&agrave;)qzertyuiop^$qsdfghjklm&ugrave;*<wxcvbn,;:!"        >fr</option>
+						<option value="&grave;1234567890-=qwertyuiop[]asdfghjkl,./\zxcvbnm,./"                     >us</option>
+					</select>
+				    </td>
+				    <td>&#160;</td>
+				    <td colspan="3"><label for="EnDeDOM.PW.hor">horizontal character sequence (keyboard layout)</label></td>
+				</tr>
+				<tr><td><input id="EnDeDOM.PW.scorever"  value="1" class="em2" size="2" ></td>
+				    <td colspan="2"><input id="EnDeDOM.PW.ver"        class="text" size="50"
+					value="1qaz 2wsx 3edc 4rfv 5tgb 6yhn 7ujm 8ik, 9ol. 0p&ouml;-" ></td>
+<!-- // ToDo: need select option according above -->
+				    <td>&#160;</td>
+				    <td colspan="3"><label for="EnDeDOM.PW.ver">vertical character sequence (keyboard layout)</label></td>
+				</tr>
+				<tr><td><input id="EnDeDOM.PW.scorerex"  value="0" class="em2" size="2" ></td>
+				    <td colspan="2"><input id="EnDeDOM.PW.rex" value="" class="text" size="50" ></td>
+				    <td>&#160;</td>
+				    <td colspan="3"><label for="EnDeDOM.PW.rex">user-defined regular expression (JavaScript syntax)</label></td>
+				</tr>
+			</table>
+			&#160;Test: <input id="EnDeDOM.PW.text"  value="" class="text" size="50">
+			<br><br>
+			<input  id="EnDeDOM.PW.res"   value="Reset"   type="reset">
+			<button id="EnDeDOM.PW.run"   value="Test"    onclick="return EnDe.PW.dispatch(this,'pwd')">test</button>
+			<br><br>
+		</div>
+	</fieldset>
+
+	<fieldset   id="EnDeDOM.f.QQ"   class="function">
+		<div    id="EnDeDOM.QQ.bf"  class="head">
+			<span>
+			<button id="EnDeDOM.QQ.bq"  onClick="return EnDeGUI.show(this);">x</button>
+			<button id="EnDeDOM.QQ.bh"  onClick="return EnDeGUI.help('QQ');">?</button>
+			</span>
+			<h2>Browser Quirks</h2>
+		</div>
+		<div  id="EnDeDOM.QQ"       class="quirks" >
+			<span>
+				As descibed in <a href="EnDe.man.html#GENERAL_DESIGN_HINTS"
+				target="_help"> GENERAL DESIGN HINTS</a> the (browser) GUI of
+				<ende>EnDe</ende> is designed to work with just one click on all
+				buttons and menu items.<br>
+				Any form field should have brief description showing up when
+				the mouse is over the field or menu item.<br>
+				Unfortunately there're some browsers in the wild which don't
+				comply to the standards and behave different. It's sometimes 
+				difficult to get the expected functionality, sometimes even
+				impossible.<br>
+				The settings here provide some workarounds for these browsers.
+				Just choose the settings proper for your browser and reload
+				the page using the 
+				<button id="EnDeDOM.QQ.qq" onClick="return EnDeGUI.quirks('');">reload</button>
+				button.<br>
+			</span>
+			<ul>
+			<li>privileges
+			<button id="EnDeDOM.QQ.rf" onClick="return EnDeGUI.privilege(this.innerHTML);" >UniversalFileRead</button>
+			<button id="EnDeDOM.QQ.rb" onClick="return EnDeGUI.privilege(this.innerHTML);" >UniversalBrowserRead</button>
+			<button id="EnDeDOM.QQ.rp" onClick="return EnDeGUI.privilege(this.innerHTML);" >UniversalPreferencesRead</button>
+			<button id="EnDeDOM.QQ.xp" onClick="return EnDeGUI.privilege(this.innerHTML);" >UniversalXPConnect</button>
+<!--
+			<button id="EnDeDOM.QQ.wf" onClick="return EnDeGUI.privilege(this.innerHTML);" >UniversalFileWrite</button>
+			<button id="EnDeDOM.QQ.wb" onClick="return EnDeGUI.privilege(this.innerHTML);" >UniversalBrowserWrite</button>
+			<button id="EnDeDOM.QQ.wp" onClick="return EnDeGUI.privilege(this.innerHTML);" >UniversalPreferencesWrite</button>
+			<button id="EnDeDOM.QQ.fa" onClick="return EnDeGUI.privilege(this.innerHTML);" >UniversalFileAccess</button>
+-->
+<!-- UniversalFileAccess probably Netscape only -->
+			<br>
+			<div>
+				Some browsers (i.e. all mozilla-based) need special privileges 
+				for some actions, mainly reading files. These privileges are
+				not set automatically but only on demand.<br>
+				Each button sets the listed privilege. Watch out for exception.
+				<br><b>Buttons work immediately, no [reload] necessary</b>.
+			</div>
+			</li>
+			<li>
+			<label for="EnDeDOM.QQ.lp"><input  id="EnDeDOM.QQ.lp"  type="text" size="55" > path to local directory</label>
+			<br>
+			<div>
+				Due to good security reasons some browser restrict access to
+				the full path of the file given with the <tt>input type=file</tt>
+				tag. If we want to read such files from the local system
+				anyway, we need to provide a proper path to the directory.<br>
+				Default of this path is given in the URL, which is most likely
+				sufficient if <ende>EnDe</ende> is served from file:///.<br>
+				NOTE that the default will be a full URL with schema if it is
+				not file:///.
+				<br><b>Setting works immediately, no [reload] necessary</b>.
+			</div>
+			</li>
+<!-- name+title
+	this menu may be tricky to read, if a browser does not support
+	the 'title=' attribute in OPTION tags
+-->
+			<li>
+			<label for="EnDeDOM.QQ.fl"><input id="EnDeDOM.QQ.fl"  type="checkbox" >flat menu</label>
+			<div>
+				Various problems (see below settings) exist in the behaviour
+				of standard HTML <tt>SELECT</tt> menus (the traditional popup
+				menus in one line and the pulldown arrow right).<br>
+				For example do all menus use the <tt>title=</tt> attribute to provide
+				additional descriptions, in particular most of the menus added
+				by the <b>Menu File</b>.<br>
+				Most <tt>SELECT</tt> menus in <ende>EnDe</ende> can be replaced with menus
+				build of <tt>UL</tt> and <tt>A</tt> (which support descriptions)
+				by checking this option. Using flat menus may result in strange
+				layouts in some sections. It's just a ugly workaround, though ...<br>
+				NOTE that these menus can be changed permanently by changing
+				the key <tt>html  SELECT</tt>  to  <tt>html  ANCHOR</tt>  in
+				the corresponding menu file (i. e. <b>EnDeMenu.txt</b>).
+			</div>
+			</li>
+			<li>
+			<label for="EnDeDOM.QQ.ba"><input  id="EnDeDOM.QQ.ba"  type="radio" name="onclick" checked >onClick</label>
+			<div>
+				HTML's <tt>SELECT</tt> menu usualy needs a click on the selected
+				(<tt>OPTION</tt>) item.
+				This is necessary wether it is a single or multiline menu. As we
+				always want to have just one click, the selected item needs to
+				call the assigned handler when the "onClick" event is triggered.
+				This is the default setting as implemented in most browsers.
+			</div>
+			</li>
+			<li>
+			<label for="EnDeDOM.QQ.bb"><input  id="EnDeDOM.QQ.bb"  type="radio" name="onclick"  >onChange</label>
+			<div>
+				HTML's <tt>SELECT</tt> menu usualy needs a click on the selected
+				(<tt>OPTION</tt>) item.
+				This is necessary wether it is a single or multiline menu. As we
+				always want to have just one click, the selected item needs to
+				call the assigned handler when the "onClick" event is triggered.
+				Some browser don't work proper with "onClick" but with "onChange".
+				If no action is done when such a menu is used, or the action is
+				executed with the second click, then this setting might help.
+			</div>
+			</li>
+			<li>
+			<label for="EnDeDOM.QQ.ac"><input  id="EnDeDOM.QQ.ac"  type="checkbox" checked >href click</label>
+			<div>
+				<tt>A</tt> tags use the <tt>onClick=</tt> attribute to catch
+				events before calling the assigned URL. If the assigned event
+				handler returns false, the assigned URL must not be called.<br>
+				Some browsers do not honor this behaviour but work as expected
+				when the URL uses the <tt>javascript:</tt> schema. Unchecking
+				this option uses <tt>href="javascript:..."</tt> instead of
+				<tt>onClick=</tt> attribute.<br>
+				Subject to this behaviour are most likely the <tt>A</tt> tags 
+				used in the selection menus found left in the tools.
+			</div>
+			</li>
+			<li>
+			<label for="EnDeDOM.QQ.ul"><input id="EnDeDOM.QQ.ul"  type="checkbox" >use label</label>
+			<div>
+				Workaround for browsers which do not use the <tt>OPTION</tt>'s
+				<tt>innerHTML</tt> value for the text visible in the menu but
+				use the <tt>OPTION</tt>'s <tt>label=</tt> attribute instead.<br>
+				If the menus show very long texts and have no <tt>title</tt>,
+				setting this option might help.
+			</div>
+			</li>
+			<li>
+			<button id="EnDeDOM.QQ.go" onClick="return EnDeGUI.quirks('');">reload</button>
+			<div>
+				Reload page with specified settings.
+			</div>
+			</li>
+			</ul>
+			<br>
+<!-- does not display proper in list above :-( -->
+			<div    id="EnDeDOM.GUI.Browser" class="select popup" >&#160;&#160;<!-- SELECT added by init() --></div>
+		</div>
+	</fieldset>
+
+	</form>
+
+	<div class="owasp">
+		<a href="http://www.owasp.org/index.php/Category:OWASP_EnDe"    title="OWASP EnDe"><img src="img/ende-128x128.png" alt="EnDe Icon" width=32 height=32 ></a>&#160;
+		<a href="https://github.com/EnDe/EnDe"     id="EnDeDOM.home"    title="home"><ende>EnDe</ende></a>&#160;
+		<a href="http://www.owasp.org/index.php/Category:OWASP_Project" title="OWASP Projects"><img src="img/owasp.ico" alt="OWASP Icon" ></a>
+	</div>
+	<div class="blind" id="UA"> <!-- added by init() --></div>
+	<div class="blind"> <a href="?test"         title="test menu">Test</a></div>
+</div>
+<script language="JavaScript1.3" type="text/javascript" charset="utf-8" >
+//<![CDATA[
+function $(id) { return document.getElementById(id); };
+if (typeof(EnDeGUI) == 'undefined') { EnDeGUI = {}; }
+EnDeGUI.titles  = {
+	/* define texts to be used as value for title= attributes */
+	//-----------------+----------------------------------------------------------------------
+	//  object id       text for title attribute
+	//-----------------+----------------------------------------------------------------------
+	'EnDeDOM.GUI.bq':   "set options for GUI (click to expand/fold)",
+	'EnDeDOM.API.bq':   "set options for API functions (click to expand/fold)",
+	'EnDeDOM.CH.bq':    "single character convertion tool (click to expand/fold)",
+	'EnDeDOM.ED.bq':    "en-/decoding tool (click to expand/fold)",
+	'EnDeDOM.IP.bq':    "IP convertion tool (click to expand/fold)",
+	'EnDeDOM.TS.bq':    "IP timestamp convertion tool (click to expand/fold)",
+	'EnDeDOM.RE.bq':    "explain and pretty print regEx tool (click to expand/fold)",
+	'EnDeDOM.TST.bq':   "test tool (click to expand/fold)",
+	'EnDeDOM.DBX.bq':   "trace output and debug tool (click to expand/fold)",
+	'EnDeDOM.f.GUI':    "set options for GUI",
+	'EnDeDOM.f.API':    "options for API",
+	'EnDeDOM.f.CH':     "single character convertion tool",
+	'EnDeDOM.f.ED':     "en-/decoding tool",
+	'EnDeDOM.f.IP':     "IP convertion tool",
+	'EnDeDOM.f.TS':     "IP timestamp convertion tool",
+	'EnDeDOM.f.RX':     "explain and pretty print regEx tool",
+	'EnDeDOM.f.TST':    "test tool",
+	'EnDeDOM.f.DBX':    "trace output and debug tool",
+	'EnDeDOM.SB.bp':    "top or bottom position",
+	'EnDeDOM.DBX.text': "trace/debug output",
+	'EnDeDOM.DBX.bc':   "clear trace/debug output",
+	'EnDeDOM.DBX.bl':   "show list of loaded files",
+	'EnDeDOM.DBX.bo':   "show raw array data for maps; WARNING: huge output",
+	'EnDeDOM.DBX.bm':   "show character maps",
+	'EnDeDOM.DBX.bd':   "check for duplicate tag IDs",
+	'EnDeDOM.DBX.bi':   "show (file) SIDs",
+	'EnDeDOM.DBX.bs':   "show above values in scratchpad",
+	'EnDeDOM.DBX.bf':   "trace/debug output header",
+	'EnDeDOM.DBX.bu':   "check for updates, show current and new version",
+	'EnDeDOM.DBX.Trace':"toggle general trace output",
+	'EnDeDOM.DBX.EnDe': "toggle trace output for EnDe API functions",
+	'EnDeDOM.DBX.Obj':  "toggle trace output for generating HTML objects",
+	'EnDeDOM.DBX.txt':  "toggle trace output for converting to internal data",
+	'EnDeDOM.DBX.Menu': "toggle trace output for generating menus",
+	'EnDeDOM.DBX.File': "toggle trace output for EnDeFile.js (reading files)",
+	'EnDeDOM.DBX.Text': "toggle trace output for EnDeText.js (text formating functions)",
+	'EnDeDOM.DBX.Form': "toggle trace output for EnDeForm.js (formating functions)",
+	'EnDeDOM.DBX.B64':  "toggle trace output for EnDeB64.js (baseXX functions)",
+	'EnDeDOM.DBX.User': "toggle trace output for EnDeUser.js (user functions)",
+	'EnDeDOM.DBX.Maps': "toggle trace output for EnDeMaps.js (building character maps)",
+	'EnDeDOM.DBX.IP':   "toggle trace output for EnDeIP.js (IP convertion functions)",
+	'EnDeDOM.DBX.TS':   "toggle trace output for EnDeTS.js (timestamp convertion functions)",
+	'EnDeDOM.DBX.UCS':  "toggle trace output for EnDeUCS.js (Unicode en-/de functions)",
+	'EnDeDOM.TST.bf':   "Test output header",
+	'EnDeDOM.TST.b1':   "start test with data from given file (see Load File)",
+	'EnDeDOM.TST.b2':   "start test with data from Encoding textarea input field",
+	'EnDeDOM.TST.toEN': "write last test pattern to Encoding textarea",
+	'EnDeDOM.TST.str':  "last used test pattern",
+	'EnDeDOM.TST.bv':   "start test with given value",
+	'EnDeDOM.TST.bc':   "remove test result",
+	'EnDeDOM.TST.bm':   "show character maps",
+	'EnDeDOM.TST.bd':   "test dispatch() function",
+	'EnDeDOM.TST.ac':   "special test page for function from EnDeCheck.js",
+	'EnDeDOM.TST.ah':   "special test page for function from EnDeHTTP.js",
+	'EnDeDOM.GUI.bf':   "GUI section header",
+	'EnDeDOM.GUI.menu': "select file to build menu from",
+	'EnDeDOM.GUI.obj':  "section where to create menu (only if not configured in EnDeFile.txt)",
+	'EnDeDOM.GUI.bx':   "create menu from file",
+	'EnDeDOM.GUI.bl':   "create list of payloads from file and show in new window",
+	'EnDeDOM.GUI.br':   "reset internal 'use' variable",
+	'EnDeDOM.GUI.bj':   "toggle visibility of 'esoteric' functions",
+	'EnDeDOM.GUI.append':   "if checked append text to textarea, otherwise replace text in textarea",
+	'EnDeDOM.GUI.select':   "if checked use selection, otherwise complete field",
+	'EnDeDOM.GUI.browse':   "browse local file system (should be invisible)",
+	'EnDeDOM.GUI.fake': "browse local file system",
+	'EnDeDOM.GUI.file': "read content from this file",
+	'EnDeDOM.GUI.be':   "toggle visibility of experimental functions",
+	'EnDeDOM.GUI.FF':   "open Function window",
+	'EnDeDOM.GUI.MP':   "open Replace Map window",
+	'EnDeDOM.GUI.bS':   "shuffle data between fields",
+	'EnDeDOM.GUI.bp':   "try to set a sexy GUI",
+	'EnDeDOM.GUI.qq':   "fix quick GUI bar on top of page",
+	'EnDeDOM.GUI.H':    "**experimental** demo tour",
+	'EnDeDOM.GUI.SB':   "show status bar",
+	'EnDeDOM.GUI.cmt':  "add descriptive comments when inserting payloads from menu",
+	'EnDeDOM.GUI.DBX':  "show trace output section",
+	'EnDeDOM.GUI.TST':  "show test section",
+	'EnDeDOM.GUI.ba':   "use onClick",
+	'EnDeDOM.GUI.bb':   "use onChange",
+	'EnDeDOM.GUI.toEN': "load file into Encoding textarea",
+	'EnDeDOM.GUI.toDE': "load file into Decoding textarea",
+	'EnDeDOM.GUI.toRE': "load file into RegEx textarea",
+	'EnDeDOM.GUI.QQ':   "open Browser Quirks window",
+	'EnDeDOM.QQ.bq':    "close Browser Quirks window",
+	'EnDeDOM.QQ.go':    "reload page with specified settings",
+	'EnDeDOM.QQ.qq':    "reload page with specified settings",
+	'EnDeDOM.QQ.ba':    "", // has its own description
+	'EnDeDOM.QQ.bb':    "",
+	'EnDeDOM.QQ.ul':    "",
+	'EnDeDOM.QQ.fl':    "",
+	'EnDeDOM.QQ.ac':    "",
+	'EnDeDOM.QQ.lp':    "",
+	'EnDeDOM.QQ.rf':    "",
+	'EnDeDOM.QQ.rb':    "",
+	'EnDeDOM.QQ.rp':    "",
+	'EnDeDOM.QQ.wf':    "",
+	'EnDeDOM.QQ.wb':    "",
+	'EnDeDOM.QQ.wp':    "",
+	'EnDeDOM.QQ.xp':    "",
+	'EnDeDOM.API.bf':   "API section header",
+	'EnDeDOM.API.mode0':"function throw exception on error",
+	'EnDeDOM.API.mode1':"function silently ignore errors",
+	'EnDeDOM.API.mode2':"function return message for each error",
+	'EnDeDOM.API.uppercase':"hex values in en-/decoding in upper case characters",
+	'EnDeDOM.API.ishex':"strings consist of multiple 2-digit hex values (HH)",
+	'EnDeDOM.API.JSRcheck': "run JSReg.runCheck() first",
+	'EnDeDOM.API.JSRcode':  "call eval() for code",
+	'EnDeDOM.API.JSRfunc':  "call eval() for functions",
+	'EnDeDOM.API.JSRmain':  "call eval() for main",
+	'EnDeDOM.API.size': "length of generated values, using leading 0",
+	'EnDeDOM.API.prefix':   "prefix for en-/decoded character",
+	'EnDeDOM.API.suffix':   "suffix for en-/decoded character",
+	'EnDeDOM.API.delimiter':"delimiter to separate en-/decoded character",
+	'EnDeDOM.API.cipher':   "key/cipher used for various  encodings",
+	'EnDeDOM.API.wrapbreak':"number of characters before line break",
+	'EnDeDOM.API.iteration':"number of iterations (RIPEMD only)",
+	'EnDeDOM.API.typ':  "type of final output format of called action",
+	'EnDeDOM.MP.chr':   "use literal character",
+	'EnDeDOM.MP.oct':   "use octal \\-escaped value",
+	'EnDeDOM.MP.hex':   "use hex \\x-escaped value",
+	'EnDeDOM.MP.url':   "use url  %-escaped value",
+	'EnDeDOM.MP.uni':   "use unicode \\u-escaped value",
+	'EnDeDOM.MP.NCE':   "use HTML-Entity (hex) escaped value",
+	'EnDeDOM.MP.int':   "use HTML-Entity (int) escaped value",
+	'EnDeDOM.MP.bq':    "close replace map window",
+	'EnDeDOM.MP.oldC':  "this is a dummy field to keep EnDeGUI.MP.swap() happy",
+	'EnDeDOM.MP.newC':  "character accoding selected encoding",
+	'EnDeDOM.MP.add':   "insert character",
+	'EnDeDOM.MP.row':   "add new row",
+	'EnDeDOM.MP.swap':  "exchange new and old character",
+	'EnDeDOM.FF.bq':    "close nested function window",
+	'EnDeDOM.FF.varval0':   "use variable in nested function call",
+	'EnDeDOM.FF.varval1':   "use value in nested function call",
+	'EnDeDOM.FF.text':  "function calls",
+	'EnDeDOM.FF.isTxt': "show text literaly",
+	'EnDeDOM.FF.isHex': "dummy variable to keep EnDeGUI.data() happy",
+	'EnDeDOM.FF.isURI': "show text URI-style parsed",
+	'EnDeDOM.FF.bw':    "show value in new window",
+	'EnDeDOM.FF.bs':    "add value to scratchpad",
+	'EnDeDOM.FF.file':  "read content from file",
+	'EnDeDOM.FF.load':  "load function from file",
+	'EnDeDOM.CH.bf':    "Character section header",
+	'EnDeDOM.CH.toEN':  "append character to Encoding textarea",
+	'EnDeDOM.CH.toDE':  "append character to Decoding textarea",
+	'EnDeDOM.CH.toRE':  "append character to RegEx textarea",
+	'EnDeDOM.CH.chr':   "character itself",
+	'EnDeDOM.CH.hex':   "character hexadezimal notation",
+	'EnDeDOM.CH.dec':   "character dezimal notation",
+	'EnDeDOM.CH.oct':   "character octal notation",
+	'EnDeDOM.CH.ucs':   "character UCS hex notation",
+	'EnDeDOM.CH.bin':   "character UCS binary notation",
+	'EnDeDOM.CH.utf':   "character UTF-8 hex notation",
+	'EnDeDOM.CH.lng':   "character UTF-8 binary notation",
+	'EnDeDOM.ED.bf':    "En-/Decoding section header",
+	'EnDeDOM.ED.00':    "add null byte (NUL) at end of input text",
+	'EnDeDOM.ED.0a':    "add newline (NL) character at end of input text",
+	'EnDeDOM.ED.0d':    "add carriage return (CR) character at end of input text",
+	'EnDeDOM.ED.da':    "add carriage return (CR) and newline (NL) character at end of input text",
+	'EnDeDOM.ED.aa':    "add End-of-Text character at end of input text",
+	'EnDeDOM.EN.text':  "decoded text",
+	'EnDeDOM.EN.isTxt': "show text literaly",
+	'EnDeDOM.EN.isHex': "show text as hex values",
+	'EnDeDOM.EN.isURI': "show text URI-style parsed",
+	'EnDeDOM.EN.bg':    "use all codings",
+	'EnDeDOM.EN.bw':    "show value in new window",
+	'EnDeDOM.EN.bs':    "add value to scratchpad",
+	'EnDeDOM.DE.text':  "encoded text",
+	'EnDeDOM.DE.isTxt': "show text literaly",
+	'EnDeDOM.DE.isHex': "show text as hex values",
+	'EnDeDOM.DE.isURI': "show text UI-style parsed",
+	'EnDeDOM.DE.bg':    "automatically analyses and guesses given format",
+	'EnDeDOM.DE.bw':    "show value in new window",
+	'EnDeDOM.DE.bs':    "add value to scratchpad",
+	'EnDeDOM.IP.bf':    "IP section header",
+	'EnDeDOM.IP.dot':   "use dot as delimiter, 'Delimiter' otherwise",
+	'EnDeDOM.IP.add0':  "use as is",
+	'EnDeDOM.IP.add1':  "add missing 0 octets at beginning",
+	'EnDeDOM.IP.add2':  "add missing 0 octets at end",
+	'EnDeDOM.IP.add3':  "add missing 0 octets at beginning, uses 'Prefix'",
+	'EnDeDOM.IP.add4':  "add missing 0 octets at end, uses 'Suffix'",
+	'EnDeDOM.IP.ip':    "dotted integer format",
+	'EnDeDOM.IP.bn':    "reverse dotted IP",
+	'EnDeDOM.IP.bx':    "swap normal and reversed dotted IP",
+	'EnDeDOM.IP.br':    "reverse dotted IP",
+	'EnDeDOM.IP.rip':   "dotted integer format in reverse order",
+	'EnDeDOM.IP.ip6':   "IPv6 format",
+	'EnDeDOM.IP.big':   "64-bit integer format",
+	'EnDeDOM.IP.low':   "values 0..4294967296 same as 32-bit integer",
+	'EnDeDOM.IP.url':   "dotted URL-encoded format",
+	'EnDeDOM.IP.num':   "32-bit integer format",
+	'EnDeDOM.IP.hex':   "dotted hex format",
+	'EnDeDOM.IP.xeh':   "hex format",
+	'EnDeDOM.IP.oct':   "dotted octal format",
+	'EnDeDOM.IP.bin':   "dotted binary format",
+	'EnDeDOM.IP.bit':   "binary format",
+	'EnDeDOM.IP.res':   "reset all fields",
+	'EnDeDOM.IP.bg':    "** not yet implemented**",
+	'EnDeDOM.IP.bw':    "show values in new window",
+	'EnDeDOM.IP.bs':    "add values to scratchpad",
+	'EnDeDOM.TS.bf':    "Timestamp section header",
+	'EnDeDOM.TS.yY':    "if checked use 2 digits year, 4 digits otherwise",
+	'EnDeDOM.TS.mM':    "if checked use month names, numbers otherwise",
+	'EnDeDOM.TS.strict':"if checked use strict matches, lazy matches otherwise",
+	'EnDeDOM.TS.hm':    "if checked use current time for missing values, 0 otherwise",
+	'EnDeDOM.TS.ms':    "values in mili seconds",
+	'EnDeDOM.TS.GMT':   "if checked use GMT values, local time otherwise",
+	'EnDeDOM.TS.TZ':    "if checked show timezone values",
+	'EnDeDOM.TS.neg':   "negative values for timestamps after 2001/09/09 3:46:39",
+	'EnDeDOM.TS.isFmt': "dummy variable to keep EnDeGUI.TS.dispatch() happy",
+	'EnDeDOM.TS.Action':"convert Date to timestamp and Date/Time",
+	'EnDeDOM.TS.toTS':  "convert Date/Time to timestamp",
+	'EnDeDOM.TS.toDT':  "convert timestamp to Date/Time",
+	'EnDeDOM.TS.toTSC': "compute Date/Time and timestamp",
+	'EnDeDOM.TS.toOf':  "convert Date to Offset",
+	'EnDeDOM.TS.FromOf':"convert Offset to Date",
+	'EnDeDOM.TS.Add':   "Timestamp = Timestamp + Offset",
+	'EnDeDOM.TS.now':   "set values to current date and time",
+	'EnDeDOM.TS.bg':    "automatically analyses and guesses given format",
+	'EnDeDOM.TS.bm':    "add values to scratchpad",
+	'EnDeDOM.TS.isTimestamp':   "Timestamp = Ref.Time + Offset",
+	'EnDeDOM.TS.isOffset':  "Offset = Ref.Time - Timestamp",
+	'EnDeDOM.RE.bf':    "RegEx section header",
+	'EnDeDOM.RE.prefix':"pattern for string prefix befor the regular expression string",
+	'EnDeDOM.RE.raw':   "if checked RegEx will be raw data, otherwise it must be enclosed in proper delimiters and may conatin leading and trailing text",
+	'EnDeDOM.RE.desc':  "if checked parsed RegEx contains descriptive comments (following #)",
+	'EnDeDOM.RE.ere':   "if checked use extended regualr expressions of selected tool",
+	'EnDeDOM.RE.text':  "RegEx text",
+	'EnDeDOM.RE.isTxt': "show text literaly",
+	'EnDeDOM.RE.isHex': "show text as hex values",
+	'EnDeDOM.RE.isURI': "simple pretty printer",
+	'EnDeDOM.RE.bg':    "** not yet implemented**",
+	'EnDeDOM.RE.bw':    "show value in new window",
+	'EnDeDOM.RE.bs':    "add value to scratchpad",
+	'EnDeDOM.RE.str':   "text to be matched by RegEx",
+	'EnDeDOM.PW.bf':    "Password section header",
+	'EnDeDOM.PW.min':   "EnDeDOM.PW.min",
+	'EnDeDOM.PW.low':   "EnDeDOM.PW.low",
+	'EnDeDOM.PW.max':   "EnDeDOM.PW.max",
+	'EnDeDOM.PW.upp':   "EnDeDOM.PW.upp",
+	'EnDeDOM.PW.idl':   "EnDeDOM.PW.idl",
+	'EnDeDOM.PW.num':   "EnDeDOM.PW.num",
+	'EnDeDOM.PW.spc':   "EnDeDOM.PW.spc",
+	'EnDeDOM.PW.nsp':   "EnDeDOM.PW.nsp",
+	'EnDeDOM.PW.cnt':   "EnDeDOM.PW.cnt",
+	'EnDeDOM.PW.spn':   "EnDeDOM.PW.spn",
+	'EnDeDOM.PW.hor':   "EnDeDOM.PW.hor",
+	'EnDeDOM.PW.ver':   "EnDeDOM.PW.ver",
+	'EnDeDOM.PW.rex':   "EnDeDOM.PW.rex",
+	'EnDeDOM.home':     "home (" + EnDe.VERSION + ")",
+	'EnDeDOM.icon':     "about " + EnDe.VERSION + " (" + EnDe.VERDATE + ")",
+	'dumm':             ""
+}; // .titles
+EnDeGUI.setTitle();
+EnDeGUI.init();
+// ]]>
+</script>
+</body>
+</html>
+<!-- 
+// vi:  ts=4
+// vim: ts=4
+-->

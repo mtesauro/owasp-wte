@@ -1,0 +1,57 @@
+# =========================================================================== #
+# vi:  ts=8:
+# vim: ts=8:
+#?
+#? NAME
+#?      EnDeCheck.txt - menu for checksum functions
+#?
+#? DESCRIPTION
+#?      List of function for checksums.
+#?
+# HACKER's INFO
+#       // ToDo: should be done like EnDeMenu.js
+#
+#? SEE ALSO
+#?      EnDeCheck.js
+#?
+#? VERSION
+#?      @(#) EnDeCheck.txt 1.1 11/02/05 18:12:43
+#?
+#? AUTHOR
+#?      16-feb-08 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =========================================================================== #
+
+#------+-------+-----------------------+------------------------------+
+group	CHK.Get		get checksum value	get checksum value
+item3	getLuhn	Luhn (aka IBM)		compute checksum according Luhn algorithm
+item3	getISBN	ISBN (aka IBM mod 11)	compute ISBN checksum (according IBM mod 11 algorithm)
+item3	getEFT	EFT			compute EFT checksum
+item3	getUPC	UPC			compute UPC checksum
+item3	getEAN	EAN			compute EAN checksum
+item3	getD5	Verhoeff D5		compute Verhoeff's Dihedral Group D5 checksum
+
+#------+-------+-----------------------+------------------------------+
+group	CHK.Check	check if valid value	check if valid value
+item3	valLuhn	Luhn (aka IBM)		check if valid number according Luhn algorithm
+item3	valISBN	ISBN (aka IBM mod 11)	check if valid ISBN checksum (according IBM mod 11 algorithm)
+item3	valEFT	EFT			check if valid EFT number
+item3	valUPC	UPC			check if valid UPC number
+item3	valEAN	EAN			check if valid EAN number
+item3	valD5	Verhoeff D5		check if valid Verhoeff's Dihedral Group D5 checksum
+
+#------+-------+-----------------------+------------------------------+
+group	CHK.Other	Other			Other checks
+item3	isSSN	SSN			check for Social Security Number
+item3	guess	guess			try all checksum function
+
+#------+---------------+-----------------------+----------------------+
+menu	CHK.Checksum	Digit Checksum Functions	functions to test checksum of a number
+html	SELECT
+key	EnDeCheck.txt
+inside	EnDeDOM.DE
+id	EnDeDOM.DE.chk.s
+size	1
+onClick	return EnDeGUI.dispatch(this,'Check')
+use	CHK.Get
+use	CHK.Check
+use	CHK.Other

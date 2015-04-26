@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<!--
+#? NAME
+#?      EnDeUser.xml - menu for user defined nested functions
+#?
+#? SYNOPSIS
+#?      EnDeGUI.js expects EnDeUser.xml to contain user-defined functions.
+#?
+#? USAGE
+#?      Copy this file to the ./usr/ directory and make your changes there.
+#?
+#?      ** please add you own functions below **
+#?
+#? DESCRIPTION
+#?      List of function for Functions window.
+#?
+#?      Each  <attack />  scope describes one menu entry as follows:
+#?
+#?         <label>   - a unique label, used to group functions in SELECT menu
+#?         <name>    - descriptive name used in SELECT->OPTION menu
+#?         <code>    - code to be added to Functions textarea
+#?         <desc>    - descriptive text used in SELECT->OPTION's title= attribute
+#?
+#? LIMITATIONS
+#?      Examples herein are used as is. In particular EnDeGUI dos not honor the
+#?      "[] value"  checkbox in the Functions window for the texts herein.
+#?
+# HACKER's INFO
+#       All code examples rely on existance of  $()  function, which must be:
+#          function $(id) { return document.getElementById(id); }
+#?
+#? SEE ALSO
+#?      EnDeUser.js
+#?      EnDeText.js
+#?      EnDeGUI.js
+#?
+#? VERSION
+#?      @(#) EnDeUser.xml 3.3 11/04/09 14:58:13
+#?
+#? AUTHOR
+#?      10-10-08 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =============================================================================
+  -->
+<xss>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>base64/hex</name>
+	<desc>first base64 encode text, then hex encode each character</desc>
+  	<code><![CDATA[
+EnDe.EN.dispatch(
+	"hex2",
+	"lazy",
+	true,
+	""+EnDe.EN.dispatch("base64","lazy",false,$('EnDeDOM.EN.text').value,'','',''),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>base64/URL encode</name>
+	<desc>first base64 encode text, then URL encode</desc>
+  	<code><![CDATA[
+EnDe.EN.dispatch(
+	"urlCHR",
+	"lazy",
+	false,
+	""+EnDe.EN.dispatch("base64","lazy",false,$('EnDeDOM.EN.text').value,'','',''),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>double URL/URL encode</name>
+	<desc>first URL-encode text, then URL encode again (for mixed double encoding)</desc>
+  	<code><![CDATA[
+EnDe.EN.dispatch(
+	'urlCHR',
+	'lazy',
+	false,
+	''+EnDe.EN.dispatch('urlCHR','lazy',false,$('EnDeDOM.EN.text').value,'','',''),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>tripple URL/URL encode</name>
+	<desc>URL-encode text three times (for mixed tripple encoding)</desc>
+  	<code><![CDATA[
+EnDe.EN.dispatch(
+	'urlCHR',
+	'lazy',
+	false,
+	''+EnDe.EN.dispatch('urlCHR','lazy',false,
+		''+EnDe.EN.dispatch('urlCHR','lazy',false,$('EnDeDOM.EN.text').value,'','',''),
+		'','',''),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>octal/URL encode</name>
+	<desc>first encode octal values then URL-encode text, then </desc>
+  	<code><![CDATA[
+EnDe.EN.dispatch(
+	"urlCHR",
+	"lazy",
+	false,
+	""+EnDe.EN.dispatch(
+		"oct3",
+		"lazy",
+		false,
+		$('EnDeDOM.EN.text').value,
+		$('EnDeDOM.API.prefix').value,
+		$('EnDeDOM.API.suffix').value,
+		$('EnDeDOM.API.delimiter').value
+	),
+	$('EnDeDOM.API.prefix').value,
+	$('EnDeDOM.API.suffix').value,
+	$('EnDeDOM.API.delimiter').value
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>MySQL/char</name>
+	<desc>first decimal encode text, then enclose with MySQL char() function</desc>
+  	<code><![CDATA[
+EnDe.EN.dispatch("dez2","lazy",true,$('EnDeDOM.EN.text').value,'','',',').replace(/^/,'char(').replace(/$/,')')
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>Oracle/CHR</name>
+	<desc>first decimal encode text, then enclose with Oracle CHR() function</desc>
+  	<code><![CDATA[
+EnDe.EN.dispatch("dez2","lazy",true,$('EnDeDOM.EN.text').value,'','',',').replace(/^/,'CHR(').replace(/$/,')')
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>MySQL/Oracle CONCAT</name>
+	<desc>concat characters of strings with CONCAT() function</desc>
+  	<code><![CDATA[
+EnDe.EN.dispatch("copy","lazy",true,$('EnDeDOM.EN.text').value,"","","").split('').join("','").replace(/(.*)/,"CONCAT('$1')")
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>Oracle ||</name>
+	<desc>concat characters of strings with Oracle || function</desc>
+	<!-- same as En-/Decoding->Straight Character in "User Api Options", but more complicated ;-) -->
+  	<code><![CDATA[
+EnDe.EN.dispatch("copy","lazy",true,$('EnDeDOM.EN.text').value,"","","").split('').join("'||'").replace(/(.*)/,"'$1'")
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Encoding User Functions ..</label>
+	<name>MSQL +</name>
+	<desc>concat characters of strings with MSQL + function</desc>
+	<!-- same as En-/Decoding->Straight Character in "User Api Options", but more complicated ;-) -->
+  	<code><![CDATA[
+EnDe.EN.dispatch("copy","lazy",true,$('EnDeDOM.EN.text').value,"","","").split('').join("'+'").replace(/(.*)/,"'$1'")
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Decoding User Functions ..</label>
+	<name>hex/base64</name>
+	<desc>first decode hex charactersm then decode base64</desc>
+  	<code><![CDATA[
+EnDe.DE.dispatch(
+	"base64",
+	"lazy",
+	true,
+	""+EnDe.DE.dispatch("hexCHR","lazy",false,$('EnDeDOM.DE.text').value,'','',''),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Decoding User Functions ..</label>
+	<name>URL/base64 decode</name>
+	<desc>first URL-decode text, then base64 decode</desc>
+  	<code><![CDATA[
+EnDe.DE.dispatch(
+	"base64",
+	"lazy",
+	false,
+	""+EnDe.DE.dispatch("urlCHR","lazy",false,$('EnDeDOM.DE.text').value,'','',''),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Decoding User Functions ..</label>
+	<name>double URL/URL decode</name>
+	<desc>first URL-decode text, then URL decode again (for mixed double encoding)</desc>
+  	<code><![CDATA[
+EnDe.DE.dispatch(
+	'urlCHR',
+	'lazy',
+	false,
+	''+EnDe.DE.dispatch('urlCHR','lazy',false,$('EnDeDOM.DE.text').value,'','',''),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Decoding User Functions ..</label>
+	<name>tripple URL/URL decode</name>
+	<desc>URL-decode text three times (for mixed tripple encoding)</desc>
+  	<code><![CDATA[
+EnDe.DE.dispatch(
+	'urlCHR',
+	'lazy',
+	false,
+	''+EnDe.DE.dispatch('urlCHR','lazy',false,
+		''+EnDe.DE.dispatch('urlCHR','lazy',false,$('EnDeDOM.DE.text').value,'','',''),
+		'','',''),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Decoding User Functions ..</label>
+	<name>URL/octal decode</name>
+	<desc>first URL-decode text, then decode octal values</desc>
+  	<code><![CDATA[
+EnDe.DE.dispatch(
+	"oct3",
+	"lazy",
+	false,
+	""+EnDe.DE.dispatch(
+		"urlCHR",
+		"lazy",
+		false,
+		$('EnDeDOM.DE.text').value,
+		$('EnDeDOM.API.prefix').value,
+		$('EnDeDOM.API.suffix').value,
+		$('EnDeDOM.API.delimiter').value
+	),
+	$('EnDeDOM.API.prefix').value,
+	$('EnDeDOM.API.suffix').value,
+	$('EnDeDOM.API.delimiter').value
+)
+		]]></code>
+    </attack>
+
+    <attack>
+	<label>Decoding User Functions ..</label>
+	<name>fuzzy decoding</name>
+	<desc>try to decode obfuscated text</desc>
+  	<code><![CDATA[
+EnDe.DE.dispatch(
+	"fuzURLsq",
+	"lazy",
+	false,
+	""+EnDe.DE.dispatch(
+		"fuzHEXsq",
+		"lazy",
+		false,
+		""+EnDe.DE.dispatch(
+			"fuzOCTsq",
+			"lazy",
+			false,
+			$('EnDeDOM.DE.text').value.replace(/[\n\r]/g,''),
+			$('EnDeDOM.API.prefix').value,
+			$('EnDeDOM.API.suffix').value,
+			$('EnDeDOM.API.delimiter').value
+		),
+		$('EnDeDOM.API.prefix').value,
+		$('EnDeDOM.API.suffix').value,
+		$('EnDeDOM.API.delimiter').value
+	),
+	$('EnDeDOM.API.prefix').value,
+	$('EnDeDOM.API.suffix').value,
+	$('EnDeDOM.API.delimiter').value
+)
+		]]></code>
+    </attack>
+
+    <attack>
+<!-- // ToDo: not yet working! -->
+	<label>Decoding User Functions ..</label>
+	<name>fuzzy decoding evaluated</name>
+	<desc>try to decode obfuscated text and then use JavaScript's eval()</desc>
+  	<code><![CDATA[
+EnDe.DE.dispatch(
+	"JSeval",
+	"lazy",
+	false,
+	""+EnDe.DE.dispatch(
+		"fuzURLsq",
+		"lazy",
+		false,
+		""+EnDe.DE.dispatch(
+			"fuzHEXsq",
+			"lazy",
+			false,
+			""+EnDe.DE.dispatch(
+				"fuzOCTsq",
+				"lazy",
+				false,
+				$('EnDeDOM.DE.text').value.replace(/[\n\r]/g,''),
+				$('EnDeDOM.API.prefix').value,
+				$('EnDeDOM.API.suffix').value,
+				$('EnDeDOM.API.delimiter').value
+			),
+			$('EnDeDOM.API.prefix').value,
+			$('EnDeDOM.API.suffix').value,
+			$('EnDeDOM.API.delimiter').value
+		),
+		$('EnDeDOM.API.prefix').value,
+		$('EnDeDOM.API.suffix').value,
+		$('EnDeDOM.API.delimiter').value
+		),
+	'',
+	'',
+	''
+)
+		]]></code>
+    </attack>
+
+</xss>

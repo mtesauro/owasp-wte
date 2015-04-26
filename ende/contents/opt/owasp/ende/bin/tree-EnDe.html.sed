@@ -1,0 +1,9 @@
+/href="EnDe.css"/s/"\(EnDe.css"\)/"..\/gui\/&/
+/src="EnDeGUI.js"/s/"\(EnDeGUI.js"\)/"..\/gui\/&/
+/src="EnDeFile.js"/s/"\(EnDeFile.js"\)/"..\/gui\/&/
+/src="EnDeREMap.js"/s/"\(EnDeREMap.js"\)/"..\/gui\/&/
+/src="EnDeRE.js"/s/"\(EnDeRE.js"\)/"..\/gui\/&/
+/src="EnDeREGUI.js"/s/"\(EnDeREGUI.js"\)/"..\/gui\/&/
+/src="EnDeVersion.js"/s/"\(EnDeVersion.js"\)/"..\/gui\/&/
+/src="EnDeUtil.js"/s/"\(EnDeUtil.js"\)/"..\/gui\/&/
+/src="img\//s/"\(img\/\)/"..\/&/

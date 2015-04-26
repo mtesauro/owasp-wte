@@ -1,0 +1,7 @@
+
+AddDefaultCharset utf-8
+AddType text/css;charset=utf-8        .css
+AddType text/xml;charset=utf-8        .xml
+AddType text/html;charset=utf-8       .html
+AddType text/plain;charset=utf-8      .txt
+AddType text/javascript;charset=utf-8 .js .json

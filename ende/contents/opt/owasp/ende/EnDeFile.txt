@@ -1,0 +1,101 @@
+# =========================================================================== #
+# vi:  ts=8:
+# vim: ts=8:
+#?
+#? NAME
+#?      EnDeFile.txt - list of files with test attack pattern
+#?
+#? DESCRIPTION
+#?      List of files for EnDe.GUI.menu.
+#?      Each  file  line describes one file as follows:
+#?         file key target prefix function text description
+#?
+#?         key     - file name
+#?         text    - descriptive name used in SELECT->OPTION menu
+#?         description	    - descriptive text used in title= attribute
+#?         target  - HTML tag id where menu should be created
+#?                     default, if missing:  EnDeDOM.f.EN
+#?         function- function to be called by SELECT menu
+#?         prefix  - prefix (label) prepended to generated SELECT menu
+#?                     default, if missing:  :
+#?
+# HACKER's INFO
+#       
+#?
+#? SEE ALSO
+#?      EnDeMenu.txt
+#?
+#? VERSION
+#?      @(#) EnDeFile.txt 3.12 12/06/03 18:21:33
+#?
+#? AUTHOR
+#?      27-dez-07 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+#?
+# -----------------------------------------------------------------------------
+
+# =========================================================================== #
+# menu for files with attack pattern                                          #
+# =========================================================================== #
+
+makeID	auto
+
+#------+---------------+-------------------------------+-----------------------------------------------+---------------+-------------------------------+--------------+
+#head   key		text				description             			target		function			prefix
+#------+---------------+-------------------------------+-----------------------------------------------+---------------+-------------------------------+--------------+
+group	File.XSS.extern	XSS (external file)		load external file with XSS pattern
+file	http://ha.ckers.org/xssAttacks.xml	XSS Attacks (ha.ckers.org)	add XSS Attack Pattern to Encoding textarea	EnDeDOM.f.EN	EnDeGUI.dispatch(this,'EN')	XSS Cheat Seat:
+file	http://mario.heideri.ch/xss.xml		XSS Attacks (mario.heidri.ch)	add XSS Attack Pattern to Encoding textarea	EnDeDOM.f.EN	EnDeGUI.dispatch(this,'EN')	XSS Cheat Seat:
+
+group	File.XSS.local	XSS (local file)		load local file with XSS pattern
+file	xssAttacks.xml	XSS Attacks (ha.ckers.org)	add XSS Attack Pattern to Encoding textarea	EnDeDOM.f.EN	EnDeGUI.dispatch(this,'EN')	XSS Cheat Seat:
+file	xss.mario.xml	XSS Attacks (mario.heidri.ch)	add XSS Attack Pattern to Encoding textarea	EnDeDOM.f.EN	EnDeGUI.dispatch(this,'EN')	XSS Cheat Seat:
+file	xss.h4k.xml	XSS Attacks (h4k.in)		add XSS Attack Pattern to Encoding textarea	EnDeDOM.f.EN	EnDeGUI.dispatch(this,'EN')	XSS Cheat Seat:
+
+group	File.SQL.local	SQL (local file)		load local file with SQL pattern
+file	sqlPattern.xml	SQL Pattern			add SQL Injection Pattern to Encoding textarea	EnDeDOM.f.EN	EnDeGUI.dispatch(this,'EN')	SQL Cheat Seat:
+
+group	File.Checksum	Checksum (local file)		load local file with Checksum functions
+file	EnDeCheck.txt	Digit Checksum Functions	functions to test checksum of a number		EnDeDOM.f.DE	EnDeGUI.dispatch(this,'Check')	Checksum:
+# 'Check' is special, see EnDeGUI.js
+
+group	File.RegEx	RegEx (local file)		load local file with RegEx pattern
+file	core-rules.xml	ModSecurity Core Rule Set 1.6.1	ModSecurity Core Rule Set 1.6.1			EnDeDOM.f.RE	EnDeGUI.dispatch(this,'RE')	Core Rule Set 1.6.1:
+file	core-rules-2.0.xml	ModSecurity Core Rule Set 2.0	ModSecurity Core Rule Set 2.0		EnDeDOM.f.RE	EnDeGUI.dispatch(this,'RE')	Core Rule Set 2.0:
+file	core-rules-2.0-part1.xml	ModSecurity Core Rule Set 2.0 part-1	ModSecurity Core Rule Set 2.0 part-1		EnDeDOM.f.RE	EnDeGUI.dispatch(this,'RE')	Core Rule Set 2.0 (1):
+file	core-rules-2.0-part2.xml	ModSecurity Core Rule Set 2.0 part-2	ModSecurity Core Rule Set 2.0 part-2		EnDeDOM.f.RE	EnDeGUI.dispatch(this,'RE')	Core Rule Set 2.0 (2):
+file	default_filter.xml	PHPIDS Rules		PHPIDS Rules					EnDeDOM.f.RE	EnDeGUI.dispatch(this,'RE')	PHPIDS Rules:
+file	OWASP-regex.xml	OWASP Validation Regex Repository	OWASP Validation Regex Repository	EnDeDOM.f.RE	EnDeGUI.dispatch(this,'RE')	OWASP Regex:
+
+group	File.Test	Test				load local file with test pattern for EnDe itself
+file	EnDeTest.txt	Test pattern for all functions	Test pattern for all EnDe functions (heureca!)		EnDeDOM.f.TST	EnDeGUI.dispatch(this,'EN')	Test pattern:
+file	EnDeTest-Base.txt	Test pattern for Base-N functions	Test pattern for Base-N functions 		EnDeDOM.f.TST	EnDeGUI.dispatch(this,'EN')	Test pattern:
+file	EnDeTest-Fuzz.txt	Test pattern for "fuzzy" functions	Test pattern for "fuzzy decoding" functions	EnDeDOM.f.TST	EnDeGUI.dispatch(this,'EN')	Test pattern:
+file	EnDeTest-Euro.txt	Test pattern for all functions (€uro)	Test pattern for all EnDe functions (Euro)	EnDeDOM.f.TST	EnDeGUI.dispatch(this,'EN')	Test pattern:
+file	EnDeTest-UCS2.txt	Some test pattern (file in UCS2 format)	Some test pattern (file in UCS2 format)		EnDeDOM.f.TST	EnDeGUI.dispatch(this,'EN')	Test pattern:
+file	EnDeTest-UTF8.txt	Some test pattern (file in UTF8 format)	Some test pattern (file in UTF8 format)		EnDeDOM.f.TST	EnDeGUI.dispatch(this,'EN')	Test pattern:
+file	EnDeTest-UTF8-UCS2.txt	Some test pattern to explain UCS2/UTF8 problems	Some test pattern to explain UCS2/UTF8 problems		EnDeDOM.f.TST	EnDeGUI.dispatch(this,'EN')	Test pattern:
+file	EnDeTest-JSReg.xml	Test pattern for JSReg (debug)	Test pattern for JSReg (debug)			EnDeDOM.f.EN	EnDeGUI.dispatch(this,'EN')	JSreg test pattern:
+
+
+group	File.Misc	Payloads			files with test pattern, not used in EnDe itself
+# values in target and function column below are dummies, must use [show payloads] button instead
+file	xss-evation.txt	XSS pattern			various XSS test pattern			EnDeDOM.f.EN	EnDeGUI.makelist(this.value)	none:
+
+
+#------+---------------+-----------------------+------------------------------+
+#head   key             text                    description
+#------+---------------+-----------------------+------------------------------+
+menu	Files	File for Menu	build menu from this file
+html	SELECT
+inside	EnDeDOM.GUI.menu
+id	EnDeDOM.GUI.menu.s
+size	1
+onClick	return EnDeGUI.dispatch(this,'FT')
+use	File.XSS.local
+use	File.SQL.local
+use	File.RegEx
+use	File.Checksum
+use	File.Test
+use	File.Misc
+use	File.XSS.extern
+

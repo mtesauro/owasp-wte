@@ -1,0 +1,149 @@
+<html>
+<head>
+	<title>Timestamp Converter</title>
+</head>
+<body>
+The Timestamp Converter allows to convert timestamps from common human readable
+formats to the number of seconds since epoch (1. Jan. 1970) and vice versa.
+
+ <h4>General GUI description</h4>
+The form consist of a table with five rows
+	<div style="margin-left:2em;">
+	<table border="1" cellspacing="0">
+	<tr><td>1</td><td>General Options:</td><td style="width:20em;"> ... </td></tr>
+	<tr><td>2</td><td>- header line - </td><td> ... </td></tr>
+	<tr><td>3</td><td>Date | Time:</td><td> ... </td></tr>
+	<tr><td>4</td><td>human readable :</td><td> ... </td></tr>
+	<tr><td>5</td><td>- buttons - </td><td> ... </td></tr>
+	</table>
+	</div>
+
+<p>The first <i>General Options</i> row contains checkboxes for some special
+behaviours, see <a href="#tsc.Options">Options</a> below.</p>
+
+<p>The second row is just the description of the fields shown in the third row.</p>
+
+<p>The third <i>Date | Time</i> row contains input fields to specify a date/time.
+It also conatins the buttons <input class="button" type="button" value=" > " />
+and <input class="button" type="button" value=" < " /> for converting from and
+to the <i>Timestamp</i> field shown as last input filed in this row.</p>
+
+<p>The fourth <i>human readable</i> row contains a wide field for a common human
+readable date and time format, followed by the <input class="button" type="button" value=" >> " />
+button which converts the value given there to the fields in the third row.<br>
+The buttons <input class="button" type="button" value=" > " /> and
+<input class="button" type="button" value=" < " /> convert the value to the
+timestamp <i>Offset</i> field shown last in this row.<br>
+There is also a <input class="button" type="button" value=" + " /> button,
+which adds the value from the <i>Offset</i> field in this line to the
+<i>Timestamp</i> in the previous line.</p>
+
+<p>The fifth row contains command buttons.
+<ul>
+	<li>The <input class="button" type="button" value="now" /> button simply
+	gets the (browser's) current time and writes it to the fields in the third
+	row. It also writes the date/time as human readable format in the fourth row.<br>
+	The computed time depends on the <i>GMT</i> option.</li>
+	<li>The <input class="button" type="button" value="clear" /> button
+	resets all fields.</li>
+	<li>The <input class="button" type="button" value="guess" /> button
+	tries to analyse the value from the input field in the fourth row and
+	prints a list of possible matches.</li>
+	<li>The <input class="button" type="button" value="Scratchpa .." /> button
+	adds the value of the field to the scratchpad window.</li>
+	<li>The <input class="button" type="button" value="Ref + Offset" />
+	button computes the Timestamp as sum of the Ref. Timestamp and the
+	Offset.</li>
+	<li>The <input class="button" type="button" value="Ref - Timestamp" />
+	button computes the Offset as difference from the Ref. Timestamp and
+	the Timestamp.</li>
+</ul>
+</p>
+
+
+<a name="tsc.timestamp"></a>
+ <h4>Converting to/from timestamp (number of seconds)</h4>
+<p>The <input class="button" type="button" value=" > " /> button converts
+the date/time given in the left fields to a timestamp in the right field.<br>
+The <input class="button" type="button" value=" < " /> button converts
+the timestamp given in the right field to date/time in the left fields.<br>
+Both convertions also print the value in the human readable format.
+</p>
+
+<a name="tsc.human"></a>
+ <h4>Converting timestamp (number of seconds) from human readable format</h4>
+<p>The left input field in the <i>human readable</i> row can be used to convert from various
+formats to the date/time and timestamp in the third row. This is done by the
+<input class="button" type="button" value=" >> " /> button.<br>
+Following format are known:
+<ul>
+	<li>hh:mm  (Note that just the hour and minute are usefull then)</li>
+	<li>hh:mm:ss  (Note that just the hour and minute are usefull then)</li>
+	<li>hh:mm yyyy.mm.dd</li>
+	<li>hh:mm:ss yyyy.mm.dd</li>
+	<li>hh:mm:dd.mm.yyyy</li>
+	<li>hh:mm dd.mm.yyyy</li>
+	<li>hh:mm:ss dd.mm.yyyy</li>
+	<li>yyyy.mm.dd</li>
+	<li>yyyy.mm.dd hh-mm</li>
+	<li>yyyy.mm.dd hh-mm-ss</li>
+	<li>dd.mm.yyyy</li>
+	<li>dd.mm.yyyy hh-mm</li>
+	<li>dd.mm.yyyy hh-mm-ss</li>
+</ul>
+<!--
+Note that separators <span class="text">:</span> is mandatory for leading
+time formats.
+ -->
+whereby instead of <span class="text">-</span> and <span class="text">.</span>
+any of following separators can be used:
+<ul>
+	<li><span class="text">.</span></li>
+	<li><span class="text">:</span></li>
+	<li><span class="text">/</span></li>
+	<li><span class="text">-</span></li>
+	<li><span class="text">,</span></li>
+	<li><span class="text">(space)</span></li>
+</ul>
+<br>Note that only fomats of type yy.mm.dd are supported when using <b>2/4</b> option.
+<br>Note that this convertions depend on the <i>GMT</i> and <i>now</i> options.
+</p>
+
+<a name="tsc.Offset"></a>
+ <h4>Computing Offsets</h4>
+<p>The left input field in the fourth row can be used to compute an (timestamp)
+offset with the <input class="button" type="button" value=" > " />. Offset here
+means that it is the number of seconds from the specified date/time in the left
+input filed to the current time (which is same as we get by the
+<input class="button" type="button" value=" > " /> button).<br>
+Note that this computation depends on the <i>GMT</i> and <i>now</i> options.
+</p>
+
+<a name="tsc.Options"></a>
+ <h4>Options</h4>
+
+ <ul>
+	<li><b>2/4</b><br>
+		year are 2 rather than 4 digits<br>
+		Note that this results in ambigious values! and hence will
+		always be assumed as yy/mm/dd in the range 1900 .. 1999.
+	</li>
+	<li><b>Name</b><br>
+		use names for months rather than numbers</li>
+	<li><b>strict</b><br>
+		use strict matches for month (1..12), day (1..31), hour (1..23), minute and seconds (1..59)<br>
+		Note that there is no check if 29, 30 or 31 is a valid date
+		for the specified month.</li>
+	<li><b>now</b><br>
+		use current time if missing</li>
+	<li><b>ms</b><br>
+		timestamp value in miliseconds</li>
+	<li><b>GMT</b><br>
+		use GMT date and time</li>
+ </ul>
+
+<h2>Known Problems</h2>
+  -- some error messages in guess()
+
+</body>
+</html>

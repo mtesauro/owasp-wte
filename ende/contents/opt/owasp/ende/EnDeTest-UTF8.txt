@@ -1,0 +1,63 @@
+
+__DATA
+
+#------+----------------------------------------------------------------
+#keyw.  string to be processed by coding/hashing/encryption/...
+#------+----------------------------------------------------------------
+_data	€uro
+_salt	ἅλς 
+#_salt	ἅλως  # 1f05 03bb 03c9 03c2
+#_salt	hálōs	# 68 e1 6c 014d 73
+#_salt	halos
+_mode	encode
+
+_title		Hash functions
+#--------------+--------------------------------------------------------
+urlHEX		%e2%82%ac%75%72%6f
+md4hex		cac212c494133e56f7693b548c5ba7c9
+md4b64		ysISxJQTPlb3aTtUjFunyQ
+md4hmachex	c427b4d34b8c53a593a063182de3c08e
+md4hmacb64	xCe000uMU6WToGMYLePAjg
+md5hex		36f9d3bb76279be66536e2d4e250c7ad
+md5b64		NvnTu3Ynm+ZlNuLU4lDHrQ
+md5hmachex	8d8695874b2db2e0d7ada978bb666ca4
+md5hmacb64	jYaVh0stsuDXral4u2ZspA
+sha1hex		b513a36894c347a73a7ab40ef44093701bdea3cb
+sha1b64		tROjaJTDR6c6erQO9ECTcBveo8s
+sha1hmachex	527ad2b1470b023c61699ee3023fa2384f7286eb
+sha1hmacb64	UnrSsUcLAjxhaZ7jAj+iOE9yhus
+sha256hex	31e594f12dafebe0cc283d69394a5a549fc452184336b120526336209da06286
+sha256b64	MeWU8S2v6+DMKD1pOUpaVJ/EUhhDNrEgUmM2IJ2gYoY
+sha384hex	9db315717bae9b08aa1422bb2712776d6cf811273e0d9f35fdcd39f7e7ad99bb63aeac2cd77b9d43929da41685f99336
+sha512hex	79954cd9e8d8e7133837678953aa06f5296b8f023ebaca29fac85d2a281605feaeef51586608d693282ae30300a6138fc0c970229c75681d7db38dc63854f3e0
+ripemdword	law rack walt null gab gale
+ripemdhex	2359 6bdb 6331 5711
+
+_mode		en-/decode
+_title		URI/URL encoding
+#--------------+--------------------------------------------------------
+urlUTF8		%e2%82%acuro
+urlUTF8c	%c5%a2%c4%82%c4%acuro
+urlUni		%e2%82%acuro
+urlHEX		%e2%82%ac%75%72%6f
+urlHEXc		%c00162%c00102%c0012c%c0f5%c0f2%c0ef
+urlNibbles	%%65%32%%38%32%%61%63%%37%35%%37%32%%36%66
+urlNibble1	%%652%%382%%61c%%375%%372%%36f
+urlNibble2	%e%32%8%32%a%63%7%35%7%32%6%66
+urlUCS		%u00e2%u0082%u00ac%u0075%u0072%u006f
+urlPNY		uro-ia4szl
+urlPNY_		uro-ia4szl
+urlIDN		xn--uro-ia4szl
+urlIDN_		xn--uro-ia4szl
+
+_title		HTML-Entity (NCR)
+#--------------+--------------------------------------------------------
+ncrNAME		&euro;uro
+ncrDEC		&#8364;uro
+ncrNUM		&#8364;&#117;&#114;&#111;
+ncrHEX		&#x20;&#xac;&#x75;&#x72;&#x6f;
+ncrHEX4		&#x0020;&#x00ac;&#x0075;&#x0072;&#x006f;
+ncrWIN		&euro;uro
+ncrWINf		&euro;uro
+
+__END

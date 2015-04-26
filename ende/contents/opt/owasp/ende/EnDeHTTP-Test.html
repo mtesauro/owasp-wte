@@ -1,0 +1,148 @@
+<html>
+<head>
+	<title>Test :: EnDe.HTTP</title>
+	<script type="text/javascript" >
+//<![CDATA[
+var EnDeGUI = new function EnDeGUI(typ) {} // need a dummy here
+function go(typ) {
+	//alert(typ); return false;
+	var bux = '--undef--';
+	var src = document.getElementById('t').value;
+	var req = document.getElementById('r').checked;
+	if (req===false) {
+		bux = EnDe.HTTP.req.get(typ,src);
+	} else {
+		bux = EnDe.HTTP.res.get(typ,src);
+	}
+	alert(typ + ':\n' + bux);
+	return false;
+}
+function out(typ) {
+	var bux = '--undef--';
+	var src = document.getElementById('t').value;
+	if(typ==='request') {
+		bux = EnDe.HTTP.req.set(typ,src);
+	} else {
+		bux = EnDe.HTTP.res.set(typ,src);
+	}
+	alert(typ + ':\n' + bux);
+	return false;
+}
+function ana(typ) {
+	var bux = '--undef--';
+	var src = document.getElementById('t').value;
+	bux = EnDe.HTTP.dispatch(typ,src);
+	document.getElementById('out').value  = bux.join('\n');
+	//alert(typ + ':\n' + bux);
+	return false;
+}
+function add(typ) {
+	if(typ==='clear') {
+		document.getElementById('t').value  = '';
+	} else {
+		document.getElementById('t').value += '\n';
+		document.getElementById('t').value += document.getElementById(typ).value;
+	}
+	return false;
+}
+//]]>
+	</script>
+	<script type="text/javascript" src="EnDeForm.js" ></script>
+	<script type="text/javascript" src="EnDeHTTP.js" ></script>
+</head>
+<body>
+	<form action="#" >
+	<h4>Add request, response sample data</h4>
+	add: 
+	<button onClick="return add(this.innerHTML);">clear</button>
+	<button onClick="return add(this.innerHTML);">url</button>
+	<button onClick="return add(this.innerHTML);">req</button>
+	<button onClick="return add(this.innerHTML);">res</button>
+	&#160;&#160; | &#160;&#160; show:
+	<button onClick="return out(this.innerHTML);">request</button>
+	<button onClick="return out(this.innerHTML);">response</button>
+	<br>
+	<textarea id="t" cols=80 rows=20 >
+	</textarea>
+	<h4>Test or extract values from above data</h4>
+	<div>
+	<label for="r" title="if checked following buttons work on request" >Response: <input id="r" type="checkbox" /></label>
+	<br>
+	<button onClick="return go(this.innerHTML);">SCHEMA</button>
+	<button onClick="return go(this.innerHTML);">USER</button>
+	<button onClick="return go(this.innerHTML);">FQDN</button>
+	<button onClick="return go(this.innerHTML);">PORT</button>
+	<button onClick="return go(this.innerHTML);">URL</button>
+	<button onClick="return go(this.innerHTML);">PATH</button>
+	<button onClick="return go(this.innerHTML);">VERB</button>
+	<button onClick="return go(this.innerHTML);">PARAM</button>
+	<button onClick="return go(this.innerHTML);">QUERY</button>
+	<button onClick="return go(this.innerHTML);">SEARCH</button>
+	<button onClick="return go(this.innerHTML);">VERSION</button>
+	<button onClick="return go(this.innerHTML);">BODY</button>
+	<br>
+	<button onClick="return go(this.innerHTML);">__head__</button>
+	<button onClick="return go(this.innerHTML);">__body__</button>
+	<button onClick="return go(this.innerHTML);">Content-Type</button>
+	<button onClick="return go(this.innerHTML);">Cookie</button>
+	<br>
+	<button onClick="return ana(this.innerHTML);">httpGET</button>
+	<button onClick="return ana(this.innerHTML);">httpPOST</button>
+	<button onClick="return ana(this.innerHTML);">httpGWT</button>
+	<button onClick="return ana(this.innerHTML);">httpJSON</button>
+	<button onClick="return ana(this.innerHTML);">httpJSON-GWT</button>
+	</div>
+
+<!-- ************************ sample data { ********************* -->
+	<div style="display:none;">
+	<textarea id="url">
+ http://host.some.tld:81/path/file.fcc;sid=dead-beaf?TYPE=42&key=val
+	</textarea>
+
+	<textarea id="req">
+POST /path/file.fcc;sid=dead-beaf?TYPE=42&key=val HTTP/1.0
+Host: host.some.tld
+User-Agent: ...
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: de, en
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Cookie: SID=dead-beaf
+Keep-Alive: 300
+Connection: close
+Referer: https://...
+cookie: SID=second
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 259
+
+{"user":"doctoravatar@penzance.com","forecast":7,"t":"vlIj","zip":94089}
+&USER=user&PASSWORD=pass&lang=tr&a|ab|<xml xx="qqq" />|cc|
+
+	</textarea>
+
+	<textarea id="res">
+HTTP/1.1 302 Found
+Date: Thu, 06 May 2010 15:48:32 GMT
+Server: Apache
+Set-Cookie: smm=1; path=/; domain=.bmwgroup.com
+Set-Cookie: smm=; expires=Sat, 07 Nov 2009 15:48:32 GMT; path=/; domain=.some.tld
+Expires: Thu, 01 Dec 1994 16:00:00 GMT
+Location: https://...
+Content-Length: 260
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+x=y&|a|b|c|
+	</textarea>
+	</div>
+<!-- ************************ sample data } ********************* -->
+
+	</form>
+	<div class="out">
+	<textarea id="out" cols=80 rows=20 >
+	</textarea>
+	</div>
+</body>
+</html>
+
+
+

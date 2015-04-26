@@ -1,0 +1,1011 @@
+/*
+ * JSReg
+ * Version 3.6.9.4
+ * BSD License Template 
+ * 
+ * Copyright (c) 2009, Gareth Heyes.
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 
+ *     * Redistributions of source code must retain the above copyright 
+ *        notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above 
+ *        copyright notice, this list of conditions and the following 
+ *        disclaimer in the documentation and/or other materials provided 
+ *        with the distribution.
+ *     * Neither the name of Gareth Heyes nor the names of its
+ *        contributors may be used to endorse or promote products derived 
+ *        from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+(function(){		
+	var JSReg_Environment = function(){		
+		var msg = '', line, parseTree = [];
+		function error(d){
+			if (RegExp.lastMatch) {
+				msg += '\n' + RegExp.lastMatch;
+			}
+			if (RegExp.lastParen) {
+				msg += '\n' + RegExp.lastParen;
+			}
+			
+			throw {
+				description: d,
+				msg: msg,
+				line: line,
+				parseTree: parseTree
+			};
+		}
+		function generateSafeFunc(obj, func, noArgsAllowed){
+			var $window$ = generateSafeFunc.$window$;
+			return function(){
+				for (var j = 0; j < arguments.length; j++) {
+					if (arguments[j] === null) {
+						return $window$;
+					}
+				}
+				var that = this, args = arguments;
+				if (!that[func] && obj !== window.window) {
+					return $window$;
+				}
+				var result;
+				result = (obj === window ? window : that)[func].apply(that, args);
+				var win = (function(){
+					return this;
+				})();
+				if (result === win) {
+					return $window$;
+				}
+				return result;
+			};
+		}
+		var newLines = /[\r\n]+/, 
+			unicode = /\\u[0-9a-fA-F]{4}/, 
+			natives = /(?:eval|setTimeout|setInterval|Function|window|alert)/, 
+			endStatement = /(?:(?:^\s*|\s*$)|[,]|[;\n\r]+)/, 
+			spaces = /\s*/, 
+			variable = new RegExp("(?:(?:" + unicode.source + ")|[a-zA-Z$_][a-zA-Z0-9_$]*)+"), 
+			operators = /(?:[!][=]{0,2}|[%][=]?|[&]{1,2}|[&][=]|[*][=]?|[+]{1,2}|[+][=]|[\-]{1,2}|[\-][=]|[\/][=]?|[<]{1,2}[=]?|[=]{1,3}|[>]{1,3}[=]?|[\^][=]?|[|][=]?|[|]{2})/, 
+			functionCalls = new RegExp(spaces.source + '(?:' + variable.source + ')' + spaces.source + '[(]'), 
+			functionDec = new RegExp(spaces.source + '(?:function' + spaces.source + '(?:' + variable.source + ')?)' + spaces.source + '[(](?:' + spaces.source + variable.source + spaces.source + ')?(?:[,]' + spaces.source + variable.source + spaces.source + ')*' + '[)]' + spaces.source + '[{]'), 
+			statements = new RegExp('(?:(?:\\s+(?:in(?:stanceof)?)\\s+)|' + spaces.source + '\\b(?:this|Infinity|NaN|void|do|else|case|default|return|var|continue|undefined|null|new|typeof|throw|break|try|finally|true|false)\\b' + spaces.source + '|' + spaces.source + '\\b(?:if|else\\s' + spaces.source + 'if|with|switch|catch)\\b' + spaces.source + '[(])'), 
+			objects = new RegExp('[.]?' + spaces.source + '(?:' + variable.source + '(?:[.]' + variable.source + ')*)'), 
+			regexpObj = new RegExp("(?:[\\/](?:\\\\[\\/]|[^\\/*])(?:\\\\[\\/]|[^\\/])*?[\\/](?:[gmi]*))"), 
+			regexps = new RegExp('(?:' + endStatement.source + '|' + operators.source + '|[(]+)?' + spaces.source + regexpObj.source + spaces.source + '(?:' + endStatement.source + '|' + operators.source + '|[)]+|(?=' + spaces.source + '[\\[.\\}]))'), 
+			strings = new RegExp("(?:(?:['](?:\\\\[']|\\\\[\\r\\n]|[^'])*['])|(?:[\"](?:\\\\[\"]|\\\\[\\r\\n]|[^\"])*[\"]))"), 
+			loops = new RegExp(spaces.source + '\\b(?:for|while)\\b' + spaces.source + '[(](?:' + strings.source + '|' + regexps.source + '|[(].*?[)]|[^()])+[)]' + spaces.source + '[{]?'), 
+			numbers = new RegExp('(?:[0][xX][0-9a-fA-F]*)|(?:[0]|[1-9]\\d+)?(?:[.]?\\d+)+(?:[eE][+-]?\\d+)?'), 
+			objectIdentifiers = new RegExp('[,\\{]' + spaces.source + '(?:' + strings.source + '|' + numbers.source + '|' + variable.source + ')' + spaces.source + '(?=[:])'), 
+			inInstanceofOperator = new RegExp("\\s*in(?:stanceof)?(?=[\\/\\d\"'\\[\\s\\(\\{])"), 
+			operatorsBeforeObjectLiteral = /(?:[!][=]{0,2}|[%][=]?|[&]{1,2}|[&][=]|[*][=]?|[^+][+]|[+][=]|[^\-][\-]|[\-][=]|[\/][=]?|[<]{1,2}[=]?|[=]{1,3}|[>]{1,3}[=]?|[\^][=]?|[|][=]?|[|]{2})/
+			squaresStart = new RegExp(spaces.source+'(?:(?:[\\(\\[,:?]|'+operatorsBeforeObjectLiteral.source+')'+spaces.source+'{.*}|[^\\u0000-\\u007f]+|[\\)\\]]|' + numbers.source + '|' + variable.source + '|' + regexpObj.source + '|' + strings.source + ')'+spaces.source), 
+			squaresContents = new RegExp('[\\[]' + spaces.source + '(?:' + strings.source + '|' + regexps.source + '|[\\[].*?[\\]]|[^\\[\\]])*' + spaces.source + '[\\]]'), 
+			squares = new RegExp(squaresStart.source + spaces.source + squaresContents.source + spaces.source + '(?:' + spaces.source + squaresContents.source + spaces.source + ')*'), 
+			comments = new RegExp('(' + strings.source + '|' + numbers.source + '(?:' + operators.source + ')?(?![*\\/])' + '|' + spaces.source + "(?:[\\/](?:\\\\[\\/]|[^\\/*])(?:\\\\[\\/]|[^\\/])*?[\\/](?:[gmi]*))" + spaces.source + ')' + '|((?:^\s*[\\-]{2}[>]|[<][!][\\-]{2}).*(?=[\\r\\n]?)|[\\/]{2}.*(?=[\\r\\n]?))|([\\/][*](?:[\\s]|.)*?[*][\\/])', 'gm'), mainRegExp = new RegExp('(' + newLines.source + ')|(' + loops.source + ')|(' + inInstanceofOperator.source + ')|(' + squares.source + ')|(' + objectIdentifiers.source + ')|(' + strings.source + ')|' + '(' + regexps.source + ')|' + '(' + numbers.source + ')|' + '(' + statements.source + ')|' + '(' + functionDec.source + ')|' + '(' + functionCalls.source + ')|' + '(' + objects.source + ')', 'g'), 
+			Parser = function(){			
+			this.init();
+		};
+		var allowedProperties = /\b(?:length|global|ignoreCase|input|multiline|source|lastIndex|toString|valueOf|prototype)\b/;
+		Parser.prototype = {
+			doc: null,
+			win: null,
+			windowExtensions:[],								
+			debugObjects: {},
+			extendWindow:function(name,value) {
+				this.windowExtensions.push({name:name,value:value});
+			},
+			getWindow: function(){
+				return this.win;
+			},
+			setDocument: function(obj){
+				this.doc = obj;
+			},
+			setWindow: function(obj){
+				this.win = obj;
+			},
+			addSymbol: function(symbol){
+				if (new RegExp('^[$]' + natives.source + '[$]$').test(symbol)) {
+					return;
+				}
+				if (!new RegExp('^[$]' + variable.source + '[$]$').test(symbol)) {
+					error('Parser error:Invalid symbol');
+					return;
+				}
+				if (typeof this.symbolsMap[symbol] == "undefined") {
+					this.symbols.push(symbol);
+					this.symbolsMap[symbol] = true;
+				}
+			},
+			setDebugObjects: function(obj){
+				this.debugObjects = obj;
+			},
+			addGlobals: function(symbols){
+				var code = '';
+				for (var i = 0; i < symbols.length; i++) {
+					code += '$window$.' + symbols[i] + '=' + symbols[i] + ';';
+				}
+				return code;
+			},
+			extractSymbols: function(code){
+				if (this.symbols.length) {
+					var symbols = this.symbols;
+					if (symbols.length) {
+						var originalCode = code;
+						var symbolsList = [];
+						for (var i = 0; i < symbols.length; i++) {
+							var found = 0;
+							for (var j = 0; j < this.extractedSymbols.length; j++) {
+								if (this.extractedSymbols[j] == symbols[i]) {
+									found = 1;
+									break;
+								}
+							}
+							if (!found) {
+								symbolsList.push(symbols[i]);
+							}
+						}
+						if (symbolsList.length) {
+							code = 'var ' + symbolsList.join(',') + ';';
+							code += this.addGlobals(symbolsList) + '\n';
+							code += originalCode;
+							this.extractedSymbols.push(symbolsList);
+						}
+					}
+				}
+				return code;
+			},
+			init: function(){
+				this.symbols = [];
+				this.symbolsMap = {};
+				this.extractedSymbols = [];
+				this.maxLoops = 20;
+				this.loopNumber = 0;
+				this.maxFuncCalls = 20;
+				parseTree = [];
+			},
+			removeComments: function(code){
+				code = code.replace(comments, function($0, $1, $2){
+					if ($1 !== undefined && $1.length) {
+						return $1;
+					}
+					else {
+						return '';
+					}
+				});
+				return code;
+			},
+			'eval': function(code, thisObject){	
+				var window = this.environment.contentWindow;												
+				if (this.debugObjects.onStart) {
+					this.debugObjects.onStart();
+				}
+				parseTree = [];
+				if (this.debugObjects.clearTree) {
+					this.debugObjects.clearTree();
+				}
+				
+				if (!thisObject) {
+					thisObject = {};
+				}
+				var that = this;
+				var result;								
+				try {
+					execCode.apply(thisObject, []);
+				} 
+				catch (e) {
+					if (that.debugObjects.errorHandler) {
+						that.debugObjects.errorHandler(e, that);
+					}
+				}											
+				function execCode(){															
+					arguments.callee.root = true;
+					var maxLoops = that.maxLoops;
+					var maxLoopCounter = 0;
+					var maxFuncCalls = that.maxFuncCalls;
+					var setTimeoutIDS = {};
+					var setIntervalIDS = {};
+					var general = {
+						getThis: function(obj){
+							if ((function(){
+								return this;
+							})() === obj) {
+								return $window$;
+							}
+							else {
+								return obj;
+							}
+						},
+						checkMaxLoop: function(){
+							if (maxLoopCounter >= maxLoops) {
+								if (window.confirm('This script is looping a lot, click ok to stop the loop.')) {
+									error("Parser error: Maximum amount of loops hit.");
+									return false;
+								}
+								else {
+									maxLoopCounter = 0;
+									return true;
+								}
+							}
+							else {
+								maxLoopCounter++;
+								return true;
+							}
+						},
+						checkMaxFunctCalls: function(funct){
+							var Static;
+							if (Static === undefined) {
+								Static = {};
+							}
+							Static = funct || arguments.callee.caller;
+							Static.counter = ++Static.counter || 1;
+							if (Static.counter > maxFuncCalls) {
+								if (window.confirm('A function is recuring often, click ok to stop the function.')) {
+									error("Parser error: Maximum amount of function calls hit.");
+									return false;
+								}
+								else {
+									Static.counter = 0;
+									return true;
+								}
+							}
+							else {
+								return true;
+							}
+						}
+					};
+					var globals = {
+						'gp': function(exp){
+							if (/[^\d]/.test(exp) || exp === '') {
+							
+								if (new RegExp("^" + allowedProperties.source + '$').test(exp)) {
+									return exp;
+								}
+								
+								return '$' + exp + '$';
+							}
+							else {
+								return +exp;
+							}
+						}
+					};
+					var $document$ = {}, $window$ = {};
+					generateSafeFunc.$window$ = $window$;
+					
+					var $Function$ = function(){
+						general.checkMaxFunctCalls();
+						var func;
+						var parser = that;
+						var converted = "func=" + parser.rewrite(window.Function.apply(this, arguments) + '');
+						parser.checkSyntax(converted);
+						converted = parser.removeComments(converted);
+						converted = parser.extractSymbols(converted);
+						if (parser.debugObjects.functionCode) {
+							parser.debugObjects.functionCode(converted);
+						}
+						if (parser.debugObjects.doNotFunctionEval) {
+							return converted;
+						}
+						else {
+							return eval(converted);
+						}
+					};
+					$Function$.$constructor$ = $Function$;
+					$window$.$Function$ = $Function$;
+					
+					var Object = window.Object;
+					Object.$constructor$ = $Function$;
+					Object.prototype.$constructor$ = Object;
+					Object.prototype.$prototype$ = Object.prototype;
+					var originalValueOf = Object.prototype.valueOf;
+					Object.prototype.valueOf = function(){
+						var result = originalValueOf.apply(this, arguments);
+						var win = (function(){
+							return this;
+						})();
+						result = result == win ? $window$ : result;
+						return result;
+					}
+					Object.prototype.$hasOwnProperty$ = function(prop){
+						return this.hasOwnProperty('$' + prop + '$');
+					};
+					Object.prototype.$inOperator$ = function(){
+						var val = this.toString();
+						if (/[^\d]/.test(val)) {
+							return '$' + val + '$';
+						}
+						else {
+							return +val;
+						}
+					};
+					var $Object$ = Object;
+					$window$.$Object$ = $Object$;
+					
+					var $Error$ = window.Error;
+					
+					var Boolean = window.Boolean;
+					Boolean.$constructor$ = $Function$;
+					Boolean.prototype.$constructor$ = Boolean;
+					var $Boolean$ = Boolean;
+					$window$.$Boolean$ = $Boolean$;
+					
+					var Function = window.Function;
+					Function.prototype.$constructor$ = $Function$;
+					Function.prototype.$call$ = generateSafeFunc(window.Function, 'call');
+					Function.prototype.$apply$ = generateSafeFunc(window.Function, 'apply');
+					
+					var String = window.String;
+					String.prototype.$charAt$ = generateSafeFunc(window.String, 'charAt');
+					String.prototype.$charCodeAt$ = generateSafeFunc(window.String, 'charCodeAt');
+					String.prototype.$concat$ = generateSafeFunc(window.String, 'concat');
+					String.prototype.$indexOf$ = generateSafeFunc(window.String, 'indexOf');
+					String.prototype.$lastIndexOf$ = generateSafeFunc(window.String, 'lastIndexOf');
+					String.prototype.$localeCompare$ = generateSafeFunc(window.String, 'localeCompare');
+					String.prototype.$match$ = generateSafeFunc(window.String, 'match');
+					String.prototype.$replace$ = generateSafeFunc(window.String, 'replace');
+					String.prototype.$search$ = generateSafeFunc(window.String, 'search');
+					String.prototype.$slice$ = generateSafeFunc(window.String, 'slice');
+					String.prototype.$split$ = generateSafeFunc(window.String, 'split');
+					String.prototype.$substr$ = generateSafeFunc(window.String, 'substr');
+					String.prototype.$substring$ = generateSafeFunc(window.String, 'substring');
+					String.prototype.$toLocaleLowerCase$ = generateSafeFunc(window.String, 'toLocaleLowerCase');
+					String.prototype.$toLocaleString$ = generateSafeFunc(window.String, 'toLocaleString');
+					String.prototype.$toLocaleUpperCase$ = generateSafeFunc(window.String, 'toLocaleUpperCase');
+					String.prototype.$toLowerCase$ = generateSafeFunc(window.String, 'toLowerCase');
+					String.prototype.$toUpperCase$ = generateSafeFunc(window.String, 'toUpperCase');
+					String.prototype.$fromCharCode$ = generateSafeFunc(window.String, 'fromCharCode');
+					String.prototype.$constructor$ = String;
+					String.$constructor$ = $Function$;
+					var $String$ = String;
+					$window$.$String$ = $String$;
+					
+					var Array = window.Array;
+					Array.prototype.$sort$ = generateSafeFunc(window.Array, 'sort');
+					Array.prototype.$join$ = generateSafeFunc(window.Array, 'join');
+					Array.prototype.$pop$ = generateSafeFunc(window.Array, 'pop');
+					Array.prototype.$push$ = generateSafeFunc(window.Array, 'push');
+					Array.prototype.$reverse$ = generateSafeFunc(window.Array, 'reverse');
+					Array.prototype.$shift$ = generateSafeFunc(window.Array, 'shift');
+					Array.prototype.$slice$ = generateSafeFunc(window.Array, 'slice');
+					Array.prototype.$splice$ = generateSafeFunc(window.Array, 'splice');
+					Array.prototype.$unshift$ = generateSafeFunc(window.Array, 'unshift');
+					Array.prototype.$concat$ = generateSafeFunc(window.Array, 'concat');
+					Array.prototype.$constructor$ = Array;
+					Array.$constructor$ = $Function$;
+					var $Array$ = window.Array;
+					$window$.$Array$ = $Array$;
+					
+					var RegExp = window.RegExp;
+					RegExp.prototype.$compile$ = generateSafeFunc(window.RegExp, 'compile');
+					RegExp.prototype.$exec$ = generateSafeFunc(window.RegExp, 'exec');
+					RegExp.prototype.$test$ = generateSafeFunc(window.RegExp, 'test');
+					RegExp.prototype.$constructor$ = RegExp;
+					RegExp.prototype.$prototype$ = RegExp.prototype;
+					RegExp.$lastMatch$ = RegExp.lastMatch;
+					RegExp.$lastParen$ = RegExp.lastParen;
+					RegExp.$leftContext$ = RegExp.leftContext;
+					RegExp.$rightContext$ = RegExp.rightContext;
+					RegExp.$constructor$ = $Function$;
+					var $RegExp$ = RegExp;
+					$window$.$RegExp$ = $RegExp$;
+					
+					var Number = window.Number;
+					Number.prototype.$toExponential$ = generateSafeFunc(window.Number, 'toExponential');
+					Number.prototype.$toFixed$ = generateSafeFunc(window.Number, 'toFixed');
+					Number.prototype.$toPrecision$ = generateSafeFunc(window.Number, 'toPrecision');
+					Number.$MAX_VALUE$ = Number.MAX_VALUE;
+					Number.$MIN_VALUE$ = Number.MIN_VALUE;
+					Number.$NaN$ = Number.NaN;
+					Number.$NEGATIVE_INFINITY$ = Number.NEGATIVE_INFINITY;
+					Number.$POSITIVE_INFINITY$ = Number.POSITIVE_INFINITY;
+					Number.$constructor$ = $Function$;
+					var $Number$ = Number;
+					$window$.$Number$ = $Number$;
+					
+					var Date = window.Date;
+					Date.prototype.$getDate$ = generateSafeFunc(window.Date, 'getDate');
+					Date.prototype.$getDay$ = generateSafeFunc(window.Date, 'getDay');
+					Date.prototype.$getFullYear$ = generateSafeFunc(window.Date, 'getFullYear');
+					Date.prototype.$getHours$ = generateSafeFunc(window.Date, 'getHours');
+					Date.prototype.$getMilliseconds$ = generateSafeFunc(window.Date, 'getMilliseconds');
+					Date.prototype.$getMinutes$ = generateSafeFunc(window.Date, 'getMinutes');
+					Date.prototype.$getMonth$ = generateSafeFunc(window.Date, 'getMonth');
+					Date.prototype.$getSeconds$ = generateSafeFunc(window.Date, 'getSeconds');
+					Date.prototype.$getTime$ = generateSafeFunc(window.Date, 'getTime');
+					Date.prototype.$getTimezoneOffset$ = generateSafeFunc(window.Date, 'getTimezoneOffset');
+					Date.prototype.$getUTCDate$ = generateSafeFunc(window.Date, 'getUTCDate');
+					Date.prototype.$getUTCDay$ = generateSafeFunc(window.Date, 'getUTCDay');
+					Date.prototype.$getUTCFullYear$ = generateSafeFunc(window.Date, 'getUTCFullYear');
+					Date.prototype.$getUTCHours$ = generateSafeFunc(window.Date, 'getUTCHours');
+					Date.prototype.$getUTCMilliseconds$ = generateSafeFunc(window.Date, 'getUTCMilliseconds');
+					Date.prototype.$getUTCMinutes$ = generateSafeFunc(window.Date, 'getUTCMinutes');
+					Date.prototype.$getUTCMonth$ = generateSafeFunc(window.Date, 'getUTCMonth');
+					Date.prototype.$getUTCSeconds$ = generateSafeFunc(window.Date, 'getUTCSeconds');
+					Date.prototype.$getYear$ = generateSafeFunc(window.Date, 'getYear');
+					Date.prototype.$setDate$ = generateSafeFunc(window.Date, 'setDate');
+					Date.prototype.$setFullYear$ = generateSafeFunc(window.Date, 'setFullYear');
+					Date.prototype.$setHours$ = generateSafeFunc(window.Date, 'setHours');
+					Date.prototype.$setMilliseconds$ = generateSafeFunc(window.Date, 'setMilliseconds');
+					Date.prototype.$setMinutes$ = generateSafeFunc(window.Date, 'setMinutes');
+					Date.prototype.$setMonth$ = generateSafeFunc(window.Date, 'setMonth');
+					Date.prototype.$setSeconds$ = generateSafeFunc(window.Date, 'setSeconds');
+					Date.prototype.$setTime$ = generateSafeFunc(window.Date, 'setTime');
+					Date.prototype.$setUTCDate$ = generateSafeFunc(window.Date, 'setUTCDate');
+					Date.prototype.$setUTCFullYear$ = generateSafeFunc(window.Date, 'setUTCFullYear');
+					Date.prototype.$setUTCHours$ = generateSafeFunc(window.Date, 'setUTCHours');
+					Date.prototype.$setUTCMilliseconds$ = generateSafeFunc(window.Date, 'setUTCMilliseconds');
+					Date.prototype.$setUTCMinutes$ = generateSafeFunc(window.Date, 'setUTCMinutes');
+					Date.prototype.$setUTCMonth$ = generateSafeFunc(window.Date, 'setUTCMonth');
+					Date.prototype.$setUTCSeconds$ = generateSafeFunc(window.Date, 'setUTCSeconds');
+					Date.prototype.$setYear$ = generateSafeFunc(window.Date, 'setYear');
+					Date.prototype.$toDateString$ = generateSafeFunc(window.Date, 'toDateString');
+					Date.prototype.$toGMTString$ = generateSafeFunc(window.Date, 'toGMTString');
+					Date.prototype.$toLocaleDateString$ = generateSafeFunc(window.Date, 'toLocaleDateString');
+					Date.prototype.$toLocaleString$ = generateSafeFunc(window.Date, 'toLocaleString');
+					Date.prototype.$toLocaleTimeString$ = generateSafeFunc(window.Date, 'toLocaleTimeString');
+					Date.prototype.$toTimeString$ = generateSafeFunc(window.Date, 'toTimeString');
+					Date.prototype.$toUTCString$ = generateSafeFunc(window.Date, 'toUTCString');
+					Date.prototype.$constructor$ = Date;
+					Date.$constructor$ = $Function$;
+					var $Date$ = Date;
+					$window$.$Date$ = $Date$;
+					
+					var Math = window.Math;
+					Math.$E$ = function(){
+						return Math.E;
+					}();
+					Math.$LN10$ = function(){
+						return Math.LN10;
+					}();
+					Math.$LN2$ = function(){
+						return Math.LN2;
+					}();
+					Math.$LOG10E$ = function(){
+						return Math.LOG10E;
+					}();
+					Math.$LOG2E$ = function(){
+						return Math.LOG2E;
+					}();
+					Math.$PI$ = function(){
+						return Math.PI;
+					}();
+					Math.$SQRT1_2$ = function(){
+						return Math.SQRT1_2;
+					}();
+					Math.$SQRT2$ = function(){
+						return Math.SQRT2;
+					}();
+					Math.$abs$ = generateSafeFunc(window.Math, 'abs');
+					Math.$acos$ = generateSafeFunc(window.Math, 'acos');
+					Math.$asin$ = generateSafeFunc(window.Math, 'asin');
+					Math.$atan$ = generateSafeFunc(window.Math, 'atan');
+					Math.$atan2$ = generateSafeFunc(window.Math, 'atan2');
+					Math.$ceil$ = generateSafeFunc(window.Math, 'ceil');
+					Math.$cos$ = generateSafeFunc(window.Math, 'cos');
+					Math.$exp$ = generateSafeFunc(window.Math, 'exp');
+					Math.$floor$ = generateSafeFunc(window.Math, 'floor');
+					Math.$log$ = generateSafeFunc(window.Math, 'log');
+					Math.$max$ = generateSafeFunc(window.Math, 'max');
+					Math.$min$ = generateSafeFunc(window.Math, 'min');
+					Math.$pow$ = generateSafeFunc(window.Math, 'pow');
+					Math.$random$ = generateSafeFunc(window.Math, 'random');
+					Math.$round$ = generateSafeFunc(window.Math, 'round');
+					Math.$sin$ = generateSafeFunc(window.Math, 'sin');
+					Math.$sqrt$ = generateSafeFunc(window.Math, 'sqrt');
+					Math.$tan$ = generateSafeFunc(window.Math, 'tan');
+					Math.$constructor$ = Object;
+					var $Math$ = Math;
+					$window$.$Math$ = $Math$;
+					
+					var $decodeURI$ = generateSafeFunc(window, 'decodeURI');
+					$window$.$decodeURI$ = $decodeURI$;
+					var $decodeURIComponent$ = generateSafeFunc(window, 'decodeURIComponent');
+					$window$.$decodeURIComponent$ = $decodeURIComponent$;
+					var $encodeURI$ = generateSafeFunc(window, 'encodeURI');
+					$window$.$encodeURI$ = $encodeURI$;
+					var $encodeURIComponent$ = generateSafeFunc(window, 'encodeURIComponent');
+					$window$.$encodeURIComponent$ = $encodeURIComponent$;
+					var $escape$ = generateSafeFunc(window, 'escape');
+					$window$.$escape$ = $escape$;
+					var $isFinite$ = generateSafeFunc(window, 'isFinite');
+					$window$.$isFinite$ = $isFinite$;
+					var $isNaN$ = generateSafeFunc(window, 'isNaN');
+					$window$.$isNaN$ = $isNaN$;
+					var $parseFloat$ = generateSafeFunc(window, 'parseFloat');
+					$window$.$parseFloat$ = $parseFloat$;
+					var $parseInt$ = generateSafeFunc(window, 'parseInt');
+					$window$.$parseInt$ = $parseInt$;
+					var $unescape$ = generateSafeFunc(window, 'unescape');
+					$window$.$unescape$ = $unescape$;
+					
+					var $clearInterval$ = function(id){
+						general.checkMaxFunctCalls();
+						id = +id;
+						if (typeof setIntervalIDS[id] == 'undefined') {
+							return null;
+						}
+						return window.clearInterval(id);
+					};
+					$window$.$clearInterval$ = $clearInterval$;
+					var $clearTimeout$ = function(id){
+						general.checkMaxFunctCalls();
+						id = +id;
+						if (typeof setTimeoutIDS[id] == 'undefined') {
+							return null;
+						}
+						return window.clearTimeout(id);
+					};
+					$window$.$clearTimeout$ = $clearTimeout$;
+					var $setTimeout$ = function(func, time){
+						general.checkMaxFunctCalls();
+						time = +time;
+						if (time && time >= 0) {
+							if (typeof func !== 'function') {
+								func = $Function$(func);
+							}
+							var id = +window.setTimeout(func, time);
+							setTimeoutIDS[id] = true;
+							return id;
+						}
+						else {
+							error("Parser error:Incorrect second arguments supplied.");
+						}
+					};
+					$window$.$setTimeout$ = $setTimeout$;
+					var $setInterval$ = function(func, time){
+						general.checkMaxFunctCalls();
+						time = +time;
+						if (time && time >= 0) {
+							if (typeof func !== 'function') {
+								func = $Function$(func);
+							}
+							var id = +window.setInterval(func, time);
+							setIntervalIDS[id] = true;
+							return id;
+						}
+						else {
+							error("Parser error:Incorrect second arguments supplied.");
+						}
+					};
+					$window$.$setInterval$ = $setInterval$;
+					var $alert$ = function(str){
+						general.checkMaxFunctCalls();
+						window.alert(str);
+					};
+					$window$.$alert$ = $alert$;
+					var $eval$ = function(str){
+						general.checkMaxFunctCalls();
+						var parser = that;
+						if (typeof str == 'string') {
+							var converted = parser.rewrite(str);
+							converted = parser.removeComments(converted);
+							parser.checkSyntax(converted);
+						}
+						else {
+							converted = str;
+						}
+						converted = parser.extractSymbols(converted);
+						if (parser.debugObjects.evalCode) {
+							parser.debugObjects.evalCode(converted);
+						}
+						if (parser.debugObjects.evalCode) {
+							parser.debugObjects.evalCode(converted);
+						}
+						
+						if (parser.debugObjects.doNotEval) {
+							return converted;
+						}
+						else {
+							with ($window$) {
+								converted = eval(converted);
+							}
+							return converted;
+						}
+					};
+					$window$.$eval$ = $eval$;
+					
+					if (that.doc) {
+						$document$ = that.doc;
+					}
+					if (that.win) {
+						$window$ = that.win;
+					}
+															
+					for(var i=0;i<that.windowExtensions.length;i++) {
+						var winProp = that.windowExtensions[i];						
+						$window$[winProp.name] = winProp.value;												
+					}
+					winProp = null;
+					
+					that.code = code;
+					code = that.removeComments(code);
+					if (that.debugObjects.converted) {
+						that.debugObjects.converted(code);
+					}
+					that.checkSyntax(code);
+					var converted = that.rewrite(code);
+					if (that.debugObjects.converted) {
+						that.debugObjects.converted(converted);
+					}
+					that.checkSyntax(converted);
+					converted = that.extractSymbols(converted);
+					if (that.debugObjects.converted) {
+						that.debugObjects.converted(converted);
+					}
+					var undefined = window.undefined;
+					var NaN = window.NaN;
+					var Infinity = window.Infinity;
+					var __this__ = $window$;										
+															
+					if (that.debugObjects.doNotMainEval) {
+						result = converted;
+					}
+					else {
+						with ($window$) {
+							result = eval(converted);
+						}
+					}
+					if (that.debugObjects.parseTree) {
+						that.debugObjects.parseTree(parseTree);
+					}
+					if (that.debugObjects.result) {
+						that.debugObjects.result(result);
+					}
+					that.setWindow($window$);
+				};
+				if (that.debugObjects.onComplete) {
+					that.debugObjects.onComplete();
+				}																						
+				return result;
+			},
+			rewrite: function(code){
+				var that = this;
+				var converted = code.replace(mainRegExp, function($0, $newLines, $loops, $inInstanceofOperator, $squares, $objectIdentifiers, $strings, $regexps, $numbers, $statements, $functionDec, $functionCalls, $objects){
+					if ($functionCalls !== undefined && $functionCalls.length) {
+						parseTree.push("Function calls(" + $functionCalls + ")");
+						$functionCalls = $functionCalls.replace(new RegExp('(' + unicode.source + ')', 'g'), function(m){
+							return String.fromCharCode(parseInt(m.replace(/\\u/, ''), 16));
+						});
+						$functionCalls = $functionCalls.replace(new RegExp(spaces.source, 'g'), '');
+						var funcName = '$' + $functionCalls.slice(0, -1).replace(new RegExp(spaces.source, 'g'), '') + '$';
+						that.addSymbol(funcName);
+						return funcName + '(';
+					}
+					else 
+						if ($functionDec !== undefined && $functionDec.length) {
+							parseTree.push("Function Declarations(" + $functionDec + ")");
+							$functionDec = $functionDec.replace(new RegExp('^(' + spaces.source + 'function' + spaces.source + ')(' + variable.source + ')?(' + spaces.source + '[(].+)'), function($0, funcStatement, funcName, funcEnd){
+								if (funcName !== undefined && funcName.length) {
+									funcName = '$' + funcName + '$';
+									that.addSymbol(funcName);
+								}
+								else {
+									funcName = '';
+								}
+								if (funcEnd != '(){') {
+									funcEnd = that.rewrite(funcEnd);
+								}
+								return funcStatement + funcName + funcEnd;
+							});
+							return $functionDec + 'general.checkMaxFunctCalls();var __this__=general.getThis(this);var $arguments$=[].slice.call(arguments,0);$arguments$.$callee$=arguments.callee&&arguments.callee.root?null:arguments.callee;if($arguments$.$callee$)$arguments$.$callee$.$caller$=arguments.callee.caller&&arguments.callee.caller.root?null:arguments.callee.caller;';
+						}
+						else 
+							if ($newLines !== undefined && $newLines.length) {
+								parseTree.push("New lines");
+								return $newLines;
+							}
+							else 
+								if ($squares !== undefined && $squares.length) {
+									alert($squares);
+									parseTree.push("Square notation(" + $squares + ")");
+									return $squares.replace(new RegExp('(' + squaresStart.source + ')(.+)'), function($0, start, props){										
+										if (statements.test(start)) {
+											return start + that.rewrite(props);
+										}
+										props = props.replace(new RegExp(spaces.source + '(' + squaresContents.source + ')' + spaces.source,'g'), function($0, prop){											
+											prop = prop.replace(/^(\s*)[\[]/, '$1');
+											prop = prop.replace(/[\]](\s*)$/, '$1');
+											prop = that.rewrite(prop);											
+											return '[globals.gp((' + prop + '))]';
+										});
+										start = that.rewrite(start);
+										return start + props;
+									});
+								}
+								else 
+									if ($inInstanceofOperator !== undefined && $inInstanceofOperator.length) {
+										parseTree.push("in/instanceof Operator(" + $inInstanceofOperator + ")");
+										return $inInstanceofOperator.replace(/(.*)(in(?:stanceof)?)/, function($0, $1, $2){
+											if ($2 == 'instanceof') {
+												return $1 + ' ' + $2;
+											}
+											else {
+												return $1 + '.$inOperator$()' + $2 + ' ';
+											}
+										});
+									}
+									else 
+										if ($objectIdentifiers !== undefined && $objectIdentifiers.length) {
+											parseTree.push("Object identifiers(" + $objectIdentifiers + ")");
+											$objectIdentifiers = $objectIdentifiers.replace(new RegExp('([{,]' + spaces.source + ')(' + strings.source + '|' + numbers.source + '|' + variable.source + ')(' + spaces.source + ')'), function($0, $start, $ident, $end){
+												if (/[^\d]/.test($ident)) {
+													if (new RegExp('^' + spaces.source + variable.source + spaces.source + '$').test($ident)) {
+														$ident = $ident.replace(new RegExp('(' + unicode.source + ')', 'g'), function(m){
+															return String.fromCharCode(parseInt(m.replace(/\\u/, ''), 16));
+														});
+														if (!allowedProperties.test($ident)) {
+															$ident = '$' + $ident + '$';
+														}
+													}
+													else {
+														$ident = $ident.split('');
+														$ident[1] = '$' + $ident[1];
+														$ident[$ident.length - 1] = '$' + $ident[$ident.length - 1];
+														$ident = $ident.join('');
+													}
+												}
+												else {
+													$ident = +$ident;
+												}
+												return $start + $ident + $end;
+											});
+											return $objectIdentifiers;
+										}
+										else 
+											if ($numbers !== undefined && $numbers.length) {
+												parseTree.push("Numbers(" + $numbers + ")");
+												return "Number(" + $numbers + ")";
+											}
+											else 
+												if ($loops !== undefined && $loops.length) {
+													parseTree.push("Loops(" + $loops + ")");
+													$loops = $loops.replace(new RegExp(spaces.source + '\\b(for|while)\\b' + spaces.source + '[(](.*)[)]' + spaces.source + '([{}]?)'), function($0, type, statement, brace){
+														var a, b, c = '';
+														var loopVariable = 'loop' + that.loopNumber;
+														var matches = 0;
+														var converted = '';
+														if (type == 'for') {
+															var forLoop = new RegExp('^' + spaces.source + '((?:' + strings.source + '|' + regexps.source + '|[^;])*?)[;]' + spaces.source + spaces.source + '((?:' + strings.source + '|' + regexps.source + '|[^;])*?)[;]' + spaces.source + spaces.source + '((?:' + strings.source + '|' + regexps.source + '|[^;])*?)' + spaces.source + '$');
+															if (!forLoop.test(statement)) {
+																var replacedStatement = '';
+																statement.replace(new RegExp("((?:var\\s+)?[\\s\\(]*(?:" + variable.source + ")[\\)\\s]+)in(.+)"), function($0, prop, obj){
+																	replacedStatement = that.rewrite(prop) + ' in ' + that.rewrite(obj);
+																});
+																if (replacedStatement == '') {
+																	error('Parser error:Failed to match for..in loop');
+																}
+																statement = 'for(' + replacedStatement + ')' + brace;
+																statement += 'general.checkMaxLoop();';
+																statement.replace(new RegExp("^for\\((?:var\\s+)?.*?(" + variable.source + ").*?\\sin\\s"), function($0, variable){
+																	if (/^[$]/.test(variable) && /[$]$/.test(variable)) {
+																		statement += variable + "=(" + variable + "+'').replace(/^[$]/,'').replace(/[$]$/,'');\n";
+																	}
+																});
+																return statement;
+															}
+															statement.replace(forLoop, function($0, s1, s2, s3){
+																a = that.rewrite(s1);
+																b = that.rewrite(s2);
+																c = that.rewrite(s3);
+															});
+															
+															var jsRegStatement = 'if(general.checkMaxLoop()';
+															var addedStatement = 0;
+															if (c !== undefined && c.length) {
+																jsRegStatement += '&&((' + loopVariable + '++>0&&' + c + ')||true)';
+															}
+															if (b !== undefined && b.length) {
+																jsRegStatement += '&&(!(' + b + ')))break;';
+																if (!brace) {
+																	jsRegStatement += ' else ';
+																}
+															}
+															else {
+																jsRegStatement += ')';
+															}
+															converted = ';var ' + loopVariable + '=0;';
+															if (a !== undefined && a.length) {
+																converted += '(' + a.replace(/^var\s/, '') + ');';
+															}
+															converted += 'while(true)' + brace + jsRegStatement;
+														}
+														else {
+															var jsRegStatement = 'if(general.checkMaxLoop())';
+															statement = that.rewrite(statement);
+															converted = 'var ' + loopVariable + ';while(' + statement + ')' + brace + jsRegStatement;
+														}
+														that.loopNumber++;
+														return converted;
+													});
+													return $loops;
+												}
+												else 
+													if ($statements !== undefined && $statements.length) {
+														parseTree.push("Statements(" + $statements + ")");
+														if (/\s*this\s*/.test($statements)) {
+															return '__this__';
+														}
+														return $statements + ' ';
+													}
+													else 
+														if ($regexps !== undefined && $regexps.length) {
+															parseTree.push("RegExps(" + $regexps + ")");
+															var result;
+															$regexps.replace(new RegExp('^(' + endStatement.source + '|' + operators.source + '|[(]+)?' + "(" + spaces.source + "[\\/](?:\\\\[\\/]|[^\\/*])(?:\\\\[\\/]|[^\\/])*?[\\/](?:[gmi]*))" + spaces.source + "" + '(' + endStatement.source + '|' + operators.source + '|[)]+)$'), function($0, l, regexp, r){
+																if (typeof l == 'undefined') {
+																	l = '';
+																}
+																if (typeof r == 'undefined') {
+																	r = '';
+																}
+																result = l + 'RegExp(' + regexp + ')' + r;
+															});
+															return result;
+														}
+														else 
+															if ($strings !== undefined && $strings.length) {
+																parseTree.push("Strings(" + $strings + ")");
+																return 'String(' + $strings + ')';
+															}
+															else 
+																if ($objects !== undefined && $objects.length) {
+																	parseTree.push("Objects(" + $objects + ")");
+																	$objects = $objects.replace(/([\\]u[0-9a-f]{4})/g, function(m){
+																		return String.fromCharCode(parseInt(m.replace(/\\u/, ''), 16));
+																	});
+																	var beginDot = /^\s*[.]/.test($objects);
+																	if (beginDot) {
+																		$objects = $objects.replace(/^(\s*)[.]/, '$1');
+																	}
+																	$objects = $objects.split('.');
+																	for (var i = 0; i < $objects.length; i++) {
+																		if (i == 0) {
+																			if ($objects[i].replace(/[\s\n]/g, '') == 'this' && $objects.length > 1) {
+																				$objects[i] = '__this__';
+																				continue;
+																			}
+																			if ($objects[i].replace(/[\s\n]/g, '') == 'globals' && $objects.length > 1) {
+																				$objects[i] = 'globals';
+																				continue;
+																			}
+																			var objName = '$' + $objects[i].replace(new RegExp(spaces.source, 'g'), '') + '$';
+																			if (!beginDot) {
+																				that.addSymbol(objName);
+																			}
+																			$objects[i] = objName;
+																		}
+																		else {
+																			if (allowedProperties.test($objects[i].replace(/[\s\n]/g, ''))) {
+																				$objects[i] = $objects[i].replace(/[\s\n]/g, '');
+																				continue;
+																			}
+																			$objects[i] = '$' + $objects[i].replace(new RegExp(spaces.source, 'g'), '') + '$';
+																		}
+																	}
+																	$objects = $objects.join(".");
+																	if (beginDot) {
+																		if (new RegExp('^[$]' + allowedProperties.source + '[$]$').test($objects)) {
+																			$objects = $objects.replace(/[\s\n]/g, '');
+																			$objects = $objects.replace(/^[$]|[$]$/g, '');
+																		}
+																		$objects = '.' + $objects;
+																	}
+																	return $objects;
+																}
+																else {
+																	return $0;
+																}
+				});				
+				return converted;
+			},
+			checkSyntax: function(code){
+				try {
+					throw new Error()
+				} 
+				catch (e) {
+					var relativeLineNumber = e.lineNumber
+				}
+				try {
+					code = new Function(code);
+				} 
+				catch (e) {
+					msg = e.message;
+					line = (e.lineNumber - relativeLineNumber - 1);
+					error("Syntax error");
+				}
+			},						
+			runCheck: function(){				
+				this.assert(this.removeComments('//test'), '');
+				this.assert(this.removeComments('//test\n'), '\n');
+				this.assert(this.removeComments('<!--test'), '');
+				this.assert(this.removeComments('<!--test\n'), '\n');
+				this.assert(this.removeComments('/*\n\r\t test*/'), '');
+				this.assert(this.removeComments('(/**/2+2/**/);'), '(2+2);');
+				this.assert(this.rewrite("'test'"), "String('test')");
+				this.assert(this.rewrite("'\\\ntest'"), "String('\\\ntest')");
+				this.assert(this.rewrite("'test'"), "String('test')");
+				this.assert(this.rewrite("1.0E+1"), "Number(1.0E+1)");
+				this.assert(this.rewrite("/\\*\\/abc/mgi"), "RegExp(/\\*\\/abc/mgi)");
+				this.assert(this.rewrite("alert(1)"), "$alert$(Number(1))");
+				this.assert(this.rewrite("x=[1,2,3]"), "$x$=[Number(1),Number(2),Number(3)]");
+				this.assert(this.rewrite("o={a:1,b:2,c:function(){}}"), "$o$={$a$:Number(1),$b$:Number(2),$c$:function(){general.checkMaxFunctCalls();var __this__=general.getThis(this);var $arguments$=[].slice.call(arguments,0);$arguments$.$callee$=arguments.callee&&arguments.callee.root?null:arguments.callee;if($arguments$.$callee$)$arguments$.$callee$.$caller$=arguments.callee.caller&&arguments.callee.caller.root?null:arguments.callee.caller;}}");
+				this.assert(this.rewrite("eval('1+1')"), "$eval$(String('1+1'))");
+				this.assert(this.rewrite('eval("1+1")'), '$eval$(String("1+1"))');
+				this.assert(this.rewrite('1/1/1'), 'Number(1)/Number(1)/Number(1)');
+				this.assert(this.rewrite(this.removeComments('/a//**///b/')), 'RegExp(/a/)');
+				this.assert(this.rewrite('/a/[1]'), 'RegExp(/a/)[globals.gp((Number(1)))]');
+				this.assert(this.rewrite("[1,2,[']']];"), "[Number(1),Number(2),[String(']')]];");
+				this.assert(this.rewrite('"catch(){}";'), 'String("catch(){}");');
+				this.assert(this.rewrite("[ 1,2,[']',']'] ];"), "[ Number(1),Number(2),[String(']'),String(']')] ];");
+				this.assert(this.rewrite('({ "x": 1 })'), '({ "$x$": Number(1) })');
+				this.assert(this.rewrite(' ({ 1: [1,2,3] })[1][1]; '), ' ({ 1: [Number(1),Number(2),Number(3)] })[globals.gp((Number(1)))][globals.gp((Number(1)))]; ');
+				this.assert(this.rewrite('({ 1: /foo/ })[1]; '), '({ 1: RegExp(/foo/)})[globals.gp((Number(1)))]; ');
+				this.assert(this.rewrite("x=1?'foo':'bar';"), "$x$=Number(1)?String('foo'):String('bar');");
+				this.assert(this.rewrite("[(function(){ return [1,{x:1},3] })()][0][1].x;"), "[(function(){general.checkMaxFunctCalls();var __this__=general.getThis(this);var $arguments$=[].slice.call(arguments,0);$arguments$.$callee$=arguments.callee&&arguments.callee.root?null:arguments.callee;if($arguments$.$callee$)$arguments$.$callee$.$caller$=arguments.callee.caller&&arguments.callee.caller.root?null:arguments.callee.caller; return [Number(1),{$x$:Number(1)},Number(3)] })()][globals.gp((Number(0)))][globals.gp((Number(1)))].$x$;");
+				this.assert(this.rewrite("switch('x'){case'x':1};"), "switch( String('x')){case String('x'):Number(1)};");
+				this.assert(this.rewrite("0x50;"), 'Number(0x50);');
+				this.assert(this.rewrite("({ '': 1 })[''];"), "({ '$$': Number(1) })[globals.gp((String('')))];");
+				this.assert(this.rewrite("([1,2])"), "([Number(1),Number(2)])");
+				this.assert(this.rewrite("eval('ale'+[]+'rt'+'(1)')"), "$eval$(String('ale')+[]+String('rt')+String('(1)'))");
+				this.assert(this.rewrite("['x'],['x']"), "[String('x')],[String('x')]");
+			},
+			assert: function(op1, op2){
+				if (op1 != op2) {
+					var msg = 'result:\n' + op1 + '\n' + 'expected:\n' + op2;
+					if (this.debugObjects.errorLog) {
+						this.debugObjects.errorLog(msg);
+					}
+					else {
+						alert(msg);
+					}
+					
+					error("Parser error:Something went wrong. The RegExps are allowing data they shouldn't");
+				}
+				this.init();
+			}
+		};
+		
+			return new Parser();
+	};
+	window.JSReg = {		
+		create: function(){
+			var iframe = document.createElement('iframe');				
+			iframe.style.width = '1px';
+			iframe.style.height = '1px';
+			iframe.frameborder = "0";
+			iframe.style.position = 'absolute';
+			iframe.style.left = '-100px';
+			iframe.style.top = '-100px';				
+			document.body.appendChild(iframe);
+			var code = "(function(JSREG){ return window.JSReg = JSREG();})(" + JSReg_Environment + ")";									
+			if (window.opera) {
+				iframe.contentWindow.Function(code)();
+			} else {
+				iframe.contentWindow.document.write('<script type="text/javascript">' + code + '<\/script>');
+				iframe.contentWindow.document.close();
+			}
+			var obj = iframe.contentWindow.JSReg;	
+			if(!obj) {
+				iframe.contentWindow.Function(code)();
+				obj = iframe.contentWindow.JSReg;
+			}
+			obj.environment = iframe;																		
+			return obj;			
+		}		
+	};
+		
+})();

@@ -1,0 +1,1899 @@
+<core-rules revision="1.6.1">
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:20" id="960911" phase="2">
+    <selector>REQUEST_LINE</selector>
+    <operator>!^(?:(?:[a-z]{3,10}\s+(?:\w{3,7}?://[\w\-\./]*(?::\d+)?)?/[^?#]*(?:\?[^#\s]*)?(?:#[\S]*)?|connect (?:\d{1,3}\.){3}\d{1,3}\.?(?::\d+)?|options \*)\s+[\w\./]+|get /[^?#]*(?:\?[^#\s]*)?(?:#[\S]*)?)$</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Invalid HTTP Request Line</msg>
+      <severity>2</severity>
+    </actions>
+    <comment> Validate request line</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:26" id="950012" phase="2">
+    <selector>REQUEST_HEADERS:&apos;/(Content-Length|Transfer-Encoding)/&apos;</selector>
+    <operator>,</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>HTTP Request Smuggling Attack.</msg>
+      <tag>WEB_ATTACK/REQUEST_SMUGGLING</tag>
+      <severity>1</severity>
+    </actions>
+    <comment> HTTP Request Smuggling</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:31" id="960912" phase="2">
+    <selector>REQBODY_PROCESSOR_ERROR</selector>
+    <operator>!@eq 0</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Request Body Parsing Failed. %{REQBODY_PROCESSOR_ERROR_MSG}</msg>
+      <severity>2</severity>
+    </actions>
+    <comment> Block request with malformed content.
+ ModSecurity will not inspect these, but the server application might do so</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:36" id="960016" phase="2">
+    <selector>REQUEST_HEADERS:Content-Length</selector>
+    <operator>!^\d+$</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Content-Length HTTP header is not numeric</msg>
+      <severity>2</severity>
+      <tag>PROTOCOL_VIOLATION/INVALID_HREQ</tag>
+    </actions>
+    <comment> Accept only digits in content length</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:43" id="960011" phase="2">
+    <selector>REQUEST_METHOD</selector>
+    <operator>^(?:GET|HEAD)$</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>GET or HEAD requests with bodies</msg>
+      <severity>2</severity>
+      <tag>PROTOCOL_VIOLATION/EVASION</tag>
+    </actions>
+    <comment> Do not accept GET or HEAD requests with bodies
+ HTTP standard allows GET requests to have a body but this
+ feature is not used in real life. Attackers could try to force
+ a request body on an unsuspecting web applications.</comment>
+  </rule>
+    <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:44" id="" phase="">
+      <selector>REQUEST_HEADERS:Content-Length</selector>
+      <operator>!^0?$</operator>
+      <actions/>
+    </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:48" id="960012" phase="2">
+    <selector>REQUEST_METHOD</selector>
+    <operator>^POST$</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>POST request must have a Content-Length header</msg>
+      <tag>PROTOCOL_VIOLATION/EVASION</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> Require Content-Length to be provided with every POST request.</comment>
+  </rule>
+    <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:49" id="" phase="">
+      <selector>&amp;REQUEST_HEADERS:Content-Length</selector>
+      <operator>@eq 0</operator>
+      <actions/>
+    </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:56" id="960013" phase="2">
+    <selector>REQUEST_HEADERS:Transfer-Encoding</selector>
+    <operator>!^$</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>ModSecurity does not support transfer encodings</msg>
+      <tag>PROTOCOL_VIOLATION/EVASION</tag>
+      <severity>3</severity>
+    </actions>
+    <comment> Don&apos;t accept transfer encodings we know we don&apos;t know how to handle
+ NOTE ModSecurity does not support chunked transfer encodings at
+      this time. You MUST reject all such requests.</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:59" id="950107" phase="2">
+    <selector>REQUEST_BODY|REQUEST_URI|XML:/*</selector>
+    <operator>\%(?!$|\W|[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>URL Encoding Abuse Attack Attempt</msg>
+      <tag>PROTOCOL_VIOLATION/EVASION</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> Check encodings</comment>
+  </rule>
+    <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:68" id="" phase="">
+      <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+      <operator>\%u[fF]{2}[0-9a-fA-F]{2}</operator>
+      <actions>
+        <t>none</t>
+        <deny/>
+        <log/>
+        <auditlog/>
+        <status>400</status>
+        <msg>Unicode Full/Half Width Abuse Attack Attempt</msg>
+        <severity>4</severity>
+      </actions>
+      <comment> Disallow use of full-width unicode</comment>
+    </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:74" id="960014" phase="2">
+    <selector>REQUEST_URI_RAW</selector>
+    <operator>^\w+:/</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Proxy access attempt</msg>
+      <severity>2</severity>
+      <tag>PROTOCOL_VIOLATION/PROXY_ACCESS</tag>
+    </actions>
+    <comment> Proxy access attempt
+ NOTE Apache blocks such access by default if not set as a proxy. The rule is
+      included in case Apache proxy is misconfigured.</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:87" id="960018" phase="2">
+    <selector>REQUEST_FILENAME|REQUEST_HEADERS_NAMES|REQUEST_HEADERS|!REQUEST_HEADERS:Referer</selector>
+    <operator>@validateByteRange 1-255</operator>
+    <actions>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Invalid character in request</msg>
+      <tag>PROTOCOL_VIOLATION/EVASION</tag>
+      <severity>4</severity>
+      <t>none</t>
+    </actions>
+    <comment> Restrict type of characters sent
+ NOTE In order to be broad and support localized applications this rule
+      only validates that NULL Is not used.
+	   The strict policy version also validates that protocol and application
+	   generated fields are limited to printable ASCII.
+ TODO If your application use the range 32-126 for parameters.</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_20_protocol_violations.conf:91" id="960901" phase="2">
+    <selector>ARGS|ARGS_NAMES|REQUEST_HEADERS:Referer</selector>
+    <operator>@validateByteRange 1-255</operator>
+    <actions>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Invalid character in request</msg>
+      <tag>PROTOCOL_VIOLATION/EVASION</tag>
+      <severity>4</severity>
+      <t>none</t>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:22" id="999210" phase="2">
+    <selector>REQUEST_LINE</selector>
+    <operator>^GET /$</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <chain/>
+      <t>none</t>
+      <pass/>
+      <nolog/>
+      <ctl>ruleRemoveById=960019</ctl>
+      <ctl>ruleRemoveById=960008</ctl>
+      <ctl>ruleRemoveById=960015</ctl>
+      <ctl>ruleRemoveById=960009</ctl>
+      <severity>5</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:26" id="999211" phase="2">
+    <selector>REQUEST_LINE</selector>
+    <operator>^GET / HTTP/1.0$</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <chain/>
+      <t>none</t>
+      <pass/>
+      <nolog/>
+      <ctl>ruleRemoveById=960019</ctl>
+      <ctl>ruleRemoveById=960008</ctl>
+      <ctl>ruleRemoveById=960015</ctl>
+      <ctl>ruleRemoveById=960009</ctl>
+      <severity>5</severity>
+    </actions>
+    <comment> Exception for Apache internal dummy connection</comment>
+  </rule>
+    <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:23" id="" phase="">
+      <selector>REMOTE_ADDR</selector>
+      <operator>^127\.0\.0\.1$</operator>
+      <actions/>
+    </rule>
+    <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:27" id="" phase="">
+      <selector>REMOTE_ADDR</selector>
+      <operator>^127\.0\.0\.1$</operator>
+      <actions>
+        <chain/>
+      </actions>
+    </rule>
+      <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:28" id="" phase="">
+        <selector>REQUEST_HEADERS:User-Agent</selector>
+        <operator>^Apache.*\(internal dummy connection\)$</operator>
+        <actions/>
+      </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:32" id="960019" phase="2">
+    <selector>REQUEST_PROTOCOL</selector>
+    <operator>^http/0.9$</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <log/>
+      <auditlog/>
+      <msg>HTTP/0.9 Request Detected</msg>
+      <severity>4</severity>
+    </actions>
+    <comment> Detect HTTP/0.9 Requests</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:34" id="960008" phase="2">
+    <selector>&amp;REQUEST_HEADERS:Host</selector>
+    <operator>@eq 0</operator>
+    <actions>
+      <skip>1</skip>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <msg>Request Missing a Host Header</msg>
+      <tag>PROTOCOL_VIOLATION/MISSING_HEADER</tag>
+      <severity>4</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:36" id="960008" phase="2">
+    <selector>REQUEST_HEADERS:Host</selector>
+    <operator>^$</operator>
+    <actions>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <msg>Request Missing a Host Header</msg>
+      <tag>PROTOCOL_VIOLATION/MISSING_HEADER</tag>
+      <severity>4</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:40" id="960015" phase="2">
+    <selector>&amp;REQUEST_HEADERS:Accept</selector>
+    <operator>@eq 0</operator>
+    <actions>
+      <chain/>
+      <skip>1</skip>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <msg>Request Missing an Accept Header</msg>
+      <severity>2</severity>
+      <tag>PROTOCOL_VIOLATION/MISSING_HEADER</tag>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:42" id="" phase="">
+      <selector>REQUEST_METHOD</selector>
+      <operator>!^OPTIONS$</operator>
+      <actions/>
+    </rule>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:43" id="960015" phase="2">
+    <selector>REQUEST_HEADERS:Accept</selector>
+    <operator>^$</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <msg>Request Missing an Accept Header</msg>
+      <severity>2</severity>
+      <tag>PROTOCOL_VIOLATION/MISSING_HEADER</tag>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:45" id="" phase="">
+      <selector>REQUEST_METHOD</selector>
+      <operator>!^OPTIONS$</operator>
+      <actions/>
+    </rule>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:47" id="960009" phase="2">
+    <selector>&amp;REQUEST_HEADERS:User-Agent</selector>
+    <operator>@eq 0</operator>
+    <actions>
+      <skip>1</skip>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <msg>Request Missing a User Agent Header</msg>
+      <tag>PROTOCOL_VIOLATION/MISSING_HEADER</tag>
+      <severity>4</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:49" id="960009" phase="2">
+    <selector>REQUEST_HEADERS:User-Agent</selector>
+    <operator>^$</operator>
+    <actions>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <msg>Request Missing a User Agent Header</msg>
+      <tag>PROTOCOL_VIOLATION/MISSING_HEADER</tag>
+      <severity>4</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:53" id="960904" phase="2">
+    <selector>&amp;REQUEST_HEADERS:Content-Type</selector>
+    <operator>@eq 0</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <msg>Request Containing Content, but Missing Content-Type header</msg>
+      <severity>4</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:55" id="" phase="">
+      <selector>REQUEST_HEADERS:Content-Length</selector>
+      <operator>!^0$</operator>
+      <actions/>
+    </rule>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:60" id="960017" phase="2">
+    <selector>REQUEST_HEADERS:Host</selector>
+    <operator>^[\d\.]+$</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Host header is a numeric IP address</msg>
+      <severity>2</severity>
+      <tag>PROTOCOL_VIOLATION/IP_HOST</tag>
+    </actions>
+    <comment> Check that the host header is not an IP address</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:65" id="960913" phase="5">
+    <selector>RESPONSE_STATUS</selector>
+    <operator>^400$</operator>
+    <actions>
+      <t>none</t>
+      <chain/>
+      <log/>
+      <auditlog/>
+      <pass/>
+      <msg>Invalid request</msg>
+      <severity>2</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_21_protocol_anomalies.conf:66" id="" phase="">
+      <selector>WEBSERVER_ERROR_LOG</selector>
+      <operator>!ModSecurity</operator>
+      <actions/>
+    </rule>
+    <comment> Log a security event when the request is rejected by apache</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_23_request_limits.conf:28" id="960335" phase="2">
+    <selector>&amp;ARGS</selector>
+    <operator>@gt 255</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>403</status>
+      <msg>Too many arguments in request</msg>
+      <severity>4</severity>
+    </actions>
+    <comment> Maximum number of arguments in request limited</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:34" id="960032" phase="2">
+    <selector>REQUEST_METHOD</selector>
+    <operator>!^((?:(?:POS|GE)T|OPTIONS|HEAD))$</operator>
+    <actions>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Method is not allowed by policy</msg>
+      <severity>2</severity>
+      <tag>POLICY/METHOD_NOT_ALLOWED</tag>
+    </actions>
+    <comment> allow request methods
+ TODO Most applications only use GET, HEAD, and POST request
+      methods. If that is not the case with your environment, you are advised
+      to edit the line or uncomment it.</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:68" id="960010" phase="2">
+    <selector>REQUEST_METHOD</selector>
+    <operator>!^(?:get|head|propfind|options)$</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <t>lowercase</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Request content type is not allowed by policy</msg>
+      <tag>POLICY/ENCODING_NOT_ALLOWED</tag>
+      <severity>4</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:70" id="" phase="">
+      <selector>REQUEST_HEADERS:Content-Type</selector>
+      <operator>!(?:^(?:application\/x-www-form-urlencoded(?:;(?:\s?charset\s?=\s?[\w\d\-]{1,18})?)??$|multipart/form-data;)|text/xml)</operator>
+      <actions/>
+    </rule>
+    <comment> Restrict which content-types we accept.
+ TODO Most applications support only two types for request bodies
+      because that is all browsers know how to produce. If you are using
+      automated tools to talk to the application you may be using other
+      content types and would want to change the list of supported types.
+      Note though that ModSecurity parses only three content types:
+      application/x-www-form-urlencoded, multipart/form-data request and
+      text/xml. The protection provided for any other type is inferior.
+ TODO There are many applications that are not using multipart/form-data
+      types (typically only used for file uploads). This content type
+      can be disabled if not used.
+ NOTE We allow any content type to be specified with GET or HEAD
+      because some tools incorrectly supply content type information
+      even when the body is not present. There is a rule further in
+      the file to prevent GET and HEAD requests to have bodies to we&apos;re
+      safe in that respect.
+ NOTE Use of WebDAV requires &quot;text/xml&quot; content type.
+ NOTE Philippe Bourcier (pbourcier AT citali DOT com) reports
+      applications running on the PocketPC and AvantGo platforms use
+      non-standard content types:
+      M-Business iAnywhere      application/x-mal-client-data
+      UltraLite iAnywhere       application/octet-stream</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:82" id="960034" phase="2">
+    <selector>REQUEST_PROTOCOL</selector>
+    <operator>!^HTTP/(0\.9|1\.[01])$</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>505</status>
+      <msg>HTTP protocol version is not allowed by policy</msg>
+      <severity>2</severity>
+      <tag>POLICY/PROTOCOL_NOT_ALLOWED</tag>
+    </actions>
+    <comment> Restrict protocol versions.
+ TODO All modern browsers use HTTP version 1.1. For tight security, allow only
+      this version.
+ NOTE Automation programs, both malicious and non malicious many times use
+      other HTTP versions. If you want to allow a specific automated program
+      to use your site, try to create a narrower expection and not allow any
+      client to send HTTP requests in a version lower than 1.1</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:93" id="960035" phase="2">
+    <selector>REQUEST_BASENAME</selector>
+    <operator>\.(?:c(?:o(?:nf(?:ig)?|m)|s(?:proj|r)?|dx|er|fg|md)|p(?:rinter|ass|db|ol|wd)|v(?:b(?:proj|s)?|sdisco)|a(?:s(?:ax?|cx)|xd)|d(?:bf?|at|ll|os)|i(?:d[acq]|n[ci])|ba(?:[kt]|ckup)|res(?:ources|x)|s(?:h?tm|ql|ys)|l(?:icx|nk|og)|\w{0,5}~|webinfo|ht[rw]|xs[dx]|key|mdb|old)$</operator>
+    <actions>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>lowercase</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>500</status>
+      <msg>URL file extension is restricted by policy</msg>
+      <severity>2</severity>
+      <tag>POLICY/EXT_RESTRICTED</tag>
+    </actions>
+    <comment> Restrict file extension
+ TODO the list of file extensions below are virtually always considered unsafe
+      and not in use in any valid program. If your application uses one of
+      these extensions, please remove it from the list of blocked extensions.
+      You may need to use ModSecurity Core Rule Set Templates to do so, otherwise
+      comment the whole rule.</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:105" id="960038" phase="2">
+    <selector>REQUEST_HEADERS_NAMES</selector>
+    <operator>(?:lock-token|translate|if)$</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>500</status>
+      <msg>HTTP header is restricted by policy</msg>
+      <tag>POLICY/HEADER_RESTRICTED</tag>
+      <tag>POLICY/FILES_NOT_ALLOWED</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> Restricted HTTP headers
+ TODO the list of HTTP headers below are considered unsafe for your environment.
+      If your application uses one of these directories, please remove it from
+      the list of blocked extensions. You may need to use ModSecurity Core Rule
+      Set Templates to do so, otherwise comment the whole rule.</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:116" id="960902" phase="2">
+    <selector>REQUEST_HEADERS:Content-Encoding</selector>
+    <operator>!^Identity$</operator>
+    <actions>
+      <t>none</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>ModSecurity does not support content encodings</msg>
+      <severity>3</severity>
+    </actions>
+    <comment> Restricted Content Encodings
+ ModSecurity does not support compressed content. Therefore, the following
+ action will be taken:
+   - Inbound compressed content will be denied
+   - Outbound compressed content will be logged once, to alert the user
+ Deny inbound compressed content</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:119" id="960903" phase="4">
+    <selector>RESPONSE_HEADERS:Content-Encoding</selector>
+    <operator>!^Identity$</operator>
+    <actions>
+      <t>none</t>
+      <pass/>
+      <log/>
+      <auditlog/>
+      <msg>ModSecurity does not support content encodings</msg>
+      <severity>4</severity>
+      <chain/>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_30_http_policy.conf:121" id="" phase="">
+      <selector>&amp;GLOBAL:alerted_960903_compression</selector>
+      <operator>@eq 0</operator>
+      <actions/>
+    </rule>
+    <comment> Log outbound compressed content (log once)</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_35_bad_robots.conf:18" id="990002" phase="2">
+    <selector>REQUEST_HEADERS:User-Agent</selector>
+    <operator>(?:\b(?:m(?:ozilla\/4\.0 \(compatible\)|etis)|webtrends security analyzer|pmafind)\b|n(?:-stealth|sauditor|essus|ikto)|b(?:lack ?widow|rutus|ilbo)|(?:jaascoi|paro)s|webinspect|\.nasl)</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>404</status>
+      <msg>Request Indicates a Security Scanner Scanned the Site</msg>
+      <tag>AUTOMATION/SECURITY_SCANNER</tag>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_35_bad_robots.conf:20" id="990901" phase="2">
+    <selector>REQUEST_HEADERS_NAMES</selector>
+    <operator>\bacunetix-product\b</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>404</status>
+      <msg>Request Indicates a Security Scanner Scanned the Site</msg>
+      <tag>AUTOMATION/SECURITY_SCANNER</tag>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_35_bad_robots.conf:22" id="990902" phase="2">
+    <selector>REQUEST_FILENAME</selector>
+    <operator>^/nessustest</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>404</status>
+      <msg>Request Indicates a Security Scanner Scanned the Site</msg>
+      <tag>AUTOMATION/SECURITY_SCANNER</tag>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_35_bad_robots.conf:25" id="990012" phase="2">
+    <selector>REQUEST_HEADERS:User-Agent</selector>
+    <operator>(?:e(?:mail(?:(?:collec|harves|magne)t|(?: extracto|reape)r|siphon|wolf)|(?:collecto|irgrabbe)r|xtractorpro|o browse)|m(?:ozilla\/4\.0 \(compatible; advanced email extractor|ailto:craftbot\@yahoo\.com)|a(?:t(?:tache|hens)|utoemailspider|dsarobot)|w(?:eb(?:emailextrac| by mail)|3mir)|f(?:astlwspider|loodgate)|p(?:cbrowser|ackrat|surf)|(?:digout4uagen|takeou)t|\bdatacha0s\b|hhjhj@yahoo|chinaclaw|rsync|shai|zeus)</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>404</status>
+      <msg>Rogue web site crawler</msg>
+      <tag>AUTOMATION/MALICIOUS</tag>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_35_bad_robots.conf:28" id="990011" phase="2">
+    <selector>REQUEST_HEADERS:User-Agent</selector>
+    <operator>(?:\b(?:(?:indy librar|snoop)y|microsoft url control|lynx)\b|mozilla\/2\.0 \(compatible; newt activex; win32\)|w(?:3mirror|get)|download demon|l(?:ibwww|wp)|p(?:avuk|erl)|big brother|autohttp|netants|eCatch|curl)</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <t>lowercase</t>
+      <log/>
+      <auditlog/>
+      <msg>Request Indicates an automated program explored the site</msg>
+      <tag>AUTOMATION/MISC</tag>
+      <severity>5</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_35_bad_robots.conf:30" id="" phase="">
+      <selector>REQUEST_HEADERS:User-Agent</selector>
+      <operator>!^apache.*perl</operator>
+      <actions>
+        <t>none</t>
+      </actions>
+    </rule>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:23" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>@pm set-cookie .cookie</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+    <comment> Session fixation</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:26" id="950009" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>(?:\.cookie\b.*?;\W*?(?:expires|domain)\W*?=|\bhttp-equiv\W+set-cookie\b)</operator>
+    <actions>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <capture/>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Session Fixation</msg>
+      <tag>WEB_ATTACK/SESSION_FIXATION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:28" id="959009" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>(?:\.cookie\b.*?;\W*?(?:expires|domain)\W*?=|\bhttp-equiv\W+set-cookie\b)</operator>
+    <actions>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <capture/>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Session Fixation</msg>
+      <tag>WEB_ATTACK/SESSION_FIXATION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:35" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>@pm sys.user_triggers sys.user_objects @@spid msysaces instr sys.user_views sys.tab charindex sys.user_catalog constraint_type locate select msysobjects attnotnull sys.user_tables sys.user_tab_columns sys.user_constraints waitfor mysql.user sys.all_tables msysrelationships msyscolumns msysqueries</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <pass/>
+      <nolog/>
+    </actions>
+    <comment> Blind SQL injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:38" id="950007" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>(?:\b(?:(?:s(?:ys\.(?:user_(?:(?:t(?:ab(?:_column|le)|rigger)|object|view)s|c(?:onstraints|atalog))|all_tables|tab)|elect\b.{0,40}\b(?:substring|ascii|user))|m(?:sys(?:(?:queri|ac)e|relationship|column|object)s|ysql\.user)|c(?:onstraint_type|harindex)|waitfor\b\W*?\bdelay|attnotnull)\b|(?:locate|instr)\W+\()|\@\@spid\b)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Blind SQL Injection Attack</msg>
+      <tag>WEB_ATTACK/SQL_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:40" id="959007" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>(?:\b(?:(?:s(?:ys\.(?:user_(?:(?:t(?:ab(?:_column|le)|rigger)|object|view)s|c(?:onstraints|atalog))|all_tables|tab)|elect\b.{0,40}\b(?:substring|ascii|user))|m(?:sys(?:(?:queri|ac)e|relationship|column|object)s|ysql\.user)|c(?:onstraint_type|harindex)|waitfor\b\W*?\bdelay|attnotnull)\b|(?:locate|instr)\W+\()|\@\@spid\b)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Blind SQL Injection Attack</msg>
+      <tag>WEB_ATTACK/SQL_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:50" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>@pm substr xtype textpos all_objects rownum sysfilegroups sysprocesses user_group sysobjects user_tables systables pg_attribute user_users user_password column_id attrelid user_tab_columns table_name pg_class user_constraints user_objects object_type dba_users sysconstraints mb_users column_name atttypid object_id substring syscat user_ind_columns sysibm syscolumns sysdba object_name</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:53" id="950904" phase="2">
+    <selector>REQUEST_FILENAME|ARGS</selector>
+    <operator>\b(?:(?:s(?:ys(?:(?:(?:process|tabl)e|filegroup|object)s|c(?:o(?:nstraint|lumn)s|at)|dba|ibm)|ubstr(?:ing)?)|user_(?:(?:(?:constrain|objec)t|tab(?:_column|le)|ind_column|user)s|password|group)|a(?:tt(?:rel|typ)id|ll_objects)|object_(?:(?:nam|typ)e|id)|pg_(?:attribute|class)|column_(?:name|id)|(?:dba|mb)_users|xtype\W+\bchar|rownum)\b|t(?:able_name\b|extpos\W+\())</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Blind SQL Injection Attack</msg>
+      <tag>WEB_ATTACK/SQL_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:55" id="959904" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>\b(?:(?:s(?:ys(?:(?:(?:process|tabl)e|filegroup|object)s|c(?:o(?:nstraint|lumn)s|at)|dba|ibm)|ubstr(?:ing)?)|user_(?:(?:(?:constrain|objec)t|tab(?:_column|le)|ind_column|user)s|password|group)|a(?:tt(?:rel|typ)id|ll_objects)|object_(?:(?:nam|typ)e|id)|pg_(?:attribute|class)|column_(?:name|id)|(?:dba|mb)_users|xtype\W+\bchar|rownum)\b|t(?:able_name\b|extpos\W+\())</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Blind SQL Injection Attack</msg>
+      <tag>WEB_ATTACK/SQL_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:62" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>@pm insert xp_enumdsn infile openrowset nvarchar autonomous_transaction print data_type or outfile inner shutdown tbcreator @@version xp_filelist sp_prepare sql_longvarchar xp_regenumkeys xp_loginconfig xp_dirtree ifnull sp_addextendedproc xp_regaddmultistring delete sp_sqlexec and sp_oacreate sp_execute cast xp_ntsec xp_regdeletekey drop varchar xp_execresultset having utl_file xp_regenumvalues xp_terminate xp_availablemedia xp_regdeletevalue dumpfile isnull sql_variant select &apos;sa&apos; xp_regremovemultistring xp_makecab &apos;msdasql&apos; xp_cmdshell openquery sp_executesql &apos;sqloledb&apos; dbms_java &apos;dbo&apos; utl_http sp_makewebtask benchmark xp_regread xp_regwrite</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+    <comment> SQL injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:81" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>@pm user_objects object_type substr all_objects mb_users column_name rownum atttypid substring object_id user_group user_tables pg_attribute user_users column_id user_password attrelid object_name table_name pg_class</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:84" id="950906" phase="2">
+    <selector>REQUEST_FILENAME|ARGS</selector>
+    <operator>\b(?:user_(?:(?:object|table|user)s|password|group)|a(?:tt(?:rel|typ)id|ll_objects)|object_(?:(?:nam|typ)e|id)|pg_(?:attribute|class)|column_(?:name|id)|substr(?:ing)?|table_name|mb_users|rownum)\b</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>SQL Injection Attack</msg>
+      <tag>WEB_ATTACK/SQL_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:86" id="959906" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>\b(?:user_(?:(?:object|table|user)s|password|group)|a(?:tt(?:rel|typ)id|ll_objects)|object_(?:(?:nam|typ)e|id)|pg_(?:attribute|class)|column_(?:name|id)|substr(?:ing)?|table_name|mb_users|rownum)\b</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>SQL Injection Attack</msg>
+      <tag>WEB_ATTACK/SQL_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:89" id="950908" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|!REQUEST_HEADERS:via</selector>
+    <operator>\b(?:coalesce\b|root\@)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>SQL Injection Attack</msg>
+      <tag>WEB_ATTACK/SQL_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:91" id="959908" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer|!REQUEST_HEADERS:via</selector>
+    <operator>\b(?:coalesce\b|root\@)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>replaceComments</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>SQL Injection Attack</msg>
+      <tag>WEB_ATTACK/SQL_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:98" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>@pm jscript onsubmit copyparentfolder javascript meta onmove onkeydown onchange onkeyup activexobject expression onmouseup ecmascript onmouseover vbscript: &lt;![cdata[ http: settimeout onabort shell: .innerhtml onmousedown onkeypress asfunction: onclick .fromcharcode background-image: .cookie ondragdrop onblur x-javascript mocha: onfocus javascript: getparentfolder lowsrc onresize @import alert onselect script onmouseout onmousemove background application .execscript livescript: getspecialfolder vbscript iframe .addimport onunload createtextrange onload &lt;input</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+    <comment> XSS</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:101" id="950004" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>(?:\b(?:(?:type\b\W*?\b(?:text\b\W*?\b(?:j(?:ava)?|ecma|vb)|application\b\W*?\bx-(?:java|vb))script|c(?:opyparentfolder|reatetextrange)|get(?:special|parent)folder|iframe\b.{0,100}?\bsrc)\b|on(?:(?:mo(?:use(?:o(?:ver|ut)|down|move|up)|ve)|key(?:press|down|up)|c(?:hange|lick)|s(?:elec|ubmi)t|(?:un)?load|dragdrop|resize|focus|blur)\b\W*?=|abort\b)|(?:l(?:owsrc\b\W*?\b(?:(?:java|vb)script|shell|http)|ivescript)|(?:href|url)\b\W*?\b(?:(?:java|vb)script|shell)|background-image|mocha):|s(?:(?:tyle\b\W*=.*\bexpression\b\W*|ettimeout\b\W*?)\(|rc\b\W*?\b(?:(?:java|vb)script|shell|http):)|a(?:ctivexobject\b|lert\b\W*?\(|sfunction:))|&lt;(?:(?:body\b.*?\b(?:backgroun|onloa)d|input\b.*?\btype\b\W*?\bimage)\b| ?(?:(?:script|meta)\b|iframe)|!\[cdata\[)|(?:\.(?:(?:execscrip|addimpor)t|(?:fromcharcod|cooki)e|innerhtml)|\@import)\b)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Cross-site Scripting (XSS) Attack</msg>
+      <tag>WEB_ATTACK/XSS</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:103" id="959004" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>(?:\b(?:(?:type\b\W*?\b(?:text\b\W*?\b(?:j(?:ava)?|ecma|vb)|application\b\W*?\bx-(?:java|vb))script|c(?:opyparentfolder|reatetextrange)|get(?:special|parent)folder|iframe\b.{0,100}?\bsrc)\b|on(?:(?:mo(?:use(?:o(?:ver|ut)|down|move|up)|ve)|key(?:press|down|up)|c(?:hange|lick)|s(?:elec|ubmi)t|(?:un)?load|dragdrop|resize|focus|blur)\b\W*?=|abort\b)|(?:l(?:owsrc\b\W*?\b(?:(?:java|vb)script|shell|http)|ivescript)|(?:href|url)\b\W*?\b(?:(?:java|vb)script|shell)|background-image|mocha):|s(?:(?:tyle\b\W*=.*\bexpression\b\W*|ettimeout\b\W*?)\(|rc\b\W*?\b(?:(?:java|vb)script|shell|http):)|a(?:ctivexobject\b|lert\b\W*?\(|sfunction:))|&lt;(?:(?:body\b.*?\b(?:backgroun|onloa)d|input\b.*?\btype\b\W*?\bimage)\b| ?(?:(?:script|meta)\b|iframe)|!\[cdata\[)|(?:\.(?:(?:execscrip|addimpor)t|(?:fromcharcod|cooki)e|innerhtml)|\@import)\b)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Cross-site Scripting (XSS) Attack</msg>
+      <tag>WEB_ATTACK/XSS</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:110" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|REQUEST_HEADERS|XML:/*</selector>
+    <operator>@pm .www_acl .htpasswd .htaccess boot.ini httpd.conf /etc/ .htgroup global.asa .wwwacl</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+    <comment> File Injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:113" id="950005" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>(?:\b(?:\.(?:ht(?:access|passwd|group)|www_?acl)|global\.asa|httpd\.conf|boot\.ini)\b|\/etc\/)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Remote File Access Attempt</msg>
+      <tag>WEB_ATTACK/FILE_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:115" id="959005" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*</selector>
+    <operator>(?:\b(?:\.(?:ht(?:access|passwd|group)|www_?acl)|global\.asa|httpd\.conf|boot\.ini)\b|\/etc\/)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Remote File Access Attempt</msg>
+      <tag>WEB_ATTACK/FILE_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:122" id="950002" phase="2">
+    <selector>REQUEST_FILENAME</selector>
+    <operator>\b(?:n(?:map|et|c)|w(?:guest|sh)|cmd(?:32)?|telnet|rcmd|ftp)\.exe\b</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>System Command Access</msg>
+      <tag>WEB_ATTACK/FILE_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+    <comment> Command access</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:129" phase="2">
+    <selector>ARGS</selector>
+    <operator>@pm uname wguest.exe /perl /nasm rcmd.exe nc tclsh /xterm finger tftp chown /echo nmap.exe ping /passwd /chsh ps /uname telnet.exe /ftp ls tclsh8 lsof /ping echo cmd.exe /kill python traceroute /ps perl passwd wsh.exe /rm /cpp chgrp /telnet localgroup kill /chgrp /finger nasm /ls nc.exe id /chmod /nc /g++ /id /chown cmd /nmap chsh /gcc net.exe /python /lsof ftp.exe ftp xterm mail /mail tracert nmap rm cd chmod cpp telnet cmd32.exe gcc g++</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+    <comment> Command injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:134" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:&apos;/^(Cookie|Referer|X-OS-Prefs)$/&apos;|REQUEST_COOKIES|REQUEST_COOKIES_NAMES</selector>
+    <operator>@pm uname wguest.exe /perl /nasm rcmd.exe nc tclsh /xterm finger tftp chown /echo nmap.exe ping /passwd /chsh ps /uname telnet.exe /ftp ls tclsh8 lsof /ping echo cmd.exe /kill python traceroute /ps perl passwd wsh.exe /rm /cpp chgrp /telnet localgroup kill /chgrp /finger nasm /ls nc.exe id /chmod /nc /g++ /id /chown cmd /nmap chsh /gcc net.exe /python /lsof ftp.exe ftp xterm mail /mail tracert nmap rm cd chmod cpp telnet cmd32.exe gcc g++</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:153" id="950008" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>\bcf(?:usion_(?:d(?:bconnections_flush|ecrypt)|set(?:tings_refresh|odbcini)|getodbc(?:dsn|ini)|verifymail|encrypt)|_(?:(?:iscoldfusiondatasourc|getdatasourceusernam)e|setdatasource(?:password|username))|newinternal(?:adminsecurit|registr)y|admin_registry_(?:delete|set)|internaldebug)\b</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Injection of Undocumented ColdFusion Tags</msg>
+      <tag>WEB_ATTACK/CF_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+    <comment> Coldfusion injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:155" id="959008" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*</selector>
+    <operator>\bcf(?:usion_(?:d(?:bconnections_flush|ecrypt)|set(?:tings_refresh|odbcini)|getodbc(?:dsn|ini)|verifymail|encrypt)|_(?:(?:iscoldfusiondatasourc|getdatasourceusernam)e|setdatasource(?:password|username))|newinternal(?:adminsecurit|registr)y|admin_registry_(?:delete|set)|internaldebug)\b</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Injection of Undocumented ColdFusion Tags</msg>
+      <tag>WEB_ATTACK/CF_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:162" id="950010" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>(?:\((?:\W*?(?:objectc(?:ategory|lass)|homedirectory|[gu]idnumber|cn)\b\W*?=|[^\w\x80-\xFF]*?[\!\&amp;\|][^\w\x80-\xFF]*?\()|\)[^\w\x80-\xFF]*?\([^\w\x80-\xFF]*?[\!\&amp;\|])</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>LDAP Injection Attack</msg>
+      <tag>WEB_ATTACK/LDAP_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+    <comment> LDAP injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:164" id="959010" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*|!REQUEST_HEADERS:Referer</selector>
+    <operator>(?:\((?:\W*?(?:objectc(?:ategory|lass)|homedirectory|[gu]idnumber|cn)\b\W*?=|[^\w\x80-\xFF]*?[\!\&amp;\|][^\w\x80-\xFF]*?\()|\)[^\w\x80-\xFF]*?\([^\w\x80-\xFF]*?[\!\&amp;\|])</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>LDAP Injection Attack</msg>
+      <tag>WEB_ATTACK/LDAP_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:171" id="950011" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>&lt;!--\W*?#\W*?(?:e(?:cho|xec)|printenv|include|cmd)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>SSI injection Attack</msg>
+      <tag>WEB_ATTACK/SSI_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+    <comment> SSI injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:173" id="959011" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*</selector>
+    <operator>&lt;!--\W*?#\W*?(?:e(?:cho|xec)|printenv|include|cmd)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>SSI injection Attack</msg>
+      <tag>WEB_ATTACK/SSI_INJECTION</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:180" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|REQUEST_HEADERS|XML:/*</selector>
+    <operator>@pm &lt;?fgets move_uploaded_file $_session readfile ftp_put ftp_fget gzencode ftp_nb_put bzopen readdir $_post fopen gzread ftp_nb_fput ftp_nb_fget ftp_get $_get scandir fscanf readgzfile fread proc_open fgetc fgetss ftp_fput ftp_nb_get session_start fwrite gzwrite gzopen gzcompress</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <pass/>
+      <nolog/>
+    </actions>
+    <comment> PHP injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:183" id="950013" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>(?:(?:\b(?:f(?:tp_(?:nb_)?f?(?:ge|pu)t|get(?:s?s|c)|scanf|write|open|read)|gz(?:(?:encod|writ)e|compress|open|read)|s(?:ession_start|candir)|read(?:(?:gz)?file|dir)|move_uploaded_file|(?:proc_|bz)open)|\$_(?:(?:pos|ge)t|session))\b|&lt;\?(?!xml))</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>PHP Injection Attack</msg>
+      <tag>WEB_ATTACK/PHP_INJECTION</tag>
+      <tag>WEB_ATTACK/HTTP_RESPONSSE_SPLITTING</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:185" id="959013" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*</selector>
+    <operator>(?:(?:\b(?:f(?:tp_(?:nb_)?f?(?:ge|pu)t|get(?:s?s|c)|scanf|write|open|read)|gz(?:(?:encod|writ)e|compress|open|read)|s(?:ession_start|candir)|read(?:(?:gz)?file|dir)|move_uploaded_file|(?:proc_|bz)open)|\$_(?:(?:pos|ge)t|session))\b|&lt;\?(?!xml))</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>PHP Injection Attack</msg>
+      <tag>WEB_ATTACK/PHP_INJECTION</tag>
+      <tag>WEB_ATTACK/HTTP_RESPONSSE_SPLITTING</tag>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:192" id="950018" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>http:\/\/[\w\.]+?\/.*?\.pdf\b[^\x0d\x0a]*#</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Persistent Universal PDF XSS attack</msg>
+      <tag>WEB_ATTACK/UPDF_XSS</tag>
+      <severity>2</severity>
+    </actions>
+    <comment> UPDF XSS</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:194" id="959018" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*</selector>
+    <operator>http:\/\/[\w\.]+?\/.*?\.pdf\b[^\x0d\x0a]*#</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Persistent Universal PDF XSS attack</msg>
+      <tag>WEB_ATTACK/UPDF_XSS</tag>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:201" id="950019" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES</selector>
+    <operator>[\n\r]\s*\b(?:to|b?cc)\b\s*:.*?\@</operator>
+    <actions>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <capture/>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Email Injection Attack</msg>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+    <comment> Email Injection</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:203" id="959019" phase="2">
+    <selector>REQUEST_HEADERS|XML:/*</selector>
+    <operator>[\n\r]\s*\b(?:to|b?cc)\b\s*:.*?\@</operator>
+    <actions>
+      <t>none</t>
+      <t>urlDecode</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <capture/>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Email Injection Attack</msg>
+      <logdata>%{TX.0}</logdata>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:210" id="950910" phase="2">
+    <selector>REQUEST_URI|REQUEST_HEADERS|REQUEST_HEADERS_NAMES</selector>
+    <operator>%0[ad]</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <capture/>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>HTTP Response Splitting Attack</msg>
+      <logdata>%{TX.0}</logdata>
+      <severity>1</severity>
+    </actions>
+    <comment> HTTP Response Splitting</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_40_generic_attacks.conf:212" id="950911" phase="2">
+    <selector>REQUEST_FILENAME|ARGS|ARGS_NAMES|XML:/*</selector>
+    <operator>(?:\bhttp\/(?:0\.9|1\.[01])|&lt;(?:html|meta)\b)</operator>
+    <actions>
+      <capture/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>HTTP Response Splitting Attack</msg>
+      <logdata>%{TX.0}</logdata>
+      <severity>1</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_45_trojans.conf:30" id="950110" phase="2">
+    <selector>REQUEST_HEADERS_NAMES</selector>
+    <operator>x_(?:key|file)\b</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>404</status>
+      <msg>Backdoor access</msg>
+      <tag>MALICIOUS_SOFTWARE/TROJAN</tag>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_45_trojans.conf:31" id="950921" phase="2">
+    <selector>REQUEST_FILENAME</selector>
+    <operator>root\.exe</operator>
+    <actions>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>404</status>
+      <msg>Backdoor access</msg>
+      <tag>MALICIOUS_SOFTWARE/TROJAN</tag>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_45_trojans.conf:33" id="950922" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>(?:&lt;title&gt;[^&lt;]*?(?:\b(?:(?:c(?:ehennemden|gi-telnet)|gamma web shell)\b|imhabirligi phpftp)|(?:r(?:emote explorer|57shell)|aventis klasvayv|zehir)\b|\.::(?:news remote php shell injection::\.| rhtools\b)|ph(?:p(?:(?: commander|-terminal)\b|remoteview)|vayv)|myshell)|\b(?:(?:(?:microsoft windows\b.{,10}?\bversion\b.{,20}?\(c\) copyright 1985-.{,10}?\bmicrosoft corp|ntdaddy v1\.9 - obzerve \| fux0r inc)\.|(?:www\.sanalteror\.org - indexer and read|haxplor)er|php(?:konsole| shell)|c99shell)\b|aventgrup\.&lt;br&gt;|drwxr))</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>404</status>
+      <msg>Backdoor access</msg>
+      <tag>MALICIOUS_SOFTWARE/TROJAN</tag>
+      <severity>2</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:18" id="970002" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>\b(?:Th(?:is (?:summary was generated by.{0,100}?(?:w(?:ebcruncher|wwstat)|analog|Jware)|analysis was produced by.{0,100}?(?:calamaris|EasyStat|analog)|report was generated by WebLog)|ese statistics were produced by (?:getstats|PeLAB))|[gG]enerated by.{0,100}?[Ww]ebalizer)\b</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>404</status>
+      <msg>Statistics Information Leakage</msg>
+      <severity>4</severity>
+    </actions>
+    <comment> Statistics pages revealed</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:22" id="970003" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>(?:\b(?:(?:s(?:elect list because it is not contained in (?:an aggregate function and there is no|either an aggregate function or the) GROUP BY clause|upplied argument is not a valid (?:(?:M(?:S |y)|Postgre)SQL|O(?:racle|DBC)))|S(?:yntax error converting the \w+ value .*? to a column of data type|QL Server does not exist or access denied)|Either BOF or EOF is True, or the current record has been deleted(?:; the operation|\. Requested)|The column prefix .{0,50}? does not match with a table name or alias name used in the query|Could not find server &apos;\w+&apos; in sysservers\. execute sp_addlinkedserver)\b|Un(?:closed quotation mark before the character string\b|able to connect to PostgreSQL server:)|(?:Microsoft OLE DB Provider for .{0,30} [eE]rror |error &apos;800a01b8)&apos;|(?:Warning: mysql_connect\(\)|PostgreSQL query failed):|You have an error in your SQL syntax(?: near &apos;|;)|cannot take a \w+ data type as an argument\.|incorrect syntax near (?:\&apos;|the\b|@@error\b)|microsoft jet database engine error &apos;8|ORA-\d{5}: )|\[Microsoft\]\[ODBC )</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>500</status>
+      <msg>SQL Information Leakage</msg>
+      <tag>LEAKAGE/ERRORS</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> SQL Errors leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:26" id="970004" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>(?:\b(?:A(?:DODB\.Command\b.{0,100}?\b(?:Application uses a value of the wrong type for the current operation\b|error&apos;)| trappable error occurred in an external object\. The script cannot continue running\b)|Microsoft VBScript (?:compilation (?:\(0x8|error)|runtime (?:Error|\(0x8))\b|Object required: &apos;|error &apos;800)|&lt;b&gt;Version Information:&lt;\/b&gt;(?:&amp;nbsp;|\s)(?:Microsoft \.NET Framework|ASP\.NET) Version:|(?:\/[Ee]rror[Mm]essage\.aspx?\?[Ee]rror|&gt;error &apos;ASP)\b)</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>500</status>
+      <msg>IIS Information Leakage</msg>
+      <tag>LEAKAGE/ERRORS</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> IIS Errors leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:28" id="970904" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>\bServer Error in.{0,50}?\bApplication\b</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>500</status>
+      <msg>IIS Information Leakage</msg>
+      <tag>LEAKAGE/ERRORS</tag>
+      <severity>4</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:30" id="" phase="">
+      <selector>RESPONSE_STATUS</selector>
+      <operator>!^404$</operator>
+      <actions/>
+    </rule>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:33" id="970007" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>&lt;h2&gt;Site Error&lt;\/h2&gt;.{0,20}&lt;p&gt;An error was encountered while publishing this resource\.</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>500</status>
+      <msg>Zope Information Leakage</msg>
+      <tag>LEAKAGE/ERRORS</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> Zope Information Leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:37" id="970008" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>\bThe error occurred in\b.{0,100}: line\b.{0,1000}\bColdFusion\b.*?\bStack Trace \(click to expand\)\b</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>500</status>
+      <msg>Cold Fusion Information Leakage</msg>
+      <tag>LEAKAGE/ERRORS</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> CF Information Leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:41" id="970009" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>&lt;b&gt;Warning&lt;\/b&gt;.{0,100}?:.{0,1000}?\bon line\b</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>500</status>
+      <msg>PHP Information Leakage</msg>
+      <tag>LEAKAGE/ERRORS</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> PHP Information Leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:45" id="970010" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>\b403 Forbidden\b.*?\bInternet Security and Acceleration Server\b</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>ISA server existence revealed</msg>
+      <tag>MISCONFIGURATION</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> ISA server existence revealed</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:49" id="970012" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>&lt;o:documentproperties&gt;</operator>
+    <actions>
+      <t>none</t>
+      <log/>
+      <auditlog/>
+      <msg>Microsoft Office document properties leakage</msg>
+      <tag>LEAKAGE/INFO</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> Microsoft Office document properties leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:53" id="970013" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>(?:&lt;(?:TITLE&gt;Index of.*?&lt;H|title&gt;Index of.*?&lt;h)1&gt;Index of|&gt;\[To Parent Directory\]&lt;\/[Aa]&gt;&lt;br&gt;)</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>403</status>
+      <msg>Directory Listing</msg>
+      <tag>LEAKAGE/INFO</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> Directory Listing</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:57" id="970014" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>(?:\b(?:(?:s(?:erver\.(?:(?:(?:htm|ur)lencod|execut)e|createobject|mappath)|cripting\.filesystemobject)|(?:response\.(?:binary)?writ|vbscript\.encod)e|wscript\.(?:network|shell))\b|javax\.servlet)|\.(?:(?:(?:createtex|ge)t|loadfrom)file|addheader)\b|&lt;jsp:)</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>ASP/JSP source code leakage</msg>
+      <tag>LEAKAGE/SOURCE_CODE</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> ASP/JSP source code leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:59" id="970903" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>\&lt;\%</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>ASP/JSP source code leakage</msg>
+      <tag>LEAKAGE/SOURCE_CODE</tag>
+      <severity>4</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:60" id="" phase="">
+      <selector>RESPONSE_BODY</selector>
+      <operator>!(?:\b(?:(?:i(?:nterplay|hdr|d3)|m(?:ovi|thd)|(?:ex|jf)if|f(?:lv|ws)|varg|cws)\b|r(?:iff\b|ar!B)|gif)|B(?:%pdf|\.ra)\b)</operator>
+      <actions/>
+    </rule>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:63" id="970015" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>(?:\b(?:f(?:tp_(?:nb_)?f?(?:ge|pu)t|get(?:s?s|c)|scanf|write|open|read)|gz(?:(?:encod|writ)e|compress|open|read)|s(?:ession_start|candir)|read(?:(?:gz)?file|dir)|move_uploaded_file|(?:proc_|bz)open)|\$_(?:(?:pos|ge)t|session))\b</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>PHP source code leakage</msg>
+      <tag>LEAKAGE/SOURCE_CODE</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> PHP source code leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:65" id="970902" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>&lt;\?(?!xml)</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>PHP source code leakage</msg>
+      <tag>LEAKAGE/SOURCE_CODE</tag>
+      <severity>4</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:67" id="" phase="">
+      <selector>RESPONSE_BODY</selector>
+      <operator>!(?:\b(?:(?:i(?:nterplay|hdr|d3)|m(?:ovi|thd)|(?:ex|jf)if|f(?:lv|ws)|varg|cws)\b|r(?:iff\b|ar!B)|gif)|B(?:%pdf|\.ra)\b)</operator>
+      <actions/>
+    </rule>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:70" id="970016" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>&lt;cf</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>Cold Fusion source code leakage</msg>
+      <tag>LEAKAGE/SOURCE_CODE</tag>
+      <severity>4</severity>
+    </actions>
+    <comment> CF source code leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:74" id="970018" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>[a-z]:\\\\inetpub\b</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>IIS installed in default location</msg>
+      <severity>5</severity>
+      <chain/>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:76" id="" phase="">
+      <selector>&amp;GLOBAL:alerted_970018_iisDefLoc</selector>
+      <operator>@eq 0</operator>
+      <actions/>
+    </rule>
+    <comment> IIS default location</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:79" id="970901" phase="4">
+    <selector>RESPONSE_STATUS</selector>
+    <operator>^503$</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>The application is not available</msg>
+      <severity>5</severity>
+    </actions>
+    <comment> The application is not available</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:80" id="970118" phase="4">
+    <selector>RESPONSE_BODY</selector>
+    <operator>(?:Microsoft OLE DB Provider for SQL Server(?:&lt;\/font&gt;.{1,20}?error &apos;800(?:04005|40e31)&apos;.{1,40}?Timeout expired| \(0x80040e31\)&lt;br&gt;Timeout expired&lt;br&gt;)|&lt;h1&gt;internal server error&lt;\/h1&gt;.*?&lt;h2&gt;part of the server has crashed or it has a configuration error\.&lt;\/h2&gt;|cannot connect to the server: timed out)</operator>
+    <actions>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>The application is not available</msg>
+      <severity>5</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:84" id="970021" phase="4">
+    <selector>RESPONSE_STATUS</selector>
+    <operator>^500$</operator>
+    <actions>
+      <chain/>
+      <t>none</t>
+      <ctl>auditLogParts=+E</ctl>
+      <log/>
+      <auditlog/>
+      <msg>WebLogic information disclosure</msg>
+      <severity>4</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:85" id="" phase="">
+      <selector>RESPONSE_BODY</selector>
+      <operator>t:none,&lt;title&gt;JSP compile error&lt;\/title&gt;</operator>
+      <actions/>
+    </rule>
+    <comment> Weblogic information disclosure</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_50_outbound.conf:89" phase="2">
+    <selector>TX:1</selector>
+    <operator>!program files\x5cmicrosoft office\x5c(?:office|templates)</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+    </actions>
+    <comment> File or Directory Names Leakage</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_42_comment_spam.conf:20" id="999010" phase="2">
+    <selector>ARGS|ARGS_NAMES</selector>
+    <operator>\bhttp:</operator>
+    <actions>
+      <log/>
+      <auditlog/>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <skip>1</skip>
+      <pass/>
+      <nolog/>
+      <severity>5</severity>
+    </actions>
+    <comment> Prequalifier. Look for &lt;http&gt; first</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_42_comment_spam.conf:25" id="950923" phase="2">
+    <selector>ARGS|ARGS_NAMES</selector>
+    <operator>\[url\b</operator>
+    <actions>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <chain/>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Comment Spam</msg>
+      <severity>2</severity>
+    </actions>
+    <rule location="$CORE_RULES\modsecurity_crs_42_comment_spam.conf:26" id="" phase="">
+      <selector>ARGS|ARGS_NAMES</selector>
+      <operator>\&lt;a</operator>
+      <actions>
+        <t>none</t>
+        <t>urlDecodeUni</t>
+        <t>htmlEntityDecode</t>
+        <t>compressWhiteSpace</t>
+      </actions>
+    </rule>
+    <comment> Look for 2 ways of posting a link</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_42_comment_spam.conf:29" id="950020" phase="2">
+    <selector>ARGS|ARGS_NAMES</selector>
+    <operator>(http:\/.*?){4}</operator>
+    <actions>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <t>htmlEntityDecode</t>
+      <t>compressWhiteSpace</t>
+      <t>lowercase</t>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>400</status>
+      <msg>Comment Spam</msg>
+      <severity>3</severity>
+    </actions>
+    <comment> Look for too many links in an argument (Prone to FPs)</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_42_tight_security.conf:21" id="950103" phase="1">
+    <selector>REQUEST_URI</selector>
+    <operator>(?:\x5c|(?:%(?:c(?:0%(?:9v|af)|1%1c)|2(?:5(?:2f|5c)|f)|u221[56]|1u|5c)|\/))(?:%(?:u2024|2e)|\.){2}(?:\x5c|(?:%(?:c(?:0%(?:9v|af)|1%1c)|2(?:5(?:2f|5c)|f)|u221[56]|1u|5c)|\/))</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <capture/>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Path Traversal Attack</msg>
+      <severity>2</severity>
+    </actions>
+    <comment> Directory Traversal</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_42_tight_security.conf:25" id="950103" phase="1">
+    <selector>REQUEST_FILENAME</selector>
+    <operator>\.\.[/\x5c]</operator>
+    <actions>
+      <t>none</t>
+      <t>urlDecodeUni</t>
+      <capture/>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Path Traversal Attack</msg>
+      <severity>2</severity>
+    </actions>
+    <comment> Weaker signature</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_42_tight_security.conf:31" id="950117" phase="2">
+    <selector>ARGS</selector>
+    <operator>^(?:ht|f)tp:/</operator>
+    <actions>
+      <t>none</t>
+      <t>htmlEntityDecode</t>
+      <t>lowercase</t>
+      <capture/>
+      <ctl>auditLogParts=+E</ctl>
+      <deny/>
+      <log/>
+      <auditlog/>
+      <status>501</status>
+      <msg>Remote File Inclusion Attack</msg>
+      <severity>2</severity>
+    </actions>
+    <comment> RFI Attack</comment>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_55_marketing.conf:14" id="910008" phase="2">
+    <selector>REQUEST_HEADERS:User-Agent</selector>
+    <operator>msn(?:bot|ptc)</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <log/>
+      <auditlog/>
+      <msg>MSN robot activity</msg>
+      <severity>5</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_55_marketing.conf:17" id="910007" phase="2">
+    <selector>REQUEST_HEADERS:User-Agent</selector>
+    <operator>\byahoo(?:-(?:mmcrawler|blogs)|! slurp)\b</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <log/>
+      <auditlog/>
+      <msg>Yahoo robot activity</msg>
+      <severity>5</severity>
+    </actions>
+  </rule>
+  <rule location="$CORE_RULES\modsecurity_crs_55_marketing.conf:20" id="910006" phase="2">
+    <selector>REQUEST_HEADERS:User-Agent</selector>
+    <operator>(?:(?:gsa-crawler \(enterprise; s4-e9lj2b82fjjaa; me\@mycompany\.com|adsbot-google \(\+http:\/\/www\.google\.com\/adsbot\.html)\)|\b(?:google(?:-sitemaps|bot)|mediapartners-google)\b)</operator>
+    <actions>
+      <t>none</t>
+      <t>lowercase</t>
+      <log/>
+      <auditlog/>
+      <msg>Google robot activity</msg>
+      <severity>5</severity>
+    </actions>
+  </rule>
+</core-rules>

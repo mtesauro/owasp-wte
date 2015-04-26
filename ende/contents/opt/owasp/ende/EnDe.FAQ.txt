@@ -1,0 +1,193 @@
+
+
+	This FAQ will surf as additional resource for information on  EnDe. It
+	will not give the details about EnDe, these are found in EnDe's manual
+	see http:EnDe.man.html?EnDe.man.txt .
+	Most answers herein will link to that manual.
+
+
+Introduction
+
+    What is EnDe?
+	EnDe is a collection of functions for various codings, encryptions and
+	hashings.  It is written in  JavaScript and can be used in most modern
+	browsers. EnDe consist of a library of these functions (mainly refered
+	to as API in EnDe's documentation) and a HTML-page (refered to as GUI)
+	for easy access with a browser.
+
+    What can EnDe be used for?
+	EnDe  - the API and/or the GUI - can be used to en-/decode, encrypt or
+	hash various types of data. It's main target area will be HTTP and all
+	related.  The target audience can be web developers, (web) penetration
+	testers, or people doing forensic on malicious code (mainly in context
+	of HTTP).
+	There may be some other areas which the author is not yet aware of :)
+
+
+Installation
+
+	Please see  http:EnDe.man.html#INSTALLATION .
+	In short: install EnDe on your system and point your browser to EnDe's
+	"index.html" in the installation directory.
+
+
+HowTo
+
+    How do I build my own menus in the GUI?
+	All menus in the GUI are defined in simple text files. All these files
+	can be changed to your needs by simply editing them.  It's recommended
+	that the modified files are located in the  "./usr"  sub-directory.
+	Following files conatin the definitions for menus in the GUI:
+	    EnDeMenu.txt   - all the menus (actions) in the tools
+	    EnDeOpts.txt   - all the option menus
+	    EnDeFile.txt   - the "Load File Menu:" in the  GUI OPTIONS
+
+	There is "usr/EnDeMenu-Sample.txt" which contains simple flat menu for
+	some of the action menus. Simply rename it to  "usr/EnDeMenu.txt"  and
+	reload your browser.
+
+
+Troubleshooting
+
+    Why does "Base64" decoding sometimes return the coded string itself?
+	This most likely happens when the  decoded string  ends with a newline
+	or carriage return or both.
+	The default  'mode' for decoding is set to 'lazy' which allows missing
+	padding in the encoded string, but no invalid charcters. If the 'mode'
+	is set to 'verbose', see the corresponding checkbox in  API OPTIONS,  
+	then such invalid characters are ignored.
+
+
+Troubleshooting (GUI only)
+
+    Why does EnDe not work in Internet Explorer?
+	It seems that IE 5.x, 6.x, 7.x and 8.x do not comply to  ECMA 262  and
+	W3C  standards.
+
+    Why do some select menus in the index.html not work?
+	This is a browser issue.
+	The W3C definitions of HTML describe the  'onClick' and the  'onChange'
+	event. Both must be supported by the browser.  Unfortunatelly there are
+	some browsers  which do only support  one of them.  Therefore it's very
+	difficult to implement a proper solution for all browsers. Please refer
+	to the [Browser Quirks] button for changing this behaviour.
+	Most (but not all) Webkit-based browsers suffer from this problem.
+
+    Why do some browsers not build menus when started with file:///index.html ?
+	This is a browser issue.
+	Menu definitions are read from files using the XMLHttpRequest function
+	which is disabled for local files for security reasons.
+	Webkit-based browsers inhibit XMLHttpRequest to read from  'file://' .
+	However, some browsers may support a special command line option (i.e.
+	"--allow-file-access-from-files") to disable this security feature.
+
+Miscellaneous
+
+    Why does EnDe not provide a `request website' functionality?
+	Well, the author also often would like such a feature: use a given URL
+	or even a complete HTTP request (message header and body) which can be
+	processed with EnDe's functions and then send to the remote site. Such
+	a functionality is/was available in CAL9000. Even EnDe's first release
+	was based on the ideas of CAL9000, the  request/response functionality
+	have not been ported 'cause all modern browsers (starting around 2005)
+	no longer allow  cross-site XMLHttpRequest  calls.  There is no simple
+	way to implement such cross-site XHR without using a proxy application
+	which would require to install  EnDe  as a web application.  But  EnDe
+	should run everywhere, even from a local file system.
+
+    Why is the checksum menu not visible by default?
+	These are not `real' en- or decodings. For details please see
+		http:EnDe.man.html#USER_file_EnDeCheck_js_
+
+    What does EnDe mean?
+	EnDe  as written in camel case, has no practical meaning, at least not
+	in German. I'm not aware of a practical mening in other languages.
+	Though,  EnDe  may be interpreted as an acronym for Encoding/Decoding.
+	The German word itself means "the end" or "finish" in English.
+	"the end" can be used in a positive or negative sense, depends on your
+	current point of view ;-)
+	"Ende" is also a family name (not the author). And "Michael Ende" is a
+	famous author known for his fantastic stories.
+	See  http:EnDe.man.html#EPILOG  for more thoughts about this.
+
+    How do you pronounce EnDe?
+	Exactly like the German word "Ende", which means "the end" in English.
+
+    Where can I buy EnDe?
+	You cannot. EnDe is Open Source and so free for everyone.
+
+
+Administration
+
+    Why can I not find EnDe at SourceForge?
+	Mainly because  the author  has his own opinion about how a repository 
+	should work for the developer and the comunity.
+
+	This is not meant offencive anyhow  to SourceForge or any other public
+	repository, they all do a wonderful job providing such services.
+
+    Why is there no public editable source of EnDe?
+	Well,  the sources are public and can be modified as needed.  Just the
+	repository can be used by subscribed persons only.
+
+	This means that everyone can make any changes in her/his private copy.
+	Changes which should be integrated into the main trunk  should be send
+	to the authors.  They will manually review them and integrate into the
+	main trunk.  The author of any change will be honored in the  CREDITS  
+	section (and the sources, if appropriate) if (s)he likes.
+
+    Why does the tarball not contain a root directory?
+	Various practical reasons:
+	* building the tarball is simpler and straight forward
+	* users (you!) should not be forced to use a predefined directory name
+	* the installation directory  --is the same as the runtime directory--
+	  contains the "./usr" directory which may contain user-definable data
+	  and should not be overwritten by updates.
+	
+
+    Why is there no automatic update feature?
+	Currently there is no need to build  a sophisticated update service as
+	the installation is such simple as to download and unpack the tarball.
+
+	Future versions my support at least an update check. See the [showSID]
+	button in the Test section for a quick overview.
+
+
+Development
+
+    How can I debug the GUI?
+	Use the  [Trace] button in the  GUI OPTIONS  or the '?trace' parameter
+	in the URL. This will show the "trace" tool in the GUI where the debug
+	output will be printed.  The  "trace level" checkboxes  can be used to
+	specify which parts of the GUI should print more details.
+	To get a quick overview, the  [Status Bar] button  in the  GUI OPTIONS  
+	may be sufficient.
+
+    How can I debug the API?
+	Currently there is no debugging implemented in the library functions.
+	However, some functions  are a bit more verbose if called with  'mode'
+	set to 'verbose', see the corresponding checkbox in the  API OPTIONS.  
+
+    Why does the project not use a tree structure?
+	The main reason is that a (mainly)  flat directory  makes it very easy
+	to cross reference from the code to the  online documentation (see the
+	[?] buttons and the links in the documentation itself).
+	However, there is the  `tree' target in the "Makefile" which allows to
+	convert to a tree structure. EnDe's GUI "index.html" should work flaw-
+	less with the tree structure, but some references in or to the  online
+	documentation may be broken. Some more details is available with
++-
+|	   make tree.doc
++-
+	The `tree' feature is experimental.
+
+    Is there a description of the architecture or code?
+	There is a brief description of EnDe's architecture in http:EnDe.odg 
+	and something about the coding style can be found in http:EnDe.man.html?EnDe.code.txt
+	Anything else should be described in the files itself.
+
+
+Version of FAQ
+
+	@(#) EnDe.FAQ.txt 3.1 12/06/05 00:05:13
+

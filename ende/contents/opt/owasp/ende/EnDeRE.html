@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type"  content="text/html; charset=utf-8"> <!-- ISO-8859-15 -->
+	<title>EnDe::RegEx </title>
+	<meta name="DC.format"        content="text/html" >
+	<meta name="DC.title"         content="EnDeRE" >
+	<meta name="DC.subject"       content="EnDeRE - Regular Expression Tool for various RegEx flaviours used in the wild wide web " >
+	<meta name="DC.description"   content="EnDeRE - Regular Expression Tool for various RegEx flaviours used in the wild wide web " >
+	<meta name="DC.language"      content="en" >
+	<meta name="DC.rights"        content="https://github.com/EnDe/EnDe license.txt" >
+	<meta name="DC.license"       content="https://github.com/EnDe/EnDe license.txt" >
+	<meta name="DC.modified"      content="12/06/09" >
+	<meta name="DC.Source"        content="@(#) EnDeRE.html 3.6 12/06/09 17:51:33" >
+	<meta name="DC.Date"          content="08-mar-08" >
+	<meta name="DC.creator"       content="Achim Hoffmann" >
+	<meta name="DC.Author"        content="Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net" >
+
+	<link rel="shortcut icon"        href="img/EnDe.ico">
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" >
+	//<![CDATA[
+EnDe = new function() {};
+	//]]></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeText.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeVersion.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeGUI.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeGUIx.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeREMap.js"></script>
+	<script language="JavaScript1.3" type="text/javascript" charset="utf-8" src="EnDeRE.js"></script>
+	<script language="JavaScript1.5" type="text/javascript" charset="utf-8" src="EnDeREGUI.js"></script>
+
+	<link rel="stylesheet"           type="text/css"        charset="utf-8" href="EnDe.css"     media="screen" title="most w3c-conform browsers">
+<!--[if gte IE 3]>
+<title>damn ...</title>
+<style type="text/css">
+body{display:none;visibility:hidden;} /* beat the stubborn with their own weapons */
+</style>
+<[endif]-->
+</head>
+<body>
+
+	<fieldset class="borderbox" id="fsetOPT">
+		<h2>Options
+			<span>
+			<button onClick="return EnDeGUI.show('OP',this);" title="fold/expand">-</button>
+			<button onClick="return EnDeGUI.help('OPT');">?</button>
+			</span>
+		</h2>
+		<form    name="EnDeOpt" id="EnDe.OP" accept-charset="utf-8" action="#" >
+			<input name="append"  type="checkbox" id="EnDe.OP.append" title="if checked append text to textarea, otherwise replace text in textarea" >append</input> &#160;
+			<input name="select"  type="checkbox" id="EnDe.OP.select" title="use selection if checked" >selection</input>
+		</form>
+	</fieldset>
+
+	<fieldset class="borderbox" id="fsetRX">
+		<h2>RegEx - Regular Expressions
+			<span>
+			<button onClick="return EnDeGUI.show('RX',this);" title="fold/expand">-</button>
+			<button onClick="return EnDeGUI.help('RX');">?</button>
+			</span>
+		</h2>
+		<div                id="EnDe.RX">
+		<form      name="EnDeRE"   id="EnDe.RE" accept-charset="utf-8" action="#" >
+			Prefix:
+			<input name="prefix"   id="EnDe.RE.prefix" type="text"         title="pattern for string prefix befor the regular expression string"     > &#160;
+			<input name="raw"      id="EnDe.RE.raw"    type="checkbox"     title="if checked RegEx will be r aw data, otherwise it must be enclosed in proper delimiters and may conatin leading and trailing text"  checked="1" >raw RegEx &#160;
+			<input name="desc"     id="EnDe.RE.desc"   type="checkbox"     title="if checked parsed RegEx co ntains descriptive comments" checked="1" >description &#160;
+		<span id="hidden7">
+			<input name="ere"      id="EnDe.RE.ere"    type="checkbox"     title="if checked use extended re gualr expressions of selected tool"      >extended RegEx &#160;
+		</span>
+			<hr>
+			<div  class="left"  id="REfuncMenu"><br><!-- SELECT added by init() --></div>
+			<div  class="middle">
+			<fieldset id="fsetRE"><legend> RegEx</legend>
+				<textarea name="text"   id="EnDe.RE.text"  cols="80" title="RegEx text"></textarea>
+				<input    name="isMem"  id="EnDe.RE.isMem" type="hidden" value="isTxt" />
+				<input    name="isTxt"  id="EnDe.RE.isTxt" type="button" value="Text"   class="tab" style="background:#ffffcf;" checked="1" onClick="return EnDeGUI.data(this,'EnDe.RE')" />
+				&#160; &#160; &#160; &#160;
+				<input    name="isHex"  id="EnDe.RE.isHex" type="hidden" value="Hex" /><!-- required for JavaScript -->
+				<input    name="isURI"  id="EnDe.RE.isURI" type="button" value="parsed" class="bat" style="background:#e0e0e0;"             onClick="return EnDeGUI.data(this,'EnDe.RE')" title="simple pretty printer" />
+				&#160;&#160; | &#160;&#160;
+				<span  class="popup"    id="REtextMenu"><!-- SELECT added by init() --></span>
+				&#160;&#160; | &#160;&#160;
+				<button   name="guess"   title=""                disabled onClick="return EnDeGUI.RE.dispatch(this,'guess')"   >guess</button>
+				<button   name="window"  title="show value in new window" onClick="return EnDeGUI.RE.dispatch(this,'code')"    >Window ..</button>
+				<button   name="scratch" title="add value to scratchpad"  onClick="return EnDeGUI.RE.dispatch(this,'scratch')" >Scratchpad ..</button>
+			</fieldset>
+			<fieldset id="fsetTE"><legend> Text ..</legend>
+				<textarea name="str"    id="EnDe.RE.str"   cols="80" title="text to be matched by RegEx"></textarea>
+			</fieldset>
+			</div>
+		</form>
+		</div>
+	</fieldset>
+
+	<div class="blind"> <a href="EnDe-mac.html" title="Safari special">Safari</a></div>
+	<div class="center"><a href="EnDeRe.html"   title="home"><ende>EnDeRE</ende></a></div>
+</body>
+<script language="JavaScript1.3" type="text/javascript" charset="utf-8" >
+//<![CDATA[
+	EnDeRE.init(); EnDe.setTitle();">
+//]]></script>
+</html>

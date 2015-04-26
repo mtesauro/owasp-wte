@@ -1,0 +1,236 @@
+# vi:   ts=8:encoding=ucs2
+# vim:  ts=8:encoding=ucs2
+#?
+#? NAME
+#?      EnDeTest-Euro.txt - test data with Euro string
+#?
+#? DESCRIPTION
+#?      Test data for EnDeTest.js
+#?
+#? SEE ALSO
+#?      EnDeTest.js
+#?
+#? VERSION
+#?      @(#) EnDeTest-Euro.txt 3.1 10/04/12 18:24:23
+#?
+#? AUTHOR
+#?      01-feb-10 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =============================================================================
+
+__DATA
+
+#------+----------------------------------------------------------------
+#keyw.  string to be processed by coding/hashing/encryption/...
+#------+----------------------------------------------------------------
+# €uro
+_data	\u20acuro
+
+_mode	en-/decode
+#_mode	en-/decode	# default if missing
+#_mode	encode
+#_mode	decode
+#_salt	halos
+_uppercase	false
+_delimiter	,
+
+#--------------+--------------------------------------------------------
+#alias		encoded(data)
+#--------------+--------------------------------------------------------
+_title		Hexadecimal (comma-separated)
+#--------------+--------------------------------------------------------
+hex0		20ac,75,72,6f
+hex1		20ac,75,72,6f
+hex2		20ac,75,72,6f
+hex3		20ac,075,072,06f
+hex4		20ac,0075,0072,006f
+hex5		020ac,00075,00072,0006f
+hex6		0020ac,000075,000072,00006f
+hex7		00020ac,0000075,0000072,000006f
+
+_title		Decimal (comma-separated)
+#--------------+--------------------------------------------------------
+dez0		8364,117,114,111
+dez1		8364,117,114,111
+dez2		8364,117,114,111
+dez3		8364,117,114,111
+dez4		8364,0117,0114,0111
+dez5		08364,00117,00114,00111
+dez6		008364,000117,000114,000111
+dez7		0008364,0000117,0000114,0000111
+
+_title		Octal (comma-separated)
+#--------------+--------------------------------------------------------
+oct0		20254,165,162,157
+oct1		20254,165,162,157
+oct2		20254,165,162,157
+oct3		20254,165,162,157
+oct4		20254,0165,0162,0157
+oct5		20254,00165,00162,00157
+oct6		020254,000165,000162,000157
+oct7		0020254,0000165,0000162,0000157
+
+_mode	encode
+_title		CRC functions
+#--------------+--------------------------------------------------------
+crc_8		6a
+crc_16		654
+crc_cciitt	e10e
+crc_32		b4c7b4a7
+#crc_user	00
+
+JChar		heureca!
+
+_title		Hash functions
+#--------------+--------------------------------------------------------
+md4hex		f8a7a9c292fd88a8cf8b9022f089ed84
+md4b64		+KepwpL9iKjPi5Ai8InthA
+md4hmachex	4093084aaa1912d55f159c361522d9bb
+md4hmacb64	QJMISqoZEtVfFZw2FSLZuw
+md5hex		08c1d37a0b3394da278b77116cc4e615
+md5b64		CMHTegszlNoni3cRbMTmFQ
+md5hmachex	9e9b261c1a084f6e80de1f3f52e20f6e
+md5hmacb64	npsmHBoIT26A3h8/UuIPbg
+sha1hex		3a88a366779f3685aa26b7e50dd5d973e3e84125
+sha1b64		OoijZnefNoWqJrflDdXZc+PoQSU
+sha1hmachex	81e0c4533730b2623b626d6bb210b15afe1b92ad
+sha1hmacb64	geDEUzcwsmI7Ym1rshCxWv4bkq0
+sha256hex	8874641457c1a247e0458cd42aee2421e1ddeae6a155729f24b4f55dc42c7ff7
+sha256b64	iHRkFFfBokfgRYzUKu4kIeHd6uahVXKfJLT1XcQsf/c
+sha384hex	51eb6cebda5a18a29c29935db9be99b468264c43f50739a4de8387d8d38f1b2d4168964c30d30ddb348df65e09085a76
+sha512hex	9b69eba4d2b082db6c0923aaa5dcc45c6d638ef0c161a32363d55807e739b57d52ef7e2fe13abb69c2852d3e315c2a7c4586dda955125947ab5eb7ee66dfd25c
+ripemdword	him fame wart and tune mill
+ripemdhex	1aaf b7df 011f 1176
+
+_title		Encryption
+#--------------+--------------------------------------------------------
+aes128		\xe6\x22\xac\x84\x27\x01\x00\x00\x2d\u20ca\x98\xcc\x8d
+aes192		\x87\xc7\xac\x84\x27\x01\x00\x00\x2d\u2050\xb6\x49\xac
+aes256		\x3e\x4a\xad\x84\x27\x01\x00\x00\x2d\u207a\x3e\x7f\xe9
+aes128r		\x5d\x3b\xae\x84\x27\x01\x00\x00\x2d\u20e2\x5c\x1f\x7b
+aes192r		\xcd\xc3\xae\x84\x27\x01\x00\x00\x2d\u201c\x59\xd8\xbb
+aes256r		\x86\x11\xaf\x84\x27\x01\x00\x00\x2d\u202f\xca\x81\x21
+teaesc		!193!]!225!!175!!250!!40!!212!!241!
+teacor		\xc1\x5d\xe1\xaf\xfa\x28\xd4\xf1
+tearaw		\xc1\x5d\xe1\xaf\xfa\x28\xd4\xf1
+
+_mode	en-/decode
+_title		URI/URL encoding
+#--------------+--------------------------------------------------------
+urlUni		%20%acuro
+urlUTF8		%e2%82%acuro
+urlHEX		%20%ac%75%72%6f
+urlUCS		%u20ac%u0075%u0072%u006f
+urlHEXc		%c0212c%c0f5%c0f2%c0ef
+urlNibbles	%%32%30%61%63%%37%35%%37%32%%36%66
+urlNibble1	%%320%%375%%372%%36f
+urlNibble2	%2%30%7%35%7%32%6%66
+urlPNY		uro-j50a
+urlPNY_		uro-j50a
+urlIDN		xn--uro-j50a
+urlIDN_		xn--uro-j50a
+
+_title		HTML-Entity (NCR)
+#--------------+--------------------------------------------------------
+ncrNAME		&euro;uro
+ncrDEC		&#8364;uro
+ncrNUM		&#8364;&#117;&#114;&#111;
+ncrHEX		&#x20;&#xac;&#x75;&#x72;&#x6f;
+ncrHEX4		&#x0020;&#x00ac;&#x0075;&#x0072;&#x006f;
+ncrWIN		&euro;uro
+ncrWINf		&euro;uro
+
+_title		Unicode/UTF
+#--------------+--------------------------------------------------------
+ucsUTF8		\xe2\x82\xacuro
+ucsUTF7		+IKw-uro
+ucsUTF7_	+IKwAdQByAG8-
+ucsHALFw	\u20acuro
+ucsFULLw	\u20ac\uff55\uff52\uff4f
+ucsFULL8	\xe2\x82\xac\xef\xbd\x95\xef\xbd\x92\xef\xbd\x8f
+_mode	encode
+ucsUTF16	\x20\xac\x00\x75\x00\x72\x00\x6f
+ucsUTF8b	\uefbb\xbf\xe2\x82\xacuro
+ucs16LEb	\ufffe\xac\x20\x75\x00\x72\x00\x6f\x00
+ucs16BEb	\ufeff\x20\xac\x00\x75\x00\x72\x00\x6f
+ucs32LEb	\ufffe\x00\x20\x00\xac\x00\x00\x00\x75\x00\x00\x00\x72\x00\x00\x00\x6f\x00
+
+_mode	en-/decode
+_title		Various Codings
+#--------------+--------------------------------------------------------
+base64		IKx1cm8=
+url64		IKx1cm8=
+caesar		\u20acxur
+rot13		\u20acheb
+yenc		\u20d6\x9f\x9c\x99
+xor		\u20acuro
+uu		begin 664, filename\x0aMK'5R;P````````````````````````````````````````````````\x0a`\x0a====\x0a
+uuhist		begin 664, filename\x0aMK'5R;P                                                \x0a \x0aend\x0a
+uuraw		K'5R;P\x20\x20
+qp		\u20acuro
+qpraw		=20=ACuro
+
+_delimiter	,
+_title		Straight Codings
+#--------------+--------------------------------------------------------
+hex		20ac,75,72,6f
+dez		8364,117,114,111
+oct		20254,165,162,157
+nibbles		32,30,61,63,37,35,37,32,36,66
+nibble1		32,0,37,5,37,2,36,f
+nibble2		2,30,7,35,7,32,6,66
+bin8		11111111,01110101,01110010,01101111
+bin7		1111111,1110101,1110010,1101111
+bin6		111111,111111,111111,111111
+dualBCD		\u20acuro
+dual_3		\u20acuro
+dualAiken	\u20acuro
+JSlc		\u20acuro
+JSuc		\u20acURO
+reverse		oru\u20ac
+atbash		\u20acfil
+copy		\u20acuro
+
+_delimiter	,
+_title		Special
+#--------------+--------------------------------------------------------
+escJS		\u20acuro
+escXML		\u20acuro
+b64tou64	\u20acuro
+u64tob64	\u20acuro
+dumphex		20ac,75,72,6f,                                  |  \u20ac u r o\x0a
+dumpODx		00000000 20ac 7572 6f00\x0a00000005
+dumpxDO		00000000 ac20 7275 006f\x0a00000005
+
+_mode	encode
+_title		Characters
+#--------------+--------------------------------------------------------
+#ebcdic		[EnDe.a2e: value (€=8364) out of range]
+#ascii		[EnDe.e2a: value (€=8364) out of range]
+toCP1252	\x80uro
+fromCP1252	\u20acuro
+hexCHR		\u20acuro
+
+_mode	decode
+_title		Characters
+#--------------+--------------------------------------------------------
+#ebcdic		[EnDe.a2e: value (€=8364) out of range]
+#ascii		[EnDe.e2a: value (€=8364) out of range]
+toCP1252	\u80uro
+fromCP1252	\u20acuro
+hexCHR		\u20acuro
+
+__END
+
+
+# following // ToDo
+JSURI	quick!
+JSURICom	quick!
+JSbtoa	cXVpY2sh
+JSescape	quick%21
+splitArg	quick!
+splitKey	quick!
+splitDel	quick!
+joinArg	quick!
+joinKey	quick!
+joinDel	quick!
+#------+-----------------------------------------------------------------

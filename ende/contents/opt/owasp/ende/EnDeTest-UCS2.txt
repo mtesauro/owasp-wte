@@ -1,0 +1,51 @@
+
+__DATA
+
+#------+----------------------------------------------------------------
+#keyw.  string to be processed by coding/hashing/encryption/...
+#------+----------------------------------------------------------------
+_data	¤uro
+_salt	....	# 1f05 03bb 03c9 03c2
+#_salt	hál.s	# 68 e1 6c 014d 73
+#_salt	halos
+_mode	encode
+
+_title		Hash functions
+#--------------+--------------------------------------------------------
+urlHEX		%20%ac%75%72%6f
+md4hex		f8a7a9c292fd88a8cf8b9022f089ed84
+md4b64		+KepwpL9iKjPi5Ai8InthA
+md4hmachex	f9ba96485bb9bf985469e50158569df0
+md4hmacb64	+bqWSFu5v5hUaeUBWFad8A
+md5hex		08c1d37a0b3394da278b77116cc4e615
+md5b64		CMHTegszlNoni3cRbMTmFQ
+md5hmachex	87dd89dfac56ef8808ec0a93ec7658d3
+md5hmacb64	h92J36xW74gI7AqT7HZY0w
+sha1hex		3a88a366779f3685aa26b7e50dd5d973e3e84125
+sha1b64		OoijZnefNoWqJrflDdXZc+PoQSU
+sha1hmachex	27d72fb0df0024d0b6b14041b83f8dad3d7d18cc
+sha1hmacb64	J9cvsN8AJNC2sUBBuD+NrT19GMw
+sha256hex	8874641457c1a247e0458cd42aee2421e1ddeae6a155729f24b4f55dc42c7ff7
+sha256b64	iHRkFFfBokfgRYzUKu4kIeHd6uahVXKfJLT1XcQsf/c
+sha384hex	51eb6cebda5a18a29c29935db9be99b468264c43f50739a4de8387d8d38f1b2d4168964c30d30ddb348df65e09085a76
+sha512hex	9b69eba4d2b082db6c0923aaa5dcc45c6d638ef0c161a32363d55807e739b57d52ef7e2fe13abb69c2852d3e315c2a7c4586dda955125947ab5eb7ee66dfd25c
+ripemdword	seem rent beth pin blue raw
+ripemdhex	d8b9 d95c 99f5 9c6d
+
+_mode		en-/decode
+_title		URI/URL encoding
+#--------------+--------------------------------------------------------
+urlUTF8		%e2%82%acuro
+urlUTF8c	%e2%84%acuro
+urlUni		%20%acuro
+urlHEX		%20%ac%75%72%6f
+urlHEXc		%c0212c%c0f5%c0f2%c0ef
+urlNibbles	%%32%30%61%63%%37%35%%37%32%%36%66
+urlNibble1	%%320%%375%%372%%36f
+urlNibble2	%2%30%7%35%7%32%6%66
+urlUCS		%u20ac%u0075%u0072%u006f
+urlPNY		uro-j50a
+urlPNY_		uro-j50a
+urlIDN		xn--uro-j50a
+urlIDN_		xn--uro-j50a
+

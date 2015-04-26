@@ -1,0 +1,156 @@
+# =========================================================================== #
+# vi:  ts=8:
+# vim: ts=8:
+#?
+#? NAME
+#?      $0 - "User Options" menu
+#?
+#? SYNOPSIS
+#?      This file needs to be loaded using XMLHttpRequest and then processed.
+#?
+#?      Reading data:               EnDeGUI.txt.read('EnDeOpts.txt');
+#?      Building anonymous objects: EnDeGUI.txt.menu();
+#?      Building menu object:       EnDeGUI.createObj('name', .....);
+#?
+#? DESCRIPTION
+#?      Defines menu for "User API Options".
+#?
+#?      Format of table herein see EnDeMenu.txt.
+#?      Each line is one menu entry. This uses an extended format from EnDeMenu.txt
+#?      and a line looks like:
+#?           head key size upper ishex prefix suffix delimiter key name description
+#?	Where  head  uses the keyword  'options'  instead of  'item3'.
+#?      The columns must be separated by exactly one tab character.
+#?      Note that anything is a string herein, so \ doesn't need to be escaped.
+#?!     Following column values are treatet special and are not part of the menu:
+#?!        size, upper, ishex, prefix, suffix, delimiter, key
+#?!                  - values to set option fields, sets EnDeGUI.opts[key]
+#?!                    values must be separated by exactly one tab character
+#
+# HACKER's INFO
+#       Note that each  options  row must contain exactly 11 fields separated
+#       by tabs. Exactly one tab between two fields.
+#?
+#? SEE ALSO
+#?      EnDeMenu.txt
+#?
+#? VERSION
+#?      @(#) EnDeOpts.txt 3.4 15:20:21 11/10/30
+#?
+#? AUTHOR
+#?      17-jun-08 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+#?
+# -----------------------------------------------------------------------------
+
+# =========================================================================== #
+# menu for User API Options                                                   #
+# =========================================================================== #
+
+#------+-------+-------+-------+-------+-------+-------+-------+-------+-----------------------+--------------------
+#head	key	size	upper	ishex	prefix	suffix	delim.	key	label text		title description
+#------+-------+-------+-------+-------+-------+-------+-------+-------+-----------------------+--------------------
+group	general	general ..	general settings
+options	clear	2	true	false				null	clear	clear all option fields
+
+#------	-------	-------	-------	-------	-------	-------	-------	-------	-----------------------	--------------------
+group	URI/URL	En-/Decoding->URI/URL		En-/Decoding->URI/URL
+options	puny	2	false	false		-		null	Punycode (libidn compatible)	IDN, Punycode compatible with libidn (has - suffix)
+
+#------	-------	-------	-------	-------	-------	-------	-------	-------	-----------------------	--------------------
+group	Str.Hex	En-/Decoding->Straight Hex	En-/Decoding->Straight Hex
+options	x_hex	4	true	false	0x			null	0x00HH   0x-prefixed	0x-prefixed standard hex encoding
+options	NCR_h	1	false	false	&#x	;		null	&#xHH;   HTML-Entity (hex)	hex HTML-Entity
+options	NCR_hl	1	false	false	&#x			null	&#xHH    lazy HTML-Entity (hex)		hex HTML-Entity (numeric character reference, variable length and missing ;)
+options	NCR_ul	4	false	false	&#u			null	&#uUUUU  lazy HTML-Entity (Unicode)	Unicode HTML-Entity (numeric character reference, fixed length and missing ;)
+options	UNI_ul	4	false	false	%u			null	%uUUUU   lazy URI/URL	URI/URL (URL-encoding, fixed length and missing ;)
+options	CSS_h	1	false	false	\			null	\HH      CSS escaped	hex \-escaped as used in CSS
+options	LDAP_h	1	false	false	\			null	\HH      LDAP escaped	hex \-escaped as used in LDAP
+options	pythonC	4	false	false	u"\u	"		null	python character	character in python source code
+options	java__C	4	false	false	"\u	"		null	C/C++/java character	character in C/C++ or java source code
+options	x_Lisp	4	true	false	#x			null	#x00HH   #x-prefixed	#x-prefixed as used for Common Lisp
+options	x_SGML	4	true	false	\#x			null	\#x00HH  SGML hex	SGML hex numeric character reference
+options	x_OOXML	4	true	false	_x	_		null	_x00HH_  OOXML hex numbers	OOXML hex numbers
+options	xapache	2	true	false	\x			null	\xHH     \x-escaped	\x-escaped as used for apache log files
+options	x_TCL	4	true	false	\x			null	\x00HH   \x-escaped	\x-escaped as used for TCL numbers
+options	x_perl	4	true	false	\x{	}		null	\x{00HH} \x-escaped with braces	\x-escaped with braces as used in perl
+options	$_hex	4	true	false	$			null	$00HH    $-prefixed	$-prefixed
+options	u_hex	4	true	false	u			null	u00HH    u-prefixed	u-prefixed
+options	U_hex	4	true	false	U			null	U00HH    U-prefixed	U-prefixed
+options	U_UTF	2	true	false	<U	>		null	<UHH>    U-escaped hex	U-escaped hexadecimal byte within angle brackets
+options	U_POSIX	4	true	false	<U	>		null	<U00HH>  U-escaped hex	U-escaped hexadecimal within angle brackets as in POSIX locale
+options	X_hex	4	true	false	'X	'		null	X'00HH'  hexadecimal	hexadecimal within singlequotes and prefixed with X
+options	x16Lisp	4	true	false	16#r			null	16#r00HH 16#r-prefixed	16#r-prefixed as in Common Lisp
+options	x16ADA	4	true	false	16#			null	16#00HH# 16#-prefixed	16#-prefixed as in ADA
+options	cCodeAt	1	false	false	"	".charCodeAt()		null	JavaScript charCodeAt	JavaScript charCodeAt()
+options	quotedp	2	true	false	=			null	=HH      UTF-8 =-prefixed	UTF-8 =-prefixed
+options	Unicode	4	false	false	U+			null	U+hhhh   Unicode notation	character in Unicode notation U+hhhh
+options	double	2	false	false	%25			null	%25HH    double URL	double encoding % (URL-encoding)
+options	UniIIS	2	false	false	%%5500			null	%%5500HH double Unicode notation	mismatch URL-encoding for U (IIS evation)
+options	b_RTF	2	false	false	\'			null	\'HH     \'-escaped	\'-escaped as used in RTF
+# Mismatch encoding: ?? ==> %U0025%550%303%37
+
+#------	-------	-------	-------	-------	-------	-------	-------	-------	-----------------------	--------------------
+group	Str.Dez	En-/Decoding->Straight Dezimal	En-/Decoding->Straight Dezimal
+options	t_dec	1	true	false	0t			null	0tddd    0t-prefixed	0t-prefixed standard decimal encoding
+options	NCR_d	1	false	false	&#	;		null	&#DDD;   HTML-Entity (decimal)	decimal HTML-Entity (numeric character reference, variable length)
+options	NCR_d4	4	false	false	&#	;		null	&#DDDD;  HTML-Entity (decimal)	decimal HTML-Entity (numeric character reference, fixed length)
+options	NCR_dl	1	false	false	&#			null	&#DDD    lazy HTML-Entity (decimal)	decimal HTML-Entity (numeric character reference, variable length and missing ;)
+options	SGML_d	4	true	false	\#			null	\#DDDD   SGML-Entity (decimal)	decimal SGML-Entity (numeric character reference, fixed length)
+options	MxSQL_1	1	false	false	CHAR(	)	+	null	MSSQL CHAR()+	string generation in MSSQL and MYSQL (+)
+options	Oracle1	1	false	false	CHR(	)	+	null	CHR()+   Oracle	string generation in Oracle (+)
+options	Oracle2	1	false	false	CHR(	)	||	null	CHR()||  Oracle	string generation in Oracle (||)
+options	perl__1	1	false	false	chr(	)	.	null	chr().   perl	string generation in perl (.)
+options	u_dec	4	false	false	\u			null	\U00HH   \u-escaped	\u-escaped (dezimal like Rich Text Format)
+options	d_perl	4	false	false	v			null	vDDDD    perl v-prefixed dezimal	perl v-prefixed dezimal
+options	b_Tex1	3	false	false	\symbol{	}		null	\symbol{dez}    \symbol{dec}	\symbol{dec} as used in TeX
+
+#------	-------	-------	-------	-------	-------	-------	-------	-------	-----------------------	--------------------
+group	Str.Oct	En-/Decoding->Straight Octal	En-/Decoding->Straight Octal
+options	octal_C	3	false	false	\			null	\ooo     octal characters	as octal characters(i.e. for JavaScript)
+options	b_Tex2	3	false	false	\char'			null	\char'oct    \char'oct	\char'oct as used in TeX
+
+#------	-------	-------	-------	-------	-------	-------	-------	-------	-----------------------	--------------------
+group	Str.Chr	En-/Decoding->Straight Character	En-/Decoding->Straight Character
+options	Oracle4	2	false	false	'	'	||	null	||	||  Oracle string concatenation with ||
+options	MSSQL_4	2	false	false	'	'	+	null	+	||  MSSQL string concatenation with +
+
+#------	-------	-------	-------	-------	-------	-------	-------	-------	-----------------------	--------------------
+group	En-Straight	Encoding->Straight	Encoding->Straight
+options	Symbol_	2	false	false			 	null	use space in symbols	empty positions in ASCII-Art are spaces
+options	Symbol.	2	false	false			.	null	use . (dot) in symbols	empty positions in ASCII-Art are dots
+
+#------	-------	-------	-------	-------	-------	-------	-------	-------	-----------------------	--------------------
+group	De-Straight	Decoding->Straight	Decoding->Straight
+# above are same as in HTML.NCR, hence they same key
+options	x_var	1	false	false	\x		,	null	\x-escaped variable length	variable length encoded characters \x
+options	MSSQL_C	2	false	false				null	MSSQL CAST	decode MSSQL CAST() value (without "0x" prefix)
+
+#------	-------	-------	-------	-------	-------	-------	-------	-------	-----------------------	--------------------
+group	HashCRC	Encoding->Hash->CRC-16	Encoding->Hash->CRC-16 (user)
+options	CRCarc	2	true	false	0x0000	0x0000		ARCtab	CRC-16 (ARC)	classic CRC-16 (aka CRC-16 ARC)
+options	CRCbus	2	true	false	0xffff	0x0000		ARCtab	CRC-16 (Modbus)	classic CRC-16 (Modbus)
+options	CRCppp	2	true	false	0xffff	0xffff		PPPtab	CRC-16 (PPP)	CRC-16 (PPP, aka FCS-16)
+options	CRCusr1	2	true	false	0xffff	0x0000		0x1021	CRC-16 (CCITT)	CRC-16 (CCITT)
+options	CRCusr2	2	true	false	0x0000	0x0000		0x1021	CRC-16 (Xmodem)	CRC-16 (CCITT XModem, ZModem)
+options	CRCusr3	2	true	false	0x1d0f	0x0000		MODtab	CRC-16 (0x1d0f)	CRC-16 (with initial vector 0x1d0f
+options	CRCtest	2	true	false	0x0000	0x0000		test	CRC-16 test test ..	testing various calculations
+#-----+-------+-------+-------+-------+-------+-------+-------+---------------+-------------------------------------
+
+#------+---------------+-----------------------+------------------------------+
+#head   key             text                    description
+#------+---------------+-----------------------+------------------------------+
+menu	API.Options	User API Options	Preset API Options
+html	SELECT
+inside	EnDeDOM.API.Menu
+id	EnDeDOM.API.Menu.s
+size	1
+onClick	return EnDeGUI.preset(EnDe,this.value)
+use	general
+use	URI/URL
+use	Str.Hex
+use	Str.Dez
+use	Str.Oct
+use	Str.Chr
+use	En-Straight
+use	De-Straight
+use	HashCRC

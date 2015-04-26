@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+#? NAME
+#?      EnDeSamp.xml - sample for XML data file
+#?
+#? DESCRIPTION
+#?      Each  <attack />  scope may contain following scopes:
+#?
+#?         <label>   - a unique label, used to group files in SELECT menu
+#?         <name>    - descriptive name used in SELECT->OPTION menu
+#?         <code>    - file name
+#?         <desc>    - descriptive text used in title= attribute
+#?         <browser> - **NOT YET USED**
+#?         <prefix>  - prefix (label) prepended to generated SELECT menu
+#?                     default, if missing:  :
+#?         <target>  - HTML tag id where menu should be created
+#?                     default, if missing:  EnDeDOM.f.EN
+#?         <func>    - function to be called by SELECT menu
+#?                     default, if missing:  EnDeUser.setEN(this.value)
+#?
+#?      where <label>, <name>, <code> and <desc> are mandatory and all others
+#?      are optional.
+#?
+# HACKER's INFO
+#       Such  XML files are read with  EnDeGUI.txt.read()  and converted to
+#       EnDe's internal data structure with  EnDe.txt.XMLmenu().
+#
+# NOTE
+#       As the format of this  XML  is that which was originaly used in
+#           http://ha.ckers.org/xssAttacks.xml
+#       the  XML tag names   may sound confusing in some cases.
+#?
+#? SEE ALSO
+#?      EnDeGUI.js
+#?
+#? VERSION
+#?      @(#) EnDeSamp.xml 3.1 10/04/12 18:24:23
+#?
+#? AUTHOR
+#?      27-jan-08 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =============================================================================
+# -->
+
+<xss>
+	<attack>
+		<name>  string here used in generated SELECT menu         </name>
+		<code>  value for generated SELECT OPTION                 </code>
+		<desc>  description, used as title in SELECT OPTION       </desc>
+		<label> string used to group attack scopes, makes OPTGRP  </label>
+	</attack>
+</xss>

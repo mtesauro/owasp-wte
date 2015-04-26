@@ -1,0 +1,59 @@
+#?
+#? NAME
+#?      EnDeTest-UTF8-UCS2.txt - test data
+#?
+#? DESCRIPTION
+#?      Test data to explain problems when reading UTF-8 characters in
+#?      various tools.
+#?
+#? SEE ALSO
+#?      EnDeTest.txt
+#?
+#? VERSION
+#?      @(#) EnDeTest-UTF8-UCS2.txt 3.1 10/04/12 18:24:23
+#?
+#? AUTHOR
+#?      01-feb-10 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+# =============================================================================
+
+__DATA
+
+# all following _data and _salt values are UTF-8 characters
+
+_data	€uro
+_salt	ἅλως  # 1f05 03bb 03c9 03c2
+#_salt	hálōs	# 68 e1 6c 014d 73
+#_salt	halos
+
+_mode	en-/decode
+_title		tests succed if _data read as UTF-8 and kept as UTF-8
+#--------------+--------------------------------------------------------
+urlHEX		%e2%82%ac%75%72%6f
+urlUTF8		%e2%82%acuro
+base64		4oKsdXJv
+urlPNY		uro-ia4szl
+urlIDN		xn--uro-ia4szl
+_mode	encode
+md5hex		36f9d3bb76279be66536e2d4e250c7ad
+sha1hex		b513a36894c347a73a7ab40ef44093701bdea3cb
+
+_mode	en-/decode
+_title		tests succed if _data read as UTF-8 and converted to UCS-2
+#--------------+--------------------------------------------------------
+urlHEX		%20%ac%75%72%6f
+urlUTF8		%e2%82%acuro
+base64		IKx1cm8=
+urlPNY		uro-j50a
+urlIDN		xn--uro-j50a
+_mode	encode
+md5hex		08c1d37a0b3394da278b77116cc4e615
+sha1hex		3a88a366779f3685aa26b7e50dd5d973e3e84125
+
+_mode	en-/decode
+_title		tests succed always
+#--------------+--------------------------------------------------------
+urlUTF8		%e2%82%acuro
+ncrNAME		&euro;uro
+ncrDEC		&#8364;uro
+
+__END

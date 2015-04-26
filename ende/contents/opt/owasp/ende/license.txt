@@ -1,0 +1,75 @@
+/*****************************************************************************\
+|                  Copyright (c) 2006 - 2012 Achim Hoffmann
+|------------------------------------------------------------------------------
+| You may obtain a copy of the license at  https://github.com/EnDe/EnDe
+|------------------------------------------------------------------------------
+| This software is provided "as is", without warranty of any kind, express or
+| implied,  including  but not limited to  the warranties of merchantability,
+| fitness for a particular purpose and noninfringement. In no event shall the
+| authors  or  copyright  holders be  liable for any claim, damages or  other
+| liability,  whether in  an action of contract,  tort or  otherwise, arising
+| from,  out of  or in connection  with the software  or  the  use  or  other
+| dealings in the software.
+|
+| This  software is licensed under GPLv2.
+| Also note that some parts come with their own license (see below).
+|
+| GPL - The GNU General Public License, version 2
+|                       as specified in:  http://www.gnu.org/licenses/gpl.txt
+|                   or a copy of it https://github.com/EnDe/EnDe  license.txt
+| Permits anyone the right to use and modify the software without limitations
+| as long as proper  credits are given  and the original  and modified source
+| code are included. Requires  that the final product, software derivate from
+| the original  source or any  software  utilizing a GPL  component, such  as
+| this, is also licensed under the same GPL license.
+|
+|------------------------------------------------------------------------------
+| For licenses of some used files see the files itself:
+|    aes.js     - see http://www.movable-type.co.uk/scripts/aes.html (this file
+|                 did not contain license information as copied on 20-jul-2007)
+|    md4.js     - see http://pajhome.org.uk/crypt/md5
+|    md5.js     - see http://pajhome.org.uk/crypt/md5
+|    sha.js     - see http://pajhome.org.uk/crypt/md5
+|                 and http://anmar.eu.org/projects/jssha2/files/sha2.js
+|    sha512.js  - see http://jssha.sourceforge.net/
+|    rmd.js     - see http://www.ocf.berkeley.edu/~jjlin/jsotp/rmd160.html
+|    blowfish.js    -  http://github.com/drench/blowfish.js
+|    http://www.augustana.ab.ca/~mohrj/algorithms/checkdigit.html
+|               used for Verhoeff's Dihedral Group D5 Check in EnDeCheck.js
+|               (no license information but copyright as copied on 17-feb-2008)
+|    JsDecoder.js   - see http://code.gosu.pl/dl/JsDecoder/demo/JsDecoder.js
+|------------------------------------------------------------------------------
+|    JsColorizer.js - see http://code.gosu.pl/dl/JsDecoder/demo/JsColorizer.js
+|    JSReq.js       - see http://www.businessinfo.co.uk/labs/jsreg/JSReg.js
+|    CoreRules2Html.jar - see http://www.jwall.org/core-rules/index.jsp
+|    ModSecurity Core Rule Set v2.0
+|       - see http://www.owasp.org/index.php/Category:OWASP_ModSecurity_Core_Rule_Set_Project
+|
+| The original files can be found in the 3rd/ directory here or in the  3rd/
+| directory at  https://github.com/EnDe/EnDe
+| Files as copied 07-apr-2007:
+|               aes.html
+|               md4.js
+|               md5.js
+|               sha1.js
+|               sha2.js
+|               rmd160.html
+| Files as copied 08-jul-2008:
+|               sha512.js
+|               CoreRules2Html.jar
+| Files as copied 08-sep-2008:
+|               JsDecoder.js
+|               JsColorizer.js
+| Files as copied 17-jul-2009:
+|               JSReg.js
+|               modsecurity-core-rules_2.0.tar.gz
+|               OWASP-ValidationRegexRepository.xml
+| Files as copied 06-jun-2011:
+|               blowfish.js
+|
+| Files without license information as copied on 30-dec-2007, 20-dec-2010:
+|     xssAttacks.xml        http://ha.ckers.org/xssAttacks.xml
+|     xss.mario.xml         http://mario.heideri.ch/xss.xml
+|     default_filter.xml    http://phpids.org/
+|               https://svn.php-ids.org/svn/trunk/lib/IDS/default_filter.xml
+\*****************************************************************************/

@@ -1,0 +1,3665 @@
+#?
+#? NAME
+#?      EnDeMaps.txt
+#?
+#? SYNOPSIS
+#?      This file needs to be loaded using XMLHttpRequest and then processed.
+#?
+#? DESCRIPTION
+#?      Character maps for encoding, decoding and converting from and to plain
+#?      text. Maps will be initialized in  EnDeMaps.js.
+#?
+#? SYNTAX
+#?      See EnDeMenu.txt
+#?
+#?      This files uses only following keywords:
+#?          group - starts a new set of definitions for this map
+#?          map   - type of map
+#?                  index:  first column is numeric (integer) index of map
+#?                  hash:   first column is string (hash) index of map
+#?      All columns are separated by TAB (\t).
+#?
+#? HACKER's INFO
+#?      // ToDo: //
+#       http://www.w3.org/TR/html401/sgml/entities.html
+#           HTML character references -- aka HTML Entity
+#           NCE - named character entity - aka character entity reference
+#                 http://en.wikipedia.org/wiki/Character_entity_reference
+#           NCR - numeric character references
+#                 http://en.wikipedia.org/wiki/Numeric_character_reference
+#           UCS - universal character set
+#                 http://en.wikipedia.org/wiki/Universal_Character_Set
+#                 BOM - Byte Order Mark
+#                 BMP - Basic Multilingual Plane
+#                 UCS-2, a single code value between 0 and 65535
+#                 UTF-16, an extension of UCS-2, to represents code points
+#                         outside the BMP
+#                 UCS-4, a single code value between 0 and (theoretically)
+#                         hexadecimal 7FFFFFFF
+#                         UCS-4 thereby permits a binary representation of
+#                         every code point in the UCS
+#           ==> articles about Unicode will mistakenly refer to  UCS-2  as
+#               "UCS-16". UCS-16 does not exist.
+#
+#           "Character 65533 (FFFD hexadecimal) is the last valid character in
+#            UCS-2. 65534 (FFFE hexadecimal) is unassigned and reserved as the
+#            byte-swapped version of  ZERO WIDTH NON-BREAKING SPACE  for byte-
+#            order detection purposes. 65535 (FFFF hexadecimal) is unassigned."
+#
+#       CP-1252 (Windows-1252 Western European)
+#           "Entities have also been added for the  remaining characters
+#            occurring in CP-1252 which do not occur in the  HTMLlat1 or
+#            HTMLsymbol entity sets. These all occur in the  128 to  159
+#            range within the CP-1252 charset. These entities permit the
+#            characters to be denoted in a platform-independent manner."
+#            CP-1252 is same or similar to ANSI see also http://www.goascii.de/
+#       See also: http://unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WindowsBestFit/bestfit1252.txt
+#
+#       Mac OS Roman
+#       See http://en.wikipedia.org/wiki/Mac_OS_Roman
+#           http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/ROMAN.TXT
+#
+#       from: http://www.w3.org/TR/REC-html40/sgml/entities.html
+#       Problems/Inconsistency:
+#            #9825 vs 9829 hearts
+#            #59146 b.epsiv und 59147 (da fehlt was)
+#            NCR seen somewhere: gravea, cir, congr, ero, etago,
+#            #45 vs 8208 hyphen (45  disabled for now)
+#            #45 vs 8722 minus  (45  disabled for now
+#            #126 vs 732 tilde  (732 disabled for now)
+#
+# ? // ToDo: http://unicode.org/Public/MAPPINGS/VENDORS/MISC/
+# ?          http://unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WindowsBestFit/bestfit1252.txt
+# ?          http://www.unicode.org/charts/symbols.html
+#?
+#? SEE ALSO
+#?      http://www.w3.org/TR/REC-MathML/chap6/bycodes.html
+#?      EnDe.js
+#?      EnDeMaps.js
+#?
+#? VERSION
+#?      @(#) EnDeMaps.txt 3.7 12/01/22 15:11:02
+#?
+#? AUTHOR
+#?      05-jun-07 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+#?
+# ============================================================================
+
+__DATA
+
+# =========================================================================== #
+# all Unicode (UCS-2) characters                                              #
+# =========================================================================== #
+
+
+group	intMap
+map	index
+# List must be sorted numericaly according left most column.
+# (Character Name) Group names have to be separated by , .
+# Group name :alias: will be handled special in the initialization functions.
+
+#------+-------+---------------+----------------------------------
+#               Character Name
+# Int  standard Entity  Group   Description
+#------+-------+-------+-------+----------------------------------
+0	-	-	-	NUL null character
+1	-	-	-	SOH start of header
+2	-	-	-	STX start of text
+3	-	-	-	ETX end of text
+4	-	-	-	EOT end of transmission
+5	-	-	-	ENQ enquiry
+6	-	-	-	ACK accknowledge
+7	-	-	-	BEL bell; ring
+8	-	-	-	BS  backspace
+9	-	-	-	HT  horizontal tab
+9	-	Tab	Lextra	tabulator stop; horizontal tabulation
+10	-	NewLine	Lextra	force a line break; line feed
+11	-	-	-	VT  vertical tabulation
+12	-	-	-	FF  form feed
+33	-	excl	ISOnum	exclamation mark
+34	HTML-40	quot	ISOnum	quotation mark
+35	-	num	ISOnum	number sign
+36	-	dollar	ISOnum	dollar sign
+37	-	percnt	ISOnum	percent sign
+38	HTML-40	amp	ISOnum	ampersand
+39	-	apos	ISOnum	apostrophe
+40	-	lpar	ISOnum	left parenthesis
+41	-	rpar	ISOnum	right parenthesis
+42	-	midast	ISOamsb,:alias:	asterisk
+42	-	ast	ISOnum	asterisk
+43	-	plus	ISOnum	plus sign
+44	-	comma	ISOnum	comma
+# // ToDo: following causes conflict with other minus (8722) and hyphen (8208), hence disabled
+#45	-	hyphen	:alias:	hyphen
+#45	-	minus	:alias:	minus
+45	-	-	-	minus
+46	-	period	ISOnum	full stop, period
+47	-	sol	ISOnum	solidus
+58	-	colon	ISOnum	colon
+59	-	semi	ISOnum	semicolon
+60	HTML-40	lt	ISOnum	less-than sign
+61	-	equals	ISOnum	equals sign
+62	HTML-40	gt	ISOnum	greater-than sign
+63	-	quest	ISOnum	question mark
+64	-	commat	ISOnum	commercial at
+91	-	lbrack	:alias:	ISOnum lsqb
+91	-	lsqb	ISOnum	left square bracket
+92	-	bsol	ISOnum	reverse solidus (backslash)
+93	-	rbrack	:alias:	ISOnum rsqb
+93	-	rsqb	ISOnum	right square bracket
+94	-	circ	ISOdia	circumflex accent
+95	-	lowbar	ISOnum	low line
+96	-	DiacriticalGrave	:alias:	ISOdia grave
+96	-	grave	ISOdia	grave accent
+109	-	-	-	m (for meter)
+123	-	lbrace	:alias:	ISOnum lcub
+123	-	lcub	ISOnum	left curly bracket
+124	-	vert	:alias:	ISOnum verbar
+124	-	verbar	ISOnum	vertical bar
+125	-	rbrace	:alias:	ISOnum rcub
+125	-	rcub	ISOnum	right curly bracket
+# // ToDo: following causes conflict with other tilde (732), hence disabled
+#126	-	tilde	:alias:	tilde
+126	-	-	-	tilde
+160	HTML-40	nbsp	ISOnum	no break (required) space
+161	HTML-40	iexcl	ISOnum	inverted exclamation mark
+162	HTML-40	cent	ISOnum	cent sign
+163	HTML-40	pound	ISOnum	pound sign
+164	HTML-40	curren	ISOnum	general currency sign
+165	HTML-40	yen	ISOnum	yen sign
+166	HTML-40	brvbar	ISOnum	broken (vertical) bar
+167	HTML-40	sect	ISOnum	section sign
+168	HTML-40	DoubleDot	:alias:	ISOdia die
+168	HTML-40	die	ISOdia,:alias:	dieresis
+168	HTML-40	uml	ISOdia,:alias:	umlaut mark
+168	HTML-40	Dot	ISOtech	dieresis or umlaut mark
+169	HTML-40	copy	ISOnum	copyright sign
+170	HTML-40	ordf	ISOnum	ordinal indicator, feminine
+171	HTML-40	laquo	ISOnum	angle quotation mark, left
+172	HTML-40	not	ISOnum	neg; not sign
+173	HTML-40	shy	ISOnum	soft hyphen
+174	HTML-40	circledR	:alias:	ISOnum reg
+174	HTML-40	reg	ISOnum	registered sign
+175	HTML-40	OverBar	Lextra,:alias:	over bar
+175	HTML-40	macr	ISOdia	macron
+176	HTML-40	deg	ISOnum	degree sign
+177	HTML-40	PlusMinus	:alias:	ISOnum plusmn
+177	HTML-40	pm	:alias:	ISOnum plusmn
+177	HTML-40	plusmn	ISOnum	plus-or-minus sign
+178	HTML-40	sup2	ISOnum	superscript two
+179	HTML-40	sup3	ISOnum	superscript three
+180	HTML-40	DiacriticalAcute	:alias:	ISOdia acute
+180	HTML-40	acute	ISOdia	acute accent
+181	HTML-40	micro	ISOnum	micro sign
+182	HTML-40	para	ISOnum	pilcrow (paragraph sign)
+183	HTML-40	CenterDot	:alias:	ISOnum middot
+183	HTML-40	centerdot	:alias:	ISOnum middot
+183	HTML-40	middot	ISOnum	middle dot
+184	HTML-40	Cedilla	:alias:	ISOdia cedil
+184	HTML-40	cedil	ISOdia	cedilla
+185	HTML-40	sup1	ISOnum	superscript one
+186	HTML-40	ordm	ISOnum	ordinal indicator, masculine
+187	HTML-40	raquo	ISOnum	angle quotation mark, right
+188	HTML-40	frac14	ISOnum	fraction one-quarter
+189	HTML-40	half	ISOnum,:alias:	fraction one-half
+189	HTML-40	frac12	ISOnum	fraction one-half
+190	HTML-40	frac34	ISOnum	fraction three-quarters
+191	HTML-40	iquest	ISOnum	inverted question mark
+192	HTML-40	Agrave	ISOlat1	capital A, grave accent
+193	HTML-40	Aacute	ISOlat1	capital A, acute accent
+194	HTML-40	Acirc	ISOlat1	capital A, circumflex accent
+195	HTML-40	Atilde	ISOlat1	capital A, tilde
+196	HTML-40	Auml	ISOlat1	capital A, dieresis or umlaut mark
+197	HTML-40	Aring	ISOlat1	capital A, ring
+198	HTML-40	AElig	ISOlat1	capital AE diphthong (ligature)
+199	HTML-40	Ccedil	ISOlat1	capital C, cedilla
+200	HTML-40	Egrave	ISOlat1	capital E, grave accent
+201	HTML-40	Eacute	ISOlat1	capital E, acute accent
+202	HTML-40	Ecirc	ISOlat1	capital E, circumflex accent
+203	HTML-40	Euml	ISOlat1	capital E, dieresis or umlaut mark
+204	HTML-40	Igrave	ISOlat1	capital I, grave accent
+205	HTML-40	Iacute	ISOlat1	capital I, acute accent
+206	HTML-40	Icirc	ISOlat1	capital I, circumflex accent
+207	HTML-40	Iuml	ISOlat1	capital I, dieresis or umlaut mark
+208	HTML-40	ETH	ISOlat1	capital Eth, Icelandic
+209	HTML-40	Ntilde	ISOlat1	capital N, tilde
+210	HTML-40	Ograve	ISOlat1	capital O, grave accent
+211	HTML-40	Oacute	ISOlat1	capital O, acute accent
+212	HTML-40	Ocirc	ISOlat1	capital O, circumflex accent
+213	HTML-40	Otilde	ISOlat1	capital O, tilde
+214	HTML-40	Ouml	ISOlat1	capital O, dieresis or umlaut mark
+215	HTML-40	times	ISOnum	multiply sign
+216	HTML-40	Oslash	ISOlat1	capital O, slash
+217	HTML-40	Ugrave	ISOlat1	capital U, grave accent
+218	HTML-40	Uacute	ISOlat1	capital U, acute accent
+219	HTML-40	Ucirc	ISOlat1	capital U, circumflex accent
+220	HTML-40	Uuml	ISOlat1	capital U, dieresis or umlaut mark
+221	HTML-40	Yacute	ISOlat1	capital Y, acute accent
+222	HTML-40	THORN	ISOlat1	capital THORN, Icelandic
+223	HTML-40	szlig	ISOlat1	small sharp s, German (sz ligature)
+224	HTML-40	agrave	ISOlat1	small a, grave accent
+225	HTML-40	aacute	ISOlat1	small a, acute accent
+226	HTML-40	acirc	ISOlat1	small a, circumflex accent
+227	HTML-40	atilde	ISOlat1	small a, tilde
+228	HTML-40	auml	ISOlat1	small a, dieresis or umlaut mark
+229	HTML-40	aring	ISOlat1	small a, ring
+230	HTML-40	aelig	ISOlat1	small ae diphthong (ligature)
+231	HTML-40	ccedil	ISOlat1	small c, cedilla
+232	HTML-40	egrave	ISOlat1	small e, grave accent
+233	HTML-40	eacute	ISOlat1	small e, acute accent
+234	HTML-40	ecirc	ISOlat1	small e, circumflex accent
+235	HTML-40	euml	ISOlat1	small e, dieresis or umlaut mark
+236	HTML-40	igrave	ISOlat1	small i, grave accent
+237	HTML-40	iacute	ISOlat1	small i, acute accent
+238	HTML-40	icirc	ISOlat1	small i, circumflex accent
+239	HTML-40	iuml	ISOlat1	small i, dieresis or umlaut mark
+240	HTML-40	eth	ISOlat1	small eth, Icelandic
+241	HTML-40	ntilde	ISOlat1	small n, tilde
+242	HTML-40	ograve	ISOlat1	small o, grave accent
+243	HTML-40	oacute	ISOlat1	small o, acute accent
+244	HTML-40	ocirc	ISOlat1	small o, circumflex accent
+245	HTML-40	otilde	ISOlat1	small o, tilde
+246	HTML-40	ouml	ISOlat1	small o, dieresis or umlaut mark
+247	HTML-40	div	:alias:	ISOnum divide
+247	HTML-40	divide	ISOnum	divide sign
+248	HTML-40	oslash	ISOlat1	small o with stroke
+249	HTML-40	ugrave	ISOlat1	small u, grave accent
+250	HTML-40	uacute	ISOlat1	small u, acute accent
+251	HTML-40	ucirc	ISOlat1	small u, circumflex accent
+252	HTML-40	uuml	ISOlat1	small u, dieresis or umlaut mark
+253	HTML-40	yacute	ISOlat1	small y, acute accent
+254	HTML-40	thorn	ISOlat1	small thorn, Icelandic
+255	HTML-40	yuml	ISOlat1	small y, dieresis or umlaut mark
+
+#	01
+
+256	-	Amacr	ISOlat2	capital A, macron
+257	-	amacr	ISOlat2	small a, macron
+258	-	Abreve	ISOlat2	capital A, breve
+259	-	abreve	ISOlat2	small a, breve
+260	-	Aogon	ISOlat2	capital A, ogonek
+261	-	aogon	ISOlat2	small a, ogonek
+262	-	Cacute	ISOlat2	capital C, acute accent
+263	-	cacute	ISOlat2	small c, acute accent
+264	-	Ccirc	ISOlat2	capital C, circumflex accent
+265	-	ccirc	ISOlat2	small c, circumflex accent
+266	-	Cdot	ISOlat2	capital C, dot above
+267	-	cdot	ISOlat2	small c, dot above
+268	-	Ccaron	ISOlat2	capital C, caron
+269	-	ccaron	ISOlat2	small c, caron
+270	-	Dcaron	ISOlat2	capital D, caron
+271	-	dcaron	ISOlat2	small d, caron
+272	-	Dstrok	ISOlat2	capital D, stroke
+273	-	dstrok	ISOlat2	small d, stroke
+274	-	Emacr	ISOlat2	capital E, macron
+275	-	emacr	ISOlat2	small e, macron
+278	-	Edot	ISOlat2	capital E, dot above
+279	-	edot	ISOlat2	small e, dot above
+280	-	Eogon	ISOlat2	capital E, ogonek
+281	-	eogon	ISOlat2	small e, ogonek
+282	-	Ecaron	ISOlat2	capital E, caron
+283	-	ecaron	ISOlat2	small e, caron
+284	-	Gcirc	ISOlat2	capital G, circumflex accent
+285	-	gcirc	ISOlat2	small g, circumflex accent
+286	-	Gbreve	ISOlat2	capital G, breve
+287	-	gbreve	ISOlat2	small g, breve
+288	-	Gdot	ISOlat2	capital G, dot above
+289	-	gdot	ISOlat2	small g, dot above
+290	-	Gcedil	ISOlat2	capital G, cedilla
+292	-	Hcirc	ISOlat2	capital H, circumflex accent
+293	-	hcirc	ISOlat2	small h, circumflex accent
+294	-	Hstrok	ISOlat2	capital H, stroke
+295	-	hstrok	ISOlat2	small h, stroke
+296	-	Itilde	ISOlat2	capital I, tilde
+297	-	itilde	ISOlat2	small i, tilde
+298	-	Imacr	ISOlat2	capital I, macron
+299	-	imacr	ISOlat2	small i, macron
+302	-	Iogon	ISOlat2	capital I, ogonek
+303	-	iogon	ISOlat2	small i, ogonek
+304	-	Idot	ISOlat2	capital I, dot above
+305	-	imath	ISOamso	small i, no dot
+305	-	inodot	ISOlat2	small i without dot
+306	-	IJlig	ISOlat2	capital IJ ligature
+307	-	ijlig	ISOlat2	small ij ligature
+308	-	Jcirc	ISOlat2	capital J, circumflex accent
+309	-	jcirc	ISOlat2	small j, circumflex accent
+310	-	Kcedil	ISOlat2	capital K, cedilla
+311	-	kcedil	ISOlat2	small k, cedilla
+312	-	kgreen	ISOlat2	small k, Greenlandic
+313	-	Lacute	ISOlat2	capital L, acute accent
+314	-	lacute	ISOlat2	small l, acute accent
+315	-	Lcedil	ISOlat2	capital L, cedilla
+316	-	lcedil	ISOlat2	small l, cedilla
+317	-	Lcaron	ISOlat2	capital L, caron
+318	-	lcaron	ISOlat2	small l, caron
+319	-	Lmidot	ISOlat2	capital L, middle dot
+320	-	lmidot	ISOlat2	small l, middle dot
+321	-	Lstrok	ISOlat2	capital L, stroke
+322	-	lstrok	ISOlat2	small l, stroke
+323	-	Nacute	ISOlat2	capital N, acute accent
+324	-	nacute	ISOlat2	small n, acute accent
+325	-	Ncedil	ISOlat2	capital N, cedilla
+326	-	ncedil	ISOlat2	small n, cedilla
+327	-	Ncaron	ISOlat2	capital N, caron
+328	-	ncaron	ISOlat2	small n, caron
+329	-	napos	ISOlat2	small n, apostrophe
+330	-	ENG	ISOlat2	capital ENG, Lapp
+331	-	eng	ISOlat2	small eng, Lapp
+332	-	Omacr	ISOlat2	capital O, macron
+333	-	omacr	ISOlat2	small o, macron
+336	-	Odblac	ISOlat2	capital O, double acute accent
+337	-	odblac	ISOlat2	small o, double acute accent
+338	HTML-40	OElig	ISOlat2	capital OE ligature
+339	HTML-40	oelig	ISOlat2	small oe ligature
+340	-	Racute	ISOlat2	capital R, acute accent
+341	-	racute	ISOlat2	small r, acute accent
+342	-	Rcedil	ISOlat2	capital R, cedilla
+343	-	rcedil	ISOlat2	small r, cedilla
+344	-	Rcaron	ISOlat2	capital R, caron
+345	-	rcaron	ISOlat2	small r, caron
+346	-	Sacute	ISOlat2	capital S, acute accent
+347	-	sacute	ISOlat2	small s, acute accent
+348	-	Scirc	ISOlat2	capital S, circumflex accent
+349	-	scirc	ISOlat2	small s, circumflex accent
+350	-	Scedil	ISOlat2	capital S, cedilla
+351	-	scedil	ISOlat2	small s, cedilla
+352	HTML-40	Scaron	ISOlat2	capital S, caron
+353	HTML-40	scaron	ISOlat2	small s, caron
+354	-	Tcedil	ISOlat2	capital T, cedilla
+355	-	tcedil	ISOlat2	small t, cedilla
+356	-	Tcaron	ISOlat2	capital T, caron
+357	-	tcaron	ISOlat2	small t, caron
+358	-	Tstrok	ISOlat2	capital T, stroke
+359	-	tstrok	ISOlat2	small t, stroke
+360	-	Utilde	ISOlat2	capital U, tilde
+361	-	utilde	ISOlat2	small u, tilde
+362	-	Umacr	ISOlat2	capital U, macron
+363	-	umacr	ISOlat2	small u, macron
+364	-	Ubreve	ISOlat2	capital U, breve
+365	-	ubreve	ISOlat2	small u, breve
+366	-	Uring	ISOlat2	capital U, ring
+367	-	uring	ISOlat2	small u, ring
+368	-	Udblac	ISOlat2	capital U, double acute accent
+369	-	udblac	ISOlat2	small u, double acute accent
+370	-	Uogon	ISOlat2	capital U, ogonek
+371	-	uogon	ISOlat2	small u, ogonek
+372	-	Wcirc	ISOlat2	capital W, circumflex accent
+373	-	wcirc	ISOlat2	small w, circumflex accent
+374	-	Ycirc	ISOlat2	capital Y, circumflex accent
+375	-	ycirc	ISOlat2	small y, circumflex accent
+376	HTML-40	Yuml	ISOlat2	capital Y, dieresis or umlaut mark
+377	-	Zacute	ISOlat2	capital Z, acute accent
+378	-	zacute	ISOlat2	small z, acute accent
+379	-	Zdot	ISOlat2	capital Z, dot above
+380	-	zdot	ISOlat2	small z, dot above
+381	-	Zcaron	ISOlat2	capital Z, caron
+382	-	zcaron	ISOlat2	small z, caron
+402	HTML-40	fnof	ISOtech	function of (italic small f), florian
+501	-	gacute	ISOlat2	small g, acute accent
+
+#	02
+
+603	-	varepsilon	:alias:	ISOgrk3 epsiv
+603	-	epsiv	ISOgrk3	varepsilon
+710	HTML-40	circ	ISOdia,ISOpub	modifier letter circumflex accent
+711	-	Hacek	:alias:	ISOdia caron
+711	-	caron	ISOdia	caron
+728	-	Breve	:alias:	ISOdia breve
+728	-	breve	ISOdia	breve
+729	-	DiacriticalDot	:alias:	ISOdia dot
+729	-	dot	ISOdia	dot above
+730	-	ring	ISOdia	ring
+731	-	ogon	ISOdia	ogonek
+732	-	DiacriticalTilde	:alias:	ISOdia tilde
+732	HTML-40	tilde	ISOdia	tilde
+733	-	DiacriticalDoubleAcute	:alias:	ISOdia dblac
+733	-	dblac	ISOdia	double acute accent
+
+#	03
+
+770	-	Hat	:alias:	circumflex accent (circ in ISOdia)
+785	-	DownBreve	Lextra	breve, inverted (non-spacing)
+818	-	UnderBar	Lextra	combining low line
+902	-	Aacgr	ISOgrk2	capital Alpha, accent, Greek
+904	-	Eacgr	ISOgrk2	capital Epsilon, accent, Greek
+905	-	EEacgr	ISOgrk2	capital Eta, accent, Greek
+906	-	Iacgr	ISOgrk2	capital Iota, accent, Greek
+908	-	Oacgr	ISOgrk2	capital Omicron, accent, Greek
+910	-	Uacgr	ISOgrk2	capital Upsilon, accent, Greek
+911	-	OHacgr	ISOgrk2	capital Omega, accent, Greek
+912	-	idiagr	ISOgrk2	small iota, dieresis, accent, Greek
+913	HTML-40	Alpha	:alias:	capital Alpha, Greek
+913	-	Agr	ISOgrk1	capital Alpha, Greek
+914	HTML-40	Beta	:alias:	capital Beta, Greek
+914	-	Bgr	ISOgrk1	capital Beta, Greek
+915	HTML-40	Gamma	ISOgrk3,:alias:	capital Gamma, Greek
+915	-	Ggr	ISOgrk1	capital Gamma, Greek
+916	HTML-40	Delta	ISOgrk3,:alias:	capital Delta, Greek
+916	-	Dgr	ISOgrk1	capital Delta, Greek
+917	HTML-40	Epsilon	:alias:	capital Epsilon, Greek
+917	-	Egr	ISOgrk1	capital Epsilon, Greek
+918	HTML-40	Zeta	:alias:	capital Zeta, Greek
+918	-	Zgr	ISOgrk1	capital Zeta, Greek
+919	HTML-40	Eta	ISOgrk1,:alias:	capital Eta, Greek
+919	-	EEgr	ISOgrk1	capital Eta, Greek
+920	HTML-40	Theta	ISOgrk3,:alias:	capital Theta, Greek
+920	-	THgr	ISOgrk1	capital Theta, Greek
+921	HTML-40	Iota	:alias:	capital Iota, Greek
+921	-	Igr	ISOgrk1	capital Iota, Greek
+922	HTML-40	Kappa	:alias:	capital Kappa, Greek
+922	-	Kgr	ISOgrk1	capital Kappa, Greek
+923	HTML-40	Lambda	ISOgrk3,:alias:	capital Lambda, Greek
+923	-	Lgr	ISOgrk1	capital Lambda, Greek
+924	HTML-40	Mu	:alias:	capital Mu, Greek
+924	-	Mgr	ISOgrk1	capital Mu, Greek
+925	HTML-40	Nu	:alias:	capital Nu, Greek
+925	-	Ngr	ISOgrk1	capital Nu, Greek
+926	HTML-40	Xi	ISOgrk3,:alias:	capital Xi, Greek
+926	-	Xgr	ISOgrk1	capital Xi, Greek
+927	HTML-40	Omicron	:alias:	capital Omicron, Greek
+927	-	Ogr	ISOgrk1	capital Omicron, Greek
+928	HTML-40	Pi	ISOgrk3,:alias:	capital Pi, Greek
+928	-	Pgr	ISOgrk1	capital Pi, Greek
+929	HTML-40	Rho	:alias:	capital Rho, Greek
+929	-	Rgr	ISOgrk1	capital Rho, Greek
+930	-	-	-	-
+931	HTML-40	Sigma	ISOgrk3,:alias:	capital Sigma, Greek
+931	-	Sgr	ISOgrk1	capital Sigma, Greek
+932	HTML-40	Tau	:alias:	capital Tau, Greek
+932	-	Tgr	ISOgrk1	capital Tau, Greek
+933	HTML-40	Upsilon	:alias:	capital Upsilon, Greek
+933	-	Ugr	ISOgrk1	capital Upsilon, Greek
+934	HTML-40	Phi	ISOgrk3,:alias:	capital Phi, Greek
+934	-	PHgr	ISOgrk1	capital Phi, Greek
+935	HTML-40	Chi	:alias:	capital Chi, Greek
+935	-	KHgr	ISOgrk1	capital Chi, Greek
+936	HTML-40	Psi	ISOgrk3,:alias:	capital Psi, Greek
+936	HTML-40	PSgr	ISOgrk1	capital Psi, Greek
+937	HTML-40	Omega	ISOgrk3,:alias:	capital Omega, Greek
+937	-	OHgr	ISOgrk1	capital Omega, Greek
+938	-	Idigr	ISOgrk2	capital Iota, dieresis, Greek
+939	-	Udigr	ISOgrk2	capital Upsilon, dieresis, Greek
+940	-	aacgr	ISOgrk2	small alpha, accent, Greek
+941	-	eacgr	ISOgrk2	small epsilon, accent, Greek
+942	-	eeacgr	ISOgrk2	small eta, accent, Greek
+943	-	iacgr	ISOgrk2	small iota, accent, Greek
+944	-	udiagr	ISOgrk2	small upsilon, dieresis, accent, Greek
+945	HTML-40	alpha	ISOgrk3,:alias:	small alpha, Greek
+945	-	agr	ISOgrk1	small alpha, Greek
+946	HTML-40	beta	ISOgrk3,:alias:	small beta, Greek
+946	-	bgr	ISOgrk1	small beta, Greek
+947	HTML-40	gamma	ISOgrk3,:alias:	small gamma, Greek
+947	-	ggr	ISOgrk1	small gamma, Greek
+948	HTML-40	delta	ISOgrk3,:alias:	small delta, Greek
+948	-	dgr	ISOgrk1	small delta, Greek
+949	-	epsi	ISOgrk3,:alias:	small epsilon, Greek
+949	HTML-40	epsilon	:alias:	small epsilon, Greek
+949	-	straightepsilon	:alias:	ISOgrk3 epsi
+949	-	egr	ISOgrk1	small epsilon, Greek
+950	-	zgr	ISOgrk1	small zeta, Greek
+950	HTML-40	zeta	ISOgrk3,:alias:	small zeta, Greek
+951	HTML-40	eta	ISOgrk3,:alias:	small eta, Greek
+951	-	eegr	ISOgrk1	small eta, Greek
+952	-	thgr	ISOgrk1	small theta, Greek
+952	HTML-40	theta	ISOgrk3,:alias:	straight theta, small theta, Greek
+953	HTML-40	iota	ISOgrk3,:alias:	small iota, Greek
+953	-	igr	ISOgrk1	small iota, Greek
+954	-	kgr	ISOgrk1	small kappa, Greek
+954	HTML-40	kappa	ISOgrk3,:alias:	small kappa, Greek
+955	-	lgr	ISOgrk1	small lambda, Greek
+955	HTML-40	lambda	ISOgrk3,:alias:	small lambda, Greek
+956	HTML-40	mu	ISOgrk3,:alias:	small mu, Greek
+956	-	mgr	ISOgrk1	small mu, Greek
+957	HTML-40	nu	ISOgrk3,:alias:	small nu, Greek
+957	-	ngr	ISOgrk1	small nu, Greek
+958	HTML-40	xi	ISOgrk3,:alias:	small xi, Greek
+958	-	xgr	ISOgrk1	small xi, Greek
+959	HTML-40	omicron	ISOgrk3,:alias:	small omicron, Greek
+959	-	ogr	ISOgrk1	small omicron, Greek
+960	HTML-40	pi	ISOgrk3,:alias:	small pi, Greek
+960	-	pgr	ISOgrk1	small pi, Greek
+961	HTML-40	rho	ISOgrk3,:alias:	small rho, Greek
+961	-	rgr	ISOgrk1	small rho, Greek
+962	-	sigmav	ISOgrk3,:alias:	varsigma
+962	-	varsigma	:alias:	ISOgrk3 sigmav
+962	HTML-40	sigmaf	:alias:	final sigma
+962	-	sfgr	ISOgrk1	final small sigma, Greek
+963	HTML-40	sigma	ISOgrk3,:alias:	small sigma, Greek
+963	-	sgr	ISOgrk1	small sigma, Greek
+964	HTML-40	tau	ISOgrk3,:alias:	small tau, Greek
+964	-	tgr	ISOgrk1	small tau, Greek
+965	-	upsi	ISOgrk3,:alias:	small upsilon, Greek
+965	-	ugr	ISOgrk1	small upsilon, Greek
+966	-	phgr	ISOgrk1	small phi, Greek
+965	HTML-40	upsilon	:alias:	ISOgrk3 upsi
+966	-	straightphi	:alias:	ISOgrk3 phi
+966	HTML-40	phi	ISOgrk3,:alias:	small phi, Greek
+967	-	khgr	ISOgrk1	small chi, Greek
+967	HTML-40	chi	ISOgrk3,:alias:	small chi, Greek
+968	HTML-40	psi	ISOgrk3,:alias:	small psi, Greek
+968	-	psgr	ISOgrk1	small psi, Greek
+969	HTML-40	omega	ISOgrk3,:alias:	small omega, Greek
+969	-	ohgr	ISOgrk1	small omega, Greek
+970	-	idigr	ISOgrk2	small iota, dieresis, Greek
+971	-	udigr	ISOgrk2	small upsilon, dieresis, Greek
+972	-	oacgr	ISOgrk2	small omicron, accent, Greek
+973	-	uacgr	ISOgrk2	small upsilon, accent, Greek
+974	-	ohacgr	ISOgrk2	small omega, accent, Greek
+977	-	vartheta	:alias:	ISOgrk3 thetav
+977	HTML-40	thetasym	:alias:	small theta symbol
+977	-	thetav	ISOgrk3	curly or open theta
+978	-	Upsi	ISOgrk3,:alias:	capital Upsilon, Greek
+978	-	Upsilon	:alias:	ISOgrk3 Upsi
+979	-	-	-	-
+980	-	-	-	-
+981	-	phiv	ISOgrk3,:alias:	curly or open phi
+981	-	varphi	:alias:	ISOgrk3 phiv
+982	-	varpi	:alias:	ISOgrk3 piv
+982	HTML-40	pi	:alias:	small pi, Greek
+982	-	piv	ISOgrk3	varpi
+988	-	digamma	:alias:	ISOgrk3 gammad
+988	-	gammad	ISOgrk3,:alias:	digamma
+988	-	Gammad	ISOgrk3	capital digamma
+1008	-	varkappa	:alias:	ISOgrk3 kappav
+1008	-	kappav	ISOgrk3	varkappa
+1009	-	varrho	:alias:	ISOgrk3 rhov
+1009	-	rhov	ISOgrk3	varrho
+
+#	04
+
+1025	-	IOcy	ISOcyr1	capital IO, Russian
+1026	-	DJcy	ISOcyr2	capital DJE, Serbian
+1027	-	GJcy	ISOcyr2	capital GJE Macedonian
+1028	-	Jukcy	ISOcyr2	capital JE, Ukrainian
+1029	-	DScy	ISOcyr2	capital DSE, Macedonian
+1030	-	Iukcy	ISOcyr2	capital I, Ukrainian
+1031	-	YIcy	ISOcyr2	capital YI, Ukrainian
+1032	-	Jsercy	ISOcyr2	capital JE, Serbian
+1033	-	LJcy	ISOcyr2	capital LJE, Serbian
+1034	-	NJcy	ISOcyr2	capital NJE, Serbian
+1035	-	TSHcy	ISOcyr2	capital TSHE, Serbian
+1036	-	KJcy	ISOcyr2	capital KJE, Macedonian
+1038	-	Ubrcy	ISOcyr2	capital U, Byelorussian
+1039	-	DZcy	ISOcyr2	capital dze, Serbian
+1040	-	Acy	ISOcyr1	capital A, Cyrillic
+1041	-	Bcy	ISOcyr1	capital BE, Cyrillic
+1042	-	Vcy	ISOcyr1	capital VE, Cyrillic
+1043	-	Gcy	ISOcyr1	capital GHE, Cyrillic
+1044	-	Dcy	ISOcyr1	capital DE, Cyrillic
+1045	-	IEcy	ISOcyr1	capital IE, Cyrillic
+1046	-	ZHcy	ISOcyr1	capital ZHE, Cyrillic
+1047	-	Zcy	ISOcyr1	capital ZE, Cyrillic
+1048	-	Icy	ISOcyr1	capital I, Cyrillic
+1049	-	Jcy	ISOcyr1	capital short I, Cyrillic
+1050	-	Kcy	ISOcyr1	capital KA, Cyrillic
+1051	-	Lcy	ISOcyr1	capital EL, Cyrillic
+1052	-	Mcy	ISOcyr1	capital EM, Cyrillic
+1053	-	Ncy	ISOcyr1	capital EN, Cyrillic
+1054	-	Ocy	ISOcyr1	capital O, Cyrillic
+1055	-	Pcy	ISOcyr1	capital PE, Cyrillic
+1056	-	Rcy	ISOcyr1	capital ER, Cyrillic
+1057	-	Scy	ISOcyr1	capital ES, Cyrillic
+1058	-	Tcy	ISOcyr1	capital TE, Cyrillic
+1059	-	Ucy	ISOcyr1	capital U, Cyrillic
+1060	-	Fcy	ISOcyr1	capital EF, Cyrillic
+1061	-	KHcy	ISOcyr1	capital HA, Cyrillic
+1062	-	TScy	ISOcyr1	capital TSE, Cyrillic
+1063	-	CHcy	ISOcyr1	capital CHE, Cyrillic
+1064	-	SHcy	ISOcyr1	capital SHA, Cyrillic
+1065	-	SHCHcy	ISOcyr1	capital SHCHA, Cyrillic
+1066	-	HARDcy	ISOcyr1	capital HARD sign, Cyrillic
+1067	-	Ycy	ISOcyr1	capital YERU, Cyrillic
+1068	-	SOFTcy	ISOcyr1	capital SOFT sign, Cyrillic
+1069	-	Ecy	ISOcyr1	capital E, Cyrillic
+1070	-	YUcy	ISOcyr1	capital YU, Cyrillic
+1071	-	YAcy	ISOcyr1	capital YA, Cyrillic
+1072	-	acy	ISOcyr1	small a, Cyrillic
+1073	-	bcy	ISOcyr1	small be, Cyrillic
+1074	-	vcy	ISOcyr1	small ve, Cyrillic
+1075	-	gcy	ISOcyr1	small ghe, Cyrillic
+1076	-	dcy	ISOcyr1	small de, Cyrillic
+1077	-	iecy	ISOcyr1	small ie, Cyrillic
+1078	-	zhcy	ISOcyr1	small zhe, Cyrillic
+1079	-	zcy	ISOcyr1	small ze, Cyrillic
+1080	-	icy	ISOcyr1	small i, Cyrillic
+1081	-	jcy	ISOcyr1	small short i, Cyrillic
+1082	-	kcy	ISOcyr1	small ka, Cyrillic
+1083	-	lcy	ISOcyr1	small el, Cyrillic
+1084	-	mcy	ISOcyr1	small em, Cyrillic
+1085	-	ncy	ISOcyr1	small en, Cyrillic
+1086	-	ocy	ISOcyr1	small o, Cyrillic
+1087	-	pcy	ISOcyr1	small pe, Cyrillic
+1088	-	rcy	ISOcyr1	small er, Cyrillic
+1089	-	scy	ISOcyr1	small es, Cyrillic
+1090	-	tcy	ISOcyr1	small te, Cyrillic
+1091	-	ucy	ISOcyr1	small u, Cyrillic
+1092	-	fcy	ISOcyr1	small ef, Cyrillic
+1093	-	khcy	ISOcyr1	small ha, Cyrillic
+1094	-	tscy	ISOcyr1	small tse, Cyrillic
+1095	-	chcy	ISOcyr1	small che, Cyrillic
+1096	-	shcy	ISOcyr1	small sha, Cyrillic
+1097	-	shchcy	ISOcyr1	small shcha, Cyrillic
+1098	-	hardcy	ISOcyr1	small hard sign, Cyrillic
+1099	-	ycy	ISOcyr1	small yeru, Cyrillic
+1100	-	softcy	ISOcyr1	small soft sign, Cyrillic
+1101	-	ecy	ISOcyr1	small e, Cyrillic
+1102	-	yucy	ISOcyr1	small yu, Cyrillic
+1103	-	yacy	ISOcyr1	small ya, Cyrillic
+1105	-	iocy	ISOcyr1	small io, Russian
+1106	-	djcy	ISOcyr2	small dje, Serbian
+1107	-	gjcy	ISOcyr2	small gje, Macedonian
+1108	-	jukcy	ISOcyr2	small je, Ukrainian
+1109	-	dscy	ISOcyr2	small dse, Macedonian
+1110	-	iukcy	ISOcyr2	small i, Ukrainian
+1111	-	yicy	ISOcyr2	small yi, Ukrainian
+1112	-	jsercy	ISOcyr2	small je, Serbian
+1113	-	ljcy	ISOcyr2	small lje, Serbian
+1114	-	njcy	ISOcyr2	small nje, Serbian
+1115	-	tshcy	ISOcyr2	small tshe, Serbian
+1116	-	kjcy	ISOcyr2	small kje Macedonian
+1118	-	ubrcy	ISOcyr2	small u, Byelorussian
+1119	-	dzcy	ISOcyr2	small dze, Serbian
+
+5760	-	-	-	ogham space mark
+6158	-	-	-	mongolian vowel separator
+
+#	20
+
+8192	-	-	-	en space (1/2-em)
+8193	-	-	-	em space
+8194	HTML-40	ensp	ISOpub	en space (1/2-em)
+8195	HTML-40	emsp	ISOpub	em space
+8196	-	emsp13	ISOpub	1/3-em space
+8197	-	emsp14	ISOpub	1/4-em space
+8198	-	emsp16	ISOpub	1/6-em space
+8199	-	numsp	ISOpub	digit space (width of a number)
+8199	-	-	:alias:	figure space
+8199	-	-	:alias:	tabular width space
+8200	-	puncsp	ISOpub	punctuation space (width of comma))
+8201	-	ThinSpace	:alias:	space of width 3/18 em (ISOpub thinsp
+8201	HTML-40	thinsp	ISOpub	thin space (1/6-em)
+8202	-	VeryThinSpace	:alias:	space of width 1/18 em (ISOpub hairsp)
+8202	-	hairsp	ISOpub	hair space
+8203	-	ZeroWidthSpace	Lextra	zero width space
+8204	HTML-40	zwnj	ISO8879	zero width non-joiner
+8205	HTML-40	zwj	ISO8879	zero width joiner
+8206	HTML-40	lrm	ISO8879	left-to-right mark
+8207	HTML-40	rlm	ISO8879	right-to-left mark
+8208	-	dash	ISOpub,:alias:	hyphen (true graphic)
+8208	-	hyphen	ISOnum,:alias:	hyphen
+8209	-	-	-	non breaking hyphen
+8211	HTML-40	ndash	ISOpub	en dash
+8212	HTML-40	mdash	ISOpub	em dash 
+8213	-	horbar	ISOnum	horizontal bar
+8214	-	Vert	:alias:	ISOtech Verbar
+8214	-	Verbar	ISOtech	double vertical bar
+8216	-	OpenCurlyQuote	:alias:	ISOnum lsquo
+8216	HTML-40	lsquo	ISOnum	single quotation mark, left
+8217	-	CloseCurlyQuote	:alias:	ISOnum rsquo
+8217	-	rsquor	ISOpub,:alias:	rising single quote, right (high)
+8217	HTML-40	rsquo	ISOnum	single quotation mark, right
+8218	HTML-40	lsquor	ISOpub	rising single quote, left (low)
+8220	-	OpenCurlyDoubleQuote	:alias:	ISOnum ldquo
+8220	HTML-40	ldquo	ISOnum	double quotation mark, left
+8221	-	CloseCurlyDoubleQuote	:alias:	ISOnum rdquo
+8221	-	rdquor	ISOpub,:alias:	rising double quote, right (high)
+8221	HTML-40	rdquo	ISOnum	double quotation mark, right
+8222	HTML-40	bdquo	ISO8879,:alias:	double low-9 quotation mark
+8222	-	ldquor	ISOpub	rising double quote, left (low)
+8223	-	-	ISOpub	rising double quote, left (high)
+8224	-	dagger	ISOamsb,:alias:	dagger relation
+8224	HTML-40	dagger	ISOpub	dagger
+8225	-	Dagger	ISOamsb,:alias:	double dagger relation
+8225	-	ddagger	:alias:	ISOpub Dagger
+8225	HTML-40	Dagger	ISOpub	double dagger
+8226	-	bullet	:alias:	ISOpub bull
+8226	HTML-40	bull	ISOpub	round bullet, filled
+8229	-	nldr	ISOpub	double baseline dot (en leader)
+8230	HTML-40	hellip	ISOpub	ellipsis (horizontal)
+8230	-	mldr	ISOpub	em leader
+8239	-	-	-	narrower than NO-BREAK SPACE
+8240	HTML-40	permil	ISOtech	per thousand
+8241	-	pertenk	ISOtech	per 10 thousand
+8242	HTML-40	prime	ISOtech	prime prime or minute
+8243	HTML-40	Prime	ISOtech	double prime or second
+8244	-	tprime	ISOtech	triple prime
+8245	-	backprime	:alias:	ISOamso bprime
+8245	-	bprime	ISOamso	backprime - reverse prime
+8249	HTML-40	lsaquo	ISOprop	single left-pointing angle quotation mark
+8250	HTML-40	ssaquo	ISOprop	single right-pointing angle quotation mark
+8254	HTML-40	oline	ISO8879	overline; spacing overscore
+8257	-	caret	ISOpub	caret (insertion mark)
+8259	-	hybull	ISOpub	rectangle, filled (hyphen bullet)
+8260	HTML-40	frasl	ISO8879	fraction slashfraction slash
+8287	-	-	-	4/18-em space (medium mathematical space)
+8288	-	-	-	word joiner
+8364	HTML-40	euro	ISO8879	euro sign
+8411	-	TripleDot	:alias:	ISOtech tdot
+8411	-	tdot	ISOtech	three dots above
+8412	-	DotDot	ISOtech	four dots above
+
+#	21
+
+8450	-	Copf	ISOmopf	Bbb C, open face C
+8451	-	-	-	degrees Celsius
+8453	-	incare	ISOpub	in-care-of symbol
+8457	-	-	-	degrees Fahrenheit
+8459	-	Hscr	ISOmscr	script letter H
+8459	-	hamilt	ISOtech,:alias:	Hamiltonian (ISOmscr Hscr)
+8460	-	Hfr	ISOmfrk	/frak H, upper case h
+8463	-	hslash	:alias:	ISOamso plankv
+8463	-	plankv	ISOamso	variant Planck's over 2pi
+8464	-	Iscr	ISOmscr	script letter I
+8465	-	Ifr	ISOmfrk,:alias:	/frak I, upper case h, (ISOmscr Iscr)
+8465	-	Im	:alias:	ISOamso image
+8465	HTML-40	image	ISOamso	imaginary
+8466	-	lagran	ISOtech,:alias:	Lagrangian (ISOmscr Lscr) 
+8466	-	Lscr	ISOmscr	script letter L
+8467	-	ell	ISOamso	cursive small l
+8469	-	Nopf	ISOmopf	Bbb N, open face N
+8470	-	numero	ISOcyr1	numero sign
+8471	-	copysr	ISOpub	sound recording copyright sign
+8472	-	wp	:alias:	ISOamso weierp
+8472	HTML-40	weierp	ISOamso	Weierstrass p
+8473	-	Popf	ISOmopf	Bbb P, open face P
+8474	-	Qopf	ISOmopf	Bbb Q, open face Q
+8476	-	Re	:alias:	ISOamso real
+8476	-	Rfr	ISOmfrk,:alias:	/frak R, upper case r
+8476	HTML-40	real	ISOamso	real
+8477	-	Ropf	ISOmopf	Bbb R, open face R
+8478	-	rx	ISOpub	pharmaceutical prescription (Rx)
+8482	HTML-40	trade	ISOnum	trade mark sign
+8484	-	Zopf	ISOmopf	Bbb Z, open face Z
+8486	-	ohm	ISOnum	ohm sign
+8487	-	mho	ISOamso	Siemens; conductance
+8489	-	iiota	ISOamso	inverted iota
+8490	-	-	-	Kelvin
+8491	-	angst	ISOtech	Angstrom capital A, ring
+8492	-	bernou	ISOtech,:alias:	Bernoulli function (ISOmscr Bscr) 
+8492	-	Bscr	ISOmscr	script letter B
+8495	-	escr	ISOmscr	script letter e
+8496	-	Escr	ISOmscr	script letter E
+8497	-	Fscr	ISOmscr	script letter F
+8499	-	phmmat	ISOtech,:alias:	physics M-matrix (ISOmscr Mscr) 
+8499	-	Mscr	ISOmscr	script letter M
+8500	-	order	ISOtech,:alias:	order of (ISOmscr oscr) 
+8500	-	oscr	ISOmscr	script letter o
+8501	HTML-40	aleph	ISOtech	aleph, Hebrew
+8502	-	beth	ISOamso	beth, Hebrew
+8503	-	gimel	ISOamso	gimel, Hebrew
+8504	-	daleth	ISOamso	daleth, Hebrew
+8531	-	frac13	ISOpub	fraction one-third
+8532	-	frac23	ISOpub	fraction two-thirds
+8533	-	frac15	ISOpub	fraction one-fifth
+8534	-	frac25	ISOpub	fraction two-fifths
+8535	-	frac35	ISOpub	fraction three-fifths
+8536	-	frac45	ISOpub	fraction four-fifths
+8537	-	frac16	ISOpub	fraction one-sixth
+8538	-	frac56	ISOpub	fraction five-sixths
+8539	-	frac18	ISOnum	fraction one-eighth
+8540	-	frac38	ISOnum	fraction three-eighths
+8541	-	frac58	ISOnum	fraction five-eighths
+8542	-	frac78	ISOnum	fraction seven-eighths
+8592	-	LeftArrow	:alias:	ISOnum larr
+8592	-	leftarrow	:alias:	ISOnum larr
+8592	HTML-40	larr	ISOnum	leftward arrow
+8593	-	UpArrow	:alias:	ISOnum uarr
+8593	-	uparrow	:alias:	ISOnum uarr
+8593	HTML-40	uarr	ISOnum	upward arrow
+8594	-	RightArrow	:alias:	ISOnum rarr
+8594	-	rightarrow	:alias:	ISOnum rarr
+8594	HTML-40	rarr	ISOnum	rightward arrow
+8595	-	DownArrow	:alias:	ISOnum darr
+8595	-	downarrow	:alias:	ISOnum darr
+8595	HTML-40	darr	ISOnum	downward arrow
+8596	-	LeftRightArrow	:alias:	ISOamsa harr
+8596	-	leftrightarrow	:alias:	ISOamsa harr
+8596	HTML-40	harr	ISOamsa	left and right arrow
+8597	-	UpDownArrow	:alias:	ISOamsa varr
+8597	-	updownarrow	:alias:	ISOamsa varr
+8597	-	varr	ISOamsa	up and down arrow
+8598	-	UpperLeftArrow	:alias:	ISOamsa nwarr
+8598	-	nwarrow	:alias:	ISOamsa nwarr
+8598	-	nwarr	ISOamsa	NW pointing arrow
+8599	-	UpperRightArrow	:alias:	ISOamsa nearr
+8599	-	nearrow	:alias:	ISOamsa nearr
+8599	-	nearr	ISOamsa	NE pointing arrow
+8600	-	LowerRightArrow	:alias:	ISOamsa searr
+8600	-	searrow	:alias:	ISOamsa searr
+8600	-	searr	ISOamsa	SE pointing arrow
+8601	-	LowerLeftArrow	:alias:	ISOamsa swarr
+8601	-	swarrow	:alias:	ISOamsa swarr
+8601	-	swarr	ISOamsa	SW pointing arrow
+8602	-	nleftarrow	:alias:	ISOamsa nlarr
+8602	-	nlarr	ISOamsa	not left arrow
+8603	-	nrightarrow	:alias:	ISOamsa nrarr
+8603	-	nrarr	ISOamsa	not right arrow
+8606	-	twoheadleftarrow	:alias:	ISOamsa Larr
+8606	-	Larr	ISOamsa	two head leftarrow
+8607	-	Uarr	ISOamsa	up two-headed arrow
+8608	-	twoheadrightarrow	:alias:	ISOamsa Rarr
+8608	-	Rarr	ISOamsa	two head right arrow
+8609	-	Darr	ISOamsa	down two-headed arrow
+8610	-	leftarrowtail	:alias:	ISOamsa larrtl
+8610	-	larrtl	ISOamsa	left arrow-tailed
+8611	-	ratail	ISOamsa	right arrow-tail
+8611	-	rightarrowtail	:alias:	ISOamsa rarrtl
+8611	-	rarrtl	ISOamsa	rioght arrow-tailed
+8612	-	LeftTeeArrow	Lextra,:alias:	for mapstoleft
+8612	-	mapstoleft	Lextra	leftwards arrow from bar
+8613	-	UpTeeArrow	Lextra,:alias:	mapstoup
+8613	-	mapstoup	Lextra	upwards arrow from bar
+8614	-	RightTeeArrow	:alias:	ISOamsa map
+8614	-	mapsto	:alias:	ISOamsa map
+8614	-	map	ISOamsa	maps to
+8615	-	DownTeeArrow	Lextra,:alias:	mmlextra mapstodown
+8615	-	mapstodown	Lextra	downwards arrow from bar
+8617	-	hookleftarrow	:alias:	ISOamsa larrhk
+8617	-	larrhk	ISOamsa	left arrow-hooked
+8618	-	hookrightarrow	:alias:	ISOamsa rarrhk
+8618	-	rarrhk	ISOamsa	right arrow-hooked
+8619	-	looparrowleft	:alias:	ISOamsa larrlp
+8619	-	larrlp	ISOamsa	left arrow-looped
+8620	-	looparrowright	:alias:	ISOamsa rarrlp
+8620	-	rarrlp	ISOamsa	right arrow-looped
+8621	-	leftrightsquigarrow	:alias:	ISOamsa harrw
+8621	-	harrw	ISOamsa	left and right arr-wavy
+8622	-	nleftrightarrow	:alias:	ISOamsa nharr
+8622	-	nharr	ISOamsa	not left and right arrow
+8624	-	Lsh	:alias:	ISOamsa lsh
+8624	-	lsh	ISOamsa	Lsh
+8625	-	Rsh	:alias:	ISOamsa rsh
+8625	-	rsh	ISOamsa	Rsh
+8626	-	ldsh	ISOamsa	left down angled arrow
+8627	-	rdsh	ISOamsa	right down angled arrow
+8629	HTML-40	crarr	ISO8879	downwards arrow with corner leftwards (carriage return)
+8630	-	cularr	ISOamsa	left curved arrow
+8630	-	curvearrowleft	:alias:	ISOamsa cularr
+8631	-	curvearrowright	:alias:	ISOamsa curarr
+8631	-	curarr	ISOamsa	right curved arrow
+8634	-	circlearrowleft	:alias:	ISOamsa olarr
+8634	-	olarr	ISOamsa	left arrow in circle
+8635	-	circlearrowright	:alias:	ISOamsa orarr
+8635	-	orarr	ISOamsa	right arrow in circle
+8636	-	LeftVector	:alias:	ISOamsa lharu
+8636	-	leftharpoonup	:alias:	ISOamsa lharu
+8636	-	lharu	ISOamsa	left harpoon-up
+8637	-	DownLeftVector	:alias:	ISOamsa lhard
+8637	-	leftharpoondown	:alias:	ISOamsa lhard
+8637	-	lhard	ISOamsa	left harpoon-down
+8638	-	RightUpVector	:alias:	ISOamsa uharr
+8638	-	upharpoonright	:alias:	ISOamsa uharr
+8638	-	uharr	ISOamsa	up harpoon-right
+8639	-	LeftUpVector	:alias:	ISOamsa uharl
+8639	-	upharpoonleft	:alias:	ISOamsa uharl
+8639	-	uharl	ISOamsa	up harpoon-left
+8640	-	RightVector	:alias:	ISOamsa rharu
+8640	-	rightharpoonup	:alias:	ISOamsa rharu
+8640	-	rharu	ISOamsa	right harpoon-up
+8641	-	DownRightVector	:alias:	ISOamsa rhard
+8641	-	rightharpoondown	:alias:	ISOamsa rhard
+8641	-	rhard	ISOamsa	right harpoon-down
+8642	-	RightDownVector	:alias:	ISOamsa dharr
+8642	-	downharpoonright	:alias:	ISOamsa dharr
+8642	-	dharr	ISOamsa	down harpoon-right
+8643	-	LeftDownVector	:alias:	ISOamsa dharl
+8643	-	downharpoonleft	:alias:	ISOamsa dharl
+8643	-	dharl	ISOamsa	down harpoon-left
+8644	-	RightArrowLeftArrow	:alias:	ISOamsa rlarr
+8644	-	rightleftarrows	:alias:	ISOamsa rlarr
+8644	-	rlarr	ISOamsa	right arrow over left arrow
+8645	-	UpArrowDownArrow	:alias:	ISOamsa udarr
+8645	-	udarr	ISOamsa	up arrow, down arrow
+8646	-	LeftArrowRightArrow	:alias:	ISOamsa lrarr
+8646	-	leftrightarrows	:alias:	ISOamsa lrarr
+8646	-	lrarr	ISOamsa	left arrow over right arrow
+8647	-	leftleftarrows	:alias:	ISOamsa llarr
+8647	-	llarr	ISOamsa	two left arrows
+8648	-	upuparrows	:alias:	ISOamsa uuarr
+8648	-	uuarr	ISOamsa	two up arrows
+8649	-	rightrightarrows	:alias:	ISOamsa rrarr
+8649	-	rrarr	ISOamsa	two right arrows
+8650	-	downdownarrows	:alias:	ISOamsa ddarr
+8650	-	ddarr	ISOamsa	two down arrows
+8651	-	ReverseEquilibrium	:alias:	ISOamsa lrhar
+8651	-	leftrightharpoons	:alias:	ISOamsa lrhar
+8651	-	lrhar	ISOamsa	left harp over right
+8652	-	Equilibrium	:alias:	ISOamsa rlhar
+8652	-	rightleftharpoons	:alias:	ISOamsa rlhar
+8652	-	rlhar	ISOamsa	right harp over left eft
+8653	-	nLeftarrow	:alias:	ISOamsa nlArr
+8653	-	nlArr	ISOamsa,:alias:	nLeftarrow; not implied by
+8653	-	nvlArr	ISOamsa	not, vert, left double arrow
+8654	-	nLeftrightarrow	:alias:	ISOamsa nhArr
+8654	-	nhArr	ISOamsa,:alias:	nLeftrightarrow; not left and right double arrow
+8654	-	nvHarr	ISOamsa	not, vert, left and right double arrow 
+8655	-	nRightarrow	:alias:	ISOamsa nrArr
+8655	-	nrArr	ISOamsa,:alias:	nRightarrow; not implies
+8655	-	nvrArr	ISOamsa	not, vert, right double arrow
+8656	-	DoubleLeftArrow	:alias:	ISOtech lArr
+8656	-	Leftarrow	:alias:	ISOtech lArr
+8656	HTML-40	lArr	ISOtech	Leftarrow; is implied by
+8657	-	DoubleUpArrow	:alias:	ISOamsa uArr
+8657	-	Uparrow	:alias:	ISOamsa uArr
+8657	HTML-40	uArr	ISOamsa	up double arrow
+8658	-	DoubleRightArrow	:alias:	ISOtech rArr
+8658	-	Implies	:alias:	ISOtech rArr
+8658	-	Rightarrow	:alias:	ISOtech rArr
+8658	HTML-40	rArr	ISOtech	Rightarrow implies
+8659	-	DoubleDownArrow	:alias:	ISOamsa dArr
+8659	-	Downarrow	:alias:	ISOamsa dArr
+8659	HTML-40	dArr	ISOamsa	down double arrow
+8660	-	DoubleLeftRightArrow	:alias:	ISOamsa hArr
+8660	-	Leftrightarrow	:alias:	ISOamsa hArr
+8660	HTML-40	hArr	ISOamsa	left and right double arrow
+8661	-	DoubleUpDownArrow	:alias:	ISOamsa vArr
+8661	-	Updownarrow	:alias:	ISOamsa vArr
+8661	-	vArr	ISOamsa	up and down double arrow
+8662	-	nwArr	ISOamsa	NW pointing double arrow
+8663	-	neArr	ISOamsa	NE pointing double arrow
+8664	-	seArr	ISOamsa	SE pointing double arrow
+8665	-	swArr	ISOamsa	SW pointing double arrow
+8666	-	Lleftarrow	:alias:	ISOamsa lAarr
+8666	-	lAarr	ISOamsa	left triple arrow
+8667	-	Rrightarrow	:alias:	ISOamsa rAarr
+8667	-	rAarr	ISOamsa	right triple arrow
+8669	-	dzigrarr	ISOamsa,:alias:	right long zig-zag arrow
+8669	-	rightsquigarrow	:alias:	ISOamsa rarrw
+8669	-	rarrw	ISOamsa	rightsquigarrow; right arrow-wavy
+8676	-	LeftArrowBar	Lextra,:alias:	mmlextra larrb
+8676	-	larrb	Lextra	leftwards arrow to bar
+8677	-	RightArrowBar	Lextra,:alias:	mmlextra rarrb
+8677	-	rarrb	Lextra	leftwards arrow to bar
+
+#	22
+
+8704	-	ForAll	:alias:	ISOtech forall
+8704	HTML-40	forall	ISOtech	for all
+8705	-	complement	:alias:	ISOamso comp
+8705	-	comp	ISOamso	complement sign
+8706	-	PartialD	:alias:	ISOtech part
+8706	HTML-40	part	ISOtech	partial differential
+8707	-	Exists	:alias:	ISOtech exist
+8707	HTML-40	exist	ISOtech	at least one exists
+8708	-	NotExists	:alias:	ISOamso nexist
+8708	-	nexists	:alias:	ISOamso nexist
+8708	-	nexist	ISOamso	negated exists
+8709	-	varnothing	:alias:	ISOamso emptyv
+8709	HTML-40	empty	:alias:	empty set; null set; diameter
+8709	-	emptyv	ISOamso	circle, slash
+8711	-	Del	:alias:	ISOtech nabla
+8711	HTML-40	nabla	ISOtech	del, Hamilton operator
+8712	-	Element	:alias:	ISOtech isinv
+8712	-	in	:alias:	ISOtech isin 
+8712	-	isinv	ISOtech,:alias:	set membership, variant
+8712	HTML-40	isin	ISOtech	in; set membership 
+8713	-	NotElement	:alias:	ISOtech notin
+8713	HTML-40	notin	ISOtech	notin; negated set membership
+8715	-	ReverseElement	:alias:	ISOtech niv
+8715	-	SuchThat	:alias:	ISOtech ni
+8715	-	niv	ISOtech,:alias:	contains, variant
+8715	HTML-40	ni	ISOtech	owns; contains
+8716	-	NotReverseElement	:alias:	ISOtech notniva
+8716	-	notniva	ISOtech,:alias:	negated contains, variant
+8716	-	notni	ISOtech	negated contains
+8719	-	Product	Lextra,:alias:	prod
+8719	HTML-40	prod	ISOamsb	product operator
+8720	-	Coproduct	:alias:	ISOamsb coprod
+8720	-	coprod	ISOamsb	coproduct operator
+8721	-	Sum	:alias:	ISOamsb sum
+8721	-	sum	ISOamsb	summation operator
+8722	HTML-40	minus	ISOtech	minus sign
+8723	-	MinusPlus	:alias:	ISOtech mnplus
+8723	-	mp	:alias:	ISOtech mnplus
+8723	-	mnplus	ISOtech	minus-or-plus sign
+8724	-	dotplus	:alias:	ISOamsb plusdo
+8724	-	plusdo	ISOamsb	dotplus; plus sign, dot above
+8725	-	-	-	division slash
+8726	-	Backslash	:alias:	ISOamsb setmn
+8726	-	setminus	:alias:	ISOamsb setmn
+8726	-	setmn	ISOamsb	reverse solidus
+8727	HTML-40	lowast	ISOtech	low asterisk
+8728	-	SmallCircle	:alias:	ISOtech compfn
+8728	-	compfn	ISOtech	composite function (small circle)
+8730	-	Sqrt	:alias:	ISOtech radic
+8730	HTML-40	radic	ISOtech	surd radical
+8733	-	Proportional	:alias:	ISOtech prop
+8733	-	propto	:alias:	ISOtech prop
+8733	-	varpropto	:alias:	ISOamsr vprop
+8733	-	vprop	ISOamsr,:alias:	proportional, variant
+8733	HTML-40	prop	ISOtech	is proportional to
+8734	HTML-40	infin	ISOtech	infinity
+8735	-	angrt	ISOtech	right (90 degree) angle
+8736	-	angle	:alias:	ISOamso ang
+8736	HTML-40	ang	ISOamso	angle
+8737	-	measuredangle	:alias:	ISOamso angmsd
+8737	-	angmsd	ISOamso	angle-measured
+8738	-	angsph	ISOtech	angle-spherical
+8739	-	VerticalBar	:alias:	ISOamsr mid
+8739	-	mid	ISOamsr	mid
+8740	-	NotVerticalBar	:alias:	ISOamsn nmid
+8740	-	nmid	ISOamsn	nmid
+8741	-	DoubleVerticalBar	:alias:	ISOtech par
+8741	-	parallel	:alias:	ISOtech par
+8741	-	par	ISOtech	parallel
+8742	-	NotDoubleVerticalBar	:alias:	ISOamsn npar
+8742	-	nparallel	:alias:	ISOamsn npar
+8742	-	npar	ISOamsn	not parallel
+8743	-	wedge	:alias:	ISOtech and
+8743	HTML-40	and	ISOtech	logical and
+8744	-	vee	:alias:	ISOtech or
+8744	HTML-40	or	ISOtech	logical or
+8745	HTML-40	cap	ISOtech	intersection
+8746	HTML-40	cup	ISOtech	union or logical sum
+8747	-	Integral	:alias:	ISOtech int
+8747	HTML-40	int	ISOtech	integral operator
+8748	-	Int	ISOtech	double integral operator
+8749	-	iiint	:alias:	ISOtech tint
+8749	-	tint	ISOtech	integral operator
+8750	-	ContourIntegral	:alias:	ISOtech conint
+8750	-	oint	:alias:	ISOtech conint
+8750	-	conint	ISOtech	contour integral operator
+8751	-	DoubleContourIntegral	:alias:	ISOtech Conint
+8751	-	Conint	ISOtech	double contour integral operator
+8752	-	Cconint	ISOtech	triple contour integral operator
+8753	-	cwint	ISOtech	clockwise integral
+8754	-	ClockwiseContourIntegral	:alias:	ISOtech cwconint
+8754	-	cwconint	ISOtech	contour integral, clockwise
+8755	-	CounterClockwiseContourIntegral	:alias:	ISOtech awconint
+8755	-	awconint	ISOtech	contour integral, anti-clockwise
+8756	-	Therefore	:alias:	ISOtech there4
+8756	-	therefore	:alias:	ISOtech there4
+8756	HTML-40	there4	ISOtech	therefore
+8757	-	Because	:alias:	ISOtech becaus
+8757	-	because	:alias:	ISOtech becaus
+8757	-	becaus	ISOtech	because
+8758	-	ratio	ISOamsr	ratio
+8759	-	Proportion	:alias:	ISOamsr Colon
+8759	-	Colon	ISOamsr	two colons
+8760	-	dotminus	:alias:	ISOamsb minusd
+8760	-	minusd	ISOamsb	dotminus; minus sign, dot above
+8762	-	mDDot	ISOamsr	minus with four dots, geometric properties
+8763	-	homtht	ISOamsr	homothetic
+8764	-	Tilde	:alias:	ISOtech sim
+8764	HTML-40	sim	ISOtech	similar
+8765	-	backsim	:alias:	ISOamsr bsim
+8765	-	bsim	ISOamsr	reverse similar
+8766	-	mstpos	ISOamsr	most positive
+8768	-	VerticalTilde	:alias:	ISOamsb wreath
+8768	-	wr	:alias:	ISOamsb wreath
+8768	-	wreath	ISOamsb	wreath product
+8769	-	NotTilde	:alias:	ISOamsn nsim
+8769	-	nsim	ISOamsn	not similar
+8770	-	EqualTilde	:alias:	ISOamsr esim
+8770	-	eqsim	:alias:	ISOamsr esim
+8770	-	esim	ISOamsr	equals, similar
+8771	-	TildeEqual	:alias:	ISOtech sime
+8771	-	simeq	:alias:	ISOtech sime
+8771	-	sime	ISOtech	similar, equals
+8772	-	NotTildeEqual	:alias:	ISOamsn nsime
+8772	-	nsimeq	:alias:	ISOamsn nsime
+8772	-	nsime	ISOamsn	not similar, equals
+8773	-	TildeFullEqual	:alias:	ISOtech cong
+8773	HTML-40	cong	ISOtech	congruent with
+8774	-	simne	ISOamsn	similar, not equals
+8775	-	NotTildeFullEqual	:alias:	ISOamsn ncong
+8775	-	ncong	ISOamsn	not congruent with
+8776	-	TildeTilde	:alias:	ISOtech ap
+8776	-	approx	:alias:	ISOtech ap
+8776	HTML-40	asymp	:alias:	almost equal to; asymptotic to
+8776	-	ap	ISOtech	approximate
+8777	-	NotTildeTilde	:alias:	ISOamsn nap
+8777	-	napprox	:alias:	ISOamsn nap
+8777	-	nap	ISOamsn	not approximate
+8778	-	apE	ISOamsr,:alias:	approximately equal or equal to
+8778	-	approxeq	:alias:	ISOamsr ape
+8778	-	ape	ISOamsr	approximate, equals
+8779	-	apid	ISOamsr	approximately identical to
+8780	-	backcong	:alias:	ISOamsr bcong
+8780	-	bcong	ISOamsr	reverse congruent
+8781	-	CupCap	:alias:	ISOamsr asymp
+8781	-	asymp	ISOamsr	asymptotically equal to
+8782	-	Bumpeq	:alias:	ISOamsr bump
+8782	-	HumpDownHump	:alias:	ISOamsr bump
+8782	-	bump	ISOamsr	bumpy equals
+8783	-	HumpEqual	:alias:	ISOamsr bumpe
+8783	-	bumpeq	:alias:	ISOamsr bumpe
+8783	-	bumpe	ISOamsr	bumpy equals, equals
+8784	-	DotEqual	:alias:	ISOamsr esdot
+8784	-	doteq	:alias:	ISOamsr esdot
+8784	-	esdot	ISOamsr	equals, single dot above
+8785	-	doteqdot	:alias:	ISOamsr eDot
+8785	-	eDot	ISOamsr	eq, even dots
+8786	-	fallingdotseq	:alias:	ISOamsr efDot
+8786	-	efDot	ISOamsr	eq, falling dots
+8787	-	risingdotseq	:alias:	ISOamsr erDot
+8787	-	erDot	ISOamsr	eq, rising dots
+8788	-	coloneq	:alias:	ISOamsr colone
+8788	-	colone	ISOamsr	colon, equals
+8789	-	eqcolon	:alias:	ISOamsr ecolon
+8789	-	ecolon	ISOamsr	equals, colon
+8790	-	eqcirc	:alias:	ISOamsr ecir
+8790	-	ecir	ISOamsr	circle on equals sign
+8791	-	circeq	:alias:	ISOamsr cire
+8791	-	cire	ISOamsr	circle, equals
+8793	-	wedgeq	ISOtech	corresponds to (wedge, equals)
+8794	-	veeeq	ISOtech	logical or, equals
+8795	-	easter	ISOamsr	equal, asterisk above
+8796	-	triangleq	:alias:	ISOamsr trie
+8796	-	trie	ISOamsr	triangle, equals
+8799	-	questeq	:alias:	ISOamsr equest
+8799	-	equest	ISOamsr	equal with questionmark
+8800	-	NotEqual	:alias:	ISOtech ne
+8800	HTML-40	ne	ISOtech	neq; not equal
+8801	-	Congruent	:alias:	ISOtech equiv
+8801	HTML-40	equiv	ISOtech	identical with
+8802	-	NotCongruent	:alias:	ISOamsn nequiv
+8802	-	nequiv	ISOamsn	not identical with
+8804	-	leq	:alias:	ISOtech le
+8804	HTML-40	le	ISOtech	less-than-or-equal
+8805	-	GreaterEqual	:alias:	ISOtech ge
+8805	-	geq	:alias:	ISOtech ge
+8805	HTML-40	ge	ISOtech	greater-than-or-equal
+8806	-	LessFullEqual	:alias:	ISOamsr lE
+8806	-	leqq	:alias:	ISOamsr lE
+8806	-	lE	ISOamsr	less, double equals
+8807	-	GreaterFullEqual	:alias:	ISOamsr gE
+8807	-	geqq	:alias:	ISOamsr gE
+8807	-	gE	ISOamsr	greater, double equals
+8808	-	lnE	ISOamsn,:alias:	less, not double equals
+8808	-	lneq	:alias:	ISOamsn lne
+8808	-	lneqq	:alias:	ISOamsn lnE
+8808	-	lne	ISOamsn	less, not equals
+8809	-	gnE	ISOamsn,:alias:	greater, not double equals
+8809	-	gneq	:alias:	ISOamsn gne
+8809	-	gneqq	:alias:	ISOamsn gnE
+8809	-	gne	ISOamsn	greater, not equals
+8810	-	NestedLessLess	:alias:	ISOamsr Lt
+8810	-	ll	:alias:	ISOamsr Lt
+8810	-	Lt	ISOamsr	double less-than sign
+8811	-	NestedGreaterGreater	:alias:	ISOamsr Gt
+8811	-	gg	:alias:	ISOamsr Gt
+8811	-	Gt	ISOamsr	double greater-than sign
+8812	-	between	:alias:	ISOamsr twixt
+8812	-	twixt	ISOamsr	between
+8813	-	NotCupCap	Lextra,:alias:	mmlextra nasymp
+8814	-	NotLess	:alias:	ISOamsn nlt
+8814	-	nless	:alias:	ISOamsn nlt
+8814	-	nlt	ISOamsn,:alias:	not less-than
+8814	-	nvlt	ISOamsn	not, vert, less-than
+8815	-	NotGreater	:alias:	ISOamsn ngt
+8815	-	ngtr	:alias:	ISOamsn ngt
+8815	-	ngt	ISOamsn,:alias:	not greater-than
+8815	-	nvgt	ISOamsn	not, vert, greater-than
+8816	-	NotGreaterFullEqual	:alias:	ISOamsn nlE
+8816	-	NotLessSlantEqual	:alias:	ISOamsn nles
+8816	-	nleqq	:alias:	ISOamsn nlE
+8816	-	nleqslant	:alias:	ISOamsn nles
+8816	-	nlE	ISOamsn,:alias:	not less, double equals
+8816	-	nles	ISOamsn,:alias:	not less-or-eq, slant
+8816	-	nvle	ISOamsn	not, vert, less-than-or-equal
+8817	-	NotGreaterSlantEqual	:alias:	ISOamsn nges
+8817	-	ngE	ISOamsn,:alias:	not greater, double equals
+8817	-	ngeqq	:alias:	ISOamsn ngE
+8817	-	ngeqslant	:alias:	ISOamsn nges
+8817	-	nges	ISOamsn,:alias:	not gt-or-eq, slanted
+8817	-	nvge	ISOamsn	not, vert, greater-than-or-equal
+8818	-	LessTilde	:alias:	ISOamsr lsim
+8818	-	lap	ISOamsr,:alias:	less, approximate
+8818	-	lessapprox	:alias:	ISOamsr lap
+8818	-	lesssim	:alias:	ISOamsr lsim
+8818	-	lsim	ISOamsr	less, similar
+8819	-	GreaterTilde	:alias:	ISOamsr gsim
+8819	-	gap	ISOamsr,:alias:	greater, approximate
+8819	-	gtrapprox	:alias:	ISOamsr gap
+8819	-	gtrsim	:alias:	ISOamsr gsim
+8819	-	gsim	ISOamsr	greater, similar
+8820	-	NotLessTilde	:alias:	ISOamsn nlsim
+8820	-	nlsim	ISOamsn	not less, similar
+8821	-	NotGreaterTilde	:alias:	ISOamsn ngsim
+8821	-	ngsim	ISOamsn	not greater, similar
+8822	-	LessGreater	:alias:	ISOamsr lg
+8822	-	lessgtr	:alias:	ISOamsr lg
+8822	-	lg	ISOamsr	less, greater
+8823	-	GreaterLess	:alias:	ISOamsr gl
+8823	-	gtrless	:alias:	ISOamsr gl
+8823	-	gl	ISOamsr	greater, less
+8824	-	NotLessGreater	:alias:	ISOamsn ntvlg
+8824	-	ntlg	ISOamsn	not less, greater
+8825	-	NotGreaterLess	:alias:	ISOamsn ntvgl
+8825	-	ntgl	ISOamsn	not greater, less
+8826	-	Precedes	:alias:	ISOamsr pr
+8826	-	prec	:alias:	ISOamsr pr
+8826	-	pr	ISOamsr	precedes
+8827	-	Succeeds	:alias:	ISOamsr sc
+8827	-	succ	:alias:	ISOamsr sc
+8827	-	sc	ISOamsr	succeeds
+8828	-	PrecedesSlantEqual	:alias:	ISOamsr prcue
+8828	-	preccurlyeq	:alias:	ISOamsr prcue
+8828	-	prcue	ISOamsr	precedes, curly eq
+8829	-	SucceedsEqual	:alias:	ISOamsr sce
+8829	-	SucceedsSlantEqual	:alias:	ISOamsr sccue
+8829	-	sccue	ISOamsr,:alias:	succeeds, curly eq
+8829	-	succcurlyeq	:alias:	ISOamsr sccue
+8829	-	succeq	:alias:	ISOamsr sce
+8829	-	sce	ISOamsr	succeeds, equals
+8830	-	PrecedesTilde	:alias:	ISOamsr prsim
+8830	-	precapprox	:alias:	ISOamsr prap
+8830	-	precsim	:alias:	ISOamsr prsim
+8830	-	scE	ISOamsr,:alias:	succeeds, double equals
+8830	-	prap	ISOamsr,:alias:	precedes, approximate
+8830	-	prsim	ISOamsr	precedes, similar
+8831	-	SucceedsTilde	:alias:	ISOamsr scsim
+8831	-	scap	ISOamsr,:alias:	succeeds, approximate
+8831	-	succapprox	:alias:	ISOamsr scap
+8831	-	succsim	:alias:	ISOamsr scsim
+8831	-	scsim	ISOamsr	succeeds, similar
+8832	-	NotPrecedes	:alias:	ISOamsn npr
+8832	-	nprec	:alias:	ISOamsn npr
+8832	-	npr	ISOamsn	not precedes
+8833	-	NotSucceeds	:alias:	ISOamsn nsc
+8833	-	nsucc	:alias:	ISOamsn nsc
+8833	-	nsc	ISOamsn	not succeeds
+8834	-	subset	:alias:	ISOtech sub
+8834	HTML-40	sub	ISOtech	subset or is implied by
+8835	-	Superset	:alias:	ISOtech sup
+8835	-	supset	:alias:	ISOtech sup
+8835	HTML-40	sup	ISOtech	superset or implies
+8836	-	NotSubset	:alias:	ISOamsn vnsub
+8836	-	nsubset	:alias:	ISOamsn vnsub
+8836	-	vnsub	ISOamsn,:alias:	not subset, var
+8836	HTML-40	nsub	ISOamsn	not subset
+8837	-	NotSuperset	:alias:	ISOamsn vnsup
+8837	-	nsupset	:alias:	ISOamsn vnsup
+8837	-	vnsup	ISOamsn,:alias:	not superset, var
+8837	-	nsup	ISOamsn	not superset
+8838	-	SubsetEqual	:alias:	ISOtech sube
+8838	-	subE	ISOamsr,:alias:	subset, double equals
+8838	-	subseteq	:alias:	ISOtech sube
+8838	-	subseteqq	:alias:	ISOamsr subE
+8838	HTML-40	sube	ISOtech	subset, equals
+8839	-	SupersetEqual	:alias:	ISOtech supe
+8839	-	supseteq	:alias:	ISOtech supe
+8839	-	supseteqq	:alias:	ISOamsr supE
+8839	-	supE	ISOamsr,:alias:	superset, double equals
+8839	HTML-40	supe	ISOtech	superset, equals
+8840	-	NotSubsetEqual	:alias:	ISOamsn nsube
+8840	-	nsubseteq	:alias:	ISOamsn nsube
+8840	-	nsubseteqq	:alias:	ISOamsn nsubE
+8840	-	nsubE	ISOamsn,:alias:	not subset, double eq
+8840	-	nsube	ISOamsn	not subset, equals
+8841	-	NotSupersetEqual	:alias:	ISOamsn nsupe
+8841	-	nsupseteq	:alias:	ISOamsn nsupe
+8841	-	nsupseteqq	:alias:	ISOamsn nsupE
+8841	-	nsupE	ISOamsn,:alias:	not superset, double eq
+8841	-	nsupe	ISOamsn	not superset, equals
+8842	-	subsetneq	:alias:	ISOamsn subne
+8842	-	subsetneqq	:alias:	ISOamsn subnE
+8842	-	subnE	ISOamsn,:alias:	subset, not double eq
+8842	-	subne	ISOamsn	subset, not equals
+8843	-	supsetneq	:alias:	ISOamsn supne
+8843	-	supsetneqq	:alias:	ISOamsn supnE
+8843	-	supnE	ISOamsn,:alias:	superset, not double eq
+8843	-	supne	ISOamsn	superset, not equals
+8845	-	cupdot	ISOamsb	union, with dot
+8846	-	UnionPlus	:alias:	ISOamsb uplus
+8846	-	biguplus	:alias:	ISOamsb xuplus
+8846	-	xuplus	ISOamsb,:alias:	big plus sign in union
+8846	-	uplus	ISOamsb	plus sign in union
+8847	-	SquareSubset	:alias:	ISOamsr sqsub
+8847	-	sqsubset	:alias:	ISOamsr sqsub
+8847	-	sqsub	ISOamsr	square subset
+8848	-	SquareSuperset	:alias:	ISOamsr sqsup
+8848	-	sqsupset	:alias:	ISOamsr sqsup
+8848	-	sqsup	ISOamsr	square superset
+8849	-	SquareSubsetEqual	:alias:	ISOamsr sqsube
+8849	-	sqsubseteq	:alias:	ISOamsr sqsube
+8849	-	sqsube	ISOamsr	square subset, equals
+8850	-	SquareSupersetEqual	:alias:	ISOamsr sqsupe
+8850	-	sqsupseteq	:alias:	ISOamsr sqsupe
+8850	-	sqsupe	ISOamsr	square superset, eq
+8851	-	SquareIntersection	:alias:	ISOamsb sqcap
+8851	-	sqcap	ISOamsb	square intersection
+8852	-	SquareUnion	:alias:	ISOamsb sqcup
+8852	-	bigsqcup	:alias:	ISOamsb xsqcup
+8852	-	xsqcup	ISOamsb,:alias:	square union operator
+8852	-	sqcup	ISOamsb	square union
+8853	-	CirclePlus	:alias:	ISOamsb oplus
+8853	-	bigoplus	:alias:	ISOamsb xoplus
+8853	-	xoplus	ISOamsb,:alias:	circle plus operator
+8853	HTML-40	oplus	ISOamsb	plus sign in circle
+8854	-	CircleMinus	:alias:	ISOamsb ominus
+8854	-	ominus	ISOamsb	minus sign in circle
+8855	-	CircleTimes	:alias:	ISOamsb otimes
+8855	-	bigotimes	:alias:	ISOamsb xotime
+8855	-	xotime	ISOamsb,:alias:	circle times operator
+8855	HTML-40	otimes	ISOamsb	multiply sign in circle
+8856	-	osol	ISOamsb	solidus in circle
+8857	-	CircleDot	:alias:	ISOamsb odot
+8857	-	bigodot	:alias:	ISOamsb xodot
+8857	-	xodot	ISOamsb,:alias:	circle dot operator
+8857	-	odot	ISOamsb	middle dot in circle
+8858	-	circledcirc	:alias:	ISOamsb ocir
+8858	-	ocir	ISOamsb	small circle in circle
+8859	-	circledast	:alias:	ISOamsb oast
+8859	-	oast	ISOamsb	asterisk in circle
+8861	-	circleddash	:alias:	ISOamsb odash
+8861	-	odash	ISOamsb	hyphen in circle
+8862	-	boxplus	:alias:	ISOamsb plusb
+8862	-	plusb	ISOamsb	plus sign in box
+8863	-	boxminus	:alias:	ISOamsb minusb
+8863	-	minusb	ISOamsb	minus sign in box
+8864	-	boxtimes	:alias:	ISOamsb timesb
+8864	-	timesb	ISOamsb	multiply sign in box
+8865	-	dotsquare	:alias:	ISOamsb sdotb
+8865	-	sdotb	ISOamsb	boxdot; small dot in box
+8866	-	RightTee	:alias:	ISOamsr vdash
+8866	-	vdash	ISOamsr	vertical, dash
+8867	-	LeftTee	:alias:	ISOamsr dashv
+8867	-	dashv	ISOamsr	dash, vertical
+8868	-	DownTee	:alias:	ISOtech top
+8868	-	top	ISOtech	top
+8869	-	UpTee	:alias:	ISOtech perp
+8869	-	bot	:alias:	ISOtech bottom
+8869	-	bottom	ISOtech,:alias:	bottom
+8869	HTML-40	perp	ISOtech	perpendicular
+8871	-	models	ISOamsr	models
+8872	-	DoubleRightTee	:alias:	ISOamsr vDash
+8872	-	vDash	ISOamsr	vertical, double dash
+8873	-	Vdash	ISOamsr	double vertical, dash
+8874	-	Vvdash	ISOamsr	triple vertical, dash
+8875	-	VDash	ISOamsr	double vert, double dash
+8876	-	nvdash	ISOamsn	not vertical, dash
+8877	-	nvDash	ISOamsn	not vertical, double dash
+8878	-	nVdash	ISOamsn	not double vertical, dash
+8879	-	nVDash	ISOamsn	not double vert, double dash
+8880	-	prurel	ISOamsr	element precedes under relation
+8882	-	LeftTriangle	:alias:	ISOamsr vltri
+8882	-	vartriangleleft	:alias:	ISOamsr vltri
+8882	-	vltri	ISOamsr	left triangle, open, var
+8883	-	RightTriangle	:alias:	ISOamsr vrtri
+8883	-	vartriangleright	:alias:	ISOamsr vrtri
+8883	-	vrtri	ISOamsr	right triangle, open, var
+8884	-	LeftTriangleEqual	:alias:	ISOamsr ltrie
+8884	-	trianglelefteq	:alias:	ISOamsr ltrie
+8884	-	ltrie	ISOamsr	left triangle, eq
+8885	-	RightTriangleEqual	:alias:	ISOamsr rtrie
+8885	-	trianglerighteq	:alias:	ISOamsr rtrie
+8885	-	rtrie	ISOamsr	right triangle, eq
+8886	-	origof	ISOamsa	original of
+8887	-	imof	ISOamsa	image of
+8888	-	multimap	:alias:	ISOamsa mumap
+8888	-	mumap	ISOamsa	multimap
+8889	-	hercon	ISOamsb	hermitian conjugate matrix
+8890	-	intercal	:alias:	ISOamsb intcal
+8890	-	intcal	ISOamsb	intercal
+8891	-	veebar	ISOamsb	logical or, bar below
+8892	-	barwedge	:alias:	ISOamsb barwed
+8892	-	barwed	ISOamsb	logical and, bar above
+8893	-	barvee	ISOamsb	bar, vee
+8894	-	vangrt	ISOtech	right angle, variant
+8896	-	Wedge	:alias:	ISOamsb xwedge
+8896	-	bigwedge	:alias:	ISOamsb xwedge
+8896	-	xwedge	ISOamsb	logical or operator
+8897	-	Vee	:alias:	ISOamsb xvee
+8897	-	bigvee	:alias:	ISOamsb xvee
+8897	-	xvee	ISOamsb	logical and operator
+8898	-	Intersection	:alias:	ISOamsb xcap
+8898	-	bigcap	:alias:	ISOamsb xcap
+8898	-	xcap	ISOamsb	intersection operator
+8899	-	Union	:alias:	ISOamsb xcup
+8899	-	bigcup	:alias:	ISOamsb xcup
+8899	-	xcup	ISOamsb	union operator
+8900	-	Diamond	:alias:	ISOamsb diam
+8900	-	diamond	:alias:	ISOamsb diam
+8900	-	diam	ISOamsb	open diamond
+8901	HTML-40	sdot	ISOamsb	small middle dot
+8902	-	Star	:alias:	ISOamsb sstarf
+8902	-	sstarf	ISOamsb,:alias:	small star, filled
+8902	-	star	ISOpub	star, open
+8903	-	divideontimes	:alias:	ISOamsb divonx
+8903	-	divonx	ISOamsb	division on times
+8904	-	bowtie	ISOamsr	bowtie
+8905	-	ltimes	ISOamsb	times sign, left closed
+8906	-	rtimes	ISOamsb	times sign, right closed
+8907	-	leftthreetimes	:alias:	ISOamsb lthree
+8907	-	lthree	ISOamsb	left three times
+8908	-	rightthreetimes	:alias:	ISOamsb rthree
+8908	-	rthree	ISOamsb	right three times
+8909	-	backsimeq	:alias:	ISOamsr bsime
+8909	-	bsime	ISOamsr	reverse similar, eq
+8910	-	curlyvee	:alias:	ISOamsb cuvee
+8910	-	cuvee	ISOamsb	curly logical or
+8911	-	curlywedge	:alias:	ISOamsb cuwed
+8911	-	cuwed	ISOamsb	curly logical and
+8912	-	Subset	:alias:	ISOamsr Sub
+8912	-	Sub	ISOamsr	double subset
+8913	-	Supset	:alias:	ISOamsr Sup
+8913	-	Sup	ISOamsr	double superset
+8914	-	Cap	ISOamsb	doublecap; double intersection
+8915	-	Cup	ISOamsb	doublecup; double union
+8916	-	pitchfork	:alias:	ISOamsr fork
+8916	-	fork	ISOamsr	pitchfork
+8917	-	epar	ISOtech	parallel, equal; equal or parallel
+8918	-	lessdot	:alias:	ISOamsr ltdot
+8918	-	ltdot	ISOamsr	less than, with dot
+8919	-	gtrdot	:alias:	ISOamsr gtdot
+8919	-	gtdot	ISOamsr	greater than, with dot
+8920	-	Ll	ISOamsr	triple less-than
+8921	-	ggg	:alias:	ISOamsr Gg
+8921	-	Gg	ISOamsr	triple gtr-than
+8922	-	LessEqualGreater	:alias:	ISOamsr leg
+8922	-	lesseqgtr	:alias:	ISOamsr leg
+8922	-	lesseqqgtr	:alias:	ISOamsr lEg
+8922	-	lEg	ISOamsr,:alias:	less, double eq, greater
+8922	-	leg	ISOamsr	less, eq, greater
+8923	-	GreaterEqualLess	:alias:	ISOamsr gel
+8923	-	gtreqless	:alias:	ISOamsr gel
+8923	-	gtreqqless	:alias:	ISOamsr gEl
+8923	-	gEl	ISOamsr,:alias:	gt, double equals, less
+8923	-	gel	ISOamsr	greater, equals, less
+8924	-	eqslantless	:alias:	ISOamsr els
+8924	-	els	ISOamsr	eq-or-less, slanted
+8925	-	eqslantgtr	:alias:	ISOamsr egs
+8925	-	egs	ISOamsr	equal-or-gtr, slanted
+8926	-	curlyeqprec	:alias:	ISOamsr cuepr
+8926	-	cuepr	ISOamsr	curly eq, precedes
+8927	-	curlyeqsucc	:alias:	ISOamsr cuesc
+8927	-	cuesc	ISOamsr	curly eq, succeeds
+8928	-	NotPrecedesSlantEqual	:alias:	ISOamsn nprcue
+8928	-	nprcue	ISOamsn	not curly precedes, eq
+8929	-	NotSucceedsSlantEqual	:alias:	ISOamsn nsccue
+8929	-	nsccue	ISOamsn	not succeeds, curly eq
+8930	-	NotSquareSubsetEqual	:alias:	ISOamsn nsqsube
+8930	-	nsqsube	ISOamsn	not, square subset, equals
+8931	-	NotSquareSupersetEqual	:alias:	ISOamsn nsqsupe
+8931	-	nsqsupe	ISOamsn	not, square superset, equals
+8934	-	lnsim	ISOamsn	less, not similar
+8935	-	gnsim	ISOamsn	greater, not similar
+8936	-	precnapprox	:alias:	ISOamsn prnap
+8936	-	precnsim	:alias:	ISOamsn prnsim
+8936	-	prnap	ISOamsn	precedes, not approx
+8936	-	prnsim	ISOamsn	precedes, not similar
+8937	-	succnapprox	:alias:	ISOamsn scnap
+8937	-	succnsim	:alias:	ISOamsn scnsim
+8937	-	scnap	ISOamsn,:alias:	succeeds, not approx
+8937	-	scnsim	ISOamsn	succeeds, not similar
+8938	-	NotLeftTriangle	:alias:	ISOamsn nltri
+8938	-	ntriangleleft	:alias:	ISOamsn nltri
+8938	-	nltri	ISOamsn	not left triangle
+8939	-	NotRightTriangle	:alias:	ISOamsn nrtri
+8939	-	ntriangleright	:alias:	ISOamsn nrtri
+8939	-	nrtri	ISOamsn	not right triangle
+8940	-	NotLeftTriangleEqual	:alias:	ISOamsn nltrie
+8940	-	ntrianglelefteq	:alias:	ISOamsn nltrie
+8940	-	nltrie	ISOamsn	not left triangle, eq
+8941	-	NotRightTriangleEqual	:alias:	ISOamsn nrtrie
+8941	-	ntrianglerighteq	:alias:	ISOamsn nrtrie
+8941	-	nrtrie	ISOamsn	not right triangle, eq
+8942	-	vellip	ISOpub	vertical ellipsis
+8943	-	ctdot	ISOtech	three dots, centered
+8944	-	utdot	ISOtech	three dots, ascending
+8945	22f1	22F1	-	dtdot	ISOtech	three dots, descending
+
+#	23
+
+8966	-	doublebarwedge	:alias:	ISOamsb Barwed
+8966	-	Barwed	ISOamsb	log and, double bar above
+8968	-	LeftCeiling	:alias:	ISOAMSC lceil
+8968	HTML-40	lceil	ISOamsc	left ceiling
+8969	-	RightCeiling	:alias:	ISOAMSC rceil
+8969	HTML-40	rceil	ISOamsc	right ceiling
+8970	-	LeftFloor	:alias:	ISOAMSC lfloor
+8970	HTML-40	lfloor	ISOamsc	left floor
+8971	-	RightFloor	:alias:	ISOAMSC rfloor
+8971	HTML-40	rfloor	ISOamsc	right floor
+8972	-	drcrop	ISOpub	downward right crop mark 
+8973	-	dlcrop	ISOpub	downward left crop mark 
+8974	-	urcrop	ISOpub	upward right crop mark 
+8975	-	ulcrop	ISOpub	upward left crop mark 
+8976	-	bnot	ISOtech	reverse not
+8978	-	profline	ISOtech	profile of a line
+8979	-	profsurf	ISOtech	profile of a surface
+8981	-	telrec	ISOpub	telephone recorder symbol
+8982	-	target	ISOpub	register mark or target
+8988	-	ulcorner	:alias:	ISOAMSC ulcorn
+8988	-	ulcorn	ISOamsc	upper left corner
+8989	-	urcorner	:alias:	ISOAMSC urcorn
+8989	-	urcorn	ISOamsc	upper right corner
+8990	-	llcorner	:alias:	ISOAMSC dlcorn
+8990	-	dlcorn	ISOamsc	lower left corner
+8991	-	lrcorner	:alias:	ISOAMSC drcorn
+8991	-	drcorn	ISOamsc	lower right corner
+8994	-	frown	ISOamsr	frown; down curve
+8995	-	smile	ISOamsr	smile; up curve
+9001	HTML-40	lang	ISOtech	left-pointing angle bracket; bra
+9002	HTML-40	rang	ISOtech	right-pointing angle bracket; ket
+9005	-	cylcty	ISOtech	cylindricity
+9006	-	profalar	ISOtech	all-around profile
+9014	-	topbot	ISOtech	top and bottom
+
+#	24
+
+9251	-	blank	ISOpub	significant blank symbol
+9416	-	circledS	:alias:	ISOamso oS
+9416	-	oS	ISOamso	capital S in circle
+
+#	25
+
+9472	-	boxh	isobox	horizontal line 
+9474	-	boxv	isobox	vertical line
+9484	-	boxdr	isobox	lower right quadrant
+9488	-	boxdl	isobox	lower left quadrant
+9492	-	boxur	isobox	upper right quadrant
+9496	-	boxul	isobox	upper left quadrant
+9500	-	boxvr	isobox	upper and lower right quadrants
+9508	-	boxvl	isobox	upper and lower left quadrants
+9516	-	boxhd	isobox	lower left and right quadrants
+9524	-	boxhu	isobox	upper left and right quadrants
+9532	-	boxvh	isobox	all four quadrants
+9552	-	boxH	isobox	horizontal line
+9553	-	boxV	isobox	vertical line
+9554	-	boxdR	isobox	lower right quadrant
+9555	-	boxDr	isobox	lower right quadrant
+9556	-	boxDR	isobox	lower right quadrant
+9557	-	boxdL	isobox	lower left quadrant
+9558	-	boxDl	isobox	lower left quadrant
+9559	-	boxDL	isobox	lower left quadrant
+9560	-	boxuR	isobox	upper right quadrant
+9561	-	boxUr	isobox	upper right quadrant
+9562	-	boxUR	isobox	upper right quadrant
+9563	-	boxuL	isobox	upper left quadrant
+9564	-	boxUl	isobox	upper left quadrant
+9565	-	boxUL	isobox	upper left quadrant
+9566	-	boxvR	isobox	upper and lower right quadrants
+9567	-	boxVr	isobox	upper and lower right quadrants
+9568	-	boxVR	isobox	upper and lower right quadrants
+9569	-	boxvL	isobox	upper and lower left quadrants
+9570	-	boxVl	isobox	upper and lower left quadrants
+9571	-	boxVL	isobox	upper and lower left quadrants
+9572	-	boxHd	isobox	lower left and right quadrants
+9573	-	boxhD	isobox	lower left and right quadrants
+9574	-	boxHD	isobox	lower left and right quadrants
+9575	-	boxHu	isobox	upper left and right quadrants
+9576	-	boxhU	isobox	upper left and right quadrants
+9577	-	boxHU	isobox	upper left and right quadrants
+9578	-	boxvH	isobox	all four quadrants
+9579	-	boxVh	isobox	all four quadrants
+9580	-	boxVH	isobox	all four quadrants
+9600	-	uhblk	ISOpub	upper half block
+9604	-	lhblk	ISOpub	lower half block
+9608	-	block	ISOpub	full block
+9617	-	blk14	ISOpub	25% shaded block
+9618	-	blk12	ISOpub	50% shaded block
+9619	-	blk34	ISOpub	75% shaded block
+9633	-	Square	:alias:	for square
+9633	-	squ	ISOpub,:alias:	square, open
+9633	-	square	ISOtech	square
+9642	-	blacksquare	:alias:	ISOtech squarf 
+9642	-	squf	ISOpub,:alias:	square bullet, filled
+9642	-	squarf	ISOtech	blacksquare, square, filled 
+9645	-	rect	ISOpub	rectangle, open
+9646	-	marker	ISOpub	histogram marker
+9651	-	bigtriangleup	:alias:	ISOamsb xutri
+9651	-	xutri	ISOamsb	big up triangle, open
+9652	-	blacktriangle	:alias:	ISOpub utrif
+9652	-	utrif	ISOpub	up triangle, filled
+9653	-	triangle	:alias:	ISOpub utri
+9653	-	utri	ISOpub	up triangle, open
+9654	-	-	-	-
+9655	-	-	-	-
+9656	-	blacktriangleright	:alias:	ISOpub rtrif
+9656	-	rtrif	ISOpub	right triangle, filled
+9657	-	triangleright	:alias:	ISOpub rtri
+9657	-	rtri	ISOpub	right triangle, open
+9658	-	-	-	-
+9659	-	-	-	-
+9660	-	-	-	-
+9661	-	bigtriangledown	:alias:	ISOamsb xdtri
+9661	-	xdtri	ISOamsb	big down triangle, open
+9662	-	blacktriangledown	:alias:	ISOpub dtrif
+9662	-	dtrif	ISOpub	down triangle, filled
+9663	-	triangledown	:alias:	ISOpub dtri
+9663	-	dtri	ISOpub	down triangle, open
+9664	-	-	-	-
+9665	-	-	-	-
+9666	-	blacktriangleleft	:alias:	ISOpub ltrif
+9666	-	ltrif	ISOpub	left triangle, filled
+9667	-	triangleleft	:alias:	ISOpub ltri
+9667	-	ltri	ISOpub	left triangle, open
+9674	-	lozenge	:alias:	ISOpub loz
+9674	HTML-40	loz	ISOpub	lozenge or total mark
+9675	-	cir	ISOpub	circle, open
+9708	-	tridot	ISOamsb	dot in triangle
+9711	-	bigcirc	:alias:	ISOamsb xcirc
+9711	-	xcirc	ISOamsb	large circle
+
+#	26
+
+9733	-	bigstar	:alias:	ISOpub starf 
+9733	-	starf	ISOpub	star, filled 
+9742	-	phone	ISOpub	telephone symbol 
+9792	-	female	ISOpub	female symbol
+9794	-	male	ISOpub	male symbol
+9824	-	spadesuit	:alias:	ISOpub spades 
+9824	HTML-40	spades	ISOpub	spades suit symbol 
+9825	-	heartsuit	:alias:	ISOpub hearts 
+9825	-	hearts	ISOpub	heart suit symbol 
+9826	-	-	-	-
+9827	-	clubsuit	:alias:	ISOpub clubs 
+9827	HTML-40	clubs	ISOpub	club suit symbol 
+9828	-	-	-	-
+9829	HTML-40	hearts	ISO8879	black heart suit; valentine
+9830	HTML-40	diams	ISOpub	diamond suit symbol 
+9830	-	diamondsuit	:alias:	ISOpub diams 
+9834	-	sung	ISOnum	music note (sung text sign)
+9837	-	flat	ISOpub	musical flat
+9838	-	natural	:alias:	ISOpub natur
+9838	-	natur	ISOpub	music natural
+9839	-	sharp	ISOpub	musical sharp
+
+#	27
+
+10003	-	checkmark	:alias:	ISOpub check
+10003	-	check	ISOpub	tick, check mark
+10007	-	cross	ISOpub	ballot cross
+10016	-	maltese	:alias:	ISOpub malt
+10016	-	malt	ISOpub	maltese cross
+10038	-	sext	ISOpub	sextile (6-pointed star)
+
+#	30
+
+12288	-	-	-	ideographic space (for CJK character)
+12296	-	LeftAngleBracket	:alias:	ISOtech lang
+12296	-	langle	:alias:	ISOtech lang
+12296	-	lang	ISOtech	left angle bracket
+12297	-	RightAngleBracket	:alias:	ISOtech rang
+12297	-	rangle	:alias:	ISOtech rang
+12297	-	rang	ISOtech	right angle bracket
+12298	-	Lang	ISOtech	left angle bracket, double
+12299	-	Rang	ISOtech	right angle bracket, double
+12308	-	lbbrk	ISOtech	left broken bracket
+12309	-	rbbrk	ISOtech	right broken bracket
+12310	-	-	-	-
+12311	-	-	-	-
+12312	-	loang	ISOtech	left open angular bracket
+12313	-	roang	ISOtech	right open angular bracket
+12314	-	LeftDoubleBracket	:alias:	left double bracket delimiter
+12314	-	lobrk	ISOtech	left open bracket
+12315	-	RightDoubleBracket	:alias:	right double bracket delimiter
+12315	-	robrk	ISOtech	right open bracket
+
+#	E2
+
+57856	-	DoubleLongLeftArrow	:alias:	ISOamsa xlArr
+57856	-	Longleftarrow	:alias:	ISOamsa xlArr
+57856	-	xlArr	ISOamsa	long left double arrow
+57857	-	LongLeftArrow	:alias:	ISOamsa xlarr
+57857	-	longleftarrow	:alias:	ISOamsa xlarr
+57857	-	xlarr	ISOamsa	long left arrow
+57858	-	DoubleLongLeftRightArrow	:alias:	ISOamsa xhArr
+57858	-	Longleftrightarrow	:alias:	ISOamsa xhArr
+57858	-	xhArr	ISOamsa	long left and right double arrow
+57859	-	LongLeftRightArrow	:alias:	ISOamsa xharr
+57859	-	longleftrightarrow	:alias:	ISOamsa xharr
+57859	-	xharr	ISOamsa	long left and right arrow
+57860	-	DoubleLongRightArrow	:alias:	ISOamsa xrArr
+57860	-	Longrightarrow	:alias:	ISOamsa xrArr
+57860	-	xrArr	ISOamsa	long right double arrow
+57861	-	LongRightArrow	:alias:	ISOamsa xrarr
+57861	-	longrightarrow	:alias:	ISOamsa xrarr
+57861	-	xrarr	ISOamsa	long right arrow
+57862	-	lBarr	ISOamsa	left doubly broken arrow
+57863	-	ac	ISOamsb,:alias:	most positive
+57863	-	dbkarow	:alias:	ISOamsa rBarr
+57863	-	rBarr	ISOamsa	right doubly broken arrow
+57864	-	longmapsto	:alias:	ISOamsa xmap
+57864	-	xmap	ISOamsa	long maps to
+57865	-	drbkarow	:alias:	ISOamsa RBarr
+57865	-	RBarr	ISOamsa	two-headed right broken arrow
+57866	-	hkswarow	:alias:	ISOamsa swarhk
+57866	-	swarhk	ISOamsa	SW arrow-hooked
+57867	-	hksearow	:alias:	ISOamsa searhk
+57867	-	searhk	ISOamsa	SE arrow-hooken
+57868	-	nwarhk	ISOamsa	NW arrow-hooked
+57869	-	nearhk	ISOamsa	NE arrow-hooked
+57870	-	toea	:alias:	ISOamsa nesear
+57870	-	nesear	ISOamsa	NE & SE arrows
+57871	-	tosa	:alias:	ISOamsa seswar
+57871	-	seswar	ISOamsa	SE & SW arrows
+57872	-	swnwar	ISOamsa	SW & NW arrows
+57873	-	nwnear	ISOamsa	NW & NE arrows
+57874	-	Map	ISOamsa	two-headed maps to
+57876	-	lfisht	ISOamsa	left fish tail
+57877	-	rfisht	ISOamsa	right fish tail
+57878	-	DownArrowUpArrow	:alias:	ISOamsa duarr
+57878	-	duarr	ISOamsa	down arrow, up arrow
+57879	-	ReverseUpEquilibrium	:alias:	ISOamsa duhar
+57879	-	duhar	ISOamsa	down harp, up harp
+57880	-	UpEquilibrium	:alias:	ISOamsa udhar
+57880	-	udhar	ISOamsa	up harp, down harp
+57881	-	rdca	ISOamsa	right down curved arrow
+57882	-	ldca	ISOamsa	left down curved arrow
+57883	-	nrarrw	ISOamsa	not right arrow-wavy
+57884	-	rarrc	ISOamsa	right arrow-curved
+57885	-	nrarrc	ISOamsa	not right arrow-curved
+57886	-	rarrpl	ISOamsa	right arrow, plus
+57888	-	larrbfs	ISOamsa	left arrow-bar, filled square
+57889	-	rarrbfs	ISOamsa	right arrow-bar, filled square
+57890	-	larrfs	ISOamsa	left arrow, filled square
+57891	-	rarrfs	ISOamsa	right arrow, filled square
+57892	-	rHar	ISOamsa	right harpoon-up over right harpoon-down
+57893	-	lHar	ISOamsa	left harpoon-up over left harpoon-down
+57894	-	uHar	ISOamsa	up harpoon-left, up harpoon-right
+57895	-	dHar	ISOamsa	down harpoon-left, down harpoon-right
+57896	-	ldrushar	ISOamsa	left-down-right-up harpoon
+57897	-	lurdshar	ISOamsa	left-up-right-down harpoon
+57898	-	ruluhar	ISOamsa	right harpoon-up over left harpoon-up
+57899	-	luruhar	ISOamsa	left harpoon-up over right harpoon-up
+57900	-	ldrdhar	ISOamsa	left harpoon-down over right harpoon-down
+57901	-	rdldhar	ISOamsa	right harpoon-down over left harpoon-down
+57902	-	lharul	ISOamsa	left harpoon-up over long dash
+57903	-	lrhard	ISOamsa	right harpoon-down below long dash
+57904	-	rharul	ISOamsa	right harpoon-up over long dash
+57905	-	llhard	ISOamsa	left harpoon-down below long dash
+57906	-	ShortRightArrow	:alias:	ISOamsa srarr
+57906	-	srarr	ISOamsa	short right arrow
+57907	-	ShortLeftArrow	:alias:	ISOamsa slarr
+57907	-	slarr	ISOamsa	short left arrow
+57908	-	simrarr	ISOamsa	similar, right arrow below
+57909	-	rarrap	ISOamsa	approximate, right arrow above
+57910	-	erarr	ISOamsa	equal, right arrow below
+57911	-	Uarrocir	ISOamsa	up two-headed arrow above circle
+57912	-	DDotrahd	ISOamsa	right arrow with dotted stem
+57913	-	Rarrtl	ISOamsa	right two-headed arrow with tail
+57915	-	rAtail	ISOamsa	right double arrow-tail
+57916	-	latail	ISOamsa	left arrow-tail
+57917	-	lAtail	ISOamsa	left double arrow-tail
+57918	-	cudarrl	ISOamsa	left, curved, down arrow
+57919	-	larrpl	ISOamsa	left arrow, plus
+57920	-	harrcir	ISOamsa	left and right arrow with a circle
+57921	-	roarr	ISOamsa	right open arrow
+57922	-	loarr	ISOamsa	left open arrow
+57923	-	hoarr	ISOamsa	horizontal open arrow
+57924	-	zigrarr	ISOamsa	right zig-zag arrow
+57928	-	angzarr	ISOamsa	angle with down zig-zag arrow
+57929	-	curarrm	ISOamsa	curved right arrow with minus
+57930	-	cularrp	ISOamsa	curved left arrow with plus
+57931	-	ufisht	ISOamsa	up fish tail
+57932	-	dfisht	ISOamsa	down fish tail
+57933	-	rarrsim	ISOamsa	right arrow, similar
+57934	-	larrsim	ISOamsa	left arrow, similar
+57935	-	midcir	ISOamsa	mid, circle below 
+57936	-	cirmid	ISOamsa	circle, mid below
+57937	-	amalg	ISOamsb	amalgamation or coproduct
+57945	-	intprod	:alias:	ISOamsb iprod
+57945	-	iprod	ISOamsb	intprod
+57946	-	plusdu	ISOamsb	plus sign, dot below
+57947	-	minusdu	ISOamsb	minus sign, dot below
+57948	-	loplus	ISOamsb	plus sign in left half circle
+57949	-	roplus	ISOamsb	plus sign in right half circle
+57950	-	lotimes	ISOamsb	multiply sign in left half circle 
+57951	-	rotimes	ISOamsb	multiply sign in right half circle
+57952	-	ohbar	ISOamsb	circle with horizontal bar
+57953	-	capdot	ISOamsb	intersection, with dot
+57954	-	subdot	ISOamsb	subset, with dot
+57955	-	supdot	ISOamsb	superset, with dot
+57956	-	smashp	ISOamsb	smash product
+57957	-	wedbar	ISOamsb	wedge, bar below
+57958	-	pluscir	ISOamsb	plus, small circle above
+57959	-	pluse	ISOamsb	plus, equals
+57960	-	eplus	ISOamsb	equal, plus
+57961	-	plustwo	ISOamsb	plus, two; Nim-addition
+57962	-	plusacir	ISOamsb	plus, circumflex accent above
+57963	-	simplus	ISOamsb	plus, similar above
+57964	-	plussim	ISOamsb	plus, similar below
+57965	-	timesd	ISOamsb	times, dot
+57966	-	cupcap	ISOamsb	union above intersection
+57967	-	capcup	ISOamsb	intersection above union
+57968	-	cupbrcap	ISOamsb	union, bar, intersection
+57969	-	capbrcup	ISOamsb	intersection, bar, union
+57970	-	cupcup	ISOamsb	union, union, joined
+57971	-	capcap	ISOamsb	intersection, intersection, joined
+57972	-	cups	ISOamsb	union, serifs
+57973	-	caps	ISOamsb	intersection, serifs
+57974	-	sqcups	ISOamsb	square union, serifs
+57975	-	sqcaps	ISOamsb	square intersection, serifs
+57976	-	ccups	ISOamsb	closed union, serifs
+57977	-	ccaps	ISOamsb	closed intersection, serifs
+57978	-	ccupssm	ISOamsb	closed union, serifs, smash product
+57979	-	triplus	ISOamsb	plus in triangle
+57980	-	triminus	ISOamsb	minus in triangle
+57981	-	tritime	ISOamsb	multiply in triangle
+57982	-	trisb	ISOamsb	triangle, serifs at bottom
+57983	-	solb	ISOamsb	solidus in square
+57984	-	bsolb	ISOamsb	reverse solidus in square
+57985	-	capand	ISOamsb	intersection, and
+57986	-	cupor	ISOamsb	union, or
+57987	-	ncup	ISOamsb	bar, union
+57988	-	ncap	ISOamsb	bar, intersection
+57989	-	odiv	ISOamsb	divide in circle
+57990	-	odsold	ISOamsb	dot, solidus, dot in circle
+57991	-	ofcir	ISOamsb	filled circle in circle
+57992	-	olt	ISOamsb	less-than in circle
+57993	-	ogt	ISOamsb	greater-than in circle
+57994	-	opar	ISOamsb	parallel in circle
+57995	-	operp	ISOamsb	perpendicular in circle
+57996	-	Otimes	ISOamsb	multiply sign in double circle
+57997	-	otimesas	ISOamsb	multiply sign in circle, circumflex accent
+57998	-	timesbar	ISOamsb	multiply sign, bar below
+58000	-	acE	ISOamsb	most positive, two lines below
+58001	-	rpargt	ISOamsc	right parenthesis, gt
+58002	-	lparlt	ISOamsc	left parenthesis, lt
+58003	-	rmoustache	:alias:	ISOAMSC rmoust
+58003	-	rmoust	ISOamsc	right moustache
+58004	-	lmoustache	:alias:	ISOAMSC lmoust
+58004	-	lmoust	ISOamsc	left moustache
+58005	-	ltrPar	ISOamsc	double right parenthesis, less
+58006	-	gtlPar	ISOamsc	double left parenthesis, greater
+58007	-	langd	ISOamsc	left angle, dot
+58008	-	rangd	ISOamsc	right angle, dot
+58009	-	lbrke	ISOamsc	left bracket, equal
+58010	-	rbrke	ISOamsc	right bracket, equal
+58011	-	lbrkslu	ISOamsc	left bracket, solidus top corner
+58012	-	rbrksld	ISOamsc	right bracket, solidus bottom corner
+58013	-	lbrksld	ISOamsc	left bracket, solidus bottom corner
+58014	-	rbrkslu	ISOamsc	right bracket, solidus top corner
+58015	-	gnap	ISOamsn	greater, not approximate
+58015	-	gnapprox	:alias:	ISOamsn gnap
+58016	-	-	-	-
+58017	-	gvertneqq	:alias:	ISOamsn gvnE
+58017	-	gvnE	ISOamsn	gt, vert, not double eq
+58018	-	lnapprox	:alias:	ISOamsn lnap
+58018	-	lnap	ISOamsn	less, not approximate
+58019	-	-	-	-
+58020	-	lvertneqq	:alias:	ISOamsn lvnE
+58020	-	lvnE	ISOamsn	less, vert, not double eq
+58022	-	NotGreaterEqual	:alias:	ISOamsn nge
+58022	-	ngeq	:alias:	ISOamsn nge
+58022	-	nge	ISOamsn	not greater-than-or-equal
+58023	-	NotLessEqual	:alias:	ISOamsn nle
+58023	-	nleq	:alias:	ISOamsn nle
+58023	-	nle	ISOamsn	not less-than-or-equal
+58026	-	nshortmid	:alias:	ISOamsn nsmid
+58026	-	nsmid	ISOamsn	not short mid
+58027	-	nshortparallel	:alias:	ISOamsn nspar
+58027	-	nspar	ISOamsn	not short par
+58035	-	precneqq	:alias:	ISOamsn prnE
+58035	-	prnE	ISOamsn	precedes, not double eq
+58037	-	succneqq	:alias:	ISOamsn scnE
+58037	-	scnE	ISOamsn	succeeds, not double eq
+58040	-	varsubsetneqq	:alias:	ISOamsn vsubnE
+58040	-	vsubnE	ISOamsn	subset not double eq, var
+58041	-	varsubsetneq	:alias:	ISOamsn vsubne
+58041	-	vsubne	ISOamsn	subset, not eq, var
+58042	-	varsupsetneq	:alias:	ISOamsn vsupne
+58042	-	vsupne	ISOamsn	superset, not eq, var
+58043	-	varsupsetneqq	:alias:	ISOamsn vsupnE
+58043	-	vsupnE	ISOamsn	super not double eq, var
+58044	-	napid	ISOamsn	not approximately identical to
+58053	-	ncongdot	ISOamsn	not congruent, dot
+58054	-	nvap	ISOamsn	not, vert, approximate
+58055	-	napE	ISOamsn	not approximately equal or equal to
+58056	-	parsim	ISOamsn	parallel, similar
+58057	-	nLt	ISOamsn	not, vert, much less than
+58058	-	nGt	ISOamsn	not, vert, much greater than
+58059	-	NotLessLess	:alias:	ISOamsn nLtv
+58059	-	nLtv	ISOamsn	not much less than, variant
+58060	-	NotGreaterGreater	:alias:	ISOamsn nGtv
+58060	-	nGtv	ISOamsn	not much greater than, variant
+58061	-	nLl	ISOamsn	not triple less than
+58062	-	nGg	ISOamsn	not triple greater than
+58063	-	nvrtrie	ISOamsn	not, vert, right triangle, equals
+58064	-	nvltrie	ISOamsn	not, vert, left triangle, equals
+58065	-	rnmid	ISOamsn	reverse nmid
+58066	-	-	-	-
+58067	-	emptyset	:alias:	ISOamso empty
+58067	-	empty	ISOamso	zero, slash
+58068	-	jmath	ISOamso	small j, no dot
+58069	-	hbar	:alias:	ISOamso plank
+58069	-	plank	ISOamso	Planck's over 2pi
+58070	-	ange	ISOamso	angle, equal
+58071	-	range	ISOamso	reverse angle, equal
+58072	-	nang	ISOamso	not, vert, angle
+58073	-	angmsdaa	ISOamso	angle-measured, arrow, up, right
+58074	-	angmsdab	ISOamso	angle-measured, arrow, up, left
+58075	-	angmsdac	ISOamso	angle-measured, arrow, down, right
+58076	-	angmsdad	ISOamso	angle-measured, arrow, down, left
+58077	-	angmsdae	ISOamso	angle-measured, arrow, right, up
+58078	-	angmsdaf	ISOamso	angle-measured, arrow, left, up
+58079	-	angmsdag	ISOamso	angle-measured, arrow, right, down
+58080	-	angmsdah	ISOamso	angle-measured, arrow, left, down
+58081	-	angrtvbd	ISOamso	right angle-measured, dot
+58082	-	urtri	ISOamso	upper right triangle
+58083	-	lrtri	ISOamso	lower right triangle
+58084	-	ultri	ISOamso	upper left triangle
+58085	-	lltri	ISOamso	lower left triangle
+58086	-	boxbox	ISOamso	two joined squares
+58087	-	demptyv	ISOamso	circle, slash, bar above
+58088	-	cemptyv	ISOamso	circle, slash, small circle above
+58089	-	raemptyv	ISOamso	circle, slash, right arrow above
+58090	-	laemptyv	ISOamso	circle, slash, left arrow above
+58091	-	vzigzag	ISOamso	vertical zig-zag line
+58092	-	trpezium	ISOamso	trapezium
+58093	-	bsemi	ISOamso	reverse semi-colon
+58094	-	bbrk	ISOamso	bottom square bracket
+58095	-	tbrk	ISOamso	top square bracket
+58102	-	GreaterSlantEqual	:alias:	ISOamsr ges
+58102	-	geqslant	:alias:	ISOamsr ges
+58102	-	ges	ISOamsr	gt-or-equal, slanted
+58103	-	GreaterGreater	Lextra	alias for GT
+58106	-	LessSlantEqual	:alias:	ISOamsr les
+58106	-	leqslant	:alias:	ISOamsr les
+58106	-	les	ISOamsr	less-than-or-eq, slant
+58107	-	LessLess	Lextra	alias for Lt
+58110	-	PrecedesEqual	:alias:	ISOamsr pre
+58110	-	preceq	:alias:	ISOamsr pre
+58110	-	prE	ISOamsr,:alias:	precedes, double equals
+58110	-	pre	ISOamsr	precedes, equals
+
+#	E3
+
+58113	-	shortmid	:alias:	ISOamsr smid
+58113	-	smid	ISOamsr	short mid
+58114	-	shortparallel	:alias:	ISOamsr spar
+58114	-	spar	ISOamsr	short parallel
+58118	-	thickapprox	:alias:	ISOamsr thkap 
+58118	-	thkap	ISOamsr	thick approximate
+58121	-	ddotseq	:alias:	ISOamsr eDDot
+58121	-	eDDot	ISOamsr	equal with four dots
+58122	-	mlcp	ISOamsr	mlcp
+58123	-	siml	ISOamsr	similar, less
+58124	-	simg	ISOamsr	similar, greater
+58125	-	Vbar	ISOamsr	double vert, bar (under)
+58126	-	Colone	ISOamsr	double colon, equals
+58127	-	DoubleLeftTee	:alias:	for Dashv 
+58127	-	Dashv	ISOamsr	double dash, vertical
+58128	-	vBar	ISOamsr	vert, double bar (under)
+58129	-	Barv	ISOamsr	vert, double bar (over)
+58130	-	vBarv	ISOamsr	double bar, vert over and under
+58131	-	Vdashl	ISOamsr	vertical, dash (long)
+58132	-	congdot	ISOamsr	congruent, dot
+58133	-	-	-	-
+58134	-	bumpE	ISOamsr	bump, equals
+58135	-	Esim	ISOamsr	equal, similar
+58136	-	equivDD	ISOamsr	equivalent, four dots above
+58137	-	sdote	ISOamsr	equal, dot below
+58138	-	mcomma	ISOamsr	minus, comma above
+58139	-	forkv	ISOamsr	fork, variant
+58140	-	topfork	ISOamsr	fork with top
+58141	-	lesdot	ISOamsr	less-than-or-equal, slanted, dot inside
+58142	-	gesdot	ISOamsr	greater-than-or-equal, slanted, dot inside
+58143	-	lesdoto	ISOamsr	less-than-or-equal, slanted, dot above
+58144	-	gesdoto	ISOamsr	greater-than-or-equal, slanted, dot above
+58145	-	lesdotor	ISOamsr	less-than-or-equal, slanted, dot above right
+58146	-	gesdotol	ISOamsr	greater-than-or-equal, slanted, dot above left
+58147	-	elsdot	ISOamsr	equal-or-less, slanted, dot inside
+58148	-	egsdot	ISOamsr	equal-or-greater, slanted, dot inside
+58149	-	ltcir	ISOamsr	less than, circle inside
+58150	-	gtcir	ISOamsr	greater than, circle inside
+58151	-	el	ISOamsr	equal-or-less
+58152	-	eg	ISOamsr	equal-or-greater
+58153	-	ltquest	ISOamsr	less than, questionmark above
+58154	-	gtquest	ISOamsr	greater than, questionmark above
+58155	-	lesg	ISOamsr	less, equal, slanted, greater
+58156	-	gesl	ISOamsr	greater, equal, slanted, less
+58157	-	lgE	ISOamsr	less, greater, equal
+58158	-	glE	ISOamsr	greater, less, equal
+58159	-	glj	ISOamsr	greater, less, overlapping
+58160	-	gla	ISOamsr	greater, less, apart
+58161	-	lesges	ISOamsr	less, equal, slanted, greater, equal, slanted
+58162	-	gesles	ISOamsr	greater, equal, slanted, less, equal, slanted
+58163	-	lsime	ISOamsr	less, similar, equal
+58164	-	gsime	ISOamsr	greater, similar, equal
+58165	-	lsimg	ISOamsr	less, similar, greater
+58166	-	gsiml	ISOamsr	greater, similar, less
+58167	-	simlE	ISOamsr	similar, less, equal
+58168	-	simgE	ISOamsr	similar, greater, equal
+58169	-	smt	ISOamsr	smaller than
+58170	-	lat	ISOamsr	larger than
+58171	-	smte	ISOamsr	smaller than or equal
+58172	-	late	ISOamsr	larger than or equal
+58173	-	smtes	ISOamsr	smaller than or equal, slanted
+58174	-	lates	ISOamsr	larger than or equal, slanted
+58175	-	subrarr	ISOamsr	subset, right arrow
+58176	-	suplarr	ISOamsr	superset, left arrow
+58177	-	subplus	ISOamsr	subset, plus
+58178	-	supplus	ISOamsr	superset, plus
+58179	-	submult	ISOamsr	subset, multiply
+58180	-	supmult	ISOamsr	superset, multiply
+58181	-	subsim	ISOamsr	subset, similar
+58182	-	supsim	ISOamsr	superset, similar
+58183	-	subsup	ISOamsr	subset above superset
+58184	-	supsub	ISOamsr	superset above subset
+58185	-	subsub	ISOamsr	subset above subset
+58186	-	supsup	ISOamsr	superset above superset
+58187	-	suphsub	ISOamsr	superset, subset
+58188	-	supdsub	ISOamsr	superset, subset, dash joining them
+58189	-	bsolhsub	ISOamsr	reverse solidus, subset
+58190	-	suphsol	ISOamsr	superset, solidus
+58191	-	subedot	ISOamsr	subset, equals, dot
+58192	-	supedot	ISOamsr	superset, equals, dot
+58193	-	csub	ISOamsr	subset, closed
+58194	-	csup	ISOamsr	superset, closed
+58195	-	csube	ISOamsr	subset, closed, equals
+58196	-	csupe	ISOamsr	superset, closed, equals
+58197	-	ltcc	ISOamsr	less than, closed by curve
+58198	-	gtcc	ISOamsr	greater than, closed by curve
+58199	-	lescc	ISOamsr	less than, closed by curve, equal, slanted
+58200	-	gescc	ISOamsr	greater than, closed by curve, equal, slanted
+58201	-	rtriltri	ISOamsr	right triangle above left triangle
+58202	-	-	-	-
+58203	-	-	-	-
+58204	-	Pr	ISOamsr	double precedes
+58205	-	Sc	ISOamsr	double succeeds
+58206	-	ltlarr	ISOamsr	less than, left arrow
+58207	-	gtrarr	ISOamsr	greater than, right arrow
+58213	-	iff	ISOtech	if and only if 
+58222	-	andand	ISOtech	two logical and
+58223	-	oror	ISOtech	two logical or
+58224	-	notinva	ISOtech	negated set membership, variant
+58225	-	qprime	ISOtech	quadruple prime
+58226	-	iinfin	ISOtech	infinity sign, incomplete
+58228	-	And	ISOtech	double logical and
+58229	-	Or	ISOtech	double logical or
+58230	-	pointint	ISOtech	integral around a point operator
+58231	-	quatint	ISOtech	quaternion integral operator
+58232	-	iiiint	:alias:	ISOtech qint
+58232	-	qint	ISOtech	quadruple integral operator
+58233	-	lopar	ISOtech	left open parenthesis
+58234	-	ropar	ISOtech	right open parenthesis
+58235	-	notinvb	ISOtech	negated set membership, variant
+58236	-	notinvc	ISOtech	negated set membership, variant
+58237	-	notnivb	ISOtech	contains, variant
+58238	-	notnivc	ISOtech	contains, variant
+58239	-	-	-	-
+58240	-	strns	ISOtech	straightness
+58241	-	fltns	ISOtech	flatness
+58242	-	parsl	ISOtech	parallel, slanted
+58243	-	topcir	ISOtech	top, circle below
+58244	-	eparsl	ISOtech	parallel, slanted, equal; homothetically congruent to
+58245	-	smeparsl	ISOtech	similar, parallel, slanted, equal
+58246	-	eqvparsl	ISOtech	equivalent, equal; congruent and parallel
+58247	-	bnequiv	ISOtech	reverse not equivalent
+58248	-	bne	ISOtech	reverse not equal
+58249	-	nparsl	ISOtech	not parallel, slanted
+58250	-	nedot	ISOtech	not equal, dot
+58251	-	simdot	ISOtech	similar, dot
+58252	-	apacir	ISOtech	approximate, circumflex accent
+58253	-	nhpar	ISOtech	not, horizontal, parallel
+58254	-	nvinfin	ISOtech	not, vert, infinity
+58255	-	-	-	-
+58256	-	npart	ISOtech	not partial differential
+58257	-	andv	ISOtech	and with middle stem
+58258	-	orv	ISOtech	or with middle stem
+58259	-	ord	ISOtech	or, horizontal dash
+58260	-	andd	ISOtech	and, horizontal dash
+58261	-	cirfnint	ISOtech	circulation function
+58262	-	fpartint	ISOtech	finite part integral
+58263	-	rppolint	ISOtech	line integration, rectangular path around pole
+58264	-	scpolint	ISOtech	line integration, semi-circular path around pole
+58265	-	npolint	ISOtech	line integration, not including the pole
+58266	-	intlarhk	ISOtech	integral, left arrow with hook
+58267	-	awint	ISOtech	anti clock-wise integration
+58268	-	isindot	ISOtech	set membership, dot above
+58269	-	notindot	ISOtech	negated set membership, dot above
+58270	-	isinE	ISOtech	set membership, two horizontal strokes
+58271	-	-	-	-
+58272	-	disin	ISOtech	set membership, long horizontal stroke
+58273	-	nisd	ISOtech	contains, long horizontal stroke
+58274	-	isinsv	ISOtech	large set membership, vertical bar on horizontal stroke
+58275	-	xnis	ISOtech	large contains, vertical bar on horizontal stroke
+58276	-	isins	ISOtech	set membership, vertical bar on horizontal stroke
+58277	-	nis	ISOtech	contains, vertical bar on horizontal stroke
+58278	-	acd	ISOtech	ac current
+58279	-	elinters	ISOtech	electrical intersection
+58280	-	olcross	ISOtech	circle, cross
+58281	-	dsol	ISOtech	solidus, bar above
+58282	-	dwangle	ISOtech	large downward pointing angle
+58283	-	uwangle	ISOtech	large upward pointing angle
+58284	-	Not	ISOtech	not with two horizontal strokes
+58285	-	bNot	ISOtech	reverse not with two horizontal strokes
+58286	-	orslope	ISOtech	sloping large or
+58290	-	fjlig	ISOpub	small fj ligature
+
+#	E4
+
+58368	-	cudarrr	ISOamsa	right, curved, down arrow
+58370	-	lbarr	ISOamsa	left broken arrow
+58373	-	bkarow	:alias:	ISOamsa rbarr
+58373	-	rbarr	ISOamsa	right broken arrow
+58377	-	olcir	ISOamsb	large circle in circle
+58378	-	omid	ISOamsb	vertical bar in circle
+58380	-	race	ISOamsb	reverse most positive, line below
+58389	-	nvsim	ISOamsn	not, vert, similar
+58390	-	solbar	ISOamsn	solidus, bar through
+58392	-	angrtvb	ISOamso	right angle-measured
+58393	-	bbrktbrk	ISOamso	bottom above top square bracket
+58394	-	bemptyv	ISOamso	reversed circle, slash
+58395	-	cirE	ISOamso	circle, two horizontal stroked to the right
+58396	-	cirscir	ISOamso	circle, small circle to the right
+58409	-	thicksim	:alias:	ISOamsr thksim
+58409	-	thksim	ISOamsr	thick similar
+
+#	E5
+
+58624	-	Aopf	ISOmopf	Bbb A, open face A
+58625	-	Bopf	ISOmopf	Bbb B, open face B
+58627	-	Dopf	ISOmopf	Bbb D, open face D
+58628	-	Eopf	ISOmopf	Bbb E, open face E
+58629	-	Fopf	ISOmopf	Bbb F, open face F
+58630	-	Gopf	ISOmopf	Bbb G, open face G
+58631	-	Hopf	ISOmopf	Bbb H, open face H
+58632	-	Iopf	ISOmopf	Bbb I, open face I
+58633	-	Jopf	ISOmopf	Bbb J, open face J
+58634	-	Kopf	ISOmopf,:alias:	Bbb K, open face K 
+58634	-	andslope	ISOtech	sloping large and
+58635	-	Lopf	ISOmopf,:alias:	Bbb L, open face L 
+58635	-	imped	ISOtech	impedance
+58636	-	Mopf	ISOmopf,:alias:	Bbb M, open face M 
+58636	-	infintie	ISOtech	tie, infinity
+58637	-	notinE	ISOtech	negated set membership, two horizontal strokes
+58638	-	Oopf	ISOmopf	Bbb O, open face O
+58642	-	Sopf	ISOmopf	Bbb S, open face S
+58643	-	Topf	ISOmopf	Bbb T, open face T
+58644	-	Uopf	ISOmopf	Bbb U, open face U
+58645	-	Vopf	ISOmopf	Bbb V, open face V
+58646	-	Wopf	ISOmopf	Bbb W, open face W
+58647	-	Xopf	ISOmopf	Bbb X, open face X
+58648	-	Yopf	ISOmopf	Bbb Y, open face Y
+58656	-	Ascr	ISOmscr	script letter A
+58657	-	-	-	-
+58658	-	Cscr	ISOmscr	script letter C
+58659	-	Dscr	ISOmscr	script letter D
+58662	-	Gscr	ISOmscr	script letter G
+58665	-	Jscr	ISOmscr	script letter J
+58666	-	Kscr	ISOmscr	script letter K
+58669	-	Nscr	ISOmscr	script letter N
+58670	-	Oscr	ISOmscr	script letter O
+58671	-	Pscr	ISOmscr	script letter P
+58672	-	Qscr	ISOmscr	script letter Q
+58673	-	Rscr	ISOmscr	script letter R
+58674	-	Sscr	ISOmscr	script letter S
+58675	-	Tscr	ISOmscr	script letter T
+58676	-	Uscr	ISOmscr	script letter U
+58677	-	Vscr	ISOmscr	script letter V
+58678	-	Wscr	ISOmscr	script letter W
+58679	-	Xscr	ISOmscr	script letter X
+58680	-	Yscr	ISOmscr	script letter Y
+58681	-	Zscr	ISOmscr	script letter Z
+58688	-	ascr	ISOmscr	script letter a
+58689	-	bscr	ISOmscr	script letter b
+58690	-	cscr	ISOmscr	script letter c
+58691	-	dscr	ISOmscr	script letter d
+58693	-	fscr	ISOmscr	script letter f
+58694	-	gscr	ISOmscr	script letter g
+58695	-	hscr	ISOmscr	script letter h
+58696	-	iscr	ISOmscr	script letter i
+58697	-	jscr	ISOmscr	script letter j
+58698	-	kscr	ISOmscr	script letter k
+58699	-	lscr	ISOmscr	script letter l
+58700	-	mscr	ISOmscr	script letter m
+58701	-	nscr	ISOmscr	script letter n
+58703	-	pscr	ISOmscr	script letter p
+58704	-	qscr	ISOmscr	script letter q
+58705	-	rscr	ISOmscr	script letter r
+58706	-	sscr	ISOmscr	script letter s
+58707	-	tscr	ISOmscr	script letter t
+58708	-	uscr	ISOmscr	script letter u
+58709	-	vscr	ISOmscr	script letter v
+58710	-	wscr	ISOmscr	script letter w
+58711	-	xscr	ISOmscr	script letter x
+58712	-	yscr	ISOmscr	script letter y
+58713	-	zscr	ISOmscr	script letter z
+58720	-	Afr	ISOmfrk	/frak A, upper case a
+58721	-	Bfr	ISOmfrk	/frak B, upper case b
+58722	-	Cfr	ISOmfrk	/frak C, upper case c
+58723	-	Dfr	ISOmfrk	/frak D, upper case d
+58724	-	Efr	ISOmfrk	/frak E, upper case e
+58725	-	Ffr	ISOmfrk	/frak F, upper case f
+58726	-	Gfr	ISOmfrk	/frak G, upper case g
+58729	-	Jfr	ISOmfrk	/frak J, upper case j
+58730	-	Kfr	ISOmfrk	/frak K, upper case k
+58731	-	Lfr	ISOmfrk	/frak L, upper case l
+58732	-	Mfr	ISOmfrk	/frak M, upper case m
+58733	-	Nfr	ISOmfrk	/frak N, upper case n
+58734	-	Ofr	ISOmfrk	/frak O, upper case o
+58735	-	Pfr	ISOmfrk	/frak P, upper case p
+58736	-	Qfr	ISOmfrk	/frak Q, upper case q
+58738	-	Sfr	ISOmfrk	/frak S, upper case s
+58739	-	Tfr	ISOmfrk	/frak T, upper case t
+58740	-	Ufr	ISOmfrk	/frak U, upper case u
+58741	-	Vfr	ISOmfrk	/frak V, upper case v
+58742	-	Wfr	ISOmfrk	/frak W, upper case w
+58743	-	Xfr	ISOmfrk	/frak X, upper case x
+58744	-	Yfr	ISOmfrk	/frak Y, upper case y
+58745	-	Zfr	ISOmfrk	/frak Z, upper case z 
+58752	-	afr	ISOmfrk	/frak a, lower case a
+58753	-	bfr	ISOmfrk	/frak b, lower case b
+58754	-	cfr	ISOmfrk	/frak c, lower case c
+58755	-	dfr	ISOmfrk	/frak d, lower case d
+58756	-	efr	ISOmfrk	/frak e, lower case e
+58757	-	ffr	ISOmfrk	/frak f, lower case f
+58758	-	gfr	ISOmfrk	/frak g, lower case g
+58759	-	hfr	ISOmfrk	/frak h, lower case h
+58760	-	ifr	ISOmfrk	/frak i, lower case i
+58761	-	jfr	ISOmfrk	/frak j, lower case j
+58762	-	kfr	ISOmfrk	/frak k, lower case k
+58763	-	lfr	ISOmfrk	/frak l, lower case l
+58764	-	mfr	ISOmfrk	/frak m, lower case m
+58765	-	nfr	ISOmfrk	/frak n, lower case n
+58766	-	ofr	ISOmfrk	/frak o, lower case o
+58767	-	pfr	ISOmfrk	/frak p, lower case p
+58768	-	qfr	ISOmfrk	/frak q, lower case q
+58769	-	rfr	ISOmfrk	/frak r, lower case r
+58770	-	sfr	ISOmfrk	/frak s, lower case s
+58771	-	tfr	ISOmfrk	/frak t, lower case t
+58772	-	ufr	ISOmfrk	/frak u, lower case u
+58773	-	vfr	ISOmfrk	/frak v, lower case v
+58774	-	wfr	ISOmfrk	/frak w, lower case w
+58775	-	xfr	ISOmfrk	/frak x, lower case x
+58776	-	yfr	ISOmfrk	/frak y, lower case y
+58777	-	zfr	ISOmfrk	/frak z, lower case z
+58844	-	NotPrecedesEqual	:alias:	ISOamsn npre
+58844	-	npreceq	:alias:	ISOamsn npre
+58844	-	npre	ISOamsn	not precedes, equals
+58865	-	NotSucceedsEqual	:alias:	ISOamsn nsce
+58865	-	nsucceq	:alias:	ISOamsn nsce
+58865	-	nsce	ISOamsn	not succeeds, equals
+
+#	E6
+
+58884	-	NotSquareSubset	Lextra	square not subset
+58901	-	NotSquareSuperset	Lextra	negated set-like partial order operator
+58902	-	NotHumpDownHump	Lextra,:alias:	mmlextra nbump
+58902	-	nbump	Lextra	not bumpy equals
+58905	-	Cross	Lextra	cross or vector product
+
+#	E7
+
+59136	-	b.alpha	ISOgrk4	small alpha, Greek
+59137	-	b.beta	ISOgrk4	small beta, Greek
+59138	-	b.gamma	ISOgrk4	small gamma, Greek
+59139	-	b.Gamma	ISOgrk4	capital gamma, Greek
+59140	-	b.gammad	ISOgrk4	digamma, Greek
+59141	-	b.Gammad	ISOgrk4	capital digamma, Greek
+59142	-	b.delta	ISOgrk4	small delta, Greek
+59143	-	b.Delta	ISOgrk4	capital delta, Greek
+59144	-	b.epsi	ISOgrk4	small epsilon, Greek
+59146	-	b.epsiv	ISOgrk4	varepsilion
+59147	-	b.zeta	ISOgrk4	small zeta, Greek
+59148	-	b.eta	ISOgrk4	small eta, Greek
+59149	-	b.thetas	ISOgrk4	straight theta, Greek
+59150	-	b.Theta	ISOgrk4	capital theta, Greek
+59151	-	b.thetav	ISOgrk4	var theta, Greek
+59152	-	b.iota	ISOgrk4	small iota, Greek
+59153	-	b.kappa	ISOgrk4	small kappa, Greek
+59154	-	b.kappav	ISOgrk4	var kappa, Greek
+59155	-	b.lambda	ISOgrk4	small lambda, Greek
+59156	-	b.Lambda	ISOgrk4	capital lambda, Greek
+59157	-	b.mu	ISOgrk4	small mu, Greek
+59158	-	b.nu	ISOgrk4	small nu, Greek
+59159	-	b.xi	ISOgrk4	small xi, Greek
+59160	-	b.Xi	ISOgrk4	capital xi, Greek
+59161	-	b.pi	ISOgrk4	small pi, Greek
+59162	-	b.Pi	ISOgrk4	capital pi, Greek
+59163	-	b.piv	ISOgrk4	varpi
+59164	-	b.rho	ISOgrk4	small rho, Greek
+59165	-	b.rhov	ISOgrk4	varrho
+59166	-	b.sigma	ISOgrk4	small sigma, Greek
+59167	-	b.Sigma	ISOgrk4	capital sigma, Greek
+59168	-	b.sigmav	ISOgrk4	varsigma
+59169	-	b.tau	ISOgrk4	small tau, Greek
+59170	-	b.upsi	ISOgrk4	small upsilon, Greek
+59171	-	b.Upsilon	ISOgrk4	capital upsilon, Greek
+59172	-	b.phis	ISOgrk4	straight phi, Greek
+59173	-	b.Phi	ISOgrk4	capital Phi, Greek
+59174	-	b.phiv	ISOgrk4	varphi
+59175	-	b.chi	ISOgrk4	small chi, Greek
+59176	-	b.psi	ISOgrk4	small psi, Greek
+59177	-	b.Psi	ISOgrk4	capital Psi, Greek
+59178	-	b.omega	ISOgrk4	small omega, Greek
+59179	-	b.Omega	ISOgrk4	capital Omega, Greek
+
+#	E8
+
+59392	-	backepsilon	:alias:	ISOamsr bepsi
+59392	-	bepsi	ISOamsr	backepsilon; such that
+59403	-	blacklozenge	:alias:	ISOpub lozf
+59403	-	lozf	ISOpub	black lozenge; lozenge, filled
+59447	-	NotSucceedsTilde	Lextra	not succeeds or similar
+59448	-	ovbar	ISOamsb	circle with vertical bar
+59460	-	smallsetminus	:alias:	ISOamsb ssetmn
+59460	-	ssetmn	ISOamsb	small set-minus; set-minus reverse solidus
+59469	-	NotHumpEqual	Lextra,:alias:	mmlextra nbumpe
+59469	-	nbumpe	Lextra	not bumpy single equals
+59470	-	NotEqualTilde	Lextra,:alias:	mmlextra nesim
+59470	-	nesim	Lextra	not equal or similar
+59472	-	LeftSkeleton	Lextra	start of missing information
+59473	-	RightSkeleton	Lextra	end of missing information
+59481	-	HorizontalLine	Lextra	short horizontal line 
+59482	-	VerticalLine	Lextra	short vertical line 
+59483	-	Assign	Lextra	assignment operator
+59484	-	VerticalSeparator	Lextra	vertical separating operator
+59519	-	ShortDownArrow	Lextra	short down arrow
+59520	-	ShortUpArrow	Lextra	sort up arrow 
+59537	-	IndentingNewLine	Lextra	force a line break and indent appropriately on next line
+59538	-	NoBreak	Lextra	never break line here
+59539	-	GoodBreak	Lextra	if a linebreak is needed, here is a good spot
+59540	-	BadBreak	Lextra	if a linebreak is needed, try to avoid breaking here
+59543	-	ThickSpace	Lextra	space of width 5/18 em
+59544	-	NegativeVeryThinSpace	Lextra	space of width -1/18 em
+59545	-	NegativeThinSpace	Lextra	space of width -3/18 em
+59546	-	NegativeMediumSpace	Lextra	space of width -4/18 em
+59547	-	NegativeThickSpace	Lextra	space of width -5/18 em
+59548	-	InvisibleComma	Lextra	used as a separator, e.g., in indices
+59548	-	ic	Lextra,:alias:	short form of InvisibleComma
+59550	-	it	Lextra,:alias:	short form of InvisibleTimes
+59550	-	InvisibleTimes	Lextra	marks multiplication when it is understood without a mark
+59552	-	af	Lextra,:alias:	short form of ApplyFunction
+59552	-	ApplyFunction	Lextra	character showing function application in presentation tagging
+59559	-	false	Lextra	logical constant false
+59562	-	NotANumber	Lextra	used in MML 4.3.2.9
+59563	-	true	Lextra	logical constant true
+
+#	F4
+
+62480	-	LeftTriangleBar	Lextra	not left triangle, vertical bar
+62481	-	RightTriangleBar	Lextra	vertical bar, right triangle
+62482	-	NotLeftTriangleBar	Lextra	not left triangle, vertical bar
+62483	-	NotRightTriangleBar	Lextra	not vertical bar, right triangle
+62499	-	NotNestedLessLess	Lextra	not double less-than sign
+62504	-	NotNestedGreaterGreater	Lextra	not double greater-than sign
+62513	-	Equal	Lextra	two consecutive equal signs
+
+#	F5
+
+62723	-	UpArrowBar	Lextra	up arrow to bar
+62724	-	DownArrowBar	Lextra	down arrow to bar
+62725	-	LeftRightVector	Lextra	left-up-right-up harpoon
+62727	-	LeftVectorBar	Lextra	left-up harpoon to bar
+62728	-	RightVectorBar	Lextra	up-right harpoon to bar
+62729	-	LeftTeeVector	Lextra	left-up harpoon from bar
+62730	-	RightTeeVector	Lextra	right-up harpoon from bar
+62731	-	DownLeftRightVector	Lextra	left-down-right-down harpoon
+62732	-	DownLeftVectorBar	Lextra	left-down harpoon to bar
+62733	-	DownRightVectorBar	Lextra	right-down harpoon to bar
+62734	-	DownLeftTeeVector	Lextra	left-down harpoon from bar
+62735	-	DownRightTeeVector	Lextra	right-down harpoon from bar
+62736	-	RightUpDownVector	Lextra	up-right-down-right harpoon
+62737	-	RightUpVectorBar	Lextra	up-right harpoon to bar
+62738	-	RightDownVectorBar	Lextra	down-right harpoon to bar
+62739	-	RightUpTeeVector	Lextra	up-right harpoon from bar
+62740	-	RightDownTeeVector	Lextra	down-right harpoon from bar
+62741	-	LeftUpDownVector	Lextra	up-left-down-left harpoon
+62742	-	LeftUpVectorBar	Lextra	up-left harpoon to bar
+62743	-	LeftDownVectorBar	Lextra	down-left harpoon to bar
+62744	-	LeftUpTeeVector	Lextra	up-left harpoon from bar
+62745	-	LeftDownTeeVector	Lextra	down-left harpoon from bar
+62751	-	RuleDelayed	Lextra	rule-delayed (colon right arrow)
+62756	-	RoundImplies	Lextra	round implies
+62759	-	EmptySmallSquare	Lextra	empty small square
+62760	-	FilledSmallSquare	Lextra	filled small square
+62761	-	FilledVerySmallSquare	Lextra	filled very small square
+62768	-	EmptyVerySmallSquare	Lextra	empty small square
+
+#	F6
+
+62979	-	LeftBracketingBar	Lextra	left vertical delimiter
+62980	-	RightBracketingBar	Lextra	right vertical delimiter
+62981	-	LeftDoubleBracketingBar	Lextra	left double vertical delimiter
+62982	-	RightDoubleBracketingBar	Lextra	right double vertical delimiter
+62992	-	OverParenthesis	Lextra	over parenthesis
+62993	-	UnderParenthesis	Lextra	under parenthesis
+62994	-	OverBrace	Lextra	over brace 
+62995	-	UnderBrace	Lextra	under brace 
+62996	-	OverBracket	Lextra	over bracket
+62997	-	UnderBracket	Lextra	under bracket
+
+#	F7
+
+63307	-	DD	Lextra,:alias:	short form of CapitalDifferentialD
+63307	-	CapitalDifferentialD	Lextra	D for use in differentials, e.g., within integrals
+63308	-	dd	Lextra,:alias:	short form of DifferentialD
+63308	-	DifferentialD	Lextra	d for use in differentials, e.g., within integrals
+63309	-	ee	Lextra,:alias:	short form of ExponentialE
+63309	-	ExponentialE	Lextra	e use for the exponential base of the natural logarithms
+63310	-	ii	Lextra,:alias:	short form of ImaginaryI
+63310	-	ImaginaryI	Lextra	i for use as a square root of -1
+
+#	FB
+
+64256	-	fflig	ISOpub	small ff ligature
+64257	-	filig	ISOpub	small fi ligature
+64258	-	fllig	ISOpub	small fl ligature
+64259	-	ffilig	ISOpub	small ffi ligature
+64260	-	ffllig	ISOpub	small ffl ligature
+
+#	BOM (private definitions:)
+
+65279	-	bom	Lextra	byte order mark
+65279	-	bomBE	Lextra,:alias:	byte order mark, big endian
+65534	-	zwnbsp	Lextra	zero width non-breaking space
+65534	-	bomLE	Lextra,:alias:	byte order mark, little endian
+#------+-------+-------+-------+----------------------------------
+# Int  standard Entity  Group   Description
+#               Character Name
+#------+-------+---------------+----------------------------------
+
+# =========================================================================== #
+# all Unicode space characters                                                #
+# =========================================================================== #
+
+group	spaceMap
+map	index
+# Note: this table must be in sync with intMap above
+# aliases should be used first, then the one to be displayed
+# (see EnDeGUI.js)
+
+#------+----------------------------------
+# Int   Description
+#------+----------------------------------
+160	no break (required) space
+5760	ogham space mark
+6158	mongolian vowel separator
+8192	en space (1/2-em)
+8193	em space
+8194	en space (1/2-em)
+8195	em space
+8196	1/3-em space
+8197	1/4-em space
+8198	1/6-em space
+8199	figure space
+8199	tabular width space
+8199	digit space (width of a number)
+8200	punctuation space (width of comma))
+8201	thin space (1/6-em)
+8201	space of width 3/18 em (ISOpub thinsp
+8202	hair space
+8202	space of width 1/18 em (ISOpub hairsp)
+8203	zero width space
+8204	zero width non-joiner
+8205	zero width joiner
+8234	left to right embedding
+8235	--unknown--
+8236	--unknown--
+8237	--unknown--
+8238	right to left override
+8239	narrow no break space
+8287	4/18-em space (medium mathematical space)
+8298	--unknown--
+8299	--unknown--
+12288	ideographic space (for CJK character)
+59543	space of width 5/18 em
+59544	space of width -1/18 em
+59545	space of width -3/18 em
+59546	space of width -4/18 em
+59547	space of width -5/18 em
+65279	byte order mark, big endian
+65534	zero width non-breaking space
+#------+----------------------------------
+
+# =========================================================================== #
+# all Unicode fullwidth characters                                            #
+# =========================================================================== #
+
+#             -- not used, just for documentation
+#group	uhwMap
+#map	index
+#
+##------+-------+------------------------------------------
+## Int	ASCII
+##------+-------+------------------------------------------
+# 559	o	o with dot
+# 628	E	Cyrillic N
+# 640	R	Cyrillic Extended-B
+# 8219	_	narrow no break space
+## 65280	-undef-
+#65281	!
+#65282	\"
+#65283	#
+#65284	$
+#65285	%
+#65286	&
+#65287	'
+#65288	(
+#65289	)
+#65290	*
+#65291	+
+#65292	,
+#65293	-
+#65294	.
+#65295	/
+#65296	0
+#65297	1
+#65298	2
+#65299	3
+#65300	4
+#65301	5
+#65302	6
+#65303	7
+#65304	8
+#65305	9
+#65306	:
+#65307	;
+#65308	<
+#65309	=
+#65310	>
+#65311	?
+#65312	@
+#65313	A
+#65314	B
+#65315	C
+#65316	D
+#65317	E
+#65318	F
+#65319	G
+#65320	H
+#65321	I
+#65322	J
+#65323	K
+#65324	L
+#65325	M
+#65326	N
+#65327	O
+#65328	P
+#65329	Q
+#65330	R
+#65331	S
+#65332	T
+#65333	U
+#65334	V
+#65335	W
+#65336	X
+#65337	Y
+#65338	Z
+#65339	[
+#65340	\
+#65341	]
+#65342	^
+#65343	_
+#65344	`
+#65345	a
+#65346	b
+#65347	c
+#65348	d
+#65349	e
+#65350	f
+#65351	g
+#65352	h
+#65353	i
+#65354	j
+#65355	k
+#65356	l
+#65357	m
+#65358	n
+#65359	o
+#65360	p
+#65361	q
+#65362	r
+#65363	s
+#65364	t
+#65365	u
+#65366	v
+#65367	w
+#65368	x
+#65369	y
+#65370	z
+#65371	{
+#65372	|
+#65373	}
+#65374	~
+## 65375	// ToDo: ..
+## 65534	// ToDo: ..
+## 65471	-undef-
+## 65472	-undef-
+## 65473	-undef-
+## 65480	-undef-
+## 65481	-undef-
+## 65488	-undef-
+## 65489	-undef-
+## 65496	-undef-
+## 65497	-undef-
+## 65501	-undef-
+## 65502	-undef-
+## 65503	-undef-
+## 65511	-undef-
+## 65535	-undef-
+##------+-------+------------------------------------------
+
+# =========================================================================== #
+# Windows CP-1252 versus ASCII                                                #
+# =========================================================================== #
+
+group	winMap
+map	index
+#
+# about  EnDe.winMap[]  -- see CP-1252  above ...
+# the intMap column is the reference to above table
+# currently (26jun07) from: http://www.i18nguy.com/markup/ncrs.html#t128159
+#      Achtung: 8214 falsch, muss 8218 sein
+#  See also: http://unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WindowsBestFit/bestfit1252.txt
+
+#------+-------+-------+-------+--------------------------
+# Int	intMap	Entity	Group	Description		
+#------+-------+-------+-------+--------------------------
+0	0	#0	CP1252	small ae ligature
+13	13	nl	CP1252	carriage return
+32	32	space	CP1252	space
+#32	32	sp	CP1252	space
+126	126	-	CP1252	tilde
+127	127	delete	CP1252	delete
+128	8364	euro	CP1252	euro sign
+129	129	-	CP1252	HOP
+130	8218	sbquo	CP1252	left lower single quotation mark
+131	402	fnof	CP1252	function of, florian
+132	8222	bdquo	CP1252	left lower double quotation mark
+#132	8222	ldquor	CP1252	left lower double quotation mark
+133	8230	hellip	CP1252	ellipsis, three dots
+#133	8230	ldots	CP1252	ellipsis, three dots
+134	8224	dagger	CP1252	dagger
+135	8225	Dagger	CP1252	double dagger
+136	710	circ	CP1252	caret
+137	8240	permil	CP1252	permil
+138	352	Scaron	CP1252	capital S with caron
+139	8249	lsaquo	CP1252	left arrow
+140	338	OElig	CP1252	capital OE ligature
+141	141	-	CP1252	RI
+142	381	#x17d	CP1252	capital Z with caron
+#142	381	Zcaron	CP1252	capital Z with caron
+143	143	-	CP1252	SS3
+144	144	-	CP1252	DCS
+145	8216	rsquo	CP1252	right upper single quotation mark
+#145	8216	rsquor	CP1252	right upper single quotation mark
+146	8217	lsquo	CP1252	left upper single quotation mark
+147	8220	rdquo	CP1252	right upper double quotation mark
+148	8221	ldquo	CP1252	left upper double quotation mark
+149	8226	bull	CP1252	big middle dot
+150	8211	ndash	CP1252	dash
+#150	8211	endash	CP1252	dash
+151	8212	mdash	CP1252	double dash
+#151	8212	emdash	CP1252	double dash
+152	732	tilde	CP1252	tilde
+153	8482	trade	CP1252	TM, trade mark
+154	353	scaron	CP1252	small S with caron
+155	8250	rsaquo	CP1252	right arrow
+156	339	oelig	CP1252	small oe ligature
+157	157	-	CP1252	OSC
+158	382	#x17e	CP1252	small z with caron
+#158	382	zcaron	CP1252	small z with caron
+159	376	Yuml	CP1252	yen?
+# 160..255 are the same as in intMap
+#------+-------+-------+-------+--------------------------
+
+# =========================================================================== #
+# ASCII                                                                       #
+# =========================================================================== #
+
+group	asciiMap
+map	index
+#------+-------+------------------------------------------
+# Int	ASCII	Description
+#------+-------+------------------------------------------
+0	NUL	Null
+1	SOH	Start of Heading (CC)
+2	STX	Start of Text (CC)
+3	ETX	End of Text (CC)
+4	EOT	End of Transmission (CC)
+5	ENQ	Enquiry (CC)
+6	ACK	Acknowledge (CC)
+7	BEL	Bell
+8	BS	Backspace (FE)
+9	HT	Horizontal Tabulation (FE)
+10	LF	Line Feed (FE)
+11	VT	Vertical Tabulation (FE)
+12	FF	Form Feed (FE)
+13	CR	Carriage Return (FE)
+14	SO	Shift Out
+15	SI	Shift In
+16	DLE	Data Link Escape (CC)
+17	DC1	Device Control 1
+18	DC2	Device Control 2
+19	DC3	Device Control 3
+20	DC4	Device Control 4
+21	NAK	Negative Acknowledge (CC)
+22	SYN	Synchronous Idle (CC)
+23	ETB	End of Transmission Block (CC)
+24	CAN	Cancel
+25	EM	End of Medium
+26	SUB	Substitute
+27	ESC	Escape
+28	FS	File Separator (IS)
+29	GS	Group Separator (IS)
+30	RS	Record Separator (IS)
+31	US	Unit Separator (IS)
+32	SP	Space
+33	!	Exclamation Point
+34	"	Quotation Mark
+35	#	Number Sign, Octothorp, 'pound'
+36	$	Dollar Sign
+37	%	Percent
+38	&	Ampersand
+39	'	Apostrophe, Prime
+40	(	Left Parenthesis
+41	)	Right Parenthesis
+42	*	Asterisk, 'star'
+43	+	Plus Sign
+44	,	Comma
+45	-	Hyphen, Minus Sign
+46	.	Period, Decimal Point, dot
+47	/	Slash, Virgule
+48	0	0
+49	1	1
+50	2	2
+51	3	3
+52	4	4
+53	5	5
+54	6	6
+55	7	7
+56	8	8
+57	9	9
+58	:	Colon
+59	;	Semicolon
+60	<	Less-than Sign
+61	=	Equal Sign
+62	>	Greater-than Sign
+63	?	Question Mark
+64	@	At Sign
+65	A	A
+66	B	B
+67	C	C
+68	D	D
+69	E	E
+70	F	F
+71	G	G
+72	H	H
+73	I	I
+74	J	J
+75	K	K
+76	L	L
+77	M	M
+78	N	N
+79	O	O
+80	P	P
+81	Q	Q
+82	R	R
+83	S	S
+84	T	T
+85	U	U
+86	V	V
+87	W	W
+88	X	X
+89	Y	Y
+90	Z	Z
+91	[	Opening Bracket
+92	\	Reverse Slant
+93	]	Closing Bracket
+94	^	Circumflex, Caret
+95	_	Underline, Underscore
+96	`	Grave Accent
+97	a	a
+98	b	b
+99	c	c
+100	d	d
+101	e	e
+102	f	f
+103	g	g
+104	h	h
+105	i	i
+106	j	j
+107	k	k
+108	l	l
+109	m	m
+110	n	n
+111	o	o
+112	p	p
+113	q	q
+114	r	r
+115	s	s
+116	t	t
+117	u	u
+118	v	v
+119	w	w
+120	x	x
+121	y	y
+122	z	z
+123	{	Opening Brace
+124	|	Vertical Line
+125	}	Closing Brace
+126	~	Tilde
+127	DEL	Delete
+# 128	 	Reserved
+# 129	 	Reserved
+# 130	 	Reserved
+# 131	 	Reserved
+132	IND	Index (FE)
+133	NEL	Next Line (FE)
+134	SSA	Start of Selected Area
+135	ESA	End of Selected Area
+136	HTS	Horizontal Tabulation Set (FE)
+137	HTJ	Horizontal Tabulation with Justification (FE)
+138	VTS	Vertical Tabulation Set (FE)
+139	PLD	Partial Line Down (FE)
+140	PLU	Partial Line Up (FE)
+141	RI	Reverse Index (FE)
+142	SS2	Single Shift Two (1)
+143	SS3	Single Shift Three (1)
+144	DCS	Device Control String (2)
+145	PU1	Private Use One
+146	PU2	Private Use Two
+147	STS	Set Transmit State
+148	CCH	Cancel Character
+149	MW	Message Waiting
+150	SPA	Start of Protected Area
+151	EPA	End of Protected Area
+# 152	 	Reserved
+# 153	 	Reserved
+# 154	 	Reserved
+155	CSI	Control Sequence Introducer (1)
+156	ST	String Terminator (2)
+157	OSC	Operating System Command (2)
+158	PM	Privacy Message (2)
+159	APC	Application Program Command (2)
+# 160 - 255	 	 
+#------+-------+------------------------------------------
+
+# =========================================================================== #
+# DIN 66003                                                                   #
+# =========================================================================== #
+
+group	DIN66003Map
+map	index
+# this is the same as asciiMap but following characters changed
+# NOTE: must be specified behind asciiMap
+# the reverse map DIN66003Map will be build in EnDe.Maps.init()
+#------+-------+------------------------------------------
+# ASCII	66003	Description
+#------+-------+------------------------------------------
+91	196	[ --> Ä upper case umlaut A
+92	214	\ --> Ö upper case umlaut O
+93	220	] --> Ü upper case umlaut U
+123	228	{ --> ä lower case umlaut a
+124	246	| --> ö lower case umlaut o
+125	252	} --> ü lower case umlaut u
+126	223	~ --> ß Eszett
+# convert lower case Umlaut
+#228	196	ä --> Ä lower case umlaut a
+#246	214	ö --> Ö lower case umlaut o
+#252	220	ü --> Ü lower case umlaut u
+# all lower case to upper case (done in EnDe.EN.dta())
+#------+-------+------------------------------------------
+
+# =========================================================================== #
+# EBCDIC                                                                      #
+# =========================================================================== #
+
+group	ebcdicMap
+map	index
+
+#------+-------+------------------------------------------
+# Int	EBCDIC	Description
+#------+-------+------------------------------------------
+0	NUL	Null
+1	SOH	Start of Heading
+2	STX	Start of Text
+3	ETX	End of Text
+4	PF	Punch Off
+5	HT	Horizontal Tab
+6	LC	Lower Case
+7	DEL	Delete
+# 8	  	 
+# 9	  	 
+10	SMM	Start of Manual Message
+11	VT	Vertical Tab
+12	FF	Form Feed
+13	CR	Carriage Return
+14	SO	Shift Out
+15	SI	Shift In
+16	DLE	Data Link Escape
+17	DC1	Device Control 1
+18	DC2	Device Control 2
+19	TM	Tape Mark
+20	RES	Restore
+21	NL	New Line
+22	BS	Backspace
+23	IL	Idle
+24	CAN	Cancel
+25	EM	End of Medium
+26	CC	Cursor Control
+27	CU1	Customer Use 1
+28	IFS	Interchange File Separator
+29	IGS	Interchange Group Separator
+30	IRS	Interchange Record Separator
+31	IUS	Interchange Unit Separator
+32	DS	Digit Select
+33	SOS	Start of Significance
+34	FS	Field Separator
+# 35	  	 
+36	BYP	Bypass
+37	LF	Line Feed
+38	ETB	End of Transmission Block
+39	ESC	Escape
+# 40	  	 
+# 41	  	 
+42	SM	Set Mode
+43	CU2	Customer Use 2
+# 44	  	 
+45	ENQ	Enquiry
+46	ACK	Acknowledge
+47	BEL	Bell
+# 48	  	 
+# 49	  	 
+50	SYN	Synchronous Idle
+# 51	 	 
+52	PN	Punch On
+53	RS	Reader Stop
+54	UC	Upper Case
+55	EOT	End of Transmission
+# 56	  	 
+# 57	  	 
+# 58	  	 
+59	CU3	Customer Use 3
+60	DC4	Device Control 4
+61	NAK	Negative Acknowledge
+# 62			
+63	SUB	Substitute
+64	 	Space
+# 65 - 73	  	 
+74		Cent Sign
+75	.	Period, Decimal Point
+76	<	Less-than Sign
+77	(	Left Parenthesis
+78	+	Plus Sign
+# 79	  	 
+80	&	Ampersand
+# 81 - 89	  	 
+90	!	Exclamation Point
+91	$	Dollar Sign
+92	*	Asterisk
+93	)	Right Parenthesis
+94	;	Semicolon
+95	^	Logical NOT
+96	-	Hyphen, Minus Sign
+97	/	Slash, Virgule
+# 98 - 105	  	 
+106	|	Logical OR
+107	,	Comma
+108	%	Percent
+109	_	Underline, Underscore
+110	>	Greater-than Sign
+111	?	Question Mark
+# 112 - 121	  	 
+122	:	Colon
+123	#	Number Sign, Octothorp, 'pound'
+124	@	At Sign
+125	'	Apostrophe, Prime
+126	=	Equal Sign
+127	\"	Quotation Mark
+# 128	  	 
+129	a	a
+130	b	b
+131	c	c
+132	d	d
+133	e	e
+134	f	f
+135	g	g
+136	h	h
+137	i	i
+# 138 - 144	  	 
+145	j	j
+146	k	k
+147	l	l
+148	m	m
+149	n	n
+150	o	o
+151	p	p
+152	q	q
+153	r	r
+# 154 - 160	  	 
+161	~ 	Tilde
+162	s	s
+163	t	t
+164	u	u
+165	v	v
+166	w	w
+167	x	x
+168	y	y
+169	z	z
+# 170 - 184	  	 
+185	`	Grave Accent
+# 186 - 191	  	 
+192	{	Opening Brace
+193	A	A
+194	B	B
+195	C	C
+196	D	D
+197	E	E
+198	F	F
+199	G	G
+200	H	H
+201	I	I
+# 202 - 207	   	 
+208	}	Closing Brace
+209	J	J
+210	K	K
+211	L	L
+212	M	M
+213	N	N
+214	O	O
+215	P	P
+216	Q	Q
+217	R	R
+# 218 - 223	  	 
+224	\\	Reverse Slant
+# 225	  	 
+226	S	S
+227	T	T
+228	U	U
+229	V	V
+230	W	W
+231	X	X
+232	Y	Y
+233	Z	Z
+# 234 - 239	  	 
+240	0	0
+241	1	1
+242	2	2
+243	3	3
+244	4	4
+245	5	5
+246	6	6
+247	7	7
+248	8	8
+249	9	9
+# 250 - 254	   	 
+255	APC	APC
+#------+-------+------------------------------------------
+
+# =========================================================================== #
+# EBCDIC UTF                                                                  #
+# =========================================================================== #
+
+group	ebcdicUTF
+map	index
+
+#------+-------+------------------------------------------
+# Int	EBCDIC	Description
+#------+-------+------------------------------------------
+62	PM	PM
+#74				// ToDo: causes error in EnDeMaps.js: 09nov09
+79	|	Logical OR
+#106				// ToDo: causes error in EnDeMaps.js: 09nov09
+121	`	Grave Accent
+173	[	Opening Bracket
+#185				// ToDo: causes error in EnDeMaps.js: 09nov09
+189	[	Closing Bracket
+
+# =========================================================================== #
+# Mac OS Roman                                                                #
+# =========================================================================== #
+
+group	romanMap
+map	index
+#------+-------+------------------------------------------
+# Int	Roman	Description
+#------+-------+------------------------------------------
+# 1..127	identical to ASCII
+#
+# //ToDo: not yet ready as 2'nd column needs to be evaluated different
+#
+128	Ä 	LATIN CAPITAL LETTER A WITH DIAERESIS
+129	Å	LATIN CAPITAL LETTER A WITH RING ABOVE
+130	Ç	LATIN CAPITAL LETTER C WITH CEDILLA
+131	É	LATIN CAPITAL LETTER E WITH ACUTE
+132	Ñ	LATIN CAPITAL LETTER N WITH TILDE
+133	Ö	LATIN CAPITAL LETTER O WITH DIAERESIS
+134	Ü	LATIN CAPITAL LETTER U WITH DIAERESIS
+135	á	LATIN SMALL LETTER A WITH ACUTE
+136	à	LATIN SMALL LETTER A WITH GRAVE
+137	â	LATIN SMALL LETTER A WITH CIRCUMFLEX
+138	ä	LATIN SMALL LETTER A WITH DIAERESIS
+139	ã	LATIN SMALL LETTER A WITH TILDE
+140	ã	LATIN SMALL LETTER A WITH RING ABOVE
+141	ç	LATIN SMALL LETTER C WITH CEDILLA
+142	é	LATIN SMALL LETTER E WITH ACUTE
+143	è	LATIN SMALL LETTER E WITH GRAVE
+144	ê	LATIN SMALL LETTER E WITH CIRCUMFLEX
+145	ë	LATIN SMALL LETTER E WITH DIAERESIS
+146	í	LATIN SMALL LETTER I WITH ACUTE
+147	ì	LATIN SMALL LETTER I WITH GRAVE
+148	î	LATIN SMALL LETTER I WITH CIRCUMFLEX
+149	ï	LATIN SMALL LETTER I WITH DIAERESIS
+150	ñ	LATIN SMALL LETTER N WITH TILDE
+151	ó	LATIN SMALL LETTER O WITH ACUTE
+152	ò	LATIN SMALL LETTER O WITH GRAVE
+153	ô	LATIN SMALL LETTER O WITH CIRCUMFLEX
+154	ö	LATIN SMALL LETTER O WITH DIAERESIS
+155	õ	LATIN SMALL LETTER O WITH TILDE
+156	ú	LATIN SMALL LETTER U WITH ACUTE
+157	ù	LATIN SMALL LETTER U WITH GRAVE
+158	û	LATIN SMALL LETTER U WITH CIRCUMFLEX
+159	ü	LATIN SMALL LETTER U WITH DIAERESIS
+160	\x2020	DAGGER
+161	\x00B0	DEGREE SIGN
+162	\x00A2	CENT SIGN
+163	\x00A3	POUND SIGN
+164	\x00A7	SECTION SIGN
+165	0x2022	BULLET
+166	0x00B6	PILCROW SIGN
+167	0x00DF	LATIN SMALL LETTER SHARP S
+168	0x00AE	REGISTERED SIGN
+169	0x00A9	COPYRIGHT SIGN
+170	0x2122	TRADE MARK SIGN
+171	0x00B4	ACUTE ACCENT
+172	0x00A8	DIAERESIS
+173	0x2260	NOT EQUAL TO
+174	0x00C6	LATIN CAPITAL LETTER AE
+175	0x00D8	LATIN CAPITAL LETTER O WITH STROKE
+176	0x221E	INFINITY
+177	0x00B1	PLUS-MINUS SIGN
+178	0x2264	LESS-THAN OR EQUAL TO
+179	0x2265	GREATER-THAN OR EQUAL TO
+180	0x00A5	YEN SIGN
+181	0x00B5	MICRO SIGN
+182	0x2202	PARTIAL DIFFERENTIAL
+183	0x2211	N-ARY SUMMATION
+184	0x220F	N-ARY PRODUCT
+185	0x03C0	GREEK SMALL LETTER PI
+186	0x222B	INTEGRAL
+187	0x00AA	FEMININE ORDINAL INDICATOR
+188	0x00BA	MASCULINE ORDINAL INDICATOR
+189	0x03A9	GREEK CAPITAL LETTER OMEGA
+190	0x00E6	LATIN SMALL LETTER AE
+191	0x00F8	LATIN SMALL LETTER O WITH STROKE
+192	0x00BF	INVERTED QUESTION MARK
+193	0x00A1	INVERTED EXCLAMATION MARK
+194	0x00AC	NOT SIGN
+195	0x221A	SQUARE ROOT
+196	0x0192	LATIN SMALL LETTER F WITH HOOK
+197	0x2248	ALMOST EQUAL TO
+198	0x2206	INCREMENT
+199	0x00AB	LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+200	0x00BB	RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+201	0x2026	HORIZONTAL ELLIPSIS
+202	0x00A0	NO-BREAK SPACE
+203	0x00C0	LATIN CAPITAL LETTER A WITH GRAVE
+204	0x00C3	LATIN CAPITAL LETTER A WITH TILDE
+205	0x00D5	LATIN CAPITAL LETTER O WITH TILDE
+206	0x0152	LATIN CAPITAL LIGATURE OE
+207	0x0153	LATIN SMALL LIGATURE OE
+208	0x2013	EN DASH
+209	0x2014	EM DASH
+210	0x201C	LEFT DOUBLE QUOTATION MARK
+211	0x201D	RIGHT DOUBLE QUOTATION MARK
+212	0x2018	LEFT SINGLE QUOTATION MARK
+213	0x2019	RIGHT SINGLE QUOTATION MARK
+214	0x00F7	DIVISION SIGN
+215	0x25CA	LOZENGE
+216	0x00FF	LATIN SMALL LETTER Y WITH DIAERESIS
+217	0x0178	LATIN CAPITAL LETTER Y WITH DIAERESIS
+218	0x2044	FRACTION SLASH
+219	0x20AC	EURO SIGN
+220	0x2039	SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+221	0x203A	SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+222	0xFB01	LATIN SMALL LIGATURE FI
+223	0xFB02	LATIN SMALL LIGATURE FL
+224	0x2021	DOUBLE DAGGER
+225	0x00B7	MIDDLE DOT
+226	0x201A	SINGLE LOW-9 QUOTATION MARK
+227	0x201E	DOUBLE LOW-9 QUOTATION MARK
+228	0x2030	PER MILLE SIGN
+229	0x00C2	LATIN CAPITAL LETTER A WITH CIRCUMFLEX
+230	0x00CA	LATIN CAPITAL LETTER E WITH CIRCUMFLEX
+231	0x00C1	LATIN CAPITAL LETTER A WITH ACUTE
+232	0x00CB	LATIN CAPITAL LETTER E WITH DIAERESIS
+233	0x00C8	LATIN CAPITAL LETTER E WITH GRAVE
+234	0x00CD	LATIN CAPITAL LETTER I WITH ACUTE
+235	0x00CE	LATIN CAPITAL LETTER I WITH CIRCUMFLEX
+236	0x00CF	LATIN CAPITAL LETTER I WITH DIAERESIS
+237	0x00CC	LATIN CAPITAL LETTER I WITH GRAVE
+238	0x00D3	LATIN CAPITAL LETTER O WITH ACUTE
+239	0x00D4	LATIN CAPITAL LETTER O WITH CIRCUMFLEX
+240	0xF8FF	Apple logo
+241	0x00D2	LATIN CAPITAL LETTER O WITH GRAVE
+242	0x00DA	LATIN CAPITAL LETTER U WITH ACUTE
+243	0x00DB	LATIN CAPITAL LETTER U WITH CIRCUMFLEX
+244	0x00D9	LATIN CAPITAL LETTER U WITH GRAVE
+245	0x0131	LATIN SMALL LETTER DOTLESS I
+246	0x02C6	MODIFIER LETTER CIRCUMFLEX ACCENT
+247	0x02DC	SMALL TILDE
+248	0x00AF	MACRON
+249	0x02D8	BREVE
+250	0x02D9	DOT ABOVE
+251	0x02DA	RING ABOVE
+252	0x00B8	CEDILLA
+253	0x02DD	DOUBLE ACUTE ACCENT
+254	0x02DB	OGONEK
+255	0x02C7	CARON
+#------+-------+------------------------------------------
+
+
+# =========================================================================== #
+# XML entity characters                                                       #
+# =========================================================================== #
+
+group	xmlMap
+map	index
+#------+----------------------------------
+# Int   Entity
+#------+----------------------------------
+34	quot
+38	amp
+39	apos
+60	lt
+62	gt
+#------+----------------------------------
+
+# =========================================================================== #
+# Morse characters                                                            #
+# =========================================================================== #
+
+group	sosMap
+index	hash
+#------+----------------------------------
+# Int   SOS
+#------+----------------------------------
+0	_____
+1	.____
+2	..___
+3	...__
+4	...._
+5	.....
+6	_....
+7	__...
+8	___..
+9	____.
+a	._
+b	_...
+c	_._.
+d	_..
+e	.
+f	.._.
+g	__.
+h	....
+i	..
+j	.___
+k	_._
+l	._..
+m	__
+n	_.
+o	___
+p	.__.
+q	__._
+r	._.
+s	...
+t	_
+u	.._
+v	..._
+w	.__
+x	_.._
+y	_.__
+z	__..
+ 
+# extended Morse characters
+
+.	._._._
+:	___...
+=	_..._
+-	_...._
+@	.__._.
+/	_.._.
+,	__..__
+?	..__..
+'	._.._.
+"	.____.
+)	_.__._
++	._._.
+# not reversable, see above
+# following same as ')'
+(	_.__._
+#------+----------------------------------
+## ?????????
+#	 note that '(' is defined, but not ')', we use it the other way arround
+#	 so that decoding returns '(' always 
+#	 seems to be a hash problem in JavaScript
+## ?????????
+
+# =========================================================================== #
+# Baudot characters                                                           #
+# =========================================================================== #
+
+
+group	figsMap
+index	hash
+#------+----------------------------------
+#Baudod	ASCII
+#------+----------------------------------
+00000	 
+00001	3
+00010	\n
+00011	-
+00100	 
+00101	'
+00110	8
+00111	7
+01000	\r
+01001	$
+01010	4
+01011	 
+01100	,
+01101	!
+01110	:
+01111	(
+10000	5
+10001	"
+10010	)
+10011	2
+10100	#
+10101	6
+10110	0
+10111	1
+11000	9
+11001	?
+11010	&
+11011	FIGS
+11100	.
+11101	/
+11110	;
+11111	LTRS
+
+group	ltrsMap
+index	hash
+00000	
+00001	E
+00010	\n
+00011	A
+00100	 
+00101	S
+00110	I
+00111	U
+01000	\r
+01001	D
+01010	R
+01011	J
+01100	N
+01101	F
+01110	C
+01111	K
+10000	T
+10001	Z
+10010	L
+10011	W
+10100	H
+10101	Y
+10110	P
+10111	Q
+11000	O
+11001	B
+11010	G
+11011	FIGS
+11100	M
+11101	X
+11110	V
+11111	LTRS
+
+# =========================================================================== #
+# Unicode planes                                                              #
+# =========================================================================== #
+
+# Plane	Range		Description
+# -----+---------------+--------------------------------------------
+#  0	  0000-FFFF	BMP - Basic Multilingual Plane
+#  1	 10000-1FFFF	SMP - Supplementary Multilingual Plane
+#  2	 20000-2FFFF	SIP - Supplementary Ideographic Plane
+#  3-13	 30000-DFFFF	-unused-
+#  14	 E0000-EFFFF	SSP - Supplementary Special-purpose Plane
+#  15	 F0000-FFFFF	PUA - Private Use Area
+#  16	100000-10FFFF	PUA - Private Use Area
+# -----+---------------+--------------------------------------------
+#
+#  Unicode code point ranges, see http://www.unicode.org/Public/UNIDATA/Blocks.txt
+
+group	rangeMap
+index	hash
+#----------------------+----------------------------------
+# Range                 Description
+#----------------------+----------------------------------
+0x000000-0x00007F	Basic Latin
+0x000080-0x0000FF	C1 Controls and Latin-1 Supplement
+0x000100-0x00017F	Latin Extended-A
+0x000180-0x00024F	Latin Extended-B
+0x000250-0x0002AF	IPA Extensions
+0x0002B0-0x0002FF	Spacing Modifier Letters
+0x000300-0x00036F	Combining Diacritical Marks
+0x000370-0x0003FF	Greek/Coptic
+0x000400-0x0004FF	Cyrillic
+0x000500-0x00052F	Cyrillic Supplement
+0x000530-0x00058F	Armenian
+0x000590-0x0005FF	Hebrew
+0x000600-0x0006FF	Arabic
+0x000700-0x00074F	Syriac
+0x000750-0x00077F	Arabic Supplement
+0x000780-0x0007BF	Thaana
+0x0007C0-0x0007FF	Nko
+0x0008C0-0x0008FF	Undefined
+0x000900-0x00097F	Devanagari
+0x000980-0x0009FF	Bengali/Assamese
+0x000A00-0x000A7F	Gurmukhi
+0x000A80-0x000AFF	Gujarati
+0x000B00-0x000B7F	Oriya
+0x000B80-0x000BFF	Tamil
+0x000C00-0x000C7F	Telugu
+0x000C80-0x000CFF	Kannada
+0x000D00-0x000D7F	Malayalam
+0x000D80-0x000DFF	Sinhala
+0x000E00-0x000E7F	Thai
+0x000E80-0x000EFF	Lao
+0x000F00-0x000FFF	Tibetan
+0x001000-0x00109F	Myanmar
+0x0010A0-0x0010FF	Georgian
+0x001100-0x0011FF	Hangul Jamo
+0x001200-0x00137F	Ethiopic
+0x001380-0x00139F	Ethiopic Supplement
+0x0013A0-0x0013FF	Cherokee
+0x001400-0x00167F	Unified Canadian Aboriginal Syllabics
+0x001680-0x00169F	Ogham
+0x0016A0-0x0016FF	Runic
+0x001700-0x00171F	Tagalog
+0x001720-0x00173F	Hanunoo
+0x001740-0x00175F	Buhid
+0x001760-0x00177F	Tagbanwa
+0x001780-0x0017FF	Khmer
+0x001800-0x0018AF	Mongolian
+0x0018B0-0x0018FF	Undefined
+0x001900-0x00194F	Limbu
+0x001950-0x00197F	Tai Le
+0x001980-0x0019DF	New Tai Lue
+0x0019E0-0x0019FF	Khmer Symbols
+0x001A00-0x001A1F	Buginese
+0x001A20-0x001AFF	-undefined-
+0x001B00-0x001B7F	Balinese
+0x001B80-0x001BBF	Sundanese
+0x001BC0-0x001BFF	-undefined-
+0x001C00-0x001C4F	Lepcha
+0x001C50-0x001C7F	Ol Chiki
+0x001C80-0x001CFF	-undefined-
+0x001D00-0x001D7F	Phonetic Extensions
+0x001D80-0x001DBF	Phonetic Extensions Supplement
+0x001DC0-0x001DFF	Combining Diacritical Marks Supplement
+0x001E00-0x001EFF	Latin Extended Additional
+0x001F00-0x001FFF	Greek Extended
+0x002000-0x00206F	General Punctuation
+0x002070-0x00209F	Superscripts and Subscripts
+0x0020A0-0x0020CF	Currency Symbols
+0x0020D0-0x0020FF	Combining Diacritical Marks for Symbols
+0x002100-0x00214F	Letterlike Symbols
+0x002150-0x00218F	Number Forms
+0x002190-0x0021FF	Arrows
+0x002200-0x0022FF	Mathematical Operators
+0x002300-0x0023FF	Miscellaneous Technical
+0x002400-0x00243F	Control Pictures
+0x002440-0x00245F	Optical Character Recognition
+0x002460-0x0024FF	Enclosed Alphanumerics
+0x002500-0x00257F	Box Drawing
+0x002580-0x00259F	Block Elements
+0x0025A0-0x0025FF	Geometric Shapes
+0x002600-0x0026FF	Miscellaneous Symbols
+0x002700-0x0027BF	Dingbats
+0x0027C0-0x0027EF	Miscellaneous Mathematical Symbols-A
+0x0027F0-0x0027FF	Supplemental Arrows-A
+0x002800-0x0028FF	Braille Patterns
+0x002900-0x00297F	Supplemental Arrows-B
+0x002980-0x0029FF	Miscellaneous Mathematical Symbols-B
+0x002A00-0x002AFF	Supplemental Mathematical Operators
+0x002B00-0x002BFF	Miscellaneous Symbols and Arrows
+0x002C00-0x002C5F	Glagolitic
+0x002C60-0x002C7F	Latin Extended-C
+0x002C80-0x002CFF	Coptic
+0x002D00-0x002D2F	Georgian Supplement
+0x002D30-0x002D7F	Tifinagh
+0x002D80-0x002DDF	Ethiopic Extended
+0x002DE0-0x002DFF	Cyrillic Extended-A
+0x002E00-0x002E7F	Supplemental Punctuation
+0x002E80-0x002EFF	CJK Radicals Supplement
+0x002F00-0x002FDF	Kangxi Radicals
+0x002FE0-0x002FEF	-undefined-
+0x002FF0-0x002FFF	Ideographic Description Characters
+0x003000-0x00303F	CJK Symbols and Punctuation
+0x003040-0x00309F	Hiragana
+0x0030A0-0x0030FF	Katakana
+0x003100-0x00312F	Bopomofo
+0x003130-0x00318F	Hangul Compatibility Jamo
+0x003190-0x00319F	Kanbun (Kunten)
+0x0031A0-0x0031BF	Bopomofo Extended
+0x0031C0-0x0031EF	CJK Strokes
+0x0031F0-0x0031FF	Katakana Phonetic Extensions
+0x003200-0x0032FF	Enclosed CJK Letters and Months
+0x003300-0x0033FF	CJK Compatibility
+0x003400-0x004DBF	CJK Unified Ideographs Extension A
+0x004DC0-0x004DFF	Yijing Hexagram Symbols
+0x004E00-0x009FFF	CJK Unified Ideographs
+0x00A000-0x00A48F	Yi Syllables
+0x00A490-0x00A4CF	Yi Radicals
+0x00A4D0-0x00A4FF	-undefined-
+0x00A500-0x00A63F	Vai
+0x00A640-0x00A69F	Cyrillic Extended-B
+0x00A700-0x00A71F	Modifier Tone Letters
+0x00A720-0x00A7FF	Latin Extended-D
+0x00A800-0x00A82F	Syloti Nagri
+0x00A830-0x00A83F	-undefined-
+0x00A840-0x00A87F	Phags-pa
+0x00A880-0x00A8DF	Saurashtra
+0x00A900-0x00A92F	Kayah Li
+0x00A930-0x00A95F	Rejang
+0x00A960-0x00A9FF	-undefined-
+0x00AA00-0x00AA5F	Cham
+0x00AA60-0x00ABFF	-undefined-
+0x00AC00-0x00D7AF	Hangul Syllables
+0x00D7B0-0x00D7FF	-undefined-
+0x00D800-0x00DB7F	High Surrogate Area
+0x00DB80-0x00DBFF	High Private Use Surrogate Area
+0x00DC00-0x00DFFF	Low Surrogate Area
+0x00E000-0x00E07F	Private Use Area - Conlang Tengwar
+0x00E080-0x00E0FF	Private Use Area - Conlang brie.Cirth
+0x00E2E0-0x00E2FF	Private Use Area - Conlang Xaini
+0x00E300-0x00E33F	Private Use Area - Conlang Mizarian
+0x00E340-0x00E35F	Private Use Area - Conlang Ziri:nka
+0x00E360-0x00E37F	Private Use Area - Conlang Sarkai
+0x00E380-0x00E3AF	Private Use Area - Conlang Thelwik
+0x00E3B0-0x00E3FF	Private Use Area - Conlang Olaetyan
+0x00E400-0x00E42F	Private Use Area - Conlang Niskloz
+0x00E430-0x00E44F	Private Use Area - Conlang Kazat ?akkorou
+0x00E450-0x00E46F	Private Use Area - Conlang Kazvarad
+0x00E470-0x00E48F	Private Use Area - Conlang Zarkhand
+0x00E490-0x00E4BF	Private Use Area - Conlang Rozhxh
+0x00E4C0-0x00E4EF	Private Use Area - Conlang Serivelna
+0x00E4F0-0x00E4FF	Private Use Area - Conlang Kelwathi
+0x00E500-0x00E51F	Private Use Area - Conlang Saklor
+0x00E520-0x00E54F	Private Use Area - Conlang Rynnan
+0x00E550-0x00E57F	Private Use Area - Conlang Alzetjan
+0x00E580-0x00E59F	Private Use Area - Conlang Telarasso
+0x00E5A0-0x00E5BF	Private Use Area - Conlang Ssuraki
+0x00E5C0-0x00E5DF	Private Use Area - Conlang Gargoyle
+0x00E5E0-0x00E5FF	Private Use Area - Conlang Ophidian
+0x00E600-0x00E62F	Private Use Area - Conlang Ferengi
+0x00E630-0x00E64F	Private Use Area - Conlang Seussian Latin Extensions
+0x00E650-0x00E68F	Private Use Area - ??
+0x00E690-0x00E6CF	Private Use Area - Conlang Ewellic
+0x00E6D0-0x00E6FF	Private Use Area - Conlang Phaistos Disc
+0x00E740-0x00E76F	Private Use Area - Conlang Unifon
+0x00E770-0x00E77F	Private Use Area - Conlang Solresol
+0x00E780-0x00E7FF	Private Use Area - Conlang Visible Speech
+0x00E800-0x00E82F	Private Use Area - Conlang Monofon
+0x00E830-0x00EDFF	Private Use Area - ??
+0x00EE00-0x00EEAF	Private Use Area - Hungarian Runes
+0x00EEB0-0x00F89F	Private Use Area - ??
+0x00F8A0-0x00F8CF	Private Use Area - Conlang Aiha
+0x00F8D0-0x00F8FF	Private Use Area - Conlang Klingon
+0x00E000-0x00F8FF	Private Use Area - ??
+0x00F900-0x00FAFF	CJK Compatibility Ideographs
+0x00FB00-0x00FB4F	Alphabetic Presentation Forms
+0x00FB50-0x00FDFF	Arabic Presentation Forms-A
+0x00FE00-0x00FE0F	Variation Selectors
+0x00FE10-0x00FE1F	Vertical Forms
+0x00FE20-0x00FE2F	Combining Half Marks
+0x00FE30-0x00FE4F	CJK Compatibility Forms
+0x00FE50-0x00FE6F	Small Form Variants
+0x00FE70-0x00FEFF	Arabic Presentation Forms-B
+0x00FF00-0x00FFEF	Halfwidth and Fullwidth Forms
+0x00FFF0-0x00FFFF	Specials
+0x010000-0x01007F	Linear B Syllabary
+0x010080-0x0100FF	Linear B Ideograms
+0x010100-0x01013F	Aegean Numbers
+0x010140-0x01018F	Ancient Greek Numbers
+0x010190-0x0101CF	Ancient Symbols
+0x0101D0-0x0101FF	Phaistos Disc
+0x010200-0x01027F	-undefined-
+0x010280-0x01029F	Lycian
+0x0102A0-0x0102DF	Carian
+0x0102E0-0x0102FF	-undefined-
+0x010300-0x01032F	Old Italic
+0x010330-0x01034F	Gothic
+0x010380-0x01039F	Ugaritic
+0x0103A0-0x0103DF	Old Persian
+0x010400-0x01044F	Deseret
+0x010450-0x01047F	Shavian
+0x010480-0x0104AF	Osmanya
+0x0104B0-0x0107FF	-undefined-
+0x010800-0x01083F	Cypriot Syllabary
+0x010840-0x0108FF	-undefined-
+0x010900-0x01091F	Phoenician
+0x010920-0x01093F	Lydian
+0x010940-0x0109FF	-undefined-
+0x010A00-0x010A5F	Kharoshthi
+0x010A60-0x011FFF	-undefined-
+0x012000-0x0123FF	Cuneiform
+0x012400-0x01247F	Cuneiform Numbers and Punctuation
+0x012480-0x01CFFF	-undefined-
+0x01D000-0x01D0FF	Byzantine Musical Symbols
+0x01D100-0x01D1FF	Musical Symbols
+0x01D200-0x01D24F	Ancient Greek Musical Notation
+0x01D250-0x01D2FF	-undefined-
+0x01D300-0x01D35F	Tai Xuan Jing Symbols
+0x01D360-0x01D37F	Counting Rod Numerals
+0x01D380-0x01D3FF	-undefined-
+0x01D400-0x01D7FF	Mathematical Alphanumeric Symbols
+0x01D800-0x01EFFF	-undefined-
+0x01F000-0x01F02F	Mahjong Tiles
+0x01F030-0x01F09F	Domino Tiles
+0x01F0A0-0x01FFFF	-undefined-
+0x020000-0x02A6DF	CJK Unified Ideographs Extension B
+0x02A6E0-0x02F7FF	-undefined-
+0x02F800-0x02FA1F	CJK Compatibility Ideographs Supplement
+0x02FAB0-0x0DFFFF	-unused-
+0x0E0000-0x0E007F	Tags
+0x0E0080-0x0E00FF	-unused-
+0x0E0100-0x0E01EF	Variation Selectors Supplement
+0x0E01F0-0x0EFFFF	-unused-
+0x0F0000-0x0F0E69	Supplementary Private Use Area-A Conlang Kinya Syllables
+0x0F0E70-0x0F16AF	Supplementary Private Use Area-A Conlang Pikto
+0x0F16B0-0x0FFFFF	Supplementary Private Use Area-A
+0x0FFFFE-0x0FFFFF	Unused
+0x100000-0x10FFFD	Supplementary Private Use Area-B
+#----------------------+----------------------------------
+
+__END

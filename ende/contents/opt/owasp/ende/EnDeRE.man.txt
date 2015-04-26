@@ -1,0 +1,244 @@
+	
+	
+NAME
+	
+	EnDeRE - ExplaiN/DEscribe Regular Expressions
+	
+	
+SYNOPSIS
+	
+	Click&Enjoy
+	
+	
+IT IS NOT
+	
+	* test for RegEx syntax (lint or alike)
+	* converter for RegEx from to another syntax (flavour)
+	
+	
+QUICK START
+	
+	Key in your regular expression in the  RegEx textarea, ensure that the
+	raw RegEx  option is checked  and  select any of the listed  languages
+	in the selection box on the left. Ready you go.
+	
+	Do not uncheck the "raw RegEx" unless you have read *all* descriptions
+	herein, in particular the  STRING  description below.  You should also
+	be used to the regular expression syntax of your language/flavour.
+	
+	
+DESCRIPTION
+	
+	This tool tries to  explain  regular expresseions  (RegEx for now)  in
+	human understandable phrases and sentences (at least to humans used to
+	some basic terms with programatically text processeing:).
+	
+	Explaining is a one-click task (beside your typing, obviously :-)
+	
+	Said this, we explain in short what it does:
+	
+	* use the text given in the RegEx input field and try to explain it
+	* if a text is given in the Text input field, try to match it with the
+	  given RegEx
+	* parsed and/or explained RegEx is shown it its own window, the format
+	  of the produced text may be controlled by the  OPTIONS  
+	
+	The default configuration is to parse the given  RgEx as  literal text
+	according the requested language/flavour. This means that you just key
+	in your  RegEx as it would be done for the tool without any surounding
+	quotes or other special characters, just the desired RegEx itself.
+	
+	To make things more comfortable, a RegEx can be given with its context
+	as required by the tool, for example  with enclosing  '/' or even with
+	the function call containing the RegEx as parameter.  See  EXAMPLES  
+	below for more details.
+	To use this feature, the  "raw RegEx"  OPTION  must be disabled.  This
+	changes the behaviour of the regex parsing engine, see  STRINGS  below
+	for a more detailed description about strings, literals, and escapes.
+	
+	Matched text: Only JavaScript regular expressions are supported.
+	The match functionality is currently very limited  as it simply passes
+	the  RegEx  to JavaScript's  RegExp object and performs a 'match()' on
+	the  Text. The resulting matches are shown.
+	This restricts the  RegEx to be a simple one without enclosing  '/' or
+	'"' and without modifiers, that's the "raw RegEx" mode.
+	
+	See  TOOL/LANGUAGE SPECIFIC SETTINGS  below for details about known or
+	supported features.
+	
+	
+GUI
+	
+	The  GUI contains a small set of  options to control  the behaviour of
+	parsing and displaying the given RegEx, see  OPTIONS  below.
+	
+	The main part of the GUI consist of a menu on left, 2 input fields and
+	some buttons on the right.  The menu contains the supported languages/
+	flavours which can be pretty printed  (just one-click,  the purpose of
+	this tool).
+	The input fields are "RegEx" for the regular expression and "Text" for
+	a sample text to be matched against the RegEx (limitations see below).
+	
+	The buttons are:
+	  [parsed] button
+		Show the RegEx in a simple multiline mode.
+		This is independent of any  language/flavour and just uses the
+		the brackets to make indentations.
+	  [Text] button
+		Converts the parsed text back to a simple text
+	  [sample] menu
+		This menu contains some helper functionality.
+		For example inserting some special characters (like NL), which
+		might be tricky in some browsers.
+		It also contains a useless "sample" RegEx.
+		"template"  generates the content for  "_user.xml" (see  USER  
+		below).
+	  [?] button     this text
+	
+	
+OPTIONS
+	
+	Following options are available to change the behaviour of the parsing
+	for the given RegEx:
+	
+	Prefix: [    ]
+		Defines a pattern which may prefix the RegEx.
+		This pattern is a regular expressions itself. It must be valid
+		syntax for JavaScript regular expressions.
+		If set, any  text matching  that expression will be treated as 
+		literal leading text and not used as part of the  RegEx  to be
+		parsed and explained.
+		The setting is most likely useful in conjunction with the "raw
+		RegEx" option (see above). See  EXAMPLES  below also.
+	
+	[] raw RegEx
+		If set, the RegEx is assumed to be raw data, otherwise it must
+		be enclosed in proper delimiters and/or may contain leading or
+		trailing text (see  STRINGS  below also).
+	
+		NOTE:  to understand the behaviour of this option, play around
+		with following RegEx:
++-
+|			prefix("/literal \text(group#1)/"trailing text.
++-
+		It's recommended to have this option checked which is default.
+	
+	[] description
+		If set, the special constructs in the RegEx are explained
+		if not set, the RegEx is just `pretty printed' according these
+		special constructs for better readability.
+	
+	[] extended RegEx
+		If set, use extended regular expressions of selected tool
+		** NOT YET IMPLEMENTED **
+	
+	
+IT's NOT A BUG
+	
+	The result, either just  pretty printed  or with  description text, is
+	not always reversible to the given RegEx (because of the added  blank,
+	space,  tab  and/or  newline characters).
+	
+	
+STRINGS
+	
+	Regular expressions are implemented as strings in all languages/tools.
+	Unfortunately each of the  tools handles strings in its own way.  This
+	means that in most languages/tools the string containing the  RegEx is
+	first parsed by the language/tool's string parser.  Exceptions of this
+	are  awk, perl and sed.  Some others support a mode with so-called raw
+	or literal strings to avoid special interpretation of some characters,
+	mainly of \-escaped characters (for example in .NET, python).
+	The different parsing of the string results in different behaviours of
+	some/most escapings (mainly \-escapes).  This often confuses users and
+	results in wrong written RegExs. A `good' example of such confusion is
+	Java and Java properties files, unfortunately.
+	EnDeRE supports these differences, it also supports the literal string
+	mode of some languages/tools. This means that EnDeRE accepts the RegEx
+	exactly in the same notation as the language/tool itself, copy & paste
+	can simply be used for the RegEx string.
+	A "raw RegEx" mode can be forced by the corresponding  OPTION.  This is
+	to make those people happy who are amazed/surprised about the lengthly
+	\-sequences necessary in some languages/tools; just type the RegEx the
+	natural way.
+	
+	
+USER
+	
+	** EXPERIMENTAL IMPLEMENTATION **
+	
+	A user-definable flavour of a regular expression is supported. This is
+	implemented by reading the definitions of the regular expression  from
+	the external file "_user.xml". This file must contain valid XML syntax
+	and must be located in the same directory as all other EnDeRE*  files.
+	
+	This file contains a JavaScript hash describing all available features
+	and behaviours of this specific RegEx. The description in the template
+	and the help page (see  [?]  button) contain some instructions how to
+	use and configure this file.
+	
+	The  "user RegEx" language in the menu reads the definitions from this
+	file and pretty prints the given RegEx accoding these settings.
+	Note that each usage of  "user RegEx"  reads "_user.xml" again.
+	
+	Hint: use your browser's  JavaScript or  Error Console window  to find
+	syntax erros in "_user.xml".
+	
+	
+KNOWN PROBLEMS
+	
+	* Last '$' (dollar) is printed twice, sometimes.
+	* 'title=' attribute in "Overview" table below not always appropriate.
+	* Unicode script properties  are not known to this tool, but allowed
+	  and explained as:
+		"unknown Unicode property (may be block or script)".
+	* Whirl may be wrong due to sudden laziness ;-)
+	
+	
+HINTS
+	
+	ModSecurity
+		Some expressions, in particular from the  Core Rule Set,  use
+		special string initializers. The "raw RegEx" option should be
+		unchecked for them.
+	
+	
+EXAMPLES
+	
+	** comming soon **
++-
+|	[http]/path(/+(?:foo|bar))
+|	https?://path(/+(?:foo|bar))
+|	s{https?://path(/+(?:foo|bar))}i
+|	m#https?://path(/+(?:foo|bar))#i
+|	match(@"https?://path(/+(?:foo|bar))")
++-
+	
+VERSION
+	
+	@# EnDeRE <!-- @(#) EnDeRE.man.txt 3.2 16:36:40 11/02/05 -->
+	
+	
+AUTHOR
+	
+	08-mar-08 Achim Hoffmann, mailto: EnDe (at) my (dash) stp (dot) net
+	
+			HOME http://ende.my-stp.net/ EnDe
+	
+---
+	
+	
+TOOL/LANGUAGE SPECIFIC SETTINGS
+	
+	Following section shows the features, behaviours etc. for the selected
+	RegEx tool/language/flavour. The tables list the metacharacter or text
+	with its description and a note (status) how it is supported herein.
+	All listed  stati  here mean if this feature is available in the tool/
+	language, it  does not  mean the feature is known/supported by EnDeRE.
+	The text
+		"**EnDeRE: undefined or unknown/untested feature **"
+<!-- span style="margin-left:6em">
+	<script type="text/javascript">document.write(_x);</script></span -->
+	just indicate that the feature's description is not yet handled proper
+	herein.
+</pre>

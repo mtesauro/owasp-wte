@@ -1,0 +1,929 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>JavaScript Implementation of AES Advanced Encryption Standard in Counter Mode</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="author" content="Chris Veness, 2005-2007">
+<meta name="keywords" content="AES advanced encryption algorithm standard counter mode operation javascript">
+<link href="../mtl.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+.smallCaps {
+  font-size: 94%;
+}
+button {
+  font-size: 0.9em;
+  height: 1.9em;
+  padding: 0 0.25em 0 0.25em;
+  width:auto;
+  overflow:visible;
+}
+</style>
+<script type="text/javascript" src="../externLinks.js"></script>
+
+<script type="text/javascript">
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+/*
+ * AES Cipher function: encrypt 'input' with Rijndael algorithm
+ *
+ *   takes   byte-array 'input' (16 bytes)
+ *           2D byte-array key schedule 'w' (Nr+1 x Nb bytes)
+ *
+ *   applies Nr rounds (10/12/14) using key schedule w for 'add round key' stage
+ *
+ *   returns byte-array encrypted value (16 bytes)
+ */
+function Cipher(input, w) {    // main Cipher function [§5.1]
+  var Nb = 4;               // block size (in words): no of columns in state (fixed at 4 for AES)
+  var Nr = w.length/Nb - 1; // no of rounds: 10/12/14 for 128/192/256-bit keys
+
+  var state = [[],[],[],[]];  // initialise 4xNb byte-array 'state' with input [§3.4]
+  for (var i=0; i<4*Nb; i++) state[i%4][Math.floor(i/4)] = input[i];
+
+  state = AddRoundKey(state, w, 0, Nb);
+
+  for (var round=1; round<Nr; round++) {
+    state = SubBytes(state, Nb);
+    state = ShiftRows(state, Nb);
+    state = MixColumns(state, Nb);
+    state = AddRoundKey(state, w, round, Nb);
+  }
+
+  state = SubBytes(state, Nb);
+  state = ShiftRows(state, Nb);
+  state = AddRoundKey(state, w, Nr, Nb);
+
+  var output = new Array(4*Nb);  // convert state to 1-d array before returning [§3.4]
+  for (var i=0; i<4*Nb; i++) output[i] = state[i%4][Math.floor(i/4)];
+  return output;
+}
+
+
+function SubBytes(s, Nb) {    // apply SBox to state S [§5.1.1]
+  for (var r=0; r<4; r++) {
+    for (var c=0; c<Nb; c++) s[r][c] = Sbox[s[r][c]];
+  }
+  return s;
+}
+
+
+function ShiftRows(s, Nb) {    // shift row r of state S left by r bytes [§5.1.2]
+  var t = new Array(4);
+  for (var r=1; r<4; r++) {
+    for (var c=0; c<4; c++) t[c] = s[r][(c+r)%Nb];  // shift into temp copy
+    for (var c=0; c<4; c++) s[r][c] = t[c];         // and copy back
+  }          // note that this will work for Nb=4,5,6, but not 7,8 (always 4 for AES):
+  return s;  // see fp.gladman.plus.com/cryptography_technology/rijndael/aes.spec.311.pdf 
+}
+
+
+function MixColumns(s, Nb) {   // combine bytes of each col of state S [§5.1.3]
+  for (var c=0; c<4; c++) {
+    var a = new Array(4);  // 'a' is a copy of the current column from 's'
+    var b = new Array(4);  // 'b' is a•{02} in GF(2^8)
+    for (var i=0; i<4; i++) {
+      a[i] = s[i][c];
+      b[i] = s[i][c]&0x80 ? s[i][c]<<1 ^ 0x011b : s[i][c]<<1;
+    }
+    // a[n] ^ b[n] is a•{03} in GF(2^8)
+    s[0][c] = b[0] ^ a[1] ^ b[1] ^ a[2] ^ a[3]; // 2*a0 + 3*a1 + a2 + a3
+    s[1][c] = a[0] ^ b[1] ^ a[2] ^ b[2] ^ a[3]; // a0 * 2*a1 + 3*a2 + a3
+    s[2][c] = a[0] ^ a[1] ^ b[2] ^ a[3] ^ b[3]; // a0 + a1 + 2*a2 + 3*a3
+    s[3][c] = a[0] ^ b[0] ^ a[1] ^ a[2] ^ b[3]; // 3*a0 + a1 + a2 + 2*a3
+  }
+  return s;
+}
+
+
+function AddRoundKey(state, w, rnd, Nb) {  // xor Round Key into state S [§5.1.4]
+  for (var r=0; r<4; r++) {
+    for (var c=0; c<Nb; c++) state[r][c] ^= w[rnd*4+c][r];
+  }
+  return state;
+}
+
+
+function KeyExpansion(key) {  // generate Key Schedule (byte-array Nr+1 x Nb) from Key [§5.2]
+  var Nb = 4;            // block size (in words): no of columns in state (fixed at 4 for AES)
+  var Nk = key.length/4  // key length (in words): 4/6/8 for 128/192/256-bit keys
+  var Nr = Nk + 6;       // no of rounds: 10/12/14 for 128/192/256-bit keys
+
+  var w = new Array(Nb*(Nr+1));
+  var temp = new Array(4);
+
+  for (var i=0; i<Nk; i++) {
+    var r = [key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]];
+    w[i] = r;
+  }
+
+  for (var i=Nk; i<(Nb*(Nr+1)); i++) {
+    w[i] = new Array(4);
+    for (var t=0; t<4; t++) temp[t] = w[i-1][t];
+    if (i % Nk == 0) {
+      temp = SubWord(RotWord(temp));
+      for (var t=0; t<4; t++) temp[t] ^= Rcon[i/Nk][t];
+    } else if (Nk > 6 && i%Nk == 4) {
+      temp = SubWord(temp);
+    }
+    for (var t=0; t<4; t++) w[i][t] = w[i-Nk][t] ^ temp[t];
+  }
+
+  return w;
+}
+
+function SubWord(w) {    // apply SBox to 4-byte word w
+  for (var i=0; i<4; i++) w[i] = Sbox[w[i]];
+  return w;
+}
+
+function RotWord(w) {    // rotate 4-byte word w left by one byte
+  w[4] = w[0];
+  for (var i=0; i<4; i++) w[i] = w[i+1];
+  return w;
+}
+
+
+// Sbox is pre-computed multiplicative inverse in GF(2^8) used in SubBytes and KeyExpansion [§5.1.1]
+var Sbox =  [0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
+             0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,
+             0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15,
+             0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75,
+             0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84,
+             0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf,
+             0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8,
+             0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2,
+             0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73,
+             0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb,
+             0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79,
+             0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08,
+             0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a,
+             0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e,
+             0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,
+             0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16];
+
+// Rcon is Round Constant used for the Key Expansion [1st col is 2^(r-1) in GF(2^8)] [§5.2]
+var Rcon = [ [0x00, 0x00, 0x00, 0x00],
+             [0x01, 0x00, 0x00, 0x00],
+             [0x02, 0x00, 0x00, 0x00],
+             [0x04, 0x00, 0x00, 0x00],
+             [0x08, 0x00, 0x00, 0x00],
+             [0x10, 0x00, 0x00, 0x00],
+             [0x20, 0x00, 0x00, 0x00],
+             [0x40, 0x00, 0x00, 0x00],
+             [0x80, 0x00, 0x00, 0x00],
+             [0x1b, 0x00, 0x00, 0x00],
+             [0x36, 0x00, 0x00, 0x00] ]; 
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+/* 
+ * Use AES to encrypt 'plaintext' with 'password' using 'nBits' key, in 'Counter' mode of operation
+ *                           - see http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
+ *   for each block
+ *   - outputblock = cipher(counter, key)
+ *   - cipherblock = plaintext xor outputblock
+ */
+function AESEncryptCtr(plaintext, password, nBits) {
+  if (!(nBits==128 || nBits==192 || nBits==256)) return '';  // standard allows 128/192/256 bit keys
+	
+  // for this example script, generate the key by applying Cipher to 1st 16/24/32 chars of password; 
+  // for real-world applications, a more secure approach would be to hash the password e.g. with SHA-1
+  var nBytes = nBits/8;  // no bytes in key
+  var pwBytes = new Array(nBytes);
+  for (var i=0; i<nBytes; i++) pwBytes[i] = password.charCodeAt(i) & 0xff;
+  var key = Cipher(pwBytes, KeyExpansion(pwBytes));
+  key = key.concat(key.slice(0, nBytes-16));  // key is now 16/24/32 bytes long
+
+  // initialise counter block (NIST SP800-38A §B.2): millisecond time-stamp for nonce in 1st 8 bytes,
+  // block counter in 2nd 8 bytes
+  var blockSize = 16;  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
+  var counterBlock = new Array(blockSize);  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
+  var nonce = (new Date()).getTime();  // milliseconds since 1-Jan-1970
+
+  // encode nonce in two stages to cater for JavaScript 32-bit limit on bitwise ops
+  for (var i=0; i<4; i++) counterBlock[i] = (nonce >>> i*8) & 0xff;
+  for (var i=0; i<4; i++) counterBlock[i+4] = (nonce/0x100000000 >>> i*8) & 0xff; 
+
+  // generate key schedule - an expansion of the key into distinct Key Rounds for each round
+  var keySchedule = KeyExpansion(key);
+
+  var blockCount = Math.ceil(plaintext.length/blockSize);
+  var ciphertext = new Array(blockCount);  // ciphertext as array of strings
+  
+  for (var b=0; b<blockCount; b++) {
+    // set counter (block #) in last 8 bytes of counter block (leaving nonce in 1st 8 bytes)
+    // again done in two stages for 32-bit ops
+    for (var c=0; c<4; c++) counterBlock[15-c] = (b >>> c*8) & 0xff;
+    for (var c=0; c<4; c++) counterBlock[15-c-4] = (b/0x100000000 >>> c*8)
+
+    var cipherCntr = Cipher(counterBlock, keySchedule);  // -- encrypt counter block --
+    
+    // calculate length of final block:
+    var blockLength = b<blockCount-1 ? blockSize : (plaintext.length-1)%blockSize+1;
+
+    var ct = '';
+    for (var i=0; i<blockLength; i++) {  // -- xor plaintext with ciphered counter byte-by-byte --
+      var plaintextByte = plaintext.charCodeAt(b*blockSize+i);
+      var cipherByte = plaintextByte ^ cipherCntr[i];
+      ct += String.fromCharCode(cipherByte);
+    }
+    // ct is now ciphertext for this block
+
+    ciphertext[b] = escCtrlChars(ct);  // escape troublesome characters in ciphertext
+  }
+
+  // convert the nonce to a string to go on the front of the ciphertext
+  var ctrTxt = '';
+  for (var i=0; i<8; i++) ctrTxt += String.fromCharCode(counterBlock[i]);
+  ctrTxt = escCtrlChars(ctrTxt);
+
+  // use '-' to separate blocks, use Array.join to concatenate arrays of strings for efficiency
+  return ctrTxt + '-' + ciphertext.join('-');
+}
+
+
+/* 
+ * Use AES to decrypt 'ciphertext' with 'password' using 'nBits' key, in Counter mode of operation
+ *
+ *   for each block
+ *   - outputblock = cipher(counter, key)
+ *   - cipherblock = plaintext xor outputblock
+ */
+function AESDecryptCtr(ciphertext, password, nBits) {
+  if (!(nBits==128 || nBits==192 || nBits==256)) return '';  // standard allows 128/192/256 bit keys
+
+  var nBytes = nBits/8;  // no bytes in key
+  var pwBytes = new Array(nBytes);
+  for (var i=0; i<nBytes; i++) pwBytes[i] = password.charCodeAt(i) & 0xff;
+  var pwKeySchedule = KeyExpansion(pwBytes);
+  var key = Cipher(pwBytes, pwKeySchedule);
+  key = key.concat(key.slice(0, nBytes-16));  // key is now 16/24/32 bytes long
+
+  var keySchedule = KeyExpansion(key);
+
+  ciphertext = ciphertext.split('-');  // split ciphertext into array of block-length strings 
+
+  // recover nonce from 1st element of ciphertext
+  var blockSize = 16;  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
+  var counterBlock = new Array(blockSize);
+  var ctrTxt = unescCtrlChars(ciphertext[0]);
+  for (var i=0; i<8; i++) counterBlock[i] = ctrTxt.charCodeAt(i);
+
+  var plaintext = new Array(ciphertext.length-1);
+
+  for (var b=1; b<ciphertext.length; b++) {
+    // set counter (block #) in last 8 bytes of counter block (leaving nonce in 1st 8 bytes)
+    for (var c=0; c<4; c++) counterBlock[15-c] = ((b-1) >>> c*8) & 0xff;
+    for (var c=0; c<4; c++) counterBlock[15-c-4] = ((b/0x100000000-1) >>> c*8) & 0xff;
+
+    var cipherCntr = Cipher(counterBlock, keySchedule);  // encrypt counter block
+
+    ciphertext[b] = unescCtrlChars(ciphertext[b]);
+
+    var pt = '';
+    for (var i=0; i<ciphertext[b].length; i++) {
+      // -- xor plaintext with ciphered counter byte-by-byte --
+      var ciphertextByte = ciphertext[b].charCodeAt(i);
+      var plaintextByte = ciphertextByte ^ cipherCntr[i];
+      pt += String.fromCharCode(plaintextByte);
+    }
+    // pt is now plaintext for this block
+
+    plaintext[b-1] = pt;  // b-1 'cos no initial nonce block in plaintext
+  }
+
+  return plaintext.join('');
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+function escCtrlChars(str) {  // escape control chars which might cause problems handling ciphertext
+  return str.replace(/[\0\t\n\v\f\r\xa0'"!-]/g, function(c) { return '!' + c.charCodeAt(0) + '!'; });
+}  // \xa0 to cater for bug in Firefox; include '-' to leave it free for use as a block marker
+
+function unescCtrlChars(str) {  // unescape potentially problematic control characters
+  return str.replace(/!\d\d?\d?!/g, function(c) { return String.fromCharCode(c.slice(1,-1)); });
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+/*
+ * if escCtrlChars()/unescCtrlChars() still gives problems, use encodeBase64()/decodeBase64() instead
+ */
+var b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+function encodeBase64(str) {  // http://tools.ietf.org/html/rfc4648
+   var o1, o2, o3, h1, h2, h3, h4, bits, i=0, enc='';
+   
+   str = encodeUTF8(str);  // encode multi-byte chars into UTF-8 for byte-array
+
+   do {  // pack three octets into four hexets
+      o1 = str.charCodeAt(i++);
+      o2 = str.charCodeAt(i++);
+      o3 = str.charCodeAt(i++);
+      
+      bits = o1<<16 | o2<<8 | o3;
+      
+      h1 = bits>>18 & 0x3f;
+      h2 = bits>>12 & 0x3f;
+      h3 = bits>>6 & 0x3f;
+      h4 = bits & 0x3f;
+      
+      // end of string? index to '=' in b64
+      if (isNaN(o3)) h4 = 64;
+      if (isNaN(o2)) h3 = 64;
+      
+      // use hexets to index into b64, and append result to encoded string
+      enc += b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+   } while (i < str.length);
+   
+   return enc;
+}
+
+function decodeBase64(str) {
+   var o1, o2, o3, h1, h2, h3, h4, bits, i=0, enc='';
+
+   do {  // unpack four hexets into three octets using index points in b64
+      h1 = b64.indexOf(str.charAt(i++));
+      h2 = b64.indexOf(str.charAt(i++));
+      h3 = b64.indexOf(str.charAt(i++));
+      h4 = b64.indexOf(str.charAt(i++));
+      
+      bits = h1<<18 | h2<<12 | h3<<6 | h4;
+      
+      o1 = bits>>16 & 0xff;
+      o2 = bits>>8 & 0xff;
+      o3 = bits & 0xff;
+      
+      if (h3 == 64)      enc += String.fromCharCode(o1);
+      else if (h4 == 64) enc += String.fromCharCode(o1, o2);
+      else               enc += String.fromCharCode(o1, o2, o3);
+   } while (i < str.length);
+
+   return decodeUTF8(enc);  // decode UTF-8 byte-array back to Unicode
+}
+
+function encodeUTF8(str) {  // encode multi-byte string into utf-8 multiple single-byte characters 
+  str = str.replace(
+      /[\u0080-\u07ff]/g,  // U+0080 - U+07FF = 2-byte chars
+      function(c) { 
+        var cc = c.charCodeAt(0);
+        return String.fromCharCode(0xc0 | cc>>6, 0x80 | cc&0x3f); }
+    );
+  str = str.replace(
+      /[\u0800-\uffff]/g,  // U+0800 - U+FFFF = 3-byte chars
+      function(c) { 
+        var cc = c.charCodeAt(0); 
+        return String.fromCharCode(0xe0 | cc>>12, 0x80 | cc>>6&0x3F, 0x80 | cc&0x3f); }
+    );
+  return str;
+}
+
+function decodeUTF8(str) {  // decode utf-8 encoded string back into multi-byte characters
+  str = str.replace(
+      /[\u00c0-\u00df][\u0080-\u00bf]/g,                 // 2-byte chars
+      function(c) { 
+        var cc = (c.charCodeAt(0)&0x1f)<<6 | c.charCodeAt(1)&0x3f;
+        return String.fromCharCode(cc); }
+    );
+  str = str.replace(
+      /[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g,  // 3-byte chars
+      function(c) { 
+        var cc = (c.charCodeAt(0)&0x0f)<<12 | (c.charCodeAt(1)&0x3f<<6) | c.charCodeAt(2)&0x3f; 
+        return String.fromCharCode(cc); }
+    );
+  return str;
+}
+
+
+function byteArrayToHexStr(b) {  // convert byte array to hex string for displaying test vectors
+  var s = '';
+  for (var i=0; i<b.length; i++) s += b[i].toString(16) + ' ';
+  return s;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+</script>
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr id="header"> 
+    <td rowspan="3" valign="top"><a href="../"><img src="../images/mtl.gif" alt="Movable Type Home Page" width="120" height="120"></a></td>
+    <td valign="bottom"> <h1>Movable Type Scripts</h1></td>
+  </tr>
+  <tr class="tableRule"> 
+    <td align="right" valign="top"><img src="../images/dotClear.gif" width="1" height="1" alt=""></td>
+  </tr>
+
+  <tr id="subhead"> 
+    <td align="right" valign="bottom"><h2>AES Advanced Encryption Standard</h2></td>
+  </tr>
+  <tr> 
+    <td id="margin">&nbsp;</td>
+    <td id="pageContent"><p>&nbsp;</p>
+      <p><b>AES</b> is a ‘symmetric block cipher’ for encrypting texts which can 
+        be decrypted with the original encryption key.</p>
+      <p>For many purposes, a simpler encryption algorithm such as <a href="tea-block.html">TEA</a> 
+        is perfectly adequate – but if you suspect the world’s best cryptographic 
+        minds, and a few million dollars of computing resource, might be attempting 
+        to crack your security, then <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard" rel="external">AES</a>, 
+        based on the <i>Rijndael</i> algorithm, is the tightest security currently 
+        available (approved by the US government for classified information up 
+        to ‘Secret’ – and in in 192 or 256 key lengths, up to ‘Top Secret’). AES 
+        officially <a href="http://csrc.nist.gov/CryptoToolkit/aes/aesfact.html" rel="external">superceded</a> 
+        DES in 2002.</p>
+
+      <p>I developed this JavaScript implementation to to illustrate the original 
+        AES standard (NIST <a href="http://csrc.nist.gov/publications/fips/#fips197" rel="external">FIPS-197</a>)
+         as closely as possible. It is intended as an introduction for people seeking 
+        to learn something about implementing encryption, not an authoritative 
+        implementation – cryptography experts will already know more than I present 
+        here. The emphasis is on transparency and fidelity to the standard rather 
+        than efficiency.</p>
+      <p>This script also includes a wrapper function which implements AES in the ‘Counter’ 
+        <a href="http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Counter_.28CTR.29" rel="external">mode
+        of operation</a> (specified in NIST SP 
+        <a href="http://csrc.nist.gov/publications/nistpubs/#sp800-38A" rel="external">800-38A</a>) to 
+        encrypt arbitrary texts – many descriptions
+        of AES limit themselves to the Cipher routine itself, and don’t consider how 
+        it can be used to encrypt texts.</p>
+      <form name="f" action="none!">
+        <table>
+
+          <tr> 
+            <td>Password:</td>
+            <td><input type="text" name="pw" size="16" value="L0ck it up saf3"></td>
+          </tr>
+          <tr> 
+            <td>Plaintext:</td>
+            <td><input type="text" name="pt" size="60" 
+                     value="pssst ... ?on't tell anyøne!"></td>
+          </tr>
+          <tr valign="bottom"> 
+            <td><input type="button" name="encrypt" value="Encrypt it:" accesskey="e"
+              onClick='f.cipher.value = AESEncryptCtr(f.pt.value, f.pw.value, 256)'></td>
+
+            <td> <input type="text" name="cipher" size="60"></td>
+          </tr>
+          <tr valign="bottom"> 
+            <td><input type="button" name="decrypt" value="Decrypt it:" accesskey="d"
+                onClick='f.plain.value = AESDecryptCtr(f.cipher.value, f.pw.value, 256)'></td>
+            <td> <input type="text" name="plain" size="60"></td>
+          </tr>
+        </table>
+      </form>
+
+      <p>Much of the Rijndael algorithm is based on arithmetic on a <i><a href="http://en.wikipedia.org/wiki/Finite_field" rel="external">finite 
+        field</a></i>, or <i>Galois field</i> (after the mathematician). Regular 
+        arithmetic works on an infinite range of numbers – keep doubling a number 
+        and it will get ever bigger. Arithmetic in a finite field is limited to 
+        numbers within that field. The Rijndael algorithm works in GF(2<sup>8</sup>), 
+        in which arithmetic results can always be stored within one byte – which 
+        is pretty convenient for computers. I can’t begin to understand the <a href="http://en.wikipedia.org/wiki/Finite_field_arithmetic" rel="external">maths</a> 
+        (considering that addition and subtraction are the same thing – an <span class="smallCaps">XOR</span> 
+        operation – and multiplication is performed ‘modulo an irreducible polynomial’: 
+        doubling 0x80 in GF(2<sup>8</sup>) gives 0x1b).</p>
+
+      <p>The Rijndael algorithm lends itself to widely differing implementations, 
+        since the maths can be either coded directly, or pre-computed as lookup 
+        tables – directly parallel to using log tables for arithmetic. Different 
+        implementations can have varying pay-offs between speed, complexity, and 
+        storage requirements. Some may barely resemble each other. In this implementation, 
+        I have followed the standard closely; as per the standard, I have used 
+        a lookup table (‘<a href="http://en.wikipedia.org/wiki/S-box" rel="external">S-box</a>’) 
+        to implement the multiplicative inverse (i.e. 1/x) within a finite field 
+        (used for the SubBytes transformation), but other calculations are made 
+        directly rather than being pre-computed.</p>
+      <p>If you want to convince yourself that the Cipher function is working 
+        properly internally (and you should!), NIST provide test vectors for AES (appendix C.1 of 
+        the standard). Click<br>
+        &nbsp;&nbsp;&nbsp;&nbsp; 
+        <button onClick="alert(byteArrayToHexStr(Cipher([0x00,0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88,0x99,0xaa,0xbb,0xcc,0xdd,0xee,0xff],          KeyExpansion([0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f]))))">
+          128-bit Test Vector
+        </button>
+        <button onClick="alert(byteArrayToHexStr(Cipher([0x00,0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88,0x99,0xaa,0xbb,0xcc,0xdd,0xee,0xff],          KeyExpansion([0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f, 0x10,0x11,0x12,0x13,0x14,0x15,0x16,0x17]))))">
+          192-bit Test Vector
+        </button>
+
+        <button onClick="alert(byteArrayToHexStr(Cipher([0x00,0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88,0x99,0xaa,0xbb,0xcc,0xdd,0xee,0xff],          KeyExpansion([0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f, 0x10,0x11,0x12,0x13,0x14,0x15,0x16,0x17,0x18,0x19,0x1a,0x1b,0x1c,0x1d,0x1e,0x1f]))))">
+          256-bit Test Vector
+        </button>
+        <br>
+        and the cipher output block should be
+      <ul>
+          <li>128-bit: <i>69 c4 e0 d8 6a 7b 04 30 d8 cd b7 80 70 b4 c5 5a</i> </li>
+          <li>192-bit: <i>dd a9 7c a4 86 4c df e0 6e af 70 a0 ec 0d 71 91</i> </li>
+
+          <li>256-bit: <i>8e a2 b7 ca 51 67 45 bf ea fc 49 90 4b 49 60 89</i> </li>
+      </ul>
+        (In counter mode, a text could decrypt correctly 
+        even if the cipher routine was flawed).</p>
+        <p>The Inverse Cipher is largely a mirror of the Cipher routine, with parallel 
+        functions for Cipher, SubBytes and ShiftRows. The MixColumns routine is 
+        slightly more complex in the inverse. I have not implemented the inverse 
+        cipher here as it is not required in counter mode.</p>
+      <hr>
+      <p><b>Counter mode of operation</b>: the AES standard concerns itself with numeric or binary data
+        (Rijndael, along with most other encryption algorithms, works on a fixed-size block of numbers
+        – in the case of AES, each block is 128 bits or 16 bytes).        </p>
+
+      <p>In order to make use of it to encrypt real things (such as texts), it has to be used within
+        a certain ‘<a href="http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation" rel="external">mode
+        of operation</a>’. This is the interface between text or files, and the purely numerical encryption
+        algoritm. </p>
+      <p>The simplest mode of operation (‘electronic codebook’) encrypts a text block-by-block
+        – but since the same block of plaintext will always generate the same block of ciphertext, this
+        can leave too many clues for attackers. </p>
+      <p>In the ‘counter mode’ used in this implementation, a
+        counter which changes with each block is first encrypted, and the result is bitwise <span class="smallCaps">XOR</span>’d
+        with the plaintext to get the ciphertext (so the plaintext is not actually directly encrypted).
+        A random number is incorporated in the counter to ensure different ciphertexts are always generated
+        from the same plaintext; this random number is stored with the ciphertext to enable decryption.
+        A curious quality of counter mode is that decryption also uses the cipher algorithm rather than
+        the inverse-cipher algorithm. Though simple to implement, it has been established to be very
+        secure.</p>
+      <p>Encrypting texts or files require not just the mode of operation. When implementing
+        AES, you have to consider</p>
+      <ul>
+
+        <li>mode of operation; here the Counter (<span class="smallCaps">CTR</span>) mode of operation – both simple to implement, and
+        very secure</li>
+        <li>conversion of text (including multi-byte Unicode texts) to binary/numeric data; usually when
+          performing encryption of text, any multi-byte Unicode characters will have to be converted
+          to single-byte characters, for instance by converting to UTF8, before being passed to the cipher
+          routine. Another advantage of counter mode is that this is not required, as it is the counter
+          block which is encrypted, and then <span class="smallCaps">XOR</span>’d with the plaintext.
+          This <span class="smallCaps">XOR</span> operation will work perfectly well on multi-byte Unicode
+        characters without any conversion to/from UTF-8</li>
+        <li>conversion of encrypted data to values which can be stored or transmitted without problem;
+          in the encrypted text I  escape characters which I know may cause problems in storage
+          or transmission. For a more conservative approach to storage and transmission, you could encode
+          encrypted texts to Base64, which is a very safe 7-bit encoding which produces about 30% bloat
+        (<i>view page source</i> for details).</li>
+
+      </ul>
+      <p>To keep 
+        the script simple and self-contained, I use the Cipher routine to encrypt 
+        the first 16/24/32 characters of the password (using 128-/192-/256-bit keys) to make the key;
+      better security would be achieved by hashing the password, for example using <a href="sha1.html">SHA-1</a>.</p>
+      <hr>
+      <p><i>Does it make sense to implement AES in JavaScript?</i> Sometimes JavaScript 
+        can be used for real-world cryptographic applications (particularly web-based 
+        ones). And a JavaScript implementation, which anyone can play around with, 
+        can provide an easy starting-point for implementation in other languages. 
+        Though I still think that <a href="tea-block.html">TEA</a> is generally good 
+        enough for simple applications, and a great deal simpler to use.</p>
+
+      <p>The test vectors have been confirmed in IE 7.0.5730.11, FF 2.0.0.4, and Safari 2.0.4 (thx Jon
+        Passki). If you can confirm any other versions (or find any problems), please let me know! </p>
+      <p><i>In other languages:</i> use 64-bit integers/longs, either unsigned or with unsigned right-shift
+        operators; you may need to take into consideration the way different languages handle bitwise
+        ops, and of course standard issues such as array handling. I’m not aware of any other issues. </p>
+      <p><i>Speed:</i> as mentioned, this is not an optimised implementation – using IE/FF on a 3GHz
+        P4 this implementation processes around 5kB/sec (around 2 pages of text per second). The 128-bit
+        version is some 25% faster than the 256-bit version. </p>
+      <p>For more information, have a look at</p>
+      <ul>
+
+        <li>Daemen &amp; Rijnael’s<a href="http://csrc.nist.gov/encryption/aes/rijndael/Rijndael.pdf" rel="external"> 
+          AES proposal</a> for Rijndael Block Cipher</li>
+        <li>Cryptomathic article <a href="http://www.cryptomathic.it/company/aes.html" rel="external"><i>Do 
+          We Need AES?</i></a></li>
+        <li>article from John Savard’s <a href="http://www.quadibloc.com/crypto/co040401.htm" rel="external">Cryptographic 
+          Compendium</a></li>
+
+      </ul>
+      <p>For some security applications, a cryptographic hash is more appropriate 
+        than encryption – if you are interested in a hash function, see my implementation 
+        of <a href="sha1.html">SHA-1</a>.</p></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="tableRule"> 
+    <td colspan="2"><img src="../images/dotClear.gif" width="1" height="1" alt=""></td>
+
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td><p>See below for the source code of the JavaScript implementation. You are 
+      welcome to re-use these scripts [without any warranty express or implied] 
+      provided
+      you retain my copyright notice and when possible a link to my website (under a <a href="http://www.fsf.org/licensing/licenses/lgpl.html" rel="external">LGPL</a> license).
+      §ection numbers relate the code back to sections in the standard. </p>
+      <p>If you have any queries or find any problems, please <a href="&#109;a&#105;l&#116;&#111;:&#115;&#99;&#114;&#105;&#112;&#116;&#115;&#64;&#109;&#111;&#118;&#97;&#98;&#108;&#101;&#45;&#116;&#121;&#112;&#101;&#46;&#99;&#111;&#46;&#117;&#107;">contact
+        me</a>.<br>
+        <span class="note"><i>© 2005–2007 Chris Veness</i></span> </p></td>
+
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="tableRule"> 
+    <td colspan="2"><img src="../images/dotClear.gif" width="1" height="1" alt=""></td>
+  </tr>
+  <tr> 
+    <td colspan="2"><pre>
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+/*
+ * AES Cipher function: encrypt 'input' with Rijndael algorithm
+ *
+ *   takes   byte-array 'input' (16 bytes)
+ *           2D byte-array key schedule 'w' (Nr+1 x Nb bytes)
+ *
+ *   applies Nr rounds (10/12/14) using key schedule w for 'add round key' stage
+ *
+ *   returns byte-array encrypted value (16 bytes)
+ */
+function Cipher(input, w) {    // main Cipher function [§5.1]
+  var Nb = 4;               // block size (in words): no of columns in state (fixed at 4 for AES)
+  var Nr = w.length/Nb - 1; // no of rounds: 10/12/14 for 128/192/256-bit keys
+
+  var state = [[],[],[],[]];  // initialise 4xNb byte-array 'state' with input [§3.4]
+  for (var i=0; i&lt;4*Nb; i++) state[i%4][Math.floor(i/4)] = input[i];
+
+  state = AddRoundKey(state, w, 0, Nb);
+
+  for (var round=1; round&lt;Nr; round++) {
+    state = SubBytes(state, Nb);
+    state = ShiftRows(state, Nb);
+    state = MixColumns(state, Nb);
+    state = AddRoundKey(state, w, round, Nb);
+  }
+
+  state = SubBytes(state, Nb);
+  state = ShiftRows(state, Nb);
+  state = AddRoundKey(state, w, Nr, Nb);
+
+  var output = new Array(4*Nb);  // convert state to 1-d array before returning [§3.4]
+  for (var i=0; i&lt;4*Nb; i++) output[i] = state[i%4][Math.floor(i/4)];
+  return output;
+}
+
+
+function SubBytes(s, Nb) {    // apply SBox to state S [§5.1.1]
+  for (var r=0; r&lt;4; r++) {
+    for (var c=0; c&lt;Nb; c++) s[r][c] = Sbox[s[r][c]];
+  }
+  return s;
+}
+
+
+function ShiftRows(s, Nb) {    // shift row r of state S left by r bytes [§5.1.2]
+  var t = new Array(4);
+  for (var r=1; r&lt;4; r++) {
+    for (var c=0; c&lt;4; c++) t[c] = s[r][(c+r)%Nb];  // shift into temp copy
+    for (var c=0; c&lt;4; c++) s[r][c] = t[c];         // and copy back
+  }          // note that this will work for Nb=4,5,6, but not 7,8 (always 4 for AES):
+  return s;  // see fp.gladman.plus.com/cryptography_technology/rijndael/aes.spec.311.pdf 
+}
+
+
+function MixColumns(s, Nb) {   // combine bytes of each col of state S [§5.1.3]
+  for (var c=0; c&lt;4; c++) {
+    var a = new Array(4);  // 'a' is a copy of the current column from 's'
+    var b = new Array(4);  // 'b' is a•{02} in GF(2^8)
+    for (var i=0; i&lt;4; i++) {
+      a[i] = s[i][c];
+      b[i] = s[i][c]&amp;0x80 ? s[i][c]&lt;&lt;1 ^ 0x011b : s[i][c]&lt;&lt;1;
+    }
+    // a[n] ^ b[n] is a•{03} in GF(2^8)
+    s[0][c] = b[0] ^ a[1] ^ b[1] ^ a[2] ^ a[3]; // 2*a0 + 3*a1 + a2 + a3
+    s[1][c] = a[0] ^ b[1] ^ a[2] ^ b[2] ^ a[3]; // a0 * 2*a1 + 3*a2 + a3
+    s[2][c] = a[0] ^ a[1] ^ b[2] ^ a[3] ^ b[3]; // a0 + a1 + 2*a2 + 3*a3
+    s[3][c] = a[0] ^ b[0] ^ a[1] ^ a[2] ^ b[3]; // 3*a0 + a1 + a2 + 2*a3
+  }
+  return s;
+}
+
+
+function AddRoundKey(state, w, rnd, Nb) {  // xor Round Key into state S [§5.1.4]
+  for (var r=0; r&lt;4; r++) {
+    for (var c=0; c&lt;Nb; c++) state[r][c] ^= w[rnd*4+c][r];
+  }
+  return state;
+}
+
+
+function KeyExpansion(key) {  // generate Key Schedule (byte-array Nr+1 x Nb) from Key [§5.2]
+  var Nb = 4;            // block size (in words): no of columns in state (fixed at 4 for AES)
+  var Nk = key.length/4  // key length (in words): 4/6/8 for 128/192/256-bit keys
+  var Nr = Nk + 6;       // no of rounds: 10/12/14 for 128/192/256-bit keys
+
+  var w = new Array(Nb*(Nr+1));
+  var temp = new Array(4);
+
+  for (var i=0; i&lt;Nk; i++) {
+    var r = [key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]];
+    w[i] = r;
+  }
+
+  for (var i=Nk; i&lt;(Nb*(Nr+1)); i++) {
+    w[i] = new Array(4);
+    for (var t=0; t&lt;4; t++) temp[t] = w[i-1][t];
+    if (i % Nk == 0) {
+      temp = SubWord(RotWord(temp));
+      for (var t=0; t&lt;4; t++) temp[t] ^= Rcon[i/Nk][t];
+    } else if (Nk &gt; 6 &amp;&amp; i%Nk == 4) {
+      temp = SubWord(temp);
+    }
+    for (var t=0; t&lt;4; t++) w[i][t] = w[i-Nk][t] ^ temp[t];
+  }
+
+  return w;
+}
+
+function SubWord(w) {    // apply SBox to 4-byte word w
+  for (var i=0; i&lt;4; i++) w[i] = Sbox[w[i]];
+  return w;
+}
+
+function RotWord(w) {    // rotate 4-byte word w left by one byte
+  w[4] = w[0];
+  for (var i=0; i&lt;4; i++) w[i] = w[i+1];
+  return w;
+}
+
+
+// Sbox is pre-computed multiplicative inverse in GF(2^8) used in SubBytes and KeyExpansion [§5.1.1]
+var Sbox =  [0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
+             0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,
+             0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15,
+             0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75,
+             0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84,
+             0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf,
+             0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8,
+             0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2,
+             0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73,
+             0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb,
+             0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79,
+             0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08,
+             0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a,
+             0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e,
+             0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,
+             0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16];
+
+// Rcon is Round Constant used for the Key Expansion [1st col is 2^(r-1) in GF(2^8)] [§5.2]
+var Rcon = [ [0x00, 0x00, 0x00, 0x00],
+             [0x01, 0x00, 0x00, 0x00],
+             [0x02, 0x00, 0x00, 0x00],
+             [0x04, 0x00, 0x00, 0x00],
+             [0x08, 0x00, 0x00, 0x00],
+             [0x10, 0x00, 0x00, 0x00],
+             [0x20, 0x00, 0x00, 0x00],
+             [0x40, 0x00, 0x00, 0x00],
+             [0x80, 0x00, 0x00, 0x00],
+             [0x1b, 0x00, 0x00, 0x00],
+             [0x36, 0x00, 0x00, 0x00] ]; 
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+/* 
+ * Use AES to encrypt 'plaintext' with 'password' using 'nBits' key, in 'Counter' mode of operation
+ *                           - see http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
+ *   for each block
+ *   - outputblock = cipher(counter, key)
+ *   - cipherblock = plaintext xor outputblock
+ */
+function AESEncryptCtr(plaintext, password, nBits) {
+  if (!(nBits==128 || nBits==192 || nBits==256)) return '';  // standard allows 128/192/256 bit keys
+	
+  // for this example script, generate the key by applying Cipher to 1st 16/24/32 chars of password; 
+  // for real-world applications, a more secure approach would be to hash the password e.g. with SHA-1
+  var nBytes = nBits/8;  // no bytes in key
+  var pwBytes = new Array(nBytes);
+  for (var i=0; i&lt;nBytes; i++) pwBytes[i] = password.charCodeAt(i) &amp; 0xff;
+  var key = Cipher(pwBytes, KeyExpansion(pwBytes));
+  key = key.concat(key.slice(0, nBytes-16));  // key is now 16/24/32 bytes long
+
+  // initialise counter block (NIST SP800-38A §B.2): millisecond time-stamp for nonce in 1st 8 bytes,
+  // block counter in 2nd 8 bytes
+  var blockSize = 16;  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
+  var counterBlock = new Array(blockSize);  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
+  var nonce = (new Date()).getTime();  // milliseconds since 1-Jan-1970
+
+  // encode nonce in two stages to cater for JavaScript 32-bit limit on bitwise ops
+  for (var i=0; i&lt;4; i++) counterBlock[i] = (nonce &gt;&gt;&gt; i*8) &amp; 0xff;
+  for (var i=0; i&lt;4; i++) counterBlock[i+4] = (nonce/0x100000000 &gt;&gt;&gt; i*8) &amp; 0xff; 
+
+  // generate key schedule - an expansion of the key into distinct Key Rounds for each round
+  var keySchedule = KeyExpansion(key);
+
+  var blockCount = Math.ceil(plaintext.length/blockSize);
+  var ciphertext = new Array(blockCount);  // ciphertext as array of strings
+  
+  for (var b=0; b&lt;blockCount; b++) {
+    // set counter (block #) in last 8 bytes of counter block (leaving nonce in 1st 8 bytes)
+    // again done in two stages for 32-bit ops
+    for (var c=0; c&lt;4; c++) counterBlock[15-c] = (b &gt;&gt;&gt; c*8) &amp; 0xff;
+    for (var c=0; c&lt;4; c++) counterBlock[15-c-4] = (b/0x100000000 &gt;&gt;&gt; c*8)
+
+    var cipherCntr = Cipher(counterBlock, keySchedule);  // -- encrypt counter block --
+    
+    // calculate length of final block:
+    var blockLength = b&lt;blockCount-1 ? blockSize : (plaintext.length-1)%blockSize+1;
+
+    var ct = '';
+    for (var i=0; i&lt;blockLength; i++) {  // -- xor plaintext with ciphered counter byte-by-byte --
+      var plaintextByte = plaintext.charCodeAt(b*blockSize+i);
+      var cipherByte = plaintextByte ^ cipherCntr[i];
+      ct += String.fromCharCode(cipherByte);
+    }
+    // ct is now ciphertext for this block
+
+    ciphertext[b] = escCtrlChars(ct);  // escape troublesome characters in ciphertext
+  }
+
+  // convert the nonce to a string to go on the front of the ciphertext
+  var ctrTxt = '';
+  for (var i=0; i&lt;8; i++) ctrTxt += String.fromCharCode(counterBlock[i]);
+  ctrTxt = escCtrlChars(ctrTxt);
+
+  // use '-' to separate blocks, use Array.join to concatenate arrays of strings for efficiency
+  return ctrTxt + '-' + ciphertext.join('-');
+}
+
+
+/* 
+ * Use AES to decrypt 'ciphertext' with 'password' using 'nBits' key, in Counter mode of operation
+ *
+ *   for each block
+ *   - outputblock = cipher(counter, key)
+ *   - cipherblock = plaintext xor outputblock
+ */
+function AESDecryptCtr(ciphertext, password, nBits) {
+  if (!(nBits==128 || nBits==192 || nBits==256)) return '';  // standard allows 128/192/256 bit keys
+
+  var nBytes = nBits/8;  // no bytes in key
+  var pwBytes = new Array(nBytes);
+  for (var i=0; i&lt;nBytes; i++) pwBytes[i] = password.charCodeAt(i) &amp; 0xff;
+  var pwKeySchedule = KeyExpansion(pwBytes);
+  var key = Cipher(pwBytes, pwKeySchedule);
+  key = key.concat(key.slice(0, nBytes-16));  // key is now 16/24/32 bytes long
+
+  var keySchedule = KeyExpansion(key);
+
+  ciphertext = ciphertext.split('-');  // split ciphertext into array of block-length strings 
+
+  // recover nonce from 1st element of ciphertext
+  var blockSize = 16;  // block size fixed at 16 bytes / 128 bits (Nb=4) for AES
+  var counterBlock = new Array(blockSize);
+  var ctrTxt = unescCtrlChars(ciphertext[0]);
+  for (var i=0; i&lt;8; i++) counterBlock[i] = ctrTxt.charCodeAt(i);
+
+  var plaintext = new Array(ciphertext.length-1);
+
+  for (var b=1; b&lt;ciphertext.length; b++) {
+    // set counter (block #) in last 8 bytes of counter block (leaving nonce in 1st 8 bytes)
+    for (var c=0; c&lt;4; c++) counterBlock[15-c] = ((b-1) &gt;&gt;&gt; c*8) &amp; 0xff;
+    for (var c=0; c&lt;4; c++) counterBlock[15-c-4] = ((b/0x100000000-1) &gt;&gt;&gt; c*8) &amp; 0xff;
+
+    var cipherCntr = Cipher(counterBlock, keySchedule);  // encrypt counter block
+
+    ciphertext[b] = unescCtrlChars(ciphertext[b]);
+
+    var pt = '';
+    for (var i=0; i&lt;ciphertext[b].length; i++) {
+      // -- xor plaintext with ciphered counter byte-by-byte --
+      var ciphertextByte = ciphertext[b].charCodeAt(i);
+      var plaintextByte = ciphertextByte ^ cipherCntr[i];
+      pt += String.fromCharCode(plaintextByte);
+    }
+    // pt is now plaintext for this block
+
+    plaintext[b-1] = pt;  // b-1 'cos no initial nonce block in plaintext
+  }
+
+  return plaintext.join('');
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+function escCtrlChars(str) {  // escape control chars which might cause problems handling ciphertext
+  return str.replace(/[\0\t\n\v\f\r\xa0'"!-]/g, function(c) { return '!' + c.charCodeAt(0) + '!'; });
+}  // \xa0 to cater for bug in Firefox; include '-' to leave it free for use as a block marker
+
+function unescCtrlChars(str) {  // unescape potentially problematic control characters
+  return str.replace(/!\d\d?\d?!/g, function(c) { return String.fromCharCode(c.slice(1,-1)); });
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+</pre></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript"> _uacct = "UA-966502-1"; urchinTracker(); </script>
+</body>
+</html>
