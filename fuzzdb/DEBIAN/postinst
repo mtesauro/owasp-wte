@@ -1,0 +1,16 @@
+#!/bin/sh
+
+### Run special install from tarball script
+/opt/owasp/fuzzdb/get-fuzzdb
+
+# Register the icons needed for owasp-wte-fuzzdb and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-fuzzdb/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-fuzzdb/owasp-wte-fuzzdb-icon.png owasp-wte-fuzzdb-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-fuzzdb/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-fuzzdb/owasp-fuzzer.directory \
+                         /opt/owasp/tmp/owasp-wte-fuzzdb/owasp-wte-fuzzdb.desktop
+
+# Cleanup /tmp
+rm -rf /opt/owasp/tmp/owasp-wte-fuzzdb

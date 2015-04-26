@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Untar the fuzzdb tarball and make its root be /opt/owasp/fuzzdb
+cd /opt/owasp/fuzzdb
+tar -xjf /opt/owasp/tmp/owasp-wte-fuzzdb/fuzzdb-svn.tar.bz
+mv fuzzdb-svn/* ./
+mv fuzzdb-svn/.svn ./
+rm -rf fuzzdb-svn
+
+# Fix some perms that may keep update-fuzzdb script from working without these perms
+chown -R root.adm /opt/owasp/fuzzdb
+chmod -R g+w /opt/owasp/fuzzdb
+

@@ -1,0 +1,12 @@
+Package: owasp-wte-fuzzdb
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 2012-10-13-svn
+Depends: libnotify-bin, thunar | nautilus | dolphin
+Description: fuzzdb aggregates known attack patterns, predictable resource
+ names, server response messages, and other resources like web shells into
+ the most compreshensive Open Source database of malicious and malformed
+ input test cases.
+

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=fuzzdb
+Exec=fuzzdb-launcher
+GenericName=fuzzdb
+Icon=owasp-wte-fuzzdb-icon.png
+Categories=Fuzzers;
