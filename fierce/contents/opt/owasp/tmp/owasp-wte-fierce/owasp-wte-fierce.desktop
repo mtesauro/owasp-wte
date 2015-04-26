@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Fierce Domain Scanner (DNS Scanning)
+Exec=launch-fierce
+Icon=owasp-wte-fierce-icon
+Categories=Recon Tools;

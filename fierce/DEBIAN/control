@@ -1,0 +1,11 @@
+Package: owasp-wte-fierce
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.0.3
+Depends: perl, perl-modules, libnet-dns-perl
+Description: Fierce is not an IP scanner
+ It is not a DDoS tool, it is not designed to scan the whole internet or 
+ perform any un-targeted attacks. It is meant specifically to locate likely  
+ targets both inside and outside a corporate network.

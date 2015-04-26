@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /opt/owasp/fierce-domain-scanner
+./fierce.pl "$@"
