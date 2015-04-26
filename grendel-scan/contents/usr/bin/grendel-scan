@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /opt/owasp/grendel-scan/
+/opt/owasp/grendel-scan/grendel.sh
+

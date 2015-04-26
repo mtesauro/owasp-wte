@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    
+    
+  <title>Target Details / Scan Restrictions</title>
+  <style> UL {margin-top: 0pt; margin-bottom: 7pt} H3 {margin-top: 12pt; margin-bottom: 2pt} H4 {margin-top: 8pt; margin-bottom: 2pt} </style>
+</head>
+
+
+<body style="font-size: 10pt; font-family: Arial;">
+
+    
+<h2>Target Details / Scan Restrictions</h2>
+
+    <a href="#Ignored%20Query%20Parameters">Ignored Query Parameters</a><br />
+
+    <span style="font-size: 5pt;"><br />
+</span>
+    <a href="#Forbidden%20Query%20Parameters">Forbidden Query Parameters</a><br />
+
+    <span style="font-size: 5pt;"><br />
+</span>
+    <a href="#Known%20Session%20ID%20Patterns">Known Session ID Patterns</a><br />
+
+    <span style="font-size: 5pt;"><br />
+</span>
+    <a href="#URL%20Regular%20Expression%20Filters">URL Regular Expression Filters</a>
+    <br />
+
+    
+<h3><a name="Ignored Query Parameters">Ignored Query Parameters</a></h3>
+
+    This is a list of HTTP query parameters that do not have a significant impact on application functionality. 
+    For example, some applications may have a random number as part of every query. If this parameter wasn't ignored,
+    then every request would appear unique, even if it had the same result in the application. <br />
+
+    These parameters are ignored when determining the uniqueness of a URL, which is important for spidering. These
+    parameters will still be tested for most vulnerabilities, such as XSS or SQL injection. They will be ignored
+    for session ID testing.
+    
+    
+<h3><a name="Forbidden Query Parameters">Forbidden Query Parameters</a></h3>
+
+    These are HTTP query parameters that are not tested at all. This could be because they are sensitive and have
+    the potential to damage the application environment, but it is more likely because they don't need to be 
+    tested. For example, .Net's __VIEWSTATE parameter is already well tested. Further testing by Grendel-Scan is
+    unlikely to reveal any vulnerabilities, but will slow down the scan, and perhaps cause problems with session 
+    handling.
+    
+    
+<h3><a name="Known Session ID Patterns">Known Session ID Patterns</a></h3>
+
+    These regular expressions identify names used to store session identification tokens (these may be present in HTTP
+    cookies or HTTP query parameters)
+        
+    
+<h3><a name="URL Regular Expression Filters">URL Regular Expression Filters</a></h3>
+
+    These regular expressions are applied against all HTTP requests before they are sent. If at least one whitelist 
+    regular expression matches against the URL, and no blacklist expressions match, the request is sent. Adding a
+    base URL will implicitly define a whitelist expression for that scheme, host, and port combination. The expressions
+    can match against any part of the URL. To match the entire URL, use something like this: <br />
+
+    <code>^http://www.grendel-scan.com/.*$</code><br />
+
+    <br />
+
+    You may want to remove some of the default filters, especially if you are using the internal proxy server.
+    One of the default rules blocks media files, which are not needed for a fully automated scan. If you are 
+    using the proxy, you also might want to add some whitelist filters for the domain that you are testing. For
+    example, a site hosted on www.ffff.com, might host the images on images.ffff.com. If the base URL is only 
+    for the main site, the images site will be blocked.
+    
+    
+</body>
+</html>

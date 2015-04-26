@@ -1,0 +1,32 @@
+#VERSION,2.000
+#LASTMOD,11.10.2007 
+# http://www.cirt.net
+
+# This file may only be distributed and used with the full Nikto package.
+# This file may not be used with any software product without written permission from CIRT, Inc.
+# (c) 2007 CIRT, Inc., All Rights Reserved.
+
+# By sending any database updates to CIRT, Inc., it is assumed that you
+# grant CIRT, Inc., the unlimited, non-exclusive right to reuse, modify and relicense the changes.
+
+#######################################################################
+"9ceae7a3c88fc451d59e24d8d5f6f166","Plesk managed system"
+"71e30c507ca3fa005e2d1322a5aa8fb2","Apache on Redhat"
+"b25dbe60830705d98ba3aaf0568c456a","iPlanet Web Server Enterprise Edition 6.0"
+"226ffc5e483b85ec261654fe255e60be","Netscape 4.1"
+"41e2c893098b3ed9fc14b821a2e14e73","Netscape 6.0"
+"f1876a80546b3986dbb79bad727b0374","NetScreen WebUI"
+"799f70b71314a7508326d1d2f68f7519","JBoss Server"
+"f5f2df7eec0d1c3c10b58960f3f8fb26","Horde Groupware Webmail 1.0.1 (Mnemo Theme)"
+"4644f2d45601037b8423d45e13194c93","Apache Tomcat"
+"31aa07fe236ee504c890a61d1f7f0a97","Apache 2.2.4"
+"bd0f7466d35e8ba6cedd9c27110c5c41","Serena Collage 4.6"
+"7cc1a052c86cc3d487957f7092a6d8c3","Horde IMP 3.1.4 or Horde Groupware Webmail 1.0.1"
+"f567fd4927f9693a7a2d6cacf21b51b6","Horde IMP 4.1.4 or Horde Groupware Webmail 1.0.1"
+"a28ebcac852795fe30d8e99a23d377c1","SunOne 6.1"
+"81df3601d6dc13cbc6bd8212ef50dd29","Horde Groupware Webmail 1.0.1 (Nag Theme)"
+"919e132a62ea07fce13881470ba70293","Horde Groupware Webmail 1.0.1 (Ingo Theme)"
+"ff260e80f5f9ca4b779fbd34087f13cf","Horde Groupware Webmail 1.0.1 (Turba Theme)"
+"4987120f4fb1dc454f889e8c92f6dabe","Google Web Server"
+"a5b126cdeaa3081f77a22b3e43730942","Horde Groupware Webmail 1.0.1 (Kronolith Theme)"
+"dc0816f371699823e1e03e0078622d75","Aruba Networks device"

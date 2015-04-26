@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Scan Restrictions</title>
+    <style> UL {margin-top: 0pt; margin-bottom: 7pt} H3 {margin-top: 12pt; margin-bottom: 2pt} H4 {margin-top: 8pt; margin-bottom: 2pt} </style>
+</head>
+<body style="font-size: 10pt; font-family: Arial">
+    <h2>Test Module Selection</h2>
+    This tab is pretty self-explanatory. There's no problem with enabling most of the modules, but some
+    require special consideration. Each module has useful documentation, but some cautions are summarized below:<br /><br />
+    <b>Spider:</b> The spider can cause problems for poorly designed websites. For example, if there is a link
+    that reads, "Click here to delete the database", the spider will still follow the link. The HTTP standard
+    states that requests that change data should only be sent over POSTs, but that is not always followed. 
+    If that advice <i>is</i> followed by the website, then the "HTML tag requester" should be fine. The 
+    "Form baseline" could easily cause problems though. The "URL-regex" module won't cause any problems over the
+    tag requester, but is a little slow, and usually isn't needed.<br /><br />
+    <b>File enumeration:</b> The directory enumerator, and especially the file enumerator can be very time 
+    consuming. The backup file enumerator is faster, and can have more useful results.<br /><br />
+    <b>Information leakage:</b> No problems.<br /><br />
+    <b>Session management:</b> No problems.<br /><br />
+    <b>XSS:</b> The exhaustive nature of the "XSS - Query" module can take a noticeable amount of time in a complicated
+    application.<br /><br />
+    <b>SQL Injection:</b> If a SQL tautology is tested against a query that does something dangerous (say deleting
+    a record), then it could cause a problem if the query is vulnerable. This can be mitigated using URL blacklists
+    and forbidden query parameters.<br /><br />
+    <b>Nikto:</b> Just as safe as the real Nikto.<br /><br />
+    <b>Miscellaneous attacks:</b> No problems<br /><br />
+    <b>Application architecture:</b> Keep in mind that the mirroring module will require as much space as the
+    website is large.<br /><br />
+    <b>Web Server Configuration:</b> No problems<br /><br />
+</body>
+</html>

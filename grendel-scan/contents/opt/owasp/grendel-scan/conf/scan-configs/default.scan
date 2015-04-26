@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<http_client>
+<defaults>
+<max_redirects>3</max_redirects>
+</defaults>
+<max_connections_per_server>5</max_connections_per_server>
+<max_consecutive_failed_requests>10</max_consecutive_failed_requests>
+<max_failed_requests_per_server>500</max_failed_requests_per_server>
+<max_file_size>1048576</max_file_size>
+<max_requests_per_second>30</max_requests_per_second>
+<max_request_count>0</max_request_count>
+<max_request_depth>10</max_request_depth>
+<max_request_retries>3</max_request_retries>
+<max_total_connections>10</max_total_connections>
+<socket_read_timeout>60</socket_read_timeout>
+<upstream_proxy>
+<address/>
+<password/>
+<port>8080</port>
+<username/>
+<use_upstream_proxy>false</use_upstream_proxy>
+</upstream_proxy>
+<user_agent_string>Mozilla/5.0 (compatible; Grendel-Scan; http://www.grendel-scan.com)</user_agent_string>
+</http_client>
+<session_tracking>
+<use_logged_out_detection>false</use_logged_out_detection>
+<known_session_id_patterns>phpsessid</known_session_id_patterns>
+<known_session_id_patterns>jsessionid</known_session_id_patterns>
+<known_session_id_patterns>ASPSESSIONID.*</known_session_id_patterns>
+<known_session_id_patterns>viewstate</known_session_id_patterns>
+<known_session_id_patterns>cftoken</known_session_id_patterns>
+<known_session_id_patterns>cfid</known_session_id_patterns>
+<known_session_id_patterns>sid</known_session_id_patterns>
+<known_session_id_patterns>ASP.NET_SessionId</known_session_id_patterns>
+<known_session_id_patterns>SITESERVER</known_session_id_patterns>
+<known_session_id_patterns>zenid</known_session_id_patterns>
+</session_tracking>
+<scan_settings>
+<response_code_overrides>
+<override_threshold>80</override_threshold>
+<test_all_directories>true</test_all_directories>
+<use_automatic_overrides>true</use_automatic_overrides>
+</response_code_overrides>
+<restrictions>
+<forbidden_parameter_names>__VIEWSTATE</forbidden_parameter_names>
+<forbidden_parameter_names>__EVENTARGUMENT</forbidden_parameter_names>
+<forbidden_parameter_names>__EVENTTARGET</forbidden_parameter_names>
+<forbidden_parameter_names>__VIEWSTATEENCRYPTED</forbidden_parameter_names>
+<forbidden_parameter_names>__EVENTVALIDATION</forbidden_parameter_names>
+<forbidden_parameter_names>M</forbidden_parameter_names>
+<forbidden_parameter_names>D</forbidden_parameter_names>
+<forbidden_parameter_names>S</forbidden_parameter_names>
+<forbidden_parameter_names>N</forbidden_parameter_names>
+<url_blacklist>logout</url_blacklist>
+<url_blacklist>logoff</url_blacklist>
+<url_blacklist>exit</url_blacklist>
+<url_blacklist>delete</url_blacklist>
+<url_blacklist>\\.(?:bmp|jpe?g|gif|tiff?|png|swf|mpe?g|mov|avi|wmv|mp3|wma|wav)$</url_blacklist>
+<url_blacklist>\\.(?:docx?|xlsx?|mdb|rtf|pptx?|pdf)$</url_blacklist>
+</restrictions>
+<output_directory/>
+<queues>
+<max_categorizer_threads>5</max_categorizer_threads>
+<max_requester_threads>10</max_requester_threads>
+<max_tester_threads>15</max_tester_threads>
+</queues>
+<transaction_directory>http-transactions</transaction_directory>
+<reporting>
+<filename>report.html</filename>
+<min_severity>Informational</min_severity>
+<format>html</format>
+</reporting>
+</scan_settings>
+<authentication>
+<use_authentication>false</use_authentication>
+</authentication>
+<proxy_settings>
+<allow_all_proxy_requests>true</allow_all_proxy_requests>
+<intercept_requests>false</intercept_requests>
+<intercept_responses>false</intercept_responses>
+<max_proxy_threads>2</max_proxy_threads>
+<proxy_bind_address>127.0.0.1</proxy_bind_address>
+<proxy_bind_port>8008</proxy_bind_port>
+<proxy_enabled>true</proxy_enabled>
+<reveal_hidden_fields>true</reveal_hidden_fields>
+<test_intercepted_requests>true</test_intercepted_requests>
+<test_proxy_requests>true</test_proxy_requests>
+</proxy_settings>
+<test_modules>
+<module_number>1</module_number>
+<module_name>URL-Regex</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>2</module_number>
+<module_name>HTML tag requester</module_name>
+<enabled>true</enabled>
+<options>
+<option_name>Request all directories</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>A</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>APPLET</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>AREA</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>BASE</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>EMBED</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>FRAME</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>IFRAME</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>LINK</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>SCRIPT</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>IMG</option_name>
+<option_value>false</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>4</module_number>
+<module_name>Form baseline</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>5</module_number>
+<module_name>Directory enumerator</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>Small (100 directory names)</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Medium (300 directory names)</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Large (500 directory names)</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Extra large (819 directory names)</option_name>
+<option_value>false</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>6</module_number>
+<module_name>File enumerator</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>Small (20 filenames)</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Medium (40 filenames)</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Large (64 filenames)</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Small (10 extensions)</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Medium (25 extensions)</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Large (63 extensions)</option_name>
+<option_value>false</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>7</module_number>
+<module_name>Backup file enumerator</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>8</module_number>
+<module_name>Private address leakage</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>9</module_number>
+<module_name>Cookie strength </module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>10</module_number>
+<module_name>XSS - Query</module_name>
+<enabled>true</enabled>
+<options>
+<option_name>Low</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Medium</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>High</option_name>
+<option_value>false</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>11</module_number>
+<module_name>Error XSS</module_name>
+<enabled>true</enabled>
+<options>
+<option_name>Low</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Medium</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>High</option_name>
+<option_value>false</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>12</module_number>
+<module_name>AuthPackageHandler</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>13</module_number>
+<module_name>Session fixation (cookies)</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>14</module_number>
+<module_name>URL Session IDs</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>15</module_number>
+<module_name>Error-based SQL Injection</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>17</module_number>
+<module_name>Nikto version check</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>16</module_number>
+<module_name>"Server" and "X-Powered-By" header recording</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>19</module_number>
+<module_name>404 directory tester</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>18</module_number>
+<module_name>General Nikto Tests</module_name>
+<enabled>true</enabled>
+<options>
+<option_name>File uploads</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Misc tests</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Misconfiguration</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Information disclosure</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>XSS</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>File retrieval - web root</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>File retrieval - server wide</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Denial of Service</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Command injection</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>SQL injection</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Authentication bypass</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Software identification</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Generic</option_name>
+<option_value>true</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>21</module_number>
+<module_name>SQL Tautologies</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>20</module_number>
+<module_name>Token submitter</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>22</module_number>
+<module_name>CRLF Injection</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>25</module_number>
+<module_name>CSRF</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>Action regex whitelist</option_name>
+<option_value>.*</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>24</module_number>
+<module_name>Input / Output flows</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>27</module_number>
+<module_name>Directory listings</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>26</module_number>
+<module_name>Insecure transmission</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>URL regex whitelist</option_name>
+<option_value>.*</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>29</module_number>
+<module_name>Website map</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>Output file name</option_name>
+<option_value>web-site-map</option_value>
+</options>
+<options>
+<option_name>Record URL queries</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Record all files</option_name>
+<option_value>false</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>28</module_number>
+<module_name>Directory traversal</module_name>
+<enabled>false</enabled>
+</test_modules>
+<test_modules>
+<module_number>31</module_number>
+<module_name>Robots.txt</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>30</module_number>
+<module_name>Website mirror</module_name>
+<enabled>true</enabled>
+<options>
+<option_name>Output directory</option_name>
+<option_value>site-mirror</option_value>
+</options>
+<options>
+<option_name>Record URL queries</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Record all files</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Max file size</option_name>
+<option_value>1000000</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>34</module_number>
+<module_name>Comment lister</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>HTML</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>JavaScript</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Output file name</option_name>
+<option_value>comments.txt</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>35</module_number>
+<module_name>Generic fuzzing</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>Ignore original responses with platform error messages</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Plain text fuzzing characters</option_name>
+<option_value>!@#$%^&amp;*()_+-=`~[]\\{}|;':"</option_value>
+</options>
+<options>
+<option_name>Hex encoded fuzzing characters</option_name>
+<option_value>00 01 02 03 04 05 06 07 
+08 09 0a 0b 0c 0d 0e 0f 
+10 11 12 13 14 15 16 17 
+18 19 1a 1b 1c 1d 1e 1f 
+20 7f ff</option_value>
+</options>
+<options>
+<option_name>Fuzzing strings</option_name>
+<option_value>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+..\\
+../
+&lt;asdf&gt;
+&lt;/asdf&gt;</option_value>
+</options>
+<options>
+<option_name>Manual regex error patterns</option_name>
+<option_value/>
+</options>
+</test_modules>
+<test_modules>
+<module_number>32</module_number>
+<module_name>XST</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>33</module_number>
+<module_name>Proxy detection</module_name>
+<enabled>true</enabled>
+</test_modules>
+<test_modules>
+<module_number>38</module_number>
+<module_name>Search engine recon</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>Live.com</option_name>
+<option_value>true</option_value>
+</options>
+<options>
+<option_name>Google.com</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Yahoo.com</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>Max results</option_name>
+<option_value>500</option_value>
+</options>
+<options>
+<option_name>Request delay (ms)</option_name>
+<option_value>1000</option_value>
+</options>
+</test_modules>
+<test_modules>
+<module_number>36</module_number>
+<module_name>Platform error messages</module_name>
+<enabled>true</enabled>
+<options>
+<option_name>Manual regex error patterns</option_name>
+<option_value/>
+</options>
+</test_modules>
+<test_modules>
+<module_number>37</module_number>
+<module_name>Authentication enforcement</module_name>
+<enabled>false</enabled>
+<options>
+<option_name>POST</option_name>
+<option_value>false</option_value>
+</options>
+<options>
+<option_name>GET</option_name>
+<option_value>true</option_value>
+</options>
+</test_modules>
+</configuration>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>HTTP Client</title>
+    <style> UL {margin-top: 0pt; margin-bottom: 7pt} H3 {margin-top: 12pt; margin-bottom: 2pt} H4 {margin-top: 8pt; margin-bottom: 2pt} </style>
+</head>
+<body style="font-size: 10pt; font-family: Arial">
+    <h2>HTTP Client</h2>
+    <a href="#Upstream Proxy">Upstream Proxy</a>
+    <ul style="" type="disc">
+        <li><a href="#Proxy address">Proxy address</a></li>
+        <li><a href="#Proxy bind port">Proxy bind port</a></li>
+    </ul>
+    <a href="#HTTP Client Limits">HTTP Client Limits</a><br />
+    <ul type="disc">
+        <li><a href="#Max requests per second">Max requests per second</a></li>
+        <li><a href="#Max connections per server">Max connections per server</a></li>
+        <li><a href="#Max total connections">Max total connections</a></li>
+        <li><a href="#Max total requests">Max total requests</a></li>
+        <li><a href="#Max failed requests per host">Max failed requests per host</a></li>
+    </ul>
+    <a href="#Miscellaneous Settings">Miscellaneous Settings</a>
+    <ul type="disc">
+        <li><a href="#User agent string">User agent String</a></li>
+    </ul>
+    <a href="#Response Code Overrides">Response Code Overrides</a><br />
+    <ul>
+        <li><a href="#Use automatic response code overrides">Use automatic response code overrides</a></li>
+        <li><a href="#Test every directory">Test every directory</a></li>
+        <li><a href="#Manual response code overrides">Manual response code overrides</a></li>
+    </ul>
+    <br />
+    <H3><a name="Upstream Proxy">Upstream Proxy</a></H3>
+    Enabling this feature causes all HTTP requests to be forwarded through the specified proxy server. Authentication
+    is not currently supported, but will be in future releases.
+    <H4><a name="Proxy address">Proxy address</a></H4>    
+    The IP address or hostname of the upstream proxy.
+    <H4><a name="Proxy port">Proxy port</a></H4>
+    The upstream proxy's port.
+    
+    <H3><a name="HTTP Client Limits">HTTP Client Limits</a></H3>
+    Limits on the HTTP requests. The grayed out boxes will be supported in future releases.
+    <H4><a name="Max requests per second">Max requests per second</a></H4>
+    The maximum number of HTTP requests that can be sent per second. This is useful for throttling throughput to servers.
+    The default value is very safe, but is not very fast. If server load is not a major concern, increase this value.
+    <h4><a name="Max connections per server">Max connections per server</a></h4>
+    The HTTP standard states that a client should only create two simultaneous connections to a single host. Increasing 
+    this can significantly improve scan performance if server load is not a major concern.
+    <h4><a name="Max total connections">Max total connections</a></h4>
+    The maximum number of connections to all hosts.
+    <h4><a name="Max total requests">Max total requests</a></h4>
+    The scan will terminate once this number of requests has been sent. A report will be generated based on the
+    existing data. A value of zero indicates no limit. 
+    <h4><a name="Max failed requests per host">Max failed requests per host</a></h4>
+    The scan will terminate if this number of requests fail to any host within the scan scope. This refers to network
+    failures, where a connections cannot be established, or is terminated before a response is sent. Note that an 
+    Intrusion Prevention System may cut off attack requests. If this value is set to low, it may cause the scan to
+    abort prematurely. A value of zero indicates no limit.
+    
+    <h3><a name="Miscellaneous Settings">Miscellaneous Settings</a></h3>
+    <h4><a name="User agent string">User agent string</a></h4>
+    The user agent string identifies the type of client to the web server. Some websites present content differently, 
+    depending on the user agent. If the default user agent string doesn't work well, the default strings for recent 
+    versions of Microsoft Internet Explorer, Mozilla Firefox, and Opera are provided. A custom user agent string can
+    also be provided.
+    
+    <h3><a name="Response Code Overrides">Response Code Overrides</a></h3>
+    Many websites do not respond with proper "404" error codes for file-not-found conditions. Some sites may respond
+    with a "200 OK", or with a "30x" redirect code. This presents many problems to an automated tool. In order to get 
+    around these problems, response code overrides can be used to define a logical response code.
+    <h4><a name="Use automatic response code overrides">Use automatic response code overrides</a></h4>
+    Automatic response code overrides build a profile of what a file-not-found response looks like. Since a web server
+    can respond differently, depending on the type of file requested, common dynamic file extensions are tested (aspx,
+    php, cfm, etc). If you know that the website being tested will always respond with a true 404 message, disabling 
+    this feature will slightly improve performance.
+    <h4><a name="Test every directory">Test every directory</a></h4>
+    Some web servers may have different responses, depending on what directory was requested. Enabling this feature will 
+    cause the automatic response code override profile to be updated for each new directory discovered. If you know that
+    the website responds the same across all directories, disabling this feature can improve performance, especially 
+    on a website with many directories.
+    <h4><a name="Manual response code overrides">Manual response code overrides</a></h4>
+    If you are familiar with the website, a manual response code override can improve accuracy, without the small 
+    performance hit from automatic overrides. The regular expression is evaluated against the response body. Any HTTP
+    response code can be defined, but "404" is usually the only one required. It may be desirable to define error 
+    pages as a "500" response code, if they are sent as a "200".
+</body>
+</html>

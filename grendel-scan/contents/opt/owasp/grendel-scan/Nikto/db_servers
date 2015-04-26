@@ -1,0 +1,64 @@
+#VERSION,2.000
+#LASTMOD,11.10.2007
+# http://www.cirt.net
+
+# This file may only be distributed and used with the full Nikto package.
+# This file may not be used with any software product without written permission from CIRT, Inc.
+# (c) 2007 CIRT, Inc., All Rights Reserved.
+
+# By sending any database updates to CIRT, Inc., it is assumed that you
+# grant CIRT, Inc., the unlimited, non-exclusive right to reuse, modify and relicense the changes.
+
+########################################################################
+# Server categories: "category","match-string"
+########################################################################
+"abyss","abyss"
+"alchemyeye","Alchemy Eye"
+"apache","apache"
+"apache","apache-coyote"
+"apache","infrastructure"
+"apache","jakarta"
+"apache","tomcat"
+"apache","IBM_HTTP_SERVER"
+"cern","cern"
+"citrix","citrix"
+"compaq","CompaqHTTPServer"
+"dhost","dhost"
+"dhost","httpstk"
+"dwhttpd","dwhttpd"
+"goaheadwebs","GoAhead-Webs"
+"iis","iis"
+"iis","online"
+"iis","personal web"
+"iis","pws"
+"iis","speleoweb"
+"jeus","Jeus WebContainer"
+"jeus","WebtoB"
+"jrun","jrun"
+"lotus","domino"
+"lotus","lotus"
+"mipcd","mofet"
+"msmfc","MS-MFC-HttpSvr"
+"mycio","mycio"
+"mywebserver","mywebserver"
+"ncsa","ncsa"
+"netapp","NetApp"
+"netscape","iplanet"
+"netscape","netscape"
+"netscape","Sun-ONE-Web-Server"
+"novell","netware"
+"novell","novell"
+"omnihttpd","OmniHTTPd"
+"oracle","oracle"
+"sambar","Sambar"
+"savant","Savant"
+"simpleserver","SimpleServer"
+"sun","Sun_WebServer"
+"tivo","Tivo Calypso"
+"tivoli","ADSM_HTTP"
+"w4","w4"
+"wasd","HTTPd-WASD"
+"weblogic","weblogic"
+"webserver4d","Web_Server_4D"
+"website","website"
+"zeus","zeus"

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>General Settings</title>
+    <style> UL {margin-top: 0pt; margin-bottom: 7pt} H3 {margin-top: 12pt; margin-bottom: 2pt} H4 {margin-top: 8pt; margin-bottom: 2pt} </style>
+</head>
+<body style="font-size: 10pt; font-family: Arial">
+    <h2>General Settings</h2>
+    <a href="#Internal Proxy Settings">Internal Proxy Settings</a>
+    <ul style="" type="disc">
+        <li><a href="#Proxy bind address">Proxy bind address</a></li>
+        <li><a href="#Proxy bind port">Proxy bind port</a></li>
+        <li><a href="#Max proxy threads">Max proxy threads</a></li>
+    </ul>
+    <a href="#Thread Settings">Thread Settings</a><br />
+    <ul type="disc">
+        <li><a href="#Max requester threads">Max requester threads</a></li>
+        <li><a href="#Max tester threads">Max tester threads</a></li>
+        <li><a href="#Max categorizer threads">Max categorizer threads</a></li>
+    </ul>
+
+    <a href="#Output Settings">Output Settings</a>
+    <ul type="disc">
+        <li><a href="#Output directory">Output directory</a></li>
+    </ul>
+    
+    <a href="#Base URLs">Base URLs</a><br />
+    <span style="font-size: 5pt"><br /></span>
+    <a href="#Reporting">Reporting</a><br />
+    <ul>
+        <li><a href="#Report type">Report type</a></li>
+        <li><a href="#Filename">Filename</a></li>
+        <li><a href="#Minimum severity">Minimum severity</a></li>
+    </ul>
+    <br />
+    <H3><a name="Internal Proxy Settings">Internal Proxy Settings</a></H3>
+    Grendel-Scan supports a internal proxy server that can be used to guide the scan through an application. This is 
+    particularly useful for complicated applications, such as ones using AJAX or JSON. As you browse the application
+    through this proxy server, Grendel-Scan will test the application components that you request. This is a safer
+    alternative to the spider modules.
+    <H4><a name="Proxy bind address">Proxy bind address</a></H4>    
+    This is the IP address that the proxy will bind to. To bind to all available IP addresses, use "0.0.0.0". 
+    Generally, the default of localhost (127.0.0.1) should be used.&nbsp;
+    <H4><a name="Proxy bind port">Proxy bind port</a></H4>
+    This is the port that the proxy will listen on. For some operating systems, you will need to run with root 
+    privileges to bind to any port &lt;= 1024.&nbsp;
+    <H4><a name="Max proxy threads">Max proxy threads</a></H4>
+    These threads are only used for accepting and processing proxy requests. They are not used for any testing. Under 
+    most circumstances, two threads should be plenty.
+    
+    <H3><a name="Thread Settings">Thread Settings</a></H3>
+    <H4><a name="Max requester threads">Max requester threads</a></H4>
+    The requester threads service the requester queue, which is primarily used for the spider. If you are not using 
+    any of the spider modules, set this to "1", but never to "0".
+    <H4><a name="Max tester threads">Max tester threads</a></H4>
+    The tester threads service the testing queue, which is where most of the heavy lifting is done. Most HTTP requests
+    initiated by testing modules are requested using these threads, not the requester threads (which are used for
+    spidering). If the performance bottleneck does not appear to be the network, and you have CPU cycles to spare, 
+    increasing the number of tester threads may improve performance. If the thread count is significantly above the 
+    default, total memory available should also be increased. This can be done in the launch script.
+    <H4><a name="Max categorizer threads">Max categorizer threads</a></H4>
+    The categorizer threads service the categorizer queue. When an HTTP transaction is completed, it is sent to 
+    the categorizer queue to determine which tests should be run against it. The default value should be sufficient,
+    unless the categorizer queue is consistently above zero. 
+    
+    <h3><a name="Output Settings">Output Settings</a></h3>
+    <h4><a name="Output directory">Output directory</a></h4>
+    The output directory is the default location for any data saved to disk. This includes the report file, the HTTP
+    transaction record, the error log, and output from modules (such as the website mirror).
+    
+    <H3><a name="Base URLs">Base URLs</a></H3>
+    The base URLs are primarily used to seed the spider. It also adds an implicit URL white-list rule based on the 
+    scheme, hostname, and port number of the provided URL.
+    
+    <H3><a name="Reporting">Reporting</a></H3>
+    <h4><a name="Report type">Report type</a></h4>    
+    Currently, only text and HTML formated reports are available. The text format still has some issues, so HTML is
+    the best bet. PDF and XML formated reports are on the roadmap.
+    <h4><a name="Filename">Filename</a></h4>
+    The output filename for the report. Make sure that it's a valid filename, path, permissions, etc.
+    <h4><a name="Minimum severity">Minimum severity</a></h4>
+    The minimum severity of event to include in the report. Usually, "informational"
+    is the best value.
+</body>
+</html>

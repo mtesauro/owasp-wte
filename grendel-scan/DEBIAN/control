@@ -1,0 +1,8 @@
+Package: owasp-wte-grendel-scan
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.0
+Depends: openjdk-6-jre | sun-java6-jre | sun-java5-jre 
+Description: Grendel-Scan is an open-source web application security testing tool. It has automated testing module for detecting common web application vulnerabilities, and features geared at aiding manual penetration tests.

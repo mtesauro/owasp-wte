@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Scan Status Window</title>
+    <style> UL {margin-top: 0pt; margin-bottom: 7pt} H3 {margin-top: 12pt; margin-bottom: 2pt} H4 {margin-top: 8pt; margin-bottom: 2pt} </style>
+</head>
+<body style="font-size: 10pt; font-family: Arial">
+    <h2>Scan Status Window</h2>
+    <a href="#Output Area">Output Area</a><br />
+    <span style="font-size: 5pt"><br /></span>
+    <a href="#Queue Sizes">Queue Sizes</a><br />
+    <span style="font-size: 5pt"><br /></span>
+    <a href="#Pause Scan">Pause Scan</a><br />
+    <span style="font-size: 5pt"><br /></span>
+    <a href="#Close Proxy">Close Proxy</a><br />
+    <span style="font-size: 5pt"><br /></span>
+    <a href="#Terminate Scan">Terminate Scan</a><br />
+    <span style="font-size: 5pt"><br /></span>
+    <a href="#Close Proxy">Troubleshooting</a><br />
+        <ul>
+        <li><a href="#Scan appears hung">Scan appears hung</a></li>
+        <li><a href="#Scan never stops">Scan never stops</a></li>
+        <li><a href="#Scan is very slow">Scan is very slow</a></li>
+    </ul>
+    <br />
+    <h3><a name="Output Area">Output Area</a></h3>
+    The output area attempts to demonstrate the progress of the scan. Future releases will allow for adjustable 
+    verbosity settings.
+    
+    <h3><a name="Queue Sizes">Queue Sizes</a></h3>
+    The number of jobs in each queue. The categorizer queue should always be zero, or near zero. If it isn't try 
+    increasing the categorizer thread count. The requester queue is used primarily by the spider.
+    
+    <h3><a name="Pause Scan">Pause Scan</a></h3>
+    This button will pause the scan. HTTP responses will be processed if the request was sent before the pause.
+    
+    <h3><a name="Close Proxy">Close Proxy</a></h3>
+    Disables the internal proxy server. This is important because the scan will not complete while the proxy is
+    open. Closing it signals that the user doesn't want to submit any more requests for testing.
+    
+    <h3><a name="Terminate Scan">Terminate Scan</a></h3>
+    Immediately terminates the scan. A report will be generated and any findings already discovered will be included.
+
+    <h3><a name="Troubleshooting">Troubleshooting</a></h3>
+    <h4><a name="Scan appears hung">Scan appears hung</a></h4>
+    If all of the queues are empty, make sure the proxy is closed. If it isn't, the scan is still waiting for more
+    input.<br />
+    <br />
+    If there are still items in the queue, try pausing and unpausing the scan. Also try to connect directly to the targeted
+    website. It's possible that the website is down or very, very slow.<br />
+    <br />If it has been several minutes since new lines were added to the output
+    area, the scan may be truly hung. 
+    <h4><a name="Scan never stops">Scan never stops</a></h4>
+    It's difficult to say how long a scan should take. For a large and complicated web application, with all 
+    test modules enabled, several hours may not be unusual, especially with bandwidth throttling. <br />
+    <br />
+    One cause of a never ending scan is if the website may present a never ending stream of unique content. If the spider is 
+    enabled, the scan will continue as long as new content is being discovered. The forbidden and irrelevant parameter
+    lists can be used to prevent this condition.<br />
+    <br />
+    If file and directory enumeration is enabled, incorrect file-not-found responses may cause it to never 
+    finish. Usually, enabling "automatic response code overrides" with the "test every directory" option will 
+    fix this. It may be necessary to add a manual pattern.<br />
+    <br />
+    Eventually, you may need to terminate the scan.
+    <h4><a name="Scan is very slow">Scan is very slow</a></h4>
+    There are several things that can cause the scan to be slow. Look at your system resources. Is another process 
+    using a lot of the CPU cycles? Is memory paging taking place? If not, check the targeted website's 
+    responsiveness with a direct connection (not through Grendel-Scan's internal proxy). Also, keep in mind that 
+    the bandwidth throttling is intended to slow the scan down. If server load isn't a concern, increasing the 
+    limits can significantly improve scan speed.
+    
+    </body>
+</html>

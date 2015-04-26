@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Grendel Scan (Web App Sec Scanner)
+Exec=grendel-scan
+Icon=owasp-wte-grendel-scan-icon
+Categories=Scanners;

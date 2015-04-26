@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FuzzMatchPatterns>
+	<pattern>
+		<TextSearchString>&lt;/font&gt;&lt;font face="Arial" size=2&gt;</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>detected an internal error [IBM][CLI Driver][DB2/6000]</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Permission denied: 'GetObject'</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>A syntax error has occurred</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>ASP.NET_SessionId</TextSearchString>
+		<TextSearchString>data source=</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Can't connect to local</TextSearchString>
+		<TitleSearchString>warning</TitleSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Custom Error Message</TextSearchString>
+		<TextSearchString>Category</TextSearchString>
+		<TextSearchString>Source</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Error Diagnostic Information</TextSearchString>
+		<TitleSearchString>Error Occurred While</TitleSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Internal Server Error</TextSearchString>
+		<TextSearchString>server at</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>ORA-12541: TNS:no listener</TextSearchString>
+		<TitleSearchString>error occurred</TitleSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>The script whose uid is</TextSearchString>
+		<TextSearchString>is not allowed to access</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Unable to jump to row</TextSearchString>
+		<TextSearchString>on MySQL result index</TextSearchString>
+		<TextSearchString>on line</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Warning</TextSearchString>
+		<TextSearchString>on line</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Warning: mysql_query()</TextSearchString>
+		<TextSearchString>invalid query</TextSearchString>
+	</pattern>
+	<pattern>
+		<TitleSearchString>Apache Tomcat</TitleSearchString>
+		<TextSearchString>Error Report</TextSearchString>
+	</pattern>
+	<pattern>
+		<TitleSearchString>Error Occurred While Processing Request</TitleSearchString>
+	</pattern>
+	<pattern>
+		<TitleSearchString>Error Occurred</TitleSearchString>
+		<TextSearchString>The error occurred in</TextSearchString>
+	</pattern>
+	<pattern>
+		<TitleSearchString>Execution of this script not permitted</TitleSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>error</TextSearchString>
+		<TextSearchString>on line</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Active Server Pages error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>ADODB.Field error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>An illegal character has been found in the statement</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>ASP.NET is configured to show verbose error messages</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Disallowed Parent Path</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Error converting data type varchar to numeric</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Fatal error: Call to undefined function</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Incorrect syntax near</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Invalid Path Character</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Invalid procedure call or argument</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Invision Power Board Database Error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Microsoft VBScript compilation error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Microsoft VBScript error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>mySQL error with query</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>ORA-00921: unexpected end of SQL command</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>ORA-00933: SQL command not properly ended</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>ORA-00936: missing expression</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Permission denied: 'GetObject'</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>PHP Parse error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>PHP Warning</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>PHP Error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>PostgreSQL query failed: ERROR: parser: parse error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>server object error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>supplied argument is not a valid MySQL result resource</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Supplied argument is not a valid PostgreSQL result</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Syntax error in query expression</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Type mismatch</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Unclosed quotation mark before the character string</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Unterminated string constant</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Warning: Cannot modify header information - headers already sent</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Warning: pg_connect(): Unable to connect to PostgreSQL server: FATAL</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Warning: Supplied argument is not a valid File-Handle resource in</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>You have an error in your SQL syntax near</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>[ODBC SQL</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>[SQL Server Driver][SQL Server]Line 1: Incorrect syntax near</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>An unexpected token "END-OF-STATEMENT" was found</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Error Message : Error loading required libraries.</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>include_path</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Fatal error: mysql error</TextSearchString>
+	</pattern>
+	<pattern>
+		<TextSearchString>Died at</TextSearchString>
+		<TextSearchString>line</TextSearchString>
+	</pattern>
+	
+</FuzzMatchPatterns>
