@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cd /opt/owasp/httprint
+mv -f signatures.txt previous-signatures.txt
+wget http://net-square.com/httprint/signatures.txt
+
+if [ ! -e signatures.txt ]; then
+   mv -f previous-signatures.txt signatures.txt
+   echo "Updating signatures failed - keeping previous ones"
+else
+   echo "Signatures updated.  The old signature file can be found"
+   echo "  at /opt/owasp/httprint/previous-signatures.txt"
+fi

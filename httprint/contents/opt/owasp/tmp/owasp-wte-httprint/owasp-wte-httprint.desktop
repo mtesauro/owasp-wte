@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Httprint (Fingerprint Web Servers)
+Exec=launch-httprint
+Icon=owasp-wte-httprint-icon
+Categories=Recon Tools;

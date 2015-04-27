@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for Httpring and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-httprint/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-httprint/owasp-wte-httprint-icon.png owasp-wte-httprint-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-httprint/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-httprint/owasp-recon.directory \
+                         /opt/owasp/tmp/owasp-wte-httprint/owasp-wte-httprint.desktop
+
+# Cleanup /tmp
+rm -rf /opt/owasp/tmp/owasp-wte-httprint

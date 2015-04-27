@@ -1,0 +1,28 @@
+#!/bin/sh
+
+echo "             _     _   _              _       _    "
+echo "            | |__ | |_| |_ _ __  _ __(_)_ __ | |_  "
+echo "            | '_ \| __| __| '_ \| '__| | '_ \| __| "
+echo "            | | | | |_| |_| |_) | |  | | | | | |_  "
+echo "            |_| |_|\__|\__| .__/|_|  |_|_| |_|\__| "
+echo "                          |_|                      "
+echo " "
+echo " "
+echo "           httpring - web server fingerprinting tool"
+echo "                  (part of the OWASP WTE)"
+echo " "
+echo " httprint is a web server fingerprinting tool. It relies on web "
+echo " server characteristics to accurately identify web servers, despite "
+echo " the fact that they may have been obfuscated by changing the server "
+echo " banner strings, or by plug-ins such as mod_security or servermask."
+echo " "
+echo " Type 'httprint -?' for help"
+echo " "
+echo " Usage: "
+echo " httprint {-h <host> | -i <input file> | -x <nmap xml file>} -s <signatures> [... options]"
+echo " "
+echo " Type 'update-httprint' to retrieve the latest signature file. "
+echo " "
+echo " The signature file can be called using 'httprint -h <host> -s ./signatures.txt'"
+
+bash
