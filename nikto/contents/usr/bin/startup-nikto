@@ -1,0 +1,18 @@
+#/bin/sh
+
+echo "                  _   _ _ _    _         "
+echo "                 | \ | (_) | _| |_ ___   "
+echo "                 |  \| | | |/ / __/ _ \  "
+echo "                 | |\  | |   <| || (_) | "
+echo "                 |_| \_|_|_|\_\\__\___/  "
+echo " "
+echo " "
+echo "               Nikto - The web server scanner"
+echo "                   (part of OWASP WTE)"
+echo " "
+echo " Type 'nikto' for brief help or 'nikto -Help for extended help"
+echo " Basic usage:"
+echo "  nikto -host [IP or host name]"
+echo " "
+
+bash

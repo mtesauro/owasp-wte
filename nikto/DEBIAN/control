@@ -1,0 +1,11 @@
+Package: owasp-wte-nikto
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 2.1.5
+Depends: perl, libwhisker2-perl, libnet-ssleay-perl
+Description: Nikto is an Open Source web server scanner
+ It performs comprehensive tests against web servers for multiple items, i
+ including over 3500 potentially dangerous files or CGIs, versions on over 900 
+ servers, and version specific problems on over 250 servers.

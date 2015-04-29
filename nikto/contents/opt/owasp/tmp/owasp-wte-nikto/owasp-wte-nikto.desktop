@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Nikto (Web Server Scanner)
+Exec=launch-nikto
+Icon=owasp-wte-nikto-icon
+Categories=Scanners;

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /opt/owasp/nikto
+./nikto.pl "$@"

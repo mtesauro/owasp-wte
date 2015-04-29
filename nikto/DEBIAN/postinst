@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for Nikto and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-nikto/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-nikto/owasp-wte-nikto-icon.png owasp-wte-nikto-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-nikto/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-nikto/owasp-scanners.directory \
+                         /opt/owasp/tmp/owasp-wte-nikto/owasp-wte-nikto.desktop
+
+# Cleanup /tmp
+rm -rf /opt/owasp/tmp/owasp-wte-nikto
