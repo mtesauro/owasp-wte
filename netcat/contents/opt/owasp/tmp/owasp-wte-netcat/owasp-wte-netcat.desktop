@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Netcat (TCP Swiss Army Knife)
+Exec=launch-netcat
+Icon=owasp-wte-netcat-icon
+Categories=OWASP;

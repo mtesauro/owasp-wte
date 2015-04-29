@@ -1,0 +1,28 @@
+#/bin/sh
+
+echo "   /\_/\ "
+echo "  / 0 0 \ "
+echo " ====v===="
+echo "  \  W  /"
+echo "  |     |     _  Netcat - The TCP/IP swiss army knife"
+echo "  / ___ \    /      (part of the OWASP WTE)"
+echo " / /   \ \  |"
+echo "(((-----)))-'    "
+echo " /               "
+echo "(      ___       "
+echo " \__.=|___E"
+echo "        /"
+echo " "
+echo " Type 'nc -h' or 'netcat -h for help"
+echo " Basic usage:"
+echo "  connect to somewhere:  nc [-options] hostname port[s] [ports] ..."
+echo "  listen for inbound:    nc -l -p port [-options] [hostname] [port]"
+echo "                  - OR -"
+echo "  connect to somewhere:  netcat [options] hostname port [port] ..."
+echo "  listen for inbound:    netcat -l -p port [options] [hostname] [port] ..."
+echo "  tunnel to somewhere:   netcat -L hostname:port -p port [options]"
+echo " "
+echo " If unsure, go with 'nc' its a great old tool"
+echo " "
+
+bash
