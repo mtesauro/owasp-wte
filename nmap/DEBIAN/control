@@ -1,0 +1,8 @@
+Package: owasp-wte-nmap
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 5.21
+Depends: nmap, zenmap, gksu
+Description: Nmap is a free and open source utility for network exploration or security auditing.

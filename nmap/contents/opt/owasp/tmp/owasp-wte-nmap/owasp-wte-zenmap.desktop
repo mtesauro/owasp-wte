@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Zenmap (GUI for nmap)
+Exec=gksudo zenmap
+Icon=owasp-wte-zenmap-icon
+Categories=OWASP;

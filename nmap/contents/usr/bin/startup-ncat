@@ -1,0 +1,25 @@
+#/bin/sh
+
+echo "                    .       .       "
+echo "                    \`-\"'\"-'/       "
+echo "                     } 6 6 {        "
+echo "                    ==. Y ,==       "
+echo "                      /^^^\  .      "
+echo "                     /     \  )     "
+echo "                    (  )-(  )/     _"
+echo "                    -\"\"---\"\"---   / "
+echo "                   /   Ncat    \_/  "
+echo "                  (     ____        "
+echo "                   \_.=|____E       "
+echo ""
+echo " "
+echo "      ncat - A much-improved reimplementation of the venerable Netcat"
+echo "               (part of the OWASP WTE)"
+echo " "
+echo "      part of Nmap 5.21 ( http://nmap.org )"
+echo "      Usage: ncat [options] [hostname] [port]"
+echo " "
+echo "  Type 'ncat -h' for brief help or 'man ncat' for more info"
+echo ""
+
+bash

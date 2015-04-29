@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Register the icons needed for Nmap and Zenmap and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-nmap/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-nmap/owasp-wte-nmap-icon.png owasp-wte-nmap-icon 
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-nmap/owasp-wte-zenmap-icon.png owasp-wte-zenmap-icon 
+
+# Create the necessary menu entries
+# nmap
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-nmap/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-nmap/owasp-wte-nmap.desktop
+# zenmap
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-nmap/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-nmap/owasp-wte-zenmap.desktop
+# ncat
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-nmap/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-nmap/owasp-wte-ncat.desktop
+
+# Cleanup /tmp
+rm -rf /opt/owasp/tmp/owasp-wte-nmap

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Nmap (Network Mapper)
+Exec=launch-nmap
+Icon=owasp-wte-nmap-icon
+Categories=OWASP;

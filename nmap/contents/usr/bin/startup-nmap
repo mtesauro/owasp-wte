@@ -1,0 +1,28 @@
+#/bin/sh
+
+echo "    __  "
+echo "   (  )   /\   _                 (     "
+echo "     \ |  (  \ ( \.(               )                      _____ "
+echo "   \  \ \  \`  \`   ) \             (  ___                 / _   \ "
+echo "  (_\`    \+   . x  ( .\            \/   \____-----------/ (o)   \_ "
+echo " - .-               \+  ;          (  O                           \____ "
+echo "                           )        \_____________  \`              \  / "
+echo " (__                +- .( -'.- <. - _  VVVVVVV VV V\                 \/ "
+echo " (_____            ._._: <_ - <- _  (--  _AAAAAAA__A_/                | "
+echo "   .    /./.+-  . .- /  +--  - .     \______________//_              \_______ "
+echo "   (__ ' /x  / x _/ (                                  \___'          \     / "
+echo "  , x / ( '  . / .  /                                      |           \   / "
+echo "     /  /  _/ /    +                                      /              \/ "
+echo "    '  (__/                                             /                  \ "
+echo "              NMAP IS A POWERFUL TOOL -- USE CAREFULLY AND RESPONSIBLY "
+echo " "
+echo "      nmap - Utility for network exploration or security auditing"
+echo "               (part of the OWASP WTE)"
+echo " "
+echo "      Nmap 5.00 ( http://nmap.org )"
+echo "      Usage: nmap [Scan Type(s)] [Options] {target specification}"
+echo " "
+echo "  Type 'nmap -h' for brief help or 'man nmap' for more info"
+echo ""
+
+bash

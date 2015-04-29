@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=ncat (The new netcat)
+Exec=launch-ncat
+Icon=owasp-wte-nmap-icon
+Categories=OWASP;
