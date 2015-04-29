@@ -1,0 +1,35 @@
+=================================================
+Thank you for downloading JBroFuzz!
+=================================================
+
+This program is a fuzzer for web applications
+that use HTTP and/or HTTPS. 
+
+Please also see the README file for further 
+information.
+
+=================================================
+INSTALL: Table of Contents
+=================================================
+
+- Prerequisites for JBroFuzz
+
+=================================================
+- Prerequisites for JBroFuzz
+=================================================
+
+The following programs must be installed 
+independent of which JBroFuzz you download:
+
+- Java 1.6 or later
+  
+Java can be downloaded at 
+http://java.sun.com/javase/downloads/index.jsp
+
+You only need to download and install the 
+"Java Runtime Environment (JRE)"
+
+For development and contributing to the code base
+of JBroFuzz, you will require the
+"Java Development Kit (JDK)"
+=================================================

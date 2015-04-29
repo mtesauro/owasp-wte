@@ -1,0 +1,10 @@
+Package: owasp-wte-jbrofuzz
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 2.5
+Depends: default-jre | sun-java6-jre | openjdk-6-jre
+Description: JBroFuzz is a web application fuzzer for requests being made over HTTP or HTTPS.
+ Its purpose is to provide a single, portable application that offers stable 
+ web protocol fuzzing capabilities.

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=JBroFuzz Encoder/Decoder (Encode/Decode tool)
+Exec=jbrofuzz-encoder
+Icon=owasp-wte-jbrofuzz-icon
+Categories=Fuzzers;

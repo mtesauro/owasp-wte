@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=JBroFuzz (Network Protocol Fuzzer)
+Exec=jbrofuzz
+Icon=owasp-wte-jbrofuzz-icon
+Categories=Fuzzers;

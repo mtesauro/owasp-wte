@@ -1,0 +1,85 @@
+=================================================
+Thank you for downloading JBroFuzz!
+=================================================
+
+This program is a fuzzer for web applications
+that use HTTP and/or HTTPS. 
+
+Please also see the INSTALL file for further 
+information.
+
+=================================================
+README: Table of Contents
+=================================================
+
+- JBroFuzz Downloads & Versions
+- Installing JBroFuzz on (*nix)
+- Running JBroFuzz on (*nix)
+
+=================================================
+- JBroFuzz Downloads & Versions
+=================================================
+
+For each release of JBroFuzz, there are typically
+three (3) files made available:
+
+jbrofuzz-win32-{xx}.zip
+jbrofuzz-jar-{xx}.zip
+jbrofuzz-{xx}.msi
+
+Where {xx} represents the version number. As an 
+example, jbrofuzz-jar-25.zip would correspond to
+JBroFuzz version 2.5 . 
+
+If you are reading this file, you have probably
+downloaded jbrofuzz-jar-{xx}.zip .
+
+=================================================
+- Installing JBroFuzz on (*nix)
+=================================================
+
+Obtain a copy of the latest jbrofuzz-jar-{xx}.zip
+
+Typically, we like to store things in /opt, ergo
+
+bash-3.00# mkdir /opt/jbrofuzz
+bash-3.00# unzip jbrofuzz-jar-{xx}.zip
+bash-3.00# mv examples /opt/jbrofuzz
+bash-3.00# mv JBroFuzz.jar /opt/jbrofuzz
+bash-3.00# mv jbrofuzz.sh
+
+Now you can quickly test JBroFuzz, by issuing:
+
+bash-3.00# java -jar JBroFuzz.jar
+
+=================================================
+- Running JBroFuzz on (*nix)
+=================================================
+
+With each download of the standalone jar file 
+(i.e. jbrofuzz-jar-{xx}.zip, see section above)
+there is a corresponding shell script available.
+
+The script to run is jbrofuzz.sh; a rather basic
+flavour, performing a `which java` and passing
+some jvm parameters.
+
+This script needs to be chmod-ed in order for 
+JBroFuzz to run correctly. If you have followed
+the instructions above and have placed the
+release of JBroFuzz in /opt/jbrofuzz, issue the
+following:
+
+bash-3.00# cd /opt/jbrofuzz
+bash-3.00# chmod 744 /opt/jbrofuzz/jbrofuzz.sh
+bash-3.00# ./jbrofuzz.sh
+
+You will be required to have a java 1.6 JRE or
+JDK installed. 
+
+For more information on java, see the INSTALL 
+file:
+
+- Prerequisites for JBroFuzz
+
+=================================================

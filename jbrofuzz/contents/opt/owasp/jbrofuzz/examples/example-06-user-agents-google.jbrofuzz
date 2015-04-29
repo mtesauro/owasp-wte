@@ -1,0 +1,23 @@
+[JBroFuzz]
+2.5
+[Fuzzing]
+299-2010-10-26-14-46-14
+[Comment]
+_
+[URL]
+http://www.google.com
+[Request]
+GET / HTTP/1.0
+Host: www.google.com
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; en-GB; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729) JBroFuzz/1.9
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-gb,en;q=0.5
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+
+
+
+[Fuzzers]
+044-USR-AGN,36,108
+[Transforms]
+1,Plain Text,,
+[End]

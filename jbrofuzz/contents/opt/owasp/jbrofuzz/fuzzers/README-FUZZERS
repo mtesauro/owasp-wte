@@ -1,0 +1,139 @@
+=================================================
+Thank you for downloading JBroFuzz!
+=================================================
+
+This file briefly describes what you can and 
+cannot put inside a .jbrf file.
+
+=================================================
+README-FUZZERS: Table of Contents
+=================================================
+
+- Fuzzer Definition for JBroFuzz
+- Where are .jbrf files used?
+- The .jbrf file format
+- .jbrf pre-conditions
+
+=================================================
+- Fuzzer Definition for JBroFuzz
+=================================================
+
+The following list represents a number of axioms 
+according to which JBroFuzz defines and uses 
+fuzzing concepts.
+
+    * A fuzzer is a set of payloads
+    
+	* The algorithm that defines how the 
+	payloads of a fuzzer get combined in 
+	sequential order, defines the type of 
+	fuzzer
+	
+    * A prototype is the base form description 
+	(a bit like a signature) from which a fuzzer 
+	can be created 
+
+Ergo within JBroFuzz, prototype definitions are 
+stored in a file called fuzzers.jbrf. Each 
+prototype corresponds to a fuzzer, containing 
+information such as the type of fuzzer, the 
+number of payloads it has, etc.
+
+Finally, a fuzzing database is collection of 
+fuzzers, as constructed by a set of prototypes. 
+
+These prototypes are constructed and used by the
+org.owasp.jbrofuzz.core library. You can use 
+this library independantly of using JBroFuzz, as
+a standalone java API.
+
+=================================================
+- Where are .jbrf files used?
+=================================================
+
+JBroFuzz has an internal file format for 
+representing fuzzers. Within the JBroFuzz 
+executable, there exists a file called 
+fuzzers.jbrf that carries all the fuzzer 
+definitions. If you unzip the JBroFuzz.jar file 
+you will see it in there.
+
+.jbrf files carry all the fuzzing definitions 
+used within JBroFuzz and other fuzzing programs,
+which use this format.
+
+The file format is pretty straight-forward: two
+lines proceed a long list of payloads. 
+
+Finally, there is a /fuzzers directory 
+distributed with all JBroFuzz releases, within 
+this there are a number of other .jbrf files
+
+=================================================
+- The .jbrf file format
+=================================================
+
+Firstly, the fuzzers.jbrf file is flat ascii 
+text file. 
+
+Two lines proceed a long list of payloads for 
+each fuzzer.
+
+It defines each entity with an opening line of 
+the following format:
+
+C:ddd-CCC-CCC:Name:d
+
+Where:
+
+    * C is an upper character corresponding to 
+	the fuzzer type. 'R' stands for recursive, 
+	'P' for replacive, 'Z' for zero, etc.
+    
+	* ddd-LLL-LLL is the fuzzer id starting with 
+	3 digits, followed by a dash (-), 3 upper 
+	case characters, followed by a second dash 
+	(-) and a final set of 3 upper case 
+	characters. This value needs to be unique 
+	for each fuzzer.
+    
+	* Name the fuzzer name
+    
+	* d: The number of payloads a fuzzer 
+	actually has. 
+
+A line of categories that the fuzzer belongs to,
+follows the opening line. This starts with the
+character ">".
+
+Following that, a comment line, beginning with
+">>" carries a comment description for that 
+fuzzer. 
+
+=================================================
+- .jbrf pre-conditions
+=================================================
+
+The maximum number of chars to be read from file,
+regardless:
+	MAX_CHARS = 65536;
+
+The maximum number of lines allowed to be read 
+from the file:
+	MAX_LINES = 4096;
+
+The maximum length of a line allowed  (this is 
+also, in essense the max length of a payload):
+	MAX_LINE_LENGTH = 2048;
+
+The maximum name length for a fuzzer:
+	MAX_PROTO_NAME_LENGTH = 127;
+	
+The maximum number of payloads in a fuzzer:
+	MAX_NO_OF_PAYLOADS = 1024;
+	
+The maximum number of categories a fuzzer can 
+belong to:
+	MAX_NO_OF_CATEGORIES = 127;
+
+=================================================

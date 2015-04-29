@@ -1,0 +1,17 @@
+#!/bin/sh
+
+cd /opt/owasp/jbrofuzz
+
+JAVA=`which java`
+JAVA_PARAMS="-Xmx512m"
+
+# Launch JBroFuzz
+if [ -r ./JBroFuzz.jar ]; then
+    $JAVA $JAVA_PARAMS -jar ./JBroFuzzEncoder.jar
+    exit 0;
+fi
+
+echo "Unable to find JBroFuzzEncoder.jar file.  "
+echo -n $0
+echo " needs to be in the same directory as JBroFuzzEncoder.jar"
+

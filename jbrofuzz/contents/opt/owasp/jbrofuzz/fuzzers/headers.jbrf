@@ -1,0 +1,360 @@
+#
+# JBroFuzz Browser Headers
+#
+# Copyright (c) 2010 
+# subere@uncon.org
+# Version 2.0
+#
+
+H:101-NTA-AAA:Header 101:5
+>Windows | NT4 | MSIE | 2.0
+>>The default Internet Explorer that comes with Windows NT Workstation, pre any services packs
+GET / HTTP/1.0
+Accept: image/gif, image/x-xbitmap, image/jpeg, */*
+Accept-Language: en
+User-Agent: Mozilla/1.22 (compatible; MSIE 2.0d; Windows NT)
+Connection: Keep-Alive
+
+
+H:102-NTA-AAB:Header 102:10
+>Windows | NT4 | MSIE | 3.02a
+>>The 3rd release of Internet Explorere for Windows NT
+GET / HTTP/1.0
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
+Accept-Language: en
+UA-pixels: 800x600
+UA-color: color32
+UA-OS: Windows NT
+UA-CPU: x86
+User-Agent: Mozilla/2.0 (compatible; MSIE 3.02; Update a; Windows NT)
+Host: localhost
+Connection: Keep-Alive
+
+H:103-NTA-AAC:Header 103:7
+>Windows | NT4 | MSIE | 4.01 SP2
+>>Internet Explorer 4 for Windows NT
+GET / HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
+Accept-Language: en-us
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 4.01; Windows NT)
+Host: localhost
+Connection: Keep-Alive
+
+H:104-NTA-AAD:Header 104:7
+>Windows | NT4 | MSIE | 5.50 SP2
+>>Internet Explorer 5.5 running on Windows NT
+GET / HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
+Accept-Language: en-us
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 4.0)
+Host: localhost
+Connection: Keep-Alive
+
+H:105-NTA-AAE:Header 105:8
+>Windows | NT4 | Netscape | 4.79
+>>Version 4.7 of Netscape Navigator, running on Windows NT
+GET / HTTP/1.0
+Connection: Keep-Alive
+User-Agent: Mozilla/4.79 [en] (WinNT; U)
+Host: localhost
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, image/png, */*
+Accept-Encoding: gzip
+Accept-Language: en
+Accept-Charset: iso-8859-1,*,utf-8
+
+H:106-NTA-AAF:Header 106:9
+>Windows | NT4 | Netscape | 6.10
+>>Version 6.10 of Netscape Navigator, for windows NT
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Windows; U; WinNT4.0; en-US; rv:0.9.2) Gecko/20010726 Netscape6/6.1
+Accept: text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, image/png, image/jpeg, image/gif;q=0.2, text/plain;q=0.8, text/css, */*;q=0.1
+Accept-Language: en-us
+Accept-Encoding: gzip,deflate,compress,identity
+Accept-Charset: ISO-8859-1, utf-8;q=0.66, *;q=0.66
+Keep-Alive: 300
+Connection: keep-alive
+
+
+H:107-AAA-AAA:Header 107:9
+>Windows | XP SP3 | Firefox | 3.0.4, English (British)
+>>The British release of Firefox 3.0.4 for Windows XP 
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.4) Gecko/2008102920 Firefox/3.0.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-gb,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+
+
+H:108-AAA-AAB:Header 108:8
+>Windows | XP SP3 | IE | 7.0.5730.13
+>>The standard release of Internet Explorer 7.0 for x86 Windows XP
+GET / HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/xaml+xml, application/vnd.ms-xpsdocument, application/x-ms-xbap, application/x-ms-application, */*
+Accept-Language: en-gb
+UA-CPU: x86
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)
+Host: localhost
+Connection: Keep-Alive
+
+
+H:109-AAA-AAC:Header 109:9
+>Windows | XP SP3 | SeaMonkey | 1.1.14
+>>The release of SeaMonkey (December 16, 2008) for Windows
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.19) Gecko/20081204 SeaMonkey/1.1.14
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+
+H:110-AAA-BBB:Header 110:8
+>Nokia | E90 | Web Browser | 210.34.75 (12-04-2008)
+>>The default browser shipping with the Nokia E90 mobile phone
+GET / HTTP/1.1
+Host: localhost
+Accept: text/html,text/css,multipart/mixed,application/java-archive, application/java, application/x-java-archive, text/vnd.sun.j2me.app-descriptor, application/vnd.oma.drm.message, application/vnd.oma.drm.content, application/vnd.oma.dd+xml, application/vnd.oma.drm.rights+xml, application/vnd.oma.drm.rights+wbxml, application/x-nokia-widget, */*
+Accept-Charset: iso-8859-1, utf-8; q=0.7, *; q=0.7
+Accept-Encoding: gzip, deflate, x-gzip, identity; q=0.9
+Accept-Language: en;q=1.0,el;q=0.5
+User-Agent: Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaE90-1/210.34.75 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413 (KHTML, like Gecko) Safari/413
+x-wap-profile: "http://nds1.nds.nokia.com/uaprof/NE90-1r100.xml"
+
+H:111-AAA-III:Header 111:8
+>iPhone | 04.05.04_G | Safari
+>>The default browser header on the above version of iPhone firmware
+GET / HTTP/1.1
+User-Agent: Mozilla/5.0 (iPhone; U; CPU iPhone OS 2_2 like Mac OS X; en-us) AppleWebKit/525.18.1 (KHTML, like Gecko) Version/3.1.1 Mobile/5G77 Safari/525.20
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: en-us
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: localhost
+
+H:112-AAA-GGG:Header 112:7
+>Android | HTC Magic | Browser
+>>Firmware Version 1.5 (May 2009)
+GET / HTTP/1.1
+Host: localhost
+Accept-Encoding: gzip
+Accept: application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+User-Agent: Mozilla/5.0 (Linux; U; Android 1.5; en-gb; HTC Magic Build/CRB17) AppleWebKit/528.5+ (KHTML, like Gecko) Version/3.1.2 Mobile Safari/525.20.1
+Accept-Language: en-GB, en-US
+Accept-Charset: utf-8, iso-8859-1, utf-16, *;q=0.7
+
+
+
+H:113-AAA-ACC:Header 113:7
+>Windows | XP SP3 | Opera | 9.27
+>>The standard release of Opera 9.27, Buid 8841 for Windows
+GET / HTTP/1.1
+User-Agent: Opera/9.27 (Windows NT 5.1; U; en)
+Host: localhost
+Accept: text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1
+Accept-Language: en-US,en;q=0.9
+Accept-Charset: iso-8859-1, utf-8, utf-16, *;q=0.1
+Accept-Encoding: deflate, gzip, x-gzip, identity, *;q=0
+Connection: Keep-Alive
+
+H:114-AAA-ACD:Header 114:7
+>Windows | XP SP3 | Safari | 3.2.1 (525.27.1)
+>>Safari for Windows XP and Windows Vista 
+GET / HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.27.1 (KHTML, like Gecko) Version/3.2.1 Safari/525.27.1
+Accept-Encoding: gzip, deflate
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: en-US
+Connection: keep-alive
+Host: localhost
+
+H:115-AAA-ACE:Header 115:8
+>Windows | XP SP3 | IE | 8.0.6001.18241
+>>Windows Internet Explorer 8 (Update versions) Beta 2
+GET / HTTP/1.1
+Accept: image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-ms-application, application/x-ms-xbap, application/vnd.ms-xpsdocument, application/xaml+xml, */*
+Accept-Language: en-us
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 1.0.3705; .NET CLR 1.1.4322)
+UA-CPU: x86
+Accept-Encoding: gzip, deflate
+Host: localhost
+Connection: Keep-Alive
+
+H:116-AAA-AAD:Header 116:9
+>Windows | XP SP3 | Chrome | 0.4.154.25
+>>Current beta release of the Chrome google browser
+GET / HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/0.4.154.25 Safari/525.19
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Encoding: gzip,deflate,bzip2,sdch
+X-SDCH: Chrome 0.4.154.25
+Accept-Language: en-GB,en-US,en
+Accept-Charset: ISO-8859-1,*,utf-8
+Host: localhost
+Connection: Keep-Alive
+
+H:117-BBB-AAD:Header 117:8
+>Windows | XP SP3 | Chrome | 1.0.154.48
+>Latest release of the Chrome google browser
+GET / HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.48 Safari/525.19
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Encoding: gzip,deflate,bzip2,sdch
+Accept-Language: en-GB,en-US,en
+Accept-Charset: ISO-8859-1,*,utf-8
+Host: localhost
+Connection: Keep-Alive
+
+
+H:118-AAA-AAF:Header 118:5
+>Wget | 1.8.2
+>>Version 1.8.2 of GNU Wget, the freely available utility for network download
+GET / HTTP/1.0
+User-Agent: Wget/1.8.2
+Host: localhost
+Accept: */*
+Connection: Keep-Alive
+
+H:119-AAA-AAE:Header 119:7
+>Sony | Playstation 3 | Internet Browser | 2.52
+>>The header from the playstation 3 internet browser
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (PLAYSTATION 3; 1.00)
+Connection: Keep-Alive
+Accept-Encoding: identity
+x-ps3-browser: 2.50 (WP; system=2.52)
+Accept-Language: en
+
+H:120-AAA-AAF:Header 120:7
+>Windows | Real Player | 11.0.3a
+>>RealNetworks, RealPlayer (win32), Build 6.0.14.806, Distribution R41UKD
+GET / HTTP/1.1
+Accept: */*
+Accept-Language: en-us
+UA-CPU: x86
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; (R1 1.6))
+Host: localhost
+Connection: Keep-Alive
+
+H:121-JBR-F12:Header 121:6
+> JBroFuzz | 1.2
+>>The header used by JBroFuzz in its older, 1.2 version
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: en-gb,en;q=0.5
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+
+H:122-JBR-F14:Header 122:8
+> JBroFuzz | 1.4
+>>The header of JBroFuzz in version 1.4
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; en-GB; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729) JBroFuzz/1.4
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-gb,en;q=0.5
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Proxy-Connection: keep-alive
+
+H:123-AAA-AAH:Header 123:8
+>Windows | Vista SP1 | IE | 7.0.6001.18000
+>> Internet Explorer 7.0 for x86 Vista
+GET / HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-ms-application, application/vnd.ms-xpsdocument, application/xaml+xml, application/x-ms-xbap, application/x-shockwave-flash, */*
+Accept-Language: en
+UA-CPU: x86
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)
+Host: localhost
+Connection: Keep-Alive
+
+H:124-AAA-AAI:Header 124:10
+>Linux | Centos 4.2 | Firefox | 1.0.7
+>>The version of firefox shipping with CentOS 4.2 (2.6.9-22.EL)
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050923 CentOS/1.0.7-1.4.1.centos4 Firefox/1.0.7
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Cookie: ASPSESSIONIDASCDSQAQ=BCLFFGMBFENPEFKLADCGNGON
+
+H:125-AAA-AAJ:Header 125:8
+>Windows | 2008 Standard SP1 | IE | 7.0.6001.18000
+>>Internet Explorer that comes with WIN2K8
+GET / HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
+Accept-Language: en-gb
+UA-CPU: x86
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1; .NET CLR 2.0.50727)
+Host: localhost
+Connection: Keep-Alive
+
+H:126-AAA-AAK:Header 126:9
+>Windows | 2008 Standard SP1 | Firefox | 3.0.5
+>>The version of firefox installed on WIN2K8
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; en-GB; rv:1.9.0.5) Gecko/2008120122 Firefox/3.0.5
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-gb,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+
+H:127-AAA-AAL:Header 127:9
+>Solaris | 10 (10/08) x86 | Mozilla | 1.7
+>>The version of Mozilla for SunJava Desktop System
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; SunOS i86pc; en-US; rv:1.7) Gecko/20070606
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+
+H:128-AAA-AAM:Header 128:9
+>Solaris | 10 (10/08) x86 | Firefox | 2.0.0.14
+>>The version of Firefox that ships with Solaris 10
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (X11; U; SunOS i86pc; en-US; rv:1.8.1.14) Gecko/20080520 Firefox/2.0.0.14
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+
+H:129-AAA-AAN:Header 129:9
+>Mac | OS X 10.5 | Firefox | 3.0.5
+>>The version of Firefox that installs under Mac OS X 10.5
+GET / HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.0.5) Gecko/2008120121 Firefox/3.0.5
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Proxy-Connection: keep-alive

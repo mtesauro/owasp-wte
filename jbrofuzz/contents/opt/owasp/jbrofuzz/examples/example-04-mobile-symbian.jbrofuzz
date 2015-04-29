@@ -1,0 +1,26 @@
+[JBroFuzz]
+2.5
+[Fuzzing]
+299-2010-10-26-14-43-09
+[Comment]
+_
+[URL]
+https://localhost:8088
+[Request]
+GET / HTTP/1.1
+Host: localhost
+Accept: text/html,text/css,multipart/mixed,application/java-archive, application/java, application/x-java-archive, text/vnd.sun.j2me.app-descriptor, application/vnd.oma.drm.message, application/vnd.oma.drm.content, application/vnd.oma.dd+xml, application/vnd.oma.drm.rights+xml, application/vnd.oma.drm.rights+wbxml, application/x-nokia-widget, */*
+Accept-Charset: iso-8859-1, utf-8; q=0.7, *; q=0.7
+Accept-Encoding: gzip, deflate, x-gzip, identity; q=0.9
+Accept-Language: en;q=1.0,el;q=0.5
+User-Agent: Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaE90-1/210.34.75 Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413 (KHTML, like Gecko) Safari/413
+x-wap-profile: "http://nds1.nds.nokia.com/uaprof/NE90-1r100.xml"
+
+
+
+[Fuzzers]
+032-B10-DEC,571,572
+
+[Transforms]
+
+[End]
