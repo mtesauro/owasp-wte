@@ -1,0 +1,8 @@
+Package: owasp-wte-paros
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 3.2.13
+Depends: openjdk-6-jre | sun-java6-jre | sun-java5-jre 
+Description: Paros proxy intercepts and modifies all HTTP and HTTPS data between server and client.

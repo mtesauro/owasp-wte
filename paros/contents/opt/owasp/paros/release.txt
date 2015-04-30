@@ -1,0 +1,275 @@
+3.2.13
+======
+
+New
+-	skipping designated URL in spider.  Use options to set the spider.
+-	auto update menu and periodic check for update (Windows and Linux platform only).
+
+Fix
+-	the use of new external library caused slower performance of proxy.  Restored to older library.
+
+3.2.12
+======
+
+New
+-	Use newest external library for HTTP handling.
+-	enable/disable spider to POST forms in options panel to avoid generating unwanted traffic (default to enable).
+	This is requested by many users.
+-	Decrease the number of possible combinations crawled by spider on forms with multiple SELECT/OPTIONS.
+	This make crawling less resource consuming and lower chance to affect application being scanned.
+-	Minor UI changes.
+
+Fix
+-	Fallback database library to previous version as in Paros 3.2.10 because of a problem with hsqldb where some byte combination may consume 100% cpu time.
+-	Increase width of method display in history to cater for other longer method names.
+-	Default file scans may display incorrect HTTP message body if the original message is a POST request.
+
+3.2.11
+======
+
+New
+-	Revamp History log panel.
+-	Added "tag..." in right-click pop-up window for History log panel.  This help to quickly identify a HTTP message in History display.
+-	Concurrent delete of multiple URL's in the site hierarchy (sf.net request ID 1472300).
+-	Use of newest db library.
+
+Fix
+-	For POST request, if the body contain binary parameters of certain pattern, it may be unable to issue a re-send because URLDecode failed to decode properly.
+
+3.2.10
+======
+
+Fix
+-	Tracking session state problem reported (previously only restart can reset session state).
+-	Paros startup problem when added server authentication into authentication panel.
+-	Authentnciation entry reappear even after deleted (when proxy reloads).
+
+3.2.9
+=====
+New
+-	Continuous browser display when selecting in History panel.
+-	Use final stable version of external library.
+-	Record working directory for all subsequent file access within the same Paros instance.
+
+Thanks to Christophe for the following:
+-	Improved spider capability to crawl forms with textarea and handle links with "&amp;"
+-	Improved check for cross-site script without bracket.
+-	Improved check for PHP error and MySQL.
+-	Improved blind sql check on double quotes.
+
+Fix
+-	if request body contain certain binary bytes it may cause unnecessary encoding.  Fixed to always submit contain binary bytes.
+-	better handling of accepted-encoding.
+
+3.2.8
+=====
+New
+-	Major rewrite on proxy code for reducing memory overhead when proxy over HTTPS.
+	This improves proxy performance over SSL, especially when there are lots of concurrent requests.
+
+-	An experimental feature to support viewing selected history message in browser. This will open native browser
+	to obtain cached result from the proxy.  Right now only Windows platform is supported.
+	Note that the default browser (eg IE) must be configured to proxy via Paros.  For request unavailable from cache,
+	it'll send out the new requests for display.
+	
+	This feature can be useful for post analysis.
+
+-	Improved accuracy on autocomplete plugin check.
+-	Use newest HSQLDB library (version 1.8.0.2).
+
+Fix
+-	Major bug fix that config.xml may grow on each option save.  This may cause OutofMemoryError when the application starts
+	due to prolonged use of the application with frequent option change (eg several weeks).
+-	Minor visual tuning, fix and rearrangement of pop-up menus.
+
+3.2.7
+=====
+New
+-	Export a HTTP response body to file.  Eg gif, images, swf, PDFs.
+-	Use updated external library.
+-	Further improved proxy performance and UI responsiveness.
+-	Add new popup menu "Scan History" to support scanning a single Http message within History panel.
+-	New Lotus Domino default files check.  Thanks to the user contributing this.
+
+Fix
+-	Further fix the security concern that hsqldb may still be accessed by local user on the same computer.
+	Thanks to the user further point this out. Now hsqldb is running as in-process database.
+-	bug in analyser.  Now correctly differentiate for fixed friendly 404 custom page.  Checks for default files are more accurate.
+-	Find dialog does not work for Resend window.
+
+3.2.6
+=====
+
+Fix
+-	Fix a security problem that when hsqldb starts it listen to all interfaces and used default password.
+	Now restrict to localhost only to avoid public exposure as this exposes database content and may allow unexpected stored procedures to be run.
+	Thanks to the user reporting it.
+
+
+
+3.2.5
+=====
+
+New
+-	Improved proxy performance in browser response.
+-	Increased UI responsiveness.
+-	Improved report layout to group all URLs into one alert.  Paper saving!
+-	Revised menu layout.
+-	Improved spider to recognize BASE element. (thanks to the user suggesting this)
+-	Improved scanning speed by allowing more connections when stall connection exists.
+
+Fix
+-	problem in certificate panel when certificate is being disabled.
+-	problem in clearing alert display when creating a new session.
+
+3.2.4
+=====
+
+New
+-	Configuration, log saved into user home directory 'paros'.
+
+Fix
+-	problem in CRLF injection plugin related to URL encoding introduced since 3.2.0 upgrade.  Also with enhanced checks.
+-	problem in SQL injection plugin related to URL encoding introduced since 3.2.0 upgrade.
+-	save empty session problem introduced due to hsqldb update in 3.2.3.
+
+3.2.3
+=====
+
+New
+-	Use updated Apache Jarkata Commons libraries.
+-	Use newest hsqldb 1.8.0 stable version.
+-	New cross-site script plugins checking for XSS without <>.  Thanks to the user suggesting this.
+
+Fix
+-	problem in build due to the use of an old lib.jar.
+-	replace User Agent filter does not still append old user agent at the back.  Thanks to the user reporting this.
+
+
+3.2.2
+=====
+
+New
+-	Support command line spider, scanner and report generation.  This can be useful for scheduled scanning.
+	
+	Eg java -jar paros.jar -newsession test.session -spider -seed http://www.some_domain.org -scan -last_report_scan report.htm
+	can create a new session called test, crawl the site, scan and then generate the report.
+	
+	The user can view the session by running normal GUI mode as usual.
+-	Export selected history to file.  Right-click on the History panel to export the HTTP messages to a text file.	
+-	Http state can be enabled (only support state using cookie).  This allow reuse of session for scanning.  Also improve spider accuracy.
+	This function need to be enabled in the "Edit->enable state".  Use it when you need to override the current session.	
+-	Improved spider to handle Meta tags and also avoid early termination of spider threads if the last URL is crawled.
+
+Fix
+-	NTLM proxy authentication support.  Thanks to the user reporting this bug.
+-	Proxy skip setting unable to read configuration on first use.
+
+3.2.1
+=====
+
+New
+-	More session ID type covered.
+-	Simplif proxy port setting to avoid confusion on use of local proxy SSL port.
+-	All internal server ports changed to dynamic ports to avoid collision.
+-	Use newer external library.
+-	Add "Extract pattern" to allow extracting strings using regular expression from request/response of a session.
+-	add "Follow redirect" option to manual request editor.
+
+Fix
+-	UI bug where spider panel does not clean up on creating new session.
+-	duplicate user agent "paros" during re-send.
+-	Drop button during trap does not work for HTTP request.
+
+3.2.0
+=====
+
+New
+-	support inclusive/exclusive trap filter in Options.
+-	change user agent filter (pre-defined).
+
+
+Fix
+-	fix a problem in filter/trap all response body due to a bug introduced in beta version.
+-	several UI bug fix including Manual Request Editor, scan progress dialog etc.
+
+3.2.0 beta
+==========
+
+New
+
+-	support charset encoding display in response/trap panels for HTMLs.
+	Various language characters eg Chinese, Russian, Japanese, Korean, etc can be displayed.
+-	Dropping request/response in trap panel.
+-	Improved checking for redirected response in all plugins.
+-	Improved spider performance, crawling capability and memory utilization.
+-	Malicious content filter for suspicious IE ActiveX Control Cross-Site Scripting 
+-	Allow delete/purge site hierarchy or history.  Delete = delete from view.  Purge means remove from db as well.
+-	Some user interface streamlining.
+-	Resend request in history and scanned alerts.
+-	Replaced Java methods deprecated in Java 1.5.  Now the program must be run under Java 1.5.0 or above.
+-	Include links not crawled (due to out of scope) in spider display.
+
+New (as in previous version)
+-	Log cookie filter in request
+-	Detect set-cookie filter
+-	Manual request editor
+-	client certificate support in Options->certificate
+-	Some more test is ported.  However, a couples of checks is not migrated yet.  
+
+
+Fix (with special thanks to users reporting them)
+
+-	URL in header text input if not properly encoded may fail.  Now automatically encode for improper characters.
+-	File dialog does not allow directory browsing.
+-	spider on individual node does not work.
+-	window title does not change after setting properties.
+-	Frameless splash window cannot be displayed under Debian Linux.
+-	Error was always encountered when saving a session under Debian Linux.
+-	Fix some NIO problem in Debian OS platforms.
+-	Host progress dialog may frozen when stopping all hosts.
+-	Improved CRLF check with more cases to avoid incorrect HTTP response hanging up scanner.
+-	SQL check to to look for error server response as well.
+-	Large scans terminate early problem.
+
+
+3.2.0 alpha
+===========
+
+-	almost 90% complete rewrite of all codes.
+-	improved connectivity.  Better HTTP/1.1 keep alive support.
+-	improved authentication support:
+	.	support proxy authentication.  Basic and NTLM should be supported.
+	.	support individual server authentication.
+-	improved session saving.
+	.	The sites hierarchy and history can be restored from session file.
+	.	better performance by use of inline DB.
+	.	Support large sites testing both in scanning and spidering.
+-	better extensibility by supporting extensions and plugins
+-	New extensions:
+	.	used for adding functions to core program
+	.	to be further polished in final release
+-	New plugin features:
+	.	each plugin represent a test
+	.	support knowledge base for plugins sharing
+	.	support dependency check.
+	.	customer plugins can be created by inheriting different AbstractPluginXXX class.
+	.	to be further polished in final release
+-	new spider:
+	.	URL crawling and form crawling. Forms will fill the options values with limited combinations.
+	.	with configurable options.
+	.	support start/stop/resume
+	.	estimated % complete
+-	new scanner:
+	.	with configurable options
+	.	with multiple hosts/threads
+	.	support	stopping individual hosts.
+	.	generated alerts can be viewed while scanning.
+-	new filters:
+	.	custom filter can be added by dropping into filter directory by using Filter interface.
+-	new application logging support in log directory.
+-	improved user interface.
+	.	Click on tab to maximize working panel.
+	.	Support image viewing.
+-	support use of Ant (1.6.2) build.xml
+-	change of copyright owner to parent company.

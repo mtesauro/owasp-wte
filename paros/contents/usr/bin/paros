@@ -1,0 +1,9 @@
+#!/bin/bash
+# Starts Paros - the local HTTP proxy
+# specifically designed for the OWASP Live CD 2008
+#
+# Author:  Matt Tesauro
+#
+
+cd /opt/owasp/paros
+java -jar paros.jar

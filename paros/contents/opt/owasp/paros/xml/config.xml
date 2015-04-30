@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<version>30020013</version>
+	<connection>
+		<proxyChain>
+			<hostName></hostName>
+			<port>8080</port>
+			<skipName></skipName>
+			<realm></realm>
+			<userName></userName>
+			<password></password>		
+		</proxyChain>
+		<auth></auth>
+	</connection>
+	<proxy>
+		<ip>localhost</ip>
+		<port>8080</port>
+		<reverseProxy>
+			<use>0</use>	
+			<ip>localhost</ip>
+			<httpPort>80</httpPort>
+			<httpsPort>443</httpsPort>
+		</reverseProxy>		
+	</proxy>
+	<view>
+		<processImages>0</processImages>
+	</view>
+	<certificate>
+		<use>0</use>
+		<clientCertLocation></clientCertLocation>		
+	</certificate>
+	
+	<spider>
+		<thread>2</thread>
+		<maxDepth>5</maxDepth>
+		<scope></scope>
+		<postform>1</postform>
+		<skipurl></skipurl>
+	</spider>
+
+	<trap>
+		<inclusiveFilter></inclusiveFilter>
+		<exclusiveFilter></exclusiveFilter>
+	</trap>
+	
+	<scanner>
+		<hostPerScan>2</hostPerScan>
+		<threadPerHost>2</threadPerHost>
+	</scanner>
+</config>

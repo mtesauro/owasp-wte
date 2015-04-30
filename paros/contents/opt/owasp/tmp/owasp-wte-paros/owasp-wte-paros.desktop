@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Paros
+Exec=paros
+Icon=owasp-wte-paros-icon
+Categories=Proxies;

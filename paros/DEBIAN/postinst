@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for Paros and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-paros/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-paros/owasp-wte-paros-icon.png owasp-wte-paros-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-paros/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-paros/owasp-proxies.directory \
+                         /opt/owasp/tmp/owasp-wte-paros/owasp-wte-paros.desktop
+
+# Cleanup /tmp
+rm -rf /opt/owasp/tmp/owasp-wte-paros
