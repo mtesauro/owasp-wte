@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for Ratproxy and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-ratproxy/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-ratproxy/owasp-wte-ratproxy-icon.png owasp-wte-ratproxy-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-ratproxy/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-ratproxy/owasp-proxies.directory \
+                         /opt/owasp/tmp/owasp-wte-ratproxy/owasp-wte-ratproxy.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-ratproxy

@@ -1,0 +1,33 @@
+#/bin/sh
+
+echo "                    __                              "
+echo "        _________ _/ /_____  _________  _  ____  __ "
+echo "       / ___/ __ \`/ __/ __ \/ ___/ __ \| |/_/ / / / "
+echo "      / /  / /_/ / /_/ /_/ / /  / /_/ />  </ /_/ /  "
+echo "     /_/   \__,_/\__/ .___/_/   \____/_/|_|\__, /   "
+echo "                   /_/                    /____/    "
+echo "                version 1.58-beta "
+echo " "
+echo " ratproxy has many command line options.  You can view "
+echo "   the help file with the command \"help4ratproxy\" "
+echo " " 
+echo " Basic Usage: "
+echo "  ratproxy -v <outdir> -w <outfile> -d <domain> -lfscm "
+echo "       or more more verbose logging "
+echo "  ratproxy -v <outdir> -w <outfile> -d <domain> -lextifscgjm "
+echo "       /root/tools/ratproxy/ is a good <outdir> "
+echo " "
+echo " ratproxy will read its log files and generate a nice "
+echo "   html report so more logging = more to report (see above) "
+echo "   To generate a report run the below in /root/tools/ratproxy "
+echo "   assuming you used /root/tools/ratproxy as <outdir> "
+echo "     ratproxy-report ratproxy.log >report.html "
+echo "   Changing the log and report file names as needed. "
+echo " "
+echo " To stop the proxy after starting simply hit Ctrl-C "
+echo " "
+echo " Now, open Firefox and change the proxy settings to 127.0.0.1 8080 "
+echo " " 
+
+bash
+

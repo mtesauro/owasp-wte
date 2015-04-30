@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Ratproxy (Local Proxy)
+Exec=launch-ratproxy
+Icon=owasp-wte-ratproxy-icon
+Categories=Proxies;

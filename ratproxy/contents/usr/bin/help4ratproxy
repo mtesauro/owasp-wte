@@ -1,0 +1,4 @@
+#!/bin/sh
+
+less /opt/owasp/ratproxy/how-to-run-the-proxy
+

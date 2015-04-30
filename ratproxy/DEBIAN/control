@@ -1,0 +1,12 @@
+Package: owasp-wte-ratproxy
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.58
+Depends: libc6 (>=2.4), libssl0.9.8 (>=0.9.8f-5), libnotify-bin
+Description: A semi-automated, largely passive web application security audit tool
+ Ratproxy is optimized for an accurate and sensitive detection, and automatic 
+ annotation, of potential problems and security-relevant design patterns based 
+ on the observation of existing, user-initiated traffic in complex web 2.0 
+ environments.
