@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Skipfish
+Exec=launch-skipfish
+Icon=owasp-wte-skipfish-icon
+Categories=Scanners;

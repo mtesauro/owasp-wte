@@ -1,0 +1,24 @@
+#/bin/sh
+
+echo " "
+echo "         _    _        __ _     _     "
+echo "     ___| | _(_)_ __  / _(_)___| |__  "
+echo "    / __| |/ / | '_ \| |_| / __| '_ \ "
+echo "    \__ \   <| | |_) |  _| \__ \ | | |"
+echo "    |___/_|\_\_| .__/|_| |_|___/_| |_|"
+echo "               |_|                    "
+echo " " 
+echo "              v. 2.02b "
+echo " "
+echo "         A web appliaction scanner "
+echo " "
+echo " Usage: skipfish [ options ... ] -o output_dir start_url [ start_url2 ... ]"
+echo " "
+echo "    Try \"skipfish -h\" for help which is quite long or "
+echo "      do \"skipfish -h | less\" to allow easy scrolling "
+echo "    or there is a skipfish man page available with man skipfish"
+echo " "
+echo "    Note: dictionaries are located in /usr/share/skipfish/dictionaries"
+echo " " 
+
+bash

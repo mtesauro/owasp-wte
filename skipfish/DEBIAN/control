@@ -1,0 +1,10 @@
+Package: owasp-wte-skipfish
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: i386
+Version: 2.02b-wte
+Depends: skipfish, libnotify-bin
+Description: This package is a simple wrapper for the existing Debian skipfish
+ package to add a few bonus features and place a launcher under the OWASP submenu.
+
