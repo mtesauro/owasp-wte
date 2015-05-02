@@ -1,0 +1,8 @@
+Package: owasp-wte-tcpdump
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 4.2.1
+Depends: tcpdump, libnotify-bin
+Description: Tcpdump prints out a description of the contents of packets on a network interface.

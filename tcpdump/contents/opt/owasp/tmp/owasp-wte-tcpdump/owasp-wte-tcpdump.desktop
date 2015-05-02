@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Tcpdump (Packet Capture)
+Exec=launch-tcpdump
+Icon=owasp-wte-tcpdump-icon
+Categories=OWASP;

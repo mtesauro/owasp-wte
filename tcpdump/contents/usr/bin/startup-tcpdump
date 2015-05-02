@@ -1,0 +1,22 @@
+#/bin/sh
+
+echo "           _                 _                         "
+echo "          | |_ ___ _ __   __| |_   _ _ __ ___  _ __    "
+echo "          | __/ __| '_ \ / _\` | | | | '_ \` _ \| '_ \ "
+echo "          | || (__| |_) | (_| | |_| | | | | | | |_) |  "
+echo "           \__\___| .__/ \__,_|\__,_|_| |_| |_| .__/   "
+echo "                  |_|                         |_|      "
+echo " "
+echo "           tcpdump - Quick and dirty packet capture"
+echo "                (part of the OWASP WTE)"
+echo " "
+echo " Type \"tcpdump -h\" for brief help or \"man tcpdump\" for extended help"
+echo " "
+echo " Usage: tcpdump [-aAdDeflLnNOpqRStuUvxX] [-c count] [ -C file_size ] "
+echo "          [ -E algo:secret ] [ -F file ] [ -i interface ] [ -M secret ] "
+echo "          [ -r file ] [ -s snaplen ] [ -T type ] [ -w file ] "
+echo "          [ -W filecount ] [ -y datalinktype ] [ -Z user ] "
+echo "          [ expression ] "
+echo " "
+
+bash

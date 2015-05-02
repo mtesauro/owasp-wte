@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Register the icons needed for tcpdump and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-tcpdump/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-tcpdump/owasp-wte-tcpdump-icon.png owasp-wte-tcpdump-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-tcpdump/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-tcpdump/owasp-wte-tcpdump.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-tcpdump
