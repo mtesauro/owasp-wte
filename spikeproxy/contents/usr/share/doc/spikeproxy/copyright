@@ -1,0 +1,13 @@
+This package was debianized by Javier Fernandez-Sanguino Pen~a <jfs@computer.org> on
+Thu,  5 Jun 2003 08:31:29 +0200.
+
+It was downloaded from http://www.immunitysec.com/downloads/SP147.tgz
+
+Upstream Author: Dave Aitel <dave@immunitysec.com>
+
+Copyright:
+(c) 2002 - Immunity Security, Inc.
+
+Spikeproxy is released under the GNU GPL license, you will find a copy
+of it in your Debian GNU/Linux system under /usr/share/common-licenses/
+

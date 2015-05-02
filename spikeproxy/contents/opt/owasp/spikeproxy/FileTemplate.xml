@@ -1,0 +1,50 @@
+<!DOCTYPE WebApplicationTest SYSTEM "http://localhost/WebApplicationTest.dtd">
+
+<WebApplicationTest>
+	<TestDescription>
+		<TestName>(FILENAME) DESCRIPTION</TestName>
+		<TestVersion>0.0</TestVersion>
+		<DateReleased></DateReleased>
+		<DateUpdated></DateUpdated>
+		<OWASP_Class class="Configuration" URL=""></OWASP_Class>
+		<References>
+			<Reference database="WireTrip.net" URL="http://www.wiretrip.net/rfp"></Reference>
+		</References>
+		<Copyright></Copyright>
+		<TestProtocol protocol="HTTP"></TestProtocol>
+		<MayProxy value="True"></MayProxy>
+		<Description></Description>
+		<ApplicableTo>
+			<Platform>
+				<OS></OS>
+				<Arch></Arch>
+			</Platform>
+			<WebServer></WebServer>
+			<ApplicationServer></ApplicationServer>
+		</ApplicableTo>
+		<Affects scope="file"></Affects>
+		<TriggerOn event="any">
+			<Match type="regex">.*</Match>
+		</TriggerOn>
+		<Impact>See the description for any available information.</Impact>
+		<Severity value="medium"></Severity>
+		<Recommendation>Research this issue as well as you can, using resources like http://securityfocus.com/, and http://google.com/</Recommendation>
+		<AlertOn result="SUCCESS"></AlertOn>
+	</TestDescription>
+	<Inputs></Inputs>
+	<Connection scheme="${scheme}" host="${host}" port="${port}">
+		<Step name="testfile">
+			<Request>
+				<MessageHeader>
+					<Method encoding="text">GET</Method>
+					<URI encoding="text">PATHFILENAME</URI>
+					<Version encoding="text">HTTP/1.0</Version>
+				</MessageHeader>
+			</Request>
+			<Response>
+RESPONSE
+			</Response>
+TESTCRITERIA
+		</Step>
+	</Connection>
+</WebApplicationTest>

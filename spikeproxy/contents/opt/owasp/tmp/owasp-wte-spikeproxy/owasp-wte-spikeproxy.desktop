@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Spikeproxy (Local Proxy)
+Exec=spikeproxy
+Icon=owasp-wte-spikeproxy-icon
+Categories=Proxies;

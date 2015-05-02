@@ -1,0 +1,94 @@
+<!DOCTYPE WebApplicationTest SYSTEM "http://localhost/WebApplicationTest.dtd">
+
+<WebApplicationTest>
+	<TestDescription>
+		<TestName>(source/) "This might be interesting..."
+</TestName>
+		<TestVersion>0.0</TestVersion>
+		<DateReleased></DateReleased>
+		<DateUpdated></DateUpdated>
+		<OWASP_Class class="Configuration" URL=""></OWASP_Class>
+		<References>
+			<Reference database="WireTrip.net" URL="http://www.wiretrip.net/rfp"></Reference>
+		</References>
+		<Copyright></Copyright>
+		<TestProtocol protocol="HTTP"></TestProtocol>
+		<MayProxy value="True"></MayProxy>
+		<Description></Description>
+		<ApplicableTo>
+			<Platform>
+				<OS></OS>
+				<Arch></Arch>
+			</Platform>
+			<WebServer></WebServer>
+			<ApplicationServer></ApplicationServer>
+		</ApplicableTo>
+		<Affects scope="file"></Affects>
+		<TriggerOn event="any">
+			<Match type="regex">.*</Match>
+		</TriggerOn>
+		<Impact>See the description for any available information.</Impact>
+		<Severity value="medium"></Severity>
+		<Recommendation>Research this issue as well as you can, using resources like http://securityfocus.com/, and http://google.com/</Recommendation>
+		<AlertOn result="SUCCESS"></AlertOn>
+	</TestDescription>
+	<Inputs></Inputs>
+	<Connection scheme="${scheme}" host="${host}" port="${port}">
+		<Step name="testfile">
+			<Request>
+				<MessageHeader>
+					<Method encoding="text">GET</Method>
+					<URI encoding="text">/source/</URI>
+					<Version encoding="text">HTTP/1.0</Version>
+				</MessageHeader>
+			</Request>
+			<Response>
+				<SetVariable name="ResponseCode" type="string">
+					<Description>The HTTP Response Code</Description>
+					<Source source="status-line">^.*\s(\d\d\d)\s</Source>
+				</SetVariable>
+				<SetVariable name="body404" type="string">
+					<Description>See if we got a custom error page, incorrectly implemented with a return code of 200</Description>
+					<Source source="message-body">(404.*[Nn]ot [Ff]ound)</Source>
+				</SetVariable>
+				<SetVariable name="redir302" type="string">
+					<Description>Check to see if we are being redirected to another page</Description>
+					<Source source="message-header">^Location: (.*)$</Source>
+				</SetVariable>
+				<SetVariable name="bodymatch" type="string">
+					<Source source="message-body">Index of </Source>
+				</SetVariable>
+
+			</Response>
+			<TestCriteria type="SUCCESS">
+				<Compare variable="${ResponseCode}" test="equals">
+					<Value>200</Value>
+					<Compare variable="${body404}" test="equals" >
+						<Value></Value>
+						<Compare variable="${bodymatch}" test="equals">
+							<Value>Index of </Value>
+						</Compare>
+					</Compare>
+				</Compare>
+			</TestCriteria>
+			<TestCriteria type="FAILURE">
+				<Compare variable="${ResponseCode}" test="equals">
+					<Value>404</Value>
+				</Compare>
+			</TestCriteria>
+			<TestCriteria type="FAILURE">
+				<ErrorMessage>This test was redirected to ${redir302}. The program that generated this test does not know how to handle 302 responses. Unfortunately, they are quite common in the Microsoft arena. Please update the generator, and rebuild these tests</ErrorMessage>
+				<Compare variable="${ResponseCode}" test="equals">
+					<Value>302</Value>
+				</Compare>
+			</TestCriteria>
+			<TestCriteria type="FAILURE">
+				<ErrorMessage>This message indicates a failure to properly execute the test, or an unhandled HTTP response. Please investigate further, and modify this test before re-executing it. The server returned ${ResponseCode}</ErrorMessage>
+				<Compare variable="${ResponseCode}" test="notequals">
+					<Value>200</Value>
+				</Compare>
+			</TestCriteria>
+
+		</Step>
+	</Connection>
+</WebApplicationTest>

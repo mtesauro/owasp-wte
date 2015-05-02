@@ -1,0 +1,34 @@
+			Spike Proxy Win32 Usage Guide:
+
+Unzip the full package into C:\ this should create a folder called "spikeproxy". If you want to 
+unzip it to another drive other than C:\ you will have to edit the runme.bat files within the
+package. 
+
+Start SpikeProxy by executing the runme.bat file in C:\spikeproxy\.
+
+Check that the directory C:\SPIKEProxy\spkproxy\spikeProxyUI\ is empty. There's a cleanup.bat
+for this but I prefer a manual check.
+
+Now setup your browser to use this as a proxy. (host: 127.0.0.1 port 8080 for HTTP/HTTPS)
+
+Now browse through your site you want to test putting things like asdf asdf into User/Password fields
+and submitting them.
+
+Once you have browsed the complete site or files you want to test point your browser to 
+http://spike
+
+This is the user interface where you can perform all the actions. 
+
+Everything else is straight forward. If you have any questions feel free to e-mail me. 
+fr0stman@sun-tzu-security.net
+
+Here's a breakdown of the functions:
+
+argscan: Scan arguments passed to scripts for injection vulns.
+
+dirscan: Scan for common directories and files such as /admin or global.asa
+
+overflow: Insert large strings into variables and headers looking for vulns.
+
+vulnxml: try whisker/nikto based type attacks against the server.
+

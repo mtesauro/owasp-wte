@@ -1,0 +1,31 @@
+I get asked, not constantly, but often why SPIKE and SPIKE Proxy are
+open source. Often it's because someone has started using SPIKE Proxy,
+and doesn't have a lot of experience with the commercial alternatives,
+but does have experience with other large software projects, and sees
+some value. Why aren't you making money off that value? They want to
+know.
+
+The answer is not complex - I simply can't afford to compete with
+commercial solutions in the race to become the best web application
+auditing tool without being GPL. And I firmly believe that SPIKE Proxy
+should and will eventually be the best web application auditing tool
+money can or can't buy.
+
+Using the GPL gives me many advantages against commerical projects,
+and using Python gives me many advantages against even other GPL'd
+projects. For example, SPIKE Proxy is first-to-market with VulnXML,
+integrated NTLM support, and many other things that were only possible
+by integrating other GPL projects into SPIKE Proxy, or getting patches
+from users, customers, and other interested parties. Python more
+productive a language than Java (which many competitors are written
+in), and MUCH more so than C or C++. And it's easy enough to learn
+that even non-programmers can fiddle with it and send me patches.
+
+So enjoy - I know the GUI isn't where it should be, and I'm working on
+that, but the rest of it is top notch, and getting better every
+day. Feel free to send me a note if you think it is lacking in any
+way, or you have any feature suggestions. I'm just happy you're using
+it.
+
+Dave Aitel
+

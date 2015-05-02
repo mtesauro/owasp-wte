@@ -1,0 +1,50 @@
+spkproxy for Debian
+-------------------
+
+This package provides a wrapper script that moves into the
+/usr/share/spikeproxy dir and runs 'python spkproxy.py' with all the arguments
+given on the command line.
+
+Notice that only 'root' can run spikeproxy since it writes its
+results to /var/cache/spikeproxy/.  This directory is not 
+setup writable for all users by default in this package
+
+Running spikeproxy as 'root' is not recommended so, if you see errors like the
+following:
+
+OSError: [Errno 13] Permission denied: '/var/cache/spikeproxy/www.google.com_80_0'
+ 
+then it's because you do not have write permissions in the cache directory.
+
+Since spikeproxy version 1.4.8-4 a '-c' option has been introduced so that
+users can specify an alternate location for the cache directory. The
+information below is only useful if you want all users to use the same cache
+directory (NOT recommended)
+
+Sharing the cache directory
+---------------------------
+
+You need to change permissions for that dir so that an average user can run and
+work with spikeproxy. Notice that the Debian package does *not* implement any
+behaviour related this by default since it might introduce new security issues
+(such as symlink attacks or sensitive information disclosure), it's your task
+as an administration to set it up as you wish.
+
+You could, for example, grant write access to the 'adm' group with
+
+# chown root.adm /var/cache/spikeproxy/
+# chmod g+wX /var/cache/spikeproxy/
+
+If you want to grant access to all users you can just run:
+
+# chmod a+rwxt /var/cache/spikeproxy/
+
+But this might not be a smart move in multi-user systems since a user in the
+system could create directories of common web sites and symlinks in them
+to trick other users to overwrite their own files.
+
+
+ -- Javier Fernandez-Sanguino Pen~a <jfs@computer.org>, 
+ Mon,  2 Oct 2006 00:37:10 +0200
+
+

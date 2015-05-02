@@ -1,0 +1,22 @@
+Todo file:
+Bugs:
+1. VulnXML parsing bug (<>)
+   Fixed bug in xmlescape() which was double encoding by encoding < and then encoding the 
+   resulting & with &amp;
+
+2. multi-register of 403's in standard directoryscan
+   Need to unhook 403's and rehook the cgi-directory scanning in special site scans
+   Not done yet!
+
+3. False 404's that masquarade as 200
+   Fixed!
+
+4. Need to change VulnXML.py to reflect that Match can also have the
+   type "exact"
+   Not done Yet!
+
+Requested Features:
+
+1. Achilles like grab of POSTS and such
+
+

@@ -1,0 +1,11 @@
+Package: owasp-wte-spikeproxy
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.4.8
+Depends: python (>=2.3), python-openssl, python-support
+Description: SPIKE Proxy is a professional-grade tool for looking for application-level vulnerabilities in web applications.
+ SPIKE Proxy covers the basics, such as SQL Injection and cross-site-
+ scripting, but its completely open Python infrastructure allows advanced 
+ users to customize it for web applications that other tools fall apart on.

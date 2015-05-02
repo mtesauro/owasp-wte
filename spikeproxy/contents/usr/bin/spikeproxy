@@ -1,0 +1,14 @@
+#!/bin/sh
+
+DATADIR=/opt/owasp/spikeproxy/
+if [ ! -d "$DATADIR" ] ; then
+	echo "ERR: Cannot find $DATADIR, is spikeproxy properly installed?"
+	exit 1
+fi
+
+cd $DATADIR
+./spkproxy.py -p 8068 "$@" | tee /opt/owasp/spikeproxy/logs/spikeproxy-`date +%B-%d-%Y_%R`.log &
+
+# Open the launch page in Firefox
+firefox file:///opt/owasp/spikeproxy/spikeproxy-launch-page/start-spike-proxy.html
+

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE WebApplicationTest SYSTEM "http://localhost/WebApplicationTest.dtd">
+<WebApplicationTest>
+	<TestDescription>
+		<TestName>OWASP-00002</TestName>
+		<TestVersion>0.0</TestVersion>
+		<DateReleased>2002-04-10</DateReleased>
+		<DateUpdated>2002-04-30</DateUpdated>
+		<OWASP_Class class="Overflows" URL="http://www.owasp.org/asac/"/>
+		<References>
+			<Reference database="Bugtraq" URL="http://www.securityfocus.com/bid/4485"/>
+			<Reference database="CVE" URL="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2002-0079"/>
+			<Reference database="Microsoft" URL="http://www.microsoft.com/technet/security/bulletin/ms02-018.asp"/>
+			<Reference database="Cert" URL="http://www.cert.org/advisories/CA-2002-09.html"/>
+		</References>
+		<Copyright>Public Domain</Copyright>
+		<TestProtocol protocol="HTTP"/>
+		<MayProxy value="True"/>
+		<Description>Buffer overflow in the chunked encoding transfer mechanism in Internet Information Server (IIS) 4.0 and 5.0 Active Server Pages allows attackers to cause a denial of service or execute arbitrary code.</Description>
+		<ApplicableTo>
+			<Platform>
+				<OS>Windows</OS>
+				<Arch>i386</Arch>
+			</Platform>
+			<WebServer>Microsoft-IIS</WebServer>
+			<ApplicationServer/>
+		</ApplicableTo>
+		<Affects scope="server"/>
+		<TriggerOn event="file">
+			<Match type="regex">.*.asp</Match>
+		</TriggerOn>
+		<Impact>The attacker can cause the web server to crash and restart, and could potentially execute arbitrary code on the web server</Impact>
+		<Severity value="high"/>
+		<Recommendation>Delete sample ASP scripts to deter bulk scanners. Install the patch supplied by Microsoft as soon as it is available.</Recommendation>
+		<AlertOn result="SUCCESS"/>
+	</TestDescription>
+	<Inputs/>
+	<Connection scheme="${scheme}" host="${host}" port="${port}">
+		<Step name="step1">
+			<Request>
+				<MessageHeader>
+					<Method encoding="text">POST</Method>
+					<URI encoding="text">${path}/${file}</URI>
+					<Version encoding="text">HTTP/1.1</Version>
+					<Header>
+						<Name encoding="text">Accept</Name>
+						<Value encoding="text">*/*</Value>
+					</Header>
+					<Header>
+						<Name encoding="text">Host</Name>
+						<Value encoding="text">${host}:${port}</Value>
+					</Header>
+					<Header>
+						<Name encoding="text">Transfer-Encoding</Name>
+						<Value encoding="text">chunked</Value>
+					</Header>
+					<Header>
+						<Name encoding="text">Content-Type</Name>
+						<Value encoding="text">application/x-www-form-urlencoded</Value>
+					</Header>
+						
+				</MessageHeader>
+				<MessageBody>
+					<Separator encoding="text"></Separator>
+					<Item encoding="base64">MQ0KRQ0KMA0KDQo=</Item>
+				</MessageBody>
+			</Request>
+			<Response>
+				<SetVariable name="ResponseCode" type="string">
+					<Description>HTTP Response code</Description>
+					<Source source="status-line">^.*\s(\d\d\d)\s</Source>
+				</SetVariable>
+				<SetVariable name="redir302" type="string">
+					<Description>See if we got a custom 404 handler, correctly implemented using a redirection</Description>
+					<Source source="message-header">Location: (.*)$</Source>
+				</SetVariable>
+				<SetVariable name="body404" type="string">
+					<Description>See if we got a custom 404 handler, incorrectly implemented using a return code of 200</Description>
+					<Source source="message-body">(404 Not Found)</Source>
+				</SetVariable>
+				<SetVariable name="unpatched" type="string">
+					<Description>An unpatched server returns (0x80004005)&lt;br&gt;Unspecified</Description>
+					<Source source="message-body">(\(0x80004005\)&lt;br&gt;Unspecified)</Source>
+				</SetVariable>
+				<SetVariable name="patched" type="string">
+					<Description>A patched server returns (0x80004005)&lt;br&gt;Request</Description>
+					<Source source="message-body">(\(0x80004005\)&lt;br&gt;Request)</Source>
+				</SetVariable>
+			</Response>
+			<TestCriteria type="FAILURE">
+			<ErrorMessage>The page was not found</ErrorMessage>
+			<Compare variable="${ResponseCode}" test="equals">
+				<Value>200</Value>
+				<Compare variable="${body404}" test="notequals">
+					<Value></Value>
+				</Compare>
+			</Compare>
+			<Compare variable="${ResponseCode}" test="equals">
+			        <Value encoding="text">404</Value>
+			</Compare>
+			<Compare variable="${ResponseCode}" test="equals">
+			         <Value>302</Value>
+			</Compare>
+			<Compare variable="${ResponseCode}" test="equals">
+			          <Value>500</Value>
+			</Compare>
+			</TestCriteria>
+
+			<TestCriteria type="FAILURE">
+				<Compare variable="${patched}" test="notequals">
+				      <Value></Value>
+				</Compare>
+			</TestCriteria>
+
+			<TestCriteria type="SUCCESS">
+				<Compare variable="${unpatched}" test="notequals">
+				   <Value></Value>
+				</Compare>
+			</TestCriteria>
+
+		</Step>
+	</Connection>
+</WebApplicationTest>
