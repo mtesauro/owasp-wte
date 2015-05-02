@@ -1,0 +1,12 @@
+Package: owasp-wte-sqlbrute
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.0
+Depends: python, libnotify-bin
+Description: SQLBrute is a tool for brute forcing data out of databases
+ It uses blind SQL injection vulnerabilities. It supports time based and error 
+ based exploit types on Microsoft SQL Server, and error based exploit on 
+ Oracle. It is written in Python, uses multi-threading, and doesnt require non-
+ standard libraries.

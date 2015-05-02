@@ -1,0 +1,56 @@
+#!/bin/bash
+
+LIB="../scripts"
+
+if [[ ! -d "$LIB" ]]; then
+  echo "Cannot file scripts directory."
+  echo "  Are you in the root directory of the tool you want to package?"
+  exit 1
+fi
+
+# Set values needed to build deb's and rpm's with FPM
+TOOLNAME="sqlbrute" # What tool are you working on?
+VERSION="1.0"  # What version of that tool are you packaging?
+# Description of the tool that is being packaged.
+DESCRIPT="SQLBrute is a tool for brute forcing data out of databases. It uses blind SQL injection vulnerabilities. It supports time based and error based exploit types on Microsoft SQL Server, and error based exploit on Oracle. It is written in Python, uses multi-threading, and doesnt require non-standard libraries."
+# Version of the actual deb/rpm is this - if not fixing a packaging bug, then 00, else increment this by 1
+ITER="00" 
+# What packages are needed to install this on Debian/Ubuntu systems?
+DEBDEPENDS="--depends python --depends libnotify-bin"
+# What packages are needed to install this on RedHat/CentOS/Fedora systems?
+RPMDEPENDS="--depends python --depends libnotify-bin"
+# Architechture this packge is built for? Choose from: all, native, i386, amd64
+ARCH="all"
+# Scripts to run before or after installation.  Once script per option below
+# --after-install FILE - A script to be run after package installation
+# --before-install FILE - A script to be run before package installation
+# e.g. INSTALLSCRIPTS="--before-install scripts/prep-for-install"
+INSTALLSCRIPTS="--after-install DEBIAN/postinst"
+# Simlar to INSTALLSCRIPTS but occur when the package is removed.  Options are:
+# --after-remove FILE - A script to be run after package removal
+# --before-remove FILE - A script to be run before package removal
+REMOVESCRIPTS="--after-remove DEBIAN/postrm"
+# Additional .deb or .rpm FPM arguments
+ADDDEB=""
+ADDRPM=""
+
+# Call the global build script
+source $LIB/build-from-previous
+
+# Check for the packages directory
+if [[ ! -d "./packages" ]]; then
+  echo "Cannot find packages directory - creating it now."
+  mkdir ./packages
+fi
+
+# Make sure the package creation worked as expected
+COUNT=`ls ./owasp-wte-* | wc -l`
+if [ $COUNT -eq 2 ] 
+then
+  # Move packages into subdirectory
+  mv *.deb ./packages/
+  mv *.rpm ./packages/
+  echo "Debian and RPM files moved to ./packages/"
+else
+  echo "ERROR: Both .deb and .rpm were not created.  Package files left if the current directory"
+fi

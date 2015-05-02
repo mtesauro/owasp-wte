@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=SQLBrute (Blind SQL Injection Tool)
+Exec=launch-sqlbrute
+Icon=owasp-wte-sqlbrute-icon
+Categories=Scanners;

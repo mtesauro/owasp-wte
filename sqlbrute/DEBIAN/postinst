@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for SQLBrute and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-sqlbrute/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-sqlbrute/owasp-wte-sqlbrute-icon.png owasp-wte-sqlbrute-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-sqlbrute/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-sqlbrute/owasp-scanners.directory \
+                         /opt/owasp/tmp/owasp-wte-sqlbrute/owasp-wte-sqlbrute.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-sqlbrute
