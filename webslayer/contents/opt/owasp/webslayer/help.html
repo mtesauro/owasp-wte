@@ -1,0 +1,88 @@
+<html>
+<body>
+<b>Webslayer help:</b>
+<img src="images/webslayer.jpg">
+
+<ul>
+	<li>WebSlayer introduction</li>
+	<li>Interface description</li>
+	<li>Basic usage</li>
+	<li>Working with results</li>
+	<li>Payload Generator</li>
+	<li>Advanced options</li>
+</ul>
+
+<h2>WebSlayer introduction</h2>
+
+Webslayer is a tool designed to help the Web application security testers to perform brute force attacks in any part of the application.
+
+Webslayer was mainly designed as a frontend for Wfuzz. After some time programming the frontend, more options and functions were added to the tool, now it has a Payload Generator, Enconding interface and Raw request generator.
+
+Webslayer is a very flexible web application bruteforcer, with a great interface to work with the results. 
+
+AIt can be used to perform login bruteforce, resource location prediction, parameter bruteforcing, headers bruteforcing, authentication bruteforcing (NTLM, Basic).
+
+The idea in the tools is to use a keyword (FUZZ) where you want to perform the bruteforce. This FUZZ will be replaced by the payload selected by the user.
+
+
+<h2>Interface description</h2>
+
+<p>The interface is divided in 7 tabs. The first one is for setting up the request to be bruteforced, and the options for the attack.</p>
+
+In this tab you can select the type of the payload:
+
+	<ul>
+	<li>-Dictionary (files with values)</li>
+	<li>-Range (a numeric range)</li>
+	<li>-Payload (a payload imported from the Payload Generator (tab 2)</li>
+	</ul>
+	</p>
+	
+
+<p>
+Also you can inject the payload in all the parameters from the Url, Post or Headers, without the need of using the keyword FUZZ.
+</p>
+
+<h3>Authentication:</h3>
+<p>
+Here you can set the username and password in case it's necessary, or if you need to bruteforce the authentication. It support Basic, NTLM and Digest(not fully tested)
+The format is username:password
+</p>
+
+<h3>Payload selection:</h3>
+Here you can select or set the payload. In case of dictionary you should choose a file. In case of Range, you should set the range like 1-10 and if you selected payload, you just have to press import from Payload Generator (after you created a valid Payload).
+
+For all the payloads, you can select a encoding to apply.
+
+<h3>Options:</h3>
+With these options you can set a http proxy, choose the threads, set anonymous browsing, and some filters.
+
+Anonymous browsing: This is a temporal workaround for preventing the web browser to load the request directly when you are using a proxy.
+
+<b>Ignore Codes (Filters)</b>
+
+These filters are for controlling the output in the results table. As this tool will present all the responses in a table, if we can leave out things that are not interesting will make a snappy interface, and less clutter results to work with.
+
+<h3>Resource Location prediction:</h3>
+This options are valid when doing resource location prediction (directory or file discovery)
+
+<b>Recursion level</b>
+This option allows to set how many levels webslayer must go.
+For example 3 levels is : /admin/console/test/
+
+<b>Non standard code detection</b>
+This option is very useful for identifying custom responses. When this option is activated if we detect thata custom not found code, it will add this code to the ignore code list. 
+
+In case of the code is 200 we will check with another file and compare de characters length, and then we are going to use the characters length in the ignore code, in this way we discard all non interesting requests.
+
+<b>Extensions</b>
+This extensions will be added to all words in the dictionary. Example:  php,txt,bak
+
+
+<h2>Basic usage</h2>
+
+<h2>Working with results</h2>
+coming soon...
+
+</body>
+</html>

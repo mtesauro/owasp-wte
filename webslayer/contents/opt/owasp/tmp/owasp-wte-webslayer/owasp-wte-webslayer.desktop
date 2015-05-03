@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Webslayer (Applicaion Brute Forcer)
+Exec=webslayer
+Icon=owasp-wte-webslayer-icon
+Categories=Fuzzers;

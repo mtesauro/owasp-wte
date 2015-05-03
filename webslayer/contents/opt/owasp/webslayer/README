@@ -1,0 +1,51 @@
+Webslayer - OWASP Project
+=========================
+Current version: 1.0
+
+Webslayer is a web application bruteforcer tool, to help security testers on all bruteforce tasks during a penetration test
+
+You can perform attacks like:
+
+-Predictable resource locator, recursion supported (Discovery)
+-Login forms brute force
+-Session brute force
+-Parameter brute force
+-Parameter fuzzing and injection (XSS, SQL)
+-Basic and Ntml authentication brute forcing
+
+Features:
+--------
+Recursion
+Encodings: 15 encodings supported
+Authentication: supports Ntml and Basic
+Multiple payloads: you can use 2 payloads in different parts
+Proxy support (authentication supported)
+For predictable resource location it support: Recursion, common extensions, non standard code detection
+Multiple filters for improving the performance and for producing cleaner results
+Live filters
+Multithreads
+Session saving
+Integrated browser (webKit)
+Time delay between requests
+Attack balancing across multiple proxies
+Predefined dictionaries for predictable resource location, based on known servers (Thanks to Dark Raver, www.open-labs.org)
+
+
+Changelog 1.0:
+--------------
+
+-Time delays between requests
+-Multiple proxy support (randomized)
+
+Known bugs:
+-----------
+-The permutation payload generation, depending on the quantity of characters and size can hog the CPU.
+
+Resources:
+----------
+Training on how to use WebSlayer
+http://www.owasp.org/index.php/File:Christian_Martorella-Webslayer-Training-IBWAS2010.pdf
+OWASP Home Page
+http://www.owasp.org/index.php/Category:OWASP_Webslayer_Project
+Google Code Home Page
+http://code.google.com/p/webslayer/
