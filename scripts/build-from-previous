@@ -7,21 +7,29 @@ URL="http://appseclive.org"
 VENDOR="OWASP WTE"
 LICENSE="GPLv3"
 EPOCH="0"
+DIR="contents"
 
 # TODO - Check for fpm in path
 
 echo "Building packages for $TOOLNAME version $VERSION"
 
+if [ "$AMD64" = true ] ; then
+  echo "Building for 64-bit systems"
+  DIR="contents-64"
+fi
+echo $DIR
+exit
+
 echo "Building .deb"
 
-DEB="fpm -t deb --name \"$NAME\" --iteration $ITER $DEBDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" $ADDDEB -s dir ./contents/=/"
+DEB="fpm -t deb --name \"$NAME\" --iteration $ITER $DEBDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" $ADDDEB -s dir ./$DIR/=/"
 
 # Run the FPM command to build the Debian package
 eval $DEB
 
 echo "Building .rpm"
 
-RPM="fpm -t rpm --name \"$NAME\" --iteration $ITER $RPMDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --rpm-os linux --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" --epoch $EPOCH $ADDRPM -s dir ./contents/=/"
+RPM="fpm -t rpm --name \"$NAME\" --iteration $ITER $RPMDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --rpm-os linux --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" --epoch $EPOCH $ADDRPM -s dir ./$DIR/=/"
 
 # Run the FPM command to build the RPM package
 eval $RPM
