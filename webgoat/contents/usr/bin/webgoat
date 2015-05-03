@@ -1,0 +1,33 @@
+#!/bin/sh
+
+cd /opt/owasp/webgoat
+
+case "$1" in
+     start)
+         java -jar WTE-WebGoat-6.0.1-war-exec.jar 2>&1 1>/dev/null &
+         echo $! > /tmp/webgoat8080.pid
+         notify-send "Starting WebGoat on port 8080, this can take a bit" -t 6000
+         sleep 7
+         firefox http://127.0.0.1:8080/WebGoat &
+         ;;
+     stop)
+         # The script which comes with WebGoat doesn't clean up very nice after itself.
+         # The following commands clean up the parent and any child processes
+         # This will also handle the chance that a pid exists for WebGoat on 8080 and 80
+         for j in `cat /tmp/webgoat*pid`;
+         do
+#             for i in `ps ax --format pid,ppid,command | grep $j | grep -v grep | cut --delimiter=" " --fields=2`;
+#             do
+#                 kill -9 $i
+#             done
+              kill -15 $j
+         done
+         # Clean up the pid file
+         rm -f /tmp/webgoat*.pid
+         notify-send "Stopping WebGoat" -t 3000
+         ;;
+     *)
+         echo "Usage: $0 {start|stop}"
+         exit 1
+
+esac

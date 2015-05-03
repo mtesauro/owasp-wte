@@ -1,0 +1,10 @@
+Package: owasp-wte-webgoat
+Section: misc
+Priority: extra
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 5.4
+Depends: openjdk-6-jre | sun-java6-jre | sun-java5-jre, libnotify-bin 
+Recommends: firefox
+Description: WebGoat is an online training environment for hands-on learning 
+ about application security 

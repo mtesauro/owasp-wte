@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Optionally sleep if second argument is sent
+TIME=$1
+TIME=${TIME:=0}
+sleep $TIME 2>&1 1>/dev/null
+
+# Set default status
+STATUS=99
+
+# Check to see if the webgoat starting script is a currently running command
+ps ax --format pid,ppid,command | grep WTE-WebGoat | grep -v grep > /dev/null
+wg=`echo $?`
+
+# Set status equal to 2 if no webgoat.sh is running
+if [ $wg -eq 1 ]; then
+    STATUS=2
+else
+    # webgoat is running so check it the arguement start8080 was used
+    ps ax --format pid,ppid,command | grep WTE-WebGoat | grep -v grep > /dev/null
+    wg=`echo $?`
+    STATUS=$wg
+fi
+
+case $STATUS in
+
+    0) echo "Started on port 8080"
+       ;;
+    1) echo "Started on port 80"
+       ;;
+    2) echo "Stopped"
+       ;;
+    *) echo "Error"
+       ;;
+esac

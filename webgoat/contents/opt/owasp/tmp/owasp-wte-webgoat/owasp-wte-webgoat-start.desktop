@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=WebGoat START
+Exec=webgoat start 
+Icon=owasp-wte-webgoat-icon
+Categories=OWASP;

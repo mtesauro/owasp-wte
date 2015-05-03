@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: bamboo
+Build-Jdk: 1.7.0_76
+Implementation-Version: 217
+Specification-Title: WebGoat
+Specification-Version: 6.0.1
+
