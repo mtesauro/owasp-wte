@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=WSFuzzer (Web Services Testing Tool)
+Exec=launch-wsfuzzer
+Icon=owasp-wte-wsfuzzer-icon
+Categories=Fuzzers;

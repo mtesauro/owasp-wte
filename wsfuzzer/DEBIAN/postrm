@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Remove the icon needed for Burpsuite
+xdg-icon-resource uninstall --size 64  owasp-wte-wsfuzzer-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu uninstall owasp-owasp.directory \
+                           owasp-fuzzer.directory \
+                           owasp-wte-wsfuzzer.desktop
+
+# Set some default values
+OWASP_Menu="/etc/xdg/menus/applications-merged/owasp-*.menu"
+
+# See if any other owasp-wte packages exist on this system
+# and if none remain, remove some cruft
+INSTALLS=`dpkg --list | grep "owasp-wte" | grep ii | wc --lines`
+if [ $INSTALLS = 0 ]
+then
+    # No OWASP WTE packages are left so we can remove the OWASP applications menu
+    rm --force $OWASP_Menu
+    # And we can get rid of the icon used for that menu
+    xdg-icon-resource uninstall --size 64 owasp-wte-menu-icon
+fi

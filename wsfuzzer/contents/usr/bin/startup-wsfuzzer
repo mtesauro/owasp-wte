@@ -1,0 +1,11 @@
+#/bin/sh
+
+echo " "
+echo " "
+echo "      OWASP WSFuzzer - Web Services Testing"
+echo "            (part of the OWASP WTE)"
+echo " "
+echo "  Type 'wsfuzzer' to get updates and help"
+echo ""
+
+bash

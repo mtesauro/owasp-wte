@@ -1,0 +1,9 @@
+Package: owasp-wte-wsfuzzer
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.9.5
+Depends: openjdk-6-jre | sun-java6-jre | sun-java5-jre, python (>=2.5), python-dev, libnotify-bin
+Description: WSFuzzer currently targets Web Services.
+ This tool was created based on, and to automate, some real-world manual SOAP pen testing work.
