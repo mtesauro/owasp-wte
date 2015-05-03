@@ -1,0 +1,127 @@
+#!/bin/bash
+#
+# Script written by Matt Tesauro <matt.tesauro@owasp.org>
+# as part of the OWASP Live CD project
+# 
+# This file, webscarab, is part of the .deb package created for use
+# on the OWASP Live CD.
+#
+# webscarab is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# webscarab is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with webscarab.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Tue, 12 Jan 2010 21:40:21 -0600
+
+# This script was written with help from:
+# http://www.linuxjournal.com/article/10495
+# http://tldp.org/LDP/abs/html/extmisc.html
+# http://www.linuxquestions.org/questions/programming-9/bash-how-to-handle-options-479162/
+# and the zenity man page
+
+# Set some sane defaults
+RAM="64"
+PROMPT="false"
+SAVE="false"
+
+# Setup command line option parsing
+ARGS=`getopt --options r:h --longoptions ram:,help --name 'webscarab' -- "$@"`
+
+# Handle getopt fails
+if [ $? != 0 ] ; then echo "Error parsing command line options" >&2 ; exit 1 ; fi
+
+# Prepare to loop through arguments
+eval set -- "$ARGS"
+
+# Handle varous options at the command line
+while [ ! -z "$1" ]
+do
+  case "$1" in
+    -r|--ram) 
+          RAM=$2 
+          break ;;
+
+    -h|--help)
+          echo "Usage: webscarab [-h|--help]" 
+          echo "   or: webscarab [-r|--ram]"
+          echo "Launches the WebScarab local proxy"
+          echo ""
+          echo "  -r, --ram=NUMBER          adjust the Java RAM from the default 64 MB"
+          echo "                              Example: webscarab --ram=1024"
+          echo "  -h, --help                help, aka this message"  
+          exit 0 ;;
+
+    *) 
+          PROMPT=true
+          break;;
+  esac
+done
+
+# Make sure we've got a WebScarab.properties file in the home directory
+WSPROPERTIES=$HOME/WebScarab.properties
+if [ ! -e $WSPROPERTIES ]
+then
+    cp /etc/skel/WebScarab.properties $WSPROPERTIES
+fi
+
+# See if the .owasp hidden directory exists under home and create if needed
+OWASPCONFIG=$HOME/.owasp
+if [ ! -d $OWASPCONFIG ] 
+then
+    mkdir $OWASPCONFIG
+fi
+
+# See if there's a webscarab.config, and create a default one if not
+WEBSCARABCONFIG=$OWASPCONFIG/webscarab.config
+if [ ! -e $WEBSCARABCONFIG ]
+then
+    cat <<EOF > $WEBSCARABCONFIG
+FIRST_RUN=true
+SELECTED_RAM=
+EOF
+
+fi
+
+# If no command line options are given for RAM, read in the values in the webscarab.config file
+if [ $PROMPT == "true" ]
+then
+    source $HOME/.owasp/webscarab.config
+# We only get here if there's a command-line option for RAM so go ahead and launch WebScarab now
+else
+    # Launch WebScarab
+    java -Xmx${RAM}m -jar /opt/owasp/webscarab/webscarab.jar
+    exit
+fi
+
+# If this is the first time the webscarab.config has been read, prompt user for RAM and if it should be saved
+if [ $FIRST_RUN == "true" ]
+then
+    # Prompt for the preferred RAM to run WebScarab under
+    SELECTED_RAM=`zenity --list --radiolist --column "Select" --column "WebScarab RAM" FALSE "64 MB (default)" TRUE "256 MB" FALSE "512 MB" FALSE "1024 MB"`
+    
+    # Prompt to see if this selection should be saved
+    zenity --question --title "Save RAM setting" --text "Would you like to save WebScarab's RAM setting?\n\nNOTE: Click Cancel to be prompted again next time"
+    SAVE=$?
+fi
+
+# Clean up the RAM setting we got from Zenity since it has MB tacked on
+RAM=`echo $SELECTED_RAM | cut --delimiter=" " --fields=1`
+
+# If the user wants to save the settings, over write the webscarab.config with the appropriate values
+if [ $SAVE == 0 ]
+then
+    # Write the new webscarab.config file
+    echo "FIRST_RUN=false" > $HOME/.owasp/webscarab.config
+    echo "SELECTED_RAM=$RAM" >> $HOME/.owasp/webscarab.config
+fi
+
+# Launch WebScarab
+java -Xmx${RAM}m -jar /opt/owasp/webscarab/webscarab.jar

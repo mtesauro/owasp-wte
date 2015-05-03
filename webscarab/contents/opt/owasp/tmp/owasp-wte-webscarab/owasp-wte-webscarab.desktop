@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=OWASP WebScarab
+Exec=webscarab
+Icon=owasp-wte-webscarab-icon
+Categories=Proxies;
