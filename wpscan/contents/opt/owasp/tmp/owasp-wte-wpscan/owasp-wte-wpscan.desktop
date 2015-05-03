@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=WPScan
+Exec=launch-wpscan
+Icon=owasp-wte-wpscan-icon
+Categories=Scanners;

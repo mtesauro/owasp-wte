@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Possible terminal emulators - using full path to stop path games by the naughty
+TERMINALS="/usr/bin/xfce4-terminal /usr/bin/gnome-terminal /usr/bin/konsole /usr/bin/xfce4-terminal"
+FOUND=0
+
+# Run through the terminal to try and launch one that works
+for t in $TERMINALS
+do
+    type -P $t &>/dev/null && FOUND=1
+    if [ $FOUND -eq 1 ]; then
+        TERM=${t#/usr/bin/}
+        break
+    fi
+done
+
+case "$TERM" in
+    xfce4-terminal)
+        /usr/bin/xfce4-terminal --command=/usr/bin/startup-wpscan --hold --title "wpscan - WordPress Scanner"
+        exit 0
+        ;;
+    gnome-terminal)
+        /usr/bin/gnome-terminal -x bash -c "/usr/bin/startup-wpscan"
+        exit 0
+        ;;
+    konsole)
+        /usr/bin/konsole --no--close -T "wpsacn - WordPress Domain Scanner" -e /usr/bin/startup-wpscan
+        exit 0
+        ;;
+    *)
+        notify-send "I can't find a terminal so please open your favorite one
+and you'll find wpscan in the path already."
+esac
+
+

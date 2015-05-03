@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Register the icons needed for wpscan and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-wpscan/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-wpscan/owasp-wte-wpscan-icon.png owasp-wte-wpscan-icon 
+
+# Create the necessary menu entries
+# wpscan-gui
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-wpscan/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-wpscan/owasp-scanners.directory \
+                         /opt/owasp/tmp/owasp-wte-wpscan/owasp-wte-wpscan.desktop
+
+# Add the necessary Ruby gems
+cd /opt/owasp/wpscan
+gem install bundler && bundle install --without test
+
+# Fix a few perms for wpscan
+chmod 776 /opt/owasp/wpscan/cache/
+chown -R root:adm /opt/owasp/wpscan/
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-wpscan

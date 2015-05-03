@@ -1,0 +1,9 @@
+Package: owasp-wte-wpscan
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 2012-10-13-git 
+Depends: libruby1.9.1, ruby1.9.1-dev, rubygems1.9.1, ruby-nokogiri, ruby-json, libcurl4-gnutls-dev, libopenssl-ruby, libxml2, libxml2-dev, libxslt1-dev, libnotify-bin
+Description: WPScan is a vulnerability scanner which checks the security 
+ of WordPress installations using a black box approach.

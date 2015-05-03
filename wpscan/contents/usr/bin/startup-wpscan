@@ -1,0 +1,22 @@
+#/bin/sh
+
+echo " "
+echo " "
+echo "   wpscan - WordPress Security Scanner"
+echo "       A vulnerability scanner which checks the"
+echo "       the security of WordPress installations"
+echo "             (part of the OWASP WTE)"
+echo " "
+echo "   __          _______   _____                  "
+echo "   \ \        / /  __ \ / ____|                 "
+echo "    \ \  /\  / /| |__) | (___   ___  __ _ _ __  "
+echo "     \ \/  \/ / |  ___/ \___ \ / __|/ _\` | '_ \ "
+echo "      \  /\  /  | |     ____) | (__| (_| | | | |"
+echo "       \/  \/   |_|    |_____/ \___|\__,_|_| |_|"
+echo " "
+echo "  Cloned from git repositry on 2012-10-13"
+echo " " 
+echo "  Type 'wpscan -h' to get help "
+echo " "
+
+bash
