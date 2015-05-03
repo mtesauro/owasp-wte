@@ -1,0 +1,10 @@
+Package: owasp-wte-w3af
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.0~rc2svn3180
+Depends: w3af
+Description: w3af is a Web Application Attack and Audit Framework. The project's
+ goal is to create a framework to find and exploit web application 
+ vulnerabilities that is easy to use and extend.

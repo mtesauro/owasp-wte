@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=w3af GUI (Interactive)
+Exec=/usr/bin/w3af_gui
+Icon=owasp-wte-w3af-gui-icon
+Categories=Scanners;

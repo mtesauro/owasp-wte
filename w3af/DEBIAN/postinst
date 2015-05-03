@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Register the icons needed for w3af and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-w3af/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-w3af/owasp-wte-w3af-gui-icon.png owasp-wte-w3af-gui-icon 
+
+# Register the icons needed for w3af-console and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-w3af/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-w3af/owasp-wte-w3af-console-icon.png owasp-wte-w3af-console-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-w3af/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-w3af/owasp-scanners.directory \
+                         /opt/owasp/tmp/owasp-wte-w3af/owasp-wte-w3af.desktop
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-w3af/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-w3af/owasp-scanners.directory \
+                         /opt/owasp/tmp/owasp-wte-w3af/owasp-wte-w3af-console.desktop
+
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-w3af

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=w3af Console (Interactive)
+Exec=gnome-terminal -x bash -c "/usr/bin/w3af_console;bash"
+Icon=owasp-wte-w3af-console-icon
+Categories=Scanners;
