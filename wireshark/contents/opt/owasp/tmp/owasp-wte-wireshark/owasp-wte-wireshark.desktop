@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Wireshark (Network Sniffer)
+Exec=wireshark
+Icon=owasp-wte-wireshark-icon
+Categories=OWASP;

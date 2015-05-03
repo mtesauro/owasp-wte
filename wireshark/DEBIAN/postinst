@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Register the icons needed for Wireshark and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-wireshark/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-wireshark/owasp-wte-wireshark-icon.png owasp-wte-wireshark-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-wireshark/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-wireshark/owasp-wte-wireshark.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-wireshark

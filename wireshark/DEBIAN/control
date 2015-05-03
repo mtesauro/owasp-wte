@@ -1,0 +1,10 @@
+Package: owasp-wte-wireshark
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 1.6.7
+Depends: wireshark
+Description: Wireshark is a network traffic analyzer, or "sniffer", for Unix and Unix-like operating systems. 
+ A sniffer is a tool used to capture packets off the wire. Wireshark decodes 
+ numerous protocols (too many to list). 
