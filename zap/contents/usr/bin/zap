@@ -1,0 +1,9 @@
+#!/bin/bash
+# Starts ZAP - a local HTTP proxy
+# specifically designed for the OWASP WTE
+#
+# Author:  Matt Tesauro
+#
+
+cd /opt/owasp/zap
+./zap.sh

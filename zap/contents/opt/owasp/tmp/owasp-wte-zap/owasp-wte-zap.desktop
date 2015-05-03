@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=ZAP
+Comment=Zed Attack Proxy
+Exec=zap
+Icon=owasp-wte-zap-icon
+Categories=Proxies;

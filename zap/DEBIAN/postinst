@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for ZAP and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-zap/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-zap/owasp-wte-zap-icon.png owasp-wte-zap-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-zap/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-zap/owasp-proxies.directory \
+                         /opt/owasp/tmp/owasp-wte-zap/owasp-wte-zap.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-zap
