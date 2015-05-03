@@ -1,0 +1,21 @@
+#/bin/sh
+
+echo "                                                    _ _   _  "
+echo "   _____      ____ _ ___ _ __  __      ____ _ _ __ (_) |_(_) "
+echo "  / _ \ \ /\ / / _\` / __| '_ \ \ \ /\ / / _\` | '_ \| | __| | "
+echo " | (_) \ V  V / (_| \__ \ |_) | \ V  V / (_| | |_) | | |_| | "
+echo "  \___/ \_/\_/ \__,_|___/ .__/   \_/\_/ \__,_| .__/|_|\__|_| "
+echo "                        |_|                  |_|             "
+echo " "
+echo "                          v.2.2.1  "
+echo "    Web application vulnerability scanner / security auditor "
+echo " "
+echo "    Try \"wapiti -h\" for help which is quite long or "
+echo "       do \"wapiti -h | less\" to allow easy scrolling "
+echo " "
+echo "    e.g. wapiti http://www.example.com --verbose 2 --nice 3  "
+echo "          --exclude \"http://www.example.com/*.pdf\"  "
+echo "          --exclude \"http://www.example.com/press-releases/*\"  "
+echo " "
+
+bash

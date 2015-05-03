@@ -1,0 +1,13 @@
+Package: owasp-wte-wapiti
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 2.2.1
+Depends: python (>=2.4), python-central(>=0.6.6), libnotify-bin
+Recommends: python-ctypes (>=1.0.1), python-utidylib (>=0.2)
+Description: Wapiti allows you to audit the security of your web applications. 
+ It performs "black-box" scans, i.e. it does not study the source code of the 
+ application but will scans the webpages of the deployed webapp, looking for 
+ scripts and forms where it can inject data. Once it gets this list, Wapiti 
+ acts like a fuzzer, injecting payloads to see if a script is vulnerable.

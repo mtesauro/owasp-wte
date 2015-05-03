@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Wapiti (Web Scanner Auditor)
+Exec=launch-wapiti
+Icon=owasp-wte-wapiti-icon
+Categories=Scanners;

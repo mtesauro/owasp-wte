@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for Wapiti and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-wapiti/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-wapiti/owasp-wte-wapiti-icon.png owasp-wte-wapiti-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-wapiti/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-wapiti/owasp-scanners.directory \
+                         /opt/owasp/tmp/owasp-wte-wapiti/owasp-wte-wapiti.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-wapiti
