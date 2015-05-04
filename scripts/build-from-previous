@@ -9,7 +9,13 @@ LICENSE="GPLv3"
 EPOCH="0"
 DIR="contents"
 
-# TODO - Check for fpm in path
+# Check for fpm in path
+if hash fpm 2>/dev/null; then
+  VER=`fpm --version`
+  echo "Using FPM version $VER to build packages"
+else
+  echo "fpm not found.  Please install fpm before continuing."
+fi
 
 echo "Building packages for $TOOLNAME version $VERSION"
 
@@ -17,8 +23,6 @@ if [ "$AMD64" = true ] ; then
   echo "Building for 64-bit systems"
   DIR="contents-64"
 fi
-echo $DIR
-exit
 
 echo "Building .deb"
 
