@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="MediaWiki 1.16.1" />
+<meta name="robots" content="noindex,follow" />
+<link rel="stylesheet" media="screen, projection" href="/extensions/HeaderTabs/skins/combined-min.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="OWASP (en)" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="OWASP Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />		<title>Transport Layer Protection Cheat Sheet - OWASP</title>
+		<link rel="stylesheet" href="/skins/common/commonPrint.css?270" media="" />
+<link rel="stylesheet" href="/skins/gumaxvn/gumax_print.css?270" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Gumaxvn.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/skins/common/IEFixes.js?270"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script>
+var skin="gumaxvn",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://www.owasp.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Transport_Layer_Protection_Cheat_Sheet",
+wgTitle="Transport Layer Protection Cheat Sheet",
+wgAction="view",
+wgArticleId=10440,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=105475,
+wgVersion="1.16.1",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OWASP", "5": "OWASP talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "owasp": 4, "owasp_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="OWASP",
+wgCategories=["How To", "Cheatsheets", "OWASP Document", "OWASP Top Ten Project"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgFCKEditorDir="extensions/FCKeditor/fckeditor/",
+wgFCKEditorExtDir="extensions/FCKeditor",
+wgFCKEditorToolbarSet="Wiki",
+wgFCKEditorHeight="0";
+</script>
+		<script type="text/javascript" src="/skins/common/wikibits.js?270"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+<script type="text/javascript">
+function buildContent (blog) {
+    var MONTH_NAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    if (!blog || !blog.items) return;  var container=document.getElementById("container");
+    var code="";  for (var i = 0; i < blog.items.length; i++) {   var item = blog.items[i];
+    var date = new Date();    date.setTime( 4 + item.published * 1000 );
+    var datestring = MONTH_NAMES[date.getMonth()]+" "+(date.getDate());
+    code=code+"<div style='font-weight:bold'>"+datestring+" - ";    
+    code=code+"<a href='"+item.alternate.href+"'>"+item.title+"</a> (by ";
+    code=code+"<a href='"+item.origin.streamId.substring(5)+"'>"+item.author+"</a>)</div>";
+    var text=""+item.content;
+    if (text == "undefined" ) {
+	  text=item.summary;
+    }
+    code=code+"<div>"+text+"</div><br>";
+    }
+    container.innerHTML=code;
+}
+</script> 
+<script type="text/javascript">
+function build_bloglist(data) {
+  var container = document.getElementById('blogroll');
+  var list = document.createElement('div');
+  // Loop through all data items returned
+  for (var i=0; i < data.items.length; i++) {
+    var item = data.items[i];
+		var link = document.createElement('a');
+		link.appendChild(document.createTextNode(item.title));
+	link.href = item.id;
+    list.appendChild(link);
+    list.appendChild(document.createElement('br'));
+  }
+  container.appendChild(list);
+}
+</script>
+<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-725452-2");
+			pageTracker._initData();
+			pageTracker._trackPageview();
+			</script>
+
+<script src="/skins/common/ajax.js?270"></script>
+<script type="text/javascript">addOnloadHook(function() { 
+	var i = 1;
+	while ( true ) {
+		var btn = document.getElementById("languageselector-commit-"+i);
+		var sel = document.getElementById("languageselector-select-"+i);
+		var idx = i;
+
+		if (!btn) break;
+
+		btn.style.display = "none";
+		sel.onchange = function() {
+			node = this.parentNode;
+			while( true ) {
+				if( node.tagName.toLowerCase() == "form" ) {
+					node.submit();
+					break;
+				}
+				node = node.parentNode;
+			}
+		};
+
+		i++;
+	}
+});</script>
+<script type="text/javascript" src="/extensions/HeaderTabs/skins/combined-history-min.js"></script>
+		<script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=gumaxvn"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Transport_Layer_Protection_Cheat_Sheet skin-gumaxvn">
+
+
+<!-- ##### gumax-wrapper ##### -->
+<div id="gumax-wrapper">
+
+<!-- ===== gumax-page ===== -->
+<div class="gumax-page"><a name="gumax-top"><!-- --></a>
+
+	<!-- ///// gumax-header ///// -->
+    <div id="gumax-header">
+        <a name="top" id="contentTop"></a>
+        <!-- Login -->
+        <div id="gumax-p-login">
+            <ul>
+                            <li id="gumax-pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Transport_Layer_Protection_Cheat_Sheet&amp;returntoquery=printable%3Dyes">Log in</a>
+               </li>
+                         </ul>
+        </div>
+        <!-- end of Login -->        
+        <!-- gumax-p-logo -->
+        <div id="gumax-p-logo">
+            <div id="p-logo">
+            <a style="background-image: url(/skins/monobook/ologo.png);" href="/index.php/Main_Page" title="Main Page"></a>
+            </div>
+        </div>
+		<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+        <!-- end of gumax-p-logo -->
+		<!-- Search -->
+		<div id="gumax-p-search">
+			<div id="gumax-searchBody" class="gumax-pBody">
+				<form action="/index.php/Special:Search" id="searchform"><div>
+					<input id="searchInput" name="search" type="text" title="Search OWASP [f]" accesskey="f" value="" />
+					<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+					<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+				</div></form>
+			</div>
+		</div>
+		<!-- end of Search -->
+		<div class="gumax-visualClear"></div>
+    </div>
+	<!-- ///// end of gumax-header ///// -->
+
+<div id="gumax-spacer"><!-- --></div>
+<div id="contentHeadLeft"><div id="contentHeadRight"><div id="contentHeadCenter"></div></div></div>
+	<div id="contentBodyLeft"><div id="contentBodyRight"><div id="contentBodyCenter">
+		<div id="contentMain">
+<!-- gumax-content -->
+<div id="gumax-content">
+
+	<table class="gumax-caption" width="100%"><tr><td>
+		<!-- gumax-content-actions -->
+		<div id="gumax-content-actions">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="/index.php/Transport_Layer_Protection_Cheat_Sheet" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="/index.php?title=Talk:Transport_Layer_Protection_Cheat_Sheet&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" ><a href="/index.php?title=Transport_Layer_Protection_Cheat_Sheet&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history" ><a href="/index.php?title=Transport_Layer_Protection_Cheat_Sheet&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+							</ul>
+		</div>
+		<!-- end of gumax-content-actions -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<table class="gumax-row" width="100%"><tr><td class="gumax-row-left" valign="top">
+
+    <!-- Navigation Menu -->
+    <div id="gumax-p-navigation">
+                    <div class='gumax-portlet'>
+                <h5>Navigation</h5>
+                    <ul>
+                                                    <li id="n-Home"><a href="/index.php/Main_Page">Home</a></li>
+                                                    <li id="n-News"><a href="/index.php/Application_Security_News">News</a></li>
+                                                    <li id="n-OWASP-Projects"><a href="/index.php/Category:OWASP_Project">OWASP Projects</a></li>
+                                                    <li id="n-Downloads"><a href="/index.php/Category:OWASP_Download">Downloads</a></li>
+                                                    <li id="n-Local-Chapters"><a href="/index.php/Category:OWASP_Chapter">Local Chapters</a></li>
+                                                    <li id="n-Global-Committees"><a href="https://www.owasp.org/index.php/Global_Committee_Pages">Global Committees</a></li>
+                                                    <li id="n-AppSec-Job-Board"><a href="http://www.owasp.org/index.php/OWASP_Jobs">AppSec Job Board</a></li>
+                                                    <li id="n-AppSec-Conferences"><a href="/index.php/Category:OWASP_AppSec_Conference">AppSec Conferences</a></li>
+                                                    <li id="n-Presentations"><a href="/index.php/Category:OWASP_Presentations">Presentations</a></li>
+                                                    <li id="n-Video"><a href="/index.php/Category:OWASP_Video">Video</a></li>
+                                                    <li id="n-Press"><a href="http://www.owasp.org/index.php/Press">Press</a></li>
+                                                    <li id="n-Get-OWASP-Books"><a href="http://stores.lulu.com/owasp">Get OWASP Books</a></li>
+                                                    <li id="n-Get-OWASP-Gear"><a href="http://www.rocksports-owasp.com">Get OWASP Gear</a></li>
+                                                    <li id="n-Mailing-Lists"><a href="http://lists.owasp.org/mailman/listinfo">Mailing Lists</a></li>
+                                                    <li id="n-About-OWASP"><a href="/index.php/About_OWASP">About OWASP</a></li>
+                                                    <li id="n-Membership"><a href="/index.php/Membership">Membership</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Reference</h5>
+                    <ul>
+                                                    <li id="n-How-To..."><a href="/index.php/Category:How_To">How To...</a></li>
+                                                    <li id="n-Principles"><a href="/index.php/Category:Principle">Principles</a></li>
+                                                    <li id="n-Threat-Agents"><a href="/index.php/Category:Threat_Agent">Threat Agents</a></li>
+                                                    <li id="n-Attacks"><a href="/index.php/Category:Attack">Attacks</a></li>
+                                                    <li id="n-Vulnerabilities"><a href="/index.php/Category:Vulnerability">Vulnerabilities</a></li>
+                                                    <li id="n-Controls"><a href="/index.php/Category:Control">Controls</a></li>
+                                                    <li id="n-Activities"><a href="/index.php/Category:Activity">Activities</a></li>
+                                                    <li id="n-Technologies"><a href="/index.php/Category:Technology">Technologies</a></li>
+                                                    <li id="n-Glossary"><a href="/index.php/Category:Glossary">Glossary</a></li>
+                                                    <li id="n-Code-Snippets"><a href="/index.php/Category:Code_Snippet">Code Snippets</a></li>
+                                                    <li id="n-.NET-Project"><a href="/index.php/Category:OWASP_.NET_Project">.NET Project</a></li>
+                                                    <li id="n-Java-Project"><a href="/index.php/Category:OWASP_Java_Project">Java Project</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Language</h5>
+                    <ul>
+                                                    <li id="n-languageselector" class="active" ><a href="http://www.owasp.org/index.php?title=Transport_Layer_Protection_Cheat_Sheet&amp;setlang=en">English</a></li>
+                                                    <li id="n-languageselector"><a href="http://www.owasp.org/index.php?title=Transport_Layer_Protection_Cheat_Sheet&amp;setlang=es">Español</a></li>
+                                            </ul>
+            </div>
+            </div>
+    <!-- end of Navigation Menu -->
+	</td><td class="gumax-row-right" valign="top">
+	<!-- gumax-article-picture -->
+    <!-- end of gumax-article-picture -->
+
+	<!-- gumax-content-body -->
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Transport Layer Protection Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Architectural_Decision"><span class="tocnumber">1.1</span> <span class="toctext">Architectural Decision</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Providing_Transport_Layer_Protection_with_SSL.2FTLS"><span class="tocnumber">2</span> <span class="toctext">Providing Transport Layer Protection with SSL/TLS</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Benefits"><span class="tocnumber">2.1</span> <span class="toctext">Benefits</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Basic_Requirements"><span class="tocnumber">2.2</span> <span class="toctext">Basic Requirements</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#SSL_vs._TLS"><span class="tocnumber">2.3</span> <span class="toctext">SSL vs. TLS</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#When_to_Use_a_FIPS_140-2_Validated_Cryptomodule"><span class="tocnumber">2.4</span> <span class="toctext">When to Use a FIPS 140-2 Validated Cryptomodule</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Secure_Server_Design"><span class="tocnumber">2.5</span> <span class="toctext">Secure Server Design</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Rule_-_Use_TLS_for_All_Login_Pages_and_All_Authenticated_Pages"><span class="tocnumber">2.5.1</span> <span class="toctext">Rule - Use TLS for All Login Pages and All Authenticated Pages</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Rule_-_Use_TLS_on_Any_Networks_.28External_and_Internal.29_Transmitting_Sensitive_Data"><span class="tocnumber">2.5.2</span> <span class="toctext">Rule - Use TLS on Any Networks (External and Internal) Transmitting Sensitive Data</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Rule_-_Do_Not_Provide_Non-TLS_Pages_for_Secure_Content"><span class="tocnumber">2.5.3</span> <span class="toctext">Rule - Do Not Provide Non-TLS Pages for Secure Content</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Rule_-_Do_Not_Perform_Redirects_from_Non-TLS_Page_to_TLS_Login_Page"><span class="tocnumber">2.5.4</span> <span class="toctext">Rule - Do Not Perform Redirects from Non-TLS Page to TLS Login Page</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Rule_-_Do_Not_Mix_TLS_and_Non-TLS_Content"><span class="tocnumber">2.5.5</span> <span class="toctext">Rule - Do Not Mix TLS and Non-TLS Content</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Rule_-_Use_.22Secure.22_Cookie_Flag"><span class="tocnumber">2.5.6</span> <span class="toctext">Rule - Use "Secure" Cookie Flag</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Rule_-_Keep_Sensitive_Data_Out_of_the_URL"><span class="tocnumber">2.5.7</span> <span class="toctext">Rule - Keep Sensitive Data Out of the URL</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="#Server_Certificate_.26_Protocol_Configuration"><span class="tocnumber">2.6</span> <span class="toctext">Server Certificate &amp; Protocol Configuration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="#Rule_-_Use_an_Appropriate_Certificate_Authority_for_the_Application.27s_User_Base"><span class="tocnumber">2.6.1</span> <span class="toctext">Rule - Use an Appropriate Certificate Authority for the Application's User Base</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Rule_-_Only_Support_Strong_Cryptographic_Ciphers"><span class="tocnumber">2.6.2</span> <span class="toctext">Rule - Only Support Strong Cryptographic Ciphers</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Rule_-_Only_Support_Strong_Protocols"><span class="tocnumber">2.6.3</span> <span class="toctext">Rule - Only Support Strong Protocols</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Rule_-_Use_Strong_Keys_.26_Protect_Them"><span class="tocnumber">2.6.4</span> <span class="toctext">Rule - Use Strong Keys &amp; Protect Them</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#Rule_-_Use_a_Certificate_That_Supports_All_Available_Domain_Names"><span class="tocnumber">2.6.5</span> <span class="toctext">Rule - Use a Certificate That Supports All Available Domain Names</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-22"><a href="#Client_.28Browser.29_Configuration"><span class="tocnumber">2.7</span> <span class="toctext">Client (Browser) Configuration</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Additional_Controls"><span class="tocnumber">2.8</span> <span class="toctext">Additional Controls</span></a>
+<ul>
+<li class="toclevel-3 tocsection-24"><a href="#Extended_Validation_Certificates"><span class="tocnumber">2.8.1</span> <span class="toctext">Extended Validation Certificates</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#Client-Side_Certificates"><span class="tocnumber">2.8.2</span> <span class="toctext">Client-Side Certificates</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#Providing_Transport_Layer_Protection_for_Back_End_and_Other_Connections"><span class="tocnumber">3</span> <span class="toctext">Providing Transport Layer Protection for Back End and Other Connections</span></a>
+<ul>
+<li class="toclevel-2 tocsection-27"><a href="#Secure_Internal_Network_Fallacy"><span class="tocnumber">3.1</span> <span class="toctext">Secure Internal Network Fallacy</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-28"><a href="#Related_Articles"><span class="tocnumber">4</span> <span class="toctext">Related Articles</span></a></li>
+<li class="toclevel-1 tocsection-29"><a href="#Authors_and_Primary_Editors"><span class="tocnumber">5</span> <span class="toctext">Authors and Primary Editors</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Introduction"> Introduction  </span></h1>
+<p>This article provides a simple model to follow when implementing transport layer protection for an application. Although the concept of SSL is known to many, the actual details and security specific decisions of implementation are often poorly understood and frequently result in insecure deployments. This article establishes clear rules which provide guidance on securely designing and configuring transport layer security for an application. This article is focused on the use of SSL/TLS between a web application and a web browser, but that we also encourage the use of SSL/TLS or other network encryption technologies, such as VPN, on back end and other non-browser based connections.<br /> 
+</p>
+<h2> <span class="mw-headline" id="Architectural_Decision"> Architectural Decision  </span></h2>
+<p>An architectural decision must be made to determine the appropriate method to protect data when it is being transmitted.  The most common options available to corporations are Virtual Private Networks (VPN) or a SSL/TLS model commonly used by web applications. The selected model is determined by the business needs of the particular organization. For example, a VPN connection may be the best design for a partnership between two companies that includes mutual access to a shared server over a variety of protocols. Conversely, an Internet facing enterprise web application would likely be best served by a SSL/TLS model. 
+</p><p>This cheat sheet will focus on security considerations when the SSL/TLS model is selected. This is a frequently used model for publicly accessible web applications.
+</p>
+<h1> <span class="mw-headline" id="Providing_Transport_Layer_Protection_with_SSL.2FTLS"> Providing Transport Layer Protection with SSL/TLS  </span></h1>
+<h2> <span class="mw-headline" id="Benefits"> Benefits  </span></h2>
+<p>The primary benefit of transport layer security is the protection of web application data from unauthorized disclosure and modification when it is transmitted between clients (web browsers) and the web application server, and between the web application server and back end and other non-browser based enterprise components. 
+</p><p>The server validation component of TLS provides authentication of the server to the client.  If configured to require client side certificates, TLS can also play a role in client authentication to the server. However, in practice client side certificates are not often used in lieu of username and password based authentication models for clients.
+</p><p>TLS also provides two additional benefits that are commonly overlooked; integrity guarantees and replay prevention. A TLS stream of communication contains built-in controls to prevent tampering with any portion of the encrypted data. In addition, controls are also built-in to prevent a captured stream of TLS data from being replayed at a later time.
+</p><p>It should be noted that TLS provides the above guarantees to data during transmission. TLS does not offer any of these security benefits to data that is at rest. Therefore appropriate security controls must be added to protect data while at rest within the application or within data stores.
+</p>
+<h2> <span class="mw-headline" id="Basic_Requirements"> Basic Requirements </span></h2>
+<p>The basic requirements for using TLS are: access to a Public Key Infrastructure (PKI) in order to obtain certificates, access to a directory or an Online Certificate Status Protocol (OCSP) responder in order to check certificate revocation status, and agreement/ability to support a minimum configuration of protocol versions and protocol options for each version.
+</p>
+<h2> <span class="mw-headline" id="SSL_vs._TLS"> SSL vs. TLS  </span></h2>
+<p>The terms, Secure Socket Layer (SSL) and Transport Layer Security (TLS) are often used interchangeably. In fact, SSL v3.1 is equivalent to TLS v1.0. However, different versions of SSL and TLS are supported by modern web browsers and by most modern web frameworks and platforms. For the purposes of this cheat sheet we will refer to the technology generically as TLS. Recommendations regarding the use of SSL and TLS protocols, as well as browser support for TLS, can be found in the rule below title <a href="/index.php/Transport_Layer_Protection_Cheat_Sheet#Rule_-_Only_Support_Strong_Protocols" title="Transport Layer Protection Cheat Sheet"> "Only Support Strong Protocols"</a>.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:352px;"><a href="/index.php/File:Asvs_cryptomodule.gif" class="image"><img alt="" src="/images/thumb/1/1c/Asvs_cryptomodule.gif/350px-Asvs_cryptomodule.gif" width="350" height="500" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php/File:Asvs_cryptomodule.gif" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Cryptomodule Parts and Operation</div></div></div>
+<h2> <span class="mw-headline" id="When_to_Use_a_FIPS_140-2_Validated_Cryptomodule"> When to Use a FIPS 140-2 Validated Cryptomodule </span></h2>
+<p>If the web application may be the target of determined attackers (a common threat model for Internet accessible applications handling sensitive data), it is strongly advised to use TLS services that are provided by <a href="http://csrc.nist.gov/groups/STM/cmvp/validation.html" class="external text" rel="nofollow">FIPS 140-2 validated cryptomodules</a>. 
+</p><p>A cryptomodule, whether it is a software library or a hardware device, basically consists of three parts:
+</p>
+<ul><li> Components that implement cryptographic algorithms (symmetric and asymmetric algorithms, hash algorithms, random number generator algorithms, and message authentication code algorithms) 
+</li><li> Components that call and manage cryptographic functions (inputs and outputs include cryptographic keys and so-called critical security parameters) 
+</li><li> A physical container around the components that implement cryptographic algorithms and the components that call and manage cryptographic functions
+</li></ul>
+<p>The security of a cryptomodule and its services (and the web applications that call the cryptomodule) depend on the correct implementation and integration of each of these three parts. In addition, the cryptomodule must be used and accessed securely. The includes consideration for:
+</p>
+<ul><li> Calling and managing cryptographic functions
+</li><li> Securely Handling inputs and output
+</li><li> Ensuring the secure construction of the physical container around the components
+</li></ul>
+<p>In order to leverage the benefits of TLS it is important to use a TLS service (e.g. library, web framework, web application server) which has been FIPS 140-2 validated. In addition, the cryptomodule must be installed, configured and operated in either an approved or an allowed mode to provide a high degree of certainty that the FIPS 140-2 validated cryptomodule is providing the expected security services in the expected manner.
+</p><p>If the system is legally required to use FIPS 140-2 encryption (e.g., owned or operated by or on behalf of the U.S. Government) then TLS must be used and SSL disabled. Details on why SSL is unacceptable are described in Section 7.1 of <a href="http://csrc.nist.gov/groups/STM/cmvp/documents/fips140-2/FIPS1402IG.pdf" class="external text" rel="nofollow">Implementation Guidance for FIPS PUB 140-2 and the Cryptographic Module Validation Program</a>.
+</p><p>Further reading on the use of TLS to protect highly sensitive data against determined attackers can be viewed in <a href="http://csrc.nist.gov/publications/nistpubs/800-52/SP800-52.pdf" class="external text" rel="nofollow">SP800-52 Guidelines for the Selection and Use of Transport Layer Security (TLS) Implementations</a>
+</p>
+<h2> <span class="mw-headline" id="Secure_Server_Design"> Secure Server Design  </span></h2>
+<h3> <span class="mw-headline" id="Rule_-_Use_TLS_for_All_Login_Pages_and_All_Authenticated_Pages"> Rule - Use TLS for All Login Pages and All Authenticated Pages  </span></h3>
+<p>The login page and all subsequent authenticated pages must be exclusively accessed over TLS. The initial login page, referred to as the "login landing page", must be served over TLS. Failure to utilize TLS for the login landing page allows an attacker to modify the login form action, causing the user's credentials to be posted to an arbitrary location. Failure to utilize TLS for authenticated pages after the login enables an attacker to view the unencrypted session ID and compromise the user's authenticated session. 
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Use_TLS_on_Any_Networks_.28External_and_Internal.29_Transmitting_Sensitive_Data"> Rule - Use TLS on Any Networks (External and Internal) Transmitting Sensitive Data  </span></h3>
+<p>All networks, both external and internal, which transmit sensitive data must utilize TLS or an equivalent transport layer security mechanism. It is not sufficient to claim that access to the internal network is "restricted to employees". Numerous recent data compromises have shown that the internal network can be breached by attackers. In these attacks, sniffers have been installed to access unencrypted sensitive data sent on the internal network. 
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Do_Not_Provide_Non-TLS_Pages_for_Secure_Content"> Rule - Do Not Provide Non-TLS Pages for Secure Content  </span></h3>
+<p>All pages which are available over TLS must not be available over a non-TLS connection. A user may inadvertently bookmark or manually type a URL to a HTTP page (e.g. <a href="http://site.com/myaccount" class="external free" rel="nofollow">http://site.com/myaccount</a>) within the authenticated portion of the application. If this request is processed by the application then the response, and any sensitive data, would be returned to the user over the clear text HTTP.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Do_Not_Perform_Redirects_from_Non-TLS_Page_to_TLS_Login_Page"> Rule - Do Not Perform Redirects from Non-TLS Page to TLS Login Page  </span></h3>
+<p>A common practice is to redirect users that have requested a non-TLS version of the login page to the TLS version (e.g. <a href="http://site.com/login" class="external free" rel="nofollow">http://site.com/login</a> redirects to <a href="https://site.com/login" class="external free" rel="nofollow">https://site.com/login</a>). This practice creates an additional attack vector for a man in the middle attack. In addition, redirecting from non-TLS versions to the TLS version reinforces to the user that the practice of requesting the non-TLS page is acceptable and secure.
+</p><p>In this scenario, the man-in-the-middle attack is used by the attacker to intercept the non-TLS to TLS redirect message. The attacker then injects the HTML of the actual login page and changes the form to post over unencrypted HTTP. This allows the attacker to view the user's credentials as they are transmitted in the clear.
+</p><p>It is recommended to display a security warning message to the user whenever the non-TLS login page is requested. This security warning should urge the user to always type "HTTPS" into the browser or bookmark the secure login page.  This approach will help educate users on the correct and most secure method of accessing the application.
+</p><p>Currently there are no controls that an application can enforce to entirely mitigate this risk. Ultimately, this issue is the responsibility of the user since the application cannot prevent the user from initially typing <a href="http://owasp.org" class="external text" rel="nofollow">http://site.com/login</a> (versus HTTPS). 
+</p><p>Note: <a href="http://www.w3.org/Security/wiki/Strict_Transport_Security" class="external text" rel="nofollow">Strict Transport Security</a> will address this issue and will provide a server side control to instruct supporting browsers that the site should only be accessed over HTTPS
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Do_Not_Mix_TLS_and_Non-TLS_Content"> Rule - Do Not Mix TLS and Non-TLS Content  </span></h3>
+<p>A page that is available over TLS must be comprised completely of content which is transmitted over TLS. The page must not contain any content that is transmitted over unencrypted HTTP. This includes content from unrelated third party sites. 
+</p><p>An attacker could intercept any of the data transmitted over the unencrypted HTTP and inject malicious content into the user's page. This malicious content would be included in the page even if the overall page is served over TLS. In addition, an attacker could steal the user's session cookie that is transmitted with any non-TLS requests. This is possible if the cookie's 'secure' flag is not set. See the rule 'Use "Secure" Cookie Flag'
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Use_.22Secure.22_Cookie_Flag"> Rule - Use "Secure" Cookie Flag  </span></h3>
+<p>The "Secure" flag must be set for all user cookies. Failure to use the "secure" flag enables an attacker to access the session cookie by tricking the user's browser into submitting a request to an unencrypted page on the site. This attack is possible even if the server is not configured to offer HTTP content since the attacker is monitoring the requests and does not care if the server responds with a 404 or doesn't respond at all.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Keep_Sensitive_Data_Out_of_the_URL"> Rule - Keep Sensitive Data Out of the URL </span></h3>
+<p>Sensitive data must not be transmitted via URL arguments. A more appropriate place is to store sensitive data in a server side repository or within the user's session.  When using TLS the URL arguments and values are encrypted during transit. However, there are two methods that the URL arguments and values could be exposed.
+</p><p>1. The entire URL is cached within the local user's browser history. This may expose sensitive data to any other user of the workstation.
+</p><p>2. The entire URL is exposed if the user clicks on a link to another HTTPS site. This may expose sensitive data within the referral field to the third party site. This exposure occurs in most browsers and will only occur on transitions between two TLS sites. 
+</p><p>For example, a user following a link on <a href="http://owasp.org" class="external text" rel="nofollow">https://site.com</a> which leads to <a href="http://owasp.org" class="external text" rel="nofollow">https://someOtherSite.com</a> would expose the full URL of <a href="http://owasp.org" class="external text" rel="nofollow">https://site.com</a> (including URL arguments) in the referral header (within most browsers). This would not be the case if the user followed a link on <a href="http://owasp.org" class="external text" rel="nofollow">https://site.com</a> to <a href="http://owasp.org" class="external text" rel="nofollow">http://someHTTPsite.com</a>
+</p>
+<h2> <span class="mw-headline" id="Server_Certificate_.26_Protocol_Configuration"> Server Certificate &amp; Protocol Configuration  </span></h2>
+<p>Note: If using a FIPS 140-2 cryptomodule disregard the following rules and defer to the recommended configuration for the particular cryptomodule.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Use_an_Appropriate_Certificate_Authority_for_the_Application.27s_User_Base"> Rule - Use an Appropriate Certificate Authority for the Application's User Base  </span></h3>
+<p>An application user must never be presented with a warning that the certificate was signed by an unknown or untrusted authority. The application's user population must have access to the public certificate of the certificate authority which issued the server's certificate. For Internet accessible websites, the most effective method of achieving this goal is to purchase the TLS certificate from a recognize certificate authority. Popular Internet browsers already contain the public certificates of these recognized certificate authorities. 
+</p><p>Internal applications with a limited user population can use an internal certificate authority provided its public certificate is securely distributed to all users. However, remember that all certificates issued by this certificate authority will be trusted by the users. Therefore, utilize controls to protect the private key and ensure that only authorized individuals have the ability to sign certificates. 
+</p><p>The use of self signed certificates is never acceptable. Self signed certificates negate the benefit of end-point authentication and also significantly decrease the ability for an individual to detect a man-in-the-middle attack. 
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Only_Support_Strong_Cryptographic_Ciphers"> Rule - Only Support Strong Cryptographic Ciphers  </span></h3>
+<p>The strength of the encryption used within a TLS session is determined by the encryption cipher negotiated between the server and the browser. In order to ensure that only strong cryptographic ciphers are selected the server must be modified to disable the use of weak ciphers. It is recommended to configure the server to only support strong ciphers and to use sufficiently large key sizes. In general, the following should be observed when selecting CipherSuites:
+</p>
+<ul><li> Use AES, 3DES for encryption
+</li><li> Use CBC mode 
+</li><li> Use SHA1 for digest
+</li><li> MD5 may be used within the TLS protocol
+</li><li> Do not provide support for NULL ciphersuites
+</li><li> Do not provide support for anonymous Diffie-Hellman 
+</li></ul>
+<p>Note: The TLS usage of MD5 does not expose the TLS protocol to any of the weaknesses of the MD5 algorithm (see FIPS 140-2 IG). However, MD5 must never be used outside of TLS protocol (e.g. for general hashing).
+</p><p>Additional information can be obtained within the <a href="http://www.ietf.org/rfc/rfc4346.txt" class="external text" rel="nofollow">TLS 1.1 RFC 4346</a> and <a href="http://csrc.nist.gov/groups/STM/cmvp/documents/fips140-2/FIPS1402IG.pdf" class="external text" rel="nofollow">FIPS 140-2 IG</a>
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Only_Support_Strong_Protocols"> Rule - Only Support Strong Protocols  </span></h3>
+<p>Weaknesses have been identified with older SSL protocols. The best practice for transport layer protection is to only provide support for the TLS protocols - TLS1.0, TLS 1.1 and TLS 1.2. This configuration will provide maximum protection against skilled and determined attackers and is appropriate for applications handling sensitive data or performing critical operations.
+</p><p>The following browsers support at least TLS 1.0. The earliest version supporting TLS is listed below. 
+</p>
+<ul><li>Internet Explorer in IE7 (also supported in IE6, but disabled by default)
+</li><li>Firefox 2.0 
+</li><li>Chrome 1.0 
+</li><li>Apple Safari (version unknown) 
+</li><li>Opera 5
+</li></ul>
+<p>In situations where lesser security requirements are necessary, it may be acceptable to also provide support for SSL 3.0. It should be noted that this configuration is a derivation from the best practice and should only be used if the ensuing security risks are evaluated and can be accepted for the particular business operation.
+</p><p>In no situation should SSL 2.0 be enabled on the server. This protocol has multiple known weaknesses and does not provide effective transport layer protection.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Use_Strong_Keys_.26_Protect_Them"> Rule - Use Strong Keys &amp; Protect Them </span></h3>
+<p>The private key used to generate the cipher key must be sufficiently strong for the anticipated lifetime of the private key and corresponding certificate. The current best practice is to select a key size of at least 2048. Keys of length 1024 will be obsolete beginning in 2010.  Additional information on key lifetimes and comparable key strengths can be found in <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57-Part1-revised2_Mar08-2007.pdf" class="external text" rel="nofollow">NIST SP 800-57</a>. In addition, the private key must be stored in a location that is protected from unauthorized access.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Use_a_Certificate_That_Supports_All_Available_Domain_Names"> Rule - Use a Certificate That Supports All Available Domain Names  </span></h3>
+<p>A user should never be presented with a certificate error, including domain mismatch certificate errors. If the application is available at both <a href="https://owasp.org" class="external text" rel="nofollow">https://www.site.com</a> and <a href="https://owasp.org" class="external text" rel="nofollow">https://site.com</a> then an appropriate certificate, or certificates, must be selected to accommodate both situations. The presence of domain mismatch errors desensitizes users to TLS error messages and increases the possibility an attacker could launch a convincing man-in-the-middle attack. 
+</p><p>For example, consider a web application accessible at <a href="https://owasp.org" class="external text" rel="nofollow">https://abc.site.com</a> and <a href="https://owasp.org" class="external text" rel="nofollow">https://xyz.site.com</a>. A wild card certificate with the domain name of *.site.com would be an appropriate choice. 
+</p><p>Alternatively, subject alternate names can be used to provide a specific listing of multiple names where the certificate is valid. These certificates are sometimes referred to as "multiple domain certificates" or enhanced wildcard certificates.
+</p>
+<h2> <span class="mw-headline" id="Client_.28Browser.29_Configuration"> Client (Browser) Configuration  </span></h2>
+<p>The validation procedures to ensure that a certificate is valid are complex and difficult to correctly perform.  In a typical web application model, these checks will be performed by the client's web browser in accordance with local browser settings and are out of the control of the application. However, these items do need to be addressed in the following scenarios:
+</p>
+<ul><li> The application server establishes connections to other applications over TLS for purposes such as web services or any exchange of data
+</li><li> A thick client application is connecting to a server via TLS
+</li></ul>
+<p>In these situations extensive certificate validation checks must occur in order to establish the validity of the certificate. Consult the following resources to assist in the design and testing of this functionality. The NIST PKI testing site includes a full test suite of certificates and expected outcomes of the test cases.
+</p>
+<ul><li> <a href="http://csrc.nist.gov/groups/ST/crypto_apps_infra/pki/pkitesting.html" class="external text" rel="nofollow">NIST PKI Testing</a>
+</li><li> <a href="http://www.ietf.org/rfc/rfc3280.txt" class="external text" rel="nofollow">IETF RFC 3280</a>
+</li></ul>
+<p>As specified in the above guidance, if the certificate can not be validated for any reason then the connection between the client and server must be dropped. Any data exchanged over a connection where the certificate has not properly been validated could be exposed to unauthorized access or modification.
+</p>
+<h2> <span class="mw-headline" id="Additional_Controls"> Additional Controls  </span></h2>
+<h3> <span class="mw-headline" id="Extended_Validation_Certificates"> Extended Validation Certificates  </span></h3>
+<p>Extended validation certificates (EV Certificates) require more intensive investigation into the requesting party. The purpose of EV certificates is to provide the user with greater assurance that the owner of the certificate is a verified legal entity for the site. Browsers with support for EV certificates distinguish an EV certificate in a variety of ways. Internet Explorer will color a portion of the URL in green, while Mozilla will add a green portion to the left of the URL indicating the company name. 
+</p><p>High value websites should consider the use of EV certificates to enhance customer confidence in the certificate. It should also be noted that EV certificates do not provide any greater technical security for the TLS. The purpose of the EV certificate is to increase user confidence that the target site is indeed who it claims to be.
+</p>
+<h3> <span class="mw-headline" id="Client-Side_Certificates"> Client-Side Certificates  </span></h3>
+<p>Client side certificates can be used with TLS to prove the identity of the client to the server. Referred to as "two-way TLS", this configuration requires the client to provide their certificate to the server, in addition to the server providing their's to the client. If client certificates are used, ensure that the same validation of the client certificate is performed by the server, as indicated for the validation of server certificates above. In addition, the server should be configured to drop the TLS connection if the client certificate cannot be verified or is not provided. 
+</p><p>The use of client side certificates is relatively rare currently due to the complexities of certificate generation, safe distribution, client side configuration, certificate revocation and reissuance, and the fact that clients can only authenticate on machines where their client side certificate is installed. Such certificates are typically used for very high value connections that have small user populations. 
+</p>
+<h1> <span class="mw-headline" id="Providing_Transport_Layer_Protection_for_Back_End_and_Other_Connections"> Providing Transport Layer Protection for Back End and Other Connections  </span></h1>
+<p>Although not the focus of this cheat sheet, it should be stressed that transport layer protection is necessary for back-end connections and any other connection where sensitive data is exchanged or where user identity is established. Failure to implement an effective and robust transport layer security will expose sensitive data and undermine the effectiveness of any authentication or access control mechanism. 
+</p>
+<h2> <span class="mw-headline" id="Secure_Internal_Network_Fallacy"> Secure Internal Network Fallacy  </span></h2>
+<p>The internal network of a corporation is not immune to attacks. Many recent high profile intrusions, where thousands of sensitive customer records were compromised, have been perpetrated by attackers that have gained internal network access and then used sniffers to capture unencrypted data as it traversed the internal network.
+</p>
+<h1> <span class="mw-headline" id="Related_Articles"> Related Articles  </span></h1>
+<p>OWASP - <a href="/index.php/Testing_for_SSL-TLS_(OWASP-CM-001)" title="Testing for SSL-TLS (OWASP-CM-001)">Testing for SSL-TLS</a>, and OWASP <a href="/index.php/Guide_to_Cryptography" title="Guide to Cryptography">Guide to Cryptography</a> 
+</p><p>OWASP – <a href="http://www.owasp.org/index.php/ASVS" class="external text" rel="nofollow">Application Security Verification Standard (ASVS) – Communication Security Verification Requirements (V10)</a>
+</p><p>OWASP – ASVS Article on <a href="/index.php/Why_you_need_to_use_a_FIPS_140-2_validated_cryptomodule" title="Why you need to use a FIPS 140-2 validated cryptomodule">Why you need to use a FIPS 140-2 validated cryptomodule</a>
+</p><p>SSL Labs - <a href="http://www.ssllabs.com/projects/rating-guide/index.html" class="external text" rel="nofollow">SSL Server Rating Guide</a> 
+</p><p>NIST - <a href="http://csrc.nist.gov/publications/nistpubs/800-52/SP800-52.pdf" class="external text" rel="nofollow">SP 800-52 Guidelines for the selection and use of transport layer security (TLS) Implementations</a> 
+</p><p>NIST - <a href="http://csrc.nist.gov/publications/fips/fips140-2/fips1402.pdf" class="external text" rel="nofollow">FIPS 140-2 Security Requirements for Cryptographic Modules</a>
+</p><p>NIST - <a href="http://csrc.nist.gov/groups/STM/cmvp/documents/fips140-2/FIPS1402IG.pdf" class="external text" rel="nofollow">Implementation Guidance for FIPS PUB 140-2 and the Cryptographic Module Validation Program</a>
+</p><p>NIST - <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57-Part1-revised2_Mar08-2007.pdf" class="external text" rel="nofollow">SP 800-57 Recommendation for Key Management, Revision 2</a>
+</p><p>NIST - <a href="http://csrc.nist.gov/publications/drafts.html#sp800-95" class="external text" rel="nofollow">SP 800-95 Guide to Secure Web Services</a> 
+</p><p>IETF - <a href="http://www.ietf.org/rfc/rfc3280.txt" class="external text" rel="nofollow">RFC 3280 Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</a>
+</p><p>IETF - <a href="http://www.ietf.org/rfc/rfc4346.txt" class="external text" rel="nofollow">RFC 4346 The Transport Layer Security (TLS) Protocol Version 1.1</a>
+</p><p><b>Other Articles in the OWASP Prevention Cheat Sheet Series</b>
+</p>
+<ul><li> <a href="/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <a href="/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" title="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+</li><li> <a href="/index.php/Cryptographic_Storage_Cheat_Sheet" title="Cryptographic Storage Cheat Sheet">Cryptographic Storage Cheat Sheet</a>
+</li><li> <a href="/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="SQL Injection Prevention Cheat Sheet">SQL Injection Prevention Cheat Sheet</a>
+</li><li> <strong class="selflink">Transport Layer Protection Cheat Sheet</strong>
+</li><li> <a href="/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet">XSS (Cross Site Scripting) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM based XSS Prevention Cheat Sheet</a>
+</li></ul>
+<h1> <span class="mw-headline" id="Authors_and_Primary_Editors"> Authors and Primary Editors  </span></h1>
+<p>Michael Coates - michael.coates[at]owasp.org 
+</p><p>Dave Wichers - dave.wichers[at]aspectsecurity.com 
+</p><p>Michael Boberski - boberski_michael[at]bah.com
+</p><p>Tyler Reguly -treguly[at]sslfail.com
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 158/1000000
+Post-expand include size: 421/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key owasp_wiki_022011:pcache:idhash:10440-0!1!0!!en!2!edit=0!printable=1 and timestamp 20110307155906 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet">http://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir='ltr'><a href="/index.php/Category:How_To" title="Category:How To">How To</a></span> | <span dir='ltr'><a href="/index.php/Category:Cheatsheets" title="Category:Cheatsheets">Cheatsheets</a></span> | <span dir='ltr'><a href="/index.php/Category:OWASP_Document" title="Category:OWASP Document">OWASP Document</a></span> | <span dir='ltr'><a href="/index.php/Category:OWASP_Top_Ten_Project" title="Category:OWASP Top Ten Project">OWASP Top Ten Project</a></span></div></div>			<!-- end content -->
+						<div class="gumax-visualClear"></div>
+		</div>
+
+
+	</div>
+	<!-- end of content -->
+	</div>
+	<!-- end of gumax-content-body -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<!-- ///// gumax-footer ///// -->
+	<div id="gumax-footer">
+		<!-- personal tools  -->
+		<div id="gumax-personal-tools">
+			<ul>
+					<li id="t-whatlinkshere"><a href="/index.php/Special:WhatLinksHere/Transport_Layer_Protection_Cheat_Sheet">What links here</a></li>
+					<li id="t-recentchangeslinked"><a href="/index.php/Special:RecentChangesLinked/Transport_Layer_Protection_Cheat_Sheet">Related changes</a></li>
+	<li id="t-specialpages"><a href="/index.php/Special:SpecialPages">Special pages</a></li>
+					<li id="t-permalink"><a href="/index.php?title=Transport_Layer_Protection_Cheat_Sheet&amp;oldid=105475">Permanent link</a></li>
+			</ul>
+		</div>
+		<!-- end of personal tools  -->
+
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+	</div>
+	<!-- ///// end of gumax-footer ///// -->
+
+	</div>
+	<!-- end of gumax-content -->
+		</div>
+	</div></div></div>
+<div id="contentFootLeft"><div id="contentFootRight"><div id="contentFootCenter"></div></div></div>
+
+	<div id="gumax-spacer"><!-- --></div><a name="gumax-bottom"><!-- --></a>
+
+	<!-- gumax-f-list -->
+	<div id="gumax-f-list">
+		<ul>
+							<li id="privacy"><a href="/index.php/OWASP:Privacy_policy" title="OWASP:Privacy policy">Privacy policy</a></li>
+							<li id="about"><a href="/index.php/OWASP:About" title="OWASP:About">About OWASP</a></li>
+							<li id="disclaimer"><a href="/index.php/OWASP:General_disclaimer" title="OWASP:General disclaimer">Disclaimers</a></li>
+						<li id="f-poweredby"><a href="http://mediawiki.org">Powered by MediaWiki</a></li>
+		</ul>
+	</div>
+	<!-- end of gumax-f-list -->
+
+	<!-- gumax-f-message -->
+	<div id="gumax-f-message">
+		<span id="f-lastmod"> This page was last modified on 20 February 2011, at 07:16.</span>
+		<span id="f-viewcount">This page has been accessed 35,231 times. </span>
+			</div>
+	<!-- end of gumax-f-message -->
+
+</div>
+<!-- ===== end of gumax-page ===== -->
+
+</div> <!-- ##### end of gumax-wrapper ##### -->
+
+<!-- Served in 0.162 secs. --></body></html>

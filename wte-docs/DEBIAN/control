@@ -1,0 +1,8 @@
+Package: owasp-wte-doc
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 2.1
+Depends: libnotify-bin, thunar | nautilus | dolphin
+Description: This package includes OWASP and other documentation.

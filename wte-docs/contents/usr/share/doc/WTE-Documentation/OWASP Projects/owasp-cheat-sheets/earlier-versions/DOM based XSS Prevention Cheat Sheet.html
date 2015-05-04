@@ -1,0 +1,772 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="MediaWiki 1.16.1" />
+<meta name="robots" content="noindex,follow" />
+<link rel="stylesheet" media="screen, projection" href="/extensions/HeaderTabs/skins/combined-min.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="OWASP (en)" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="OWASP Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />		<title>DOM based XSS Prevention Cheat Sheet - OWASP</title>
+		<link rel="stylesheet" href="/skins/common/commonPrint.css?270" media="" />
+<link rel="stylesheet" href="/skins/gumaxvn/gumax_print.css?270" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Gumaxvn.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/skins/common/IEFixes.js?270"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script>
+var skin="gumaxvn",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://www.owasp.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="DOM_based_XSS_Prevention_Cheat_Sheet",
+wgTitle="DOM based XSS Prevention Cheat Sheet",
+wgAction="view",
+wgArticleId=17351,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=105706,
+wgVersion="1.16.1",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OWASP", "5": "OWASP talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "owasp": 4, "owasp_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="OWASP",
+wgCategories=["How To", "Cheatsheets"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgFCKEditorDir="extensions/FCKeditor/fckeditor/",
+wgFCKEditorExtDir="extensions/FCKeditor",
+wgFCKEditorToolbarSet="Wiki",
+wgFCKEditorHeight="0";
+</script>
+		<script type="text/javascript" src="/skins/common/wikibits.js?270"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+<script type="text/javascript">
+function buildContent (blog) {
+    var MONTH_NAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    if (!blog || !blog.items) return;  var container=document.getElementById("container");
+    var code="";  for (var i = 0; i < blog.items.length; i++) {   var item = blog.items[i];
+    var date = new Date();    date.setTime( 4 + item.published * 1000 );
+    var datestring = MONTH_NAMES[date.getMonth()]+" "+(date.getDate());
+    code=code+"<div style='font-weight:bold'>"+datestring+" - ";    
+    code=code+"<a href='"+item.alternate.href+"'>"+item.title+"</a> (by ";
+    code=code+"<a href='"+item.origin.streamId.substring(5)+"'>"+item.author+"</a>)</div>";
+    var text=""+item.content;
+    if (text == "undefined" ) {
+	  text=item.summary;
+    }
+    code=code+"<div>"+text+"</div><br>";
+    }
+    container.innerHTML=code;
+}
+</script> 
+<script type="text/javascript">
+function build_bloglist(data) {
+  var container = document.getElementById('blogroll');
+  var list = document.createElement('div');
+  // Loop through all data items returned
+  for (var i=0; i < data.items.length; i++) {
+    var item = data.items[i];
+		var link = document.createElement('a');
+		link.appendChild(document.createTextNode(item.title));
+	link.href = item.id;
+    list.appendChild(link);
+    list.appendChild(document.createElement('br'));
+  }
+  container.appendChild(list);
+}
+</script>
+<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-725452-2");
+			pageTracker._initData();
+			pageTracker._trackPageview();
+			</script>
+
+<script src="/skins/common/ajax.js?270"></script>
+<script type="text/javascript">addOnloadHook(function() { 
+	var i = 1;
+	while ( true ) {
+		var btn = document.getElementById("languageselector-commit-"+i);
+		var sel = document.getElementById("languageselector-select-"+i);
+		var idx = i;
+
+		if (!btn) break;
+
+		btn.style.display = "none";
+		sel.onchange = function() {
+			node = this.parentNode;
+			while( true ) {
+				if( node.tagName.toLowerCase() == "form" ) {
+					node.submit();
+					break;
+				}
+				node = node.parentNode;
+			}
+		};
+
+		i++;
+	}
+});</script>
+<script type="text/javascript" src="/extensions/HeaderTabs/skins/combined-history-min.js"></script>
+		<script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=gumaxvn"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-DOM_based_XSS_Prevention_Cheat_Sheet skin-gumaxvn">
+
+
+<!-- ##### gumax-wrapper ##### -->
+<div id="gumax-wrapper">
+
+<!-- ===== gumax-page ===== -->
+<div class="gumax-page"><a name="gumax-top"><!-- --></a>
+
+	<!-- ///// gumax-header ///// -->
+    <div id="gumax-header">
+        <a name="top" id="contentTop"></a>
+        <!-- Login -->
+        <div id="gumax-p-login">
+            <ul>
+                            <li id="gumax-pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=DOM_based_XSS_Prevention_Cheat_Sheet&amp;returntoquery=printable%3Dyes">Log in</a>
+               </li>
+                         </ul>
+        </div>
+        <!-- end of Login -->        
+        <!-- gumax-p-logo -->
+        <div id="gumax-p-logo">
+            <div id="p-logo">
+            <a style="background-image: url(/skins/monobook/ologo.png);" href="/index.php/Main_Page" title="Main Page"></a>
+            </div>
+        </div>
+		<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+        <!-- end of gumax-p-logo -->
+		<!-- Search -->
+		<div id="gumax-p-search">
+			<div id="gumax-searchBody" class="gumax-pBody">
+				<form action="/index.php/Special:Search" id="searchform"><div>
+					<input id="searchInput" name="search" type="text" title="Search OWASP [f]" accesskey="f" value="" />
+					<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+					<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+				</div></form>
+			</div>
+		</div>
+		<!-- end of Search -->
+		<div class="gumax-visualClear"></div>
+    </div>
+	<!-- ///// end of gumax-header ///// -->
+
+<div id="gumax-spacer"><!-- --></div>
+<div id="contentHeadLeft"><div id="contentHeadRight"><div id="contentHeadCenter"></div></div></div>
+	<div id="contentBodyLeft"><div id="contentBodyRight"><div id="contentBodyCenter">
+		<div id="contentMain">
+<!-- gumax-content -->
+<div id="gumax-content">
+
+	<table class="gumax-caption" width="100%"><tr><td>
+		<!-- gumax-content-actions -->
+		<div id="gumax-content-actions">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" ><a href="/index.php/Talk:DOM_based_XSS_Prevention_Cheat_Sheet" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" ><a href="/index.php?title=DOM_based_XSS_Prevention_Cheat_Sheet&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history" ><a href="/index.php?title=DOM_based_XSS_Prevention_Cheat_Sheet&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+							</ul>
+		</div>
+		<!-- end of gumax-content-actions -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<table class="gumax-row" width="100%"><tr><td class="gumax-row-left" valign="top">
+
+    <!-- Navigation Menu -->
+    <div id="gumax-p-navigation">
+                    <div class='gumax-portlet'>
+                <h5>Navigation</h5>
+                    <ul>
+                                                    <li id="n-Home"><a href="/index.php/Main_Page">Home</a></li>
+                                                    <li id="n-News"><a href="/index.php/Application_Security_News">News</a></li>
+                                                    <li id="n-OWASP-Projects"><a href="/index.php/Category:OWASP_Project">OWASP Projects</a></li>
+                                                    <li id="n-Downloads"><a href="/index.php/Category:OWASP_Download">Downloads</a></li>
+                                                    <li id="n-Local-Chapters"><a href="/index.php/Category:OWASP_Chapter">Local Chapters</a></li>
+                                                    <li id="n-Global-Committees"><a href="https://www.owasp.org/index.php/Global_Committee_Pages">Global Committees</a></li>
+                                                    <li id="n-AppSec-Job-Board"><a href="http://www.owasp.org/index.php/OWASP_Jobs">AppSec Job Board</a></li>
+                                                    <li id="n-AppSec-Conferences"><a href="/index.php/Category:OWASP_AppSec_Conference">AppSec Conferences</a></li>
+                                                    <li id="n-Presentations"><a href="/index.php/Category:OWASP_Presentations">Presentations</a></li>
+                                                    <li id="n-Video"><a href="/index.php/Category:OWASP_Video">Video</a></li>
+                                                    <li id="n-Press"><a href="http://www.owasp.org/index.php/Press">Press</a></li>
+                                                    <li id="n-Get-OWASP-Books"><a href="http://stores.lulu.com/owasp">Get OWASP Books</a></li>
+                                                    <li id="n-Get-OWASP-Gear"><a href="http://www.rocksports-owasp.com">Get OWASP Gear</a></li>
+                                                    <li id="n-Mailing-Lists"><a href="http://lists.owasp.org/mailman/listinfo">Mailing Lists</a></li>
+                                                    <li id="n-About-OWASP"><a href="/index.php/About_OWASP">About OWASP</a></li>
+                                                    <li id="n-Membership"><a href="/index.php/Membership">Membership</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Reference</h5>
+                    <ul>
+                                                    <li id="n-How-To..."><a href="/index.php/Category:How_To">How To...</a></li>
+                                                    <li id="n-Principles"><a href="/index.php/Category:Principle">Principles</a></li>
+                                                    <li id="n-Threat-Agents"><a href="/index.php/Category:Threat_Agent">Threat Agents</a></li>
+                                                    <li id="n-Attacks"><a href="/index.php/Category:Attack">Attacks</a></li>
+                                                    <li id="n-Vulnerabilities"><a href="/index.php/Category:Vulnerability">Vulnerabilities</a></li>
+                                                    <li id="n-Controls"><a href="/index.php/Category:Control">Controls</a></li>
+                                                    <li id="n-Activities"><a href="/index.php/Category:Activity">Activities</a></li>
+                                                    <li id="n-Technologies"><a href="/index.php/Category:Technology">Technologies</a></li>
+                                                    <li id="n-Glossary"><a href="/index.php/Category:Glossary">Glossary</a></li>
+                                                    <li id="n-Code-Snippets"><a href="/index.php/Category:Code_Snippet">Code Snippets</a></li>
+                                                    <li id="n-.NET-Project"><a href="/index.php/Category:OWASP_.NET_Project">.NET Project</a></li>
+                                                    <li id="n-Java-Project"><a href="/index.php/Category:OWASP_Java_Project">Java Project</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Language</h5>
+                    <ul>
+                                                    <li id="n-languageselector" class="active" ><a href="http://www.owasp.org/index.php?title=DOM_based_XSS_Prevention_Cheat_Sheet&amp;setlang=en">English</a></li>
+                                                    <li id="n-languageselector"><a href="http://www.owasp.org/index.php?title=DOM_based_XSS_Prevention_Cheat_Sheet&amp;setlang=es">Español</a></li>
+                                            </ul>
+            </div>
+            </div>
+    <!-- end of Navigation Menu -->
+	</td><td class="gumax-row-right" valign="top">
+	<!-- gumax-article-picture -->
+    <!-- end of gumax-article-picture -->
+
+	<!-- gumax-content-body -->
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">DOM based XSS Prevention Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#HTML_Sub_Context_within_the_Execution_Context"><span class="tocnumber">2</span> <span class="toctext">HTML Sub Context within the Execution Context</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Attributes"><span class="tocnumber">2.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Methods"><span class="tocnumber">2.2</span> <span class="toctext">Methods</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Guideline"><span class="tocnumber">2.3</span> <span class="toctext">Guideline</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Methods_2"><span class="tocnumber">2.4</span> <span class="toctext">Methods</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#HTML_Attribute_Sub_Context_within_the_Execution_Context"><span class="tocnumber">3</span> <span class="toctext">HTML Attribute Sub Context within the Execution Context</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#URL_Attribute_Sub_Context_within_the_Execution_Context"><span class="tocnumber">4</span> <span class="toctext">URL Attribute Sub Context within the Execution Context</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#CSS_Attribute_Sub_Context_within_the_Execution_Context"><span class="tocnumber">5</span> <span class="toctext">CSS Attribute Sub Context within the Execution Context</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Event_Handler_and_JavaScript_code_Sub_Contexts_within_an_Execution_Context"><span class="tocnumber">6</span> <span class="toctext">Event Handler and JavaScript code Sub Contexts within an Execution Context</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#HTML_Encoding.E2.80.99s_Disarming_Nature"><span class="tocnumber">6.1</span> <span class="toctext">HTML Encoding’s Disarming Nature</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Guidelines_for_Developing_Secure_Applications_Utilizing_JavaScript"><span class="tocnumber">7</span> <span class="toctext">Guidelines for Developing Secure Applications Utilizing JavaScript</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Common_Problems_Associated_with_Mitgating_DOM_Based_XSS"><span class="tocnumber">8</span> <span class="toctext">Common Problems Associated with Mitgating DOM Based XSS</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#Complex_Contexts"><span class="tocnumber">8.1</span> <span class="toctext">Complex Contexts</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Insonsistencies_of_Encoding_Libraries"><span class="tocnumber">8.2</span> <span class="toctext">Insonsistencies of Encoding Libraries</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Encoding_Misconceptions"><span class="tocnumber">8.3</span> <span class="toctext">Encoding Misconceptions</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Usually_Safe_Methods"><span class="tocnumber">8.4</span> <span class="toctext">Usually Safe Methods</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#Authors_and_Contributing_Editors"><span class="tocnumber">9</span> <span class="toctext">Authors and Contributing Editors</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>When looking at XSS (Cross Site Scripting) there are three generally recognized forms of XSS.  Reflected, Persisted, and DOM based XSS.  The <a href="http://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet" class="external text" rel="nofollow">XSS Prevention Cheatsheet</a> has done an excellent job of addressing Reflected and Persisted XSS. This cheatsheet will address DOM (Document Object Model) based XSS and is an extension (as assumes comprehension of) the the <a href="http://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet" class="external text" rel="nofollow">XSS Prevention Cheatsheet</a> .
+</p><p>In order to understand DOM based XSS one needs to see the fundamental difference between reflected and persisted XSS when compared to DOM based XSS.  Reflected and persisted XSS exist in a higher level rendering context and DOM based XSS is primarily found in a lower level execution context.  A rendering context is associated with the parsing of HTML tags and their attributes.  The HTML parser of the rendering context dictates how data is presented and laid out on the page and can be further broken down into the standard contexts of HTML, HTML attribute, URL, and CSS.  The JavaScript or VBScript parser of an execution context is associated with the parsing and execution of script code.  Each parser has distinct and separate semantics in the way they can possibly execute script code (XSS) which make creating consistent rules for mitigating both rendering and execution based contexts difficult.   The complication is compounded by the differing meanings and treatment of encoded values within each sub context (HTML, HTML attribute, URL, and CSS) within the execution context.  
+</p><p>This paper refers to the HTML, HTML attribute, URL, and CSS Cheatsheet contexts as subcontexts because each of these contexts can be reached and set within a JavaScript execution context.  In JavaScript code the main context is JavaScript but since an attacker can try to attack the other 4 contexts using equivalent JavaScript DOM methods we refer to the other contexts besides the JavaScript context as sub contexts.<br />
+</p><p>The following example of an attack which occurs in the JavaScript context and HTML sub context:<br />
+</p><p><code>
+</p>
+<pre>&lt;script&gt;
+var x = ‘&lt;%= htmlAndJavaScriptEncodedVar&nbsp;%&gt;’;
+var d = document.createElement(‘div’);
+d.innerHTML = x;
+document.body.appendChild(d);
+&lt;/script&gt;
+</pre>
+<p></code>
+</p><p><br />
+One consistency, however, is the need to JavaScript encode in addition to the encoding required for the sub context in the execution context.  Let’s look at the individual sub contexts of the execution context in turn.
+</p>
+<h1> <span class="mw-headline" id="HTML_Sub_Context_within_the_Execution_Context"> HTML Sub Context within the Execution Context </span></h1>
+<p>There are several methods and attributes which can be used to directly render HTML content within JavaScript.  These methods constitute the HTML Sub Context within the Execution Context.
+</p>
+<h2> <span class="mw-headline" id="Attributes">Attributes</span></h2>
+<p><code>
+</p>
+<pre>element.innerHTML = “&lt;HTML&gt; Tags and markup”;
+element.outerHTML = “&lt;HTML&gt; Tags and markup”;
+</pre>
+<p></code>
+</p>
+<h2> <span class="mw-headline" id="Methods">Methods</span></h2>
+<p><code>
+</p>
+<pre>document.write(“&lt;HTML&gt; Tags and markup”);
+document.writeln(“&lt;HTML&gt; Tags and markup”);
+</pre>
+<p></code>
+</p>
+<h2> <span class="mw-headline" id="Guideline">Guideline</span></h2>
+<p>In a pure HTML execution context (not HTML Attribute) use HTML and JavaScript encoding to mitigate against attacks.
+<code>
+</p>
+<pre>element.innerHTML = “&lt;%=Encoder.encodeForJS(Encoder.encodeForHTML(untrustedData))%&gt;”;
+element.outerHTML = “&lt;%=Encoder.encodeForJS(Encoder.encodeForHTML(untrustedData))%&gt;”;
+</pre>
+<p></code>
+</p>
+<h2> <span class="mw-headline" id="Methods_2">Methods</span></h2>
+<p><code>
+</p>
+<pre>document.write(“&lt;%=Encoder.encodeForJS(Encoder.encodeForHTML(untrustedData))%&gt;”);
+document.writeln(“&lt;%=Encoder.encodeForJS(Encoder.encodeForHTML(untrustedData))%&gt;”);
+</pre>
+<p></code>
+</p>
+<h1> <span class="mw-headline" id="HTML_Attribute_Sub_Context_within_the_Execution_Context"> HTML Attribute Sub Context within the Execution Context </span></h1>
+<p>The HTML attribute Sub Context within the Execution context is divergent from the standard encoding rules.  This is because the rule to HTML attribute encode in an HTML attribute rendering context is mitigating attacks which try to exit out of the attribute to add additional attributes and/or tags which could have executable code.  When you are in a DOM execution context you only need to JavaScript encode HTML attributes which do not execute code (attributes other than event handler, CSS, and URL attributes).
+</p><p>For example, the general rule is to HTML Attribute encode untrusted data (data from the database, http request, user, backend system, etc.) placed in an HTML Attribute.  This is the appropriate step to take when outputting data in a rendering context, however using HTML Attribute encoding in an execution context will break the application display of data.
+</p><p><code>
+</p>
+<pre>var x = document.createElement(“input”);
+x.setAttribute(“name”, “company_name”);
+x.setAttribute(“value”, ‘&lt;%=Encoder.encodeForJS(Encoder.encodeForHTMLAttr(companyName))%&gt;’);
+var form1 = document.forms[0];
+form1.appendChild(x);
+</pre>
+<p></code>
+</p><p>The problem is that if companyName had the value “Johnson &amp; Johnson”.  What would be displayed in the input text field would be “Johnson &amp;amp; Johnson”.  The appropriate encoding to use in the above case would be only JavaScript encoding to disallow an attacker from closing out the single quotes and in-lining code, or escaping to HTML and opening a new script tag.
+</p><p><code>
+</p>
+<pre>var x = document.createElement(“input”);
+x.setAttribute(“name”, “company_name”);
+x.setAttribute(“value”, ‘&lt;%=Encoder.encodeForJS(companyName)%&gt;’);
+var form1 = document.forms[0];
+form1.appendChild(x);
+</pre>
+<p></code>
+</p><p>It is important to note that when setting an HTML attribute which does not execute code the value is set directly within the object attribute of the HTML element so there is no concerns with injecting up.
+</p>
+<h1> <span class="mw-headline" id="URL_Attribute_Sub_Context_within_the_Execution_Context"> URL Attribute Sub Context within the Execution Context </span></h1>
+<p>The logic which parses URLs in both execution and rendering contexts looks to be the same.  Therefore there is little change in the encoding rules for URL attributes in an execution (DOM) context.
+</p><p><code>var x = document.createElement(“a”);</code><br />
+<code>x.setAttribute(“href”, ‘&lt;%=Encoder.encodeForJS(Encoder.encodeForURL(userRelativePath))%&gt;’);</code><br />
+<code>var y = document.createTextElement(“Click Me To Test”);</code><br />
+<code>x.appendChild(y);</code><br />
+<code>document.body.appendChild(x);</code><br />
+</p><p>If you utilize fully qualified URLs then this will break the links as the colon in the protocol identifier (“http:” or “javascript:”) will be URL encoded preventing the “http” and “javascript” protocols from being invoked.
+</p>
+<h1> <span class="mw-headline" id="CSS_Attribute_Sub_Context_within_the_Execution_Context">CSS Attribute Sub Context within the Execution Context</span></h1>
+<p>Normally executing JavaScript from a CSS context required either passing <code>javascript:attackCode()</code> to the CSS url() method or invoking the CSS expression() method passing JavaScript code to be directly executed.  From my experience, calling the expression() function from an execution context (JavaScript) has been disabled.  In order to mitigate against the CSS url() method ensure that you are URL encoding the data passed to the CSS url() method.
+</p><p><code>
+</p>
+<pre>document.body.style.backgroundImage = "url(&lt;%=Encoder.encodeForJS(Encoder.encodeForURL(companyName))%&gt;)";
+</pre>
+<p></code>
+</p><p>TODO: We have not been able to get the expression() function working from DOM JavaScript code.  Need some help.
+</p>
+<h1> <span class="mw-headline" id="Event_Handler_and_JavaScript_code_Sub_Contexts_within_an_Execution_Context">Event Handler and JavaScript code Sub Contexts within an Execution Context</span></h1>
+<p>Putting dynamic data within JavaScript code is especially dangerous because JavaScript encoding has different semantics for JavaScript encoded data when compared to other encodings.  In many cases, JavaScript encoding does not stop attacks within an execution context.  For example, a JavaScript encoded string will execute even though it is JavaScript encoded. 
+</p><p><code>
+</p>
+<pre>var x = document.createElement("a");
+x.href="#”;
+x.setAttribute("onclick", "\u0061\u006c\u0065\u0072\u0074\u0028\u0032\u0032\u0029");
+var y = document.createTextNode("Click To Test");
+x.appendChild(y);
+document.body.appendChild(x);
+</pre>
+<p></code>
+</p><p>JavaScript event handler methods are dangerous because they implicitly do an eval() on the data passed to the DOM attribute.  There are other places in JavaScript where JavaScript encoding is accepted as valid executable code.
+</p><p><code>
+</p>
+<pre>for ( var \u0062=0; \u0062 &lt; 10; \u0062++){
+    \u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074                  
+    .\u0077\u0072\u0069\u0074\u0065\u006c\u006e
+    ("\u0048\u0065\u006c\u006c\u006f\u0020\u0057\u006f\u0072\u006c\u0064");
+}
+\u0077\u0069\u006e\u0064\u006f\u0077
+.\u0065\u0076\u0061\u006c
+\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074
+.\u0077\u0072\u0069\u0074\u0065(111111111));
+</pre>
+<p></code>
+</p><p>or
+</p><p><code>
+</p>
+<pre>var s = "\u0065\u0076\u0061\u006c";
+var t = "\u0061\u006c\u0065\u0072\u0074\u0028\u0031\u0031\u0029";
+window[s](t);
+</pre>
+<p></code>
+</p><p>Because JavaScript is based on an international standard (ECMAScript), JavaScript encoding enables the support of international characters in programming constructs and variables in addition to alternate string representations (string escapes).  
+</p><p>However the opposite is the case with HTML encoding.  HTML tag elements are well defined and do not support alternate representations of the same tag.  So HTML encoding cannot be used to allow the developer to have alternate representations of the <code>&lt;a&gt;</code> tag for example.
+</p>
+<h2> <span class="mw-headline" id="HTML_Encoding.E2.80.99s_Disarming_Nature">HTML Encoding’s Disarming Nature</span></h2>
+<p>In general, HTML encoding serves to castrate HTML tags which are placed in HTML and HTML attribute contexts.
+Working example (no HTML encoding):
+</p><p><code>
+</p>
+<pre>&lt;a href=”…” &gt;
+</pre>
+<p></code>
+</p><p>Normally encoded example (Does Not Work – DNW):
+</p><p><code>
+</p>
+<pre>&amp;#x3c;a href=… &amp;#x3e;
+</pre>
+<p></code>
+</p><p>HTML encoded example to highlight a fundamental difference with JavaScript encoded values (DNW):
+</p><p><code>
+</p>
+<pre>&lt;&amp;#x61; href=…&gt;
+</pre>
+<p></code>
+</p><p>If HTML encoding followed the same semantics as JavaScript encoding.  The line above could have possibily worked to render a link.  This difference makes JavaScript encoding a less viable weapon in our fight against XSS.
+</p>
+<h1> <span class="mw-headline" id="Guidelines_for_Developing_Secure_Applications_Utilizing_JavaScript">Guidelines for Developing Secure Applications Utilizing JavaScript</span></h1>
+<p>DOM based XSS is extremely difficult to mitigate against because of its large attack surface and lack of standardization across browsers.  The guidelines below are an attempt to provide guidelines for developers when developing Web based JavaScript applications (Web 2.0) such that they can avoid XSS.
+</p><p>1. Untrusted data should only be treated as displayable text.  Never treat untrusted data as code or markup within JavaScript code. <br />
+2. Always JavaScript encode and delimit untrusted data as quoted strings when entering the application (Jim Manico and Robert Hansen) <br />
+<code>
+</p>
+<pre>var x = “&lt;%=encodedJavaScriptData%&gt;”;
+</pre>
+<p></code>
+3. Use <code>document.createElement(“…”), element.setAttribute(“…”,”value”), element.appendChild(…)</code>, etc. to build dynamic interfaces.  Avoid use of HTML rendering methods:<br />
+</p>
+<ol><li><code>element.innerHTML = “…”; </code>
+</li><li><code>element.outerHTML = “…”; </code>
+</li><li><code>document.write(…); </code>
+</li><li><code>document.writeln(…); </code><br />
+</li></ol>
+<p>4. Understand the dataflow of untrusted data through your JavaScript code.  If you do have to use the methods above remember to HTML and them JavaScript encode the untrusted data (Stefano Di Paola).<br />
+5. There are numerous methods which implicitly eval() data passed to it.  Make sure that any untrusted data passed to these methods is delimited with string delimiters and enclosed within a closure or JavaScript encoded to N-levels based on usage, and wrapped in a custom function.  Ensure to follow step 4 above to make sure that the untrusted data is not sent to dangerous methods within the custom function or handle it by adding an extra layer of encoding.<br />
+</p><p><b>Utilizing an Enclosure (as suggested by Gaz)</b>
+</p><p>The example that follows illustrates using closures to avoid double JavaScript encoding.
+</p><p><code>
+</p>
+<pre>setTimeout((function(param) { return function() {
+         customFunction(param);
+         }
+})("&lt;%=Encoder.encodeForJS(untrustedData)%&gt;"), y);
+</pre>
+<p></code>
+</p><p>The other alternative is using N-levels of encoding.<br />
+</p><p><b>N-Levels of Encoding</b><br />
+</p><p>If your code looked like the following, you would need to only double JavaScript encode input data.
+</p><p><code>
+</p>
+<pre>setTimeout(“customFunction(‘&lt;%=doubleJavaScriptEncodedData%&gt;’, y)”);
+function customFunction (firstName, lastName)
+      alert("Hello" + firstName + " " + lastNam);
+}
+</pre>
+<p></code>
+</p><p>The <code>doubleJavaScriptEncodedData</code> has its first layer of JavaScript encoding reversed in the single quotes.  Then the implicit <code>eval()</code> of <code>setTimeout()</code> reverses another layer of JavaScript encoding to pass the correct value to <code>customFunction</code>.  The reason why you only need to double JavaScript encode is that the <code>customFunction</code> function did not itself pass the input to another method which implicitly or explicitly called <code>eval()</code>.  If "firstName" was passed to another JavaScript method which implicitly or explicitly called eval() then <code>&lt;%=doubleJavaScriptEncodedData%&gt;</code> above would need to be changed to <code>&lt;%=tripleJavaScriptEncodedData%&gt;</code>.<br />
+</p><p>An important implementation note is that if the JavaScript code tries to utilize the double or triple encoded data in string comparisons, the value may be interpreted as different values based on the number of evals() the data has passed through before being passed to the if comparison and the number of times the value was JavaScript encoded.<br />
+</p><p>If "A" is double JavaScript encoded then the following if check will return false.<br />
+</p><p><code>
+</p>
+<pre>var x = "doubleJavaScriptEncodedA";  //\u005c\u0075\u0030\u0030\u0034\u0031
+if (x == "A") {
+   alert("x is A");
+} else if (x == "\u0041") {
+   alert("This is what pops");
+}
+</pre>
+<p></code>
+</p><p>This brings up an interesting design point.  Ideally, the correct way to apply encoding and avoid the problem stated above is to server-side encode for the output context where data is introduced into the application.  Then client-side encode (using a JavaScript encoding library such as ESAPI4JS) for the individual sub context (DOM methods) which untrusted data is passed to.  ESAPI4JS (located at <a href="http://bit.ly/9hRTLH" class="external free" rel="nofollow">http://bit.ly/9hRTLH</a>) and jQuery Encoder (located at <a href="https://github.com/chrisisbeef/jquery-encoder/blob/master/src/main/javascript/org/owasp/esapi/jquery/encoder.js" class="external free" rel="nofollow">https://github.com/chrisisbeef/jquery-encoder/blob/master/src/main/javascript/org/owasp/esapi/jquery/encoder.js</a>) are two client side encoding libraries developed by Chris Schmidt.<br />
+Here are some examples of how they are used:<br />
+<code>
+</p>
+<pre>var input = “&lt;%=Encoder.encodeForJS(untrustedData)%&gt;”;  //server-side encoding
+</pre>
+<p></code>
+<code>
+</p>
+<pre>window.location = ESAPI4JS.encodeForURL(input);  //URL encoding is happening in JavaScript
+</pre>
+<p></code>
+<code>
+</p>
+<pre>document.writeln(ESAPI4JS.encodeForHTML(input));  //HTML encoding is happening in JavaScript
+</pre>
+<p></code>
+</p><p>It has been well noted by the group that any kind of reliance on a JavaScript library for encoding would be problematic as the JavaScript library could be subverted by attackers.  One option is to wait till ECMAScript 5 so the JavaScript library could support immutable properties.<br />
+Another option provided by Gaz (Gareth) was to use a specific code construct to limit mutability with anonymous clousures.<br />
+</p><p>An example follows:<br />
+</p><p><code>
+</p>
+<pre>function escapeHTML(str) {
+     str = str + "<i>";</i>
+     var out = "<i>";</i>
+     for(var i=0; i&lt;str.length; i++) {
+         if(str[i] === '&lt;') {
+             out += '&amp;lt;';
+         } else if(str[i] === '&gt;') {
+             out += '&amp;gt;';
+         } else if(str[i] === "'") {
+             out += '&amp;#39;'; 
+         } else if(str[i] === '"') {
+             out += '&amp;quot;';                        
+         } else {
+             out += str[i];
+         }
+     }
+     return out;                    
+}
+</pre>
+<p></code>
+</p><p><br />Chris Schmidt has put together another implementation of a JavaScript encoder at <a href="http://yet-another-dev.blogspot.com/2011/02/client-side-contextual-encoding-for.html" class="external free" rel="nofollow">http://yet-another-dev.blogspot.com/2011/02/client-side-contextual-encoding-for.html</a>.  <br />
+</p><p><br />
+</p><p>6. Limit the usage of dynamic untrusted data to right side operations.  And be aware of data which may be passed to the application which look like code (eg. <code>location</code>, <code>eval()</code>).  (Achim)<br />
+<code>
+</p>
+<pre>var x = “&lt;%=properly encoded data for flow%&gt;”;
+</pre>
+<p></code>
+</p><p>If you want to change different object attributes based on user input use a level of indirection.<br />
+</p><p>Instead of: <br />
+</p><p><code>
+</p>
+<pre>window[userData] = “moreUserData”;
+</pre>
+<p></code>
+</p><p>Do the following instead:<br />
+<code>
+</p>
+<pre>if (userData===”location”) {
+   window.location = “static/path/or/properly/url/encoded/value”;
+}
+</pre>
+<p></code>
+</p><p>7. When URL encoding in DOM be aware of character set issues as the character set in JavaScript DOM is not clearly defined (Mike Samuel).<br />
+</p><p>8. Limit access to properties objects when using object[x] accessors. (Mike Samuel).  In other words use a level of indirection between untrusted input and specified object properties.<br />
+Here is an example of the problem when using map types:<br />
+<code>
+</p>
+<pre>var myMapType = {};
+myMapType[&lt;%=untrustedData%&gt;] = “moreUntrustedData”;
+</pre>
+<p></code>
+</p><p>Although the developer writing the code above was trying to add additional keyed elements to the <code>myMapType</code> object.  This could be used by an attacker to subvert internal and external attributes of the <code>myMapType</code> object.<br />
+</p><p>9. Run your JavaScript in a ECMAScript 5 canopy or sand box to make it harder for your JavaScript API to be compromised (Gareth Heyes and John Stevens).<br />
+</p><p>10. Don’t <code>eval()</code> JSON to convert it to native JavaScript objects.  Instead use <code>JSON.toJSON()</code> and <code>JSON.parse()</code> (Chris Schmidt).
+</p>
+<h1> <span class="mw-headline" id="Common_Problems_Associated_with_Mitgating_DOM_Based_XSS">  Common Problems Associated with Mitgating DOM Based XSS </span></h1>
+<h2> <span class="mw-headline" id="Complex_Contexts">Complex Contexts</span></h2>
+<p>In many cases the context isn’t always strait forward to discern.<br />
+<code>
+</p>
+<pre>&lt;a href=”javascript:myFunction(‘&lt;%=untrustedData%&gt;’, 'test');”&gt;Click Me&lt;/a&gt;
+...
+&lt;script&gt;
+Function myFunction (url,name) {
+    window.location = url;
+}
+&lt;/script&gt;
+</pre>
+<p></code>
+</p><p>In the above example, untrusted data started in the rendering URL context (<code>href</code> attribute of an <code>&lt;a&gt;</code> tag) then changed to a JavaScript execution context (<code>javascript:</code> protocol handler) which passed the untrusted data to an execution URL sub context (<code>window.location</code> of myFunction).  Because the data was introduced in JavaScript code and passed to a URL sub context the appropriate server-side encoding would be the following:<br />
+</p><p><code>
+</p>
+<pre>&lt;a href=”javascript:myFunction(‘&lt;%=Encoder.encodeForJS( &#x21a9;
+              Encoder.encodeForURL(untrustedData))%&gt;’, 'test');”&gt;Click Me&lt;/a&gt;
+…
+</pre>
+<p></code>
+</p><p>Or if you were using ECMAScript 5 with an immutable JavaScript client-side encoding libraries you could do the following:<br />
+</p><p><code>
+</p>
+<pre>&lt;!--server side URL encoding has been removed.  Now only JavaScript encoding on server side. --&gt;
+&lt;a href=”javascript:myFunction(‘&lt;%=Encoder.encodeForJS(untrustedData)%&gt;’, 'test');”&gt;Click Me&lt;/a&gt;
+...
+&lt;script&gt;
+Function myFunction (url,name) {
+    var encodedURL = ESAPI4JS.encodeForURL(url);  //URL encoding using client-side scripts
+    window.location = encodedURL;
+}
+&lt;/script&gt;
+</pre>
+<p></code>
+</p>
+<h2> <span class="mw-headline" id="Insonsistencies_of_Encoding_Libraries"> Insonsistencies of Encoding Libraries </span></h2>
+<p>There are a number of open source encoding libraries out there:<br />
+</p>
+<ol><li>ESAPI
+</li><li>Apache Commons String Utils
+</li><li>Jtidy
+</li><li>Your company’s custom implementation.
+</li></ol>
+<p>Some work on a black list others ignore important characters like “&lt;” and “&gt;”.  ESAPI is one of the few which work on a whitelist and encode all non-alpha numeric characters.
+It is important to use an encoding library which understands which characters can be used to exploit vulnerabilies in their respective contexts.
+But there are misconceptions abound related to proper encoding. 
+</p>
+<h2> <span class="mw-headline" id="Encoding_Misconceptions">Encoding Misconceptions</span></h2>
+<p>Many security training curriculums and papers advocate the blind usage of HTML encoding to resolve XSS.  This logically seems to be prudent advice as the JavaScript parser does not understand HTML encoding.  However, if the pages returned from your web application utilize a content type of “text/xhtml” or the file type extension of “*.xhtml” then HML encoding may not work to mitigate against XSS.<br />
+</p><p>For example: <br />
+</p><p><code>
+</p>
+<pre>&lt;script&gt;
+&amp;#x61;lert(1);
+&lt;/script&gt;
+</pre>
+<p></code> 
+</p><p>The HTML encoded value above is still executable.  If that isn’t enough to keep in mind, you have to remember that encodings are lost when you retrieve them using the value attribute of a DOM element. <br />
+</p><p>Let’s look at the sample page and script:<br />
+</p><p><code>
+</p>
+<pre>&lt;form name=”myForm” …&gt;
+  &lt;input type=”text” name=”lName” value=”&lt;%=Encoder.encodeForHTML(last_name)%&gt;”&gt;
+…
+&lt;/form&gt;
+&lt;script&gt;
+var x = document.myForm.lName.value;  //when the value is retrived the encoding is reversed
+document.writeln(x);  //any code passed into lName is now executable.
+&lt;/script&gt;
+</pre>
+<p></code>
+</p><p>Finally there is the problem that certain methods in JavaScript which are usually safe can be unsafe in certain contexts.<br />
+</p>
+<h2> <span class="mw-headline" id="Usually_Safe_Methods">Usually Safe Methods</span></h2>
+<p>One example of an attribute which is usually safe is innerText.  Some papers or guides advocate its use as an alternative to innerHTML to mitigate against XSS in innerHTML.  However, depending on the tag which innerText is applied, code can be executed.<br />
+</p><p><code>
+</p>
+<pre>&lt;script&gt;
+var tag = document.createElement(“script”);
+tag.innerText = “&lt;%=untrustedData%&gt;”;  //executes code
+&lt;/script&gt;
+</pre>
+<p></code>
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Authors_and_Contributing_Editors"> Authors and Contributing Editors  </span></h1>
+<p>Jim Manico - jim[at]owasp.org 
+</p><p>Abraham Kang - abraham.kang[at]owasp.org
+</p><p>Gareth (Gaz) Heyes
+</p><p>Stefano Di Paola
+</p><p><a href="/index.php/User:Achim" title="User:Achim"> Achim Hoffmann</a> <a href="mailto:achim@owasp.org|" class="external text" rel="nofollow">achim_@_owasp.org</a>
+</p><p>Robert (RSnake) Hansen
+</p><p>Mario Heiderich
+</p><p>John Stevens
+</p><p>Chris (Chris BEF) Schmidt
+</p><p>Mike Samuel
+</p><p>Jeremy Long
+</p><p>Edwardo (SirDarkCat) Alberto Vela Nava
+</p><p>Jeff Williams - jeff.williams[at]owasp.org 
+</p><p>Erlend Oftedal
+</p><p><b>Other Articles in the OWASP Prevention Cheat Sheet Series</b>
+</p>
+<ul><li> <a href="/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <a href="/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" title="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+</li><li> <a href="/index.php/Cryptographic_Storage_Cheat_Sheet" title="Cryptographic Storage Cheat Sheet">Cryptographic Storage Cheat Sheet</a>
+</li><li> <a href="/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="SQL Injection Prevention Cheat Sheet">SQL Injection Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</li><li> <a href="/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet">XSS (Cross Site Scripting) Prevention Cheat Sheet</a>
+</li><li> <strong class="selflink">DOM based XSS Prevention Cheat Sheet</strong>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 91/1000000
+Post-expand include size: 421/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key owasp_wiki_022011:pcache:idhash:17351-0!1!0!!en!2!edit=0!printable=1 and timestamp 20110307160330 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet">http://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir='ltr'><a href="/index.php/Category:How_To" title="Category:How To">How To</a></span> | <span dir='ltr'><a href="/index.php/Category:Cheatsheets" title="Category:Cheatsheets">Cheatsheets</a></span></div></div>			<!-- end content -->
+						<div class="gumax-visualClear"></div>
+		</div>
+
+
+	</div>
+	<!-- end of content -->
+	</div>
+	<!-- end of gumax-content-body -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<!-- ///// gumax-footer ///// -->
+	<div id="gumax-footer">
+		<!-- personal tools  -->
+		<div id="gumax-personal-tools">
+			<ul>
+					<li id="t-whatlinkshere"><a href="/index.php/Special:WhatLinksHere/DOM_based_XSS_Prevention_Cheat_Sheet">What links here</a></li>
+					<li id="t-recentchangeslinked"><a href="/index.php/Special:RecentChangesLinked/DOM_based_XSS_Prevention_Cheat_Sheet">Related changes</a></li>
+	<li id="t-specialpages"><a href="/index.php/Special:SpecialPages">Special pages</a></li>
+					<li id="t-permalink"><a href="/index.php?title=DOM_based_XSS_Prevention_Cheat_Sheet&amp;oldid=105706">Permanent link</a></li>
+			</ul>
+		</div>
+		<!-- end of personal tools  -->
+
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+	</div>
+	<!-- ///// end of gumax-footer ///// -->
+
+	</div>
+	<!-- end of gumax-content -->
+		</div>
+	</div></div></div>
+<div id="contentFootLeft"><div id="contentFootRight"><div id="contentFootCenter"></div></div></div>
+
+	<div id="gumax-spacer"><!-- --></div><a name="gumax-bottom"><!-- --></a>
+
+	<!-- gumax-f-list -->
+	<div id="gumax-f-list">
+		<ul>
+							<li id="privacy"><a href="/index.php/OWASP:Privacy_policy" title="OWASP:Privacy policy">Privacy policy</a></li>
+							<li id="about"><a href="/index.php/OWASP:About" title="OWASP:About">About OWASP</a></li>
+							<li id="disclaimer"><a href="/index.php/OWASP:General_disclaimer" title="OWASP:General disclaimer">Disclaimers</a></li>
+						<li id="f-poweredby"><a href="http://mediawiki.org">Powered by MediaWiki</a></li>
+		</ul>
+	</div>
+	<!-- end of gumax-f-list -->
+
+	<!-- gumax-f-message -->
+	<div id="gumax-f-message">
+		<span id="f-lastmod"> This page was last modified on 24 February 2011, at 09:54.</span>
+		<span id="f-viewcount">This page has been accessed 2,654 times. </span>
+			</div>
+	<!-- end of gumax-f-message -->
+
+</div>
+<!-- ===== end of gumax-page ===== -->
+
+</div> <!-- ##### end of gumax-wrapper ##### -->
+
+<!-- Served in 0.395 secs. --></body></html>

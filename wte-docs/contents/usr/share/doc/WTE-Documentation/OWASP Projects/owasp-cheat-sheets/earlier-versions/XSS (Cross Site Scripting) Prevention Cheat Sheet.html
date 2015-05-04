@@ -1,0 +1,578 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="MediaWiki 1.16.1" />
+<meta name="robots" content="noindex,follow" />
+<link rel="stylesheet" media="screen, projection" href="/extensions/HeaderTabs/skins/combined-min.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="OWASP (en)" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="OWASP Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />		<title>XSS (Cross Site Scripting) Prevention Cheat Sheet - OWASP</title>
+		<link rel="stylesheet" href="/skins/common/commonPrint.css?270" media="" />
+<link rel="stylesheet" href="/skins/gumaxvn/gumax_print.css?270" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Gumaxvn.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/skins/common/IEFixes.js?270"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script>
+var skin="gumaxvn",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="https://www.owasp.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet",
+wgTitle="XSS (Cross Site Scripting) Prevention Cheat Sheet",
+wgAction="view",
+wgArticleId=8079,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=107960,
+wgVersion="1.16.1",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OWASP", "5": "OWASP talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "owasp": 4, "owasp_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="OWASP",
+wgCategories=["OWASP Application Security Verification Standard Project", "OWASP Enterprise Security API", "How To", "Cheatsheets"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgFCKEditorDir="extensions/FCKeditor/fckeditor/",
+wgFCKEditorExtDir="extensions/FCKeditor",
+wgFCKEditorToolbarSet="Wiki",
+wgFCKEditorHeight="0";
+</script>
+		<script type="text/javascript" src="/skins/common/wikibits.js?270"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+<script type="text/javascript">
+function buildContent (blog) {
+    var MONTH_NAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    if (!blog || !blog.items) return;  var container=document.getElementById("container");
+    var code="";  for (var i = 0; i < blog.items.length; i++) {   var item = blog.items[i];
+    var date = new Date();    date.setTime( 4 + item.published * 1000 );
+    var datestring = MONTH_NAMES[date.getMonth()]+" "+(date.getDate());
+    code=code+"<div style='font-weight:bold'>"+datestring+" - ";    
+    code=code+"<a href='"+item.alternate.href+"'>"+item.title+"</a> (by ";
+    code=code+"<a href='"+item.origin.streamId.substring(5)+"'>"+item.author+"</a>)</div>";
+    var text=""+item.content;
+    if (text == "undefined" ) {
+	  text=item.summary;
+    }
+    code=code+"<div>"+text+"</div><br>";
+    }
+    container.innerHTML=code;
+}
+</script> 
+<script type="text/javascript">
+function build_bloglist(data) {
+  var container = document.getElementById('blogroll');
+  var list = document.createElement('div');
+  // Loop through all data items returned
+  for (var i=0; i < data.items.length; i++) {
+    var item = data.items[i];
+		var link = document.createElement('a');
+		link.appendChild(document.createTextNode(item.title));
+	link.href = item.id;
+    list.appendChild(link);
+    list.appendChild(document.createElement('br'));
+  }
+  container.appendChild(list);
+}
+</script>
+<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-725452-2");
+			pageTracker._initData();
+			pageTracker._trackPageview();
+			</script>
+
+<script src="/skins/common/ajax.js?270"></script>
+<script type="text/javascript">addOnloadHook(function() { 
+	var i = 1;
+	while ( true ) {
+		var btn = document.getElementById("languageselector-commit-"+i);
+		var sel = document.getElementById("languageselector-select-"+i);
+		var idx = i;
+
+		if (!btn) break;
+
+		btn.style.display = "none";
+		sel.onchange = function() {
+			node = this.parentNode;
+			while( true ) {
+				if( node.tagName.toLowerCase() == "form" ) {
+					node.submit();
+					break;
+				}
+				node = node.parentNode;
+			}
+		};
+
+		i++;
+	}
+});</script>
+<script type="text/javascript" src="/extensions/HeaderTabs/skins/combined-history-min.js"></script>
+		<script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=gumaxvn"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-XSS_Cross_Site_Scripting_Prevention_Cheat_Sheet skin-gumaxvn">
+
+
+<!-- ##### gumax-wrapper ##### -->
+<div id="gumax-wrapper">
+
+<!-- ===== gumax-page ===== -->
+<div class="gumax-page"><a name="gumax-top"><!-- --></a>
+
+	<!-- ///// gumax-header ///// -->
+    <div id="gumax-header">
+        <a name="top" id="contentTop"></a>
+        <!-- Login -->
+        <div id="gumax-p-login">
+            <ul>
+                            <li id="gumax-pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet&amp;returntoquery=printable%3Dyes">Log in</a>
+               </li>
+                         </ul>
+        </div>
+        <!-- end of Login -->        
+        <!-- gumax-p-logo -->
+        <div id="gumax-p-logo">
+            <div id="p-logo">
+            <a style="background-image: url(/skins/monobook/ologo.png);" href="/index.php/Main_Page" title="Main Page"></a>
+            </div>
+        </div>
+		<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+        <!-- end of gumax-p-logo -->
+		<!-- Search -->
+		<div id="gumax-p-search">
+			<div id="gumax-searchBody" class="gumax-pBody">
+				<form action="/index.php/Special:Search" id="searchform"><div>
+					<input id="searchInput" name="search" type="text" title="Search OWASP [f]" accesskey="f" value="" />
+					<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+					<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+				</div></form>
+			</div>
+		</div>
+		<!-- end of Search -->
+		<div class="gumax-visualClear"></div>
+    </div>
+	<!-- ///// end of gumax-header ///// -->
+
+<div id="gumax-spacer"><!-- --></div>
+<div id="contentHeadLeft"><div id="contentHeadRight"><div id="contentHeadCenter"></div></div></div>
+	<div id="contentBodyLeft"><div id="contentBodyRight"><div id="contentBodyCenter">
+		<div id="contentMain">
+<!-- gumax-content -->
+<div id="gumax-content">
+
+	<table class="gumax-caption" width="100%"><tr><td>
+		<!-- gumax-content-actions -->
+		<div id="gumax-content-actions">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" ><a href="/index.php/Talk:XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" ><a href="/index.php?title=XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history" ><a href="/index.php?title=XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+							</ul>
+		</div>
+		<!-- end of gumax-content-actions -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<table class="gumax-row" width="100%"><tr><td class="gumax-row-left" valign="top">
+
+    <!-- Navigation Menu -->
+    <div id="gumax-p-navigation">
+                    <div class='gumax-portlet'>
+                <h5>Navigation</h5>
+                    <ul>
+                                                    <li id="n-Home"><a href="/index.php/Main_Page">Home</a></li>
+                                                    <li id="n-News"><a href="/index.php/Application_Security_News">News</a></li>
+                                                    <li id="n-OWASP-Projects"><a href="/index.php/Category:OWASP_Project">OWASP Projects</a></li>
+                                                    <li id="n-Downloads"><a href="/index.php/Category:OWASP_Download">Downloads</a></li>
+                                                    <li id="n-Local-Chapters"><a href="/index.php/Category:OWASP_Chapter">Local Chapters</a></li>
+                                                    <li id="n-Global-Committees"><a href="https://www.owasp.org/index.php/Global_Committee_Pages">Global Committees</a></li>
+                                                    <li id="n-AppSec-Job-Board"><a href="http://www.owasp.org/index.php/OWASP_Jobs">AppSec Job Board</a></li>
+                                                    <li id="n-AppSec-Conferences"><a href="/index.php/Category:OWASP_AppSec_Conference">AppSec Conferences</a></li>
+                                                    <li id="n-Presentations"><a href="/index.php/Category:OWASP_Presentations">Presentations</a></li>
+                                                    <li id="n-Video"><a href="/index.php/Category:OWASP_Video">Video</a></li>
+                                                    <li id="n-Press"><a href="http://www.owasp.org/index.php/Press">Press</a></li>
+                                                    <li id="n-Get-OWASP-Books"><a href="http://stores.lulu.com/owasp">Get OWASP Books</a></li>
+                                                    <li id="n-Get-OWASP-Gear"><a href="http://www.rocksports-owasp.com">Get OWASP Gear</a></li>
+                                                    <li id="n-Mailing-Lists"><a href="http://lists.owasp.org/mailman/listinfo">Mailing Lists</a></li>
+                                                    <li id="n-About-OWASP"><a href="/index.php/About_OWASP">About OWASP</a></li>
+                                                    <li id="n-Membership"><a href="/index.php/Membership">Membership</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Reference</h5>
+                    <ul>
+                                                    <li id="n-How-To..."><a href="/index.php/Category:How_To">How To...</a></li>
+                                                    <li id="n-Principles"><a href="/index.php/Category:Principle">Principles</a></li>
+                                                    <li id="n-Threat-Agents"><a href="/index.php/Category:Threat_Agent">Threat Agents</a></li>
+                                                    <li id="n-Attacks"><a href="/index.php/Category:Attack">Attacks</a></li>
+                                                    <li id="n-Vulnerabilities"><a href="/index.php/Category:Vulnerability">Vulnerabilities</a></li>
+                                                    <li id="n-Controls"><a href="/index.php/Category:Control">Controls</a></li>
+                                                    <li id="n-Activities"><a href="/index.php/Category:Activity">Activities</a></li>
+                                                    <li id="n-Technologies"><a href="/index.php/Category:Technology">Technologies</a></li>
+                                                    <li id="n-Glossary"><a href="/index.php/Category:Glossary">Glossary</a></li>
+                                                    <li id="n-Code-Snippets"><a href="/index.php/Category:Code_Snippet">Code Snippets</a></li>
+                                                    <li id="n-.NET-Project"><a href="/index.php/Category:OWASP_.NET_Project">.NET Project</a></li>
+                                                    <li id="n-Java-Project"><a href="/index.php/Category:OWASP_Java_Project">Java Project</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Language</h5>
+                    <ul>
+                                                    <li id="n-languageselector" class="active" ><a href="https://www.owasp.org/index.php?title=XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet&amp;setlang=en">English</a></li>
+                                                    <li id="n-languageselector"><a href="https://www.owasp.org/index.php?title=XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet&amp;setlang=es">Español</a></li>
+                                            </ul>
+            </div>
+            </div>
+    <!-- end of Navigation Menu -->
+	</td><td class="gumax-row-right" valign="top">
+	<!-- gumax-article-picture -->
+    <!-- end of gumax-article-picture -->
+
+	<!-- gumax-content-body -->
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">XSS (Cross Site Scripting) Prevention Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Untrusted_Data"><span class="tocnumber">1.1</span> <span class="toctext">Untrusted Data</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Escaping_.28aka_Output_Encoding.29"><span class="tocnumber">1.2</span> <span class="toctext">Escaping (aka Output Encoding)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Injection_Theory"><span class="tocnumber">1.3</span> <span class="toctext">Injection Theory</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#A_Positive_XSS_Prevention_Model"><span class="tocnumber">1.4</span> <span class="toctext">A Positive XSS Prevention Model</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Why_Can.27t_I_Just_HTML_Entity_Encode_Untrusted_Data.3F"><span class="tocnumber">1.5</span> <span class="toctext">Why Can't I Just HTML Entity Encode Untrusted Data?</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#You_Need_a_Security_Encoding_Library"><span class="tocnumber">1.6</span> <span class="toctext">You Need a Security Encoding Library</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#XSS_Prevention_Rules"><span class="tocnumber">2</span> <span class="toctext">XSS Prevention Rules</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#RULE_.230_-_Never_Insert_Untrusted_Data_Except_in_Allowed_Locations"><span class="tocnumber">2.1</span> <span class="toctext">RULE #0 - Never Insert Untrusted Data Except in Allowed Locations</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#RULE_.231_-_HTML_Escape_Before_Inserting_Untrusted_Data_into_HTML_Element_Content"><span class="tocnumber">2.2</span> <span class="toctext">RULE #1 - HTML Escape Before Inserting Untrusted Data into HTML Element Content</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#RULE_.232_-_Attribute_Escape_Before_Inserting_Untrusted_Data_into_HTML_Common_Attributes"><span class="tocnumber">2.3</span> <span class="toctext">RULE #2 - Attribute Escape Before Inserting Untrusted Data into HTML Common Attributes</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#RULE_.233_-_JavaScript_Escape_Before_Inserting_Untrusted_Data_into_HTML_JavaScript_Data_Values"><span class="tocnumber">2.4</span> <span class="toctext">RULE #3 - JavaScript Escape Before Inserting Untrusted Data into HTML JavaScript Data Values</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#RULE_.234_-_CSS_Escape_Before_Inserting_Untrusted_Data_into_HTML_Style_Property_Values"><span class="tocnumber">2.5</span> <span class="toctext">RULE #4 - CSS Escape Before Inserting Untrusted Data into HTML Style Property Values</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#RULE_.235_-_URL_Escape_Before_Inserting_Untrusted_Data_into_HTML_URL_Parameter_Values"><span class="tocnumber">2.6</span> <span class="toctext">RULE #5 - URL Escape Before Inserting Untrusted Data into HTML URL Parameter Values</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#RULE_.236_-_Use_an_HTML_Policy_engine_to_validate_or_clean_user-driven_HTML_in_an_outbound_way"><span class="tocnumber">2.7</span> <span class="toctext">RULE #6 - Use an HTML Policy engine to validate or clean user-driven HTML in an outbound way</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#RULE_.237_-_Prevent_DOM-based_XSS"><span class="tocnumber">2.8</span> <span class="toctext">RULE #7 - Prevent DOM-based XSS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#Encoding_Information"><span class="tocnumber">3</span> <span class="toctext">Encoding Information</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Additional_XSS_Defense_.28HTTPOnly_cookie_flag.29"><span class="tocnumber">4</span> <span class="toctext">Additional XSS Defense (HTTPOnly cookie flag)</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#Related_Articles"><span class="tocnumber">5</span> <span class="toctext">Related Articles</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#Authors_and_Primary_Editors"><span class="tocnumber">6</span> <span class="toctext">Authors and Primary Editors</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>This article provides a simple positive model for preventing <a href="/index.php/XSS" title="XSS" class="mw-redirect">XSS</a> using output escaping/encoding properly. While there are a huge number of XSS attack vectors, following a few simple rules can completely defend against this serious attack. This article does not explore the technical or business impact of XSS. Suffice it to say that it can lead to an attacker gaining the ability to do anything a victim can do through their browser.
+</p><p>These rules apply to all the different varieties of XSS. Both <a href="/index.php/XSS#Stored_and_Reflected_XSS_Attacks" title="XSS" class="mw-redirect"> reflected and stored XSS</a> can be addressed by performing the appropriate escaping on the server-side. The use of an escaping/encoding library like the one in <a href="/index.php/ESAPI" title="ESAPI" class="mw-redirect">ESAPI</a> is strongly recommended as there are many special cases. <a href="/index.php/DOM_Based_XSS" title="DOM Based XSS">DOM Based XSS</a> can be addressed by applying these rules on the client on untrusted data.
+</p><p>For a great cheatsheet on the attack vectors related to XSS, please refer to the excellent <a href="http://ha.ckers.org/xss.html" class="external text" rel="nofollow">XSS Cheat Sheet</a> by RSnake. More background on browser security and the various browsers can be found in the <a href="http://code.google.com/p/browsersec/" class="external text" rel="nofollow">Browser Security Handbook</a>.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Untrusted_Data"> Untrusted Data </span></h2>
+<p>Untrusted data is most often data that comes from the HTTP request, in the form of URL parameters, form fields, headers, or cookies. But data that comes from databases, web services, and other sources is frequently untrusted from a security perspective.  That is, it might not have been perfectly validated. The <a href="/index.php/Searching_for_Code_in_J2EE/Java" title="Searching for Code in J2EE/Java">OWASP Code Review Guide</a> has a decent list of methods that return untrusted data in various languages, but you should be careful about your own methods as well.
+</p><p>Untrusted data should always be treated as though it contains an attack. That means you should not send it <b>anywhere</b> without taking steps to make sure that any attacks are detected and neutralized. As applications get more and more interconnected, the likelihood of a buried attack being decoded or executed by a downstream interpreter increases rapidly.
+</p><p>Traditionally, <a href="/index.php/Data_Validation" title="Data Validation">input validation</a> has been the preferred approach for handling untrusted data. However, input validation is not a great solution for injection attacks. First, input validation is typically done when the data is received, before the destination is known. That means that we don't know which characters might be significant in the target interpreter.  Second, and possibly even more importantly, applications must allow potentially harmful characters in. For example, should poor Mr. O'Malley be prevented from registering in the database simply because SQL considers ' a special character?
+</p><p>While input validation is important and should always be performed, it is not a complete solution for injection attacks. It's better to think of input validation as <a href="/index.php/Defense_in_depth" title="Defense in depth">defense in depth</a> and use <b>escaping</b> as described below as the primary defense.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Escaping_.28aka_Output_Encoding.29"> Escaping (aka Output Encoding) </span></h2>
+<p>"<a href="http://www.w3.org/TR/charmod/#sec-Escaping" class="external text" rel="nofollow">Escaping</a>" is a technique used to ensure that characters are treated as data, not as characters that are relevant to the interpreter's parser. There are lots of different types of escaping, sometimes confusingly called output "encoding."  Some of these techniques define a special "escape" character, and other techniques have a more sophisticated syntax that involves several characters.
+</p><p>Do not confuse output escaping with the notion of Unicode character <a href="http://www.w3.org/TR/charmod/#sec-Digital" class="external text" rel="nofollow">encoding</a>, which involves mapping a Unicode character to a sequence of bits. This level of encoding is automatically decoded, and does <b>not</b> defuse attacks. However, if there are misunderstandings about the intended charset between the server and browser, it may cause unintended characters to be communicated, possibly enabling XSS attacks. This is why it is still important to <a href="http://www.w3.org/TR/charmod/#sec-Encodings" class="external text" rel="nofollow">specify</a> the Unicode character encoding (charset), such as UTF-8, for all communications.
+</p><p>Escaping is the primary means to make sure that untrusted data can't be used to convey an injection attack. There is <b>no harm</b> in escaping data properly - it will still render in the browser properly. Escaping simply lets the interpreter know that the data is not intended to be executed, and therefore prevents attacks from working.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Injection_Theory"> Injection Theory </span></h2>
+<p><a href="/index.php/Injection_Flaws" title="Injection Flaws">Injection</a> is an attack that involves breaking out of a data context and switching into a code context through the use of special characters that are significant in the interpreter being used. A data context is like &lt;div&gt;data context&lt;/div&gt;. If the attacker's data gets placed into the data context, they might break out like this &lt;div&gt;data &lt; script&gt;alert("attack")&lt;/script&gt; context&lt;/div&gt;.
+</p><p>XSS is a form of injection where the interpreter is the browser and attacks are buried in an HTML document. HTML is easily the worst mashup of code and data of all time, as there are so many possible places to put code and so many different valid encodings. HTML is particularly difficult because it is not only hierarchical, but also contains many different parsers (XML, HTML, JavaScript, VBScript, CSS, URL, etc...).
+</p><p>To really understand what's going on with XSS, you have to consider injection into the hierarchical structure of the <a href="http://www.w3schools.com/HTMLDOM/default.asp" class="external text" rel="nofollow">HTML DOM</a>. Given a place to insert data into an HTML document (that is, a place where a developer has allowed untrusted data to be included in the DOM), there are two ways to inject code:
+</p>
+<dl><dt>Injecting UP</dt><dd>The most common way is to close the current context and start a new code context.  For example, this is what you do when you close an HTML attribute with a "&gt; and start a new &lt;script&gt; tag. This attack closes the original context (going up in the hierarchy) and then starts a new tag that will allow script code to execute. Remember that you may be able to skip many layers up in the hierarchy when trying to break out of your current context. For example, a &lt;/script&gt; tag may be able to terminate a script block even if it is injected inside a quoted string inside a method call inside the script. This happens because the HTML parser runs before the JavaScript parser.
+</dd></dl>
+<dl><dt>Injecting DOWN</dt><dd>The less common way to perform XSS injection is to introduce a code subcontext without closing the current context. For example, if the attacker is able to change &lt;img src="...UNTRUSTED DATA HERE..." /&gt; into &lt; img src="javascript:alert(document.cookie)" /&gt; they do not have to break out of the HTML attribute context.  Instead, they introduce a subcontext that allows scripting within the src attribute (in this case a javascript url). Another example is the expression() functionality in CSS properties. Even though you may not be able to escape a quoted CSS property to inject up, you may be able to introduce something like xss:expression(document.write(document.cookie)) without ever leaving the current context.
+</dd></dl>
+<p>There's also the possibility of injecting directly in the current context. For example, if you take untrusted input and put it directly into a JavaScript context. While insane, accepting code from an attacker is more common than you might think in modern applications. Generally it is impossible to secure untrusted code with escaping (or anything else). If you do this, your application is just a conduit for attacker code to get running in your users' browsers.
+</p><p>The rules in this document have been designed to prevent both UP and DOWN varieties of XSS injection. To prevent injecting up, you must escape the characters that would allow you to close the current context and start a new one. To prevent attacks that jump up several levels in the DOM hierarchy, you must also escape all the characters that are significant in all enclosing contexts.  To prevent injecting down, you must escape any characters that can be used to introduce a new sub-context within the current context.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="A_Positive_XSS_Prevention_Model"> A Positive XSS Prevention Model </span></h2>
+<p>This article treats an HTML page like a template, with slots where a developer is allowed to put untrusted data. These slots cover the vast majority of the common places where a developer might want to put untrusted data. Putting untrusted data in other places in the HTML is not allowed. This is a "whitelist" model, that denies everything that is not specifically allowed.
+</p><p>Given the way browsers parse HTML, each of the different types of slots has slightly different security rules. When you put untrusted data into these slots, you need to take certain steps to make sure that the data does not break out of that slot into a context that allows code execution. In a way, this approach treats an HTML document like a parameterized database query - the data is kept in specific places and is isolated from code contexts with escaping.
+</p><p>This document sets out the most common types of slots and the rules for putting untrusted data into them safely. Based on the various specifications, known XSS vectors, and a great deal of manual testing with all the popular browsers, we have determined that the rule proposed here are safe.
+</p><p>The slots are defined and a few examples of each are provided. Developers SHOULD NOT put data into any other slots without a very careful analysis to ensure that what they are doing is safe. Browser parsing is extremely tricky and many innocuous looking characters can be significant in the right context.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Why_Can.27t_I_Just_HTML_Entity_Encode_Untrusted_Data.3F"> Why Can't I Just HTML Entity Encode Untrusted Data? </span></h2>
+<p>HTML entity encoding is okay for untrusted data that you put in the body of the HTML document, such as inside a &lt;div&gt; tag.  It even sort of works for untrusted data that goes into attributes, particularly if you're religious about using quotes around your attributes.  But HTML entity encoding doesn't work if you're putting untrusted data inside a &lt;script&gt; tag anywhere, or an event handler attribute like onmouseover, or inside CSS, or in a URL.  So even if you use an HTML entity encoding method everywhere, you are still most likely vulnerable to XSS.  <b>You MUST use the escape syntax for the part of the HTML document you're putting untrusted data into.</b>  That's what the rules below are all about.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="You_Need_a_Security_Encoding_Library"> You Need a Security Encoding Library </span></h2>
+<p>Writing these encoders is not tremendously difficult, but there are quite a few hidden pitfalls. For example, you might be tempted to use some of the escaping shortcuts like \" in JavaScript. However, these values are dangerous and may be misinterpreted by the nested parsers in the browser. You might also forget to escape the escape character, which attackers can use to neutralize your attempts to be safe. OWASP recommends using a security-focused encoding library to make sure these rules are properly implemented.
+</p><p>The OWASP <a href="/index.php/ESAPI" title="ESAPI" class="mw-redirect">ESAPI</a> project has created an escaping library in a variety of languages including Java, .NET, PHP, Classic ASP, Cold Fusion, Python, and Haskell. The ESAPI library can be used for escaping as described here and also for decoding (aka canonicalization), which is critical for input validation.  Microsoft provides an encoding library named <a href="http://www.codeplex.com/AntiXSS" class="external text" rel="nofollow">AntiXSS</a>.
+</p>
+<h1> <span class="mw-headline" id="XSS_Prevention_Rules"> XSS Prevention Rules </span></h1>
+<p>The following rules are intended to prevent all XSS in your application. While these rules do not allow absolute freedom in putting untrusted data into an HTML document, they should cover the vast majority of common use cases. You do not have to allow <b>all</b> the rules in your organization. Many organizations may find that <b>allowing only Rule #1 and Rule #2 are sufficient for their needs</b>. Please add a note to the discussion page if there is an additional context that is often required and can be secured with escaping.
+</p><p>Do NOT simply escape the list of example characters provided in the various rules. It is NOT sufficient to escape only that list. Blacklist approaches are quite fragile.  The whitelist rules here have been carefully designed to provide protection even against future vulnerabilities introduced by browser changes.
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="RULE_.230_-_Never_Insert_Untrusted_Data_Except_in_Allowed_Locations"> RULE #0 - Never Insert Untrusted Data Except in Allowed Locations </span></h2>
+<p>The first rule is to <b>deny all</b> - don't put untrusted data into your HTML document unless it is within one of the slots defined in Rule #1 through Rule #5. The reason for Rule #0 is that there are so many strange contexts within HTML that the list of escaping rules gets very complicated. We can't think of any good reason to put untrusted data in these contexts.
+</p>
+<pre> &lt;script&gt;<b>...NEVER PUT UNTRUSTED DATA HERE...</b>&lt;/script&gt;   directly in a script
+ 
+ &lt;!--<b>...NEVER PUT UNTRUSTED DATA HERE...</b>--&gt;             inside an HTML comment
+ 
+ &lt;div <b>...NEVER PUT UNTRUSTED DATA HERE...</b>=test /&gt;       in an attribute name
+ 
+ &lt;<b>NEVER PUT UNTRUSTED DATA HERE...</b> href="/test" /&gt;   in a tag name
+</pre>
+<p>Most importantly, never accept actual JavaScript code from an untrusted source and then run it. For example, a parameter named "callback" that contains a JavaScript code snippet.  No amount of escaping can fix that.
+</p>
+<h2> <span class="mw-headline" id="RULE_.231_-_HTML_Escape_Before_Inserting_Untrusted_Data_into_HTML_Element_Content"> RULE #1 - HTML Escape Before Inserting Untrusted Data into HTML Element Content </span></h2>
+<p>Rule #1 is for when you want to put untrusted data directly into the HTML body somewhere. This includes inside normal tags like div, p, b, td, etc. Most web frameworks have a method for HTML escaping for the characters detailed below. However, this is <b>absolutely not sufficient for other HTML contexts.</b>  You need to implement the other rules detailed here as well.
+</p>
+<pre> &lt;body&gt;<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...</b>&lt;/body&gt;
+ 
+ &lt;div&gt;<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...</b>&lt;/div&gt;
+ 
+ any other normal HTML elements
+</pre>
+<p>Escape the following characters with HTML entity encoding to prevent switching into any execution context, such as script, style, or event handlers. Using hex entities is recommended in the spec. In addition to the 5 characters significant in XML (&amp;, &lt;, &gt;, ", '), the forward slash is included as it helps to end an HTML entity.
+</p>
+<pre> &amp; --&gt; &amp;amp;
+ &lt; --&gt; &amp;lt;
+ &gt; --&gt; &amp;gt;
+ " --&gt; &amp;quot;
+ ' --&gt; &amp;#x27;     &amp;apos; is not recommended
+ / --&gt; &amp;#x2F;     forward slash is included as it helps end an HTML entity
+</pre>
+<p>See the <a href="http://code.google.com/p/owasp-esapi-java/source/browse/trunk/src/main/java/org/owasp/esapi/codecs/HTMLEntityCodec.java" class="external text" rel="nofollow">ESAPI reference implementation</a> of HTML entity escaping and unescaping.
+</p>
+<pre> String safe = ESAPI.encoder().encodeForHTML( request.getParameter( "input" ) );
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="RULE_.232_-_Attribute_Escape_Before_Inserting_Untrusted_Data_into_HTML_Common_Attributes"> RULE #2 - Attribute Escape Before Inserting Untrusted Data into HTML Common Attributes </span></h2>
+<p>Rule #2 is for putting untrusted data into typical attribute values like width, name, value, etc. This should not be used for complex attributes like href, src, style, or any of the event handlers like onmouseover.  It is extremely important that event handler attributes should follow Rule #3 for HTML JavaScript Data Values.
+</p>
+<pre> &lt;div attr=<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...</b>&gt;content&lt;/div&gt;     inside UNquoted attribute
+ 
+ &lt;div attr='<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...'</b>&gt;content&lt;/div&gt;   inside single quoted attribute
+ 
+ &lt;div attr="<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...</b>"&gt;content&lt;/div&gt;   inside double quoted attribute
+</pre>
+<p>Except for alphanumeric characters, escape all characters with ASCII values less than 256 with the &amp;#xHH; format (or a named entity if available) to prevent switching out of the attribute. The reason this rule is so broad is that developers frequently leave attributes unquoted.  Properly quoted attributes can only be escaped with the corresponding quote. Unquoted attributes can be broken out of with many characters, including [space]&nbsp;% * + , - /&nbsp;; &lt; = &gt; ^ and |.
+</p><p>See the <a href="http://code.google.com/p/owasp-esapi-java/source/browse/trunk/src/main/java/org/owasp/esapi/codecs/HTMLEntityCodec.java" class="external text" rel="nofollow">ESAPI reference implementation</a> of HTML entity escaping and unescaping.
+</p>
+<pre> String safe = ESAPI.encoder().encodeForHTMLAttribute( request.getParameter( "input" ) );
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="RULE_.233_-_JavaScript_Escape_Before_Inserting_Untrusted_Data_into_HTML_JavaScript_Data_Values"> RULE #3 - JavaScript Escape Before Inserting Untrusted Data into HTML JavaScript Data Values </span></h2>
+<p>Rule #3 concerns the JavaScript event handlers that are specified on various HTML elements. The only safe place to put untrusted data into these event handlers as a quoted "data value."  Including untrusted data inside any other code block is quite dangerous, as it is very easy to switch into an execution context, so use with caution.
+</p>
+<pre> &lt;script&gt;alert('<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...'</b>)&lt;/script&gt;     inside a quoted string
+ 
+ &lt;script&gt;x='<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...'</b>&lt;/script&gt;          one side of a quoted expression
+ 
+ &lt;div onmouseover="x='<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...'</b>"&lt;/div&gt;  inside quoted event handler
+</pre>
+<p>Please note there are some JavaScript functions that can never safely use untrusted data as input - <b>EVEN IF JAVASCRIPT ESCAPED</b>! 
+</p><p>For example:
+</p>
+<pre> &lt;script&gt;
+ window.setInterval('<b>...EVEN IF YOU ESCAPE UNTRUSTED DATA YOU ARE XSSED HERE...'</b>);
+ &lt;/script&gt;
+</pre>
+<p>Except for alphanumeric characters, escape all characters less than 256 with the \xHH format to prevent switching out of the data value into the script context or into another attribute. Do not use any escaping shortcuts like \" because the quote character may be matched by the HTML attribute parser which runs first.  If an event handler is quoted, breaking out requires the corresponding quote. The reason this rule is so broad is that developers frequently leave event handler attributes unquoted.  Properly quoted attributes can only be escaped with the corresponding quote. Unquoted attributes can be broken out of with many characters including [space]&nbsp;% * + , - /&nbsp;; &lt; = &gt; ^ and |. Also, a &lt;/script&gt; closing tag will close a script block even though it is inside a quoted string because the HTML parser runs before the JavaScript parser.
+</p><p>See the <a href="http://code.google.com/p/owasp-esapi-java/source/browse/trunk/src/main/java/org/owasp/esapi/codecs/JavaScriptCodec.java" class="external text" rel="nofollow">ESAPI reference implementation</a> of JavaScript escaping and unescaping.
+</p>
+<pre> String safe = ESAPI.encoder().encodeForJavaScript( request.getParameter( "input" ) );
+</pre>
+<h2> <span class="mw-headline" id="RULE_.234_-_CSS_Escape_Before_Inserting_Untrusted_Data_into_HTML_Style_Property_Values"> RULE #4 - CSS Escape Before Inserting Untrusted Data into HTML Style Property Values </span></h2>
+<p>Rule #4 is for when you want to put untrusted data into a stylesheet or a style tag. CSS is surprisingly powerful, and can be used for numerous attacks. Therefore, it's important that you only use untrusted data in a property <b>value</b> and not into other places in style data. You should stay away from putting untrusted data into complex properties like url, behavior, and custom (-moz-binding). You should also not put untrusted data into IE’s expression property value which allows JavaScript.
+</p>
+<pre> &lt;style&gt;selector { property&nbsp;: <b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...</b>; } &lt;/style&gt;     property value<br />
+ &lt;style&gt;selector { property&nbsp;: &quot;<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...</b>&quot;; } &lt;/style&gt;   property value<br />
+ &lt;span style=&quot;property&nbsp;: <b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...</b>&quot;&gt;text&lt;/style&gt;       property value
+</pre>
+<p>Except for alphanumeric characters, escape all characters with ASCII values less than 256 with the \HH escaping format. Do not use any escaping shortcuts like \" because the quote character may be matched by the HTML attribute parser which runs first. Prevent switching out of the property value and into another property or attribute. Also prevent switching into an expression or other property value that allows scripting. If attribute is quoted, breaking out requires the corresponding quote.  All attributes should be quoted but your encoding should be strong enough to prevent XSS when untrusted data is placed in unquoted contexts. Unquoted attributes can be broken out of with many characters including [space]&nbsp;% * + , - /&nbsp;; &lt; = &gt; ^ and |.  Also, the &lt;/style&gt; tag will close the style block even though it is inside a quoted string because the HTML parser runs before the JavaScript parser. Please note that we recommend aggressive CSS encoding to prevent XSS attacks for both quoted and unquoted attributes.
+</p><p>See the <a href="http://code.google.com/p/owasp-esapi-java/source/browse/trunk/src/main/java/org/owasp/esapi/codecs/CSSCodec.java" class="external text" rel="nofollow">ESAPI reference implementation</a> of CSS escaping and unescaping.
+</p>
+<pre> String safe = ESAPI.encoder().encodeForCSS( request.getParameter( "input" ) );
+</pre>
+<h2> <span class="mw-headline" id="RULE_.235_-_URL_Escape_Before_Inserting_Untrusted_Data_into_HTML_URL_Parameter_Values"> RULE #5 - URL Escape Before Inserting Untrusted Data into HTML URL Parameter Values </span></h2>
+<p>Rule #5 is for when you want to put untrusted data into HTTP GET parameter value. 
+</p>
+<pre> &lt;a href="http&#x3a;&#x2f;&#x2f;www.somesite.com&#x3f;test&#x3d;<b>...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE..."</b>&gt;link&lt;/a &gt;       
+</pre>
+<p>Except for alphanumeric characters, escape all characters with ASCII values less than 256 with the&nbsp;%HH escaping format.  Including untrusted data in data: URLs should not be allowed as there is no good way to disable attacks with escaping to prevent switching out of the URL. All attributes should be quoted. Unquoted attributes can be broken out of with many characters including [space]&nbsp;% * + , - /&nbsp;; &lt; = &gt; ^ and |. Note that entity encoding is useless in this context.
+</p><p>See the <a href="http://code.google.com/p/owasp-esapi-java/source/browse/trunk/src/main/java/org/owasp/esapi/codecs/PercentCodec.java" class="external text" rel="nofollow">ESAPI reference implementation</a> of URL escaping and unescaping.
+</p>
+<pre> String safe = ESAPI.encoder().encodeForURL( request.getParameter( "input" ) );
+</pre>
+<p>WARNING: Do not encode complete or relative URL's with URL encoding! If untrusted input is meant to be placed into href, src or other URL-based attributes, it should be validated to make sure it does not point to an unexpected protocol, especially Javascript links. URL's should then be encoded based on the context of display like any other piece of data. For example, user driven URL's in HREF links should be attribute encoded. For example:
+</p>
+<pre> String userURL = request.getParameter( "userURL" )
+ boolean isValidURL = ESAPI.validator().isValidInput("URLContext", userURL, "URL", 255, false); 
+ if (isValidURL) {  
+     &lt;a href="&lt;%=encoder.encodeForHTMLAttribute(userURL)%&gt;"&gt;link&lt;/a&gt;
+ }
+</pre>
+<h2> <span class="mw-headline" id="RULE_.236_-_Use_an_HTML_Policy_engine_to_validate_or_clean_user-driven_HTML_in_an_outbound_way"> RULE #6 - Use an HTML Policy engine to validate or clean user-driven HTML in an outbound way </span></h2>
+<pre>  import org.owasp.validator.html.*;
+  Policy policy = Policy.getInstance(POLICY_FILE_LOCATION);
+  AntiSamy as = new AntiSamy();
+  CleanResults cr = as.scan(dirtyInput, policy);
+  MyUserDAO.storeUserProfile(cr.getCleanHTML()); // some custom function
+</pre>
+<h2> <span class="mw-headline" id="RULE_.237_-_Prevent_DOM-based_XSS"> RULE #7 - Prevent DOM-based XSS  </span></h2>
+<p>For details on what DOM-based XSS is, and defenses against this type of XSS flaw, please see the OWASP article on <a href="/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM_based_XSS_Prevention_Cheat_Sheet</a>.
+</p>
+<h1> <span class="mw-headline" id="Encoding_Information"> Encoding Information </span></h1>
+<p><a href="http://code.google.com/p/owasp-development-guide/wiki/WebAppSecDesignGuide_D6" class="external text" rel="nofollow">OWASP Development Guide</a>
+</p>
+<h1> <span class="mw-headline" id="Additional_XSS_Defense_.28HTTPOnly_cookie_flag.29"> Additional XSS Defense (HTTPOnly cookie flag)</span></h1>
+<p>Preventing all XSS flaws in an application is hard, as you can see. To help mitigate the impact of an XSS flaw on your site, OWASP also recommends you set the HTTPOnly flag on your session cookie and any custom cookies you have that are not accessed by any Javascript you wrote. This cookie flag is typically on by default in .NET apps, but in other languages you have to set it manually.
+</p><p>For more details on the HTTPOnly cookie flag, including what it does, and how to use it, see the OWASP article on <a href="/index.php/HTTPOnly" title="HTTPOnly" class="mw-redirect">HTTPOnly</a>.
+</p>
+<h1> <span class="mw-headline" id="Related_Articles">Related Articles</span></h1>
+<p><b>XSS Attack Cheat Sheet</b>
+</p><p>The following article describes how to exploit different kinds of XSS Vulnerabilities that this article was created to help you avoid:
+</p>
+<ul><li> RSnake: "XSS Cheat Sheet" - <a href="http://ha.ckers.org/xss.html" class="external free" rel="nofollow">http://ha.ckers.org/xss.html</a>
+</li></ul>
+<p><b>Description of XSS Vulnerabilities</b>
+</p>
+<ul><li> OWASP article on <a href="/index.php/XSS" title="XSS" class="mw-redirect">XSS</a> Vulnerabilities
+</li></ul>
+<p><b>How to Review Code for Cross-site scripting Vulnerabilities</b>
+</p>
+<ul><li> <a href="/index.php/Category:OWASP_Code_Review_Project" title="Category:OWASP Code Review Project">OWASP Code Review Guide</a> article on <a href="/index.php/Reviewing_Code_for_Cross-site_scripting" title="Reviewing Code for Cross-site scripting">Reviewing Code for Cross-site scripting</a> Vulnerabilities
+</li></ul>
+<p><b>How to Test for Cross-site scripting  Vulnerabilities</b>
+</p>
+<ul><li> <a href="/index.php/Category:OWASP_Testing_Project" title="Category:OWASP Testing Project" class="mw-redirect">OWASP Testing Guide</a> article on <a href="/index.php/Testing_for_Cross_site_scripting" title="Testing for Cross site scripting">Testing for Cross site scripting</a> Vulnerabilities
+</li></ul>
+<p><b>Other Articles in the OWASP Prevention Cheat Sheet Series</b>
+</p>
+<ul><li> <a href="/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <a href="/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" title="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+</li><li> <a href="/index.php/Cryptographic_Storage_Cheat_Sheet" title="Cryptographic Storage Cheat Sheet">Cryptographic Storage Cheat Sheet</a>
+</li><li> <a href="/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="SQL Injection Prevention Cheat Sheet">SQL Injection Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</li><li> <strong class="selflink">XSS (Cross Site Scripting) Prevention Cheat Sheet</strong>
+</li><li> <a href="/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM based XSS Prevention Cheat Sheet</a>
+</li></ul>
+<h1> <span class="mw-headline" id="Authors_and_Primary_Editors"> Authors and Primary Editors  </span></h1>
+<p>Jeff Williams - jeff.williams[at]aspectsecurity.com
+</p><p>Jim Manico - jim[at]manico.net
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 135/1000000
+Post-expand include size: 421/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key owasp_wiki_022011:pcache:idhash:8079-0!1!0!!en!2!edit=0!printable=1 and timestamp 20110528232440 -->
+<div class="printfooter">
+Retrieved from "<a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet">https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir='ltr'><a href="/index.php/Category:OWASP_Application_Security_Verification_Standard_Project" title="Category:OWASP Application Security Verification Standard Project">OWASP Application Security Verification Standard Project</a></span> | <span dir='ltr'><a href="/index.php/Category:OWASP_Enterprise_Security_API" title="Category:OWASP Enterprise Security API">OWASP Enterprise Security API</a></span> | <span dir='ltr'><a href="/index.php/Category:How_To" title="Category:How To">How To</a></span> | <span dir='ltr'><a href="/index.php/Category:Cheatsheets" title="Category:Cheatsheets">Cheatsheets</a></span></div></div>			<!-- end content -->
+						<div class="gumax-visualClear"></div>
+		</div>
+
+
+	</div>
+	<!-- end of content -->
+	</div>
+	<!-- end of gumax-content-body -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<!-- ///// gumax-footer ///// -->
+	<div id="gumax-footer">
+		<!-- personal tools  -->
+		<div id="gumax-personal-tools">
+			<ul>
+					<li id="t-whatlinkshere"><a href="/index.php/Special:WhatLinksHere/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet">What links here</a></li>
+					<li id="t-recentchangeslinked"><a href="/index.php/Special:RecentChangesLinked/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet">Related changes</a></li>
+	<li id="t-specialpages"><a href="/index.php/Special:SpecialPages">Special pages</a></li>
+					<li id="t-permalink"><a href="/index.php?title=XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet&amp;oldid=107960">Permanent link</a></li>
+			</ul>
+		</div>
+		<!-- end of personal tools  -->
+
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+	</div>
+	<!-- ///// end of gumax-footer ///// -->
+
+	</div>
+	<!-- end of gumax-content -->
+		</div>
+	</div></div></div>
+<div id="contentFootLeft"> <div id="contentFootRight"> <div id="contentFootCenter"></div></div></div>
+
+	<div id="gumax-spacer"><!-- --></div><a name="gumax-bottom"><!-- --></a>
+
+	<!-- gumax-f-list -->
+	<div id="gumax-f-list">
+		<ul>
+							<li id="privacy"><a href="/index.php/OWASP:Privacy_policy" title="OWASP:Privacy policy">Privacy policy</a></li>
+							<li id="about"><a href="/index.php/OWASP:About" title="OWASP:About">About OWASP</a></li>
+							<li id="disclaimer"><a href="/index.php/OWASP:General_disclaimer" title="OWASP:General disclaimer">Disclaimers</a></li>
+						<li id="f-poweredby"><a href="http://mediawiki.org">Powered by MediaWiki</a> OWASP Foundation &#169; 2011  <a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="https://www.owasp.org/images/f/fa/Somerights20.png" alt="a Creative Commons 3.0 License" width="88" height="31" /></a> </li>
+		</ul>
+	</div>
+	<!-- end of gumax-f-list -->
+
+	<!-- gumax-f-message -->
+	<div id="gumax-f-message">
+		<span id="f-lastmod"> This page was last modified on 31 March 2011, at 06:41.</span>
+		<span id="f-viewcount">This page has been accessed 298,168 times. </span>
+			</div>
+	<!-- end of gumax-f-message -->
+
+</div>
+<!-- ===== end of gumax-page ===== -->
+
+</div> <!-- ##### end of gumax-wrapper ##### -->
+
+<!-- Served in 0.158 secs. --></body></html>

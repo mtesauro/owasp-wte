@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=OWASP WTE Documentation
+Exec=wte-doc-launcher
+GenericName=OWASP WTE Documentation
+Icon=owasp-wte-doc-icon.png
+Categories=OWASP;

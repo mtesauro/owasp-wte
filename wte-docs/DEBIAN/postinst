@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Register the icons needed for owasp-wte-doc and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-doc/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-doc/owasp-wte-doc-icon.png owasp-wte-doc-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-doc/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-doc/owasp-wte-doc.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-doc

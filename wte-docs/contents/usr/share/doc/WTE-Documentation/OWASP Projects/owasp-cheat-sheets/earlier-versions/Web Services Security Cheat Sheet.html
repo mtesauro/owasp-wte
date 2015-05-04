@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" dir="ltr" lang="en"><head>
+		<title>Web Service Security Cheat Sheet - OWASP</title>
+		</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Web_Service_Security_Cheat_Sheet skin-gumaxvn">
+
+
+<!-- ##### gumax-wrapper ##### -->
+<div id="gumax-wrapper">
+
+<!-- ===== gumax-page ===== -->
+<div class="gumax-page"><a name="gumax-top"><!-- --></a>
+
+
+<div id="contentMain">
+<!-- gumax-content -->
+<div id="gumax-content">
+
+		<table class="gumax-row" width="100%"><tbody><tr><td class="gumax-row-left" valign="top">
+
+    
+	</td><td class="gumax-row-right" valign="top">
+	<!-- gumax-article-picture -->
+    <!-- end of gumax-article-picture -->
+
+	<!-- gumax-content-body -->
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Web Service Security Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+			
+<h1> <span class="mw-headline" id="Introduction"> Introduction  </span></h1>
+<p>This article is focused on providing guidance to securing web services and preventing web services related attacks. 
+</p>
+<h2> <span class="mw-headline" id="1._Transport_Confidentiality"> 1. Transport Confidentiality  </span></h2>
+<p>All communication with and between web services containing sensitive 
+features, an authenticated session, or transfer of sensitive data must 
+be encrypted using well configured TLS. For more information see <a href="https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</p>
+<h2> <span class="mw-headline" id="2._Transport_Authentication"> 2. Transport Authentication  </span></h2>
+<h2> <span class="mw-headline" id="3._Transport_Encoding"> 3. Transport Encoding  </span></h2>
+<h2> <span class="mw-headline" id="4._Message_Authentication"> 4. Message Authentication  </span></h2>
+<h2> <span class="mw-headline" id="5._Message_Integrity"> 5. Message Integrity  </span></h2>
+<h2> <span class="mw-headline" id="6._Message_Confidentiality"> 6. Message Confidentiality  </span></h2>
+<h2> <span class="mw-headline" id="7._Authorization"> 7. Authorization  </span></h2>
+<p>Web services need to authorize web service clients the same way web 
+applications authorize users. A web service needs to make sure a web 
+service client is authorized to perform a certain action. 
+</p><p><b>RULE </b>- A web service should authorize its clients whether 
+they have access to the method in question. This can be done using one 
+of the following methods: 
+</p>
+<ul><li>Having clients authorize to the web service using username and password 
+</li><li>Having clients authorize to the web service using client certificates
+</li></ul>
+<h2> <span class="mw-headline" id="8._Schema_Validation"> 8. Schema Validation  </span></h2>
+<p>Schema validation enforces constraints, syntax and semantics defined by the schema. 
+</p><p><b>RULE </b>- Web services must validate SOAP payloads against the web service schema. 
+</p>
+<h2> <span class="mw-headline" id="9._Content_Validation"> 9. Content Validation  </span></h2>
+<p><b>RULE </b>- Like any web application, web services need to validate input before consuming it. Content validation include: 
+</p>
+<ul><li>Validation against malformed XML entities 
+</li><li>Validation against XML Bomb attacks 
+</li><li>Validating inputs using a strong white list 
+</li><li>Validating against external entity attacks
+</li></ul>
+<p><br> 
+</p>
+<h2> <span class="mw-headline" id="10._Output_Encoding"> 10. Output Encoding  </span></h2>
+<p>Web services need to ensure that output sent to clients is encoded to
+ be consumed as data and not as scripts. This gets pretty important when
+ web service clients use the output to render HTML pages either directly
+ or indirectly using AJAX objects. 
+</p><p><b>RULE</b> - All the rules of output encoding applies as per <a href="https://www.owasp.org/index.php?title=XSS_%28Cross_Site_Scripting%29_Prevention_CheatSheet&amp;action=edit&amp;redlink=1" class="new" title="XSS (Cross Site Scripting) Prevention CheatSheet (page does not exist)">XSS (Cross_Site_Scripting) Prevention CheatSheet</a> 
+</p>
+<h2> <span class="mw-headline" id="11._Virus_Protection"> 11. Virus Protection  </span></h2>
+<p>SOAP provides the ability to attach files and document to SOAP 
+messages. This gives the opportunity for hackers to attach viruses and 
+malware to these SOAP messages. 
+</p><p><b>RULE </b>- SOAP messages must be scanned against viruses and malware. 
+</p>
+<h2> <span class="mw-headline" id="12._Message_Size"> 12. Message Size  </span></h2>
+<p>Web services like web applications could be a target for DOS attacks 
+by automatically sending the web services thousands of large size SOAP 
+messages. This either cripples the application making it unable to 
+respond to legitimate messages or it could take it down entirely. 
+</p><p><b>RULE </b>- SOAP Messages size should be limited to an 
+appropriate size limit. Larger size limit (or no limit at all) increases
+ the chances of a successful DOS attack. 
+</p>
+<h2> <span class="mw-headline" id="13._Message_Throughput"> 13. Message Throughput  </span></h2>
+<h2> <span class="mw-headline" id="14._Identity.2C_key.2C_cert.2C_provisioning"> 14. Identity, key, cert, provisioning  </span></h2>
+<h2> <span class="mw-headline" id="15._Endpoint_Security_Profile"> 15. Endpoint Security Profile  </span></h2>
+<h2> <span class="mw-headline" id="16._Audit_Logging"> 16. Audit Logging  </span></h2>
+<h2> <span class="mw-headline" id="18._Software_Engineering_Assurance"> 18. Software Engineering Assurance  </span></h2>
+<h2> <span class="mw-headline" id="19._XML_Denial_of_Service_Protection"> 19. XML Denial of Service Protection  </span></h2>
+<h2> <span class="mw-headline" id="20._Testing"> 20. Testing  </span></h2>
+<p><b>Other Articles in the OWASP Cheat Sheet Series</b>
+</p>
+<ul><li> <a href="https://www.owasp.org/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet" title="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Cryptographic_Storage_Cheat_Sheet" title="Cryptographic Storage Cheat Sheet">Cryptographic Storage Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet" title="Input Validation Cheat Sheet">Input Validation Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM based XSS Prevention Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/HTML5_Security_Cheat_Sheet" title="HTML5 Security Cheat Sheet">HTML5 Security Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="SQL Injection Prevention Cheat Sheet">SQL Injection Prevention Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Security_Architecture_Cheat_Sheet" title="Security Architecture Cheat Sheet">Security Architecture Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Session_Management_Cheat_Sheet" title="Session Management Cheat Sheet">Session Management Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet">XSS (Cross Site Scripting) Prevention Cheat Sheet</a>
+</li><li> <strong class="selflink">Web Service Security Cheat Sheet</strong>
+</li></ul>
+
+
+	</div>
+	<!-- end of content -->
+	</div>
+	<!-- end of gumax-content-body -->
+	</td></tr></tbody></table>
+
+</body></html>

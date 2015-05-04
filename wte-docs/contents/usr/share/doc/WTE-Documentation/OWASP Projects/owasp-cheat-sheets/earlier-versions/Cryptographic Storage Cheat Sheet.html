@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="MediaWiki 1.16.1" />
+<meta name="robots" content="noindex,follow" />
+<link rel="stylesheet" media="screen, projection" href="/extensions/HeaderTabs/skins/combined-min.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="OWASP (en)" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="OWASP Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />		<title>Cryptographic Storage Cheat Sheet - OWASP</title>
+		<link rel="stylesheet" href="/skins/common/commonPrint.css?270" media="" />
+<link rel="stylesheet" href="/skins/gumaxvn/gumax_print.css?270" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Gumaxvn.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/skins/common/IEFixes.js?270"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script>
+var skin="gumaxvn",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://www.owasp.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Cryptographic_Storage_Cheat_Sheet",
+wgTitle="Cryptographic Storage Cheat Sheet",
+wgAction="view",
+wgArticleId=11467,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=100383,
+wgVersion="1.16.1",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OWASP", "5": "OWASP talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "owasp": 4, "owasp_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="OWASP",
+wgCategories=["How To", "Cheatsheets", "OWASP Document", "OWASP Top Ten Project"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgFCKEditorDir="extensions/FCKeditor/fckeditor/",
+wgFCKEditorExtDir="extensions/FCKeditor",
+wgFCKEditorToolbarSet="Wiki",
+wgFCKEditorHeight="0";
+</script>
+		<script type="text/javascript" src="/skins/common/wikibits.js?270"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+<script type="text/javascript">
+function buildContent (blog) {
+    var MONTH_NAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    if (!blog || !blog.items) return;  var container=document.getElementById("container");
+    var code="";  for (var i = 0; i < blog.items.length; i++) {   var item = blog.items[i];
+    var date = new Date();    date.setTime( 4 + item.published * 1000 );
+    var datestring = MONTH_NAMES[date.getMonth()]+" "+(date.getDate());
+    code=code+"<div style='font-weight:bold'>"+datestring+" - ";    
+    code=code+"<a href='"+item.alternate.href+"'>"+item.title+"</a> (by ";
+    code=code+"<a href='"+item.origin.streamId.substring(5)+"'>"+item.author+"</a>)</div>";
+    var text=""+item.content;
+    if (text == "undefined" ) {
+	  text=item.summary;
+    }
+    code=code+"<div>"+text+"</div><br>";
+    }
+    container.innerHTML=code;
+}
+</script> 
+<script type="text/javascript">
+function build_bloglist(data) {
+  var container = document.getElementById('blogroll');
+  var list = document.createElement('div');
+  // Loop through all data items returned
+  for (var i=0; i < data.items.length; i++) {
+    var item = data.items[i];
+		var link = document.createElement('a');
+		link.appendChild(document.createTextNode(item.title));
+	link.href = item.id;
+    list.appendChild(link);
+    list.appendChild(document.createElement('br'));
+  }
+  container.appendChild(list);
+}
+</script>
+<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-725452-2");
+			pageTracker._initData();
+			pageTracker._trackPageview();
+			</script>
+
+<script src="/skins/common/ajax.js?270"></script>
+<script type="text/javascript">addOnloadHook(function() { 
+	var i = 1;
+	while ( true ) {
+		var btn = document.getElementById("languageselector-commit-"+i);
+		var sel = document.getElementById("languageselector-select-"+i);
+		var idx = i;
+
+		if (!btn) break;
+
+		btn.style.display = "none";
+		sel.onchange = function() {
+			node = this.parentNode;
+			while( true ) {
+				if( node.tagName.toLowerCase() == "form" ) {
+					node.submit();
+					break;
+				}
+				node = node.parentNode;
+			}
+		};
+
+		i++;
+	}
+});</script>
+<script type="text/javascript" src="/extensions/HeaderTabs/skins/combined-history-min.js"></script>
+		<script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=gumaxvn"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Cryptographic_Storage_Cheat_Sheet skin-gumaxvn">
+
+
+<!-- ##### gumax-wrapper ##### -->
+<div id="gumax-wrapper">
+
+<!-- ===== gumax-page ===== -->
+<div class="gumax-page"><a name="gumax-top"><!-- --></a>
+
+	<!-- ///// gumax-header ///// -->
+    <div id="gumax-header">
+        <a name="top" id="contentTop"></a>
+        <!-- Login -->
+        <div id="gumax-p-login">
+            <ul>
+                            <li id="gumax-pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Cryptographic_Storage_Cheat_Sheet&amp;returntoquery=printable%3Dyes">Log in</a>
+               </li>
+                         </ul>
+        </div>
+        <!-- end of Login -->        
+        <!-- gumax-p-logo -->
+        <div id="gumax-p-logo">
+            <div id="p-logo">
+            <a style="background-image: url(/skins/monobook/ologo.png);" href="/index.php/Main_Page" title="Main Page"></a>
+            </div>
+        </div>
+		<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+        <!-- end of gumax-p-logo -->
+		<!-- Search -->
+		<div id="gumax-p-search">
+			<div id="gumax-searchBody" class="gumax-pBody">
+				<form action="/index.php/Special:Search" id="searchform"><div>
+					<input id="searchInput" name="search" type="text" title="Search OWASP [f]" accesskey="f" value="" />
+					<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+					<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+				</div></form>
+			</div>
+		</div>
+		<!-- end of Search -->
+		<div class="gumax-visualClear"></div>
+    </div>
+	<!-- ///// end of gumax-header ///// -->
+
+<div id="gumax-spacer"><!-- --></div>
+<div id="contentHeadLeft"><div id="contentHeadRight"><div id="contentHeadCenter"></div></div></div>
+	<div id="contentBodyLeft"><div id="contentBodyRight"><div id="contentBodyCenter">
+		<div id="contentMain">
+<!-- gumax-content -->
+<div id="gumax-content">
+
+	<table class="gumax-caption" width="100%"><tr><td>
+		<!-- gumax-content-actions -->
+		<div id="gumax-content-actions">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="/index.php/Cryptographic_Storage_Cheat_Sheet" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="/index.php?title=Talk:Cryptographic_Storage_Cheat_Sheet&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" ><a href="/index.php?title=Cryptographic_Storage_Cheat_Sheet&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history" ><a href="/index.php?title=Cryptographic_Storage_Cheat_Sheet&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+							</ul>
+		</div>
+		<!-- end of gumax-content-actions -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<table class="gumax-row" width="100%"><tr><td class="gumax-row-left" valign="top">
+
+    <!-- Navigation Menu -->
+    <div id="gumax-p-navigation">
+                    <div class='gumax-portlet'>
+                <h5>Navigation</h5>
+                    <ul>
+                                                    <li id="n-Home"><a href="/index.php/Main_Page">Home</a></li>
+                                                    <li id="n-News"><a href="/index.php/Application_Security_News">News</a></li>
+                                                    <li id="n-OWASP-Projects"><a href="/index.php/Category:OWASP_Project">OWASP Projects</a></li>
+                                                    <li id="n-Downloads"><a href="/index.php/Category:OWASP_Download">Downloads</a></li>
+                                                    <li id="n-Local-Chapters"><a href="/index.php/Category:OWASP_Chapter">Local Chapters</a></li>
+                                                    <li id="n-Global-Committees"><a href="https://www.owasp.org/index.php/Global_Committee_Pages">Global Committees</a></li>
+                                                    <li id="n-AppSec-Job-Board"><a href="http://www.owasp.org/index.php/OWASP_Jobs">AppSec Job Board</a></li>
+                                                    <li id="n-AppSec-Conferences"><a href="/index.php/Category:OWASP_AppSec_Conference">AppSec Conferences</a></li>
+                                                    <li id="n-Presentations"><a href="/index.php/Category:OWASP_Presentations">Presentations</a></li>
+                                                    <li id="n-Video"><a href="/index.php/Category:OWASP_Video">Video</a></li>
+                                                    <li id="n-Press"><a href="http://www.owasp.org/index.php/Press">Press</a></li>
+                                                    <li id="n-Get-OWASP-Books"><a href="http://stores.lulu.com/owasp">Get OWASP Books</a></li>
+                                                    <li id="n-Get-OWASP-Gear"><a href="http://www.rocksports-owasp.com">Get OWASP Gear</a></li>
+                                                    <li id="n-Mailing-Lists"><a href="http://lists.owasp.org/mailman/listinfo">Mailing Lists</a></li>
+                                                    <li id="n-About-OWASP"><a href="/index.php/About_OWASP">About OWASP</a></li>
+                                                    <li id="n-Membership"><a href="/index.php/Membership">Membership</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Reference</h5>
+                    <ul>
+                                                    <li id="n-How-To..."><a href="/index.php/Category:How_To">How To...</a></li>
+                                                    <li id="n-Principles"><a href="/index.php/Category:Principle">Principles</a></li>
+                                                    <li id="n-Threat-Agents"><a href="/index.php/Category:Threat_Agent">Threat Agents</a></li>
+                                                    <li id="n-Attacks"><a href="/index.php/Category:Attack">Attacks</a></li>
+                                                    <li id="n-Vulnerabilities"><a href="/index.php/Category:Vulnerability">Vulnerabilities</a></li>
+                                                    <li id="n-Controls"><a href="/index.php/Category:Control">Controls</a></li>
+                                                    <li id="n-Activities"><a href="/index.php/Category:Activity">Activities</a></li>
+                                                    <li id="n-Technologies"><a href="/index.php/Category:Technology">Technologies</a></li>
+                                                    <li id="n-Glossary"><a href="/index.php/Category:Glossary">Glossary</a></li>
+                                                    <li id="n-Code-Snippets"><a href="/index.php/Category:Code_Snippet">Code Snippets</a></li>
+                                                    <li id="n-.NET-Project"><a href="/index.php/Category:OWASP_.NET_Project">.NET Project</a></li>
+                                                    <li id="n-Java-Project"><a href="/index.php/Category:OWASP_Java_Project">Java Project</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Language</h5>
+                    <ul>
+                                                    <li id="n-languageselector" class="active" ><a href="http://www.owasp.org/index.php?title=Cryptographic_Storage_Cheat_Sheet&amp;setlang=en">English</a></li>
+                                                    <li id="n-languageselector"><a href="http://www.owasp.org/index.php?title=Cryptographic_Storage_Cheat_Sheet&amp;setlang=es">Español</a></li>
+                                            </ul>
+            </div>
+            </div>
+    <!-- end of Navigation Menu -->
+	</td><td class="gumax-row-right" valign="top">
+	<!-- gumax-article-picture -->
+    <!-- end of gumax-article-picture -->
+
+	<!-- gumax-content-body -->
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Cryptographic Storage Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Architectural_Decision"><span class="tocnumber">1.1</span> <span class="toctext">Architectural Decision</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Providing_Cryptographic_Functionality"><span class="tocnumber">2</span> <span class="toctext">Providing Cryptographic Functionality</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Benefits"><span class="tocnumber">2.1</span> <span class="toctext">Benefits</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Basic_Requirements"><span class="tocnumber">2.2</span> <span class="toctext">Basic Requirements</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Secure_Cryptographic_Storage_Design"><span class="tocnumber">2.3</span> <span class="toctext">Secure Cryptographic Storage Design</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Rule_-_Only_store_sensitive_data_that_you_need"><span class="tocnumber">2.3.1</span> <span class="toctext">Rule - Only store sensitive data that you need</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Rule_-_Only_use_strong_cryptographic_algorithms"><span class="tocnumber">2.3.2</span> <span class="toctext">Rule - Only use strong cryptographic algorithms</span></a>
+<ul>
+<li class="toclevel-4 tocsection-9"><a href="#Rule_-_Ensure_that_random_numbers_are_cryptographically_strong"><span class="tocnumber">2.3.2.1</span> <span class="toctext">Rule - Ensure that random numbers are cryptographically strong</span></a></li>
+<li class="toclevel-4 tocsection-10"><a href="#Rule_-_Only_use_widely_accepted_implementations_of_cryptographic_algorithms"><span class="tocnumber">2.3.2.2</span> <span class="toctext">Rule - Only use widely accepted implementations of cryptographic algorithms</span></a></li>
+<li class="toclevel-4 tocsection-11"><a href="#Rule_-_Prefer_authenticated_encryption_modes"><span class="tocnumber">2.3.2.3</span> <span class="toctext">Rule - Prefer authenticated encryption modes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-12"><a href="#Rule_-_Store_the_hashed_and_salted_value_of_passwords"><span class="tocnumber">2.3.3</span> <span class="toctext">Rule - Store the hashed and salted value of passwords</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Rule_-_Ensure_that_the_cryptographic_protection_remains_secure_even_if_access_controls_fail"><span class="tocnumber">2.3.4</span> <span class="toctext">Rule - Ensure that the cryptographic protection remains secure even if access controls fail</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Rule_-_Ensure_that_any_secret_key_is_protected_from_unauthorized_access"><span class="tocnumber">2.3.5</span> <span class="toctext">Rule - Ensure that any secret key is protected from unauthorized access</span></a>
+<ul>
+<li class="toclevel-4 tocsection-15"><a href="#Rule_-_Define_a_key_lifecycle"><span class="tocnumber">2.3.5.1</span> <span class="toctext">Rule - Define a key lifecycle</span></a></li>
+<li class="toclevel-4 tocsection-16"><a href="#Rule_-_Store_unencrypted_keys_away_from_the_encrypted_data"><span class="tocnumber">2.3.5.2</span> <span class="toctext">Rule - Store unencrypted keys away from the encrypted data</span></a></li>
+<li class="toclevel-4 tocsection-17"><a href="#Rule_-_Use_independent_keys_when_multiple_keys_are_required"><span class="tocnumber">2.3.5.3</span> <span class="toctext">Rule - Use independent keys when multiple keys are required</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="#Rule_-_Protect_keys_in_a_key_vault"><span class="tocnumber">2.3.5.4</span> <span class="toctext">Rule - Protect keys in a key vault</span></a></li>
+<li class="toclevel-4 tocsection-19"><a href="#Rule_-_Document_concrete_procedures_for_managing_keys_through_the_lifecycle"><span class="tocnumber">2.3.5.5</span> <span class="toctext">Rule - Document concrete procedures for managing keys through the lifecycle</span></a></li>
+<li class="toclevel-4 tocsection-20"><a href="#Rule_-_Build_support_for_changing_keys_periodically"><span class="tocnumber">2.3.5.6</span> <span class="toctext">Rule - Build support for changing keys periodically</span></a></li>
+<li class="toclevel-4 tocsection-21"><a href="#Rule_-_Document_concrete_procedures_to_handle_a_key_compromise"><span class="tocnumber">2.3.5.7</span> <span class="toctext">Rule - Document concrete procedures to handle a key compromise</span></a></li>
+<li class="toclevel-4 tocsection-22"><a href="#Rule_-_Rekey_data_at_least_every_one_to_three_years"><span class="tocnumber">2.3.5.8</span> <span class="toctext">Rule - Rekey data at least every one to three years</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-23"><a href="#Rule_-_Follow_applicable_regulations_on_use_of_cryptography"><span class="tocnumber">2.3.6</span> <span class="toctext">Rule - Follow applicable regulations on use of cryptography</span></a>
+<ul>
+<li class="toclevel-4 tocsection-24"><a href="#Rule_-_Under_PCI_DSS_requirement_3.2C_you_must_protect_cardholder_data"><span class="tocnumber">2.3.6.1</span> <span class="toctext">Rule - Under PCI DSS requirement 3, you must protect cardholder data</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-25"><a href="#Related_Articles"><span class="tocnumber">3</span> <span class="toctext">Related Articles</span></a></li>
+<li class="toclevel-1 tocsection-26"><a href="#Authors_and_Primary_Editors"><span class="tocnumber">4</span> <span class="toctext">Authors and Primary Editors</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Introduction"> Introduction  </span></h1>
+<p>This article provides a simple model to follow when implementing solutions for data at rest.<br /> 
+</p>
+<h2> <span class="mw-headline" id="Architectural_Decision"> Architectural Decision  </span></h2>
+<p>An architectural decision must be made to determine the appropriate method to protect data at rest.  There are such wide variety of products, methods and mechanisms for cryptographic storage that this cheat sheet will only focus on low-level guidelines for developers and architects who are implementing cryptographic solutions. We will not address specific vendor solutions, nor will we address the design of cryptographic algorithms.
+</p>
+<h1> <span class="mw-headline" id="Providing_Cryptographic_Functionality"> Providing Cryptographic Functionality  </span></h1>
+<h2> <span class="mw-headline" id="Benefits"> Benefits  </span></h2>
+<h2> <span class="mw-headline" id="Basic_Requirements"> Basic Requirements </span></h2>
+<h2> <span class="mw-headline" id="Secure_Cryptographic_Storage_Design"> Secure Cryptographic Storage Design  </span></h2>
+<h3> <span class="mw-headline" id="Rule_-_Only_store_sensitive_data_that_you_need"> Rule - Only store sensitive data that you need </span></h3>
+<p>Many eCommerce businesses use payment providers that store the credit card for recurring billing. This offloads the burden of keeping credit card numbers safe.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Only_use_strong_cryptographic_algorithms"> Rule - Only use strong cryptographic algorithms </span></h3>
+<p>Only use approved public algorithms such as AES, RSA public key cryptography, and SHA-256 or better for hashing. Do not use weak algorithms, such as MD5 / SHA1/ Favor safer. The definition of a "strong" cryptographic algorithms change over time.
+</p><p><a href="http://csrc.nist.gov/groups/STM/cavp/index.html" class="external free" rel="nofollow">http://csrc.nist.gov/groups/STM/cavp/index.html</a>
+</p><p>This is a good default if one doesn't have AES and one of the authenticated encryption modes that provide confidentiality and authenticity (i.e., data origin authentication) such as CCM, EAX, CMAC, etc. For Java, if you are using SunJCE that will be the case. The cipher modes supported in JDK 1.5 and later are CBC, CFB, CFBx, CTR, CTS, ECB, OFB, OFBx, PCBC, None of these cipher modes are authentication encryption modes. (That's why I added it explicitly.) If you are using an alternate JCE provider such as Bouncy Castle, RSA JSafe, IAIK, etc then some of these authentication encryption modes probably should be preferred.
+</p><p>Use salts when appropriate. Note that integrity should use a MAC such as HMAC-SHA1 or even better, HMAC-SHA256.
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Ensure_that_random_numbers_are_cryptographically_strong"> Rule - Ensure that random numbers are cryptographically strong </span></h4>
+<p>Ensure that all random numbers, random file names, random GUIDs, and random strings are generated in a cryptographically strong fashion. Also ensure that random algorithms are seeded with sufficient entropy.
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Only_use_widely_accepted_implementations_of_cryptographic_algorithms"> Rule - Only use widely accepted implementations of cryptographic algorithms </span></h4>
+<p>Do not implement an existing cryptographic algorithm on your own, no matter how easy it appears. Use widely accepted algorithms and widely accepted implementations only. Ensure that an implementation has, at least, had some cryptography experts involved in its creation. If possible, use an implementation that is FIPS 140-2 certified.
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Prefer_authenticated_encryption_modes"> Rule - Prefer authenticated encryption modes </span></h4>
+<p>Use cryptographic cipher modes that offer both confidentiality and authenticity. Recommended modes include counter with CBC-MAC (CCM) mode and Galois/counter mode (GCM). These authenticated encryption (AE) modes resist padding oracle attacks which can be used in many cases to recover plaintext from ciphertext without knowledge of the encryption key. 
+</p><p>If an authenticated encryption mode is not available, then the best option is to consult with a professional cryptographer. Ask the cryptographer to review and customize the system to counter padding oracle attacks. This customization will typically involve the use of a message authentication code (MAC) that must be carefully employed in order to be effective.
+</p><p>In the worst case, where neither an AE mode nor a professional cryptographer is available, then the cryptography is definitely vulnerable to a padding oracle attack. The best that can be done in this situation is to design the overall system so that the decryption function is only given ciphertext retrieved directly from a canonical source which must itself be protected by other integrity controls. While this technique will help reduce the risk of a padding oracle attack, it does not eliminate the risk, and it should be treated as a temporary workaround until an AE-based solution can be implemented.
+</p><p>When selecting a cryptographic mode for this worse case, cipher-block chaining (CBC) mode is a strong choice as it has been carefully studied, is well understood, and is readily available in many cryptographic APIs. In all cases avoid the electronic codebook (ECB) mode. If using cipher modes that create streaming ciphers from block ciphers, such as the output feedback (OFB) or cipher feedback (CFB) modes, be careful not to repeat the IV for the same encryption key. 
+</p><p>See <a href="http://www.cryptopp.com/wiki/Authenticated_Encryption" class="external text" rel="nofollow">Authenticated Encryption</a> on the Crypto++ wiki for a more complete discussion of the technique. NIST's CRSC <a href="http://csrc.nist.gov/groups/ST/toolkit/BCM/current_modes.html" class="external text" rel="nofollow">Current Modes</a> and <a href="http://csrc.nist.gov/groups/ST/toolkit/BCM/modes_development.html" class="external text" rel="nofollow">Modes Development</a> documents offer an abbreviated list of cipher modes. Additional block cipher modes can be found in Wikipedia's <a href="http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation" class="external text" rel="nofollow">Block cipher modes of operation</a> article.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Store_the_hashed_and_salted_value_of_passwords"> Rule - Store the hashed and salted value of passwords </span></h3>
+<p>Store the salted hashed value of the password. Salt each hash. Use a different random salt for each password hash. Never store the clear text password or an encrypted version of the password.
+</p><p>Cryptographic framework for password hashing is described in <a href="http://www.rsa.com/rsalabs/node.asp?id=2127" class="external text" rel="nofollow">PKCS #5 v2.1: Password-Based Cryptography Standard</a>. Specific secure password hashing algorithms exist such as <a href="http://www.usenix.org/events/usenix99/provos/provos_html/node1.html" class="external text" rel="nofollow">bcrypt</a>, <a href="http://www.tarsnap.com/scrypt/scrypt.pdf" class="external text" rel="nofollow">scrypt</a>. Implementations of secure password hashing exist for PHP (<a href="http://www.openwall.com/phpass/" class="external text" rel="nofollow">phpass</a>), ASP.NET (<a href="http://msdn.microsoft.com/en-us/library/ms998372.aspx#pagpractices0001_sensitivedata" class="external text" rel="nofollow">ASP.NET 2.0 Security Practices</a>), Java (<a href="http://www.owasp.org/index.php/Hashing_Java" class="external text" rel="nofollow">OWASP Hashing Java</a>).
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Ensure_that_the_cryptographic_protection_remains_secure_even_if_access_controls_fail"> Rule - Ensure that the cryptographic protection remains secure even if access controls fail </span></h3>
+<p>This rule supports the principle of defense in depth. Access
+controls (usernames, passwords, privileges, etc.) are one layer of
+protection. Storage encryption should add an additional layer of
+protection that will continue protecting the data even if an
+attacker subverts the database access control layer.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Ensure_that_any_secret_key_is_protected_from_unauthorized_access"> Rule - Ensure that any secret key is protected from unauthorized access </span></h3>
+<h4> <span class="mw-headline" id="Rule_-_Define_a_key_lifecycle"> Rule - Define a key lifecycle </span></h4>
+<p>The key lifecycle details the various states that a key will move through during its life. The lifecycle will specify when a key should no longer be used for encryption, when a key should no longer be used for decryption (these are not necessarily coincident), whether data must be rekeyed when a new key is introduced, and when a key should be removed from use all together.
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Store_unencrypted_keys_away_from_the_encrypted_data"> Rule - Store unencrypted keys away from the encrypted data </span></h4>
+<p>If the keys are stored with the data then any compromise of the data will easily compromise the keys as well. Unencrypted keys should never reside on the same machine or cluster as the data.
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Use_independent_keys_when_multiple_keys_are_required"> Rule - Use independent keys when multiple keys are required </span></h4>
+<p>Ensure that key material is independent. That is, do not choose a second key which is easily related to the first (or any preceeding) keys.
+</p><p><br />
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Protect_keys_in_a_key_vault"> Rule - Protect keys in a key vault </span></h4>
+<p>Keys should remain in a protected key vault at all times. In particular, ensure that there is a gap between the threat vectors with direct access to the data and the threat vectors with direct access to the keys. This implies that keys should not be stored on the application or web server (assuming that application attackers are part of the relevant threat model).
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Document_concrete_procedures_for_managing_keys_through_the_lifecycle"> Rule - Document concrete procedures for managing keys through the lifecycle </span></h4>
+<p>These procedures must be written down and the key custodians must be adequately trained.
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Build_support_for_changing_keys_periodically"> Rule - Build support for changing keys periodically </span></h4>
+<p>Key rotation is a must as all good keys do come to an end either through expiration or revocation.  So a developer will have to deal with rotating keys at some point -- better to have a system in place now rather than scrambling later. (From Bil Cory as a starting point). 
+</p>
+<h4> <span class="mw-headline" id="Rule_-_Document_concrete_procedures_to_handle_a_key_compromise"> Rule - Document concrete procedures to handle a key compromise </span></h4>
+<h4> <span class="mw-headline" id="Rule_-_Rekey_data_at_least_every_one_to_three_years"> Rule - Rekey data at least every one to three years </span></h4>
+<p>Rekeying refers to the process of decrypting data and then re-encrypting it with a new key. Periodically rekeying data helps protect it from undetected compromises of older keys. The appropriate rekeying period depends on the security of the keys. Data protected by keys secured in dedicated hardware security modules might only need rekeying every three years. Data protected by keys that are split and stored on two application servers might need rekeying every year.
+</p>
+<h3> <span class="mw-headline" id="Rule_-_Follow_applicable_regulations_on_use_of_cryptography"> Rule - Follow applicable regulations on use of cryptography </span></h3>
+<h4> <span class="mw-headline" id="Rule_-_Under_PCI_DSS_requirement_3.2C_you_must_protect_cardholder_data"> Rule - Under PCI DSS requirement 3, you must protect cardholder data  </span></h4>
+<p>The Payment Card Industry (PCI) Data Security Standard (DSS) was developed to encourage and enhance cardholder data security and facilitate the broad adoption of consistent data security measures globally. The standard was introduced in 2005 and replaced individual compliance standards from Visa, Mastercard, Amex, JCB and Diners. The current version of the standard was introduced in 2008 and an update to the standard is expected in 2010. 
+</p><p>PCI DSS requirement 3 covers secure storage of credit card data. This requirement covers several aspects of secure storage including the data you must never store but we are covering Cryptographic Storage which is covered in requirements 3.4, 3.5 and 3.6 as you can see below: 
+</p><p><b>3.4 Render PAN (Primary Account Number), at minimum, unreadable anywhere it is stored</b> 
+</p><p>Compliance with requirement 3.4 can be met by implementing any of the four types of secure storage described in the standard which includes encrypting and hashing data. These two approaches will often be the most popular choices from the list of options. The standard doesn't refer to any specific algorithms but it mandates the use of <b>Strong Cryptography</b>. The glossary document from the PCI council defines <b>Strong Cryptography</b> as: 
+</p><p><i>Cryptography based on industry-tested and accepted algorithms, along with strong key lengths and proper key-management practices. Cryptography is a method to protect data and includes both encryption (which is reversible) and hashing (which is not reversible, or “one way”). SHA-1 is an example of an industry-tested and accepted hashing algorithm. Examples of industry-tested and accepted standards and algorithms for encryption include AES (128 bits and higher), TDES (minimum double-length keys), RSA (1024 bits and higher), ECC (160 bits and higher), and ElGamal (1024 bits and higher).</i> 
+</p><p>If you have implemented the second rule in this cheat sheet you will have implemented a strong cryptographic algorithm which is compliant with or stronger than the requirements of PCI DSS requirement 3.4 You need to ensure that you identify all locations that card data could be stored including logs and apply the appropriate level of protection. This could range from encrypting the data to replacing the card number in logs. 
+</p><p>This requirement can also be met by implementing disk encryption rather than file or column level encryption. The requirements for <b>Strong Cryptography</b> are the same for disk encryption and backup media. The card data should never be stored in the clear and by following the guidance in this cheat sheet you will be able to securely store your data in a manner which is compliant with PCI DSS requirement 3.4 
+</p><p><b>3.5 Protect cryptographic keys used for encryption of cardholder data against both disclosure and misuse</b> 
+</p><p>As the requirement name above indicates we are required to securely store the encryption keys themselves. This will mean implementing strong access control, auditing and logging for your keys. The keys must be stored in a location which is both secure and "away" from the encrypted data, this means key data shouldn't be stored on web servers, database servers etc 
+</p><p>Access to the keys must be restricted to the smallest amount of users possible. This group of users will ideally be users who are highly trusted and trained to perform Key Custodian duties. There will obviously be a requirement for system/service accounts to access the key data to perform encryption/decryption of data. 
+</p><p>The keys themselves shouldn't be stored in the clear but encrypted with a KEK (Key Encrypting Key). The KEK must not be stored in the same location as the encryption keys it is encrypting. 
+</p><p><b>3.6 Fully document and implement all key-management processes and procedures for cryptographic keys used for encryption of cardholder data</b> 
+</p><p>Requirement 3.6 mandates that key management processes within a PCI compliant company cover 8 specific key lifecycle steps: 
+</p><p><b>3.6.1 Generation of strong cryptographic keys</b> 
+</p><p>As we have previously described in this cheat sheet we need to use algorithms which offer high levels of data security. We must also generate strong keys so that the security of the data isn't undermined by weak cryptographic keys. A strong key is generated by using a key length which is sufficient for your data security requirements and compliant with the PCI&nbsp;DSS. The key size alone isn't a measure of the strength of a key. The data used to generate the key must be sufficiently random ("sufficient" often being determined by your data security requirements) and the entropy of the key data itself must be high.<br /> 
+</p><p><b>3.6.2 Secure cryptographic key distribution</b> 
+</p><p>The method used to distribute keys must be secure to prevent the theft of keys in transit. The use of a protocol such as Diffie Hellman can help secure the distribution of keys, the use of secure transport such as SSLv3, TLS and SSHv2 can also secure the keys in transit.<br /> 
+</p><p><b>3.6.3 Secure cryptographic key storage</b>
+</p><p>The secure storage of encryption keys including KEK's has been touched on in our description of requirement 3.5 (see above).
+</p><p><b>3.6.4 Periodic cryptographic key changes</b>
+</p><p>The PCI DSS standard mandates that keys used for encryption must be rotated at least annually. The key rotation process must remove an old key from the encryption/decryption process and replace it with a new key. All new data entering the system must encrypted with the new key. While it is recommended that existing data be rekeyed with the new key, as per the Rekey data at least every one to three years rule above, it is not clear that the PCI DSS requires this.
+</p><p><b>3.6.5 Retirement or replacement of old or suspected compromised cryptographic keys</b>
+</p><p>The key management processes must cater for archived, retired or compromised keys. The process of securely storing and replacing these keys will more than likely be covered by your processes for requirements 3.6.2, 3.6.3 and 3.6.4
+</p><p><b>3.6.6 Split knowledge and establishment of dual control of cryptographic keys</b>
+</p><p>The requirement for split knowledge and/or dual control for key management prevents an individual user performing key management tasks such as key rotation or deletion. The system should require two individual users to perform an action (i.e. entering a value from their own OTP) which creates to separate values which are concatenated to create the final key data.
+</p><p><b>3.6.7 Prevention of unauthorized substitution of cryptographic keys</b>
+</p><p>The system put in place to comply with requirement 3.6.6 can go a long way to preventing unauthorised substitution of key data. In addition to the dual control process you should implement strong access control, auditing and logging for key data so that unauthorised access attempts are prevented and logged.
+</p><p><b>3.6.8 Requirement for cryptographic key custodians to sign a form stating that they understand and accept their key-custodian responsibilities</b>
+</p><p>To perform the strong key management functions we have seen in requirement 3.6 we must have highly trusted and trained key custodians who understand how to perform key management duties. The key custodians must also sign a form stating they understand the responsibilities that come with this role.
+</p>
+<h1> <span class="mw-headline" id="Related_Articles"> Related Articles  </span></h1>
+<p>OWASP - <a href="/index.php/Testing_for_SSL-TLS_(OWASP-CM-001)" title="Testing for SSL-TLS (OWASP-CM-001)">Testing for SSL-TLS</a>, and OWASP <a href="/index.php/Guide_to_Cryptography" title="Guide to Cryptography">Guide to Cryptography</a> 
+</p><p>OWASP – <a href="http://www.owasp.org/index.php/ASVS" class="external text" rel="nofollow">Application Security Verification Standard (ASVS) – Communication Security Verification Requirements (V10)</a>
+</p><p><b>Other Articles in the OWASP Prevention Cheat Sheet Series</b>
+</p>
+<ul><li> <a href="/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <a href="/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" title="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+</li><li> <strong class="selflink">Cryptographic Storage Cheat Sheet</strong>
+</li><li> <a href="/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="SQL Injection Prevention Cheat Sheet">SQL Injection Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</li><li> <a href="/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet">XSS (Cross Site Scripting) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM based XSS Prevention Cheat Sheet</a>
+</li></ul>
+<h1> <span class="mw-headline" id="Authors_and_Primary_Editors"> Authors and Primary Editors  </span></h1>
+<p>Kevin Kenan - kevin[at]k2dd.com
+</p><p>David Rook - david.a.rook[at]gmail.com
+</p><p>Kevin Wall - kevin.w.wall[at]gmail.com
+</p><p>Jim Manico - jim[at]manico.net
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 137/1000000
+Post-expand include size: 421/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key owasp_wiki_022011:pcache:idhash:11467-0!1!0!!en!2!edit=0!printable=1 and timestamp 20110307155814 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.owasp.org/index.php/Cryptographic_Storage_Cheat_Sheet">http://www.owasp.org/index.php/Cryptographic_Storage_Cheat_Sheet</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir='ltr'><a href="/index.php/Category:How_To" title="Category:How To">How To</a></span> | <span dir='ltr'><a href="/index.php/Category:Cheatsheets" title="Category:Cheatsheets">Cheatsheets</a></span> | <span dir='ltr'><a href="/index.php/Category:OWASP_Document" title="Category:OWASP Document">OWASP Document</a></span> | <span dir='ltr'><a href="/index.php/Category:OWASP_Top_Ten_Project" title="Category:OWASP Top Ten Project">OWASP Top Ten Project</a></span></div></div>			<!-- end content -->
+						<div class="gumax-visualClear"></div>
+		</div>
+
+
+	</div>
+	<!-- end of content -->
+	</div>
+	<!-- end of gumax-content-body -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<!-- ///// gumax-footer ///// -->
+	<div id="gumax-footer">
+		<!-- personal tools  -->
+		<div id="gumax-personal-tools">
+			<ul>
+					<li id="t-whatlinkshere"><a href="/index.php/Special:WhatLinksHere/Cryptographic_Storage_Cheat_Sheet">What links here</a></li>
+					<li id="t-recentchangeslinked"><a href="/index.php/Special:RecentChangesLinked/Cryptographic_Storage_Cheat_Sheet">Related changes</a></li>
+	<li id="t-specialpages"><a href="/index.php/Special:SpecialPages">Special pages</a></li>
+					<li id="t-permalink"><a href="/index.php?title=Cryptographic_Storage_Cheat_Sheet&amp;oldid=100383">Permanent link</a></li>
+			</ul>
+		</div>
+		<!-- end of personal tools  -->
+
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+	</div>
+	<!-- ///// end of gumax-footer ///// -->
+
+	</div>
+	<!-- end of gumax-content -->
+		</div>
+	</div></div></div>
+<div id="contentFootLeft"><div id="contentFootRight"><div id="contentFootCenter"></div></div></div>
+
+	<div id="gumax-spacer"><!-- --></div><a name="gumax-bottom"><!-- --></a>
+
+	<!-- gumax-f-list -->
+	<div id="gumax-f-list">
+		<ul>
+							<li id="privacy"><a href="/index.php/OWASP:Privacy_policy" title="OWASP:Privacy policy">Privacy policy</a></li>
+							<li id="about"><a href="/index.php/OWASP:About" title="OWASP:About">About OWASP</a></li>
+							<li id="disclaimer"><a href="/index.php/OWASP:General_disclaimer" title="OWASP:General disclaimer">Disclaimers</a></li>
+						<li id="f-poweredby"><a href="http://mediawiki.org">Powered by MediaWiki</a></li>
+		</ul>
+	</div>
+	<!-- end of gumax-f-list -->
+
+	<!-- gumax-f-message -->
+	<div id="gumax-f-message">
+		<span id="f-lastmod"> This page was last modified on 14 January 2011, at 06:58.</span>
+		<span id="f-viewcount">This page has been accessed 15,581 times. </span>
+			</div>
+	<!-- end of gumax-f-message -->
+
+</div>
+<!-- ===== end of gumax-page ===== -->
+
+</div> <!-- ##### end of gumax-wrapper ##### -->
+
+<!-- Served in 0.072 secs. --></body></html>

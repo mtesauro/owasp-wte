@@ -1,0 +1,742 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="MediaWiki 1.16.1" />
+<meta name="robots" content="noindex,follow" />
+<link rel="stylesheet" media="screen, projection" href="/extensions/HeaderTabs/skins/combined-min.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="OWASP (en)" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="OWASP Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />		<title>SQL Injection Prevention Cheat Sheet - OWASP</title>
+		<link rel="stylesheet" href="/skins/common/commonPrint.css?270" media="" />
+<link rel="stylesheet" href="/skins/gumaxvn/gumax_print.css?270" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Gumaxvn.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/skins/common/IEFixes.js?270"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script>
+var skin="gumaxvn",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://www.owasp.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="SQL_Injection_Prevention_Cheat_Sheet",
+wgTitle="SQL Injection Prevention Cheat Sheet",
+wgAction="view",
+wgArticleId=8528,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=98057,
+wgVersion="1.16.1",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OWASP", "5": "OWASP talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "owasp": 4, "owasp_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="OWASP",
+wgCategories=["OWASP Application Security Verification Standard Project", "OWASP Enterprise Security API", "How To", "Cheatsheets"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgFCKEditorDir="extensions/FCKeditor/fckeditor/",
+wgFCKEditorExtDir="extensions/FCKeditor",
+wgFCKEditorToolbarSet="Wiki",
+wgFCKEditorHeight="0";
+</script>
+		<script type="text/javascript" src="/skins/common/wikibits.js?270"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+<script type="text/javascript">
+function buildContent (blog) {
+    var MONTH_NAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    if (!blog || !blog.items) return;  var container=document.getElementById("container");
+    var code="";  for (var i = 0; i < blog.items.length; i++) {   var item = blog.items[i];
+    var date = new Date();    date.setTime( 4 + item.published * 1000 );
+    var datestring = MONTH_NAMES[date.getMonth()]+" "+(date.getDate());
+    code=code+"<div style='font-weight:bold'>"+datestring+" - ";    
+    code=code+"<a href='"+item.alternate.href+"'>"+item.title+"</a> (by ";
+    code=code+"<a href='"+item.origin.streamId.substring(5)+"'>"+item.author+"</a>)</div>";
+    var text=""+item.content;
+    if (text == "undefined" ) {
+	  text=item.summary;
+    }
+    code=code+"<div>"+text+"</div><br>";
+    }
+    container.innerHTML=code;
+}
+</script> 
+<script type="text/javascript">
+function build_bloglist(data) {
+  var container = document.getElementById('blogroll');
+  var list = document.createElement('div');
+  // Loop through all data items returned
+  for (var i=0; i < data.items.length; i++) {
+    var item = data.items[i];
+		var link = document.createElement('a');
+		link.appendChild(document.createTextNode(item.title));
+	link.href = item.id;
+    list.appendChild(link);
+    list.appendChild(document.createElement('br'));
+  }
+  container.appendChild(list);
+}
+</script>
+<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-725452-2");
+			pageTracker._initData();
+			pageTracker._trackPageview();
+			</script>
+
+<script src="/skins/common/ajax.js?270"></script>
+<script type="text/javascript">addOnloadHook(function() { 
+	var i = 1;
+	while ( true ) {
+		var btn = document.getElementById("languageselector-commit-"+i);
+		var sel = document.getElementById("languageselector-select-"+i);
+		var idx = i;
+
+		if (!btn) break;
+
+		btn.style.display = "none";
+		sel.onchange = function() {
+			node = this.parentNode;
+			while( true ) {
+				if( node.tagName.toLowerCase() == "form" ) {
+					node.submit();
+					break;
+				}
+				node = node.parentNode;
+			}
+		};
+
+		i++;
+	}
+});</script>
+<script type="text/javascript" src="/extensions/HeaderTabs/skins/combined-history-min.js"></script>
+		<script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=gumaxvn"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-SQL_Injection_Prevention_Cheat_Sheet skin-gumaxvn">
+
+
+<!-- ##### gumax-wrapper ##### -->
+<div id="gumax-wrapper">
+
+<!-- ===== gumax-page ===== -->
+<div class="gumax-page"><a name="gumax-top"><!-- --></a>
+
+	<!-- ///// gumax-header ///// -->
+    <div id="gumax-header">
+        <a name="top" id="contentTop"></a>
+        <!-- Login -->
+        <div id="gumax-p-login">
+            <ul>
+                            <li id="gumax-pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=SQL_Injection_Prevention_Cheat_Sheet&amp;returntoquery=printable%3Dyes">Log in</a>
+               </li>
+                         </ul>
+        </div>
+        <!-- end of Login -->        
+        <!-- gumax-p-logo -->
+        <div id="gumax-p-logo">
+            <div id="p-logo">
+            <a style="background-image: url(/skins/monobook/ologo.png);" href="/index.php/Main_Page" title="Main Page"></a>
+            </div>
+        </div>
+		<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+        <!-- end of gumax-p-logo -->
+		<!-- Search -->
+		<div id="gumax-p-search">
+			<div id="gumax-searchBody" class="gumax-pBody">
+				<form action="/index.php/Special:Search" id="searchform"><div>
+					<input id="searchInput" name="search" type="text" title="Search OWASP [f]" accesskey="f" value="" />
+					<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+					<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+				</div></form>
+			</div>
+		</div>
+		<!-- end of Search -->
+		<div class="gumax-visualClear"></div>
+    </div>
+	<!-- ///// end of gumax-header ///// -->
+
+<div id="gumax-spacer"><!-- --></div>
+<div id="contentHeadLeft"><div id="contentHeadRight"><div id="contentHeadCenter"></div></div></div>
+	<div id="contentBodyLeft"><div id="contentBodyRight"><div id="contentBodyCenter">
+		<div id="contentMain">
+<!-- gumax-content -->
+<div id="gumax-content">
+
+	<table class="gumax-caption" width="100%"><tr><td>
+		<!-- gumax-content-actions -->
+		<div id="gumax-content-actions">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="/index.php?title=Talk:SQL_Injection_Prevention_Cheat_Sheet&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" ><a href="/index.php?title=SQL_Injection_Prevention_Cheat_Sheet&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history" ><a href="/index.php?title=SQL_Injection_Prevention_Cheat_Sheet&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+							</ul>
+		</div>
+		<!-- end of gumax-content-actions -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<table class="gumax-row" width="100%"><tr><td class="gumax-row-left" valign="top">
+
+    <!-- Navigation Menu -->
+    <div id="gumax-p-navigation">
+                    <div class='gumax-portlet'>
+                <h5>Navigation</h5>
+                    <ul>
+                                                    <li id="n-Home"><a href="/index.php/Main_Page">Home</a></li>
+                                                    <li id="n-News"><a href="/index.php/Application_Security_News">News</a></li>
+                                                    <li id="n-OWASP-Projects"><a href="/index.php/Category:OWASP_Project">OWASP Projects</a></li>
+                                                    <li id="n-Downloads"><a href="/index.php/Category:OWASP_Download">Downloads</a></li>
+                                                    <li id="n-Local-Chapters"><a href="/index.php/Category:OWASP_Chapter">Local Chapters</a></li>
+                                                    <li id="n-Global-Committees"><a href="https://www.owasp.org/index.php/Global_Committee_Pages">Global Committees</a></li>
+                                                    <li id="n-AppSec-Job-Board"><a href="http://www.owasp.org/index.php/OWASP_Jobs">AppSec Job Board</a></li>
+                                                    <li id="n-AppSec-Conferences"><a href="/index.php/Category:OWASP_AppSec_Conference">AppSec Conferences</a></li>
+                                                    <li id="n-Presentations"><a href="/index.php/Category:OWASP_Presentations">Presentations</a></li>
+                                                    <li id="n-Video"><a href="/index.php/Category:OWASP_Video">Video</a></li>
+                                                    <li id="n-Press"><a href="http://www.owasp.org/index.php/Press">Press</a></li>
+                                                    <li id="n-Get-OWASP-Books"><a href="http://stores.lulu.com/owasp">Get OWASP Books</a></li>
+                                                    <li id="n-Get-OWASP-Gear"><a href="http://www.rocksports-owasp.com">Get OWASP Gear</a></li>
+                                                    <li id="n-Mailing-Lists"><a href="http://lists.owasp.org/mailman/listinfo">Mailing Lists</a></li>
+                                                    <li id="n-About-OWASP"><a href="/index.php/About_OWASP">About OWASP</a></li>
+                                                    <li id="n-Membership"><a href="/index.php/Membership">Membership</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Reference</h5>
+                    <ul>
+                                                    <li id="n-How-To..."><a href="/index.php/Category:How_To">How To...</a></li>
+                                                    <li id="n-Principles"><a href="/index.php/Category:Principle">Principles</a></li>
+                                                    <li id="n-Threat-Agents"><a href="/index.php/Category:Threat_Agent">Threat Agents</a></li>
+                                                    <li id="n-Attacks"><a href="/index.php/Category:Attack">Attacks</a></li>
+                                                    <li id="n-Vulnerabilities"><a href="/index.php/Category:Vulnerability">Vulnerabilities</a></li>
+                                                    <li id="n-Controls"><a href="/index.php/Category:Control">Controls</a></li>
+                                                    <li id="n-Activities"><a href="/index.php/Category:Activity">Activities</a></li>
+                                                    <li id="n-Technologies"><a href="/index.php/Category:Technology">Technologies</a></li>
+                                                    <li id="n-Glossary"><a href="/index.php/Category:Glossary">Glossary</a></li>
+                                                    <li id="n-Code-Snippets"><a href="/index.php/Category:Code_Snippet">Code Snippets</a></li>
+                                                    <li id="n-.NET-Project"><a href="/index.php/Category:OWASP_.NET_Project">.NET Project</a></li>
+                                                    <li id="n-Java-Project"><a href="/index.php/Category:OWASP_Java_Project">Java Project</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Language</h5>
+                    <ul>
+                                                    <li id="n-languageselector" class="active" ><a href="http://www.owasp.org/index.php?title=SQL_Injection_Prevention_Cheat_Sheet&amp;setlang=en">English</a></li>
+                                                    <li id="n-languageselector"><a href="http://www.owasp.org/index.php?title=SQL_Injection_Prevention_Cheat_Sheet&amp;setlang=es">Español</a></li>
+                                            </ul>
+            </div>
+            </div>
+    <!-- end of Navigation Menu -->
+	</td><td class="gumax-row-right" valign="top">
+	<!-- gumax-article-picture -->
+    <!-- end of gumax-article-picture -->
+
+	<!-- gumax-content-body -->
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">SQL Injection Prevention Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Primary_Defenses"><span class="tocnumber">2</span> <span class="toctext">Primary Defenses</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Defense_Option_1:_Prepared_Statements_.28Parameterized_Queries.29"><span class="tocnumber">2.1</span> <span class="toctext">Defense Option 1: Prepared Statements (Parameterized Queries)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Defense_Option_2:_Stored_Procedures"><span class="tocnumber">2.2</span> <span class="toctext">Defense Option 2: Stored Procedures</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Defense_Option_3:_Escaping_All_User_Supplied_Input"><span class="tocnumber">2.3</span> <span class="toctext">Defense Option 3: Escaping All User Supplied Input</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Database_Specific_Escaping_Details"><span class="tocnumber">2.3.1</span> <span class="toctext">Database Specific Escaping Details</span></a>
+<ul>
+<li class="toclevel-4 tocsection-7"><a href="#Oracle_Escaping"><span class="tocnumber">2.3.1.1</span> <span class="toctext">Oracle Escaping</span></a>
+<ul>
+<li class="toclevel-5 tocsection-8"><a href="#Escaping_Dynamic_Queries"><span class="tocnumber">2.3.1.1.1</span> <span class="toctext">Escaping Dynamic Queries</span></a></li>
+<li class="toclevel-5 tocsection-9"><a href="#Turn_off_character_replacement"><span class="tocnumber">2.3.1.1.2</span> <span class="toctext">Turn off character replacement</span></a></li>
+<li class="toclevel-5 tocsection-10"><a href="#Escaping_Wildcard_characters_in_Like_Clauses"><span class="tocnumber">2.3.1.1.3</span> <span class="toctext">Escaping Wildcard characters in Like Clauses</span></a></li>
+<li class="toclevel-5 tocsection-11"><a href="#Oracle_10g_escaping"><span class="tocnumber">2.3.1.1.4</span> <span class="toctext">Oracle 10g escaping</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-12"><a href="#MySQL_Escaping"><span class="tocnumber">2.3.1.2</span> <span class="toctext">MySQL Escaping</span></a></li>
+<li class="toclevel-4 tocsection-13"><a href="#SQL_Server_Escaping"><span class="tocnumber">2.3.1.3</span> <span class="toctext">SQL Server Escaping</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Additional_Defenses"><span class="tocnumber">3</span> <span class="toctext">Additional Defenses</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Least_Privilege"><span class="tocnumber">3.1</span> <span class="toctext">Least Privilege</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#White_List_Input_Validation"><span class="tocnumber">3.2</span> <span class="toctext">White List Input Validation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#Related_Articles"><span class="tocnumber">4</span> <span class="toctext">Related Articles</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Authors_and_Primary_Editors"><span class="tocnumber">5</span> <span class="toctext">Authors and Primary Editors</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>This article is focused on providing clear, simple, actionable guidance for preventing SQL Injection flaws in your applications. <a href="/index.php/SQL_Injection" title="SQL Injection">SQL Injection</a> attacks are unfortunately very common, and this is due to two factors:
+</p>
+<ol><li> the significant prevalence of SQL Injection vulnerabilities, and 
+</li><li> the attractiveness of the target (i.e., the database typically contains all the interesting/critical data for your application).
+</li></ol>
+<p>It’s somewhat shameful that there are so many successful SQL Injection attacks occurring, because it is EXTREMELY simple to avoid SQL Injection vulnerabilities in your code.
+</p><p>SQL Injection flaws are introduced when software developers create dynamic database queries that include user supplied input. To avoid SQL injection flaws is simple. Developers need to either:
+a) stop writing dynamic queries; and/or
+b) prevent user supplied input which contains malicious SQL from affecting the logic of the executed query.
+</p><p>This article provides a set of simple techniques for preventing SQL Injection vulnerabilities by avoiding these two problems. These techniques can be used with practically any kind of programming language with any type of database. There are other types of databases, like XML databases, which can have similar problems (e.g., XPath and XQuery injection) and these techniques can be used to protect them as well.
+</p><p>Primary Defenses:
+</p>
+<ul><li> <b>Option #1: Use of Prepared Statements (Parameterized Queries)</b>
+</li><li> <b>Option #2: Use of Stored Procedures</b>
+</li><li> <b>Option #3: Escaping all User Supplied Input</b>
+</li></ul>
+<p>Additional Defenses:
+</p>
+<ul><li> <b>Also Enforce: Least Privilege</b>
+</li><li> <b>Also Perform: White List Input Validation</b>
+</li></ul>
+<p><br />
+</p>
+<dl><dt>Unsafe Example
+</dt></dl>
+<p>SQL injection flaws typically look like this:
+</p><p>The following (Java) example is UNSAFE, and would allow an attacker to inject code into the query that would be executed by the database. The unvalidated “customerName” parameter that is simply appended to the query allows an attacker to inject any SQL code they want. Unfortunately, this method for accessing databases is all too common.
+</p>
+<pre> String query = "SELECT account_balance FROM user_data WHERE user_name = "
+   + request.getParameter("customerName");
+ 
+ try {
+ 	Statement statement = connection.createStatement( … );
+ 	ResultSet results = statement.executeQuery( query );
+ }
+</pre>
+<h1> <span class="mw-headline" id="Primary_Defenses">Primary Defenses</span></h1>
+<h2> <span class="mw-headline" id="Defense_Option_1:_Prepared_Statements_.28Parameterized_Queries.29">Defense Option 1: Prepared Statements (Parameterized Queries)</span></h2>
+<p>The use of prepared statements (aka parameterized queries) is how all developers should first be taught how to write database queries. They are simple to write, and easier to understand than dynamic queries. Parameterized queries force the developer to first define all the SQL code, and then pass in each parameter to the query later. This coding style allows the database to distinguish between code and data, regardless of what user input is supplied.
+</p><p>Prepared statements ensure that an attacker is not able to change the intent of a query, even if SQL commands are inserted by an attacker. In the safe example below, if an attacker were to enter the userID of tom' or '1'='1, the parameterized query would not be vulnerable and would instead look for a username which literally matched the entire string tom' or '1'='1.
+</p><p>Language specific recommendations:
+</p>
+<ul><li> Java EE – use PreparedStatement() with bind variables
+</li><li> .NET – use parameterized queries like SqlCommand() or OleDbCommand() with bind variables
+</li><li> PHP – use PDO with strongly typed parameterized queries (using bindParam())
+</li><li> Hibernate - use createQuery() with bind variables (called named parameters in Hibernate)
+</li><li> SQLite - use sqlite3_prepare() to create a <a href="http://www.sqlite.org/c3ref/stmt.html" class="external text" rel="nofollow">statement object</a>
+</li></ul>
+<p>In rare circumstances, prepared statements can harm performance. When confronted with this situation, it is best to escape all user supplied input using an escaping routine specific to your database vendor as is described below, rather than using a prepared statement. Another option which might solve your performance issue is used a stored procedure instead.
+</p>
+<dl><dt>Safe Java Prepared Statement Example	
+</dt></dl>
+<p>The following code example uses a PreparedStatement, Java's implementation of a parameterized query, to execute the same database query.
+</p>
+<pre> String custname = request.getParameter("customerName"); // This should REALLY be validated too
+ // perform input validation to detect attacks
+ String query = "SELECT account_balance FROM user_data WHERE user_name =&nbsp;? ";
+ 
+ <b>PreparedStatement pstmt = connection.prepareStatement( query );</b>
+ <b>pstmt.setString( 1, custname); </b>
+ ResultSet results = pstmt.executeQuery( );
+</pre>
+<dl><dt>Safe C# .NET Prepared Statement Example	
+</dt></dl>
+<p>With .NET, it's even more straightforward. The creation and execution of the query doesn't change. All you have to do is simply pass the parameters to the query using the Parameters.Add() call as shown here.
+</p>
+<pre> String query = 
+ 	 "SELECT account_balance FROM user_data WHERE user_name =&nbsp;?";
+ try {
+ 	OleDbCommand command = new OleDbCommand(query, connection);
+ 	<b>command.Parameters.Add(new OleDbParameter("customerName", CustomerName Name.Text));</b>
+ 	OleDbDataReader reader = command.ExecuteReader();
+ 	// …
+ } catch (OleDbException se) {
+ 	// error handling
+ } 
+</pre>
+<p>We have shown examples in Java and .NET but practically all other languages, including Cold Fusion, and Classic ASP, support parameterized query interfaces. Even SQL abstraction layers, like the <a href="http://www.hibernate.org/" class="external text" rel="nofollow">Hibernate Query Language</a> (HQL) have the same type of injection problems (which we call <a href="http://cwe.mitre.org/data/definitions/564.html" class="external text" rel="nofollow">HQL Injection</a>). HQL supports parameterized queries as well, so we can avoid this problem:
+</p>
+<dl><dt>Hibernate Query Language (HQL) Prepared Statement (Named Parameters) Examples	
+</dt></dl>
+<pre> First is an unsafe HQL Statement
+ 
+ Query unsafeHQLQuery = session.createQuery("from Inventory where productID='"+userSuppliedParameter+"'");
+ 
+ Here is a safe version of the same query using named parameters
+ 
+ Query safeHQLQuery = session.createQuery("from Inventory where productID=:productid");
+ safeHQLQuery.setParameter("productid", userSuppliedParameter);
+</pre>
+<p>Developers tend to like the Prepared Statement approach because all the SQL code stays within the application. This makes your application relatively database independent. However, other options allow you to store all the SQL code in the database itself, which has both security and non-security advantages. That approach, called Stored Procedures, is described next.
+</p>
+<h2> <span class="mw-headline" id="Defense_Option_2:_Stored_Procedures">Defense Option 2: Stored Procedures</span></h2>
+<p>Stored procedures have the same effect as the use of prepared statements when implemented safely*. They require the developer to define the SQL code first, and then pass in the parameters after. The difference between prepared statements and stored procedures is that the SQL code for a stored procedure is defined and stored in the database itself, and then called from the application. Both of these techniques have the same effectiveness in preventing SQL injection so your organization should choose which approach makes the most sense for you.
+</p><p>&#42;Note: 'Implemented safely' means the stored procedure does not include any unsafe dynamic SQL generation. Developers do not usually generate dynamic SQL inside stored procedures. However, it can be done, but should be avoided. If it can't be avoided, the stored procedure must use input validation or proper escaping as described in this article to make sure that all user supplied input to the stored procedure can't be used to inject SQL code into the dynamically generated query. Auditors should always look for uses of sp_execute, execute or exec within SQL Server stored procedures. Similar audit guidelines are necessary for similar functions for other vendors.
+</p><p>Thee are also several cases where stored procedures can increase risk.  For example, on MS SQL server, you have 3 main default roles: db_datareader, db_datawriter and db_owner. Before sprocs came into use DBA's would give db_datareader or db_datawriter rights to the webservice's user depending on the requirements. Sprocs however require execute rights, a role that is not available by
+default. Some setups where the usermanagement has been centralized, but is limited to those 3 roles, cause all webapps to run under db_owner rights so stored procedures can work. Naturally that means that if a server is breached the attacker has full rights to the database, where previously they might only have had read-access. More on this topic here. <a href="http://www.sqldbatips.com/showarticle.asp?ID=8" class="external text" rel="nofollow">http://www.sqldbatips.com/showarticle.asp?ID=8 </a>
+</p>
+<dl><dt>Safe Java Stored Procedure Example
+</dt></dl>
+<p>The following code example uses a CallableStatement, Java's implementation of the stored procedure interface, to execute the same database query. The "sp_getAccountBalance" stored procedure would have to be predefined in the database and implement the same functionality as the query defined above.
+</p>
+<pre> String custname = request.getParameter("customerName"); // This should REALLY be validated
+ try {
+ 	<b>CallableStatement cs = connection.prepareCall("{call sp_getAccountBalance(?)}");</b>
+ 	<b>cs.setString(1, custname);</b>
+ 	ResultSet results = cs.executeQuery();		
+ 	// … result set handling 
+ } catch (SQLException se) {			
+ 	// … logging and error handling
+ }
+</pre>
+<dl><dt>Safe VB .NET Stored Procedure Example	
+</dt></dl>
+<p>The following code example uses a SqlCommand, .NET’s implementation of the stored procedure interface, to execute the same database query. The "sp_getAccountBalance" stored procedure would have to be predefined in the database and implement the same functionality as the query defined above.
+</p>
+<pre> Try
+ 	Dim command As SqlCommand = new SqlCommand("sp_getAccountBalance", connection)
+ 	<b>command.CommandType = CommandType.StoredProcedure</b>
+ 	<b>command.Parameters.Add(new SqlParameter("@CustomerName", CustomerName.Text))</b>
+ 	Dim reader As SqlDataReader = command.ExecuteReader()
+ 	‘ …
+ Catch se As SqlException 
+ 	‘ error handling
+ End Try
+</pre>
+<p>We have shown examples in Java and .NET but practically all other languages, including Cold Fusion, and Classic ASP, support the ability to invoke stored procedures.
+</p><p>For organizations that already make significant or even exclusive use of stored procedures, it is far less likely that they have SQL injection flaws in the first place. However, you still need to be careful with stored procedures because it is possible, although relatively rare, to create a dynamic query inside of a stored procedure that is subject to SQL injection. If dynamic queries in your stored procedures can’t be avoided, then validate or properly escape all user supplied input to the dynamic query, before you construct it.
+</p><p>There are also some additional security and non-security benefits of stored procedures that are worth considering. One security benefit is that if you make exclusive use of stored procedures for your database, you can restrict all database user accounts to only have access to the stored procedures. This means that database accounts do not have permission to submit dynamic queries to the database, giving you far greater confidence that you do not have any SQL injection vulnerabilities in the applications that access that database. Some non-security benefits include performance benefits (in most situations), and having all the SQL code in one location, potentially simplifying maintenance of the code and keeping the SQL code out of the application developers' hands, leaving it for the database developers to develop and maintain.
+</p>
+<h2> <span class="mw-headline" id="Defense_Option_3:_Escaping_All_User_Supplied_Input">Defense Option 3: Escaping All User Supplied Input</span></h2>
+<p>This third technique is to escape user input before putting it in a query. If you are concerned that rewriting your dynamic queries as prepared statements or stored procedures might break your application or adversely affect performance, then this might be the best approach for you. However, this methodology is frail compared to using parameterized queries. This technique should only be used, with caution, to retrofit legacy code in a cost effective way. Applications built from scratch, or applications requiring low risk tolerance should be built or re-written using parameterized queries.
+</p><p>This technique works like this. Each DBMS supports one or more character escaping schemes specific to certain kinds of queries. If you then escape all user supplied input using the proper escaping scheme for the database you are using, the DBMS will not confuse that input with SQL code written by the developer, thus avoiding any possible SQL injection vulnerabilities.
+</p>
+<ul><li> Full details on <a href="/index.php/ESAPI" title="ESAPI" class="mw-redirect">ESAPI are available here on OWASP</a>.
+</li><li> The javadoc for <a href="http://owasp-esapi-java.googlecode.com/svn/trunk_doc/index.html" class="external text" rel="nofollow">ESAPI is available here at its Google Code repository</a>.
+</li><li> You can also directly <a href="http://code.google.com/p/owasp-esapi-java/source/browse/#svn/trunk/src/main/java/org/owasp/esapi" class="external text" rel="nofollow">browse the source at Google</a>, which is frequently helpful if the javadoc isn't perfectly clear.
+</li></ul>
+<p>To find the javadoc specifically for the database encoders, click on the ‘Codec’ class on the left hand side. There are lots of Codecs implemented. The two Database specific codecs are OracleCodec, and MySQLCodec.
+</p><p>Just click on their names in the ‘All Known Implementing Classes:’ at the top of the Interface Codec page.
+</p><p>At this time, ESAPI currently has database encoders for:
+</p>
+<ul><li> Oracle
+</li><li> MySQL (Both ANSI and native modes are supported)
+</li></ul>
+<p>Database encoders for:
+</p>
+<ul><li> SQL Server
+</li><li> PostgreSQL
+</li></ul>
+<p>Are forthcoming. If your database encoder is missing, please let us know.
+</p>
+<h3> <span class="mw-headline" id="Database_Specific_Escaping_Details">Database Specific Escaping Details</span></h3>
+<p>If you want to build your own escaping routines, here are the escaping details for each of the databases that we have developed ESAPI Encoders for:
+</p>
+<h4> <span class="mw-headline" id="Oracle_Escaping">Oracle Escaping</span></h4>
+<p>This information is based on the Oracle Escape character information found here: <a href="http://www.orafaq.com/wiki/SQL_FAQ#How_does_one_escape_special_characters_when_writing_SQL_queries.3F" class="external free" rel="nofollow">http://www.orafaq.com/wiki/SQL_FAQ#How_does_one_escape_special_characters_when_writing_SQL_queries.3F</a>
+</p>
+<h5> <span class="mw-headline" id="Escaping_Dynamic_Queries">Escaping Dynamic Queries</span></h5>
+<p>To use an ESAPI database codec is pretty simple. An Oracle example looks something like:
+</p>
+<pre> ESAPI.encoder().encodeForSQL( new OracleCodec(), queryparam );
+</pre>
+<p>So, if you had an existing Dynamic query being generated in your code that was going to Oracle that looked like this:
+</p>
+<pre> String query = "SELECT user_id FROM user_data WHERE user_name = '" + req.getParameter("userID") 
+ + "' and user_password = '" + req.getParameter("pwd") +"'";
+ try {
+     Statement statement = connection.createStatement( … );
+     ResultSet results = statement.executeQuery( query );
+ }
+</pre>
+<p>You would rewrite the first line to look like this:
+</p>
+<pre><b>Codec ORACLE_CODEC = new OracleCodec();</b>
+ String query = "SELECT user_id FROM user_data WHERE user_name = '" + 
+   <b>ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter("userID"))</b> + "' and user_password = '"
+   + <b>ESAPI.encoder().encodeForSQL( ORACLE_CODEC, req.getParameter("pwd"))</b> +"'";
+</pre>
+<p>And it would now be safe from SQL injection, regardless of the input supplied.
+</p><p>For maximum code readability, you could also construct your own OracleEncoder.
+</p>
+<pre> Encoder oe = new OracleEncoder();
+ String query = "SELECT user_id FROM user_data WHERE user_name = '" 
+   + <b>oe.encode( req.getParameter("userID"))</b> + "' and user_password = '" 
+   + <b>oe.encode( req.getParameter("pwd"))</b> +"'";
+</pre>
+<p>With this type of solution, all your developers would have to do is wrap each user supplied parameter being passed in into an <b>ESAPI.encoder().encodeForOracle( )</b> call or whatever you named it, and you would be done.
+</p>
+<h5> <span class="mw-headline" id="Turn_off_character_replacement">Turn off character replacement</span></h5>
+<p>Use SET DEFINE OFF or SET SCAN OFF to ensure that automatic character replacement is turned off. If this character replacement is turned on, the &amp; character will be treated like a SQLPlus variable prefix that could allow an attacker to retrieve private data. 
+</p><p>See <a href="http://download.oracle.com/docs/cd/B19306_01/server.102/b14357/ch12040.htm#i2698854" class="external free" rel="nofollow">http://download.oracle.com/docs/cd/B19306_01/server.102/b14357/ch12040.htm#i2698854</a> and <a href="http://stackoverflow.com/questions/152837/how-to-insert-a-string-which-contains-an" class="external free" rel="nofollow">http://stackoverflow.com/questions/152837/how-to-insert-a-string-which-contains-an</a> for more information
+</p>
+<h5> <span class="mw-headline" id="Escaping_Wildcard_characters_in_Like_Clauses">Escaping Wildcard characters in Like Clauses</span></h5>
+<p>The LIKE keyword allows for text scanning searches. In Oracle, the underscore '_' character matches only one character, while the ampersand '%' is used to match zero or more occurrences of any characters. These characters must be escaped in LIKE clause criteria. For example:
+</p>
+<pre>SELECT name FROM emp 
+WHERE id LIKE '%/_%' ESCAPE '/';
+</pre>
+<pre>SELECT name FROM emp 
+WHERE id LIKE '%\%%' ESCAPE '\';
+</pre>
+<h5> <span class="mw-headline" id="Oracle_10g_escaping">Oracle 10g escaping</span></h5>
+<p>An alternative for Oracle 10g and later is to place { and } around the string to escape the entire string. However, you have to be careful that there isn't a } character already in the string. You must search for these and if there is one, then you must replace it with }}. Otherwise that character will end the escaping early, and may introduce a vulnerability.
+</p>
+<h4> <span class="mw-headline" id="MySQL_Escaping">MySQL Escaping</span></h4>
+<p>MySQL supports two escaping modes:
+</p>
+<ol><li> ANSI_QUOTES SQL mode, and a mode with this off, which we call
+</li><li> MySQL mode.
+</li></ol>
+<p>ANSI SQL mode: Simply encode all ' (single tick) characters with '&#39; (two single ticks)
+</p><p>MySQL mode, do the following:
+</p>
+<pre> NUL (0x00) --&gt; \0  [This is a zero, not the letter O]
+ BS  (0x08) --&gt; \b
+ TAB (0x09) --&gt; \t
+ LF  (0x0a) --&gt; \n
+ CR  (0x0d) --&gt; \r
+ SUB (0x1a) --&gt; \z
+ "   (0x22) --&gt; \"
+&nbsp;%   (0x25) --&gt; \%
+ '   (0x27) --&gt; \'
+ \   (0x5c) --&gt; \\
+ _   (0x5f) --&gt; \_ 
+ all other non-alphanumeric characters with ASCII values less than 256  --&gt; \c
+ where 'c' is the original non-alphanumeric character.
+</pre>
+<p>This information is based on the MySQL Escape character information found here: <a href="http://mirror.yandex.ru/mirrors/ftp.mysql.com/doc/refman/5.0/en/string-syntax.html" class="external free" rel="nofollow">http://mirror.yandex.ru/mirrors/ftp.mysql.com/doc/refman/5.0/en/string-syntax.html</a>
+</p>
+<h4> <span class="mw-headline" id="SQL_Server_Escaping">SQL Server Escaping</span></h4>
+<p>We have not implemented the SQL Server escaping routine yet, but the following has good pointers to articles describing how to prevent SQL injection attacks on SQL server
+</p>
+<ul><li> <a href="http://blogs.msdn.com/raulga/archive/2007/01/04/dynamic-sql-sql-injection.aspx" class="external free" rel="nofollow">http://blogs.msdn.com/raulga/archive/2007/01/04/dynamic-sql-sql-injection.aspx</a>
+</li></ul>
+<h1> <span class="mw-headline" id="Additional_Defenses"> Additional Defenses </span></h1>
+<p>Beyond adopting one of the three primary defenses, we also recommend adopting all of these additional defenses in order to provide defense in depth. These additional defenses are:
+</p>
+<ul><li> <b>Least Privilege</b>
+</li><li> <b>White List Input Validation</b>
+</li></ul>
+<h2> <span class="mw-headline" id="Least_Privilege"> Least Privilege </span></h2>
+<p>To minimize the potential damage of a successful SQL injection attack, you should minimize the privileges assigned to every database account in your environment. Do not assign DBA or admin type access rights to your application accounts. We understand that this is easy, and everything just ‘works’ when you do it this way, but it is very dangerous. Start from the ground up to determine what access rights your application accounts require, rather than trying to figure out what access rights you need to take away. Make sure that accounts that only need read access are only granted read access to the tables they need access to. If an account only needs access to portions of a table, consider creating a view that limits access to that portion of the data and assigning the account access to the view instead, rather than the underlying table. Rarely, if ever, grant create or delete access to database accounts.
+</p><p>If you adopt a policy where you use stored procedures everywhere, and don’t allow application accounts to directly execute their own queries, then restrict those accounts to only be able to execute the stored procedures they need. Don’t grant them any rights directly to the tables in the database.
+</p><p>SQL injection is not the only threat to your database data. Attackers can simply change the parameter values from one of the legal values they are presented with, to a value that is unauthorized for them, but the application itself might be authorized to access. As such, minimizing the privileges granted to your application will reduce the likelihood of such unauthorized access attempts, even when an attacker is not trying to use SQL injection as part of their exploit.
+</p><p>While you are at it, you should minimize the privileges of the operating system account that the DBMS runs under. Don't run your DBMS as root or system! Most DBMSs run out of the box with a very powerful system account. For example, MySQL runs as system on Windows by default! Change the DBMS's OS account to something more appropriate, with restricted privileges.
+</p>
+<h2> <span class="mw-headline" id="White_List_Input_Validation"> White List Input Validation </span></h2>
+<p>It is always recommended to prevent attacks as early as possible in the processing of the user’s (attacker's) request. Input validation can be used to detect unauthorized input before it is passed to the SQL query. Developers frequently perform black list validation in order to try to detect attack characters and patterns like the ' character or the string 1=1, but this is a massively flawed approach as it is typically trivial for an attacker to avoid getting caught by such filters. Plus, such filters frequently prevent authorized input, like O'Brian, when the ' character is being filtered out.
+</p><p>White list validation is appropriate for all input fields provided by the user. White list validation involves defining exactly what IS authorized, and by definition, everything else is not authorized. If it's well structured data, like dates, social security numbers, zip codes, e-mail addresses, etc. then the developer should be able to define a very strong validation pattern, usually based on regular expressions, for validating such input. If the input field comes from a fixed set of options, like a drop down list or radio buttons, then the input needs to match exactly one of the values offered to the user in the first place. The most difficult fields to validate are so called 'free text' fields, like blog entries. However, even those types of fields can be validated to some degree, you can at least exclude all non-printable characters, and define a maximum size for the input field.
+</p><p>Developing regular expressions can be complicated, and is well beyond the scope of this cheat sheet. There are lots of resources on the internet about how to write regular expressions, including: <a href="http://www.regular-expressions.info/" class="external free" rel="nofollow">http://www.regular-expressions.info/</a>. The following provides a few examples of ‘white list’ style regular expressions:
+</p>
+<pre> White List Regex Examples
+ Validating Data from Free Form Text Field for Zip Code (5 digits plus optional -4) ^\d{5}(-\d{4})?$
+ 
+ Validating Data from Fixed List Drop-Down Box For U.S. State Selection
+   ^(AA|AE|AP|AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|
+   MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY)$
+ 
+ Validating a Free Form Text Field for allowed chars (numbers, letters, whitespace, .-_)
+   ^[a-zA-Z0-9\s\.\-_]+$ 	 (Any number of characters)
+   ^[a-zA-Z0-9\s\.\-_]{1-100}$	 (This is better, since it limits this field to 1 to 100 characters)
+ Note: \s matches any whitespace character (i.e., space, tab, carriage return, or linefeed, [ \t\r\n])
+ 
+ Additional Examples are available at the <a href="/index.php/OWASP_Validation_Regex_Repository" title="OWASP Validation Regex Repository">OWASP Validation Regex Repository</a>
+</pre>
+<p><b>Java Regex Usage Example</b>
+</p>
+<pre> Example validating the parameter “zip” using a regular expression.
+ 
+ private static final Pattern zipPattern = Pattern.compile("^\d{5}(-\d{4})?$");
+ public void doPost( HttpServletRequest request, HttpServletResponse response) {
+ 	try {
+ 		String zipCode = request.getParameter( "zip" );
+ 		if (&nbsp;!zipPattern.matcher( zipCode ).matches()  {
+ 			throw new YourValidationException( "Improper zipcode format." );
+ 		}
+ 		.. do what you want here, after its been validated ..
+ 	} catch(YourValidationException e ) {
+ 		response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+ 	}
+ }
+</pre>
+<p>Some white list validators have also been predefined in various open source packages that you can leverage. Two packages that provide this are:
+</p>
+<ul><li> <a href="http://jakarta.apache.org/commons/validator" class="external text" rel="nofollow">Apache Commons Validator</a>
+</li><li> <a href="/index.php/ESAPI" title="ESAPI" class="mw-redirect"> OWASP ESAPI Validators</a>
+</li></ul>
+<p>It is strongly recommended that you use ESAPI to assist with your input validation needs, rather than writing your own validation routines. The <a href="/index.php/ESAPI" title="ESAPI" class="mw-redirect"> OWASP Enterprise Security API (ESAPI)</a> project has predefined validators defined in the org.owasp.esapi.Validator interface and implemented in the DefaultValidator reference implementation. These include:
+</p>
+<ul><li> getValidDate()
+</li><li> getValidCreditCard()
+</li><li> getValidSafeHTML()
+</li><li> getValidInput()
+</li><li> getValidNumber()
+</li><li> getValidFileName()
+</li><li> getValidRedirectLocation()
+</li></ul>
+<p>With ESAPI, the previous example can be rewritten as follows:
+</p>
+<pre> Example validating the parameter “zip” with generic ESAPI input validator.
+ 
+ public void doPost( HttpServletRequest request, HttpServletResponse response) {
+ 	try {
+ 		String zipCode = <b>Validator.getValidInput("ChangeAddressPage_ZipCodeField", </b>
+ 		  request.getParameter( "zip" ), "zipCodePattern", 10, false))<b>;</b>
+ 		.. do what you want with validated ‘zipCode’ param here ..
+ 	} catch( ValidationException e ) {
+ 		response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+ 	}
+ }
+ 
+ // zipCodePattern is the name of a property defined in ESAPI.properties, and its value
+ // is the regular expression: "^\d{5}(-\d{4})?$"
+ // 
+ // If zipcodes were a frequently used parameter in your application, we would recommend 
+ // that you create your own getValidZipCode() method that builds on top of ESAPI, to make 
+ // it even simpler for your developers to use.
+</pre>
+<ul><li> The overall <a href="http://owasp-esapi-java.googlecode.com/svn/trunk_doc/index.html" class="external text" rel="nofollow">javadoc for ESAPI is here</a>
+</li><li> And the <a href="http://owasp-esapi-java.googlecode.com/svn/trunk_doc/org/owasp/esapi/Validator.html" class="external text" rel="nofollow">javadoc for this specific interface is here</a>.
+</li></ul>
+<h1> <span class="mw-headline" id="Related_Articles">Related Articles</span></h1>
+<p><b>SQL Injection Attack Cheat Sheets</b>
+</p><p>The following articles describe how to exploit different kinds of SQL Injection Vulnerabilities on various platforms that this article was created to help you avoid:
+</p>
+<ul><li> Michael Daw&nbsp;: "SQL Injection Cheat Sheet" - <a href="http://michaeldaw.org/sql-injection-cheat-sheet/" class="external free" rel="nofollow">http://michaeldaw.org/sql-injection-cheat-sheet/</a>
+</li><li> Ferruh Mavituna&nbsp;: "SQL Injection Cheat Sheet" - <a href="http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/" class="external free" rel="nofollow">http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/</a>
+</li><li> RSnake&nbsp;: "SQL Injection Cheat Sheet-Esp: for filter evasion" - <a href="http://ha.ckers.org/sqlinjection/" class="external free" rel="nofollow">http://ha.ckers.org/sqlinjection/</a>
+</li></ul>
+<p><b>Description of SQL Injection Vulnerabilities</b>
+</p>
+<ul><li> OWASP article on <a href="/index.php/SQL_Injection" title="SQL Injection">SQL Injection</a> Vulnerabilities
+</li><li> OWASP article on <a href="/index.php/Blind_SQL_Injection" title="Blind SQL Injection">Blind_SQL_Injection</a> Vulnerabilities
+</li></ul>
+<p><b>How to Avoid SQL Injection Vulnerabilities</b>
+</p>
+<ul><li> <a href="/index.php/Category:OWASP_Guide_Project" title="Category:OWASP Guide Project" class="mw-redirect">OWASP Developers Guide</a> article on how to <a href="/index.php/Guide_to_SQL_Injection" title="Guide to SQL Injection"> Avoid SQL Injection</a> Vulnerabilities
+</li><li> OWASP article on <a href="/index.php/Preventing_SQL_Injection_in_Java" title="Preventing SQL Injection in Java">Preventing SQL Injection in Java</a>
+</li></ul>
+<p><b>How to Review Code for SQL Injection Vulnerabilities</b>
+</p>
+<ul><li> <a href="/index.php/Category:OWASP_Code_Review_Project" title="Category:OWASP Code Review Project">OWASP Code Review Guide</a> article on how to <a href="/index.php/Reviewing_Code_for_SQL_Injection" title="Reviewing Code for SQL Injection">Review Code for SQL Injection</a> Vulnerabilities
+</li></ul>
+<p><b>How to Test for SQL Injection Vulnerabilities</b>
+</p>
+<ul><li> <a href="/index.php/Category:OWASP_Testing_Project" title="Category:OWASP Testing Project" class="mw-redirect">OWASP Testing Guide</a> article on how to <a href="/index.php/Testing_for_SQL_Injection_(OWASP-DV-005)" title="Testing for SQL Injection (OWASP-DV-005)">Test for SQL Injection</a> Vulnerabilities
+</li></ul>
+<p><b>Other Articles in the OWASP Prevention Cheat Sheet Series</b>
+</p>
+<ul><li> <a href="/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <a href="/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" title="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+</li><li> <a href="/index.php/Cryptographic_Storage_Cheat_Sheet" title="Cryptographic Storage Cheat Sheet">Cryptographic Storage Cheat Sheet</a>
+</li><li> <strong class="selflink">SQL Injection Prevention Cheat Sheet</strong>
+</li><li> <a href="/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</li><li> <a href="/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet">XSS (Cross Site Scripting) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM based XSS Prevention Cheat Sheet</a>
+</li></ul>
+<h1> <span class="mw-headline" id="Authors_and_Primary_Editors"> Authors and Primary Editors  </span></h1>
+<p>Dave Wichers - dave.wichers[at]aspectsecurity.com
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 129/1000000
+Post-expand include size: 421/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key owasp_wiki_022011:pcache:idhash:8528-0!1!0!!en!2!edit=0!printable=1 and timestamp 20110307155101 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet">http://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir='ltr'><a href="/index.php/Category:OWASP_Application_Security_Verification_Standard_Project" title="Category:OWASP Application Security Verification Standard Project">OWASP Application Security Verification Standard Project</a></span> | <span dir='ltr'><a href="/index.php/Category:OWASP_Enterprise_Security_API" title="Category:OWASP Enterprise Security API">OWASP Enterprise Security API</a></span> | <span dir='ltr'><a href="/index.php/Category:How_To" title="Category:How To">How To</a></span> | <span dir='ltr'><a href="/index.php/Category:Cheatsheets" title="Category:Cheatsheets">Cheatsheets</a></span></div></div>			<!-- end content -->
+						<div class="gumax-visualClear"></div>
+		</div>
+
+
+	</div>
+	<!-- end of content -->
+	</div>
+	<!-- end of gumax-content-body -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<!-- ///// gumax-footer ///// -->
+	<div id="gumax-footer">
+		<!-- personal tools  -->
+		<div id="gumax-personal-tools">
+			<ul>
+					<li id="t-whatlinkshere"><a href="/index.php/Special:WhatLinksHere/SQL_Injection_Prevention_Cheat_Sheet">What links here</a></li>
+					<li id="t-recentchangeslinked"><a href="/index.php/Special:RecentChangesLinked/SQL_Injection_Prevention_Cheat_Sheet">Related changes</a></li>
+	<li id="t-specialpages"><a href="/index.php/Special:SpecialPages">Special pages</a></li>
+					<li id="t-permalink"><a href="/index.php?title=SQL_Injection_Prevention_Cheat_Sheet&amp;oldid=98057">Permanent link</a></li>
+			</ul>
+		</div>
+		<!-- end of personal tools  -->
+
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+	</div>
+	<!-- ///// end of gumax-footer ///// -->
+
+	</div>
+	<!-- end of gumax-content -->
+		</div>
+	</div></div></div>
+<div id="contentFootLeft"><div id="contentFootRight"><div id="contentFootCenter"></div></div></div>
+
+	<div id="gumax-spacer"><!-- --></div><a name="gumax-bottom"><!-- --></a>
+
+	<!-- gumax-f-list -->
+	<div id="gumax-f-list">
+		<ul>
+							<li id="privacy"><a href="/index.php/OWASP:Privacy_policy" title="OWASP:Privacy policy">Privacy policy</a></li>
+							<li id="about"><a href="/index.php/OWASP:About" title="OWASP:About">About OWASP</a></li>
+							<li id="disclaimer"><a href="/index.php/OWASP:General_disclaimer" title="OWASP:General disclaimer">Disclaimers</a></li>
+						<li id="f-poweredby"><a href="http://mediawiki.org">Powered by MediaWiki</a></li>
+		</ul>
+	</div>
+	<!-- end of gumax-f-list -->
+
+	<!-- gumax-f-message -->
+	<div id="gumax-f-message">
+		<span id="f-lastmod"> This page was last modified on 1 January 2011, at 02:42.</span>
+		<span id="f-viewcount">This page has been accessed 119,132 times. </span>
+			</div>
+	<!-- end of gumax-f-message -->
+
+</div>
+<!-- ===== end of gumax-page ===== -->
+
+</div> <!-- ##### end of gumax-wrapper ##### -->
+
+<!-- Served in 0.164 secs. --></body></html>

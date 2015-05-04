@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Possible file managers - using full path to stop path games by the naughty
+FILEMANAGERS="/usr/bin/thunar /usr/bin/nautilus /usr/bin/dolphin"
+DOCS="/usr/share/doc/WTE-Documentation"
+FOUND=0
+
+# Run through the file managers to try and launch one that works
+for f in $FILEMANAGERS
+do
+    type -P $f &>/dev/null && FOUND=1
+    if [ $FOUND -eq 1 ]; then
+        $f $DOCS
+        exit 0
+    fi
+done
+
+notify-send "I can't find a file manager so please navigate to 
+/usr/share/doc/WTE-Documentation/ 
+to read the WTE docs"
+

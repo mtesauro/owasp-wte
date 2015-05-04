@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<title>Input Validation Cheat Sheet - OWASP</title>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Input_Validation_Cheat_Sheet skin-gumaxvn">
+
+
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Input Validation Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>This article is focused on providing clear, simple, actionable guidance for providing Input Validation security functionality in your applications. 
+</p>
+<h2> <span class="mw-headline" id="White_List_Input_Validation"> White List Input Validation </span></h2>
+
+<p>It is always recommended to prevent attacks as early as possible in the processing of the user’s (attacker's) request. Input validation can be used to detect unauthorized input before it is processed by the application. Developers frequently perform black list validation in order to try to detect attack characters and patterns like the ' character, the string 1=1, or the &lt;script&gt; tag, but this is a massively flawed approach as it is typically trivial for an attacker to avoid getting caught by such filters. Plus, such filters frequently prevent authorized input, like O'Brian, when the ' character is being filtered out.
+</p><p>White list validation is appropriate for all input fields provided by the user. White list validation involves defining exactly what IS authorized, and by definition, everything else is not authorized. If it's well structured data, like dates, social security numbers, zip codes, e-mail addresses, etc. then the developer should be able to define a very strong validation pattern, usually based on regular expressions, for validating such input. If the input field comes from a fixed set of options, like a drop down list or radio buttons, then the input needs to match exactly one of the values offered to the user in the first place. The most difficult fields to validate are so called 'free text' fields, like blog entries. However, even those types of fields can be validated to some degree, you can at least exclude all non-printable characters, and define a maximum size for the input field.
+</p><p>Developing regular expressions can be complicated, and is well beyond the scope of this cheat sheet. There are lots of resources on the internet about how to write regular expressions, including: <a href="http://www.regular-expressions.info/" class="external free" rel="nofollow">http://www.regular-expressions.info/</a>. The following provides a few examples of ‘white list’ style regular expressions:
+</p>
+<pre> White List Regex Examples
+ Validating Data from Free Form Text Field for Zip Code (5 digits plus optional -4) ^\d{5}(-\d{4})?$
+ 
+ Validating Data from Fixed List Drop-Down Box For U.S. State Selection
+   ^(AA|AE|AP|AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|
+   MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY)$
+ 
+ Validating a Free Form Text Field for allowed chars (numbers, letters, whitespace, .-_)
+   ^[a-zA-Z0-9\s\.\-_]+$ 	 (Any number of characters)
+   ^[a-zA-Z0-9\s\.\-_]{1-100}$	 (This is better, since it limits this field to 1 to 100 characters)
+ Note: \s matches any whitespace character (i.e., space, tab, carriage return, or linefeed, [ \t\r\n])
+ 
+ Additional Examples are available at the <a href="/index.php/OWASP_Validation_Regex_Repository" title="OWASP Validation Regex Repository">OWASP Validation Regex Repository</a>
+</pre>
+<p><b>Java Regex Usage Example</b>
+</p>
+
+<pre> Example validating the parameter “zip” using a regular expression.
+ 
+ private static final Pattern zipPattern = Pattern.compile("^\d{5}(-\d{4})?$");
+ public void doPost( HttpServletRequest request, HttpServletResponse response) {
+ 	try {
+ 		String zipCode = request.getParameter( "zip" );
+ 		if (&nbsp;!zipPattern.matcher( zipCode ).matches()  {
+ 			throw new YourValidationException( "Improper zipcode format." );
+ 		}
+ 		.. do what you want here, after its been validated ..
+ 	} catch(YourValidationException e ) {
+ 		response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+ 	}
+ }
+</pre>
+<p>Some white list validators have also been predefined in various open source packages that you can leverage. Two packages that provide this are:
+</p>
+<ul><li> <a href="http://jakarta.apache.org/commons/validator" class="external text" rel="nofollow">Apache Commons Validator</a>
+</li><li> <a href="/index.php/ESAPI" title="ESAPI" class="mw-redirect"> OWASP ESAPI Validators</a>
+</li></ul>
+<p>It is strongly recommended that you use ESAPI to assist with your input validation needs, rather than writing your own validation routines. The <a href="/index.php/ESAPI" title="ESAPI" class="mw-redirect"> OWASP Enterprise Security API (ESAPI)</a> project has predefined validators defined in the org.owasp.esapi.Validator interface and implemented in the DefaultValidator reference implementation. These include:
+
+</p>
+<ul><li> getValidDate()
+</li><li> getValidSafeHTML()
+</li><li> getValidInput()
+</li><li> getValidNumber()
+</li><li> getValidFileName()
+</li><li> getValidRedirectLocation()
+</li></ul>
+<p>With ESAPI, the previous example can be rewritten as follows:
+</p>
+<pre> Example validating the parameter “zip” with generic ESAPI input validator.
+ 
+ public void doPost( HttpServletRequest request, HttpServletResponse response) {
+ 	try {
+ 		String zipCode = <b>Validator.getValidInput("ChangeAddressPage_ZipCodeField", </b>
+
+ 		  request.getParameter( "zip" ), "zipCodePattern", 10, false))<b>;</b>
+ 		.. do what you want with validated ‘zipCode’ param here ..
+ 	} catch( ValidationException e ) {
+ 		response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+ 	}
+ }
+ 
+ // zipCodePattern is the name of a property defined in ESAPI.properties, and its value
+ // is the regular expression: "^\d{5}(-\d{4})?$"
+ // 
+ // If zipcodes were a frequently used parameter in your application, we would recommend 
+ // that you create your own getValidZipCode() method that builds on top of ESAPI, to make 
+ // it even simpler for your developers to use.
+</pre>
+<ul><li> The overall <a href="http://owasp-esapi-java.googlecode.com/svn/trunk_doc/index.html" class="external text" rel="nofollow">javadoc for ESAPI is here</a>
+</li><li> And the <a href="http://owasp-esapi-java.googlecode.com/svn/trunk_doc/org/owasp/esapi/Validator.html" class="external text" rel="nofollow">javadoc for this specific interface is here</a>.
+</li></ul>
+<p><b>Other Articles in the OWASP Cheat Sheet Series</b>
+
+</p>
+<ul><li> <a href="/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <a href="/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" title="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Cryptographic_Storage_Cheat_Sheet" title="Cryptographic Storage Cheat Sheet">Cryptographic Storage Cheat Sheet</a>
+</li><li> <strong class="selflink">Input Validation Cheat Sheet</strong>
+</li><li> <a href="/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM based XSS Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+
+</li><li> <a href="/index.php/HTML5_Security_Cheat_Sheet" title="HTML5 Security Cheat Sheet">HTML5 Security Cheat Sheet</a>
+</li><li> <a href="/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="SQL Injection Prevention Cheat Sheet">SQL Injection Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Security_Architecture_Cheat_Sheet" title="Security Architecture Cheat Sheet">Security Architecture Cheat Sheet</a>
+</li><li> <a href="/index.php/Session_Management_Cheat_Sheet" title="Session Management Cheat Sheet">Session Management Cheat Sheet</a>
+</li><li> <a href="/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</li><li> <a href="/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet">XSS (Cross Site Scripting) Prevention Cheat Sheet</a>
+
+</li><li> <a href="/index.php/Web_Service_Security_Cheat_Sheet" title="Web Service Security Cheat Sheet">Web Service Security Cheat Sheet</a>
+</li></ul>
+<h1> <span class="mw-headline" id="Authors_and_Primary_Editors"> Authors and Primary Editors  </span></h1>
+<p>Dave Wichers - dave.wichers [at] aspectsecurity.com
+</p>
+</body></html>
+

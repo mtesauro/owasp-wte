@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="MediaWiki 1.16.1" />
+<meta name="robots" content="noindex,follow" />
+<link rel="stylesheet" media="screen, projection" href="/extensions/HeaderTabs/skins/combined-min.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="OWASP (en)" />
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="OWASP Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />		<title>Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet - OWASP</title>
+		<link rel="stylesheet" href="/skins/common/commonPrint.css?270" media="" />
+<link rel="stylesheet" href="/skins/gumaxvn/gumax_print.css?270" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="" />
+<link rel="stylesheet" href="/index.php?title=MediaWiki:Gumaxvn.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/skins/common/IEFixes.js?270"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script>
+var skin="gumaxvn",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://www.owasp.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet",
+wgTitle="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet",
+wgAction="view",
+wgArticleId=10545,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=95515,
+wgVersion="1.16.1",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OWASP", "5": "OWASP talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "owasp": 4, "owasp_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="OWASP",
+wgCategories=["How To", "Cheatsheets", "OWASP Document", "OWASP Top Ten Project"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgFCKEditorDir="extensions/FCKeditor/fckeditor/",
+wgFCKEditorExtDir="extensions/FCKeditor",
+wgFCKEditorToolbarSet="Wiki",
+wgFCKEditorHeight="0";
+</script>
+		<script type="text/javascript" src="/skins/common/wikibits.js?270"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+<script type="text/javascript">
+function buildContent (blog) {
+    var MONTH_NAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    if (!blog || !blog.items) return;  var container=document.getElementById("container");
+    var code="";  for (var i = 0; i < blog.items.length; i++) {   var item = blog.items[i];
+    var date = new Date();    date.setTime( 4 + item.published * 1000 );
+    var datestring = MONTH_NAMES[date.getMonth()]+" "+(date.getDate());
+    code=code+"<div style='font-weight:bold'>"+datestring+" - ";    
+    code=code+"<a href='"+item.alternate.href+"'>"+item.title+"</a> (by ";
+    code=code+"<a href='"+item.origin.streamId.substring(5)+"'>"+item.author+"</a>)</div>";
+    var text=""+item.content;
+    if (text == "undefined" ) {
+	  text=item.summary;
+    }
+    code=code+"<div>"+text+"</div><br>";
+    }
+    container.innerHTML=code;
+}
+</script> 
+<script type="text/javascript">
+function build_bloglist(data) {
+  var container = document.getElementById('blogroll');
+  var list = document.createElement('div');
+  // Loop through all data items returned
+  for (var i=0; i < data.items.length; i++) {
+    var item = data.items[i];
+		var link = document.createElement('a');
+		link.appendChild(document.createTextNode(item.title));
+	link.href = item.id;
+    list.appendChild(link);
+    list.appendChild(document.createElement('br'));
+  }
+  container.appendChild(list);
+}
+</script>
+<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-725452-2");
+			pageTracker._initData();
+			pageTracker._trackPageview();
+			</script>
+
+<script src="/skins/common/ajax.js?270"></script>
+<script type="text/javascript">addOnloadHook(function() { 
+	var i = 1;
+	while ( true ) {
+		var btn = document.getElementById("languageselector-commit-"+i);
+		var sel = document.getElementById("languageselector-select-"+i);
+		var idx = i;
+
+		if (!btn) break;
+
+		btn.style.display = "none";
+		sel.onchange = function() {
+			node = this.parentNode;
+			while( true ) {
+				if( node.tagName.toLowerCase() == "form" ) {
+					node.submit();
+					break;
+				}
+				node = node.parentNode;
+			}
+		};
+
+		i++;
+	}
+});</script>
+<script type="text/javascript" src="/extensions/HeaderTabs/skins/combined-history-min.js"></script>
+		<script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=gumaxvn"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Cross-Site_Request_Forgery_CSRF_Prevention_Cheat_Sheet skin-gumaxvn">
+
+
+<!-- ##### gumax-wrapper ##### -->
+<div id="gumax-wrapper">
+
+<!-- ===== gumax-page ===== -->
+<div class="gumax-page"><a name="gumax-top"><!-- --></a>
+
+	<!-- ///// gumax-header ///// -->
+    <div id="gumax-header">
+        <a name="top" id="contentTop"></a>
+        <!-- Login -->
+        <div id="gumax-p-login">
+            <ul>
+                            <li id="gumax-pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet&amp;returntoquery=printable%3Dyes">Log in</a>
+               </li>
+                         </ul>
+        </div>
+        <!-- end of Login -->        
+        <!-- gumax-p-logo -->
+        <div id="gumax-p-logo">
+            <div id="p-logo">
+            <a style="background-image: url(/skins/monobook/ologo.png);" href="/index.php/Main_Page" title="Main Page"></a>
+            </div>
+        </div>
+		<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+        <!-- end of gumax-p-logo -->
+		<!-- Search -->
+		<div id="gumax-p-search">
+			<div id="gumax-searchBody" class="gumax-pBody">
+				<form action="/index.php/Special:Search" id="searchform"><div>
+					<input id="searchInput" name="search" type="text" title="Search OWASP [f]" accesskey="f" value="" />
+					<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+					<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+				</div></form>
+			</div>
+		</div>
+		<!-- end of Search -->
+		<div class="gumax-visualClear"></div>
+    </div>
+	<!-- ///// end of gumax-header ///// -->
+
+<div id="gumax-spacer"><!-- --></div>
+<div id="contentHeadLeft"><div id="contentHeadRight"><div id="contentHeadCenter"></div></div></div>
+	<div id="contentBodyLeft"><div id="contentBodyRight"><div id="contentBodyCenter">
+		<div id="contentMain">
+<!-- gumax-content -->
+<div id="gumax-content">
+
+	<table class="gumax-caption" width="100%"><tr><td>
+		<!-- gumax-content-actions -->
+		<div id="gumax-content-actions">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" ><a href="/index.php/Talk:Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" ><a href="/index.php?title=Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history" ><a href="/index.php?title=Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+							</ul>
+		</div>
+		<!-- end of gumax-content-actions -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<table class="gumax-row" width="100%"><tr><td class="gumax-row-left" valign="top">
+
+    <!-- Navigation Menu -->
+    <div id="gumax-p-navigation">
+                    <div class='gumax-portlet'>
+                <h5>Navigation</h5>
+                    <ul>
+                                                    <li id="n-Home"><a href="/index.php/Main_Page">Home</a></li>
+                                                    <li id="n-News"><a href="/index.php/Application_Security_News">News</a></li>
+                                                    <li id="n-OWASP-Projects"><a href="/index.php/Category:OWASP_Project">OWASP Projects</a></li>
+                                                    <li id="n-Downloads"><a href="/index.php/Category:OWASP_Download">Downloads</a></li>
+                                                    <li id="n-Local-Chapters"><a href="/index.php/Category:OWASP_Chapter">Local Chapters</a></li>
+                                                    <li id="n-Global-Committees"><a href="https://www.owasp.org/index.php/Global_Committee_Pages">Global Committees</a></li>
+                                                    <li id="n-AppSec-Job-Board"><a href="http://www.owasp.org/index.php/OWASP_Jobs">AppSec Job Board</a></li>
+                                                    <li id="n-AppSec-Conferences"><a href="/index.php/Category:OWASP_AppSec_Conference">AppSec Conferences</a></li>
+                                                    <li id="n-Presentations"><a href="/index.php/Category:OWASP_Presentations">Presentations</a></li>
+                                                    <li id="n-Video"><a href="/index.php/Category:OWASP_Video">Video</a></li>
+                                                    <li id="n-Press"><a href="http://www.owasp.org/index.php/Press">Press</a></li>
+                                                    <li id="n-Get-OWASP-Books"><a href="http://stores.lulu.com/owasp">Get OWASP Books</a></li>
+                                                    <li id="n-Get-OWASP-Gear"><a href="http://www.rocksports-owasp.com">Get OWASP Gear</a></li>
+                                                    <li id="n-Mailing-Lists"><a href="http://lists.owasp.org/mailman/listinfo">Mailing Lists</a></li>
+                                                    <li id="n-About-OWASP"><a href="/index.php/About_OWASP">About OWASP</a></li>
+                                                    <li id="n-Membership"><a href="/index.php/Membership">Membership</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Reference</h5>
+                    <ul>
+                                                    <li id="n-How-To..."><a href="/index.php/Category:How_To">How To...</a></li>
+                                                    <li id="n-Principles"><a href="/index.php/Category:Principle">Principles</a></li>
+                                                    <li id="n-Threat-Agents"><a href="/index.php/Category:Threat_Agent">Threat Agents</a></li>
+                                                    <li id="n-Attacks"><a href="/index.php/Category:Attack">Attacks</a></li>
+                                                    <li id="n-Vulnerabilities"><a href="/index.php/Category:Vulnerability">Vulnerabilities</a></li>
+                                                    <li id="n-Controls"><a href="/index.php/Category:Control">Controls</a></li>
+                                                    <li id="n-Activities"><a href="/index.php/Category:Activity">Activities</a></li>
+                                                    <li id="n-Technologies"><a href="/index.php/Category:Technology">Technologies</a></li>
+                                                    <li id="n-Glossary"><a href="/index.php/Category:Glossary">Glossary</a></li>
+                                                    <li id="n-Code-Snippets"><a href="/index.php/Category:Code_Snippet">Code Snippets</a></li>
+                                                    <li id="n-.NET-Project"><a href="/index.php/Category:OWASP_.NET_Project">.NET Project</a></li>
+                                                    <li id="n-Java-Project"><a href="/index.php/Category:OWASP_Java_Project">Java Project</a></li>
+                                            </ul>
+            </div>
+                    <div class='gumax-portlet'>
+                <h5>Language</h5>
+                    <ul>
+                                                    <li id="n-languageselector" class="active" ><a href="http://www.owasp.org/index.php?title=Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet&amp;setlang=en">English</a></li>
+                                                    <li id="n-languageselector"><a href="http://www.owasp.org/index.php?title=Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet&amp;setlang=es">Español</a></li>
+                                            </ul>
+            </div>
+            </div>
+    <!-- end of Navigation Menu -->
+	</td><td class="gumax-row-right" valign="top">
+	<!-- gumax-article-picture -->
+    <!-- end of gumax-article-picture -->
+
+	<!-- gumax-content-body -->
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Prevention_Measures_That_Do_NOT_Work"><span class="tocnumber">2</span> <span class="toctext">Prevention Measures That Do NOT Work</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#General_Recommendation:_Synchronizer_Token_Pattern"><span class="tocnumber">3</span> <span class="toctext">General Recommendation: Synchronizer Token Pattern</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Disclosure_of_Token_in_URL"><span class="tocnumber">3.1</span> <span class="toctext">Disclosure of Token in URL</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Viewstate_.28ASP.NET.29"><span class="tocnumber">3.2</span> <span class="toctext">Viewstate (ASP.NET)</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Double_Submit_Cookies"><span class="tocnumber">3.3</span> <span class="toctext">Double Submit Cookies</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Prevention_Frameworks"><span class="tocnumber">3.4</span> <span class="toctext">Prevention Frameworks</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Challenge-Response"><span class="tocnumber">3.5</span> <span class="toctext">Challenge-Response</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Checking_Referer_Header"><span class="tocnumber">4</span> <span class="toctext">Checking Referer Header</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Client.2FUser_Prevention"><span class="tocnumber">5</span> <span class="toctext">Client/User Prevention</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#No_Cross-Site_Scripting_.28XSS.29_Vulnerabilities"><span class="tocnumber">6</span> <span class="toctext">No Cross-Site Scripting (XSS) Vulnerabilities</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Related_Articles"><span class="tocnumber">7</span> <span class="toctext">Related Articles</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#References"><span class="tocnumber">8</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Authors_and_Primary_Editors"><span class="tocnumber">9</span> <span class="toctext">Authors and Primary Editors</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>Cross-Site Request Forgery (CSRF) is a type of attack that occurs when a malicious Web site, email, blog, instant message, or program causes a user’s Web browser to perform an unwanted action on a trusted site for which the user is currently authenticated. The impact of a successful cross-site request forgery attack is limited to the capabilities exposed by the vulnerable application. For example, this attack could result in a transfer of funds, changing a password, or purchasing an item in the user's context. In affect, CSRF attacks are used by an attacker to make a target system perform a function (funds Transfer, form submission etc.) via the target's browser without knowledge of the target user, at least until the unauthorized function has been committed.
+</p><p>Impacts of successful CSRF exploits vary greatly based on the role of the victim. When targeting a normal user, a successful CSRF attack can compromise end-user data and their associated functions. If the targeted end user is an administrator account, a CSRF attack can compromise the entire Web application. The sites that are more likely to be attacked are community Websites (social networking, email) or sites that have high dollar value accounts associated with them (banks, stock brokerages, bill pay services). This attack can happen even if the user is logged into a Web site using strong encryption (HTTPS). Utilizing social engineering, an attacker will embed malicious HTML or JavaScript code into an email or Website to request a specific 'task url'. The task then executes with or without the user's knowledge, either directly or by utilizing a Cross-site Scripting flaw (ex: Samy MySpace Worm).
+</p><p>For more information on CSRF, please see the OWASP <a href="/index.php/Cross-Site_Request_Forgery_(CSRF)" title="Cross-Site Request Forgery (CSRF)">Cross-Site Request Forgery (CSRF)</a> page.
+</p>
+<h1> <span class="mw-headline" id="Prevention_Measures_That_Do_NOT_Work"> Prevention Measures That Do NOT Work </span></h1>
+<p><b>Using a Secret Cookie</b>
+</p><p>Remember that all cookies, even the secret ones, will be submitted with every request. All authentication tokens will be submitted regardless of whether or not the end-user was tricked into submitting the request. Furthermore, session identifiers are simply used by the application container to associate the request with a specific session object. The session identifier does not verify that the end-user intended to submit the request. 
+</p><p><b>Only Accepting POST Requests</b>
+</p><p>Applications can be developed to only accept POST requests for the execution of business logic. The misconception is that since the attacker cannot construct a malicious link, a CSRF attack cannot be executed. Unfortunately, this logic is incorrect. There are numerous methods in which an attacker can trick a victim into submitting a forged POST request, such as a simple form hosted in an attacker's Website with hidden values. This form can be triggered automatically by JavaScript or can be triggered by the victim who thinks the form will do something else.
+</p><p><b>Multi-Step Transactions</b>
+</p><p>Multi-Step transactions are not an adequate prevention of CSRF. As long as an attacker can predict or deduce each step of the completed transaction, then CSRF is possible.
+</p><p><b>URL Rewriting</b>
+</p><p>This might be seen as a useful CSRF prevention technique as the attacker can not guess the victim's session ID. However, the user’s credential is exposed over the URL.
+</p>
+<h1> <span class="mw-headline" id="General_Recommendation:_Synchronizer_Token_Pattern"> General Recommendation: Synchronizer Token Pattern </span></h1>
+<p>In order to facilitate a "transparent but visible" CSRF solution, developers are encouraged to adopt the Synchronizer Token Pattern (<a href="http://www.corej2eepatterns.com/Design/PresoDesign.htm" class="external free" rel="nofollow">http://www.corej2eepatterns.com/Design/PresoDesign.htm</a>). The synchronizer token pattern requires the generating of random "challenge" tokens that are associated with the user's current session. These challenge tokens are the inserted within the HTML forms and links associated with sensitive server-side operations. When the user wishes to invoke these sensitive operations, the HTTP request should include this challenge token. It is then the responsibility of the server application to verify the existence and correctness of this token. By including a challenge token with each request, the developer has a strong control to verify that the user actually intended to submit the desired requests. Inclusion of a required security token in HTTP requests associated with sensitive business functions helps mitigate CSRF attacks as successful exploitation assumes the attacker knows the randomly generated token for the target victim's session. This is analogous to the attacker being able to guess the target victim's session identifier. The following synopsis describes a general approach to incorporate challenge tokens within the request.
+</p><p>When a Web application formulates a request (by generating a link or form that causes a request when submitted or clicked by the user), the application should include a hidden input parameter with a common name such as "CSRFToken". The value of this token must be randomly generated such that it cannot be guessed by an attacker. Consider leveraging the java.security.SecureRandom class for Java applications to generate a sufficiently long random token. Alternative generation algorithms include the use of 256-bit BASE64 encoded hashes. Developers that choose this generation algorithm must make sure that there is randomness and uniqueness utilized in the data that is hashed to generate the random token.
+</p>
+<pre>  &lt;form action="/transfer.do" method="post"&gt;
+  &lt;input type="hidden" name="CSRFToken" value="OWY4NmQwODE4ODRjN2Q2NTlhMmZlYWEwYzU1YWQwMTVhM2JmNGYxYjJiMGI4MjJjZDE1ZDZjMTVi
+  MGYwMGEwOA=="&gt;
+  …
+  &lt;/form&gt;
+</pre>
+<p>In general, developers need only generate this token once for the current session. After initial generation of this token, the value is stored in the session and is utilized for each subsequent request until the session expires. When a request is issued by the end-user, the server-side component must verify the existence and validity of the token in the request as compared to the token found in the session. If the token was not found within the request or the value provided does not match the value within the session, then the request should be aborted and the event logged as a potential CSRF attack in progress.
+</p><p>To further enhance the security of this proposed design, consider randomizing the CSRF token parameter name and or value for each request. Implementing this approach results in the generation of per-request tokens as opposed to per-session tokens. Note, however, that this may result in usability concerns. For example, the "Back" button browser capability is often hindered as the previous page may contain a token that is no longer valid. Interaction with this previous page will result in a CSRF false positive security event at the server. Regardless of the approach taken, developers are encouraged to protect the CSRF token the same way they protect authenticated session identifiers, such as the use of SSLv3/TLS.
+</p>
+<h3> <span class="mw-headline" id="Disclosure_of_Token_in_URL"> Disclosure of Token in URL </span></h3>
+<p>Many implementations of this control include the challenge token in GET (URL) requests as well as POST requests. This often implemented as a result of sensitive server-side operations being invoked as a result of embedded links in the page or other general design patterns. These patterns are often implemented without knowledge of CSRF and an understanding of CSRF prevention design strategies. While this control does help mitigate the risk of CSRF attacks, the unique per-session token is being exposed for GET requests. CSRF tokens in GET requests are potentially leaked at several locations: browser history, HTTP log files, network appliances that make a point to log the first line of an HTTP request, and Referrer headers if the protected site links to an external site. The ideal solution is to only include the CSRF token in POST requests and modify server-side actions that have state changing affect to only respond to POST requests. If sensitive server-side actions are guaranteed to only ever respond to POST requests, then there is no need to include the token in GET requests. In most JavaEE web applications, however, HTTP method scoping is rarely ever utilized when retrieving HTTP parameters from a request. Calls to "HttpServletRequest.getParameter" will return a parameter value regardless if it was a GET or POST. This is not to say HTTP method scoping cannot be enforced. It can be achieved if a developer explicitly overrides doPost() in the HttpServlet class or leverages framework specific capabilities such as the AbstractFormController class in Spring. While this is the ideal approach, attempting to retrofit this pattern in existing applications requires significant development time and cost.
+</p><p>In order for an attacker to successfully carry out a valid CSRF attack against an application that has similar characteristics as described
+above (i.e. CSRF tokens on GET and POST requests, no explicitly enforcing HTTP method scoping), several actions are typically required:
+</p>
+<ol><li>The victim must be interacting with the application such that a valid CSRF token is generated.
+</li><li>The CSRF token must be transmitted in a GET request by interacting with the web page
+</li><li>A component with insight into (at least) the first line of the HTTP GET request must process the request at some point between (and including) the browser and the server
+</li><li>This same component must capture the token in a repository that is accessible to an attacker (ex: server log files, browser history, etc.)
+</li><li>The attacker must parse this repository and retrieve the token.
+</li><li>The attacker needs to somehow know what user owns this exposed CSRF token
+</li><li>The attacker needs to trick the target victim (i.e. the one owning the CSRF token) into interacting with an HTML document.
+</li><li>The victim's session that holds the exposed token must still be valid (i.e. not invalidated, expired, idle/absolute timed-out, etc.).
+</li></ol>
+<p>While placing CSRF tokens in GET requests does present a potential risk as described above, it is very minimal. The likelihood of successfully discovering and exploiting this vulnerability is significantly low. Coupled with strong session management practices (i.e. timeouts), frequent use of SSLv3/TLS, and network based services that do not log this mechanism, there is little risk to the CSRF token being exposed to an attacker. Even if the CSRF token is exposed and the attacker is somehow able to figure how the associated user, the token is only valid for the lifetime of the session. Ultimately, the acceptance of this risk as opposed to the cost of significant architecture design is up to the business.
+</p>
+<h3> <span class="mw-headline" id="Viewstate_.28ASP.NET.29"> Viewstate (ASP.NET) </span></h3>
+<p>ASP.NET has an option to maintain your ViewState. The ViewState indicates the status of a page when submitted to the server. The status is defined through a hidden field placed on each page with a &lt;form runat="server"&gt; control. Viewstate can be used as a CSRF defense, as it is difficult for an attacker to forge a valid Viewstate. It is not impossible to forge a valid Viewstate since it is feasible that parameter values could be obtained or guessed by the attacker. However, if the current session ID is added to the ViewState, it then makes each Viewstate unique, and thus immune to CSRF. 
+</p><p>To use the ViewStateUserKey property within the Viewstate to protect against spoofed post backs. Add the following in the OnInit virtual method of the Page-derived class (This property must be set in the Page.Init event)
+</p>
+<pre>  protected override OnInit(EventArgs e) {
+     base.OnInit(e); 
+     if (User.Identity.IsAuthenticated)
+        ViewStateUserKey = Session.SessionID; }
+</pre>
+<p>The following keys the Viewstate to an individual using a unique value of your choice.
+</p>
+<pre>   (Page.ViewStateUserKey)
+</pre>
+<p>This must be applied in Page_Init because the key has to be provided to ASP.NET before Viewstate is loaded. This option has been available since ASP.NET 1.1.
+</p><p>However, there are <a href="http://keepitlocked.net/archive/2008/05/29/viewstateuserkey-doesn-t-prevent-cross-site-request-forgery.aspx" class="external text" rel="nofollow">limitations</a> on this mechanism.  Such as, ViewState MACs are only checked on POSTback, so any other application requests not using postbacks will happily allow CSRF.
+</p>
+<h3> <span class="mw-headline" id="Double_Submit_Cookies"> Double Submit Cookies </span></h3>
+<p>Double submitting cookies is defined as sending the session ID cookie in two different ways for every form request. First as a traditional header value, and again as a hidden form value. When a user visits a site, the site should generate a (cryptographically strong) pseudorandom value and set it as a cookie on the user's machine. This is typically referred to as the session ID. The site should require every form submission to include this pseudorandom value as a hidden form value and also as a cookie value. When a POST request is sent to the site, the request should only be considered valid if the form value and the cookie value are the same. When an attacker submits a form on behalf of a user, he can only modify the values of the form. An attacker cannot read any data sent from the server or modify cookie values, per the same-origin policy. This means that while an attacker can send any value he wants with the form, the attacker will be unable to modify or read the value stored in the cookie. Since the cookie value and the form value must be the same, the attacker will be unable to successfully submit a form unless he is able to guess the session ID value.
+</p><p>While this approach is effective in mitigating the risk of cross-site request forgery, including authenticated session identifiers in HTTP parameters may increase the overall risk of session hijacking. Architects and developers must ensure that no network appliances or custom application code or modules explicitly log or otherwise disclose HTTP POST parameters. An attacker that is able to obtain access to repositories or channels that leak HTTP POST parameters will be able to replay the tokens and perform session hijacking attacks. Note, however, that transparently logging all HTTP POST parameters is a rare occurrence across network systems and web applications as doing so will expose significant sensitive data aside from session identifiers including passwords, credit card numbers, and or social security numbers. Inclusion of the session identifier within HTML can also be leveraged by cross-site scripting attacks to bypass HTTPOnly protections. Most modern browsers prevent client-side script from accessing HTTPOnly cookies. However, this protection is lost if HTTPOnly session identifiers are placed within HTML as client-side script can easily traverse and extract the identifier from the DOM. Developers are still encouraged to implement the synchronizer token pattern as described in this article.
+</p><p><a href="http://directwebremoting.org" class="external text" rel="nofollow">Direct Web Remoting (DWR)</a> Java library version 2.0 has CSRF protection built in as it implements the double cookie submission transparently.
+</p>
+<h3> <span class="mw-headline" id="Prevention_Frameworks"> Prevention Frameworks </span></h3>
+<p>There are CSRF prevention modules available for J2EE, .Net, and PHP.
+</p><p><a href="/index.php/Category:OWASP_CSRFGuard_Project" title="Category:OWASP CSRFGuard Project"> OWASP CSRF Guard (For Java)</a>
+</p><p>The OWASP CSRFGuard Project makes use of a unique per-session token verification pattern using a JavaEE filter to mitigate the risk of CSRF attacks. When an HttpSession is first instantiated, CSRFGuard will generate a cryptographically random token using the SecureRandom class to be stored in the session. 
+</p><p><b>Similar Projects</b>
+</p><p>CSRFGuard has been implemented in other languages besides Java. They are: 
+</p>
+<ul><li><a href="/index.php/PHP_CSRF_Guard" title="PHP CSRF Guard">PHP CSRF Guard</a>
+</li><li><a href="/index.php/.Net_CSRF_Guard" title=".Net CSRF Guard">.Net CSRF Guard</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Challenge-Response"> Challenge-Response </span></h2>
+<p>Challenge-Response is another defense option for CSRF. The following are some examples of challenge-response options.
+</p>
+<ul><li>CAPTCHA
+</li><li>Re-Authentication (password)
+</li><li>One-time Token
+</li></ul>
+<p>While challenge-response is a very strong defense to CSRF (assuming proper implementation), it does impact user experience. For applications in need of high security, tokens (transparent) and challenge-response should be used on high risk functions.
+</p>
+<h1> <span class="mw-headline" id="Checking_Referer_Header"> Checking Referer Header </span></h1>
+<p>The Checking of the http Referer can be used to prevent CSRF. This method is desirable for securing embedded network hardware such as modems, routers, and printers because it does not increase memory requirements.  The major limitation is that browsers will omit the Referer in the http header when they are being used over HTTPS.  This restriction does not apply for embedded network hardware because HTTPS is not used.  There are two known methods of bypass a Referer check.  A <a href="http://secunia.com/advisories/22467/" class="external text" rel="nofollow">CRLF vulnerability</a> in the http client could allow an attacker manipulate the HTTP request header and thus spoof the referer.  The other method is using XSS to write a form to a page on the target domain and then automatically submit the request. 
+</p>
+<h1> <span class="mw-headline" id="Client.2FUser_Prevention"> Client/User Prevention </span></h1>
+<p>Since CSRF vulnerabilities are reportedly widespread, it is recommended to follow best practices to mitigate risk. Some mitigating include: 
+</p>
+<ul><li> Logoff immediately after using a Web application 
+</li><li> Do not allow your browser to save username/passwords, and do not allow sites to “remember” your login 
+</li><li> Do not use the same browser to access sensitive applications and to surf the Internet freely (tabbed browsing). 
+</li><li> The use of plugins such as No-Script makes POST based CSRF vulnerabilities difficult to exploit.  This is because JavaScript is used to automatically submit the form when the exploit is loaded. Without JavaScript the attacker would have to trick the user into submitting the form manually. 
+</li></ul>
+<p>Integrated HTML-enabled mail/browser and newsreader/browser environments pose additional risks since simply viewing a mail message or a news message might lead to the execution of an attack. 
+</p>
+<h1> <span class="mw-headline" id="No_Cross-Site_Scripting_.28XSS.29_Vulnerabilities"> No Cross-Site Scripting (XSS) Vulnerabilities </span></h1>
+<p>Cross-Site Scripting is not necessary for CSRF to work. However, all stored cross-site scripting attacks and special case reflected cross-site scripting attacks can be used to defeat token based CSRF defenses, since a malicious XSS script can simply read the site generated token from the response, and include that token with a forged request. This technique is exactly how the <a href="http://en.wikipedia.org/wiki/Samy_(XSS)" class="external text" rel="nofollow">MySpace (Samy) worm</a> defeated MySpace's anti CSRF defenses in 2005, which enabled the worm to propagate. XSS cannot defeat challenge-response defenses such as Captcha, re-authentication or one-time passwords. It is imperative that no XSS vulnerabilities are present to ensure that CSRF defenses can't be circumvented. Please see the OWASP <a href="/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet"> XSS Prevention Cheat Sheet</a> for detailed guidance on how to prevent XSS flaws.
+</p>
+<h1> <span class="mw-headline" id="Related_Articles"> Related Articles </span></h1>
+<p><b>Cross-Site Request Forgery (CSRF)</b>
+</p><p>For more information on CSRF please see the OWASP <a href="/index.php/Cross-Site_Request_Forgery_(CSRF)" title="Cross-Site Request Forgery (CSRF)">Cross-Site Request Forgery (CSRF)</a> page.
+</p><p><b>How to Review Code for CSRF Vulnerabilities</b>
+</p><p>See the <a href="/index.php/Category:OWASP_Code_Review_Project" title="Category:OWASP Code Review Project"> OWASP Code Review Guide</a> article on how to <a href="/index.php/Reviewing_code_for_Cross-Site_Request_Forgery_issues" title="Reviewing code for Cross-Site Request Forgery issues">Reviewing code for Cross-Site Request Forgery issues</a>. 
+</p><p><b>How to Test for CSRF Vulnerabilities</b>
+</p><p>See the <a href="/index.php/Category:OWASP_Testing_Project" title="Category:OWASP Testing Project" class="mw-redirect"> OWASP Testing Guide</a> article on how to <a href="/index.php/Testing_for_CSRF_(OWASP-SM-005)" title="Testing for CSRF (OWASP-SM-005)"> Test for CSRF Vulnerabilities</a>. 
+</p><p><b>CSRF Testing Tool</b>
+</p><p>Check out the <a href="/index.php/Category:OWASP_CSRFTester_Project" title="Category:OWASP CSRFTester Project"> OWASP CSRF Tester</a> tool which allows you to test for CSRF vulnerabilities. This tool is also written in Java. 
+</p><p><b>Other Articles in the OWASP Prevention Cheat Sheet Series</b>
+</p>
+<ul><li> <a href="/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <strong class="selflink">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</strong>
+</li><li> <a href="/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+</li><li> <a href="/index.php/Cryptographic_Storage_Cheat_Sheet" title="Cryptographic Storage Cheat Sheet">Cryptographic Storage Cheat Sheet</a>
+</li><li> <a href="/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="SQL Injection Prevention Cheat Sheet">SQL Injection Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</li><li> <a href="/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet">XSS (Cross Site Scripting) Prevention Cheat Sheet</a>
+</li><li> <a href="/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM based XSS Prevention Cheat Sheet</a>
+</li></ul>
+<h1> <span class="mw-headline" id="References"> References </span></h1>
+<p><a href="http://www.isecpartners.com/files/XSRF_Paper_0.pdf" class="external text" rel="nofollow">Cross Site Reference Forgery: An introduction to a common web application weakness</a>
+</p><p><a href="http://www.freedom-to-tinker.com/sites/default/files/csrf.pdf" class="external text" rel="nofollow">Cross-Site Request Forgeries: Exploitation and Prevention</a>
+</p>
+<h1> <span class="mw-headline" id="Authors_and_Primary_Editors"> Authors and Primary Editors  </span></h1>
+<p>Paul Petefish - paulpetefish[at]solutionary.com
+</p><p>Eric Sheridan - eric.sheridan[at]aspectsecurity.com
+</p><p>Dave Wichers - dave.wichers[at]aspectsecurity.com
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 95/1000000
+Post-expand include size: 421/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key owasp_wiki_022011:pcache:idhash:10545-0!1!0!!en!2!edit=0!printable=1 and timestamp 20110307155514 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet">http://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet</a>"</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir='ltr'><a href="/index.php/Category:How_To" title="Category:How To">How To</a></span> | <span dir='ltr'><a href="/index.php/Category:Cheatsheets" title="Category:Cheatsheets">Cheatsheets</a></span> | <span dir='ltr'><a href="/index.php/Category:OWASP_Document" title="Category:OWASP Document">OWASP Document</a></span> | <span dir='ltr'><a href="/index.php/Category:OWASP_Top_Ten_Project" title="Category:OWASP Top Ten Project">OWASP Top Ten Project</a></span></div></div>			<!-- end content -->
+						<div class="gumax-visualClear"></div>
+		</div>
+
+
+	</div>
+	<!-- end of content -->
+	</div>
+	<!-- end of gumax-content-body -->
+	</td></tr></table>
+
+	<div id="gumax-spacer"><!-- --></div>
+
+	<!-- ///// gumax-footer ///// -->
+	<div id="gumax-footer">
+		<!-- personal tools  -->
+		<div id="gumax-personal-tools">
+			<ul>
+					<li id="t-whatlinkshere"><a href="/index.php/Special:WhatLinksHere/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet">What links here</a></li>
+					<li id="t-recentchangeslinked"><a href="/index.php/Special:RecentChangesLinked/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet">Related changes</a></li>
+	<li id="t-specialpages"><a href="/index.php/Special:SpecialPages">Special pages</a></li>
+					<li id="t-permalink"><a href="/index.php?title=Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet&amp;oldid=95515">Permanent link</a></li>
+			</ul>
+		</div>
+		<!-- end of personal tools  -->
+
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+	</div>
+	<!-- ///// end of gumax-footer ///// -->
+
+	</div>
+	<!-- end of gumax-content -->
+		</div>
+	</div></div></div>
+<div id="contentFootLeft"><div id="contentFootRight"><div id="contentFootCenter"></div></div></div>
+
+	<div id="gumax-spacer"><!-- --></div><a name="gumax-bottom"><!-- --></a>
+
+	<!-- gumax-f-list -->
+	<div id="gumax-f-list">
+		<ul>
+							<li id="privacy"><a href="/index.php/OWASP:Privacy_policy" title="OWASP:Privacy policy">Privacy policy</a></li>
+							<li id="about"><a href="/index.php/OWASP:About" title="OWASP:About">About OWASP</a></li>
+							<li id="disclaimer"><a href="/index.php/OWASP:General_disclaimer" title="OWASP:General disclaimer">Disclaimers</a></li>
+						<li id="f-poweredby"><a href="http://mediawiki.org">Powered by MediaWiki</a></li>
+		</ul>
+	</div>
+	<!-- end of gumax-f-list -->
+
+	<!-- gumax-f-message -->
+	<div id="gumax-f-message">
+		<span id="f-lastmod"> This page was last modified on 6 December 2010, at 16:50.</span>
+		<span id="f-viewcount">This page has been accessed 47,394 times. </span>
+			</div>
+	<!-- end of gumax-f-message -->
+
+</div>
+<!-- ===== end of gumax-page ===== -->
+
+</div> <!-- ##### end of gumax-wrapper ##### -->
+
+<!-- Served in 0.274 secs. --></body></html>

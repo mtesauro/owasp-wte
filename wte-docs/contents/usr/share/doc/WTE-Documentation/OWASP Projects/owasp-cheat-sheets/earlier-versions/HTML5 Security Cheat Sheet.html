@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" dir="ltr" lang="en"><head>
+		title>HTML5 Security Cheat Sheet - OWASP</title>
+		</head>
+<body class="mediawiki ltr ns-0 ns-subject page-HTML5_Security_Cheat_Sheet skin-gumaxvn">
+
+	<!-- gumax-content-body -->
+	<div id="gumax-content-body">
+	<!-- content -->
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading">HTML5 Security Cheat Sheet</h1>
+
+		<div id="bodyContent">
+			<h3 id="siteSub">From OWASP</h3>
+			<div id="contentSub"></div>
+<!-- start content -->
+			
+<h1> <span class="mw-headline" id="Introduction"> Introduction  </span></h1>
+<h1> <span class="mw-headline" id="HTML_5"> HTML 5  </span></h1>
+<h2> <span class="mw-headline" id="Browser_Securability_Chart"> Browser Securability Chart  </span></h2>
+<p>There are a few sites charting browser capabilities as they related 
+to the HTML 5 / CSS 3 standard. I have not seen any that mention 
+security. There may not be a need for it, but e.g. 'sandbox' will be 
+ignored in down browsers, but which HTML 5 compliant browsers support 
+it. If there are differences in implementations, my assumption is that 
+there will be differences in security configuration / settings. 
+</p>
+<h2> <span class="mw-headline" id="Cross_Origin_Resource_Sharing"> Cross Origin Resource Sharing  </span></h2>
+<ul><li>Validate URLs passed to XMLHttpRequest.open, current browsers allow these URLS to be cross domain. 
+</li><li>Ensure that URLs responding with Access-Control-Allow-Origin: *
+ do not include any sensitive content or information that might aid 
+attacker in further attacks. Use Access-Control-Allow-Origin header only
+ on chosen URLs that need to be accessed cross-domain. Don't use that 
+header for the whole domain. 
+</li><li>Take special care when using Access-Control-Allow-Credentials: 
+true response header. Whitelist the allowed Origins and never echo back 
+the Origin request header in Access-Control-Allow-Origin.<br> 
+</li><li>Allow only selected, trusted domains in 
+Access-Control-Allow-Origin header. Prefer whitelisting domains over 
+blacklisting or allowing any domain (either through * wildcard or 
+echoing the Origin header content).
+</li></ul>
+<h2> <span class="mw-headline" id="Input_Validation"> Input Validation  </span></h2>
+<h2> <span class="mw-headline" id="Local_Storage_.28a.k.a._Offline_Storage.2C_Web_Storage.29"> Local Storage (a.k.a. Offline Storage, Web Storage)  </span></h2>
+<h2> <span class="mw-headline" id="WebDatabase"> WebDatabase  </span></h2>
+<h2> <span class="mw-headline" id="WebSockets"> WebSockets  </span></h2>
+<ul><li>Drop backward compatibility in implemented client/servers and 
+use only protocol versions above hybi-00. Popular Hixie-76 version and 
+olders are outdated and insecure. 
+</li><li>While it is relatively easy to tunnel TCP services through 
+WebSockets (e.g. VNC, FTP), doing so enables access to these tunneled 
+services for the in-browser attacker in case of a Cross-Site-Scripting 
+attack. These services might also be called directly from a malicious 
+page or program. 
+</li><li>The protocol doesn't handle authorisation and/or 
+authentication. Application-level protocols should handle that 
+separately in case sensitive data is being transferred. 
+</li><li>Endpoints exposed through ws:/ protocol are easily reversible 
+to plaintext. Only wss:// (WebSockets over SSH) should be used for 
+protection against Man-In-The-Middle attacks 
+</li><li>Spoofing the client is possible outside browser, so WebSockets 
+server should be able to handle incorrect/malicious input. Always 
+validate input coming from the remote site, as it might have been 
+altered. 
+</li><li>When implementing servers, check the Origin: header in 
+Websockets handshake. Though it might be spoofed outside browser, 
+browsers always add the Origin of the page which initiated Websockets 
+connection. 
+</li><li>As WebSockets client in browser is accessible through 
+Javascript calls, all Websockets communication can be spoofed or 
+hijacked through Cross-Site-Scripting. Always validate data coming 
+through WebSockets connection.<br>
+</li></ul>
+<h2> <span class="mw-headline" id="Geolocation"> Geolocation  </span></h2>
+<h2> <span class="mw-headline" id="Use_the_.22sandbox.22_attribute_for_untrusted_content_.28iFrame.29"> Use the "sandbox" attribute for untrusted content (iFrame)  </span></h2>
+<p>[<a href="http://blog.whatwg.org/whats-next-in-html-episode-2-sandbox" class="external autonumber" rel="nofollow">[1]</a>] 
+</p>
+<h2> <span class="mw-headline" id="Content_Deliverability"> Content Deliverability  </span></h2>
+<p>CDN or src links to foreign domains = know your content 
+</p>
+<h2> <span class="mw-headline" id="Progressive_Enhancements_and_Graceful_Degradation_Risks"> Progressive Enhancements and Graceful Degradation Risks  </span></h2>
+<p>The best practice now is to determine the capabilities that a browser
+ supports and augment with some type of substitute for capabilities that
+ are not directly supported. This may mean an onion-like element, e.g. 
+falling through to a Flash Player if the &lt;video&gt; tag is 
+unsupported, or it may mean additional scripting code from various 
+sources that should be code reviewed. 
+</p>
+<h1> <span class="mw-headline" id="CSS_3"> CSS 3  </span></h1>
+<p>I haven't seen any specific to CSS 3 and it's been a while since I 
+worried about url /&nbsp;!import. I think privacy leaks are the most 
+well know - e.g. querying global history using&nbsp;:visited (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=147777" class="external free" rel="nofollow">https://bugzilla.mozilla.org/show_bug.cgi?id=147777</a>) 
+</p>
+<h1> <span class="mw-headline" id="Javascript_and_Javascript_Frameworks"> Javascript and Javascript Frameworks  </span></h1>
+<p>Do we have cheatsheets for Javascript (e.g. use closures, protect the
+ global namespace) or any of the frameworks like JQuery, 
+script.aculo.us, Prototype, Mootools 
+</p>
+<h1> <span class="mw-headline" id="Related_Cheat_Sheets"> Related Cheat Sheets  </span></h1>
+<p><b>Other Articles in the OWASP Cheat Sheet Series</b>
+</p>
+<ul><li> <a href="https://www.owasp.org/index.php/Authentication_Cheat_Sheet" title="Authentication Cheat Sheet">Authentication Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet" title="Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Cryptographic_Storage_Cheat_Sheet" title="Cryptographic Storage Cheat Sheet">Cryptographic Storage Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet" title="Input Validation Cheat Sheet">Input Validation Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" title="DOM based XSS Prevention Cheat Sheet">DOM based XSS Prevention Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Forgot_Password_Cheat_Sheet" title="Forgot Password Cheat Sheet">Forgot Password Cheat Sheet</a>
+</li><li> <strong class="selflink">HTML5 Security Cheat Sheet</strong>
+</li><li> <a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet" title="SQL Injection Prevention Cheat Sheet">SQL Injection Prevention Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Security_Architecture_Cheat_Sheet" title="Security Architecture Cheat Sheet">Security Architecture Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Session_Management_Cheat_Sheet" title="Session Management Cheat Sheet">Session Management Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet" title="Transport Layer Protection Cheat Sheet">Transport Layer Protection Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet" title="XSS (Cross Site Scripting) Prevention Cheat Sheet">XSS (Cross Site Scripting) Prevention Cheat Sheet</a>
+</li><li> <a href="https://www.owasp.org/index.php/Web_Service_Security_Cheat_Sheet" title="Web Service Security Cheat Sheet">Web Service Security Cheat Sheet</a> 
+</li></ul>
+<h1> <span class="mw-headline" id="Authors_and_Primary_Editors"> Authors and Primary Editors  </span></h1>
+<p>Mark Roxbury - mark.roxberry [at] owasp.org
+</p><p>Krzysztof Kotowicz - krzysztof [at] kotowicz.net
+</p>
+
+</body></html>
