@@ -1,0 +1,10 @@
+# Nothing that scary in the repo but there are a few packages that exceed the GitHub 100MB limit.
+
+# OWASP WebGoat packages are too large
+webgoat/packages/*.deb
+webgoat/packages/*.rpm
+
+# OWASP WTE Documentation packages are too large
+wte-docs/packages/*.deb
+wte-docs/packages/*.rpm
+
