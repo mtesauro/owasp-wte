@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for sqlmap and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-sqlmap/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-sqlmap/owasp-wte-sqlmap-icon.png owasp-wte-sqlmap-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-sqlmap/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-sqlmap/owasp-scanners.directory \
+                         /opt/owasp/tmp/owasp-wte-sqlmap/owasp-wte-sqlmap.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-sqlmap

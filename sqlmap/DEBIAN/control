@@ -1,0 +1,19 @@
+Package: owasp-wte-sqlmap
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: all
+Version: 0.9git-2012-10-02
+Depends: python (>=2.6), python-support (>=0.7.1), python-svn, libnotify-bin
+Description: sqlmap is an open source command-line automatic SQL injection tool.
+ Its goal is to detect and take advantage of SQL injection vulnerabilities in 
+ web applications. Once it detects one or more SQL injections on the target 
+ host, the user can choose among a variety of options to perform an extensive 
+ back-end database management system fingerprint, retrieve DBMS session user 
+ and database, enumerate users, password hashes, privileges, databases, dump 
+ entire or users specified DBMS tables or columns, run his own SQL statement, 
+ read or write either text or binary files on the file system, execute 
+ arbitrary commands on the operating system, establish an out-of-band stateful 
+ connection between the attacker box and the database server via Metasploit 
+ payload stager, database stored procedure buffer overflow exploitation or SMB 
+ relay attack and more.

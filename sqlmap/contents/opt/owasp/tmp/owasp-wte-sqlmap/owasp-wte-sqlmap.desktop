@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Sqlmap (SQL Injection Tool)
+Exec=launch-sqlmap
+Icon=owasp-wte-sqlmap-icon
+Categories=Scanners;
