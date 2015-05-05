@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=jerry-curl
+Exec=launch-jerry-curl
+Icon=owasp-wte-jerry-curl-icon
+Categories=OWASP;

@@ -1,0 +1,29 @@
+#/bin/sh
+
+echo ""
+echo "   _                                            _ "
+echo "  (_) ___ _ __ _ __ _   _        ___ _   _ _ __| |"
+echo "  | |/ _ \ '__| '__| | | |_____ / __| | | | '__| |"
+echo "  | |  __/ |  | |  | |_| |_____| (__| |_| | |  | |"
+echo " _/ |\___|_|  |_|   \__, |      \___|\__,_|_|  |_|"
+echo "|__/                |___/                         "
+echo ""
+echo "             jerry-curl - put curl on a diet "
+echo "                (part of OWASP WTE)"
+echo " "
+echo " Type 'jerry-curl -h' or 'jerry-curl --help' for help"
+echo " Basic usage:"
+echo "  jerry-curl [jerry-curl options] [optional arguments for curl]"
+echo " "
+echo " jerry-curl works by calling curl like the below:"
+echo "  curl [config options] [BASE][URLPATH] [command-line arguments]"
+echo " "
+echo "If no config file exists, one will be created with commented examples in directory named" 
+echo " .jerry-curl in your home directory when jerry-curl is run for the first time."
+echo " For user ltorvalds, it would be /home/ltorvalds/.jerry-curl/jerry-curl.config"
+echo " "
+
+bash
+
+
+

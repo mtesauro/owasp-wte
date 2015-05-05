@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Register the icons needed for jerry-curl and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-jerry-curl/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/tmp/owasp-wte-jerry-curl/owasp-wte-jerry-curl-icon.png owasp-wte-jerry-curl-icon 
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/tmp/owasp-wte-jerry-curl/owasp-owasp.directory \
+                         /opt/owasp/tmp/owasp-wte-jerry-curl/owasp-rest.directory \
+                         /opt/owasp/tmp/owasp-wte-jerry-curl/owasp-wte-jerry-curl.desktop
+
+# Cleanup /opt/owasp/tmp
+rm -rf /opt/owasp/tmp/owasp-wte-jerry-curl
