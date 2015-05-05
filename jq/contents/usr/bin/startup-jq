@@ -1,0 +1,28 @@
+#/bin/sh
+
+echo ""
+echo "                       ___       "
+echo "                      / (_)      "
+echo "                     / / _  __ _ "
+echo "                    / / | |/ _\` |"
+echo "                 _ / /  | | (_| |"
+echo "                (_)_/   | |\__, |"
+echo "                       _/ |   | |"
+echo "                      |__/    |_|"
+echo ""
+echo "             jq - JSON's best friend "
+echo "                (part of OWASP WTE)"
+echo " "
+echo " jq - commandline JSON processor [version 1.4]"
+echo " Usage: ./jq [options] <jq filter> [file...]"
+echo ""
+echo " For a description of the command line options and"
+echo " how to write jq filters (and why you might want to)"
+echo " see http://stedolan.github.com/jq"
+echo ""
+echo " NOTE: jq is frequently has data pipped to it like:" 
+echo " $ jerry-curl -u /rest/call -X GET | jq ."
+echo " which does a lovely job of pretty-printing JSON (and lots more)"
+echo " "
+
+bash

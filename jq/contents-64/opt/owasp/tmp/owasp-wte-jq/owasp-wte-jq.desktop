@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=jq
+Exec=launch-jq
+Icon=owasp-wte-jq-icon
+Categories=OWASP;
