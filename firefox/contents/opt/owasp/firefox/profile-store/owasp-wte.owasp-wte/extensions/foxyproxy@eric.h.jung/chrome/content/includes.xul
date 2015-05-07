@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+<overlay id="includesOverlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml">
+
+<!-- begin: thanks to DownThemAll -->
+<menupopup id="wildcardURLPatternReferencePopup" position="before_end">
+  <label id="wildcardref" value="&foxyproxy.wildcard.reference.label;" style="font-weight: bold; text-align: center; margin: 1em 0 0 0;" />
+  <label id="wildcardrefSub" value="&foxyproxy.wildcard.reference.subtitle.label;" style="text-align: center; margin: 0 0 1.5em 0;" />
+    <grid class="foxyproxy-border" style="margin: 0 .5em 0 .5em;">
+      <columns><column class="popcolumn"/><column class="popcolumn"/><column class="popcolumn"/><column style="width: 10em;"/></columns>
+      <rows>
+        <row>
+          <description class="heading">
+           &foxyproxy.wildcard.reference.goal.label;</description>
+          <description class="heading">
+          &foxyproxy.wildcard.reference.correct.label;</description>
+          <description class="heading red">
+          &foxyproxy.wildcard.reference.incorrect.label;</description>
+          <description class="heading">
+          &foxyproxy.wildcard.reference.incorrect.reason.label;</description>
+        </row>
+        <row style="margin-bottom: 1em;">
+          <description>&foxyproxy.wildcard.reference.goal1.label;</description>
+          <description>http://www.myspace.com/*</description>
+          <description class="red">http://www.myspace.com</description>
+          <description>&foxyproxy.wildcard.reference.incorrect.reason1.label;</description>
+        </row>
+        <row style="margin-bottom: 1em;">
+          <description>&foxyproxy.wildcard.reference.goal2.label;</description>
+          <vbox>
+            <description>&foxyproxy.wildcard.reference.correct2.label;:</description>
+            <description>*://localhost/*</description>
+            <description>*://127.0.0.1/*</description>
+          </vbox>
+          <description class="red">localhost, 127.0.0.1</description>
+          <description>&foxyproxy.wildcard.reference.incorrect.reason2.label;</description>
+        </row>
+        <row style="margin-bottom: 1em;">
+          <description>&foxyproxy.wildcard.reference.goal3.label;</description>
+          <description>*.abc.com/*</description>
+          <description class="red">.abc.com</description>
+          <description>&foxyproxy.wildcard.reference.incorrect.reason3.label;</description>
+        </row>
+        <row>
+          <description>&foxyproxy.wildcard.reference.goal4.label;</description>
+          <description>*.a.foo.com/*</description>
+          <description class="red">a.foo.com</description>
+          <description>&foxyproxy.wildcard.reference.incorrect.reason4.label;</description>
+        </row>
+      </rows>
+    </grid>
+</menupopup>  
+<!-- end: thanks to DownThemAll -->
+<menupopup id="patternTemplatePopup" position="before_end">
+  <description
+    style="font-weight: bold; text-align: center; margin: 1em 0 0 0;">
+    &foxyproxy.pattern.template.reference.label;
+  </description>
+  <grid class="foxyproxy-border"
+    style="margin: 0 .5em 0 .5em;">
+    <columns>
+      <column class="popcolumn"/>
+      <column class="popcolumn" />
+    </columns>
+    <rows>
+      <row>
+        <description class="heading">
+          &foxyproxy.pattern.template.reference.specialstring.label;
+        </description>
+        <description class="heading">
+          &foxyproxy.pattern.template.reference.subststring.label;
+        </description>
+        <description class="heading">
+          &foxyproxy.pattern.template.reference.example.label;
+        </description>
+      </row>
+      <row>
+        <description>${0}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.scheme.label;
+        </description>
+        <description>
+          <html:span class="red">http</html:span>
+          ://user:pass@foo.com:8080/news/bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${1}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.username.label;
+        </description>
+        <description>
+          http://
+          <html:span class="red">user</html:span>
+          :pass@foo.com:8080/news/bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${2}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.password.label;
+        </description>
+        <description>
+          http://user:
+          <html:span class="red">pass</html:span>
+          @foo.com:8080/news/bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${3}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.userpass.label;
+        </description>
+        <description>
+          http://
+          <html:span class="red">user:pass@</html:span>
+          foo.com:8080/news/bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${4}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.host.label;
+        </description>
+        <description>
+          http://user:pass@
+          <html:span class="red">foo.com</html:span>
+          :8080/news/bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${5}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.port.label;
+        </description>
+        <description>
+          http://user:pass@foo.com:
+          <html:span class="red">8080</html:span>
+          /news/bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${6}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.hostport.label;
+        </description>
+        <description>
+          http://user:pass@
+          <html:span class="red">
+            foo.com:8080
+          </html:span>
+          /news/bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${7}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.prepath.label;
+        </description>
+        <description>
+          <html:span class="red">
+            http://user:pass@foo.com:8080
+          </html:span>
+          /news/bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${8}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.directory.label;
+        </description>
+        <description>
+          http://user:pass@foo.com:8080
+          <html:span class="red">/news/</html:span>
+          bar.htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${9}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.filebasename.label;
+        </description>
+        <description>
+          http://user:pass@foo.com:8080/news/
+          <html:span class="red">bar</html:span>
+          .htm#anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${10}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.fileextension.label;
+        </description>
+        <description>
+          http://user:pass@foo.com:8080/news/bar.
+          <html:span class="red">htm</html:span>
+          #anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${11}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.filename.label;
+        </description>
+        <description>
+          http://user:pass@foo.com:8080/news/
+          <html:span class="red">bar.htm</html:span>
+          #anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${12}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.path.label;
+        </description>
+        <description>
+          http://user:pass@foo.com:8080
+          <html:span class="red">
+            /news/bar.htm
+          </html:span>
+          #anchor?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${13}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.ref.label;
+        </description>
+        <description>
+          http://user:pass@foo.com:8080/news/bar.htm#
+          <html:span class="red">anchor</html:span>
+          ?query=abc
+        </description>
+      </row>
+      <row>
+        <description>${14}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.query.label;
+        </description>
+        <description>
+          http://user:pass@foo.com:8080/news/bar.htm#anchor?
+          <html:span class="red">query=abc</html:span>
+        </description>
+      </row>
+      <row>
+        <description>${15}</description>
+        <description>
+          &foxyproxy.pattern.template.reference.spec.label;
+        </description>
+        <description>
+          <html:span class="red">
+            http://user:pass@foo.com:8080/news/bar.htm#anchor?query=abc
+          </html:span>
+        </description>
+      </row>
+    </rows>
+  </grid>
+</menupopup>
+
+<radiogroup id="whiteblacktype" orient="vertical">
+  <groupbox>
+  <caption label="&foxyproxy.pattern.whiteblack.label;"/>     
+    <grid><columns><column/><column/><column/><column/></columns>
+    <rows>
+      <row align="center">
+        <radio selected="true" value="w"
+          accesskey="&foxyproxy.whitelist.accesskey;"
+          tooltiptext="&foxyproxy.whitelist.tooltip;"/>
+        <label value="&foxyproxy.whitelist.label;"
+          style="margin-left: -0.5em;"
+          tooltiptext="&foxyproxy.whitelist.tooltip;"
+          class="text-link"
+          onclick="fpc.openAndReuseOneTabPerURL('http://en.wikipedia.org/wiki/Whitelist');"/>
+        <label value="&foxyproxy.whitelist.description.label;"/>
+        <toolbarbutton class="foxyproxy-ref" popup="wbdesc" tooltiptext="&foxyproxy.wildcard.reference.tooltip;"/>       
+      </row>
+    <row align="center">
+      <radio value="b"
+        accesskey="&foxyproxy.blacklist.accesskey;"
+        tooltiptext="&foxyproxy.blacklist.tooltip;"/>
+      <label value="&foxyproxy.blacklist.label;"
+        style="margin-left: -0.5em;"
+        tooltiptext="&foxyproxy.blacklist.tooltip;"
+        class="text-link"
+        onclick="fpc.openAndReuseOneTabPerURL('http://en.wikipedia.org/wiki/Blacklist');"/>
+      <label value="&foxyproxy.blacklist.description.label;"/>        
+      <spacer/>
+    </row>
+  </rows>
+  </grid>
+  </groupbox>
+</radiogroup>    
+<radiogroup id="matchtype" orient="horizontal">
+<groupbox flex="1">
+    <caption label="&foxyproxy.pattern.matchtype.label;"/>
+    <grid><columns><column/><column/><column/><column/></columns>
+    <rows>
+      <row align="center">
+        <radio selected="true" value="w"
+          accesskey="&foxyproxy.wildcard.accesskey;"
+          tooltiptext="&foxyproxy.wildcard.tooltip;"/>
+        <label value="&foxyproxy.wildcard.label;"
+          style="margin-left: -0.5em;"
+          class="text-link"
+          onclick="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/patterns.html#wildcards');"
+          tooltiptext="&foxyproxy.wildcard.tooltip;"/>
+        <label id="wildcardExample" value="&foxyproxy.wildcard.example.label;"/>                                            
+      </row>
+      <row align="center">
+        <radio value="r"
+          accesskey="&foxyproxy.regex.accesskey;"
+          tooltiptext="&foxyproxy.regex.tooltip;"/>
+        <label value="&foxyproxy.regex.label;"
+          style="margin-left: -0.5em;"
+          class="text-link"
+          onclick="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/patterns.html#regex');"
+          tooltiptext="&foxyproxy.regex.tooltip;"/> 
+        <label id="regexExample" value="&foxyproxy.regex.example.label2;"/>       
+        <spacer/>      
+      </row>
+    </rows>
+    </grid>
+ </groupbox>
+ <menupopup id="wbdesc">
+   <description class="foxyproxy-tooltip foxyproxy-border" width="400" height="80">&foxyproxy.whiteblack.description.label;</description>
+ </menupopup>      
+</radiogroup>
+<menupopup id="notifyWhenCanceledPopup">
+  <description class="foxyproxy-tooltip foxyproxy-border" width="400" height="80">
+    &foxyproxy.quickadd.notify.whencanceled.label2;</description>
+</menupopup>  
+<menupopup id="tempPopup">
+  <description class="foxyproxy-tooltip foxyproxy-border" width="400" height="80">
+    &foxyproxy.temp.popup.label;</description>
+</menupopup>
+</overlay>

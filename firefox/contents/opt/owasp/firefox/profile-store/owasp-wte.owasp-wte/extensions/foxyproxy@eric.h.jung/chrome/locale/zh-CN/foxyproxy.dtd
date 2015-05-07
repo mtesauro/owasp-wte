@@ -1,0 +1,614 @@
+<!ENTITY foxyproxy.basic.label "FoxyProxy 基础版">
+<!ENTITY foxyproxy.standard.label "FoxyProxy Standard">
+<!ENTITY foxyproxy.plus.label "FoxyProxy Plus">
+<!ENTITY foxyproxy.accesskey "F">
+<!ENTITY foxyproxy.options.label "选项">
+<!ENTITY foxyproxy.options.accesskey "O">
+<!ENTITY foxyproxy.options.tooltip "打开选项对话框">
+<!ENTITY foxyproxy.tree.pickertooltiptext.label "单击选择您要显示的列">
+<!ENTITY foxyproxy.proxy.name.label "代理名称">
+<!ENTITY foxyproxy.proxy.name.accesskey "N">
+<!ENTITY foxyproxy.proxy.name.tooltip "代理名称">
+<!ENTITY foxyproxy.proxy.notes.label "代理备注">
+<!ENTITY foxyproxy.proxy.notes.accesskey "N">
+<!ENTITY foxyproxy.proxy.notes.tooltip "代理备注">
+<!ENTITY foxyproxy.proxy.wizard.label "代理向导">
+<!ENTITY foxyproxy.proxy.wizard.accesskey "P">
+<!ENTITY foxyproxy.proxy.wizard.tooltip "从一个代理订购创建代理">
+<!ENTITY foxyproxy.proxy.wizard.description1 "这个向导自动配置你的付费代理。请在下面输入你的订购 ID。如果你没有订购 ID，">
+<!ENTITY foxyproxy.proxy.wizard.description2 "你可以购买一个">
+<!ENTITY foxyproxy.proxy.wizard.subscriptionID.label "订购 ID">
+<!ENTITY foxyproxy.proxy.wizard.subscriptionID.tooltip "输入你的代理订购 ID">
+<!ENTITY foxyproxy.proxy.wizard.loading.label "正在接收代理详细信息...">
+<!ENTITY foxyproxy.proxy.wizard.congratulation "祝贺你。FoxyProxy 已经配置完毕。">
+<!ENTITY foxyproxy.proxy.wizard.whatsmyip.label "查看我的位置">
+<!ENTITY foxyproxy.pattern.label "匹配模板">
+<!ENTITY foxyproxy.urlpatterns.label "URL模式">
+<!ENTITY foxyproxy.urlpatterns.accesskey "P">
+<!ENTITY foxyproxy.urlpatterns.tooltip "URL 模式">
+<!ENTITY foxyproxy.pattern.type.label "模版类型">
+<!ENTITY foxyproxy.whitelist.blacklist.label "白名单或黑名单">
+<!ENTITY foxyproxy.pattern.name.label "模板名称">
+<!ENTITY foxyproxy.pattern.name.accesskey "P">
+<!ENTITY foxyproxy.pattern.name.tooltip "模式名称">
+<!ENTITY foxyproxy.url.pattern.label "URL 或 URL 模板">
+<!ENTITY foxyproxy.url.pattern.accesskey "U">
+<!ENTITY foxyproxy.url.pattern.tooltip "URL 或 URL 模板">
+<!ENTITY foxyproxy.enabled.label "启用">
+<!ENTITY foxyproxy.enabled.accesskey "E">
+<!ENTITY foxyproxy.enabled.tooltip "切换启用/禁用">
+<!ENTITY foxyproxy.delete.selection.label "删除选中项目">
+<!ENTITY foxyproxy.delete.selection.accesskey "D">
+<!ENTITY foxyproxy.delete.selection.tooltip "删除当前选中项目">
+<!ENTITY foxyproxy.edit.selection.label "编辑选中项目">
+<!ENTITY foxyproxy.edit.selection.accesskey "E">
+<!ENTITY foxyproxy.edit.selection.tooltip "编辑当前选中项目">
+<!ENTITY foxyproxy.help.label "帮助内容">
+<!ENTITY foxyproxy.help.accesskey "H">
+<!ENTITY foxyproxy.help.tooltip "显示帮助">
+<!ENTITY foxyproxy.import.pattern.label "导入">
+<!ENTITY foxyproxy.import.pattern.accesskey "I">
+<!ENTITY foxyproxy.import.pattern.tooltip "导入模式">
+<!ENTITY foxyproxy.export.pattern.label "Export">
+<!ENTITY foxyproxy.export.pattern.accesskey "X">
+<!ENTITY foxyproxy.export.pattern.tooltip2 "导出全部模式">
+<!ENTITY foxyproxy.close.label "关闭">
+<!ENTITY foxyproxy.close.accesskey "C">
+<!ENTITY foxyproxy.close.tooltip "关闭窗口">
+<!ENTITY foxyproxy.about.label "关于">
+<!ENTITY foxyproxy.about.accesskey "A">
+<!ENTITY foxyproxy.about.tooltip "打开关于窗口">
+<!ENTITY foxyproxy.online.label "FoxyProxy 在线">
+<!ENTITY foxyproxy.online.accesskey "O">
+<!ENTITY foxyproxy.online.tooltip "访问 FoxyProxy 网站">
+<!ENTITY foxyproxy.tor.label "Tor 向导">
+<!ENTITY foxyproxy.tor.accesskey "W">
+<!ENTITY foxyproxy.tor.tooltip "Tor 向导">
+<!ENTITY foxyproxy.copy.selection.label "复制选中项目">
+<!ENTITY foxyproxy.copy.selection.accesskey "C">
+<!ENTITY foxyproxy.copy.selection.tooltip "复制选中项目">
+<!ENTITY foxyproxy.mode.label "选择工作模式">
+<!ENTITY foxyproxy.wpad.label1 "由 WPAD">
+<!-- begin foxyproxyplus -->
+<!ENTITY foxyproxy.wpad.accesskey "W">
+<!ENTITY foxyproxy.wpad.tooltip "自动使用 WPAD 检测代理设置">
+<!ENTITY foxyproxy.wpad.reload.label "每次自动检测代理设置">
+<!ENTITY foxyproxy.wpad.reload.accesskey "D">
+<!ENTITY foxyproxy.wpad.reload.tooltip "每个指定的周期内自动检测代理">
+<!ENTITY foxyproxy.wpad.tree.label "自动检测代理">
+<!ENTITY foxyproxy.auto.url.label "自动配置代理服务器 URL">
+<!ENTITY foxyproxy.auto.url.tooltip "输入 PAC 文件的 URL">
+<!ENTITY foxyproxy.auto.url.note.label "http(s):// ftp:// file:// relative://">
+<!ENTITY foxyproxy.auto.url.note.tooltip "单击info按钮获取relative://的信息">
+<!ENTITY foxyproxy.ip.address.label "IP 地址">
+<!ENTITY foxyproxy.port.label "端口">
+<!ENTITY foxyproxy.port.accesskey "P">
+<!ENTITY foxyproxy.port.tooltip "端口">
+<!ENTITY foxyproxy.socks.v4 "SOCKS v4/4a">
+<!ENTITY foxyproxy.socks.v5 "SOCKS v5">
+<!ENTITY foxyproxy.addeditpattern.title "添加/编辑模板">
+<!ENTITY foxyproxy.wildcard.label "通配符">
+<!ENTITY foxyproxy.wildcard.accesskey "W">
+<!ENTITY foxyproxy.wildcard.tooltip "使用通配符而不是正则表达式来确定 URL 或 URL 模板。">
+<!ENTITY foxyproxy.wildcard.example.label "例如: *mail.yahoo.com/*">
+<!ENTITY foxyproxy.regex.label "正则表达式">
+<!ENTITY foxyproxy.regex.accesskey "R">
+<!ENTITY foxyproxy.regex.tooltip "使用正则表达式来确定 URL 或 URL 模板。">
+<!ENTITY foxyproxy.regex.example.label2 "举例：^https?://.*\.mail\.yahoo\.com/.*$">
+<!ENTITY foxyproxy.version "版本">
+<!ENTITY foxyproxy.createdBy "创建者">
+<!ENTITY foxyproxy.contributionsBy "贡献者">
+<!ENTITY foxyproxy.copyright "版权">
+<!ENTITY foxyproxy.rights "保留全部权力">
+<!ENTITY foxyproxy.released "遵循">
+<!ENTITY foxyproxy.tab.general.label "常规">
+<!ENTITY foxyproxy.tab.general.accesskey "G">
+<!ENTITY foxyproxy.tab.general.tooltip "管理代理服务器常规设置">
+<!ENTITY foxyproxy.tab.proxy.label "代理服务器细节">
+<!ENTITY foxyproxy.tab.proxy.accesskey "R">
+<!ENTITY foxyproxy.tab.proxy.tooltip "管理代理服务器细节设置">
+<!ENTITY foxyproxy.tab.patterns.label "模板">
+<!ENTITY foxyproxy.tab.patterns.accesskey "P">
+<!ENTITY foxyproxy.tab.patterns.tooltip "管理 URL 模板">
+<!ENTITY foxyproxy.add.title "代理设置">
+<!ENTITY foxyproxy.pattern.description "在这里您可以添加或删除要使用该代理服务器的 URLs">
+<!ENTITY foxyproxy.pattern.nointernal.label "不要对内部网络 IP 地址使用这个代理">
+<!ENTITY foxyproxy.pattern.nointernal.tooltip "这个复选框让你可以限制代理只能用于非内部网络 IP 地址">
+<!ENTITY foxyproxy.pattern.nointernal.accesskey "N">
+<!ENTITY foxyproxy.pattern.matchtype.label "模板包含">
+<!ENTITY foxyproxy.pattern.whiteblack.label "包含或排除的 URL">
+<!ENTITY foxyproxy.add.option.direct.label "直接连接到互联网">
+<!ENTITY foxyproxy.add.option.direct.accesskey "D">
+<!ENTITY foxyproxy.add.option.direct.tooltip "不使用代理服务器－直接连接至互联网">
+<!ENTITY foxyproxy.add.option.manual.label "手动配置代理服务器">
+<!ENTITY foxyproxy.add.option.manual.accesskey "M">
+<!ENTITY foxyproxy.add.option.manual.tooltip "手动定义代理服务器配置">
+<!ENTITY foxyproxy.add.new.pattern.label "添加新模板">
+<!ENTITY foxyproxy.add.new.pattern.accesskey "A">
+<!ENTITY foxyproxy.add.new.pattern.tooltip "添加新模板">
+<!ENTITY foxyproxy.menubar.file.label "文件">
+<!ENTITY foxyproxy.menubar.file.accesskey "F">
+<!ENTITY foxyproxy.menubar.file.tooltip "打开文件菜单">
+<!ENTITY foxyproxy.menubar.help.label "帮助">
+<!ENTITY foxyproxy.menubar.help.accesskey "H">
+<!ENTITY foxyproxy.menubar.help.tooltip "打开帮助菜单">
+<!ENTITY foxyproxy.mode.accesskey "M">
+<!ENTITY foxyproxy.mode.tooltip "选择如何启用 FoxyProxy">
+<!ENTITY foxyproxy.proxy.label "代理服务器">
+<!ENTITY foxyproxy.tab.proxies.label "代理服务器">
+<!ENTITY foxyproxy.tab.proxies.accesskey "P">
+<!ENTITY foxyproxy.tab.proxies.tooltip "管理代理服务器">
+<!ENTITY foxyproxy.tab.global.label "全局设置">
+<!ENTITY foxyproxy.tab.global.accesskey "G">
+<!ENTITY foxyproxy.tab.global.tooltip "管理全局设置">
+<!ENTITY foxyproxy.settings.advanced.label "高级设置">
+<!ENTITY foxyproxy.settings.advanced.tooltip "点击按钮打开 FoxyProxy 高级设置对话框">
+<!ENTITY foxyproxy.tab.logging.label "日志">
+<!ENTITY foxyproxy.tab.logging.accesskey "L">
+<!ENTITY foxyproxy.tab.logging.tooltip "管理日志设置">
+<!ENTITY foxyproxy.proxydns.label3 "对通过这个代理服务器载入的主机名进行远程 DNS 查询">
+<!ENTITY foxyproxy.proxydns.accesskey "U">
+<!ENTITY foxyproxy.proxydns.tooltip3 "如果选中，通过这个代理服务器载入的 URL 的主机名，也由这个代理服务器解析">
+<!ENTITY foxyproxy.proxydns.label4 "DNS 代理">
+<!ENTITY foxyproxy.cache.label "缓存">
+<!ENTITY foxyproxy.clearcache.label "使用此代理前清空应用程序缓存">
+<!ENTITY foxyproxy.clearcache.accesskey "H">
+<!ENTITY foxyproxy.clearcache.tooltip "如果选中，使用此代理前会清空缓存">
+<!ENTITY foxyproxy.disablecache.label "使用此代理时不要启用缓存">
+<!ENTITY foxyproxy.disablecache.accesskey "D">
+<!ENTITY foxyproxy.disablecache.tooltip "如果选中，应用程序将不会使用缓存">
+<!ENTITY foxyproxy.cookies.label "Cookies">
+<!ENTITY foxyproxy.clearcookies.label "使用此代理时移除全部 cookies">
+<!ENTITY foxyproxy.clearcookies.accesskey "C">
+<!ENTITY foxyproxy.clearcookies.tooltip "如果选中，使用此代理前将移除全部 cookies">
+<!ENTITY foxyproxy.rejectcookies.label "使用此代理时将阻止全部 cookies">
+<!ENTITY foxyproxy.rejectcookies.accesskey "B">
+<!ENTITY foxyproxy.rejectcookies.tooltip "如果选中，使用此代理时浏览器将会拒绝全部 cookies">
+<!ENTITY foxyproxy.showstatusbaricon.label "在状态栏显示图标">
+<!ENTITY foxyproxy.showstatusbaricon.accesskey "S">
+<!ENTITY foxyproxy.showstatusbaricon.tooltip "如果勾选，FoxyProxy 图标将显示在状态栏">
+<!ENTITY foxyproxy.showstatusbarmode.label "在状态栏显示模式文字">
+<!ENTITY foxyproxy.showstatusbarmode.accesskey "S">
+<!ENTITY foxyproxy.showstatusbarmode.tooltip "如果勾选，FoxyProxy 模式文字将显示在状态栏">
+<!ENTITY foxyproxy.storagelocation.label.2 "本地设置">
+<!ENTITY foxyproxy.storagelocation.accesskey "S">
+<!ENTITY foxyproxy.storagelocation.tooltip "确定存储 FoxyProxy 设置的位置">
+<!ENTITY foxyproxy.tab.logging.timestamp.label "时间片">
+<!ENTITY foxyproxy.tab.logging.url.label "URL">
+<!ENTITY foxyproxy.host.label.2 "主机或 IP 地址">
+<!ENTITY foxyproxy.host.accesskey "H">
+<!ENTITY foxyproxy.clear.label "清除">
+<!ENTITY foxyproxy.clear.accesskey "C">
+<!ENTITY foxyproxy.clear.tooltip "清除">
+<!ENTITY foxyproxy.refresh.label "刷新">
+<!ENTITY foxyproxy.refresh.accesskey "R">
+<!ENTITY foxyproxy.refresh.tooltip "刷新">
+<!ENTITY foxyproxy.save.label "保存">
+<!ENTITY foxyproxy.save.accesskey "S">
+<!ENTITY foxyproxy.save.tooltip "保存">
+<!ENTITY foxyproxy.openurlinnewtab.label "在新标签页打开网址">
+<!ENTITY foxyproxy.openurlinnewtab.accesskey "O">
+<!ENTITY foxyproxy.openurlinnewtab.tooltip "在新标签页打开网址">
+<!ENTITY foxyproxy.copyurltoclipboard.label "网址复制到剪切板">
+<!ENTITY foxyproxy.copyurltoclipboard.accesskey "C">
+<!ENTITY foxyproxy.copyurltoclipboard.tooltip "网址复制到剪切板">
+<!ENTITY foxyproxy.addnewproxy.label "新建代理服务器">
+<!ENTITY foxyproxy.addnewproxy.accesskey "A">
+<!ENTITY foxyproxy.addnewproxy.tooltip "新建代理服务器">
+<!ENTITY foxyproxy.useselectedforallurls.label "对所有网址使用选定的代理服务器">
+<!ENTITY foxyproxy.useselectedforallurls.accesskey "U">
+<!ENTITY foxyproxy.useselectedforallurls.tooltip "对所有网址使用选定的代理服务器">
+<!ENTITY foxyproxy.whitelist.label "白名单">
+<!ENTITY foxyproxy.whitelist.accesskey "W">
+<!ENTITY foxyproxy.whitelist.tooltip "匹配此模板的 URL 将通过这个代理服务器加载">
+<!ENTITY foxyproxy.whitelist.description.label "匹配此模板的 URL 将通过这个代理服务器加载">
+<!ENTITY foxyproxy.blacklist.label "黑名单">
+<!ENTITY foxyproxy.blacklist.accesskey "B">
+<!ENTITY foxyproxy.blacklist.tooltip "匹配此模板的 URL 将不通过这个代理服务器加载">
+<!ENTITY foxyproxy.blacklist.description.label "匹配此模板的 URL 将不通过这个代理服务器加载">
+<!ENTITY foxyproxy.whiteblack.description.label "黑名单中模板的优先级高于白名单中模板的优先级：如果一个 URL 同时匹配同一个代理服务器黑名单中的模板和白名单中的模板，这个 URL 将不使用该代理服务器加载。">
+<!ENTITY foxyproxy.socks.version.label "SOCKS 版本">
+<!ENTITY foxyproxy.autopacurl.label "自动 PAC URL">
+<!ENTITY foxyproxy.issocks.label "SOCKS代理?">
+<!ENTITY foxyproxy.issocks.accesskey "S">
+<!ENTITY foxyproxy.issocks.tooltip "这是一个Web代理或SOCKS代理?">
+<!ENTITY foxyproxy.moveup.label "上移">
+<!ENTITY foxyproxy.moveup.tooltip "提高当前选中项的优先级">
+<!ENTITY foxyproxy.moveup.accesskey "U">
+<!ENTITY foxyproxy.movedown.label "下移">
+<!ENTITY foxyproxy.movedown.tooltip "降低当前选中项的优先级">
+<!ENTITY foxyproxy.movedown.accesskey "D">
+<!ENTITY foxyproxy.system.label "使用系统代理设置">
+<!ENTITY foxyproxy.system.accesskey "Y">
+<!ENTITY foxyproxy.system.tooltip2 "使用你的系统设置中的代理配置">
+<!ENTITY foxyproxy.automatic.label "自动代理服务器配置">
+<!ENTITY foxyproxy.automatic.accesskey "A">
+<!ENTITY foxyproxy.automatic.tooltip "自动获取代理服务器配置">
+<!ENTITY foxyproxy.pac.label "由 PAC">
+<!ENTITY foxyproxy.pac.accesskey "P">
+<!ENTITY foxyproxy.pac.tooltip "使用一个 PAC 文件获得代理服务器设置">
+<!ENTITY foxyproxy.autoconfurl.view.label "查看">
+<!ENTITY foxyproxy.autoconfurl.view.accesskey "V">
+<!ENTITY foxyproxy.autoconfurl.view.tooltip "查看自动配置文件">
+<!ENTITY foxyproxy.autoconfurl.test.label "测试">
+<!ENTITY foxyproxy.autoconfurl.test.accesskey "T">
+<!ENTITY foxyproxy.autoconfurl.test.tooltip "测试自动配置文件">
+<!ENTITY foxyproxy.autoconfurl.reload.label "重新加载每条PAC">
+<!ENTITY foxyproxy.autoconfurl.reload.accesskey "R">
+<!ENTITY foxyproxy.autoconfurl.reload.tooltip "特定时间段自动重新读取PAC文件">
+<!ENTITY foxyproxy.minutes.label "分钟">
+<!ENTITY foxyproxy.minutes.tooltip "分钟">
+<!ENTITY foxyproxy.logging.maxsize.label "最大尺寸">
+<!ENTITY foxyproxy.logging.maxsize.accesskey "M">
+<!ENTITY foxyproxy.logging.maxsize.tooltip "日志文件在被清空前所能记录的最大数量">
+<!ENTITY foxyproxy.logging.maxsize.button.label "设置">
+<!ENTITY foxyproxy.logging.maxsize.button.accesskey "S">
+<!ENTITY foxyproxy.logging.maxsize.button.tooltip "设置日志文件在被清空前所能记录的最大数量">
+<!ENTITY foxyproxy.random.label "通过随机代理服务器加载 URL(忽略全部模板和优先级)">
+<!ENTITY foxyproxy.random.accesskey "R">
+<!ENTITY foxyproxy.random.tooltip "通过随机代理服务器加载 URL(忽略全部模板和优先级)">
+<!ENTITY foxyproxy.random.includedirect.label "包含直接连接互联网的代理服务器配置">
+<!ENTITY foxyproxy.random.includedirect.accesskey "I">
+<!ENTITY foxyproxy.random.includedirect.tooltip "直接连接互联网的代理服务器配置也被包含在随机代理服务器选择中">
+<!ENTITY foxyproxy.random.includedisabled.label "包含已禁用代理服务器">
+<!ENTITY foxyproxy.random.includedisabled.accesskey "D">
+<!ENTITY foxyproxy.random.includedisabled.tooltip "已被禁用的代理服务器配置也被包含在随机代理服务器选择中">
+<!ENTITY foxyproxy.random.settings.label "随机代理服务器选择">
+<!ENTITY foxyproxy.random.settings.accesskey "R">
+<!ENTITY foxyproxy.random.settings.tooltip "随即选择代理服务器">
+<!ENTITY foxyproxy.tab.autoadd.label "自动添加">
+<!ENTITY foxyproxy.tab.autoadd.accesskey "A">
+<!ENTITY foxyproxy.tab.autoadd.tooltip "管理自动添加设置">
+<!ENTITY foxyproxy.autoadd.description "指定一个模板来识别已被屏蔽的网站。当在网页中包含这个模板时，匹配这个网站 URL 的模板将被自动添加一个代理服务器。这样可以省去您自己去识别那些已被屏蔽的网站。">
+<!ENTITY foxyproxy.autoadd.pattern.label "识别被屏蔽网站的式样">
+<!ENTITY foxyproxy.autoadd.pattern.accesskey "P">
+<!ENTITY foxyproxy.autoadd.pattern.tooltip "识别已被屏蔽网站的模板">
+<!ENTITY foxyproxy.autoadd.wildcard.example.label "例如: *You are not authorized to view this page*">
+<!ENTITY foxyproxy.autoadd.regex.example.label "例如: .*Site.*has been blocked.*">
+<!ENTITY foxyproxy.autoadd.proxy.label "模板被自动添加的代理服务器">
+<!ENTITY foxyproxy.autoadd.proxy.accesskey "P">
+<!ENTITY foxyproxy.autoadd.proxy.tooltip "为被自动添加的 URL 模板指定代理服务器">
+<!ENTITY foxyproxy.pattern.template.label "URL格式模板">
+<!ENTITY foxyproxy.pattern.template.accesskey "U">
+<!ENTITY foxyproxy.pattern.template.tooltip "URL格式模板">
+<!ENTITY foxyproxy.pattern.template.example.label1 "例如 ">
+<!ENTITY foxyproxy.pattern.template.example.label2 "http://fred:secret@mail.foo.com:8080/inbox/msg102.htm#subject?style=elegant">
+<!ENTITY foxyproxy.pattern.template.currenturl.label "当前URL">
+<!ENTITY foxyproxy.pattern.template.currenturl.accesskey "C">
+<!ENTITY foxyproxy.pattern.template.currenturl.tooltip "地址栏中的URL">
+<!ENTITY foxyproxy.pattern.template.generatedpattern.label "生成格式">
+<!ENTITY foxyproxy.pattern.template.generatedpattern.accesskey "G">
+<!ENTITY foxyproxy.pattern.template.generatedpattern.tooltip "动态生成模式">
+<!ENTITY foxyproxy.autoadd.reload.label "添加代理服务器后自动重新加载页面">
+<!ENTITY foxyproxy.autoadd.reload.accesskey "R">
+<!ENTITY foxyproxy.autoadd.reload.tooltip "添加代理服务器后自动重新加载页面">
+<!ENTITY foxyproxy.autoadd.notify.label "在执行自动添加动作后显示提示">
+<!ENTITY foxyproxy.autoadd.notify.accesskey "N">
+<!ENTITY foxyproxy.autoadd.notify.tooltip "在执行自动添加动作后显示提示">
+<!ENTITY foxyproxy.autoadd.notify.tooltip2 "当自动添加功能启用时弹出消息气泡">
+<!ENTITY foxyproxy.pacloadnotification.label "PAC 文件加载时提示我">
+<!ENTITY foxyproxy.pacloadnotification.accesskey "L">
+<!ENTITY foxyproxy.pacloadnotification.tooltip "PAC 文件加载时显示弹出菜单">
+<!ENTITY foxyproxy.pacerrornotification.label "PAC 文件错误时提示我">
+<!ENTITY foxyproxy.pacerrornotification.accesskey "E">
+<!ENTITY foxyproxy.pacerrornotification.tooltip "PAC 文件错误时显示弹出菜单">
+<!ENTITY foxyproxy.toolbaricon.label "在工具栏上显示图标">
+<!ENTITY foxyproxy.toolbaricon.accesskey "O">
+<!ENTITY foxyproxy.toolbaricon.tooltip "在工具栏上显示图标">
+<!ENTITY foxyproxy.toolsmenu.label2 "在工具菜单里显示图标">
+<!ENTITY foxyproxy.toolsmenu.accesskey "T">
+<!ENTITY foxyproxy.toolsmenu.tooltip2 "在工具菜单里显示图标">
+<!ENTITY foxyproxy.tip.label "提示">
+<!ENTITY foxyproxy.pactip1.label "对于存放在本地硬盘上的 PAC 文件，使用 file:// 格式。例如在 Windows 上使用 file://c:/path/proxy.pac ，在 Unix/Linux/Mac 使用 file:///home/users/joe/proxy.pac 。">
+<!ENTITY foxyproxy.pactip2.label "对于 ftp 服务器上的 PAC 文件，请使用 ftp:// 格式。例如，ftp://leahscape.com/path/proxy.pac">
+<!ENTITY foxyproxy.pactip3.label "您同样可以使用http://,https://以及其他任何支持的协议组合.">
+<!ENTITY foxyproxy.pactip4.label "最后，如果你需要使用一个相对路径来引用一个在本地文件系统上的 PAC 文件，你可以使用 FoxyProxy 的 relative:// 格式。这个对于你的 PAC 文件是存放在移动驱动器上很有用。支持记录的相对路径">
+<!ENTITY foxyproxy.pactip5.label "这里">
+<!ENTITY foxyproxy.pactip6.label ". 在你指定的 relative:// URL 中的特殊字符串将会使用它们相应的值所替换。例如 relative://ProfD/pacs/proxy3.pac 将会指向">
+<!ENTITY foxyproxy.pactip7.label "Firefox 配置文件目录">
+<!ENTITY foxyproxy.pactip8.label "Windows 上的 Portable Firefox 的名为 pacs/. 的子目录下的文件 proxy3.pac，Firefox 的 profile 目录总是一个相对路径，因为驱动器符在不同的计算机上总是有所不同。请注意，特殊字符串（ProfD，Home，TempD 等）都是区分大小写的!">
+<!ENTITY foxyproxy.contextmenu.label "在 Firefox 右键菜单显示 FoxyProxy">
+<!ENTITY foxyproxy.contextmenu.accesskey "C">
+<!ENTITY foxyproxy.contextmenu.tooltip "在 Firefox 右键菜单显示 FoxyProxy">
+<!ENTITY foxyproxy.quickadd.desc1 "QuickAdd (快速添加)在你按 Alt-F2 时添加一个动态的 URL 式样到代理中。它是 AutoAdd 的使用替代。要定制 Alt-F2 快捷键，使用 ">
+<!ENTITY foxyproxy.keyconfig.label "KeyConfig">
+<!ENTITY foxyproxy.quickadd.desc2 "扩展">
+<!ENTITY foxyproxy.quickadd.label "快速添加">
+<!ENTITY foxyproxy.quickadd.accesskey "Q">
+<!ENTITY foxyproxy.quickadd.tooltip "快速添加">
+<!ENTITY foxyproxy.quickadd.notify.label "当快速添加启用时提醒我">
+<!ENTITY foxyproxy.quickadd.notify.accesskey "N">
+<!ENTITY foxyproxy.quickadd.notify.tooltip "当快速添加功能启用时弹出消息气泡">
+<!ENTITY foxyproxy.quickadd.notify.whencanceled.label "当快速添加被取消时通知我">
+<!ENTITY foxyproxy.quickadd.notify.whencanceled.label2 "地址栏当前 URL 已经和现有代理服务器白名单匹配时，如果通过 Alt-F2 启用快速添加则会自动终止。这会引起重复模式而扰乱你的配置，因此被阻止。这个功能不能取消；同时，该阻止功能生效时会触发通知信息。">
+<!ENTITY foxyproxy.quickadd.notify.whencanceled.accesskey "C">
+<!ENTITY foxyproxy.quickadd.notify.whencanceled.tooltip "当快速添加功能启用但是被取消时弹出消息气泡">
+<!ENTITY foxyproxy.whatsthis "这是什么？">
+<!ENTITY foxyproxy.quickadd.prompt.label "添加代理模式之前提示编辑和确认">
+<!ENTITY foxyproxy.quickadd.prompt.accesskey "P">
+<!ENTITY foxyproxy.quickadd.prompt.tooltip "添加代理模式之前提示编辑和确认">
+<!ENTITY foxyproxy.quickadd.proxy.label "已添加式样的代理">
+<!ENTITY foxyproxy.quickadd.proxy.accesskey "P">
+<!ENTITY foxyproxy.quickadd.proxy.tooltip "选择将会添加使用的代理服务器">
+<!ENTITY foxyproxy.advancedmenus.label "使用高级菜单">
+<!ENTITY foxyproxy.advancedmenus.accesskey "M">
+<!ENTITY foxyproxy.advancedmenus.tooltip "使用高级菜单(FoxyProxy 2.2 样式)">
+<!ENTITY foxyproxy.importsettings.label2 "导入设置">
+<!ENTITY foxyproxy.importsettings.accesskey "I">
+<!ENTITY foxyproxy.importsettings.tooltip "从文件导入设置">
+<!ENTITY foxyproxy.exportsettings.label2 "导出当前设置">
+<!ENTITY foxyproxy.exportsettings.accesskey "E">
+<!ENTITY foxyproxy.exportsettings.tooltip "导出当前设置到文件">
+<!ENTITY foxyproxy.importlist.label "导入代理服务器列表">
+<!ENTITY foxyproxy.importlist.accesskey "I">
+<!ENTITY foxyproxy.importlist.tooltip "到如代理服务器列表文本文件">
+<!ENTITY foxyproxy.wildcard.reference.label "通配符">
+<!ENTITY foxyproxy.wildcard.reference.accesskey "W">
+<!ENTITY foxyproxy.wildcard.reference.tooltip "通配符">
+<!ENTITY foxyproxy.wildcard.reference.subtitle.label "星号 (*) 匹配 0 或多个字符, 问号 (?) 匹配单个字符">
+<!ENTITY foxyproxy.wildcard.reference.goal.label "命中">
+<!ENTITY foxyproxy.wildcard.reference.goal1.label "匹配 MySpace 子域中的所有页面">
+<!ENTITY foxyproxy.wildcard.reference.goal2.label "匹配本地主机">
+<!ENTITY foxyproxy.wildcard.reference.goal3.label "匹配 abc.com 的所有子域和页面">
+<!ENTITY foxyproxy.wildcard.reference.goal4.label "匹配 a.foo.com 域内的所有页面但不匹配 b.foo.com 域内页面">
+<!ENTITY foxyproxy.wildcard.reference.correct.label "正确">
+<!ENTITY foxyproxy.wildcard.reference.correct2.label "必须两个模版">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.label "错误">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason.label "错误原因">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason1.label "由于没有通配符，只有主页匹配">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason2.label "FoxyProxy 不明白这种语法">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason3.label "无通配符">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason4.label "无通配符">
+<!ENTITY foxyproxy.logging.noURLs.label "不能存储或显示 URLs">
+<!ENTITY foxyproxy.logging.noURLs.accesskey "U">
+<!ENTITY foxyproxy.logging.noURLs.tooltip "URLs 不能存储在 RAM 或磁盘中">
+<!ENTITY foxyproxy.pattern.template.reference.label "模式模板参考">
+<!ENTITY foxyproxy.pattern.template.reference.tooltip "模式模板参考">
+<!ENTITY foxyproxy.pattern.template.reference.specialstring.label "特殊字符串">
+<!ENTITY foxyproxy.pattern.template.reference.subststring.label "取代">
+<!ENTITY foxyproxy.pattern.template.reference.example.label "例子">
+<!ENTITY foxyproxy.pattern.template.reference.scheme.label "协议">
+<!ENTITY foxyproxy.pattern.template.reference.username.label "用户名">
+<!ENTITY foxyproxy.pattern.template.reference.password.label "密码">
+<!ENTITY foxyproxy.pattern.template.reference.userpass.label "带&quot;:&quot;和&quot;@&quot;的用户名和密码">
+<!ENTITY foxyproxy.pattern.template.reference.host.label "主机">
+<!ENTITY foxyproxy.pattern.template.reference.port.label "端口">
+<!ENTITY foxyproxy.pattern.template.reference.hostport.label "带&quot;:&quot;的主机和端口">
+<!ENTITY foxyproxy.pattern.template.reference.prepath.label "在路径前的字符串">
+<!ENTITY foxyproxy.pattern.template.reference.path.label "路径(包括文件名)">
+<!ENTITY foxyproxy.pattern.template.reference.directory.label "目录">
+<!ENTITY foxyproxy.pattern.template.reference.filebasename.label "主文件名">
+<!ENTITY foxyproxy.pattern.template.reference.fileextension.label "文件扩展名">
+<!ENTITY foxyproxy.pattern.template.reference.filename.label "完整文件名">
+<!ENTITY foxyproxy.pattern.template.reference.ref.label "在&quot;#&quot;后的部分">
+<!ENTITY foxyproxy.pattern.template.reference.query.label "在&quot;?&quot;之后的部分">
+<!ENTITY foxyproxy.pattern.template.reference.spec.label "完整URL">
+<!ENTITY foxyproxy.notifications.label "通知">
+<!ENTITY foxyproxy.notifications.tooltip "通知设置">
+<!ENTITY foxyproxy.indicators.label "指示器">
+<!ENTITY foxyproxy.indicators.tooltip "指示器设置">
+<!ENTITY foxyproxy.misc.label "杂项">
+<!ENTITY foxyproxy.misc.tooltip "其它设置">
+<!ENTITY foxyproxy.animatedicons.label "代理服务器被使用时动态显示状态栏图标">
+<!ENTITY foxyproxy.animatedicons.accesskey "A">
+<!ENTITY foxyproxy.animatedicons.tooltip "代理服务器被使用时动态显示状态栏图标">
+<!ENTITY foxyproxy.statusbaractivation.label "状态激活">
+<!ENTITY foxyproxy.statusbaractivation.tooltip "状态激活设置">
+<!ENTITY foxyproxy.toolbaractivation.label "激活工具栏">
+<!ENTITY foxyproxy.toolbaractivation.tooltip "激活工具栏设置">
+<!ENTITY foxyproxy.leftclicksb.label "Left-clicking FoxyProxy on statusbar">
+<!ENTITY foxyproxy.leftclicksb.accesskey "L">
+<!ENTITY foxyproxy.leftclicksb.tooltip "左键点击 FoxyProxy 状态栏图标时的操作">
+<!ENTITY foxyproxy.middleclicksb.label "中键点击 FoxyProxy 状态栏图标">
+<!ENTITY foxyproxy.middleclicksb.accesskey "M">
+<!ENTITY foxyproxy.middleclicksb.tooltip "中键点击 FoxyProxy 状态栏图标时的操作">
+<!ENTITY foxyproxy.rightclicksb.label "右键点击 FoxyProxy 状态栏图标">
+<!ENTITY foxyproxy.rightclicksb.accesskey "R">
+<!ENTITY foxyproxy.rightclicksb.tooltip "右键点击 FoxyProxy 状态栏图标时的操作">
+<!ENTITY foxyproxy.leftclicktb.label "左键点击 FoxyProxy 工具栏图标">
+<!ENTITY foxyproxy.leftclicktb.accesskey "L">
+<!ENTITY foxyproxy.leftclicktb.tooltip "左键点击 FoxyProxy 工具栏图标时的操作">
+<!ENTITY foxyproxy.middleclicktb.label "中键点击 FoxyProxy 工具栏图标">
+<!ENTITY foxyproxy.middleclicktb.accesskey "M">
+<!ENTITY foxyproxy.middleclicktb.tooltip "中键点击 FoxyProxy 工具栏图标时的操作">
+<!ENTITY foxyproxy.rightclicktb.label "右键点击 FoxyProxy 工具栏图标">
+<!ENTITY foxyproxy.rightclicktb.accesskey "R">
+<!ENTITY foxyproxy.rightclicktb.tooltip "右键点击 FoxyProxy 工具栏图标时的操作">
+<!ENTITY foxyproxy.click.options "显示选项对话框">
+<!ENTITY foxyproxy.click.cycle "循环模式">
+<!ENTITY foxyproxy.click.contextmenu "显示右键菜单">
+<!ENTITY foxyproxy.click.reloadcurtab "重载当前标签页">
+<!ENTITY foxyproxy.click.reloadtabsinbrowser "重载当前窗口所有标签页">
+<!ENTITY foxyproxy.click.reloadtabsinallbrowsers "重载所有窗口标签页">
+<!ENTITY foxyproxy.click.removeallcookies "删除全部cookies">
+<!ENTITY foxyproxy.click.toggle "在当前模式和禁用状态之间切换">
+<!ENTITY foxyproxy.includeincycle.label "点击状态栏或工具栏启动循环代理时包含这个代理 (全局设置-&gt;状态栏/激活工具栏-&gt;循环模式 必须被选中)">
+<!ENTITY foxyproxy.includeincycle.accesskey "I">
+<!ENTITY foxyproxy.includeincycle.tooltip "当点击状态栏/工具栏时包括这个代理">
+<!ENTITY foxyproxy.changes.msg1 "求助！在哪里设置HTTP, SSL, FTP, Gopher, and SOCKS?">
+<!ENTITY foxyproxy.newGUI.popup.height "270px">
+<!ENTITY foxyproxy.newGUI.popup.width "400px">
+<!ENTITY foxyproxy.newGUI1.label "旧的 FoxyProxy 代理服务器设置界面基于 Firefox 的连接设置对话框且几乎相同，这来源于古老的 Mosaic 2.1.1 在1996年时的代理服务器设置。所有这些界面的问题在于只能根据协议选择路由。21世纪的浏览器例如 Firefox 支持许多协议，不限于 HTTP，SSL，FTP和GOPHER。显然，这些古老的界面在尝试包含每一种可能的协议时显得有些笨拙。">
+<!ENTITY foxyproxy.newGUI2.label "由于 FoxyProxy 已经启用了使用通配符和正则表达式式样来按协议来进行流量路由，在这个框架上的协议的列表就变得不需要了。在版本 2.5 中，FoxyProxy 已经从代理服务器设置的图形用户界面中删除了这个协议列表。尽管如此，它并没有缩减功能。它为此建立了一个类似的界面。如果你需要按协议路由流量，你应该小心的使用结构的式样/协议部分(譬如 ftp://*.yahoo.com/*, *://leahscape.com/* 等)来定义白名单和黑名单">
+<!ENTITY foxyproxy.newGUI4.label "点击获得更多信息。">
+<!ENTITY foxyproxy.error.msg.label "错误信息">
+<!ENTITY foxyproxy.pac.result.label "PAC 结果">
+<!ENTITY foxyproxy.torwiz.height "375">
+<!ENTITY foxyproxy.casesensitive.label "区分大小写">
+<!ENTITY foxyproxy.casesensitive.accesskey "C">
+<!ENTITY foxyproxy.casesensitive.tooltip "对URL匹配使用/不使用区分大小写">
+<!ENTITY foxyproxy.statusbarwidth.label "固定宽度">
+<!ENTITY foxyproxy.statusbarwidth.accesskey "W">
+<!ENTITY foxyproxy.statusbarwidth.tooltip "固定状态栏">
+<!ENTITY foxyproxy.pixels "像素">
+<!ENTITY foxyproxy.unlimited.label "[0: 缩小以适合]">
+<!ENTITY foxyproxy.temp.popup.label "临时模式让你可以为不常用的本地IP地址建立模式，以免扰乱代理服务器的IP地址模式列表。临时模式不会保存到磁盘。他们只是保存在内存中供当前 Firefox 会话使用。">
+<!ENTITY foxyproxy.temp.label "临时">
+<!ENTITY foxyproxy.temp.accesskey "T">
+<!ENTITY foxyproxy.temp.tooltip "模式仅用于当前 Firefox 会话">
+<!ENTITY foxyproxy.fromSubscription.label "已订阅">
+<!ENTITY foxyproxy.define.label "定义">
+<!ENTITY foxyproxy.define.accesskey "D">
+<!ENTITY foxyproxy.define.tooltip "定义">
+<!ENTITY foxyproxy.pattern.to.quickadd.label "快速添加到代理的式样">
+<!ENTITY foxyproxy.pattern.to.autoadd.label "自动添加到代理的式样">
+<!ENTITY foxyproxy.home "主页">
+<!ENTITY foxyproxy.support "支持">
+<!ENTITY foxyproxy.credits "贡献者">
+<!ENTITY foxyproxy.please.donate.label "请捐助">
+<!ENTITY foxyproxy.please.donate.accesskey "D">
+<!ENTITY foxyproxy.importantnote.label "阅读重要说明">
+<!ENTITY foxyproxy.resetlocation.label "重置位置">
+<!ENTITY foxyproxy.resetlocation.accesskey "R">
+<!ENTITY foxyproxy.resetlocation.tooltip "在 Firefox profile 中存放设置">
+<!ENTITY foxyproxy.settings.not.default "设置不在默认位置。">
+<!ENTITY foxyproxy.change.host.reload "设置新的 主机:端口 并重新载入当前页面">
+<!ENTITY foxyproxy.proxyservice.label "购买代理服务">
+<!ENTITY foxyproxy.proxyservice.accesskey "P">
+<!ENTITY foxyproxy.proxyservice.tooltip "登录代理服务">
+<!ENTITY foxyproxy.proxyservice2.label "需要美国，英国或者其他国家的快速、可靠的代理服务？">
+<!ENTITY foxyproxy.getfoxyproxyplus.label "获取 FoxyProxy Plus">
+<!ENTITY foxyproxy.foxyproxychrome.label "FoxyProxy Chrome 版">
+<!ENTITY foxyproxy.foxyproxychrome.accesskey "F">
+<!ENTITY foxyproxy.foxyproxychrome.tooltip "尝试 FoxyProxy Chrome 版">
+<!ENTITY foxyproxy.invalidcolor.label "无效颜色">
+<!ENTITY foxyproxy.validcolor.label "有效颜色">
+<!ENTITY foxyproxy.color.label "Color">
+<!ENTITY foxyproxy.color.description "使用此代理时的图标颜色">
+<!ENTITY foxyproxy.server.subscriptions.label "服务器订阅">
+<!ENTITY foxyproxy.server.subscriptions.tooltip "管理服务器订阅">
+<!ENTITY foxyproxy.server.subscriptions.accesskey "S">
+<!ENTITY foxyproxy.selectproxy.label "选择代理服务器">
+<!ENTITY foxyproxy.proxy.subscriptions.label "代理服务器订阅">
+<!ENTITY foxyproxy.proxy.subscriptions.accesskey "X">
+<!ENTITY foxyproxy.proxy.subscriptions.tooltip "管理代理服务器订阅">
+<!ENTITY foxyproxy.proxy.subscriptions.description "订阅其他人发布的代理服务器。只需几次点击即可与其他人分享你的代理服务器。">
+<!ENTITY foxyproxy.proxy.subscriptions.sharing.label "分享你的代理服务器">
+<!ENTITY foxyproxy.proxy.subscriptions.menulist.tooltip "选择你要对代理服务器订阅进行的操作">
+<!ENTITY foxyproxy.proxy.subscriptions.addSubscription "添加新的代理服务器订阅">
+<!ENTITY foxyproxy.proxy.subscriptions.viewSubscription "查看代理服务器订阅">
+<!ENTITY foxyproxy.proxy.subscriptions.addedit.title "添加/编辑代理服务器订阅">
+<!ENTITY foxyproxy.proxy.subscriptions.refreshHelp "移除全部现有的代理服务器订阅">
+<!ENTITY foxyproxy.proxy.subscriptions.proxy.type.label "代理类型">
+<!ENTITY foxyproxy.proxy.subscriptions.proxy.type.tooltip "从列表中选择你要导入的代理服务器类型。如果选择 &quot;不知道&quot;，将视为 HTTP 代理。">
+<!ENTITY foxyproxy.proxy.subscriptions.unknown.label "我不知道">
+<!ENTITY foxyproxy.proxy.subscriptions.http.label "HTTP">
+<!ENTITY foxyproxy.proxy.subscriptions.socks.label "SOCKS">
+<!ENTITY foxyproxy.proxy.subscriptions.subscriptionTypeHelp "该选项让你选择订阅中代理服务器的类型。如果你选择 &quot;不知道&quot;，代理会被视作 HTTP 类型，选择 &quot;HTTP&quot; 也是一样的。当然如果你选择 &quot;SOCKS&quot; ，Foxy Proxy 将会视他们为 SOCKS5 代理。">
+<!ENTITY foxyproxy.proxy.subscriptions.proxy.window.title "订阅代理服务器">
+<!ENTITY foxyproxy.pattern.subscriptions.label "模式订阅">
+<!ENTITY foxyproxy.pattern.subscriptions.description "订阅其他人发布的模式。几次鼠标点击即可同他人分享你的模式。">
+<!ENTITY foxyproxy.pattern.subscriptions.tooltip "管理模式订阅">
+<!ENTITY foxyproxy.pattern.subscriptions.accesskey "S">
+<!ENTITY foxyproxy.pattern.subscriptions.sharing.label "分享你的模式">
+<!ENTITY foxyproxy.pattern.subscriptions.menulist.tooltip "选择要对订阅模式进行的操作">
+<!ENTITY foxyproxy.pattern.subscriptions.addSubscription "添加新的模式订阅">
+<!ENTITY foxyproxy.pattern.subscriptions.editSelection "编辑选中项">
+<!ENTITY foxyproxy.pattern.subscriptions.deleteSelections "删除选中项">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshSelections "刷新选择">
+<!ENTITY foxyproxy.pattern.subscriptions.viewSubscription "查看模式订阅">
+<!ENTITY foxyproxy.pattern.subscriptions.go.label "转到">
+<!ENTITY foxyproxy.pattern.subscriptions.go.tooltip "点击这里执行你的选择">
+<!ENTITY foxyproxy.pattern.subscriptions.lastStatus.label "最近状态">
+<!ENTITY foxyproxy.pattern.subscriptions.addedit.title "添加/编辑模式订阅">
+<!ENTITY foxyproxy.pattern.subscriptions.name.label "订阅名称">
+<!ENTITY foxyproxy.pattern.subscriptions.name.tooltip "订阅名称">
+<!ENTITY foxyproxy.pattern.subscriptions.notes.label "订阅描述">
+<!ENTITY foxyproxy.pattern.subscriptions.notes.tooltip "订阅描述">
+<!ENTITY foxyproxy.pattern.subscriptions.url.label "订阅网址">
+<!ENTITY foxyproxy.pattern.subscriptions.url.tooltip "订阅网址">
+<!ENTITY foxyproxy.pattern.subscriptions.proxies.tooltip "已经订阅这个模式列表的代理服务器">
+<!ENTITY foxyproxy.pattern.subscriptions.addProxies.label "添加代理服务器">
+<!ENTITY foxyproxy.pattern.subscriptions.addProxies.tooltip "添加订阅这个模式列表的代理服务器">
+<!ENTITY foxyproxy.pattern.subscriptions.removeProxies.label "移除选定项目">
+<!ENTITY foxyproxy.pattern.subscriptions.removeProxies.tooltip "为选中的代理服务器取消这个模式列表的订阅">
+<!ENTITY foxyproxy.pattern.subscriptions.refresh.label "更新频率">
+<!ENTITY foxyproxy.pattern.subscriptions.refresh.tooltip "这个模式订阅的更新频率（分钟）">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshNow.label "现在更新">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshNow.tooltip "现在更新这个模式订阅">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshHelp1 "指定每多少分钟更新这个订阅。正在更新订阅">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshHelp2 "移除全部已有模式">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshHelp4 "然后插入在订购网址中找到的。了解更多">
+<!ENTITY foxyproxy.pattern.subscriptions.zeroRefresh "（0表示从不更新）">
+<!ENTITY foxyproxy.pattern.subscriptions.format.tooltip "这个模式订阅列表的格式">
+<!ENTITY foxyproxy.pattern.subscriptions.formatHelp "指定这个订阅的书写格式。一般来说，FoxyProxy 会自动检测格式。了解更多">
+<!ENTITY foxyproxy.pattern.subscriptions.obfuscation.tooltip "模式订阅的模糊格式">
+<!ENTITY foxyproxy.pattern.subscriptions.obfuscationHelp "订阅可以选择模糊方式以防范你和订阅网站之间的计算机内容过滤。一般来说，这由 FoxyProxy 自动检测。了解更多">
+<!ENTITY foxyproxy.pattern.subscriptions.copyLastStatus.label "复制最近状态到剪贴板">
+<!ENTITY foxyproxy.pattern.subscriptions.copyLastStatus.tooltip "复制最近状态到剪贴板">
+<!ENTITY foxyproxy.pattern.subscriptions.pattern.window.title "订阅模式">
+<!ENTITY foxyproxy.none.label "无">
+<!ENTITY foxyproxy.name.label "名字">
+<!ENTITY foxyproxy.notes.label "注释">
+<!ENTITY foxyproxy.url.label "网址">
+<!ENTITY foxyproxy.lastupdate.label "最近更新">
+<!ENTITY foxyproxy.updatefrequency.label "更新频率">
+<!ENTITY foxyproxy.status.label "Status">
+<!ENTITY foxyproxy.format.label "Format">
+<!ENTITY foxyproxy.obfuscation.label "Obfuscation">
+<!ENTITY foxyproxy.compatibilitycheck.proxy.tooltip "为应用程序升级后的附加组件检查功能选择代理服务器">
+<!ENTITY foxyproxy.compatibilitycheck.proxy.help "当 Firefox/Thunderbird/SeaMonkey 启动时，会在  http://addons.mozilla.org 搜索附加组件更新。这可能会绕开你的代理服务器模式匹配。在这里你可以指定此时要用的代理服务器。">
+<!-- end foxyproxyplus -->
+<!ENTITY foxyproxy.ip.pattern.addedit.title "添加/编辑本地IP地址模式">
+<!ENTITY foxyproxy.tempip.popup.label "临时模式让你可以为不常用的本地IP地址建立模式，以免扰乱代理服务器的IP地址模式列表。临时模式不会保存到磁盘。他们只是保存在内存中供当前 Firefox 会话使用。">
+<!ENTITY foxyproxy.ip.pattern.label "本地IP地址模式">
+<!ENTITY foxyproxy.ip.pattern.accesskey "I">
+<!ENTITY foxyproxy.ip.pattern.tooltip "本地IP地址模式">
+<!ENTITY foxyproxy.ip.patterns.label "本地IP地址模式">
+<!ENTITY foxyproxy.ip.patterns.accesskey "I">
+<!ENTITY foxyproxy.ip.patterns.tooltip "本地IP地址模式">
+<!ENTITY foxyproxy.ip.wildcard.reference.matches.label "匹配">
+<!ENTITY foxyproxy.ip.wildcard.reference.nomatch.label "不匹配">
+<!ENTITY foxyproxy.ip.whiteblack.label "包含/排除">
+<!ENTITY foxyproxy.ip.whitelist.description.label "当你的IP地址之一匹配这个模式的时候，URL 将会通过这个代理服务器载入。">
+<!ENTITY foxyproxy.ip.blacklist.description.label "当你的IP地址之一匹配这个模式的时候，URL 将不会通过这个代理服务器载入。">
+<!ENTITY foxyproxy.ip.wildcard.reference.subtitle.label "星号（*）匹配零个或者多个字符。">
+<!ENTITY foxyproxy.ip.current.local.label "当前本地IP地址模式">
+<!ENTITY foxyproxy.copyip.label "复制到模式">
+<!ENTITY foxyproxy.copyip.tooltip "地址复制到模式">
+<!ENTITY foxyproxy.copyip.accesskey "C">
+<!ENTITY foxyproxy.ip.wildcard.example.label "举例: 192.168.1.*">
+<!ENTITY foxyproxy.ip.regex.example.label "举例: 172\.\d+\.1\.10">
+<!ENTITY foxyproxy.ip.pattern.match "模式和一个、多个或当前本地IP地址相匹配">
+<!ENTITY foxyproxy.ip.pattern.no.match "模式和任何当前本地IP地址都不匹配">
+<!ENTITY foxyproxy.refreshlocalips "刷新本地IP地址模式">
+<!ENTITY foxyproxy.refreshlocalips.accesskey "R">
+<!ENTITY foxyproxy.enterlicense.label "输入许可密钥">
+<!ENTITY foxyproxy.enteremail.label "输入邮件地址">
+<!ENTITY foxyproxy.licenseinfo.label "许可信息">
+<!ENTITY foxyproxy.licensevalid.label "许可有效。感谢订购 FoxyProxy Plus。">
+<!ENTITY foxyproxy.subexpired.label "许可有效，但是你的更新订阅已经过期。你接收不到 FoxyProxy Plus 的更新。">
+<!ENTITY foxyproxy.licenseinvalid.label "许可无效。你不会收到 FoxyProxyPlus 更新，请订购 FoxyProxy Plus。">
+<!ENTITY foxyproxy.buynow.label "现在购买">
+<!ENTITY foxyproxy.checklicense.label "检查许可">
+<!ENTITY foxyproxy.checkinglicense.label "正在检查...请稍候">
+<!ENTITY foxyproxy.yourversion.label "你的版本">
+<!ENTITY foxyproxy.latestversion.label "最新版本">
+<!ENTITY foxyproxy.routetoleahscape.label.1 "请确认 Firefox 可以访问">
+<!ENTITY foxyproxy.routetoleahscape.label.2 "无论有没有代理服务器，如有必要，你都可以在 FoxyProxy Plus 中卫这个网址配置模式。">
+<!ENTITY foxyproxy.everything.label "每一个">
+<!ENTITY foxyproxy.nothing.label "无">
+<!ENTITY foxyproxy.ippatterndeletefinal.label "这是最后一个本地IP地址模式。如果你删除之，这个代理服务器就不会被使用。依然继续？">
+<!ENTITY foxyproxy.licenseplea.label "FoxyProxy Plus 有最低限度的反盗版措施。如果要使用 FoxyProxy Plus，请订购许可。该服务已经历很长时间的开发和维护，你的订购会鼓励我们继续进行下去。">
+<!ENTITY foxyproxy.authentication.label "验证">
+<!ENTITY foxyproxy.proxyusername.label "用户名">
+<!ENTITY foxyproxy.proxypassword.label "密码">
+<!ENTITY foxyproxy.proxypassword2.label "再次输入密码">
+<!ENTITY foxyproxy.proxydomain.label "域（可选 - 仅NTML）">
+<!ENTITY foxyproxy.proxydomain.tooltip "仅使用 NTLM 验证">
+<!ENTITY foxyproxy.proxy.passwords.nomatch.label "代理服务器密码不匹配；请重新输入。">
+<!ENTITY foxyproxy.traininglogging.label "训练和记录">
+<!ENTITY foxyproxy.traininglogging.tooltip "管理训练和记录设置">
+<!ENTITY foxyproxy.traininglogging.accesskey "L">
+<!ENTITY foxyproxy.training.start "开始训练">
+<!ENTITY foxyproxy.training.stop "停止训练">
+<!ENTITY foxyproxy.patternsforall.label "创建全部适用的模式">
+<!ENTITY foxyproxy.patternsforall.accesskey "A">
+<!ENTITY foxyproxy.patternsforall.tooltip "创建适用于全部网址的模式">
+<!ENTITY foxyproxy.patternsforselected.label "创建适用于选中项的模式">
+<!ENTITY foxyproxy.patternsforselected.accesskey "S">
+<!ENTITY foxyproxy.patternsforselected.tooltip "创建适用于选定网址的模式">
+<!ENTITY foxyproxy.patterntoadd.label "要添加的模式">
+<!ENTITY foxyproxyplus.released "发布于">
+<!ENTITY foxyproxyplus.license "FoxyProxy Plus 许可证">
+<!-- end foxyproxyplus -->

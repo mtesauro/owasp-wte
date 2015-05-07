@@ -1,0 +1,16 @@
+component  {e9426b10-8436-4867-b272-8ed82c794597}  components/initffbug.js
+contract   @o-minds.com/initffbug;1  {e9426b10-8436-4867-b272-8ed82c794597}
+category   profile-after-change  InitFFBug  @o-minds.com/initffbug;1
+
+content flashbug chrome/content/
+content flashfirebug chrome/content/
+
+locale flashbug en-US chrome/locale/en-US/
+locale flashbug zh-CN chrome/locale/zh-CN/
+
+skin flashbug classic chrome/skin/classic/
+
+resource flashfirebuglibs chrome/content/
+
+overlay chrome://browser/content/browser.xul chrome://flashbug/content/workwithflashblock.xul
+overlay chrome://firebug/content/firebugOverlay.xul chrome://flashbug/content/flashfirebug.xul

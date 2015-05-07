@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy Hilfe">
+<!ENTITY help.patterns "URL-Muster">
+<!ENTITY help.ff.asks "Bevor Firefox eine URL lädt, fragt er FoxyProxy, ob ein Proxy verwendet werden soll.">
+<!ENTITY help.fp.answers "FoxyProxy beantwortet diese Frage, indem es versucht, die aktuelle URL mit allen URL-Mustern abzugleichen, die Sie weiter unten definieren. Die einfachste Art, Muster zu definieren, verwendet Wildcards.">
+<!ENTITY help.a.wildcards "Wildcards">
+<!ENTITY help.p.wildcards.are "Wildcards sind bei Computern allgegenwärtig; Sie sind Ihnen höchstwahrscheinlich schon einmal begegnet. Der Stern (*) steht als Platzhalter für null oder mehrere Zeichen, und das Fragezeichen (?) steht als Platzhalter für ein beliebiges einzelnes Zeichen.">
+<!ENTITY help.p.regexp "Komplexere Vergleichsregeln sind mit regulären Ausdrücken möglich. Für Details betätigen Sie die &quot;Hilfe&quot; Schaltfläche.">
+<!ENTITY help.h4.wildcard.examples "Wildcard-Beispiele">
+<!ENTITY help.th.url.pattern "URL-Muster">
+<!ENTITY help.th.some.matches "Einige Treffer">
+<!ENTITY help.th.some.non.matches "Einige nicht-Treffer">
+<!ENTITY help.td.everything.in.y "Alles in der Domäne von Yahoo">
+<!ENTITY help.i.matches.everything "Akzeptiert alles">

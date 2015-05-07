@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Pomoc FoxyProxy">
+<!ENTITY help.patterns "Wzorce URL">
+<!ENTITY help.ff.asks "Przed pobraniem danych z adresu URL, Firefox pyta FoxyProxy czy powinien zostać użyty serwer pośredniczący (proxy).">
+<!ENTITY help.fp.answers "FoxyProxy odpowiadając na to pytanie sprawdza czy na poniższej liście nie ma zdefiniowanych adresów URL pasujących do adresu zawartego w zapytaniu. Prostym sposobem na zdefiniowanie wzorców jest użycie w nich wieloznaczników.">
+<!ENTITY help.a.wildcards "Wieloznaczniki">
+<!ENTITY help.p.wildcards.are "Wieloznaczniki są elementami przenikającymi przez cały proces obliczeniowy, jakich prawdopodobnie nigdy wcześniej nie widziałeś. Gwiazdka (*), jako wieloznacznik jest zamiennikiem wszystkich znaków występujących przed znakiem przed, którym została umieszczona, a znak zapytania (?), zamiennikiem tylko jednego znaku.">
+<!ENTITY help.p.regexp "Bardziej zaawansowanymi regułami są wyrażenia regularne (RegExp). Aby poznać szczegóły wyrażeń regularnych naciśnij przycisk „Pomoc”.">
+<!ENTITY help.h4.wildcard.examples "Przykłady zastosowań wieloznaczników">
+<!ENTITY help.th.url.pattern "Wzorzec URL">
+<!ENTITY help.th.some.matches "Pasujące">
+<!ENTITY help.th.some.non.matches "Niepasujące">
+<!ENTITY help.td.everything.in.y "Wszystko w domenie Yahoo">
+<!ENTITY help.i.matches.everything "Pasuje wszystko">

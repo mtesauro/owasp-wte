@@ -1,0 +1,7 @@
+all javascript that is not explicitly licensed under other alternative licenses, flashfirebug.swf, null.swf and version.swf are copyright O-Minds 2012 (info@o-minds.com)
+
+1. You are permitted to redistribute these files as is and as part of this software only.
+2. You may not use these files in any other projects without the express permission of O-Minds.
+3. It is illegal to attempt to decompile any of the above binary files.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

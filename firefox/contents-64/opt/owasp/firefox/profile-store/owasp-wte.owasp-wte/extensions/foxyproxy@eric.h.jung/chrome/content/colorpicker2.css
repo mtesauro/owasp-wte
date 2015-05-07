@@ -1,0 +1,109 @@
+/**
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+**/
+@namespace url("http://www.w3.org/1999/xhtml");
+
+.plugin {
+  background: #0d0d0d;
+  font-family: arial;
+  font-size: 11px;
+  line-height: 1em;
+  z-index:1;
+  padding: 7px 10px 11px 10px;
+  position: absolute
+}
+.plugin br {
+  clear: both;
+  margin: 0;
+  padding: 0
+}
+
+
+.plugCUR {
+  float: left;
+  width: 10px;
+  height: 10px;
+  font-size: 1px;
+  background: #FFF;
+  margin-right: 3px
+}
+
+.plugHEX {
+  float: left;
+  position: relative;
+  top: -1px;
+  border:0px;
+  height:10px;
+  color:white;
+  background-color:black;
+  font-size:10px;
+  margin:0;
+  padding:0;
+  margin-bottom:6px
+}
+.plugHEX:hover {
+  color: #FFD000
+}
+
+.plugTip {
+  color:#FFF
+}
+
+.SV {
+  background: #FF0000 url('images/satval.png');
+  position: relative;
+  cursor: crosshair;
+  float: left;
+  height: 166px;
+  width: 167px;
+  margin-right: 10px;
+  -moz-user-select: none
+}
+.SVslide {
+  background: url('images/slide.gif');
+  height: 9px;
+  width: 9px;
+  position: absolute;
+  line-height: 1px;
+  display:none
+}
+
+.H {
+  border: 1px solid #000;
+  cursor: crosshair;
+  float: left;
+  height: 154px;
+  position: relative;
+  width: 19px;
+  padding: 0;
+  top: 4px;
+  -moz-user-select: none
+}
+
+.Hslide {
+  background: url('images/slidehue.gif');
+  height: 5px;
+  width: 33px;
+  position: absolute;
+  line-height: 1px
+}
+.Hmodel {
+  position: relative;
+  top: -5px
+}
+.Hmodel div {
+  height: 1px;
+  width: 19px;
+  font-size: 1px;
+  line-height: 1px;
+  margin: 0;
+  padding: 0
+}
+

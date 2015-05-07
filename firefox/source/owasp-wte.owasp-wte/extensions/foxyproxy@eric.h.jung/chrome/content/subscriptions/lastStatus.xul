@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+
+<?xml-stylesheet href="chrome://foxyproxy/content/foxyproxy.css" 
+                 type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<dialog id="foxyproxyLastStatus" windowtype="foxyproxy"
+        title="&foxyproxy.standard.label; - 
+	       &foxyproxy.pattern.subscriptions.lastStatus.label;" 
+	buttons="accept"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	persist="screenX screenY width height"
+	onload="onLoad();"
+	ondialogaccept="onOK();"
+	context="lastStatusPopup">
+
+  <script src="lastStatus.js" />
+
+  <vbox>
+    <separator class="thin"/>
+    <hbox>
+      <tree id="lastStatusTree" rows="10" hidecolumnpicker="true" 
+            width="450" flex="1">
+        <treecols>
+          <treecol id="statusContainer" flex="1" 
+                 label="&foxyproxy.pattern.subscriptions.lastStatus.label;"/> 
+        </treecols>
+        <treechildren/>
+      </tree>
+    </hbox>
+  </vbox>
+
+  <menupopup id="lastStatusPopup">
+    <menuitem class="menuitem-non-iconic" command="copyCmd"/>
+  </menupopup>
+
+  <command id="copyCmd" 
+           label="&foxyproxy.pattern.subscriptions.copyLastStatus.label;"
+           tooltip="&foxyproxy.pattern.subscriptions.copyLastStatus.tooltip;"
+           oncommand="copyLastStatus();"/>
+</dialog>

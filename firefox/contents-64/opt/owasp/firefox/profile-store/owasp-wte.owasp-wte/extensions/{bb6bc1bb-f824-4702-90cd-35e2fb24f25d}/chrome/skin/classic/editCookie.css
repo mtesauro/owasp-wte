@@ -1,0 +1,95 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+spinbuttonsH
+{
+	-moz-binding: url("chrome://cookiesmanagerplus/skin/spinbuttonsH.xml#spinbuttonsH");
+}
+checkbox[right="true"]
+{
+	-moz-binding: url("chrome://cookiesmanagerplus/skin/checkboxright.xml#checkbox");
+}
+
+.up,
+.down
+{
+	min-width: 0px;
+	cursor: pointer;
+}
+.up[disabled="true"],
+.down[disabled="true"]
+{
+	cursor: auto;
+	opacity: 0.4;
+}
+.up
+{
+	list-style-image: url("chrome://cookiesmanagerplus/skin/images/up.png");
+}
+
+.down
+{
+	list-style-image: url("chrome://cookiesmanagerplus/skin/images/down.png");
+}
+
+#vbox_pop
+{
+	font-weight: bold;
+}
+
+.lbl_pop
+{
+	font-weight: bold;
+	text-align: left;
+	vertical-align: bottom;
+}
+
+.calendar
+{
+	cursor:pointer;
+	margin-left: 2px;
+	margin-right: 2px;
+	list-style-image: url("chrome://cookiesmanagerplus/skin/images/calendar.png");
+}
+
+.calendar[disabled="true"]
+{
+	cursor:auto;
+	list-style-image: url("chrome://cookiesmanagerplus/skin/images/calendar_dis.png");
+}
+
+#ifl_expires_date
+{
+	margin-right:0;
+	text-align: right;
+}
+
+#ifl_expires_time
+{
+	margin-left:0;
+}
+
+#secure
+{
+	list-style-image: url("chrome://cookiesmanagerplus/skin/images/secure.png");
+}
+
+#secure[disabled="true"]
+{
+	list-style-image: url("chrome://cookiesmanagerplus/skin/images/secure_dis.png");
+}
+
+#warning
+{
+	color: red;
+	text-decoration: blink;
+}
+
+#warning[disabled="true"]
+{
+	display: none;
+}
+
+#main
+{
+	min-width: 450px;
+}

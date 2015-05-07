@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy ヘルプ">
+<!ENTITY help.patterns "URL パターン">
+<!ENTITY help.ff.asks "Firefox は URL を読み込む前、プロキシを利用するか FoxyProxy に問い合わせます。">
+<!ENTITY help.fp.answers "FoxyProxy は現在の URL と、あなたが以下で定義した URL パターンが一致するか確かめます。もっとも単純な方法でパターンを指定するにはワイルドカードを使います。">
+<!ENTITY help.a.wildcards "ワイルドカード">
+<!ENTITY help.p.wildcards.are "ワイルドカードの使用はコンピュータ分野では一般的なので、これまで目にしたこともあるかもしれません。アスタリスク (*) はゼロ文字以上に代わるワイルドカード文字、クエスチョンマーク (?) は一文字に代わるワイルドカード文字となります。">
+<!ENTITY help.p.regexp "より詳細なパターンマッチングには、正規表現を利用できます。詳細は「ヘルプコンテンツ」ボタンをクリックしてください。">
+<!ENTITY help.h4.wildcard.examples "ワイルドカードの例">
+<!ENTITY help.th.url.pattern "URL パターン">
+<!ENTITY help.th.some.matches "一致">
+<!ENTITY help.th.some.non.matches "不一致">
+<!ENTITY help.td.everything.in.y "Yahoo! ドメインのすべて">
+<!ENTITY help.i.matches.everything "すべてに一致">

@@ -1,0 +1,33 @@
+﻿/* See license.txt for terms of usage */
+
+@import "chrome://flashbug/skin/console.css";
+@import "chrome://flashbug/skin/sharedobject.css";
+@import "chrome://flashbug/skin/decompiler.css";
+@import "chrome://flashbug/skin/amf.css";
+/*@import "chrome://flashbug/skin/inspector.css";*/
+
+/* XUL Links */
+.flb-link {
+	text-decoration: none;
+	border-bottom: dotted 1px;
+	color: blue;
+	color: -moz-nativehyperlinktext;
+	cursor: pointer;
+}
+
+.upgrade-button {
+	background: -moz-linear-gradient(center top , #DD4B39, #D14836) repeat scroll 0 0 #D14836; /* Doesn't seem to show bg gradient, oh well */
+	color: #DD4B39; /* #FFF */
+	text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+/*************************************************************************************************/
+
+/* Firebug Tracing Console customization. All messages from this example use this color.
+   This helps to distinguish logs from those coming from Firebug
+   Rule syntax: .DBG_<ext-id>
+   See: http://getfirebug.com/wiki/index.php/FBTrace for more details */
+.DBG_FLASH {
+    color: DarkOrange;
+}

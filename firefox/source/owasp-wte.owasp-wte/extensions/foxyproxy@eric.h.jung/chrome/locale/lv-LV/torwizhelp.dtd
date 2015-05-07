@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy palīdzība">
+<!ENTITY help.patterns "Adrešu šabloni">
+<!ENTITY help.ff.asks "Pirms Firefox ielādē kādu adresi, tas prasīs FoxyProxy vai izmantot starpniekserveri šai adresei. ">
+<!ENTITY help.fp.answers "FoxyProxy atbildēs uz šo jautājumu mēģinot atrast ielādējamās lapas adresi starp zemāk definētajiem adrešu šabloniem. Vienkāršākais veids kā definēt šablonus ir izmantojot aizstājējsimbolus.">
+<!ENTITY help.a.wildcards "Aizstājējsimboli">
+<!ENTITY help.p.wildcards.are "Aizstājējsimboli ir plaši sastopami datorzinātnēs, jūs tos noteikti jau esat redzējuši. Zvaigznīte (*) aizvieto vienu vai vairākus citus simbolus, savukārt jautājuma zīme (?) aizvieto jebkuru vienu citu simbolu. ">
+<!ENTITY help.p.regexp "Iespējām bagātāki adrešu un šablonu savietošanas noteikumi ir iespējami izmantojot regulārās izteiksmes. Lai iegūtu papildus informāciju klikšķiniet uz pogas 'Palīdzības saturs'.">
+<!ENTITY help.h4.wildcard.examples "Aizstājējsimbolu piemērs">
+<!ENTITY help.th.url.pattern "Adreses šablons">
+<!ENTITY help.th.some.matches "Dažas atbilstošas adreses">
+<!ENTITY help.th.some.non.matches "Dažas neatbilstošas adreses">
+<!ENTITY help.td.everything.in.y "Viss Yahoo domēnā">
+<!ENTITY help.i.matches.everything "Atbilst visam.">

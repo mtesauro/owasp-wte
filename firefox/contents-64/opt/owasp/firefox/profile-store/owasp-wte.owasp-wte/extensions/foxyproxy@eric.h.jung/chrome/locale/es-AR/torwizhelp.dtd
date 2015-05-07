@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy - Ayuda">
+<!ENTITY help.patterns "Patrones de URL">
+<!ENTITY help.ff.asks "Antes de cargar una URL, Firefox le pregunta a FoxyProxy si debiera utilizar un proxy.">
+<!ENTITY help.fp.answers "FoxyProxy responde ésta pregunta intentando cotejar la URL actual con todos los patrones de URL que usted haya definido. La forma más sencilla de especificar un patrón son los comodines.">
+<!ENTITY help.a.wildcards "Comodines">
+<!ENTITY help.p.wildcards.are "Los Comodines se  utilizan frecuentemente en el ámbito de la informática: seguramente usted ya los ha visto con anterioridad. El asterisco (*) oficia como comodín sustituyendo cero o más caracteres, y el símbolo de interrogación (?) reemplaza como comodín a cualquier caracter individual.">
+<!ENTITY help.p.regexp "Se pueden elaborar reglas de comparación más avanzadas utilizando expresiones regulares. Para más detalles, haga click en el menú &apos;Contenido de Ayuda&apos;.">
+<!ENTITY help.h4.wildcard.examples "Ejemplos de Comodines">
+<!ENTITY help.th.url.pattern "Patrones de URL">
+<!ENTITY help.th.some.matches "Algunas Coincidencias">
+<!ENTITY help.th.some.non.matches "Algunas No-Coincidencias">
+<!ENTITY help.td.everything.in.y "Todo lo que pertenezca al dominio de Yahoo">
+<!ENTITY help.i.matches.everything "Coincidir con todo">

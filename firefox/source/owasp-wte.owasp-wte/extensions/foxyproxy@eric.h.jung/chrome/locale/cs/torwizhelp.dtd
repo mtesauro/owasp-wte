@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Nápověda FoxyProxy">
+<!ENTITY help.patterns "URL vzory">
+<!ENTITY help.ff.asks "Předtím, než Firefox nahraje URL, tak se zeptá FoxyProxy jestli má použít proxy server.">
+<!ENTITY help.fp.answers "FoxyProxy odpoví na základě porovnání URL se všemi URL vzory nastavenými níže. Nejjednodušší způsob nastavení vzorů jsou žolíky.">
+<!ENTITY help.a.wildcards "Žolíky">
+<!ENTITY help.p.wildcards.are "Žolíky jsou velmi rozšířené; už jste je pravděpodobně viděli. Hvězdička (*) nahrazuje jako žolík znak o nulové nebo větší délce a otazník (?) nahrazuje právě jeden znak.">
+<!ENTITY help.p.regexp "Regulární výrazy umožňují ještě pokročilejší pravidla. Pro více informací klikněte na tlačítko &quot;Nápověda&quot;.">
+<!ENTITY help.h4.wildcard.examples "Příklady žolíků">
+<!ENTITY help.th.url.pattern "URL vzor">
+<!ENTITY help.th.some.matches "Odpovídající vzory">
+<!ENTITY help.th.some.non.matches "Neodpovídající vzory">
+<!ENTITY help.td.everything.in.y "Vše z domény Yahoo">
+<!ENTITY help.i.matches.everything "Vše odpovídá">

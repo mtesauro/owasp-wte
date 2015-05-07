@@ -1,0 +1,614 @@
+<!ENTITY foxyproxy.basic.label "FoxyProxy Basic">
+<!ENTITY foxyproxy.standard.label "FoxyProxy Standard">
+<!ENTITY foxyproxy.plus.label "FoxyProxy Plus">
+<!ENTITY foxyproxy.accesskey "F">
+<!ENTITY foxyproxy.options.label "Options">
+<!ENTITY foxyproxy.options.accesskey "O">
+<!ENTITY foxyproxy.options.tooltip "Open the Options Dialog">
+<!ENTITY foxyproxy.tree.pickertooltiptext.label "Click to select which columns to display">
+<!ENTITY foxyproxy.proxy.name.label "Proxy Name">
+<!ENTITY foxyproxy.proxy.name.accesskey "N">
+<!ENTITY foxyproxy.proxy.name.tooltip "Proxy Name">
+<!ENTITY foxyproxy.proxy.notes.label "Proxy Notes">
+<!ENTITY foxyproxy.proxy.notes.accesskey "N">
+<!ENTITY foxyproxy.proxy.notes.tooltip "Proxy Notes">
+<!ENTITY foxyproxy.proxy.wizard.label "Proxy Wizard">
+<!ENTITY foxyproxy.proxy.wizard.accesskey "P">
+<!ENTITY foxyproxy.proxy.wizard.tooltip "Create a proxy from a proxy subscription">
+<!ENTITY foxyproxy.proxy.wizard.description1 "This wizard configures your paid proxy automatically. Please enter your subscription ID below. If you do not have a subscription ID, ">
+<!ENTITY foxyproxy.proxy.wizard.description2 "you can purchase one">
+<!ENTITY foxyproxy.proxy.wizard.subscriptionID.label "Subscription ID">
+<!ENTITY foxyproxy.proxy.wizard.subscriptionID.tooltip "Enter your proxy subscription ID">
+<!ENTITY foxyproxy.proxy.wizard.loading.label "Retrieving proxy details...">
+<!ENTITY foxyproxy.proxy.wizard.congratulation "Congratulations. FoxyProxy is configured.">
+<!ENTITY foxyproxy.proxy.wizard.whatsmyip.label "Check my location">
+<!ENTITY foxyproxy.pattern.label "Pattern">
+<!ENTITY foxyproxy.urlpatterns.label "URL Patterns">
+<!ENTITY foxyproxy.urlpatterns.accesskey "P">
+<!ENTITY foxyproxy.urlpatterns.tooltip "URL patterns">
+<!ENTITY foxyproxy.pattern.type.label "Pattern Type">
+<!ENTITY foxyproxy.whitelist.blacklist.label "Whitelist (Inclusive) or Blacklist (Exclusive)">
+<!ENTITY foxyproxy.pattern.name.label "Pattern Name">
+<!ENTITY foxyproxy.pattern.name.accesskey "P">
+<!ENTITY foxyproxy.pattern.name.tooltip "Name for the pattern">
+<!ENTITY foxyproxy.url.pattern.label "URL pattern">
+<!ENTITY foxyproxy.url.pattern.accesskey "U">
+<!ENTITY foxyproxy.url.pattern.tooltip "URL pattern">
+<!ENTITY foxyproxy.enabled.label "Enabled">
+<!ENTITY foxyproxy.enabled.accesskey "E">
+<!ENTITY foxyproxy.enabled.tooltip "Toggle enable/disable">
+<!ENTITY foxyproxy.delete.selection.label "Delete Selection">
+<!ENTITY foxyproxy.delete.selection.accesskey "D">
+<!ENTITY foxyproxy.delete.selection.tooltip "Delete the currently selected item">
+<!ENTITY foxyproxy.edit.selection.label "Edit Selection">
+<!ENTITY foxyproxy.edit.selection.accesskey "E">
+<!ENTITY foxyproxy.edit.selection.tooltip "Edit the currently selected item">
+<!ENTITY foxyproxy.help.label "Help Contents">
+<!ENTITY foxyproxy.help.accesskey "H">
+<!ENTITY foxyproxy.help.tooltip "Show Help">
+<!ENTITY foxyproxy.import.pattern.label "Import">
+<!ENTITY foxyproxy.import.pattern.accesskey "I">
+<!ENTITY foxyproxy.import.pattern.tooltip "Import patterns">
+<!ENTITY foxyproxy.export.pattern.label "Export">
+<!ENTITY foxyproxy.export.pattern.accesskey "X">
+<!ENTITY foxyproxy.export.pattern.tooltip2 "Export all patterns">
+<!ENTITY foxyproxy.close.label "Close">
+<!ENTITY foxyproxy.close.accesskey "C">
+<!ENTITY foxyproxy.close.tooltip "Close Window">
+<!ENTITY foxyproxy.about.label "About">
+<!ENTITY foxyproxy.about.accesskey "A">
+<!ENTITY foxyproxy.about.tooltip "Opens the about box">
+<!ENTITY foxyproxy.online.label "FoxyProxy Online">
+<!ENTITY foxyproxy.online.accesskey "O">
+<!ENTITY foxyproxy.online.tooltip "Visit the FoxyProxy Website">
+<!ENTITY foxyproxy.tor.label "Tor Wizard">
+<!ENTITY foxyproxy.tor.accesskey "W">
+<!ENTITY foxyproxy.tor.tooltip "Tor Wizard">
+<!ENTITY foxyproxy.copy.selection.label "Copy Selection">
+<!ENTITY foxyproxy.copy.selection.accesskey "C">
+<!ENTITY foxyproxy.copy.selection.tooltip "Copies selection">
+<!ENTITY foxyproxy.mode.label "Select Mode">
+<!ENTITY foxyproxy.wpad.label1 "by WPAD">
+<!--For translators: The following two strings are already included into Firefox and may be found in the Preferences panel -> Advanced -> Network Settings-->
+<!ENTITY foxyproxy.wpad.accesskey "W">
+<!ENTITY foxyproxy.wpad.tooltip "Detect the proxy settings automatically using WPAD">
+<!ENTITY foxyproxy.wpad.reload.label "Detect proxy settings automatically every">
+<!ENTITY foxyproxy.wpad.reload.accesskey "D">
+<!ENTITY foxyproxy.wpad.reload.tooltip "Auto-detect the proxy every specified period">
+<!ENTITY foxyproxy.wpad.tree.label "Auto-detect proxy">
+<!ENTITY foxyproxy.auto.url.label "Automatic proxy configuration URL">
+<!ENTITY foxyproxy.auto.url.tooltip "Enter URL of the PAC file">
+<!ENTITY foxyproxy.auto.url.note.label "http(s)://   ftp://   file://   relative://">
+<!ENTITY foxyproxy.auto.url.note.tooltip "Click the info icon for information on relative://">
+<!ENTITY foxyproxy.ip.address.label "IP address">
+<!ENTITY foxyproxy.port.label "Port">
+<!ENTITY foxyproxy.port.accesskey "P">
+<!ENTITY foxyproxy.port.tooltip "Port">
+<!ENTITY foxyproxy.socks.v4 "SOCKS v4/4a">
+<!ENTITY foxyproxy.socks.v5 "SOCKS v5">
+<!ENTITY foxyproxy.addeditpattern.title "Add/Edit Pattern">
+<!ENTITY foxyproxy.wildcard.label "Wildcards">
+<!ENTITY foxyproxy.wildcard.accesskey "W">
+<!ENTITY foxyproxy.wildcard.tooltip "Specifies that the URL pattern uses wildcards and is not a regular expression">
+<!ENTITY foxyproxy.wildcard.example.label "Example: *mail.yahoo.com/*">
+<!ENTITY foxyproxy.regex.label "Regular Expression">
+<!ENTITY foxyproxy.regex.accesskey "R">
+<!ENTITY foxyproxy.regex.tooltip "Specifies that the URL pattern is a regular expression">
+<!ENTITY foxyproxy.regex.example.label2 "Example: ^https?://.*\.mail\.yahoo\.com/.*$">
+<!ENTITY foxyproxy.version "Version">
+<!ENTITY foxyproxy.createdBy "Created By">
+<!ENTITY foxyproxy.contributionsBy "Contributions By">
+<!ENTITY foxyproxy.copyright "Copyright">
+<!ENTITY foxyproxy.rights "All Rights Reserved.">
+<!ENTITY foxyproxy.released "Released under the GPL license.">
+<!ENTITY foxyproxy.tab.general.label "General">
+<!ENTITY foxyproxy.tab.general.accesskey "G">
+<!ENTITY foxyproxy.tab.general.tooltip "Manage General Proxy Settings">
+<!ENTITY foxyproxy.tab.proxy.label "Proxy Details">
+<!ENTITY foxyproxy.tab.proxy.accesskey "R">
+<!ENTITY foxyproxy.tab.proxy.tooltip "Manage Proxy Details">
+<!ENTITY foxyproxy.tab.patterns.label "Patterns">
+<!ENTITY foxyproxy.tab.patterns.accesskey "P">
+<!ENTITY foxyproxy.tab.patterns.tooltip "Manage URL Patterns">
+<!ENTITY foxyproxy.add.title "Proxy Settings">
+<!ENTITY foxyproxy.pattern.description "Here you can specify when this proxy is and is not used.">
+<!ENTITY foxyproxy.pattern.nointernal.label "Do not use this proxy for internal IP addresses">
+<!ENTITY foxyproxy.pattern.nointernal.tooltip "This checkbox allows you to restrict the proxy to non-internal IP addresses">
+<!ENTITY foxyproxy.pattern.nointernal.accesskey "N">
+<!ENTITY foxyproxy.pattern.matchtype.label "Pattern Contains">
+<!ENTITY foxyproxy.pattern.whiteblack.label "URL Inclusion/Exclusion">
+<!ENTITY foxyproxy.add.option.direct.label "Direct internet connection (no proxy)">
+<!ENTITY foxyproxy.add.option.direct.accesskey "D">
+<!ENTITY foxyproxy.add.option.direct.tooltip "Do not use a proxy - use the underlying direct internet connection">
+<!ENTITY foxyproxy.add.option.manual.label "Manual Proxy Configuration">
+<!ENTITY foxyproxy.add.option.manual.accesskey "M">
+<!ENTITY foxyproxy.add.option.manual.tooltip "Manually define a proxy configuration">
+<!ENTITY foxyproxy.add.new.pattern.label "Add New Pattern">
+<!ENTITY foxyproxy.add.new.pattern.accesskey "A">
+<!ENTITY foxyproxy.add.new.pattern.tooltip "Add New Pattern">
+<!ENTITY foxyproxy.menubar.file.label "File">
+<!ENTITY foxyproxy.menubar.file.accesskey "F">
+<!ENTITY foxyproxy.menubar.file.tooltip "Open the File Menu">
+<!ENTITY foxyproxy.menubar.help.label "Help">
+<!ENTITY foxyproxy.menubar.help.accesskey "H">
+<!ENTITY foxyproxy.menubar.help.tooltip "Open the Help Menu">
+<!ENTITY foxyproxy.mode.accesskey "M">
+<!ENTITY foxyproxy.mode.tooltip "Select how to enable FoxyProxy">
+<!ENTITY foxyproxy.proxy.label "Proxy">
+<!ENTITY foxyproxy.tab.proxies.label "Proxies">
+<!ENTITY foxyproxy.tab.proxies.accesskey "P">
+<!ENTITY foxyproxy.tab.proxies.tooltip "Manage Proxies">
+<!ENTITY foxyproxy.tab.global.label "Global Settings">
+<!ENTITY foxyproxy.tab.global.accesskey "G">
+<!ENTITY foxyproxy.tab.global.tooltip "Manage Global Settings">
+<!ENTITY foxyproxy.settings.advanced.label "Advanced Settings">
+<!ENTITY foxyproxy.settings.advanced.tooltip "A click on the button opens the advanced settings dialog of FoxyProxy">
+<!ENTITY foxyproxy.tab.logging.label "Logging">
+<!ENTITY foxyproxy.tab.logging.accesskey "L">
+<!ENTITY foxyproxy.tab.logging.tooltip "Manage Logging Settings">
+<!ENTITY foxyproxy.proxydns.label3 "Perform remote DNS lookups on hostnames loading through this proxy">
+<!ENTITY foxyproxy.proxydns.accesskey "U">
+<!ENTITY foxyproxy.proxydns.tooltip3 "If checked, hostnames of URLs loading through this proxy are also resolved by this proxy">
+<!ENTITY foxyproxy.proxydns.label4 "Proxy DNS">
+<!ENTITY foxyproxy.cache.label "Cache">
+<!ENTITY foxyproxy.clearcache.label "Clear application cache before using this proxy">
+<!ENTITY foxyproxy.clearcache.accesskey "H">
+<!ENTITY foxyproxy.clearcache.tooltip "If checked, clear cache before using this proxy">
+<!ENTITY foxyproxy.disablecache.label "Do not cache while using this proxy">
+<!ENTITY foxyproxy.disablecache.accesskey "D">
+<!ENTITY foxyproxy.disablecache.tooltip "If checked, application won't cache in the future">
+<!ENTITY foxyproxy.cookies.label "Cookies">
+<!ENTITY foxyproxy.clearcookies.label "Remove all cookies before using this proxy">
+<!ENTITY foxyproxy.clearcookies.accesskey "C">
+<!ENTITY foxyproxy.clearcookies.tooltip "If checked, remove all cookies before using this proxy">
+<!ENTITY foxyproxy.rejectcookies.label "Block all cookies when using this proxy">
+<!ENTITY foxyproxy.rejectcookies.accesskey "B">
+<!ENTITY foxyproxy.rejectcookies.tooltip "If checked, browser will reject all cookies when using this proxy">
+<!ENTITY foxyproxy.showstatusbaricon.label "Show icon on statusbar">
+<!ENTITY foxyproxy.showstatusbaricon.accesskey "S">
+<!ENTITY foxyproxy.showstatusbaricon.tooltip "If checked, FoxyProxy icon is shown on the statusbar">
+<!ENTITY foxyproxy.showstatusbarmode.label "Show mode (text) on statusbar">
+<!ENTITY foxyproxy.showstatusbarmode.accesskey "S">
+<!ENTITY foxyproxy.showstatusbarmode.tooltip "If checked, FoxyProxy mode is shown on the statusbar">
+<!ENTITY foxyproxy.storagelocation.label.2 "Settings Location">
+<!ENTITY foxyproxy.storagelocation.accesskey "S">
+<!ENTITY foxyproxy.storagelocation.tooltip "Location to store FoxyProxy's settings">
+<!ENTITY foxyproxy.tab.logging.timestamp.label "Timestamp">
+<!ENTITY foxyproxy.tab.logging.url.label "URL">
+<!ENTITY foxyproxy.host.label.2 "Host or IP Address">
+<!ENTITY foxyproxy.host.accesskey "H">
+<!ENTITY foxyproxy.clear.label "Clear">
+<!ENTITY foxyproxy.clear.accesskey "C">
+<!ENTITY foxyproxy.clear.tooltip "Clear">
+<!ENTITY foxyproxy.refresh.label "Refresh">
+<!ENTITY foxyproxy.refresh.accesskey "R">
+<!ENTITY foxyproxy.refresh.tooltip "Refresh">
+<!ENTITY foxyproxy.save.label "Save">
+<!ENTITY foxyproxy.save.accesskey "S">
+<!ENTITY foxyproxy.save.tooltip "Save">
+<!ENTITY foxyproxy.openurlinnewtab.label "Open URL in New Tab">
+<!ENTITY foxyproxy.openurlinnewtab.accesskey "O">
+<!ENTITY foxyproxy.openurlinnewtab.tooltip "Open URL in New Tab">
+<!ENTITY foxyproxy.copyurltoclipboard.label "Copy URL to Clipboard">
+<!ENTITY foxyproxy.copyurltoclipboard.accesskey "C">
+<!ENTITY foxyproxy.copyurltoclipboard.tooltip "Copy URL to Clipboard">
+<!ENTITY foxyproxy.addnewproxy.label "Add New Proxy">
+<!ENTITY foxyproxy.addnewproxy.accesskey "A">
+<!ENTITY foxyproxy.addnewproxy.tooltip "Add New Proxy">
+<!ENTITY foxyproxy.useselectedforallurls.label "Use selected proxy for all URLs">
+<!ENTITY foxyproxy.useselectedforallurls.accesskey "U">
+<!ENTITY foxyproxy.useselectedforallurls.tooltip "Use selected proxy for all URLs">
+<!ENTITY foxyproxy.whitelist.label "Whitelist">
+<!ENTITY foxyproxy.whitelist.accesskey "W">
+<!ENTITY foxyproxy.whitelist.tooltip "URLs matching this pattern are loaded through this proxy">
+<!ENTITY foxyproxy.whitelist.description.label "URLs matching this pattern are loaded through this proxy">
+<!ENTITY foxyproxy.blacklist.label "Blacklist">
+<!ENTITY foxyproxy.blacklist.accesskey "B">
+<!ENTITY foxyproxy.blacklist.tooltip "URLs matching this pattern are NOT loaded through this proxy">
+<!ENTITY foxyproxy.blacklist.description.label "URLs matching this pattern are NOT loaded through this proxy">
+<!ENTITY foxyproxy.whiteblack.description.label "Blacklist (exclusion) patterns have precedence over whitelist (inclusion) patterns: if a URL matches both a whitelisted pattern and a blacklisted pattern for the same proxy, the URL is excluded from being loaded by that proxy.">
+<!ENTITY foxyproxy.socks.version.label "SOCKS Version">
+<!ENTITY foxyproxy.autopacurl.label "Auto PAC URL">
+<!ENTITY foxyproxy.issocks.label "SOCKS proxy?">
+<!ENTITY foxyproxy.issocks.accesskey "S">
+<!ENTITY foxyproxy.issocks.tooltip "Is this a web proxy or SOCKS proxy?">
+<!ENTITY foxyproxy.moveup.label "Move Up">
+<!ENTITY foxyproxy.moveup.tooltip "Increase priority of current selection">
+<!ENTITY foxyproxy.moveup.accesskey "U">
+<!ENTITY foxyproxy.movedown.label "Move Down">
+<!ENTITY foxyproxy.movedown.tooltip "Decrease priority of current selection">
+<!ENTITY foxyproxy.movedown.accesskey "D">
+<!ENTITY foxyproxy.system.label "Use System Proxy Settings">
+<!ENTITY foxyproxy.system.accesskey "Y">
+<!ENTITY foxyproxy.system.tooltip2 "Use the proxy configuration in your system settings">
+<!ENTITY foxyproxy.automatic.label "Automatic Proxy Configuration">
+<!ENTITY foxyproxy.automatic.accesskey "A">
+<!ENTITY foxyproxy.automatic.tooltip "Get a proxy configuration automatically">
+<!ENTITY foxyproxy.pac.label "by PAC">
+<!ENTITY foxyproxy.pac.accesskey "P">
+<!ENTITY foxyproxy.pac.tooltip "Get the proxy settings using a PAC file">
+<!ENTITY foxyproxy.autoconfurl.view.label "View">
+<!ENTITY foxyproxy.autoconfurl.view.accesskey "V">
+<!ENTITY foxyproxy.autoconfurl.view.tooltip "View the auto-configuration file">
+<!ENTITY foxyproxy.autoconfurl.test.label "Test">
+<!ENTITY foxyproxy.autoconfurl.test.accesskey "T">
+<!ENTITY foxyproxy.autoconfurl.test.tooltip "Test the auto-configuration file">
+<!ENTITY foxyproxy.autoconfurl.reload.label "Reload the PAC every">
+<!ENTITY foxyproxy.autoconfurl.reload.accesskey "R">
+<!ENTITY foxyproxy.autoconfurl.reload.tooltip "Auto-reload the PAC file every specified period">
+<!ENTITY foxyproxy.minutes.label "minutes">
+<!ENTITY foxyproxy.minutes.tooltip "minutes">
+<!ENTITY foxyproxy.logging.maxsize.label "Maximum size before log wraps">
+<!ENTITY foxyproxy.logging.maxsize.accesskey "M">
+<!ENTITY foxyproxy.logging.maxsize.tooltip "Maximum number of log entries before the log wraps to the beginning">
+<!ENTITY foxyproxy.logging.maxsize.button.label "Set">
+<!ENTITY foxyproxy.logging.maxsize.button.accesskey "S">
+<!ENTITY foxyproxy.logging.maxsize.button.tooltip "Sets the maximum number of log entries before the log wraps to the beginning">
+<!ENTITY foxyproxy.random.label "Load URLs through random proxies (ignore all patterns and priorities)">
+<!ENTITY foxyproxy.random.accesskey "R">
+<!ENTITY foxyproxy.random.tooltip "Load URLs through random proxies (ignore all patterns and priorities)">
+<!ENTITY foxyproxy.random.includedirect.label "Include proxies configured as direct internet connections">
+<!ENTITY foxyproxy.random.includedirect.accesskey "I">
+<!ENTITY foxyproxy.random.includedirect.tooltip "Proxies configured as direct internet connections are included in random proxy selection">
+<!ENTITY foxyproxy.random.includedisabled.label "Include disabled proxies">
+<!ENTITY foxyproxy.random.includedisabled.accesskey "D">
+<!ENTITY foxyproxy.random.includedisabled.tooltip "Proxies configured as disabled are included in random proxy selection">
+<!ENTITY foxyproxy.random.settings.label "Random Proxy Selection">
+<!ENTITY foxyproxy.random.settings.accesskey "R">
+<!ENTITY foxyproxy.random.settings.tooltip "Settings which affect random proxy selection">
+<!ENTITY foxyproxy.tab.autoadd.label "AutoAdd">
+<!ENTITY foxyproxy.tab.autoadd.accesskey "A">
+<!ENTITY foxyproxy.tab.autoadd.tooltip "Manage AutoAdd Settings">
+<!ENTITY foxyproxy.autoadd.description "Specify a pattern that identifies blocked websites. When the pattern is found on a page, a pattern matching that website's URL is automatically added to a proxy and optionally reloaded. This prevents you from having to proactively identify all blocked websites.">
+<!ENTITY foxyproxy.autoadd.pattern.label "Pattern to identify blocked websites">
+<!ENTITY foxyproxy.autoadd.pattern.accesskey "P">
+<!ENTITY foxyproxy.autoadd.pattern.tooltip "Pattern that identifies blocked websites">
+<!ENTITY foxyproxy.autoadd.wildcard.example.label "Example: *You are not authorized to view this page*">
+<!ENTITY foxyproxy.autoadd.regex.example.label "Example: .*Site.*has been blocked.*">
+<!ENTITY foxyproxy.autoadd.proxy.label "Proxy to which patterns are automatically added">
+<!ENTITY foxyproxy.autoadd.proxy.accesskey "P">
+<!ENTITY foxyproxy.autoadd.proxy.tooltip "Specify the proxy to which URLs are automatically added">
+<!ENTITY foxyproxy.pattern.template.label "URL Pattern Template">
+<!ENTITY foxyproxy.pattern.template.accesskey "U">
+<!ENTITY foxyproxy.pattern.template.tooltip "URL Pattern Template">
+<!ENTITY foxyproxy.pattern.template.example.label1 "Example for ">
+<!ENTITY foxyproxy.pattern.template.example.label2 "http://fred:secret@mail.foo.com:8080/inbox/msg102.htm#subject?style=elegant">
+<!ENTITY foxyproxy.pattern.template.currenturl.label "Current URL">
+<!ENTITY foxyproxy.pattern.template.currenturl.accesskey "C">
+<!ENTITY foxyproxy.pattern.template.currenturl.tooltip "URL in the address bar">
+<!ENTITY foxyproxy.pattern.template.generatedpattern.label "Generated Pattern">
+<!ENTITY foxyproxy.pattern.template.generatedpattern.accesskey "G">
+<!ENTITY foxyproxy.pattern.template.generatedpattern.tooltip "Dynamically generated pattern">
+<!ENTITY foxyproxy.autoadd.reload.label "Reload the page after pattern is added to proxy">
+<!ENTITY foxyproxy.autoadd.reload.accesskey "R">
+<!ENTITY foxyproxy.autoadd.reload.tooltip "Automatically reload the page after the pattern is added to a proxy">
+<!ENTITY foxyproxy.autoadd.notify.label "Notify me when AutoAdd is activated">
+<!ENTITY foxyproxy.autoadd.notify.accesskey "N">
+<!ENTITY foxyproxy.autoadd.notify.tooltip "Informs you when a page is blocked &amp; the URL pattern is added to a proxy">
+<!ENTITY foxyproxy.autoadd.notify.tooltip2 "Display a popup when AutoAdd is activated">
+<!ENTITY foxyproxy.pacloadnotification.label "Notify me about proxy auto-configuration file loads">
+<!ENTITY foxyproxy.pacloadnotification.accesskey "L">
+<!ENTITY foxyproxy.pacloadnotification.tooltip "Display a popup when a PAC file loads">
+<!ENTITY foxyproxy.pacerrornotification.label "Notify me about proxy auto-configuration file errors">
+<!ENTITY foxyproxy.pacerrornotification.accesskey "E">
+<!ENTITY foxyproxy.pacerrornotification.tooltip "Display a popup when encountering PAC file errors">
+<!ENTITY foxyproxy.toolbaricon.label "Show icon on toolbar">
+<!ENTITY foxyproxy.toolbaricon.accesskey "O">
+<!ENTITY foxyproxy.toolbaricon.tooltip "Show icon on toolbar">
+<!ENTITY foxyproxy.toolsmenu.label2 "Show icon in the tools menu">
+<!ENTITY foxyproxy.toolsmenu.accesskey "T">
+<!ENTITY foxyproxy.toolsmenu.tooltip2 "Show icon in the tools menu">
+<!ENTITY foxyproxy.tip.label "Tip">
+<!ENTITY foxyproxy.pactip1.label "For PAC files stored on a local hard drive, use the file:// scheme. For example, file://c:/path/proxy.pac on Windows or file:///home/users/joe/proxy.pac on Unix/Linux/Mac.">
+<!ENTITY foxyproxy.pactip2.label "For PAC files on an ftp server, use the ftp:// scheme. For example, ftp://leahscape.com/path/proxy.pac">
+<!ENTITY foxyproxy.pactip3.label "You can also use http://, https://, and any other supported scheme.">
+<!ENTITY foxyproxy.pactip4.label "Finally, if you need to refer to a PAC file on the local file system using a relative path, you can use the special FoxyProxy relative:// scheme. This is useful if your PAC file resides on a thumb drive. Supported relative paths are documented">
+<!ENTITY foxyproxy.pactip5.label "here">
+<!ENTITY foxyproxy.pactip6.label ". Special strings in the relative:// URL you specify are replaced with their corresponding values. For example, relative://ProfD/pacs/proxy3.pac points to the file proxy3.pac in the subdirectory of the">
+<!ENTITY foxyproxy.pactip7.label "Firefox profile directory">
+<!ENTITY foxyproxy.pactip8.label "named pacs/. With Portable Firefox on Windows, the Firefox profile directory is always a relative path because the drive letter can change across computers. Please note that special strings (ProfD, Home, TempD, etc.) are case-sensitive!">
+<!ENTITY foxyproxy.contextmenu.label "Show icon in the context-menu">
+<!ENTITY foxyproxy.contextmenu.accesskey "C">
+<!ENTITY foxyproxy.contextmenu.tooltip "Show icon in the context-menu">
+<!ENTITY foxyproxy.quickadd.desc1 "QuickAdd adds a dynamic URL pattern to a proxy when you press Alt-F2. It is practical alternative to AutoAdd. Customize the Alt-F2 shortcut with the ">
+<!ENTITY foxyproxy.keyconfig.label "KeyConfig">
+<!ENTITY foxyproxy.quickadd.desc2 "extension">
+<!ENTITY foxyproxy.quickadd.label "QuickAdd">
+<!ENTITY foxyproxy.quickadd.accesskey "Q">
+<!ENTITY foxyproxy.quickadd.tooltip "Manage QuickAdd Settings">
+<!ENTITY foxyproxy.quickadd.notify.label "Notify me when QuickAdd is activated">
+<!ENTITY foxyproxy.quickadd.notify.accesskey "N">
+<!ENTITY foxyproxy.quickadd.notify.tooltip "Display a popup when QuickAdd is activated">
+<!ENTITY foxyproxy.quickadd.notify.whencanceled.label "Notify me when QuickAdd is canceled">
+<!ENTITY foxyproxy.quickadd.notify.whencanceled.label2 "QuickAdd is automatically canceled when the URL in the address bar already matches a whitelist pattern in the QuickAdd proxy. In this way duplicate patterns, which can clutter your configuration, are prevented. This setting does not enable/disable cancelation; rather, it toggles notification when cancelation occurs.">
+<!ENTITY foxyproxy.quickadd.notify.whencanceled.accesskey "C">
+<!ENTITY foxyproxy.quickadd.notify.whencanceled.tooltip "Display a popup when QuickAdd is activated but canceled">
+<!ENTITY foxyproxy.whatsthis "What's This?">
+<!ENTITY foxyproxy.quickadd.prompt.label "Prompt for editing and confirmation before adding pattern to proxy">
+<!ENTITY foxyproxy.quickadd.prompt.accesskey "P">
+<!ENTITY foxyproxy.quickadd.prompt.tooltip "Prompt for editing and confirmation before adding pattern to proxy">
+<!ENTITY foxyproxy.quickadd.proxy.label "Proxy to which pattern is added">
+<!ENTITY foxyproxy.quickadd.proxy.accesskey "P">
+<!ENTITY foxyproxy.quickadd.proxy.tooltip "Choose proxy to which pattern will be added">
+<!ENTITY foxyproxy.advancedmenus.label "Use Advanced Menus">
+<!ENTITY foxyproxy.advancedmenus.accesskey "M">
+<!ENTITY foxyproxy.advancedmenus.tooltip "Use advanced menus (FoxyProxy 2.2-style)">
+<!ENTITY foxyproxy.importsettings.label2 "Import Settings">
+<!ENTITY foxyproxy.importsettings.accesskey "I">
+<!ENTITY foxyproxy.importsettings.tooltip "Import settings from a file">
+<!ENTITY foxyproxy.exportsettings.label2 "Export Current Settings">
+<!ENTITY foxyproxy.exportsettings.accesskey "E">
+<!ENTITY foxyproxy.exportsettings.tooltip "Export current settings to file">
+<!ENTITY foxyproxy.importlist.label "Import list of proxies">
+<!ENTITY foxyproxy.importlist.accesskey "I">
+<!ENTITY foxyproxy.importlist.tooltip "Import a text file list of proxies">
+<!ENTITY foxyproxy.wildcard.reference.label "Wildcard Reference">
+<!ENTITY foxyproxy.wildcard.reference.accesskey "W">
+<!ENTITY foxyproxy.wildcard.reference.tooltip "Wildcard Reference">
+<!ENTITY foxyproxy.wildcard.reference.subtitle.label "The asterisk (*) matches zero or more characters, and the question mark (?) matches any single character">
+<!ENTITY foxyproxy.wildcard.reference.goal.label "Goal">
+<!ENTITY foxyproxy.wildcard.reference.goal1.label "Match all pages in MySpace's www subdomain">
+<!ENTITY foxyproxy.wildcard.reference.goal2.label "Match the local PC">
+<!ENTITY foxyproxy.wildcard.reference.goal3.label "Match all subdomains and pages at abc.com">
+<!ENTITY foxyproxy.wildcard.reference.goal4.label "Match all pages in the a.foo.com domain but not b.foo.com">
+<!ENTITY foxyproxy.wildcard.reference.correct.label "Correct">
+<!ENTITY foxyproxy.wildcard.reference.correct2.label "Must be two patterns">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.label "Incorrect">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason.label "Reason Why It's Incorrect">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason1.label "Since there are no wildcards, only the home page is matched">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason2.label "FoxyProxy doesn't understand this kind of syntax">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason3.label "There are no wildcards">
+<!ENTITY foxyproxy.wildcard.reference.incorrect.reason4.label "There are no wildcards">
+<!ENTITY foxyproxy.logging.noURLs.label "Do not store or display URLs">
+<!ENTITY foxyproxy.logging.noURLs.accesskey "U">
+<!ENTITY foxyproxy.logging.noURLs.tooltip "URLs aren't stored in RAM or on disk">
+<!ENTITY foxyproxy.pattern.template.reference.label "Pattern Template Reference">
+<!ENTITY foxyproxy.pattern.template.reference.tooltip "Pattern Template Reference">
+<!ENTITY foxyproxy.pattern.template.reference.specialstring.label "Special String">
+<!ENTITY foxyproxy.pattern.template.reference.subststring.label "Substituted With">
+<!ENTITY foxyproxy.pattern.template.reference.example.label "Example">
+<!ENTITY foxyproxy.pattern.template.reference.scheme.label "protocol">
+<!ENTITY foxyproxy.pattern.template.reference.username.label "username">
+<!ENTITY foxyproxy.pattern.template.reference.password.label "password">
+<!ENTITY foxyproxy.pattern.template.reference.userpass.label "username &amp; password with &quot;:&quot; &amp; &quot;@&quot;">
+<!ENTITY foxyproxy.pattern.template.reference.host.label "host">
+<!ENTITY foxyproxy.pattern.template.reference.port.label "port">
+<!ENTITY foxyproxy.pattern.template.reference.hostport.label "host &amp; port with &quot;:&quot;">
+<!ENTITY foxyproxy.pattern.template.reference.prepath.label "string before the path">
+<!ENTITY foxyproxy.pattern.template.reference.path.label "path (includes filename)">
+<!ENTITY foxyproxy.pattern.template.reference.directory.label "directory">
+<!ENTITY foxyproxy.pattern.template.reference.filebasename.label "file basename">
+<!ENTITY foxyproxy.pattern.template.reference.fileextension.label "file extension">
+<!ENTITY foxyproxy.pattern.template.reference.filename.label "complete filename">
+<!ENTITY foxyproxy.pattern.template.reference.ref.label "part after the &quot;#&quot;">
+<!ENTITY foxyproxy.pattern.template.reference.query.label "part after the &quot;?&quot;">
+<!ENTITY foxyproxy.pattern.template.reference.spec.label "complete URL">
+<!ENTITY foxyproxy.notifications.label "Notifications">
+<!ENTITY foxyproxy.notifications.tooltip "Notification Settings">
+<!ENTITY foxyproxy.indicators.label "Indicators">
+<!ENTITY foxyproxy.indicators.tooltip "Indicator Settings">
+<!ENTITY foxyproxy.misc.label "Miscellaneous">
+<!ENTITY foxyproxy.misc.tooltip "Miscellaneous Settings">
+<!ENTITY foxyproxy.animatedicons.label "Animate icons when this proxy is in use">
+<!ENTITY foxyproxy.animatedicons.accesskey "A">
+<!ENTITY foxyproxy.animatedicons.tooltip "Animate icons when this proxy active (Global Settings-&gt;Animations must also be checked)">
+<!ENTITY foxyproxy.statusbaractivation.label "Statusbar Activation">
+<!ENTITY foxyproxy.statusbaractivation.tooltip "Statusbar Activation Settings">
+<!ENTITY foxyproxy.toolbaractivation.label "Toolbar Activation">
+<!ENTITY foxyproxy.toolbaractivation.tooltip "Toolbar Activation Settings">
+<!ENTITY foxyproxy.leftclicksb.label "Left-click">
+<!ENTITY foxyproxy.leftclicksb.accesskey "L">
+<!ENTITY foxyproxy.leftclicksb.tooltip "Action to take when left-clicking FoxyProxy in status bar">
+<!ENTITY foxyproxy.middleclicksb.label "Middle-click">
+<!ENTITY foxyproxy.middleclicksb.accesskey "M">
+<!ENTITY foxyproxy.middleclicksb.tooltip "Action to take when middle-clicking FoxyProxy in status bar">
+<!ENTITY foxyproxy.rightclicksb.label "Right-click">
+<!ENTITY foxyproxy.rightclicksb.accesskey "R">
+<!ENTITY foxyproxy.rightclicksb.tooltip "Action to take when right-clicking FoxyProxy in status bar">
+<!ENTITY foxyproxy.leftclicktb.label "Left-click">
+<!ENTITY foxyproxy.leftclicktb.accesskey "L">
+<!ENTITY foxyproxy.leftclicktb.tooltip "Action to take when left-clicking FoxyProxy in toolbar">
+<!ENTITY foxyproxy.middleclicktb.label "Middle-click">
+<!ENTITY foxyproxy.middleclicktb.accesskey "M">
+<!ENTITY foxyproxy.middleclicktb.tooltip "Action to take when middle-clicking FoxyProxy in toolbar">
+<!ENTITY foxyproxy.rightclicktb.label "Right-click">
+<!ENTITY foxyproxy.rightclicktb.accesskey "R">
+<!ENTITY foxyproxy.rightclicktb.tooltip "Action to take when right-clicking FoxyProxy in toolbar">
+<!ENTITY foxyproxy.click.options "Show options dialog">
+<!ENTITY foxyproxy.click.cycle "Cycles through modes">
+<!ENTITY foxyproxy.click.contextmenu "Show context menu">
+<!ENTITY foxyproxy.click.reloadcurtab "Reload current tab">
+<!ENTITY foxyproxy.click.reloadtabsinbrowser "Reload all tabs in current browser">
+<!ENTITY foxyproxy.click.reloadtabsinallbrowsers "Reload all tabs in all browsers">
+<!ENTITY foxyproxy.click.removeallcookies "Remove all cookies">
+<!ENTITY foxyproxy.click.toggle "Toggle between current mode and disabled">
+<!ENTITY foxyproxy.includeincycle.label "Include this proxy when cycling proxies by clicking on statusbar or toolbar (Global Settings-&gt;Statusbar/Toolbar Activation-&gt;Cycle through modes must be selected)">
+<!ENTITY foxyproxy.includeincycle.accesskey "I">
+<!ENTITY foxyproxy.includeincycle.tooltip "Include this proxy when clicking on the statusbar/toolbar">
+<!ENTITY foxyproxy.changes.msg1 "Help! Where are settings for HTTP, SSL, FTP, Gopher, and SOCKS?">
+<!ENTITY foxyproxy.newGUI.popup.height "280px">
+<!ENTITY foxyproxy.newGUI.popup.width "400px">
+<!ENTITY foxyproxy.newGUI1.label "The old FoxyProxy Proxy Settings screen was based on and nearly identical to Firefox's Connection Settings dialog, which in turn was nearly identical to the Proxy Settings in the ancient Mosaic 2.1.1 browser from 1996. The problem with all of these screens is their limited ability to route traffic by protocol. 21st century browsers like Firefox handle many more protocols than HTTP, SSL, FTP, and GOPHER. Clearly, these old screens would be unwieldy if they attempted to include every possible protocol.">
+<!ENTITY foxyproxy.newGUI2.label "Since FoxyProxy already enables traffic routing by protocol with wildcard and regular expression patterns, the listing of protocols on this screen is unnecessary. As of version 2.5, FoxyProxy has removed this protocol list from the Proxy Settings GUI. However, this does not reduce functionality. It makes for a simpler interface. If you need to route traffic by protocol, you should define whitelist and blacklist patterns with careful attention to the scheme/protocol portion of the pattern (e.g., ftp://*.yahoo.com/*, *://leahscape.com/*, etc.)">
+<!ENTITY foxyproxy.newGUI4.label "Click here for more information.">
+<!ENTITY foxyproxy.error.msg.label "Error Message">
+<!ENTITY foxyproxy.pac.result.label "PAC Result">
+<!ENTITY foxyproxy.torwiz.height "375">
+<!ENTITY foxyproxy.casesensitive.label "Case sensitive">
+<!ENTITY foxyproxy.casesensitive.accesskey "C">
+<!ENTITY foxyproxy.casesensitive.tooltip "Enables/disables case-sensitivity for URL matching">
+<!ENTITY foxyproxy.statusbarwidth.label "Fixed width">
+<!ENTITY foxyproxy.statusbarwidth.accesskey "W">
+<!ENTITY foxyproxy.statusbarwidth.tooltip "Prevents statusbar resizing">
+<!ENTITY foxyproxy.pixels "pixels">
+<!ENTITY foxyproxy.unlimited.label "[0: shrink to fit] ">
+<!ENTITY foxyproxy.temp.popup.label "Temporary patterns allow you to create patterns for URLs that you don't visit often without cluttering the pattern list for a proxy. Temporary patterns are not saved to disk. They are kept in-memory and used for this Firefox session only.">
+<!ENTITY foxyproxy.temp.label "Temporary">
+<!ENTITY foxyproxy.temp.accesskey "T">
+<!ENTITY foxyproxy.temp.tooltip "Pattern is used only for this Firefox session">
+<!ENTITY foxyproxy.fromSubscription.label "Subscribed">
+<!ENTITY foxyproxy.define.label "Define">
+<!ENTITY foxyproxy.define.accesskey "D">
+<!ENTITY foxyproxy.define.tooltip "Define">
+<!ENTITY foxyproxy.pattern.to.quickadd.label "Pattern to quickly add to proxy">
+<!ENTITY foxyproxy.pattern.to.autoadd.label "Pattern to automatically add to proxy">
+<!ENTITY foxyproxy.home "Home">
+<!ENTITY foxyproxy.support "Support">
+<!ENTITY foxyproxy.credits "Credits">
+<!ENTITY foxyproxy.please.donate.label "Please Donate">
+<!ENTITY foxyproxy.please.donate.accesskey "D">
+<!ENTITY foxyproxy.importantnote.label "Read Important Note">
+<!ENTITY foxyproxy.resetlocation.label "Reset Location">
+<!ENTITY foxyproxy.resetlocation.accesskey "R">
+<!ENTITY foxyproxy.resetlocation.tooltip "Store settings in Firefox profile">
+<!ENTITY foxyproxy.settings.not.default "Settings aren't in the default location.">
+<!ENTITY foxyproxy.change.host.reload "Set new host:port and then reload current page">
+<!ENTITY foxyproxy.proxyservice.label "Buy Proxy Service">
+<!ENTITY foxyproxy.proxyservice.accesskey "P">
+<!ENTITY foxyproxy.proxyservice.tooltip "Sign up for proxy services">
+<!ENTITY foxyproxy.proxyservice2.label "Need fast, reliable proxies in the US, UK, or other countries?">
+<!ENTITY foxyproxy.getfoxyproxyplus.label "Get FoxyProxy Plus">
+<!ENTITY foxyproxy.foxyproxychrome.label "FoxyProxy for Chrome">
+<!ENTITY foxyproxy.foxyproxychrome.accesskey "F">
+<!ENTITY foxyproxy.foxyproxychrome.tooltip "Try FoxyProxy for Chrome">
+<!ENTITY foxyproxy.invalidcolor.label "Invalid color">
+<!ENTITY foxyproxy.validcolor.label "Valid color">
+<!ENTITY foxyproxy.color.label "Color">
+<!ENTITY foxyproxy.color.description "Icon color when proxy is in use">
+<!ENTITY foxyproxy.server.subscriptions.label "Server Subscriptions">
+<!ENTITY foxyproxy.server.subscriptions.tooltip "Manage Server Subscriptions">
+<!ENTITY foxyproxy.server.subscriptions.accesskey "S">
+<!ENTITY foxyproxy.selectproxy.label "Select Proxy">
+<!ENTITY foxyproxy.proxy.subscriptions.label "Proxy Subscriptions">
+<!ENTITY foxyproxy.proxy.subscriptions.accesskey "X">
+<!ENTITY foxyproxy.proxy.subscriptions.tooltip "Manage Proxy Subscriptions">
+<!ENTITY foxyproxy.proxy.subscriptions.description "Subscribe to proxies published by others. Share your proxies with others in just a few clicks.">
+<!ENTITY foxyproxy.proxy.subscriptions.sharing.label "Share Your Proxies">
+<!ENTITY foxyproxy.proxy.subscriptions.menulist.tooltip "Select what to do with proxy subscriptions.">
+<!ENTITY foxyproxy.proxy.subscriptions.addSubscription "Add New Proxy Subscription">
+<!ENTITY foxyproxy.proxy.subscriptions.viewSubscription "View Proxy Subscription">
+<!ENTITY foxyproxy.proxy.subscriptions.addedit.title "Add/Edit Proxy Subscription">
+<!ENTITY foxyproxy.proxy.subscriptions.refreshHelp "removes all existing subscribed proxies">
+<!ENTITY foxyproxy.proxy.subscriptions.proxy.type.label "Proxy Type">
+<!ENTITY foxyproxy.proxy.subscriptions.proxy.type.tooltip "Choose the type of the proxies on the list you want to import. If you select &quot;I don't know&quot; it is assumed they are HTTP proxies.">
+<!ENTITY foxyproxy.proxy.subscriptions.unknown.label "I don't know">
+<!ENTITY foxyproxy.proxy.subscriptions.http.label "HTTP">
+<!ENTITY foxyproxy.proxy.subscriptions.socks.label "SOCKS">
+<!ENTITY foxyproxy.proxy.subscriptions.subscriptionTypeHelp "This option lets you choose the type of the proxies on your subscription. If you select &quot;I don't know&quot; the proxies are assumed to be HTTP proxies. The same holds if you select &quot;HTTP&quot;. If you choose &quot;SOCKS&quot; FoxyProxy will treat them as SOCKS5 proxies instead.">
+<!ENTITY foxyproxy.proxy.subscriptions.proxy.window.title "Subscription Proxies">
+<!ENTITY foxyproxy.pattern.subscriptions.label "Pattern Subscriptions">
+<!ENTITY foxyproxy.pattern.subscriptions.description "Subscribe to patterns published by others. Share your patterns with others in just a few clicks.">
+<!ENTITY foxyproxy.pattern.subscriptions.tooltip "Manage Pattern Subscriptions">
+<!ENTITY foxyproxy.pattern.subscriptions.accesskey "S">
+<!ENTITY foxyproxy.pattern.subscriptions.sharing.label "Share Your Patterns">
+<!ENTITY foxyproxy.pattern.subscriptions.menulist.tooltip "Select what to do with pattern subscriptions.">
+<!ENTITY foxyproxy.pattern.subscriptions.addSubscription "Add New Pattern Subscription">
+<!ENTITY foxyproxy.pattern.subscriptions.editSelection "Edit Selection">
+<!ENTITY foxyproxy.pattern.subscriptions.deleteSelections "Delete Selections">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshSelections "Refresh Selections">
+<!ENTITY foxyproxy.pattern.subscriptions.viewSubscription "View Pattern Subscription">
+<!ENTITY foxyproxy.pattern.subscriptions.go.label "Go">
+<!ENTITY foxyproxy.pattern.subscriptions.go.tooltip "Click here to execute your selection.">
+<!ENTITY foxyproxy.pattern.subscriptions.lastStatus.label "Last Status">
+<!ENTITY foxyproxy.pattern.subscriptions.addedit.title "Add/Edit Pattern Subscription">
+<!ENTITY foxyproxy.pattern.subscriptions.name.label "Subscription Name">
+<!ENTITY foxyproxy.pattern.subscriptions.name.tooltip "Subscription Name">
+<!ENTITY foxyproxy.pattern.subscriptions.notes.label "Subscription Description">
+<!ENTITY foxyproxy.pattern.subscriptions.notes.tooltip "Subscription Description">
+<!ENTITY foxyproxy.pattern.subscriptions.url.label "Subscription URL">
+<!ENTITY foxyproxy.pattern.subscriptions.url.tooltip "Subscription URL">
+<!ENTITY foxyproxy.pattern.subscriptions.proxies.tooltip "Proxies that have subscribed to this pattern list">
+<!ENTITY foxyproxy.pattern.subscriptions.addProxies.label "Add Proxies">
+<!ENTITY foxyproxy.pattern.subscriptions.addProxies.tooltip "Add proxies that will subscribe to this pattern list">
+<!ENTITY foxyproxy.pattern.subscriptions.removeProxies.label "Remove Selected">
+<!ENTITY foxyproxy.pattern.subscriptions.removeProxies.tooltip "Cancel the subscription of this pattern list for selected proxies">
+<!ENTITY foxyproxy.pattern.subscriptions.refresh.label "Refresh Rate">
+<!ENTITY foxyproxy.pattern.subscriptions.refresh.tooltip "Refresh rate of this pattern subscription in minutes">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshNow.label "Refresh Now">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshNow.tooltip "Refresh this pattern subscription now">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshHelp1 "Specify the number of minutes after which the subscription is updated. Updating the subscription ">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshHelp2 "removes all existing patterns">
+<!ENTITY foxyproxy.pattern.subscriptions.refreshHelp4 "then inserts the ones found at the subscription URL. Read more">
+<!ENTITY foxyproxy.pattern.subscriptions.zeroRefresh "(0 to never refresh)">
+<!ENTITY foxyproxy.pattern.subscriptions.format.tooltip "Format of this pattern subscription list">
+<!ENTITY foxyproxy.pattern.subscriptions.formatHelp "Specify the format in which the subscription is written. Normally, this is automatically detected by FoxyProxy. Read more">
+<!ENTITY foxyproxy.pattern.subscriptions.obfuscation.tooltip "Obfuscation format of this pattern subscription">
+<!ENTITY foxyproxy.pattern.subscriptions.obfuscationHelp "Subscriptions are optionally obfuscated in order to prevent content-filtering by computers between you and the subscription URL. Normally, this is automatically detected by FoxyProxy. Read more">
+<!ENTITY foxyproxy.pattern.subscriptions.copyLastStatus.label "Copy last status to Clipboard">
+<!ENTITY foxyproxy.pattern.subscriptions.copyLastStatus.tooltip "Copy last status to Clipboard">
+<!ENTITY foxyproxy.pattern.subscriptions.pattern.window.title "Subscription Patterns">
+<!ENTITY foxyproxy.none.label "None">
+<!ENTITY foxyproxy.name.label "Name">
+<!ENTITY foxyproxy.notes.label "Notes">
+<!ENTITY foxyproxy.url.label "url">
+<!ENTITY foxyproxy.lastupdate.label "Last Update">
+<!ENTITY foxyproxy.updatefrequency.label "Update Frequency">
+<!ENTITY foxyproxy.status.label "Status">
+<!ENTITY foxyproxy.format.label "Format">
+<!ENTITY foxyproxy.obfuscation.label "Obfuscation">
+<!ENTITY foxyproxy.compatibilitycheck.proxy.tooltip "Select the proxy you want to use for the add-on compatibility check after an application update">
+<!ENTITY foxyproxy.compatibilitycheck.proxy.help "When Firefox/Thunderbird/SeaMonkey searches for add-on updates at http://addons.mozilla.org during start-up, it is possible for this search to bypass your proxy patterns. Here you can specify which proxy to use for these rare situations.">
+<!-- begin foxyproxyplus -->
+<!ENTITY foxyproxy.ip.pattern.addedit.title "Add/Edit Local IP Address Pattern">
+<!ENTITY foxyproxy.tempip.popup.label "Temporary patterns allow you to create patterns for local IP addresses that you don't use often without cluttering the IP address pattern list for a proxy. Temporary patterns are not saved to disk. They are kept in-memory and used for this Firefox session only.">
+<!ENTITY foxyproxy.ip.pattern.label "Local IP address pattern">
+<!ENTITY foxyproxy.ip.pattern.accesskey "I">
+<!ENTITY foxyproxy.ip.pattern.tooltip "Local IP address pattern">
+<!ENTITY foxyproxy.ip.patterns.label "Local IP Address Patterns">
+<!ENTITY foxyproxy.ip.patterns.accesskey "I">
+<!ENTITY foxyproxy.ip.patterns.tooltip "Local IP address patterns">
+<!ENTITY foxyproxy.ip.wildcard.reference.matches.label "Matches">
+<!ENTITY foxyproxy.ip.wildcard.reference.nomatch.label "Doesn't Match">
+<!ENTITY foxyproxy.ip.whiteblack.label "Inclusion/Exclusion">
+<!ENTITY foxyproxy.ip.whitelist.description.label "URLs load through this proxy when one of your IP addresses matches this pattern">
+<!ENTITY foxyproxy.ip.blacklist.description.label "URLs do NOT load through this proxy when one of your IP addresses matches this pattern">
+<!ENTITY foxyproxy.ip.wildcard.reference.subtitle.label "The asterisk (*) matches zero or more characters.">
+<!ENTITY foxyproxy.ip.current.local.label "Current Local IP addresses">
+<!ENTITY foxyproxy.copyip.label "Copy to Pattern">
+<!ENTITY foxyproxy.copyip.tooltip "Copy address to pattern">
+<!ENTITY foxyproxy.copyip.accesskey "C">
+<!ENTITY foxyproxy.ip.wildcard.example.label "Example: 192.168.1.*">
+<!ENTITY foxyproxy.ip.regex.example.label "Example: 172\.\d+\.1\.10">
+<!ENTITY foxyproxy.ip.pattern.match "Pattern matches one or more or current local IP addresses">
+<!ENTITY foxyproxy.ip.pattern.no.match "Pattern doesn't match any current local IP address">
+<!ENTITY foxyproxy.refreshlocalips "Refresh local IP addresses">
+<!ENTITY foxyproxy.refreshlocalips.accesskey "R">
+<!ENTITY foxyproxy.enterlicense.label "Enter license key">
+<!ENTITY foxyproxy.enteremail.label "Enter email address">
+<!ENTITY foxyproxy.licenseinfo.label "License Info">
+<!ENTITY foxyproxy.licensevalid.label "License valid. Thank you for purchasing FoxyProxy Plus.">
+<!ENTITY foxyproxy.subexpired.label "License valid, but your update subscription expired. You are not receiving FoxyProxy Plus updates.">
+<!ENTITY foxyproxy.licenseinvalid.label "License invalid. You won't receive FoxyProxy Plus updates. Please purchase FoxyProxy Plus.">
+<!ENTITY foxyproxy.buynow.label "Buy Now">
+<!ENTITY foxyproxy.checklicense.label "Check License">
+<!ENTITY foxyproxy.checkinglicense.label "Checking...please wait">
+<!ENTITY foxyproxy.yourversion.label "Your Version ">
+<!ENTITY foxyproxy.latestversion.label "Newest Version ">
+<!ENTITY foxyproxy.routetoleahscape.label.1 "Please make sure Firefox can reach">
+<!ENTITY foxyproxy.routetoleahscape.label.2 "either with or without a proxy. You can configure patterns for this URL in FoxyProxy Plus if necessary.">
+<!ENTITY foxyproxy.everything.label "Everything">
+<!ENTITY foxyproxy.nothing.label "Nothing">
+<!ENTITY foxyproxy.ippatterndeletefinal.label "This is the last local IP address pattern. If you delete it, this proxy has no possibility of being used. Continue anyway?">
+<!ENTITY foxyproxy.licenseplea.label "FoxyProxy Plus has minimal anti-piracy measures. If you use FoxyProxy Plus, please purchase a license. It's taken many years of work to develop and maintain, and your purchase encourages me to continue.">
+<!ENTITY foxyproxy.authentication.label "Authentication">
+<!ENTITY foxyproxy.proxyusername.label "Username">
+<!ENTITY foxyproxy.proxypassword.label "Password">
+<!ENTITY foxyproxy.proxypassword2.label "Password - again">
+<!ENTITY foxyproxy.proxydomain.label "Domain (optional - NTLM only)">
+<!ENTITY foxyproxy.proxydomain.tooltip "NTLM authentication only">
+<!ENTITY foxyproxy.proxy.passwords.nomatch.label "Proxy passwords do not match; please re-enter.">
+<!ENTITY foxyproxy.traininglogging.label "Training &amp; Logging">
+<!ENTITY foxyproxy.traininglogging.tooltip "Manage Training &amp; Logging Settings">
+<!ENTITY foxyproxy.traininglogging.accesskey "L">
+<!ENTITY foxyproxy.training.start "Start Training">
+<!ENTITY foxyproxy.training.stop "Stop Training">
+<!ENTITY foxyproxy.patternsforall.label "Create Patterns for All">
+<!ENTITY foxyproxy.patternsforall.accesskey "A">
+<!ENTITY foxyproxy.patternsforall.tooltip "Create Patterns for All URLs">
+<!ENTITY foxyproxy.patternsforselected.label "Create Patterns for Selected">
+<!ENTITY foxyproxy.patternsforselected.accesskey "S">
+<!ENTITY foxyproxy.patternsforselected.tooltip "Create Patterns for Selected URLs">
+<!ENTITY foxyproxy.patterntoadd.label "Pattern to Add">
+<!ENTITY foxyproxyplus.released "Released under the">
+<!ENTITY foxyproxyplus.license "FoxyProxy Plus license">
+<!-- end foxyproxyplus -->

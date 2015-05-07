@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<?xul-overlay href="chrome://foxyproxy/content/firefoxOverlay-svg.xul"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<overlay id="foxyproxy-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript;version=1.7" src="overlay.js"/>
+  <script src="selection.js"/>
+
+  <stringbundleset id="foxyproxy-strings">
+    <stringbundle src="chrome://foxyproxy/locale/foxyproxy.properties"/>
+  </stringbundleset>
+
+  <!-- menu -->
+  <menupopup id="taskPopup">
+    <menu id="foxyproxyMenu"
+          insertafter="javascriptConsole,devToolsSeparator"
+          accesskey="&foxyproxy.accesskey;">
+      <menupopup id="foxyproxy-toolsmenu-popup"
+                 onpopupshowing="foxyproxy.onPopupShowing(this, event);"
+                 onpopuphiding="foxyproxy.onPopupHiding();"/>
+    </menu>
+  </menupopup>
+
+  <keyset id="taskKeys">
+    <!-- accel is ctrl on windows, cmd on mac -->
+    <key id="key_foxyproxyfocus"
+         keycode="VK_F2"
+         modifiers="accel"
+         oncommand="foxyproxy.onOptionsDialog();"/>
+    <!-- begin-foxyproxy-standard -->
+    <key id="key_foxyproxyquickadd"
+         keycode="VK_F2"
+         modifiers="alt"
+         oncommand="foxyproxy.onQuickAddDialog(event);"/>
+    <!-- end-foxyproxy-standard -->
+    <key id="key_foxyproxychangeproxy"
+         keycode="VK_F3"
+         modifiers="alt"
+         oncommand="foxyproxy.selection.onChangeHost();"/>
+  </keyset>
+  
+  <!-- FF: contentAreaContextMenu TB2: messagePaneContext TB3b2+: mailContext -->
+  <menupopup id="mailContext">
+    <menu id="foxyproxy-contextmenu-icon"
+          accesskey="&foxyproxy.accesskey;">
+      <menupopup id="foxyproxy-contextmenu-popup"
+                 onpopupshowing="foxyproxy.onPopupShowing(this, event);"
+                 onpopuphiding="foxyproxy.onPopupHiding();"/>
+    </menu>
+  </menupopup>
+  
+  <statusbar id="status-bar">
+    <hbox>
+      <popupset style="overflow: auto;">
+        <tooltip id="foxyproxy-popup"
+                 style="max-height: none; max-width: none;"
+                 onclick="this.hidePopup();"/>
+      </popupset>
+    </hbox>
+    <menupopup id="foxyproxy-statusbar-popup"
+               onpopupshowing="foxyproxy.onPopupShowing(this, event);"
+               onpopuphiding="foxyproxy.onPopupHiding();"/>
+    <statusbarpanel id="foxyproxy-status-text"
+      onclick="foxyproxy.onSBTBClick(event, foxyproxy.fp.statusbar);"
+      mode="patterns" persist="mode hidden" hidden="true" mousethrough="never"/>
+    <statusbarpanel id="foxyproxy-statusbar-icon"
+      onclick="foxyproxy.onSBTBClick(event, foxyproxy.fp.statusbar);"
+      hidden="true" mousethrough="never"/>
+  </statusbar>
+  
+  <toolbarpalette id="MailToolbarPalette">
+    <toolbarbutton id="foxyproxy-toolbar-icon" label="&foxyproxy.standard.label;"
+      type="menu" orient="horizontal" mode="patterns" persist="mode"
+      context="foxyproxy-toolbarbutton-popup"
+      onclick="foxyproxy.onSBTBClick(event, foxyproxy.fp.toolbar);">
+    </toolbarbutton>
+  </toolbarpalette>
+
+  <popupset>
+    <menupopup id="foxyproxy-toolbarbutton-popup"
+               onpopuphiding="foxyproxy.onPopupHiding();"
+	       onpopupshowing="foxyproxy.onPopupShowing(this, event);"/> 
+  </popupset> 
+</overlay>

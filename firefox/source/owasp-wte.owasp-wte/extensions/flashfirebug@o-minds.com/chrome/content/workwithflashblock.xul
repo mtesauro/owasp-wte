@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+        <script type="application/x-javascript" src="chrome://flashbug/content/initEnv.js" />
+        <box>
+            <!-- embed a swf to force Flash Player init -->
+            <html:embed id="flashfirebug_init_flash_player"
+                    src="chrome://flashbug/content/null.swf"
+                    allowScriptAccess="always" type="application/x-shockwave-flash"
+                    allowfullscreen="true" menu="false" width="0"
+                    height="0" style="width:0px;height:0px;" />
+        </box>
+</overlay>

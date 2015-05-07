@@ -1,0 +1,7 @@
+- Clean up the code
+  Need to refactor the code to be more efficient
+
+- Add Help button
+  Need to add help button
+
+

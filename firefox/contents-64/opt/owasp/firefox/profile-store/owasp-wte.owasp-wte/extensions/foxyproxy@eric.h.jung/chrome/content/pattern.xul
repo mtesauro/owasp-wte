@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<?xul-overlay href="includes.xul"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+<dialog
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	id="foxyproxypatterndlg2"
+  title="&foxyproxy.standard.label; - &foxyproxy.addeditpattern.title;"
+  ondialogaccept="return onOK();" defaultButton="accept"
+  onload="onLoad();"
+  persist="screenX screenY"
+  windowtype="foxyproxy">
+
+<script src="pattern.js"/>
+
+<grid flex="1">
+  <columns>
+    <column/>
+    <column flex="1"/>
+    <column flex="1"/>
+    <column/>    
+  </columns>   
+  <rows>
+    <row align="center">
+      <checkbox id="enabled" label="&foxyproxy.enabled.label;" accesskey="&foxyproxy.enabled.accesskey;"
+        tooltiptext="&foxyproxy.enabled.tooltip;" observes="not-superadd"/>
+      <hbox align="center">
+        <checkbox id="temp"
+          label="&foxyproxy.temp.label;"
+          accesskey="&foxyproxy.temp.accesskey;"
+          tooltiptext="&foxyproxy.temp.tooltip;"/> 
+        <toolbarbutton class="foxyproxy-ref"
+          popup="tempPopup"
+          tooltiptext="&foxyproxy.whatsthis;"/> 
+      </hbox>
+      <spacer/>
+      <spacer/>        
+    </row>    
+    <row align="center">  
+        <label value="&foxyproxy.pattern.name.label;" control="name"
+          tooltiptext="&foxyproxy.pattern.name.tooltip;" accesskey="&foxyproxy.pattern.name.accesskey;"/>            
+        <textbox id="name" tooltiptext="&foxyproxy.pattern.name.tooltip;" accesskey="&foxyproxy.pattern.name.accesskey;"/>
+        <spacer/>        
+        <spacer/>
+    </row>    
+    <row align="center">
+      <label value="&foxyproxy.pattern.template.label;" control="name"
+        tooltiptext="&foxyproxy.pattern.template.tooltip;" accesskey="&foxyproxy.pattern.template.accesskey;"
+        observes="superadd"/>    
+      <label value="&foxyproxy.url.pattern.label;" tooltiptext="&foxyproxy.url.pattern.tooltip;" accesskey="&foxyproxy.url.pattern.accesskey;"
+        control="pattern" observes="not-superadd"/>
+      <textbox id="pattern" tooltiptext="&foxyproxy.url.pattern.tooltip;" accesskey="&foxyproxy.url.pattern.accesskey;"
+         type="timed" timeout="500" oncommand="updateGeneratedPattern();"/>       
+      <hbox align="center">    
+        <checkbox id="caseSensitive" label="&foxyproxy.casesensitive.label;" accesskey="&foxyproxy.casesensitive.accesskey;"
+          tooltiptext="&foxyproxy.casesensitive.tooltip;"/>
+        <toolbarbutton observes="superadd" class="foxyproxy-ref" popup="patternTemplatePopup" tooltiptext="&foxyproxy.pattern.template.reference.tooltip;"/>
+        <toolbarbutton observes="not-superadd" class="foxyproxy-ref" popup="wildcardURLPatternReferencePopup" tooltiptext="&foxyproxy.pattern.template.reference.tooltip;"/>        
+        </hbox>
+    </row>
+
+    <row align="center" observes="superadd">
+      <label value="&foxyproxy.pattern.template.example.label1;" />
+      <textbox id="exampleURL" type="timed" timeout="500"
+        flex="1" value="&foxyproxy.pattern.template.example.label2;" oncommand="updateGeneratedPattern();"/>
+      <textbox id="generatedPattern" readonly="true" style="font-weight: bold;"/>
+      <toolbarbutton class="foxyproxy-ref" popup="wildcardURLPatternReferencePopup" tooltiptext="&foxyproxy.wildcard.reference.tooltip;"/>
+    </row>
+    <radiogroup id="whiteblacktype"/>
+    <radiogroup id="matchtype"/>
+  </rows>
+</grid>
+<popupset>
+  <menupopup id="wildcardURLPatternReferencePopup"/>
+  <menupopup id="tempPopup"/>
+  <menupopup id="patternTemplatePopup"/>  
+</popupset>
+
+<broadcasterset>
+  <broadcaster id="superadd"/>
+  <broadcaster id="not-superadd"/>
+</broadcasterset>
+</dialog>

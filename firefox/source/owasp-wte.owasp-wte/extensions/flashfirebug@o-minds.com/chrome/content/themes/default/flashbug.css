@@ -1,0 +1,23 @@
+﻿/* See license.txt for terms of usage */
+
+@import "chrome://flashfirebug/content/themes/default/decompiler.css";
+/*@import "chrome://flashfirebug/content/themes/default/inspector.css";*/
+
+/* XUL Links */
+.flb-link {
+	text-decoration: none;
+	border-bottom: dotted 1px;
+	color: blue;
+	color: -moz-nativehyperlinktext;
+	cursor: pointer;
+}
+
+/*************************************************************************************************/
+
+/* Firebug Tracing Console customization. All messages from this example use this color.
+   This helps to distinguish logs from those coming from Firebug
+   Rule syntax: .DBG_<ext-id>
+   See: http://getfirebug.com/wiki/index.php/FBTrace for more details */
+.DBG_FLASH {
+    color: DarkOrange;
+}

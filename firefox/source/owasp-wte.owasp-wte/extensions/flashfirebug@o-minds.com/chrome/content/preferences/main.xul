@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<overlay id="MainPaneOverlay" 
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+    <prefpane id="paneMain" onpaneload="mainPane.init();" >
+		<preferences>
+			<preference id="extensions.firebug.flashbug.console.enableWarnings" name="extensions.firebug.flashbug.console.enableWarnings" type="bool"/>
+			<preference id="extensions.firebug.flashbug.console.maxWarnings" name="extensions.firebug.flashbug.console.maxWarnings" type="int"/>
+			<preference id="extensions.firebug.flashbug.console.maxLines" name="extensions.firebug.flashbug.console.maxLines" type="int"/>
+			<preference id="extensions.firebug.flashbug.console.charSet" name="extensions.firebug.flashbug.console.charSet" type="string"/>
+			<preference id="extensions.firebug.flashbug.amf.enableAMF" name="extensions.firebug.flashbug.amf.enableAMF" type="bool"/>
+			<preference id="extensions.firebug.flashbug.enableSWF" name="extensions.firebug.flashbug.enableSWF" type="bool"/>
+                        <preference id="extensions.firebug.flashbug.mm.concat" name="extensions.firebug.flashbug.mm.concat" type="string"/>
+		</preferences>
+		
+		<script src="chrome://flashbug/content/preferences/main.js"/>
+		
+		<groupbox>
+			<caption id="netDesc" label="flashbug.pref.net.title"/>
+			<checkbox id="enableAMF" preference="extensions.firebug.flashbug.amf.enableAMF" label="flashbug.pref.enableAMF" tooltiptext="flashbug.pref.enableAMF.tooltip" />
+		</groupbox>
+		
+		<separator class="thin"/>
+		
+		<groupbox>
+		<caption id="outputDesc" label="flashbug.pref.output.title"/>
+		<hbox>
+			<hbox>
+				<label id="lblCharset" value="flashbug.pref.charEncoding" control="cbCharset" />
+				<menulist id="cbCharset" preference="extensions.firebug.flashbug.console.charSet">
+					<menupopup>
+						<menuitem id="ISO-8859-1" label="ISO-8859-1" value="ISO-8859-1"/>
+						<menuitem id="utf8" label="UTF-8" value="UTF-8"/>
+						<menuitem id="big5" label="Big5" value="BIG5"/>
+					</menupopup>
+				</menulist>
+			</hbox>
+			<hbox>
+				<label id="lblMaxLines" value="flashbug.pref.maxLines" control="maxLines" />
+				<textbox id="maxLines" preference="extensions.firebug.flashbug.console.maxLines" size="20" tooltiptext="flashbug.pref.maxLines.tooltip"/>
+			</hbox>
+		</hbox>
+		</groupbox>
+		
+		<separator class="thin"/>
+
+		<groupbox width="150">
+			<caption id="mmDesc" label="flashbug.pref.mm.title" />
+			<hbox>
+				<checkbox id="ErrorReportingEnable" label="flashbug.pref.displayWarnings" preference="extensions.firebug.flashbug.console.enableWarnings" tooltiptext="flashbug.mm.ErrorReportingEnable" flex="1" />
+				<label id="lblMaxWarning" value="flashbug.pref.maxWarnings" control="maxWarnings" />
+				<textbox id="MaxWarnings" size="20" tooltiptext="flashbug.mm.MaxWarnings" preference="extensions.firebug.flashbug.console.maxWarnings" />
+			</hbox>
+			<!-- <checkbox id="PolicyFileLog" label="flashbug.pref.enablePolicyLog" tooltiptext="flashbug.mm.PolicyFileLog" oncommand="mainPane.updateMM();" />
+			<checkbox id="PolicyFileLogAppend" label="flashbug.pref.enablePolicyAppend" tooltiptext="flashbug.mm.PolicyFileLogAppend" oncommand="mainPane.updateMM();" /> -->
+		</groupbox>
+		
+ 		<separator class="thin"/>
+		
+		<groupbox>
+			<caption id="mmLocDesc" label="flashbug.pref.mmLoc.title" />
+			<textbox id="mmLocation" readonly="true" class="plain" />
+		</groupbox>
+		
+		<groupbox>
+			<caption id="traceDesc" label="flashbug.pref.trace.title" />
+			<textbox id="traceLocation" readonly="true" class="plain" />
+		</groupbox>
+		
+		<groupbox>
+			<caption id="policyDesc" label="flashbug.pref.policy.title" />
+			<textbox id="policyLocation" readonly="true" class="plain" />
+		</groupbox>
+		<groupbox>
+			<caption id="mmConcatDesc" label="flashbug.pref.mm.concat.title" />
+			<textbox id="mmConcatTextArea" multiline="true" newlines="pasteintact" preference="extensions.firebug.flashbug.mm.concat" tooltiptext="flashbug.pref.mm.concat.tooltip" />
+		</groupbox>
+
+	</prefpane>
+</overlay>

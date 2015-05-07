@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy 帮助">
+<!ENTITY help.patterns "URL模式">
+<!ENTITY help.ff.asks "读取网址之前，如果有代理服务器在使用，Firefox 会调用 FoxyProxy 。">
+<!ENTITY help.fp.answers "FoxyProxy 尝试通过你在下面定义的所有 URL 式样和当前的 URL 匹配来回答这个问题。最简单的方法是指定带有通配符的式样。">
+<!ENTITY help.a.wildcards "通配符">
+<!ENTITY help.p.wildcards.are "通配符在计算机领域有普遍的应用；你以前很可能已经见过他。星号（*）作为通配符代替零个或者多个字符，问号（?）作为通配符代替任意一个字符。">
+<!ENTITY help.p.regexp "使用正则表达式可以有更多高级的匹配规则，详细信息点击“帮助内容”按钮。">
+<!ENTITY help.h4.wildcard.examples "通配符例子">
+<!ENTITY help.th.url.pattern "URL 模式">
+<!ENTITY help.th.some.matches "匹配的">
+<!ENTITY help.th.some.non.matches "不匹配的">
+<!ENTITY help.td.everything.in.y "Yahoo 域名下的所有内容">
+<!ENTITY help.i.matches.everything "完整匹配">

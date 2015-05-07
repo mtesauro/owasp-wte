@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Ajuda do FoxyProxy">
+<!ENTITY help.patterns "Padrões de URL">
+<!ENTITY help.ff.asks "Antes que o Firefox carrega uma URL, o mesmo perguntará ao FoxyProxy se um proxy deve ser usado.">
+<!ENTITY help.fp.answers "FoxyProxy responde a esta pergunta, tentando corresponder à URL atual com todos os padrões de URL que você define abaixo. A maneira mais simples para especificar padrões é com caracteres curinga.">
+<!ENTITY help.a.wildcards "Caracteres curinga">
+<!ENTITY help.p.wildcards.are "Caracteres curinga é difundida em toda a computação; Você provavelmente já viu-los antes. Substitui o asterisco (*) como caractere curinga para zero ou mais caracteres, e substitui o ponto de interrogação (?) como um caractere curinga para qualquer caractere.">
+<!ENTITY help.p.regexp "Mais avançados regras de correspondência são possíveis usando expressões regulares. Para obter mais detalhes, clique no botão 'Conteúdo da ajuda'.">
+<!ENTITY help.h4.wildcard.examples "Exemplos de curinga">
+<!ENTITY help.th.url.pattern "Padrão de URL">
+<!ENTITY help.th.some.matches "Algumas que correspondem">
+<!ENTITY help.th.some.non.matches "Algumas que não corespondem">
+<!ENTITY help.td.everything.in.y "Tudo no domínio do Yahoo!">
+<!ENTITY help.i.matches.everything "Corresponde a tudo">

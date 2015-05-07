@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy Help">
+<!ENTITY help.patterns "URL Patterns">
+<!ENTITY help.ff.asks "Before Firefox loads a URL, Firefox asks FoxyProxy if a proxy should be used. ">
+<!ENTITY help.fp.answers "FoxyProxy answers this question by attempting to match the current URL with all of the URL patterns you define below. The simplest way to specify patterns is with wildcards.">
+<!ENTITY help.a.wildcards "Wildcards">
+<!ENTITY help.p.wildcards.are "Wildcards are pervasive throughout computing; you&apos;ve most likely seen them before. The asterisk (*) substitutes as a wildcard character for zero or more characters, and the question mark (?) substitutes as a wildcard character for any one character. ">
+<!ENTITY help.p.regexp "More advanced matching rules are possible using regular expressions. For details, click the &apos;Help Contents&apos; button.">
+<!ENTITY help.h4.wildcard.examples "Wildcard Examples">
+<!ENTITY help.th.url.pattern "URL Pattern">
+<!ENTITY help.th.some.matches "Some Matches">
+<!ENTITY help.th.some.non.matches "Some Non-Matches">
+<!ENTITY help.td.everything.in.y "Everything in Yahoo&apos;s domain">
+<!ENTITY help.i.matches.everything "Matches everything">

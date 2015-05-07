@@ -1,0 +1,280 @@
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+#cookieInfoBox
+{
+	border: 1px solid black;
+}
+tree
+{
+	min-height: 7em;
+}
+treecol:not([type="checkbox"]):not([id="colhid"])
+{
+	min-width: 3em;
+}
+treecol#rawHost,
+treecol#name,
+treecol#content
+{
+	min-width: 4em;
+}
+
+#expireProgressText[disabled="true"][progress="true"]
+{
+	text-shadow: 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog
+}
+#expireProgressText[disabled="true"][progress="true"]:-moz-system-metric(windows-classic)
+{
+	text-shadow: 0 0 0.5em -moz-Dialog, 0 0 0.5em -moz-Dialog, 0 0 0.5em -moz-Dialog, 0 0 0.5em -moz-Dialog, 0 0 0.5em -moz-Dialog, 0 0 0.5em -moz-Dialog, 0 0 0.5em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog, 0 0 0.2em -moz-Dialog
+}
+#expireProgressText[disabled="true"]
+{
+	color: -moz-FieldText;
+	font-style: italic;
+}
+
+#ifl_expires[expired="true"]:not([multi="true"]),
+#expireProgressText[disabled="true"][expired="true"]
+{
+	color: red;
+}
+/*
+progressmeter[text="true"] .progress-bar
+{
+	opacity: 1.0;
+}
+*/
+
+progressmeter
+{
+	min-width: 0;
+	min-height: 0;
+	margin: 2px -3px 2px -3px;
+}
+
+progressmeter:-moz-system-metric(windows-classic)
+{
+	margin: 0 -3px 0 -3px;
+}
+
+row[dragable="true"] > hbox:-moz-first-node,
+row[dragable="true"] > hbox:-moz-first-node > label
+{
+	cursor: -moz-grab;
+}
+row[dragable="true"]
+{
+	border-top: 1px dotted #e1e1e1;
+	margin: 0 2px 0 2px;
+}
+row[dragable="true"][last="true"]
+{
+	border-bottom: 1px dotted transparent;
+	margin: 0 2px 0 2px;
+}
+row[dragable="true"][first="true"]
+{
+	border-top-color: transparent;
+}
+row[dragable="true"][dragover="true"][dragupdown="up"]
+{
+	border-top: 1px solid black;
+}
+#row_end[dragover="true"],
+row[dragable="true"][dragover="true"][dragupdown="down"]
+{
+	border-bottom: 1px solid black;
+}
+
+#row_end
+{
+	height: 0;
+	border-bottom: 1px dotted transparent;
+	margin: 0 2px 0 2px;
+}
+
+treechildren::-moz-tree-row(odd)
+{
+	background-color:#F5F5F5;
+}
+/*
+treechildren::-moz-tree-row(odd, selected) {
+	background-color: #E7E7E7;
+}
+treechildren::-moz-tree-row(even, selected) {
+	background-color: #E0E0E0;
+}
+*/
+treechildren::-moz-tree-cell-text(protected)
+{
+	color: GrayText;
+}
+
+	/* css for checked cells */
+treechildren::-moz-tree-checkbox
+{
+	margin: 1px 3px;
+	-moz-box-align: center;
+	border: 2px solid;
+	-moz-border-top-colors: ThreeDShadow ThreeDDarkShadow;
+	-moz-border-right-colors: ThreeDHighlight ThreeDLightShadow;
+	-moz-border-bottom-colors: ThreeDHighlight ThreeDLightShadow;
+	-moz-border-left-colors: ThreeDShadow ThreeDDarkShadow;
+	background: -moz-Field no-repeat 50% 50%;
+}
+treechildren:-moz-system-metric(windows-classic)::-moz-tree-checkbox,
+treechildren[xp="true"]::-moz-tree-checkbox
+{
+	margin: 1px 0px;
+}
+treechildren::-moz-tree-checkbox(checked)
+{
+	list-style-image: url("chrome://global/skin/checkbox/cbox-check.gif");
+
+}
+
+treechildren::-moz-tree-cell-text(updated)
+{
+	color: green;
+}
+
+treechildren::-moz-tree-row(selected),
+treechildren::-moz-tree-row(selected, focus)
+{
+	background-color: Highlight;
+}
+treechildren::-moz-tree-cell-text(selected),
+treechildren::-moz-tree-cell-text(selected, focus)
+{
+	color: Highlighttext;
+}
+treechildren::-moz-tree-cell-text(protected, selected),
+treechildren::-moz-tree-cell-text(protected, selected, focus)
+{
+	color: lightgrey;
+}
+treechildren::-moz-tree-row(current)
+{
+	border: 1px dashed black;
+}
+treechildren::-moz-tree-row(current, selected)
+{
+	border: 1px dotted black;
+}
+treechildren::-moz-tree-row(current, focus)
+{
+	border: 1px dashed Highlight;
+}
+treechildren::-moz-tree-row(current, focus, selected)
+{
+	border: 1px dotted Highlighttext;
+}
+
+.infofield[multi="true"]
+{
+	font-style: italic;
+	color: GrayText;
+}
+
+.infofield[empty="true"]
+{
+	font-style: italic;
+	color: GrayText;
+}
+
+treecol[type="checkbox"] > *
+{
+	display: none;
+}
+
+treecol[type="checkbox"] > label
+{
+	display: block;
+	-moz-appearance: checkbox;
+}
+
+#filtermenu,
+#filtermenu > hbox,
+#filtermenu > hbox > dropmarker
+{
+	min-width: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+}
+#filtermenu
+{
+	margin-left: -1px;
+}
+#lookupcriterium
+{
+	margin-right: 0;
+}
+
+.no-label * .button-text,
+#filtermenu * .button-text
+{
+	display: none;
+}
+
+#lookupstart
+{
+	min-width: 16px;
+	min-height: 16px;
+}
+
+#ifl_isProtected
+{
+	width: 0;
+}
+.inputbutton *
+{
+	padding:0;
+}
+
+
+.sortmenu[checked="true"][sortDirection="ascending"] > .menu-iconic-left,
+.sortmenu[checked="true"][sortDirection="descending"] > .menu-iconic-left
+{
+	-moz-appearance: menuimage;
+}
+.sortmenu[checked="true"][sortDirection="ascending"] > .menu-iconic-left > .menu-iconic-icon {
+	width: 9px;
+	height: 5px;
+  list-style-image: url("chrome://global/skin/tree/sort-asc.png");
+}
+
+.sortmenu[checked="true"][sortDirection="ascending"]:-moz-system-metric(windows-classic) > .menu-iconic-left > .menu-iconic-icon {
+	width: 9px;
+	height: 5px;
+  list-style-image: url("chrome://global/skin/tree/sort-asc-classic.png");
+}
+
+.sortmenu[checked="true"][sortDirection="descending"] > .menu-iconic-left > .menu-iconic-icon {
+	width: 9px;
+	height: 5px;
+  list-style-image: url("chrome://global/skin/tree/sort-dsc.png");
+}
+
+.sortmenu[checked="true"][sortDirection="descending"]:-moz-system-metric(windows-classic) > .menu-iconic-left > .menu-iconic-icon {
+	width: 9px;
+	height: 5px;
+  list-style-image: url("chrome://global/skin/tree/sort-dsc-classic.png");
+}
+
+.contentPane
+{
+	margin-top: 0;
+	padding-top: 0;
+}
+
+toolbox
+{
+	border: none;
+	-moz-appearance: none;
+}
+
+.offset .menu-text
+{
+	-moz-padding-start: 1em;
+}

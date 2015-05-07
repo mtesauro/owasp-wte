@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<root>
+  <i18n id="foxyproxy.toolbaricon.label" value="&foxyproxy.toolbaricon.label;"/>
+  <i18n id="foxyproxy.toolbaricon.accesskey" value="&foxyproxy.toolbaricon.accesskey;"/>
+  <i18n id="foxyproxy.toolbaricon.tooltip" value="&foxyproxy.toolbaricon.tooltip;"/> 
+
+  <i18n id="foxyproxy.showstatusbaricon.label" value="&foxyproxy.showstatusbaricon.label;"/>
+  <i18n id="foxyproxy.showstatusbaricon.accesskey" value="&foxyproxy.showstatusbaricon.accesskey;"/>
+  <i18n id="foxyproxy.showstatusbaricon.tooltip" value="&foxyproxy.showstatusbaricon.tooltip;"/>
+
+  <i18n id="foxyproxy.showstatusbarmode.label" value="&foxyproxy.showstatusbarmode.label;"/>
+  <i18n id="foxyproxy.showstatusbarmode.accesskey" value="&foxyproxy.showstatusbarmode.accesskey;"/>
+  <i18n id="foxyproxy.showstatusbarmode.tooltip" value="&foxyproxy.showstatusbarmode.tooltip;"/>
+
+  <i18n id="foxyproxy.toolsmenu.label2" value="&foxyproxy.toolsmenu.label2;"/>
+  <i18n id="foxyproxy.toolsmenu.accesskey" value="&foxyproxy.toolsmenu.accesskey;"/>
+  <i18n id="foxyproxy.toolsmenu.tooltip2" value="&foxyproxy.toolsmenu.tooltip2;"/>
+  
+  <i18n id="foxyproxy.contextmenu.label" value="&foxyproxy.contextmenu.label;"/>
+  <i18n id="foxyproxy.contextmenu.accesskey" value="&foxyproxy.contextmenu.accesskey;"/>
+  <i18n id="foxyproxy.contextmenu.tooltip" value="&foxyproxy.contextmenu.tooltip;"/>
+  
+  <i18n id="foxyproxy.advancedmenus.label" value="&foxyproxy.advancedmenus.label;"/>
+  <i18n id="foxyproxy.advancedmenus.accesskey" value="&foxyproxy.advancedmenus.accesskey;"/>
+  <i18n id="foxyproxy.advancedmenus.tooltip" value="&foxyproxy.advancedmenus.tooltip;"/>  
+  
+  <i18n id="foxyproxy.tab.logging.label" value="&foxyproxy.tab.logging.label;"/>
+  <i18n id="foxyproxy.tab.logging.accesskey" value="&foxyproxy.tab.logging.accesskey;"/>  
+  <i18n id="foxyproxy.tab.logging.tooltip" value="&foxyproxy.tab.logging.tooltip;"/>
+
+  <i18n id="foxyproxy.enabled.label" value="&foxyproxy.enabled.label;"/>
+  <i18n id="foxyproxy.enabled.accesskey" value="&foxyproxy.enabled.accesskey;"/>
+  <i18n id="foxyproxy.enabled.tooltip" value="&foxyproxy.enabled.tooltip;"/>    
+
+  <i18n id="foxyproxy.refresh.label" value="&foxyproxy.refresh.label;"/>
+  <i18n id="foxyproxy.refresh.accesskey" value="&foxyproxy.refresh.accesskey;"/>
+  <i18n id="foxyproxy.refresh.tooltip" value="&foxyproxy.refresh.tooltip;"/>    
+
+  <i18n id="foxyproxy.clear.label" value="&foxyproxy.clear.label;"/>
+  <i18n id="foxyproxy.clear.accesskey" value="&foxyproxy.clear.accesskey;"/>
+  <i18n id="foxyproxy.clear.tooltip" value="&foxyproxy.clear.tooltip;"/>    
+
+  <i18n id="foxyproxy.tab.global.label" value="&foxyproxy.tab.global.label;"/>
+  <i18n id="foxyproxy.tab.global.accesskey" value="&foxyproxy.tab.global.accesskey;"/>
+  <i18n id="foxyproxy.tab.global.tooltip" value="&foxyproxy.tab.global.tooltip;"/>
+
+  <i18n id="foxyproxy.tab.patterns.label" value="&foxyproxy.tab.patterns.label;"/>  
+  <i18n id="foxyproxy.tab.patterns.accesskey" value="&foxyproxy.tab.patterns.accesskey;"/>  
+  <i18n id="foxyproxy.tab.patterns.tooltip" value="&foxyproxy.tab.patterns.tooltip;"/>          
+
+  <i18n id="foxyproxy.options.label" value="&foxyproxy.options.label;"/>  
+  <i18n id="foxyproxy.options.accesskey" value="&foxyproxy.options.accesskey;"/>  
+  <i18n id="foxyproxy.options.tooltip" value="&foxyproxy.options.tooltip;"/>  
+
+  <i18n id="foxyproxy.help.label" value="&foxyproxy.help.label;"/>  
+  <i18n id="foxyproxy.help.accesskey" value="&foxyproxy.help.accesskey;"/>  
+  <i18n id="foxyproxy.help.tooltip" value="&foxyproxy.help.tooltip;"/>  
+  
+  <i18n id="foxyproxy.regex.label" value="&foxyproxy.regex.label;"/>
+  <i18n id="foxyproxy.wildcard.label" value="&foxyproxy.wildcard.label;"/>    
+
+  <i18n id="foxyproxy.blacklist.label" value="&foxyproxy.blacklist.label;"/>
+  <i18n id="foxyproxy.whitelist.label" value="&foxyproxy.whitelist.label;"/>    
+
+	<i18n id="foxyproxy.tab.logging.timestamp.label" value="&foxyproxy.tab.logging.timestamp.label;"/>
+	<i18n id="foxyproxy.tab.logging.url.label" value="&foxyproxy.tab.logging.url.label;"/>
+	<i18n id="foxyproxy.proxy.name.label" value="&foxyproxy.proxy.name.label;"/>
+	<i18n id="foxyproxy.proxy.notes.label" value="&foxyproxy.proxy.notes.label;"/>
+	<i18n id="foxyproxy.pattern.name.label" value="&foxyproxy.pattern.name.label;"/>
+	<i18n id="foxyproxy.pattern.label" value="&foxyproxy.pattern.label;"/>
+	<i18n id="foxyproxy.pattern.type.label" value="&foxyproxy.pattern.type.label;"/>
+	<i18n id="foxyproxy.whitelist.blacklist.label" value="&foxyproxy.whitelist.blacklist.label;"/>
+
+	<i18n id="foxyproxy.logging.noURLs.label" value="&foxyproxy.logging.noURLs.label;"/>
+	<i18n id="foxyproxy.logging.noURLs.accesskey" value="&foxyproxy.logging.noURLs.accesskey;"/>
+	<i18n id="foxyproxy.logging.noURLs.tooltip" value="&foxyproxy.logging.noURLs.tooltip;"/>
+	
+	<i18n id="foxyproxy.tab.autoadd.label" value="&foxyproxy.tab.autoadd.label;"/>
+	<i18n id="foxyproxy.quickadd.label" value="&foxyproxy.quickadd.label;"/>
+	
+	<i18n id="foxyproxy.animatedicons.label" value="&foxyproxy.animatedicons.label;"/>
+	<i18n id="foxyproxy.animatedicons.accesskey" value="&foxyproxy.animatedicons.accesskey;"/>
+	<i18n id="foxyproxy.animatedicons.tooltip" value="&foxyproxy.animatedicons.tooltip;"/>			
+	
+	<i18n id="foxyproxy.error.msg.label" value="&foxyproxy.error.msg.label;"/>			
+	<i18n id="foxyproxy.pac.result.label" value="&foxyproxy.pac.result.label;"/>			
+
+  <i18n id="foxyproxy.casesensitive.label" value="&foxyproxy.casesensitive.label;"/> 
+
+  <i18n id="foxyproxy.autoadd.notify.label" value="&foxyproxy.autoadd.notify.label;"/>
+  <i18n id="foxyproxy.autoadd.notify.tooltip2" value="&foxyproxy.autoadd.notify.tooltip2;"/>
+
+  <i18n id="foxyproxy.autoadd.wildcard.example.label" value="&foxyproxy.autoadd.wildcard.example.label;"/> 
+  <i18n id="foxyproxy.autoadd.regex.example.label" value="&foxyproxy.autoadd.regex.example.label;"/>
+  
+  <i18n id="foxyproxy.quickadd.label" value="&foxyproxy.quickadd.label;"/>
+  <i18n id="foxyproxy.quickadd.accesskey" value="&foxyproxy.quickadd.accesskey;"/>
+  <i18n id="foxyproxy.quickadd.tooltip" value="&foxyproxy.quickadd.tooltip;"/>  
+
+  <i18n id="foxyproxy.invalidcolor.label" value="&foxyproxy.invalidcolor.label;"/>
+  <i18n id="foxyproxy.validcolor.label" value="&foxyproxy.validcolor.label;"/>
+  
+  <i18n id="foxyproxy.add.option.direct.label" value="&foxyproxy.add.option.direct.label;"/>
+  <i18n id="foxyproxy.auto.url.label" value="&foxyproxy.auto.url.label;"/>  
+  
+  <i18n id="foxyproxy.standard.label" value="&foxyproxy.standard.label;"/>
+  <i18n id="foxyproxy.basic.label" value="&foxyproxy.basic.label;"/>
+</root>

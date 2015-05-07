@@ -1,0 +1,116 @@
+Cookies Manager+ changes log
+
+Legend:
+
++ = Added
+! = Fixed
+* = Changed
+- = Removed
+
+
+Changes log:
+
+
+v1.5.1 (2011-04-18)
+	+ default filename option for backup files
+	* auto refresh is enabled if CM+ updated or disabled if new install (still debating about this one)
+	! general tab in options window is not focused by default
+
+v1.5 (2011-04-17)
+	+ support for "protected" flag in backup/restore (only when CoockieCuller support enabled)
+	+ encrypt backup files
+	+ added "always on top" option in view menu
+	* auto refresh is now disabled by default
+	* moved CM+ in app menu of FF4 from root to "Web Developer" submenu
+	! reset tree columns order is now disabled if order is not changed
+	! export template would only replace once each tag.
+	! backup would not overwrite already existing file even if user chose so
+	! custom templates not saved after reset
+	- removed cookie info preferences, it's no longer uses prefs.js
+
+v1.4 (2011-04-16)
+	+ expiration count down information
+	+ expiration progress meter now shows in realtime
+	+ ALT+L will focus on cookies list
+	+ list view options into right click (context) menu (column picker/sort)
+	+ shortcut keys for buttons in Add/Edit cookies window
+	+ shortcut keys for cookie info fields in main window
+	+ backup/restore selected or all cookies. The backup file is standard netscape format, which can be used to import into other browsers. Restore can also import file created by IE export.
+	+ bumped support for nightly v6.0a1
+	+ SHIFT+F10 on cookies list will open context menu
+	+ move up/down options to context menu at info fields
+	+ menu bar
+	* moved "protected" field to the end of the list by default
+	! ALT+P/ALT+U will lock cookie and loose focus on list
+	! when pressed up/down cursor key in the list and list scrolled, it would not display data about newly selected cookie
+	- "more..." button, replaced by menu bar
+
+v1.3 (2011-04-04)
+	+ sorting cookies info rows via drag'n drop
+	+ cookies info rows selection in options window
+	+ export selected cookies to file
+	- "Show extra info columns in the list" option. The extra information columns are still available via column picker dropdown menu.
+
+v1.2 (2011-04-02)
+	+ FF4 app menu item (orange button)
+	+ labels on all dropdown buttons
+	+ bumped support for FF4.2a1pre
+	+ CookieCuller support
+	+ copy to clipboard cookie data using user-defined template
+	+ checkboxes in list box
+	+ ability block domain from using cookies (SHIFT + DEL or via context menu)
+	+ changes log in options window
+	* refresh button is always visible
+	* checkboxes in add cookie window are now disabled
+	! context menu keyboard button doesn't do anything in cookies list
+	! tree extra info not showed correctly after window opened
+	! sorting columns would not change direction
+	! list scroll with up/down scrollbar buttons was not possible when a cookie selected
+	! after delete confirmation closed only one cookie selected (even if some/all selected cookies weren't deleted)
+
+v1.1 (2011-03-20)
+	+ button to open native Firefox Cookies Manager
+	+ option to ignore sub-domains during sort
+	+ dropdown at the end of search field with options to search in host, name and/or content as well as case sensitive
+	+ more accessible-friendly, most controls are accessible via keyboard
+	+ optional visual representation when selected cookie expires
+	* native cookies manager is no long replaced, it now has a button to open Cookies Manager+ instead. A hidden bool preference "alwaysusecmp" can be set to enable replacement.
+	* when "Auto refresh" is disabled, selecting/clicking on a cookie will update information with the latest
+	! saving session cookie would delete it instead
+	! del key had to be pressed twice after delete confirmation showed
+	! deleted somewhere/somehow else cookies weren't removed from the list when auto refresh activated
+	! an edited cookie would not be saved if it was deleted while editor was opened.
+	! "more info" link in options window would not open in FF3
+
+v1.0 (2011-03-13)
+	+ multiple cookies edit (content, send for and expire date only)
+	+ multiple selection with mouse by clicking on left part of the list
+	+ ability save changes only for selected fields
+	+ optional columns for cookie content, path and expiration date
+	+ displaying number of deleting cookies at confirm delete prompt
+	+ confirmation for overwrite cookie prompt if saving cookie already exist
+	+ select all / invert selection options to the right click on the cookies list
+	+ "Search/Filter" button changes label based on enabled settings
+	+ ability save cookies with empty content and path
+	+ popup calendar highlights current local date (not just cookie's date)
+	+ version number to the cookies view window title
+	+ customizable expiration date format (using PHP date() format: http://php.net/manual/function.date.php)
+	+ cookie list columns are now can be moved around
+	+ shows at window title total number of cookies, number of showed cookies and number of selected
+	+ extra information (optional) such as created date, last access date, http only, policy and status
+	+ columns for extra information (optional)
+	+ tooltips in option window
+	+ selectable "Http Only" cookie parameter at edit cookie window (in previous versions this parameter was forced to "false"
+	* new name. Now it's Cookies Manager+
+	* rewrote almost entire extension
+	* redesigned GUI
+	* save button will be disabled when name or host fields are empty
+	* cookie info row no longer selects when clicking on row header when the row doesn't display cookie's content (multiple selection or no selection at all)
+	* when multiple cookies selected and they all have a common property (name, path, host, etc), that property(s) value will be shown instead of "<multiple selection>" string.
+	* minimum column width was decreased allowing smaller columns
+	! multiple selections now restored after edit window closed or deletion canceled
+	! some text in popup calendar barely visible on some systems
+	! options window on Mac OS
+	! right click on cookies list doesn't select cookies
+	- "Select" option from context menu at a cookie info row header, it selects
+	- select all / invert buttons. They were replaced by checkbox and context menu options on cookies list

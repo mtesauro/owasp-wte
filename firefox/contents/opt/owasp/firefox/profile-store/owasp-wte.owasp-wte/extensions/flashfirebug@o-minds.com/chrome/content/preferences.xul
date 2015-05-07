@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css"?>
+<?xml-stylesheet href="chrome://flashbug/skin/preferences.css"?>
+
+<!DOCTYPE prefwindow [
+<!ENTITY % preferencesDTD SYSTEM "chrome://flashbug/locale/preferences.dtd">
+%preferencesDTD;
+]>
+
+<prefwindow 
+		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+		id="flashbugPreferences" 
+		title="flashbug.pref.label" 
+		onload="settingsWindow.init();" 
+		ondialogaccept="settingsWindow.onAccept();" 
+		ondialogcancel="settingsWindow.onCancel();"
+		persist="screenX screenY" >
+		
+	<prefpane id="paneMain" label="&paneGeneral.title;" src="chrome://flashbug/content/preferences/main.xul"/>
+	<!-- <prefpane id="paneAdvanced" label="&paneAdvanced.title;" src="chrome://flashbug/content/preferences/advanced.xul"/> -->
+	
+	<script src="chrome://flashbug/content/lib.js"/>
+	<script src="chrome://flashbug/content/preferences.js"/>
+	
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="strings_flashbug" src="chrome://flashbug/locale/flashbug.properties"/>
+	</stringbundleset>
+</prefwindow>

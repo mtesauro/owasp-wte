@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+
+<?xml-stylesheet href="chrome://foxyproxy/content/foxyproxy.css" 
+                 type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<dialog id="foxyproxyProxySubscriptions" windowtype="foxyproxy"
+        title="&foxyproxy.standard.label; -
+          &foxyproxy.proxy.subscriptions.addedit.title;" 
+        buttons="accept,cancel,extra2"
+        buttonlabelextra2="&foxyproxy.pattern.subscriptions.lastStatus.label;" 
+        onload="onLoad('proxy');" ondialogaccept="return onOK('proxy');" 
+        ondialogextra2="onLastStatus('proxy');" 
+        xmlns:html="http://www.w3.org/1999/xhtml" 
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        persist="screenX screenY width height">
+
+  <script type="application/x-javascript;version=1.7"
+          src="addEditSubscription.js" />
+
+  <vbox>
+    <separator class="thin"/>
+    <hbox>
+      <checkbox id="subscriptionEnabled" checked="true" 
+                label="&foxyproxy.enabled.label;" 
+                accesskey="&foxyproxy.enabled.accesskey;"/>
+    </hbox>
+    <!--  thanks Teo! -->
+    <grid class="indent">
+      <columns>
+        <column/>
+        <column flex="1"/>
+      </columns>
+      <rows>
+        <row align="center">
+          <label value="&foxyproxy.pattern.subscriptions.name.label;" 
+                 control="subscriptionName" 
+                 tooltiptext="&foxyproxy.pattern.subscriptions.name.tooltip;"/>
+          <menulist id="subscriptionName" editable="true">
+            <menupopup>
+              <menuitem />
+            </menupopup>
+          </menulist>
+        </row>
+        <row align="center">
+          <label value="&foxyproxy.pattern.subscriptions.notes.label;" 
+                 control="subscriptionNotes" 
+                 tooltiptext="&foxyproxy.pattern.subscriptions.notes.tooltip;"/>
+          <textbox id="subscriptionNotes" multiline="true"/>
+        </row>
+        <row align="center">
+          <label value="&foxyproxy.pattern.subscriptions.url.label;" 
+                 control="subscriptionUrl" 
+                 tooltiptext="&foxyproxy.pattern.subscriptions.url.tooltip;"/>
+          <textbox id="subscriptionUrl" />
+        </row>
+        <row id="refreshRow" align="center">
+          <label value="&foxyproxy.pattern.subscriptions.refresh.label;" 
+            control="refresh"
+            tooltiptext="&foxyproxy.pattern.subscriptions.refresh.tooltip;"/>
+          <hbox align="center">
+            <textbox id="refresh" type="number" size="4"/>
+            <label value="&foxyproxy.minutes.label;" control="refresh"/>
+            <toolbarbutton class="foxyproxy-ref" popup="refreshproxyHelp"
+                           tooltiptext="&foxyproxy.whatsthis;"/>
+            <button id="refreshButton"
+              onclick="refreshSubscription('proxy', event);"
+              label="&foxyproxy.pattern.subscriptions.refreshNow.label;"
+              tooltiptext="&foxyproxy.pattern.subscriptions.refreshNow.tooltip;"/>
+          </hbox>
+        </row>
+        <row id="zeroRefresh">
+          <label value="&foxyproxy.pattern.subscriptions.zeroRefresh;"/>
+          <spacer flex="1" />
+        </row>
+        <row align="center">
+          <label value="&foxyproxy.format.label;"
+            tooltiptext="&foxyproxy.pattern.subscriptions.format.tooltip;"/>
+          <hbox align="center">
+            <menulist id="subscriptionFormat">
+              <menupopup>
+                <menuitem
+                  label="&foxyproxy.ip.address.label;:&foxyproxy.port.label;"/>
+              </menupopup>
+            </menulist>
+            <toolbarbutton class="foxyproxy-ref" popup="formatproxyHelp"
+                           tooltiptext="&foxyproxy.whatsthis;"/>
+            <spacer flex="1"/>
+          </hbox>
+        </row>
+        <row align="center">
+          <label value="&foxyproxy.proxy.subscriptions.proxy.type.label;"
+            tooltiptext="&foxyproxy.proxy.subscriptions.proxy.type.tooltip;"/>
+          <hbox align="center">
+            <menulist id="subscriptionType">
+              <menupopup>
+                <menuitem
+                  label="&foxyproxy.proxy.subscriptions.unknown.label;"/>
+                <menuitem
+                  label="&foxyproxy.proxy.subscriptions.http.label;"/>
+                <menuitem
+                  label="&foxyproxy.proxy.subscriptions.socks.label;"/>
+              </menupopup>
+            </menulist>
+            <toolbarbutton class="foxyproxy-ref" popup="subscriptionTypeHelp"
+                           tooltiptext="&foxyproxy.whatsthis;"/>
+            <spacer flex="1"/>
+          </hbox>
+        </row>
+        <row>
+          <label value="&foxyproxy.obfuscation.label;"
+            tooltiptext=
+              "&foxyproxy.pattern.subscriptions.obfuscation.tooltip;"/>
+          <hbox>
+            <menulist id="subscriptionObfuscation">
+              <menupopup>
+                <menuitem label="&foxyproxy.none.label;"/>
+                <menuitem label="Base64"/>
+              </menupopup>
+            </menulist>
+            <toolbarbutton class="foxyproxy-ref" popup="obfuscationproxyHelp"
+                           tooltiptext="&foxyproxy.whatsthis;"/>
+            <spacer flex="1"/>
+          </hbox>
+        </row>
+      </rows>
+    </grid>
+  </vbox>
+
+  <popupset>
+    <menupopup id="refreshproxyHelp">
+      <vbox class="foxyproxy-border foxyproxy-tooltip foxyproxy-help">
+        <description>
+          &foxyproxy.pattern.subscriptions.refreshHelp1;
+          <!--Maybe there is a better solution to get the bold text inlcuded-->
+          <html:span style="font-weight: bold;">
+            &foxyproxy.proxy.subscriptions.refreshHelp;</html:span>
+          &foxyproxy.pattern.subscriptions.refreshHelp4;
+          <html:a class="link"
+                  onclick="contextHelp('refresh', 'proxy');">
+                  &foxyproxy.pactip5.label;</html:a>.
+        </description>
+      </vbox>
+    </menupopup>
+    <menupopup id="formatproxyHelp">
+      <vbox class="foxyproxy-border foxyproxy-tooltip foxyproxy-help">
+        <description>
+          &foxyproxy.pattern.subscriptions.formatHelp;
+          <html:a class="link"        
+                  onclick="contextHelp('format', 'proxy');">
+                  &foxyproxy.pactip5.label;</html:a>.
+        </description>
+      </vbox>
+    </menupopup>
+    <menupopup id="subscriptionTypeHelp">
+      <vbox class="foxyproxy-border foxyproxy-tooltip foxyproxy-help">
+        <description>
+          &foxyproxy.proxy.subscriptions.subscriptionTypeHelp;
+        </description>
+      </vbox>
+    </menupopup>
+    <menupopup id="obfuscationproxyHelp">
+      <vbox class="foxyproxy-border foxyproxy-tooltip foxyproxy-help">
+        <description>
+          &foxyproxy.pattern.subscriptions.obfuscationHelp;
+          <html:a class="link"
+                  onclick="contextHelp('obfuscation', 'proxy');">
+                  &foxyproxy.pactip5.label;</html:a>.
+        </description>
+      </vbox>
+    </menupopup>
+  </popupset>
+</dialog>

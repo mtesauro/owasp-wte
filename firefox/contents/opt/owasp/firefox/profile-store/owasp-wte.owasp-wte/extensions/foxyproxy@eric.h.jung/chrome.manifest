@@ -1,0 +1,124 @@
+#
+#  FoxyProxy
+#  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+#  http://getfoxyproxy.org/
+#  eric.jung@yahoo.com
+#  
+#  This source code is released under the GPL license,
+#  available in the LICENSE file at the root of this installation
+#  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+content foxyproxy chrome/content/
+
+resource foxyproxy modules/
+
+locale  foxyproxy ar chrome/locale/ar/
+locale  foxyproxy cs chrome/locale/cs/
+locale  foxyproxy da chrome/locale/da/
+locale  foxyproxy de chrome/locale/de/
+locale  foxyproxy el chrome/locale/el/
+locale  foxyproxy en-US chrome/locale/en-US/
+locale  foxyproxy es-AR chrome/locale/es-AR/
+locale  foxyproxy es-ES chrome/locale/es-ES/
+locale  foxyproxy fa-IR chrome/locale/fa-IR/
+locale  foxyproxy fi chrome/locale/fi/
+locale  foxyproxy fr chrome/locale/fr/
+locale  foxyproxy gl-ES chrome/locale/gl-ES/
+locale  foxyproxy hr-HR chrome/locale/hr-HR/
+locale  foxyproxy hu-HU chrome/locale/hu-HU/
+locale  foxyproxy it chrome/locale/it/
+locale  foxyproxy ja-JP chrome/locale/ja-JP/
+locale  foxyproxy ko-KR chrome/locale/ko-KR/
+locale  foxyproxy lv-LV chrome/locale/lv-LV/
+locale  foxyproxy nl chrome/locale/nl/
+locale  foxyproxy pl chrome/locale/pl/
+locale  foxyproxy pt-BR chrome/locale/pt-BR/
+locale  foxyproxy pt-PT chrome/locale/pt-PT/
+locale  foxyproxy ro chrome/locale/ro/
+locale  foxyproxy ru-RU chrome/locale/ru-RU/
+locale  foxyproxy sk chrome/locale/sk/
+locale  foxyproxy sr chrome/locale/sr/
+locale  foxyproxy sv-SE chrome/locale/sv-SE/
+locale  foxyproxy th chrome/locale/th/
+locale  foxyproxy tr chrome/locale/tr/
+locale  foxyproxy uk-UA chrome/locale/uk-UA/
+locale  foxyproxy vi chrome/locale/vi/
+locale  foxyproxy zh-CN chrome/locale/zh-CN/
+locale  foxyproxy zh-TW chrome/locale/zh-TW/
+
+interfaces components/api/api.xpt
+
+category profile-after-change foxyproxy @leahscape.org/foxyproxy/service;1
+category command-line-handler CmdLineHandler @mozilla.org/commandlinehandler/general-startup;1?type=foxyproxy
+category JavaScript-global-property FoxyProxy @leahscape.org/foxyproxy/api;1
+
+component {54382370-f194-11da-8ad9-0800200c9a66} components/autoconf.js
+contract @leahscape.org/foxyproxy/autoconf;1 {54382370-f194-11da-8ad9-0800200c9a66}
+
+component {ecbe324b-9ad7-401a-a272-5cc1efba9be6} components/common.js
+contract @leahscape.org/foxyproxy/common;1 {ecbe324b-9ad7-401a-a272-5cc1efba9be6}
+
+component {ea321380-6b35-4e15-8d1e-fe6dc9c2ccae} components/commandlinehandler.js
+contract @mozilla.org/commandlinehandler/general-startup;1?type=foxyproxy {ea321380-6b35-4e15-8d1e-fe6dc9c2ccae}
+
+component {46466e13-16ab-4565-9924-20aac4d98c82} components/foxyproxy.js
+contract @leahscape.org/foxyproxy/service;1 {46466e13-16ab-4565-9924-20aac4d98c82}
+
+component {d1362868-da85-4faa-b1bf-24bfd936b0a6} components/foxyproxyprotocolhandler.js
+contract @mozilla.org/network/protocol;1?name=proxy {d1362868-da85-4faa-b1bf-24bfd936b0a6}
+
+component {2b49ed90-f194-11da-8ad9-0800200c9a66} components/match.js
+contract @leahscape.org/foxyproxy/match;1 {2b49ed90-f194-11da-8ad9-0800200c9a66}
+
+component {51b469a0-edc1-11da-8ad9-0800200c9a66} components/proxy.js
+contract @leahscape.org/foxyproxy/proxy;1 {51b469a0-edc1-11da-8ad9-0800200c9a66}
+
+component {22ed2962-a8ec-11dc-8314-0800200c9a66} components/relativeprotocolhandler.js
+contract @mozilla.org/network/protocol;1?name=relative {22ed2962-a8ec-11dc-8314-0800200c9a66}
+
+component {26e128d0-542c-11e1-b86c-0800200c9a66} components/api/api.js
+contract @leahscape.org/foxyproxy/api;1 {26e128d0-542c-11e1-b86c-0800200c9a66}
+
+component {c5a3caf1-d6bf-43be-8de6-e508ad02ca36} components/api/proxyConfig.js
+contract @leahscape.org/foxyproxy/proxyconfig;1 {c5a3caf1-d6bf-43be-8de6-e508ad02ca36}
+
+component {40c327cd-c8d4-4753-9441-6c60fe6ea461} components/api/proxyConfigs.js
+contract @leahscape.org/foxyproxy/proxyconfigs;1 {40c327cd-c8d4-4753-9441-6c60fe6ea461}
+
+component {e52f4b1f-3338-4be6-b9b3-ac0861749627} components/protocolProxyServiceWrapper.js
+contract @mozilla.org/network/protocol-proxy-service;1 {e52f4b1f-3338-4be6-b9b3-ac0861749627}
+
+# Firefox
+skin    foxyproxy classic/1.0 chrome/skin/  application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+overlay chrome://browser/content/browser.xul  chrome://foxyproxy/content/firefoxOverlay.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+overlay chrome://browser/content/preferences/preferences.xul  chrome://foxyproxy/content/firefoxOptionsOverlay.xul  application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+style chrome://global/content/customizeToolbar.xul  chrome://foxyproxy/content/foxyproxy.css  application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+
+# Thunderbird (incomplete)
+overlay chrome://messenger/content/messenger.xul  chrome://foxyproxy/content/tbirdOverlay.xul application={3550f703-e582-4d05-9a08-453d09bdfdc6}
+style chrome://messenger/content/messenger.xul  chrome://foxyproxy/content/foxyproxy.css  application={3550f703-e582-4d05-9a08-453d09bdfdc6}
+style chrome://global/content/customizeToolbar.xul  chrome://foxyproxy/content/foxyproxy.css  application={3550f703-e582-4d05-9a08-453d09bdfdc6}
+
+# Songbird
+overlay chrome://songbird/content/xul/mainScriptsOverlay.xul  chrome://foxyproxy/content/firefoxOverlay.xul application=songbird@songbirdnest.com
+#overlay chrome://songbird/content/xul/layoutBaseOverlay.xul     chrome://foxyproxy/content/firefoxOverlay.xul   application=songbird@songbirdnest.com    appversion>=0.5pre
+overlay chrome://browser/content/preferences/preferences.xul  chrome://foxyproxy/content/firefoxOptionsOverlay.xul  application=songbird@songbirdnest.com
+# Songbird-specific styles for the Tools->FoxyProxy menu
+style chrome://songbird/content/xul/mainScriptsOverlay.xul  chrome://foxyproxy/content/foxyproxySongbird.css  application=songbird@songbirdnest.com
+#style   chrome://songbird/content/xul/layoutBaseOverlay.xul    chrome://foxyproxy/content/foxyproxySongbird.css    application=songbird@songbirdnest.com   appversion>=0.5pre
+# Songbird-specific styles for the options dialog
+style chrome://foxyproxy/content/options.xul chrome://foxyproxy/content/foxyproxySongbird.css application=songbird@songbirdnest.com
+
+# SeaMonkey
+skin    foxyproxy classic/1.0 chrome/skin/
+## Browser window
+overlay chrome://navigator/content/navigator.xul  chrome://foxyproxy/content/firefoxOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+style chrome://global/content/customizeToolbar.xul  chrome://foxyproxy/content/foxyproxy.css application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+## Messenger window
+overlay chrome://messenger/content/messenger.xul  chrome://foxyproxy/content/tbirdOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+style chrome://messenger/content/messenger.xul  chrome://foxyproxy/content/foxyproxy.css  application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+
+# Overrides by OS
+style chrome://foxyproxy/content/options.xul chrome://foxyproxy/content/foxyproxy-win.css os=WINNT
+style chrome://foxyproxy/content/addeditproxy.xul chrome://foxyproxy/content/foxyproxy-win.css os=WINNT
+style chrome://foxyproxy/content/options.xul chrome://foxyproxy/content/foxyproxy-mac.css os=Darwin

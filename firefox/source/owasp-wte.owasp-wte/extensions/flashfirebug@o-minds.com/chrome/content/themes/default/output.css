@@ -1,0 +1,30 @@
+@import "chrome://flashfirebug/content/themes/default/panel.css";
+.out{
+    background-repeat: no-repeat;
+    background-position: 5px 5px;
+    background-color: transparent;
+    width: 100%;
+    display: inline-block;
+    clear: both;
+    margin-left:0;
+    margin-right:0;
+    border-bottom:1px dashed #AAAAAA;
+    padding:5px;
+    font-weight: normal;
+    -moz-user-select:auto;
+    -moz-user-focus: normal;
+}
+
+.out.warning{
+    color: #9F6000;
+    padding-left: 25px;
+    background-color: #FEEFB3;
+    background-image: url("chrome://flashfirebug/content/themes/default/images/Icons/warning.png");
+}
+
+.out.error{
+    color: #D8000C;
+    padding-left: 25px;
+    background-color: #FFBABA;
+    background-image: url("chrome://flashfirebug/content/themes/default/images/Icons/error.png");
+}

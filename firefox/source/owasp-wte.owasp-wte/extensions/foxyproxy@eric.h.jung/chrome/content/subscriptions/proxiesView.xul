@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+
+<?xml-stylesheet href="chrome://foxyproxy/content/foxyproxy.css"
+                 type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<dialog buttons="accept"
+  id="foxyproxyproxiesview"
+  onload="onLoad();"
+  title="&foxyproxy.standard.label; -
+         &foxyproxy.proxy.subscriptions.proxy.window.title;"
+  windowtype="foxyproxy"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  height="300" width="500"
+  persist="screenX screenY width height">
+
+  <script src="proxiesView.js"/>
+
+  <hbox flex="1">
+    <tree id="proxiesViewTree" flex="1" align="stretch" enableColumnDrag="true"
+          seltype="single">
+      <treecols pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+        <treecol id="ip" label="&foxyproxy.ip.address.label;" flex="1"
+                 persist="width ordinal hidden"/>
+        <splitter class="tree-splitter"/>
+        <treecol id="port" label="&foxyproxy.port.label;" flex="1"
+                 persist="width ordinal hidden"/>
+      </treecols>
+      <treechildren/>
+    </tree>
+  </hbox>
+</dialog>

@@ -1,0 +1,104 @@
+@import "chrome://flashfirebug/content/themes/default/panel.css";
+
+#console-layout {
+    -moz-user-select: auto;
+    height: 100%;
+    width: 100%;
+}
+
+#console-text {
+    -moz-appearance: none;
+    border: none;
+    border-top: 1px solid;
+    padding: 2px 0 0 2px;
+    margin: 0;
+    height: 80px;
+    -moz-border-top-colors: threedshadow;
+    -moz-box-shadow: 1px 1px 1px threedshadow inset;
+}
+
+#console-text-encoder{
+    display:none;
+}
+
+#console-output{
+   -moz-user-select: auto;
+   -moz-user-focus: normal;
+   display: block;
+   width: 100%;
+   overflow-y: auto;
+   height: 0;
+}
+
+#console-toolbar {
+    -moz-user-focus: normal;
+    border-top: 1px solid threedshadow;
+    border-bottom: 1px solid threedshadow;
+    background-color: #F0F0F0;
+}
+
+#console-toolbar toolbarbutton {
+    margin-left: 5px;
+    padding: 3px 10px 3px 6px;
+}
+
+.out{
+    background-repeat: no-repeat;
+    background-position: 5px 5px;
+    background-color: transparent;
+    width: 100%;
+    display: inline-block;
+    clear: both;
+    margin-left:0;
+    margin-right:0;
+    border-bottom:1px dashed #AAAAAA;
+    padding:5px;
+    font-weight: normal;
+    -moz-user-select:auto;
+}
+
+.out.warning{
+    color: #9F6000;
+    padding-left: 25px;
+    background-color: #FEEFB3;
+    background-image: url("chrome://flashfirebug/content/themes/default/images/Icons/warning.png");
+}
+
+.out.error{
+    color: #D8000C;
+    padding-left: 25px;
+    background-color: #FFBABA;
+    background-image: url("chrome://flashfirebug/content/themes/default/images/Icons/error.png");
+}
+
+.ac_results {
+    background-color: white;
+    border: 1px solid black;
+    overflow: hidden;
+    padding: 0;
+    z-index: 99999;
+    position: absolute;
+}
+
+.ac_results ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: block;
+}
+
+.ac_results li {
+    cursor: default;
+    display: block;
+    font: menu;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 0;
+    overflow: hidden;
+    padding: 2px 5px;
+    height: 20px;
+}
+.ac_over {
+    background-color: #CECEFF;
+}

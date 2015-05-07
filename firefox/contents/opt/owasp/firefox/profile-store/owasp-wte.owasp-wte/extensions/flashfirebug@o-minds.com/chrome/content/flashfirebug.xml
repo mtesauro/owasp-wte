@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:html="http://www.w3.org/1999/xhtml">
+    <binding id="flash">
+        <implementation>
+            <constructor>
+        <![CDATA[
+                    var current = this;
+                    var parent = current.parentNode;
+                    if (current.overrideCTV) {
+                        return;
+                    }
+                    current.overrideCTV = true;
+
+                    function log(msg) {
+//	var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
+//			.getService(Components.interfaces.nsIConsoleService);
+//	consoleService.logStringMessage(msg);
+                    }
+
+                    document.QueryInterface(Components.interfaces.nsIDOMDocument);
+
+                    var swf = current;
+                    if (swf.getAttribute("id") == "tInspectorConsoleMonitor" || swf.getAttribute("id") == "flashfirebug_version_swf" ||
+                            swf.getAttribute("id") == "flashfirebug_init_flash_player") {
+                        return;
+                    } else if (!swf.getAttribute("id") || swf.getAttribute("id") == "undefined") {
+                        swf.setAttribute("id", "flashfirebug_" + (new Date()).getTime());
+                    }
+                    if (!swf.hasAttribute("src")
+                            || swf.getAttribute("src") != 'chrome://finspector/content/tInspectorConsoleMonitor.swf') {
+                        if (swf.tagName.toUpperCase() == 'OBJECT') {
+                            // 判断是不是有<param name="allowScriptAccess" value="always" /> 和
+                            // <param name="allowFullScreen" value="true" />
+
+                            //var childs = swf.childNodes;
+                            var childs = swf.getElementsByTagName("param");
+                            var needAppendScriptAccess = true;
+                            var needAppendFullScreen = true;
+                            var needAppendNetWorking = true;
+                            for (var i = 0; i < childs.length; i++) {
+                                var param = childs[i];
+                                if (param.hasAttribute("name") && param.getAttribute("name").toUpperCase() == "ALLOWSCRIPTACCESS") {
+                                    param.value = "always";
+                                    needAppendScriptAccess = false;
+                                }
+                                if (param.hasAttribute("name") && param.getAttribute("name").toUpperCase() == "ALLOWFULLSCREEN") {
+                                    param.value = "true";
+                                    needAppendFullScreen = false;
+                                }
+                                if (param.hasAttribute("name") && param.getAttribute("name").toUpperCase() == "ALLOWNETWORKING") {
+                                    param.value = "all";
+                                    needAppendNetWorking = false;
+                                }
+                            }
+
+                            if (needAppendFullScreen) {
+                                param = document.createElementNS("http://www.w3.org/1999/xhtml", "param");
+                                param.name = "allowFullScreen";
+                                param.value = "true";
+                                swf.appendChild(param);
+                            }
+                            if (needAppendScriptAccess) {
+                                param = document.createElementNS("http://www.w3.org/1999/xhtml", "param");
+                                param.name = "allowScriptAccess";
+                                param.value = "always";
+                                swf.appendChild(param);
+                            }
+                            if (needAppendNetWorking) {
+                                param = document.createElementNS("http://www.w3.org/1999/xhtml", "param");
+                                param.name = "AllowNetworking";
+                                param.value = "all";
+                                swf.appendChild(param);
+                            }
+
+                        } else if (swf.tagName.toUpperCase() == 'EMBED') {
+                            if (swf.getAttribute("name")) {
+                            } else {
+                                swf.setAttribute("name", swf.getAttribute("id"));
+                            }
+                            swf.setAttribute("allowScriptAccess", "always");
+                            swf.setAttribute("allowFullScreen", "true");
+                            swf.setAttribute("allowNetworking", "all");
+                        }
+                    }
+                ]]>
+			</constructor>
+        </implementation>
+    </binding>
+
+    <!-- 判断brokenobject -->
+    <binding id="brokenobject">
+        <implementation>
+            <constructor>
+        <![CDATA[
+                    var current = this;
+                    var parent = current.parentNode;
+                    if (current.overrideCTV) {
+                        return;
+                    }
+                    current.overrideCTV = true;
+
+//From Jesse's XPCNativeWrapper: http://mavra.perilith.com/~luser/content/native.js
+                    function nativeMethod(untrustedObject, methodName) {
+                        // happier stack traces and faster multiple calls
+                        var fun = Components.lookupMethod(untrustedObject, methodName);
+
+                        return function () {
+                            return fun.apply(untrustedObject, arguments);
+                        }
+                    }
+
+                    function log(msg) {
+//	var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
+//			.getService(Components.interfaces.nsIConsoleService);
+//	consoleService.logStringMessage(msg);
+                    }
+
+                    function isBrokenFlash(element) {
+                        var params = element.getElementsByTagName("param");
+                        for (var li = 0; li < params.length; li++) {
+                            var pvalue = params[li].getAttribute("value");
+                            if (/\.swf/i.test(pvalue)) {
+                                return true;
+                            }
+                            var pname = params[li].getAttribute("name");
+                            if (/movie/i.test(pname)) {
+                                return true;
+                            }
+                        }
+
+                        var embeds = element.getElementsByTagName("embed");
+                        for (var jj = 0; jj < params.length; jj++) {
+                            var embed = embeds[jj];
+                            if (/x-shockwave-flash/i.test(embed.getAttribute("type")) ||
+                                    /\.swf/i.test(embed.getAttribute("src"))) {
+                                return true
+                            }
+                        }
+
+                        return false;
+                    }
+
+                    document.QueryInterface(Components.interfaces.nsIDOMDocument);
+
+                    var swf = current;
+
+                    if (!isBrokenFlash(swf))return;
+
+                    if (swf.getAttribute("id") == "tInspectorConsoleMonitor" || swf.getAttribute("id") == "flashfirebug_version_swf" ||
+                            swf.getAttribute("id") == "flashfirebug_init_flash_player") {
+                        return;
+                    } else if (!swf.getAttribute("id")) {
+                        swf.setAttribute("id", "flashfirebug_" + (new Date()).getTime());
+                    }
+                    if (!swf.hasAttribute("src")
+                            || swf.getAttribute("src") != 'chrome://finspector/content/tInspectorConsoleMonitor.swf') {
+                        if (swf.tagName.toUpperCase() == 'OBJECT') {
+                            // 判断是不是有<param name="allowScriptAccess" value="always" /> 和
+                            // <param name="allowFullScreen" value="true" />
+
+                            //var childs = swf.childNodes;
+                            var childs = swf.getElementsByTagName("param");
+                            var needAppendScriptAccess = true;
+                            var needAppendFullScreen = true;
+                            var needAppendNetWorking = true;
+                            for (var i = 0; i < childs.length; i++) {
+                                var param = childs[i];
+                                if (param.hasAttribute("name") && param.getAttribute("name").toUpperCase() == "ALLOWSCRIPTACCESS") {
+                                    param.value = "always";
+                                    needAppendScriptAccess = false;
+                                }
+                                if (param.hasAttribute("name") && param.getAttribute("name").toUpperCase() == "ALLOWFULLSCREEN") {
+                                    param.value = "true";
+                                    needAppendFullScreen = false;
+                                }
+                                if (param.hasAttribute("name") && param.getAttribute("name").toUpperCase() == "ALLOWNETWORKING") {
+                                    param.value = "all";
+                                    needAppendNetWorking = false;
+                                }
+
+                            }
+
+                            if (needAppendFullScreen) {
+                                param = document.createElementNS("http://www.w3.org/1999/xhtml", "param");
+                                param.name = "allowFullScreen";
+                                param.value = "true";
+                                swf.appendChild(param);
+                            }
+                            if (needAppendScriptAccess) {
+                                param = document.createElementNS("http://www.w3.org/1999/xhtml", "param");
+                                param.name = "allowScriptAccess";
+                                param.value = "always";
+                                swf.appendChild(param);
+                            }
+                            if (needAppendNetWorking) {
+                                param = document.createElementNS("http://www.w3.org/1999/xhtml", "param");
+                                param.name = "AllowNetworking";
+                                param.value = "all";
+                                swf.appendChild(param);
+                            }
+
+                        } else if (swf.tagName.toUpperCase() == 'EMBED') {
+                            swf.setAttribute("allowScriptAccess", "always");
+                            swf.setAttribute("allowFullScreen", "true");
+                            swf.setAttribute("allowNetworking", "all");
+                        }
+                    }
+                ]]>
+			</constructor>
+        </implementation>
+    </binding>
+</bindings>

@@ -1,0 +1,44 @@
+@import "chrome://flashfirebug/content/themes/default/panel.css";
+/* ---------------------------------------------------------- general info */
+.info {
+	background:none repeat scroll 0 0 transparent;
+	display:table;
+	margin-left:0;
+	margin-right:0;
+	min-width:100%;
+}
+.info .header{
+	background:url("chrome://flashfirebug/content/themes/default/images/info_header.png") 0 bottom repeat-x;
+	border:1px solid #AAAAAA;
+	font-weight:bold;
+	height:23px;
+	line-height:23px;
+	padding-left:10px;
+}
+.info table {
+	width:100%;
+	padding:10px;
+}
+.info table td {
+	vertical-align:top;
+	padding-bottom:5px;
+}
+.info table td.first{
+	font-weight:bold;
+	width:120px;
+}
+.info div.pack{
+	min-height:15px;
+	padding-right:25px;
+	display:block;
+	float:left;
+}
+.info div.pack.uptodate{
+	background:url("chrome://flashfirebug/content/themes/default/images/Icons/correct.png") right top no-repeat;
+}
+.info div.pack.noconnection ,.info div.pack.stable {
+	background:url("chrome://flashfirebug/content/themes/default/images/Icons/warning.png") right top no-repeat;
+}
+.info div.pack.notstable{
+	background:url("chrome://flashfirebug/content/themes/default/images/Icons/wrong.png") right top no-repeat;
+}

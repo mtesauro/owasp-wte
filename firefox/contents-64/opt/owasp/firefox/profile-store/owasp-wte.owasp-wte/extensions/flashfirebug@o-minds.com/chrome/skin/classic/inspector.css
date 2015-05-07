@@ -1,0 +1,228 @@
+/* Flash Panel Firebug */
+
+.disabledPanelBoxIcon {
+	background-image: url(chrome://flashbug/skin/icon32.png);
+}
+
+/* API Panel */
+
+.apiGroup > table {
+  display: none;
+} 
+
+.apiGroup.opened > table {
+  display: block;
+} 
+
+.apiGroup > .cssComputedHeader {
+  margin: 0;
+}
+
+.apiGroup.opened > .cssComputedHeader {
+  margin: 0 0 4px;
+}
+
+.apiGroup.opened > .cssComputedHeader > .twisty {
+      background-image: url(chrome://firebug/skin/win/twistyOpen.png);
+}
+
+h1.subGroupHeader {
+    border: 0px !important;
+    background: #FFFFFF !important;
+}
+
+.apiCol1 {
+	width:0%;
+	white-space:nowrap;
+	vertical-align:top;
+}
+
+.apiCol2 {
+	width:100%;
+	vertical-align:text-top;
+}
+
+.readOnly {
+	color:gray;
+}
+
+.stylePropSub {
+	font-weight:normal;
+}
+
+img.inheritArrow {
+	margin: 0 5px;
+	display:inline-block;
+	width: 15px;
+	height: 9px;
+	background-repeat: no-repeat;
+	background-image: url(chrome://flashbug/skin/inspector/inherit-arrow.gif);
+}
+
+/* Flash Panel */
+
+.panel-msg{
+	width:80%;
+	display:block;
+	vertical-align:middle;
+	margin:65px 10% 0;
+	padding:10px;
+	padding-left:25px;
+	text-align:center;
+}
+
+ul#base {
+	background:none repeat scroll 0 0 transparent;
+	display:table;
+	margin-left:0;
+	margin-right:0;
+	min-width:100%;
+    -moz-user-select:none;
+}
+
+ul#base object, ul#base img, ul#base a {
+	outline:none;
+}
+
+ul.tree {
+	list-style-type:none;
+	margin:0 0 0 5px;
+	padding:0;
+	/*background:url(chrome://flashbug/skin/inspector/dot.gif) 6px 1px repeat-y;*/
+}
+
+.tree li {
+	clear:both;
+	display:table;
+	line-height:18px;
+	margin:-2px 0;
+	min-height:18px;
+	padding:2px 0 2px 15px;
+	/*background:url(chrome://flashbug/skin/inspector/dots.png) 6px 1px no-repeat;
+	background-color: transparent;*/
+}
+
+/* Twisty */
+.tree li.hasChildren > .twisty2 {
+	background-image: url(chrome://firebug/skin/win/twistyClosed.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px;
+	display:inline-block;
+	width:15px;
+	height:15px;
+	min-height: 12px;
+}
+.tree li.hasChildren.opened > .twisty2 {
+	background-image: url(chrome://firebug/skin/win/twistyOpen.png);
+}
+
+/* Loading */
+.flb-swf-loading {
+	background-image: url(chrome://firebug/skin/loading_16.gif);
+	background-repeat: no-repeat;
+	width:16px;
+	height:16px;
+	min-height: 16px;
+	margin-left: 20px;
+}
+
+/* Children */
+.tree li.hasChildren > ul {
+	display:none;
+}
+.tree li.hasChildren.opened > ul {
+	display:block;
+}
+
+.tree li:last-child {
+	overflow:visible;
+	float:left;
+    background-color: #FFF;
+}
+
+.tree li a { 
+	color:black;
+	display:inline-block;
+	height:16px;
+	line-height:16px;
+	margin:0;
+	padding:3px 3px;
+	text-decoration:none;
+	white-space:nowrap;
+	padding-left: 20px;
+	-moz-border-radius: 3px;
+	background:transparent url(chrome://flashbug/skin/inspector/default.png) 0 center no-repeat;
+}
+
+.tree li a:hover, .tree li a.selected {
+	border-color: #39f;
+	background-color: #39f;
+	color: #fff;
+}
+
+.tree li a.hovered {
+	border:2px solid #39f !important;
+	background-color: #C4F4FF !important;
+	color: #000 !important;
+}
+
+/*----------------------------------------- icons --------------------------------------------------------------*/
+
+li a.none { background: transparent; }
+li a.Folder { background: transparent url(chrome://flashbug/skin/inspector/folder.png) center left no-repeat; }
+.tree li.hasChildren.opened > a.Folder {
+	background-image: url(chrome://flashbug/skin/inspector/folder_open.png);
+}
+
+/* Files Icons */
+li a.swf { background: transparent url(chrome://flashbug/skin/inspector/fla.png) center left no-repeat; }
+li a.swfdis { background: transparent url(chrome://flashbug/skin/inspector/swfdis.png) center left no-repeat; }
+
+/* Main Display Objects Type Icons */
+li a.Font { background: transparent url(chrome://flashbug/skin/inspector/Font.png) center left no-repeat; }
+li a.Sprite { background: transparent url(chrome://flashbug/skin/inspector/Sprite.png) center left no-repeat; }
+li a.MovieClip { background: transparent url(chrome://flashbug/skin/inspector/MovieClip.png) center left no-repeat; }
+li a.SimpleButton { background: transparent url(chrome://flashbug/skin/inspector/SimpleButton.png) center left no-repeat; }
+li a.TextField { background: transparent url(chrome://flashbug/skin/inspector/TextField.png) center left no-repeat; }
+li a.StaticText { background: transparent url(chrome://flashbug/skin/inspector/StaticText.png) center left no-repeat; }
+li a.Shape { background: transparent url(chrome://flashbug/skin/inspector/Shape.png) center left no-repeat; }
+li a.MorphShape { background: transparent url(chrome://flashbug/skin/inspector/MorphShape.png) center left no-repeat; }
+li a.Bitmap { background: transparent url(chrome://flashbug/skin/inspector/Bitmap.png) center left no-repeat; }
+li a.Loader { background: transparent url(chrome://flashbug/skin/inspector/fla.png) center left no-repeat; }
+li a.Video { background: transparent url(chrome://flashbug/skin/inspector/Video.png) center left no-repeat; }
+
+/* UI Components Type Icons */
+li a.Button { background-image: url(chrome://flashbug/skin/inspector/UIComponents/Button.png) }
+li a.CheckBox { background-image: url(chrome://flashbug/skin/inspector/UIComponents/CheckBox.png) }
+li a.Label { background-image: url(chrome://flashbug/skin/inspector/UIComponents/Label.gif) }
+li a.ColorPicker { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ColorPicker.gif) }
+li a.ComboBox { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ComboBox.gif) }
+li a.DataGrid { background-image: url(chrome://flashbug/skin/inspector/UIComponents/DataGrid.gif) }
+li a.List { background-image: url(chrome://flashbug/skin/inspector/UIComponents/List.png) }
+li a.NumericStepper { background-image: url(chrome://flashbug/skin/inspector/UIComponents/NumericStepper.gif) }
+li a.ProgressBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ProgressBar.gif) }
+li a.VolumeBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/VolumeBar.png) }
+li a.RadioButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/RadioButton.gif) }
+li a.ScrollPane { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ScrollPane.gif) }
+li a.Slider { background-image: url(chrome://flashbug/skin/inspector/UIComponents/Slider.gif) }
+li a.TextArea { background-image: url(chrome://flashbug/skin/inspector/UIComponents/TextArea.gif) }
+li a.TextInput { background-image: url(chrome://flashbug/skin/inspector/UIComponents/TextInput.gif) }
+li a.TileList { background-image: url(chrome://flashbug/skin/inspector/UIComponents/TileList.gif) }
+li a.UILoader { background-image: url(chrome://flashbug/skin/inspector/UIComponents/UILoader.gif) }
+li a.UIScrollBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/UIScrollBar.gif) }
+li a.PauseButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/PauseButton.png) }
+li a.PlayButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/PlayButton.png) }
+li a.PlayPauseButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/PlayPauseButton.png) }
+li a.StopButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/StopButton.png) }
+li a.BackButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/BackButton.png) }
+li a.ForwardButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ForwardButton.png) }
+li a.MuteButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/MuteButton.png) }
+li a.CaptionButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/CaptionButton.png) }
+li a.FullScreenButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/FullScreenButton.png) }
+li a.BufferingBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/BufferingBar.png) }
+li a.SeekBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/SeekBar.png) }
+li a.FLVPlayback { background-image: url(chrome://flashbug/skin/inspector/UIComponents/FLVPlayback.gif) }
+li a.FLVPlaybackCaptioning { background-image: url(chrome://flashbug/skin/inspector/UIComponents/FLVPlaybackCaptioning.gif) }
+
+/* wait */
+li a.wait { background: url(chrome://firebug/skin/loading_16.gif) no-repeat; }

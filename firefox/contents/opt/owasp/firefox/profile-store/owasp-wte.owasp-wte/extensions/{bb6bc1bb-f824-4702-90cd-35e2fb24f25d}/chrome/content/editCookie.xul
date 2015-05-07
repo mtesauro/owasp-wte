@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+
+<?xul-overlay href="datepicker/datepicker-overlay.xul"?>
+
+<?xml-stylesheet href="chrome://global/skin/"type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/preferences/preferences.css" type="text/css"?>
+<?xml-stylesheet href="chrome://cookiesmanagerplus/skin/editCookie.css" type="text/css"?>
+<?xml-stylesheet href="chrome://cookiesmanagerplus/skin/checkboxright.css" type="text/css"?>
+
+
+<!DOCTYPE window [
+	<!ENTITY % genericDTD SYSTEM "chrome://browser/locale/preferences/cookies.dtd">
+	%genericDTD;
+	<!ENTITY % coomanPlusDTD SYSTEM "chrome://cookiesmanagerplus/locale/coomanPlusEdit.dtd">
+	%coomanPlusDTD;
+]>
+
+<window id="coomanPlusWindowEdit"
+				title="&CookieEditDlg.titleEdit.label;"
+				xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+				persist="screenX screenY"
+				onload="coomanPlus.load()"
+				onunload="coomanPlus.unload()"
+>
+	<keyset>
+		<key id="esc" keycode="VK_ESCAPE" oncommand="window.close();" />
+	</keyset>
+
+	<script type="application/javascript" src="common.js"/>
+	<script type="application/javascript" src="editCookie.js"/>
+	<script type="application/javascript" src="commonFunc.js"/>
+	<script type="application/javascript" src="libOut.js"/>
+	<script type="application/javascript" src="datepicker/user-functions.js" />
+
+
+	<stringbundle id="cookieBundle" src="chrome://cookiesmanagerplus/locale/coomanPlusEdit.properties"/>
+  <stringbundle id="bundlePreferences" src="chrome://browser/locale/preferences/preferences.properties"/>
+
+	<vbox flex="1" id="main" class="contentPane">
+		<grid>
+			<columns>
+				<column/>
+				<column flex="1"/>
+			</columns>
+
+			<rows>
+				<row align="center">
+					<hbox align="center" pack="end">
+						<checkbox right="true" id="c_name" label="&props.name.label;" checked="true" persist="checked" control="ifl_name" accessibleType="1003" />
+					</hbox>
+					<textbox id="ifl_name" label="&props.name.label;" oninput="coomanPlus.showNew()" onkeypress="coomanPlus.saveCookiesCheck(event)" tabindex="1" accessibleType="101B"/>
+				</row>
+
+				<row align="center">
+					<hbox align="center" pack="end">
+						<checkbox right="true" id="c_value" label="&props.value.label;" checked="true" persist="checked" control="ifl_value" accessibleType="1003" />
+					</hbox>
+					<textbox id="ifl_value" label="&props.value.label;" oninput="coomanPlus.showNew()" onkeypress="coomanPlus.saveCookiesCheck(event)" tabindex="2" accessibleType="101B"/>
+				</row>
+
+				<row align="center">
+					<hbox align="center" pack="end">
+						<checkbox right="true" id="c_host" label="&props.domain.label;" checked="true" persist="checked" control="ifl_host" accessibleType="1003" />
+					</hbox>
+					<textbox id="ifl_host" label="&props.domain.label;" oninput="coomanPlus.showNew()" onkeypress="coomanPlus.saveCookiesCheck(event)" tabindex="3" accessibleType="101B"/>
+				</row>
+
+				<row align="center">
+					<hbox align="center" pack="end">
+						<checkbox right="true" id="c_path" label="&props.path.label;" checked="true" persist="checked" control="ifl_path" accessibleType="1003" />
+					</hbox>
+					<textbox id="ifl_path" label="&props.path.label;" oninput="coomanPlus.showNew()" onkeypress="coomanPlus.saveCookiesCheck(event)" tabindex="4" accessibleType="101B"/>
+				</row>
+
+				<row align="center">
+					<hbox align="center" pack="end">
+						<checkbox right="true" id="c_isSecure" label="&props.secure.label;" checked="true" persist="checked" control="ifl_isSecure" accessibleType="1003" />
+					</hbox>
+					<hbox flex="0" align="center">
+						<menulist id="ifl_isSecure" label="&props.secure.label;" tabindex="5" flex="0">
+							<menupopup accessibleType="100F">
+								<menuitem id="ifl_isSecureNo" oncommand="coomanPlus.secure()" accessibleType="100E"/>
+								<menuitem id="ifl_isSecureYes" oncommand="coomanPlus.secure()" accessibleType="100E"/>
+							</menupopup>
+						</menulist>
+						<vbox>
+							<image id="secure" />
+						</vbox>
+					</hbox>
+				</row>
+
+				<row align="center">
+					<hbox align="center" pack="end">
+						<checkbox id="c_isHttpOnly" label="&props.isHttpOnly.label;" right="true" checked="true" persist="checked" control="ifl_isHttpOnly" accessibleType="1003" />
+					</hbox>
+					<hbox flex="0" align="center">
+						<menulist id="ifl_isHttpOnly" tabindex="6" flex="0" label="&props.isHttpOnly.label;">
+							<menupopup accessibleType="100F">
+								<menuitem value="true" label="&props.isHttpOnly.yes;" accessibleType="100E"/>
+								<menuitem value="false" label="&props.isHttpOnly.no;"  accessibleType="100E"/>
+							</menupopup>
+						</menulist>
+					</hbox>
+				</row>
+
+				<row align="center">
+					<hbox align="center" pack="end">
+						<checkbox id="c_expires" label="&props.expires.label;" right="true" checked="true" persist="checked" control="expr_selection" accessibleType="1003"/>
+					</hbox>
+					
+					<groupbox flex="1" style="width: 100%; overflow: hidden; border: 1px solid black;">
+						<hbox align="center">
+							<menulist id="expr_selection" tabindex="7" label="&props.expires.label;">
+								<menupopup accessibleType="100F">
+									<menuitem id="expr_new" label="&optoins.expire.date.label;" value="expr_new" oncommand="coomanPlus.rebuildDateSelection(this)" accessibleType="100E"/>
+									<menuitem id="expr_session" label="&optoins.expire.session.label;" value="expr_session" oncommand="coomanPlus.rebuildDateSelection(this)" accessibleType="100E"/>
+								</menupopup>
+							</menulist>
+							<label id="warning" value="&CookieEditor.warning.expired;" hidden="true"/>
+							
+						</hbox>
+						<!-- Calendar popup overlay -->
+						<popupset>
+							<panel id="oe-date-picker-popup" position="after_start" oncommand="coomanPlus.calendarSave( this )" value="" />
+						</popupset>
+						<hbox id="datetimepickerbox" collapsed="true" flex="0">
+							<vbox>
+								<textbox id="ifl_expires_date" label="&optoins.expire.date.label;" onkeypress="coomanPlus.saveCookiesCheck(event)" onblur="coomanPlus.fixDate()" flex="1" tabindex="8" accessibleType="101B"/>
+								<hbox>
+									<vbox flex="0">
+										<menulist id="ifl_expires_Month" label="&optoins.expire.date.months;" oncommand="coomanPlus.setDateField();" tabindex="10">
+											<menupopup accessibleType="100F">
+												<menuitem  label="&months.january.label;" value="January" accessibleType="100E"/>
+												<menuitem  label="&months.february.label;" value="February" accessibleType="100E"/>
+												<menuitem  label="&months.march.label;" value="March" accessibleType="100E"/>
+												<menuitem  label="&months.april.label;" value="April" accessibleType="100E"/>
+												<menuitem  label="&months.may.label;" value="May" accessibleType="100E"/>
+												<menuitem  label="&months.june.label;" value="June" accessibleType="100E"/>
+												<menuitem  label="&months.july.label;" value="July" accessibleType="100E"/>
+												<menuitem  label="&months.august.label;" value="August" accessibleType="100E"/>
+												<menuitem  label="&months.september.label;" value="September" accessibleType="100E"/>
+												<menuitem  label="&months.october.label;" value="October" accessibleType="100E"/>
+												<menuitem  label="&months.november.label;" value="November" accessibleType="100E"/>
+												<menuitem  label="&months.december.label;" value="December" accessibleType="100E"/>
+											</menupopup>
+										</menulist>
+									</vbox>
+									<vbox flex="0">
+										<textbox	id="ifl_expires_Day"
+															label="&optoins.expire.date.day;"
+															size="1"
+															tabindex="11"
+															onkeydown="return coomanPlus.numbersOnly(event);"
+															maxLength="2"
+															onchange="coomanPlus.changeDay(this);coomanPlus.setDateField();"
+															onkeypress="coomanPlus.saveCookiesCheck(event)"
+															accessibleType="101B"
+										/>
+										<spinbuttonsH id="Day-spinButtons" onup="coomanPlus.spinEvent(event)" ondown="coomanPlus.spinEvent(event)"/>
+									</vbox>
+									<label value=", " />
+									<vbox flex="0">
+										<textbox	id="ifl_expires_Year"
+															label="&optoins.expire.date.year;"
+															size="2"
+															tabindex="12"
+															onkeydown="return coomanPlus.numbersOnly(event);"
+															maxLength="4"
+															onchange="coomanPlus.changeYear(this);coomanPlus.setDateField();"
+															onkeypress="coomanPlus.saveCookiesCheck(event)"
+															accessibleType="101B"
+										/>
+										<spinbuttonsH id="Year-spinButtons" onup="coomanPlus.spinEvent(event)" ondown="coomanPlus.spinEvent(event)"/>
+									</vbox>
+									<vbox id="vbox_pop">
+										<label class="lbl_pop"/>
+										<image class="calendar" onmousedown="coomanPlus.calendarSet()" popup="oe-date-picker-popup" position="after_start" />
+									</vbox>
+								</hbox>
+							</vbox>
+							<vbox>
+								<hbox flex="1">
+									<textbox	id="ifl_expires_time"
+														label="&optoins.expire.date.time;"
+														onkeydown="return coomanPlus.numbersOnly(event);"
+														onblur="coomanPlus.fixTime()"
+														onkeypress="coomanPlus.saveCookiesCheck(event)"
+														tabindex="9"
+														accessibleType="101B"
+									/>
+								</hbox>
+								<hbox>
+									<vbox flex="0">
+										<textbox	id="ifl_expires_Hours"
+															label="&optoins.expire.date.hours;"
+															size="1"
+															tabindex="13"
+															onkeydown="return coomanPlus.numbersOnly(event);"
+															maxLength="2"
+															onchange="coomanPlus.changeHours(this);coomanPlus.setTimeField();"
+															onkeypress="coomanPlus.saveCookiesCheck(event)"
+															accessibleType="101B"
+										/>
+										<spinbuttonsH id="Hours-spinButtons" onup="coomanPlus.spinEvent(event)" ondown="coomanPlus.spinEvent(event)"/>
+									</vbox>
+									<label value=":"/>
+									<vbox flex="0">
+										<textbox	id="ifl_expires_Minutes"
+															label="&optoins.expire.date.minutes;"
+															size="1"
+															tabindex="14"
+															onkeydown="return coomanPlus.numbersOnly(event);"
+															maxLength="2"
+															onchange="coomanPlus.changeSeconds(this);coomanPlus.setTimeField();"
+															onkeypress="coomanPlus.saveCookiesCheck(event)"
+															accessibleType="101B"
+										/>
+										<spinbuttonsH id="Minutes-spinButtons" onup="coomanPlus.spinEvent(event)" ondown="coomanPlus.spinEvent(event)"/>
+									</vbox>
+									<label value=":" />
+									<vbox flex="0">
+										<textbox	id="ifl_expires_Seconds"
+															label="&optoins.expire.date.seconds;"
+															size="1"
+															tabindex="15"
+															onkeydown="return coomanPlus.numbersOnly(event);"
+															flex="0"
+															maxLength="2"
+															onchange="coomanPlus.changeSeconds(this);coomanPlus.setTimeField();"
+															onkeypress="coomanPlus.saveCookiesCheck(event)"
+															accessibleType="101B"
+										/>
+										<spinbuttonsH id="Seconds-spinButtons" onup="coomanPlus.spinEvent(event)" ondown="coomanPlus.spinEvent(event)"/>
+									</vbox>
+								</hbox>
+							</vbox>
+						</hbox>
+					</groupbox>
+				</row>
+				<textbox id="ifl_expires" hidden="true" />
+				<textbox id="ifl_policy" hidden="true" />
+				
+			</rows>
+		</grid>
+		<vbox flex="1" pack="end">
+			<hbox pack="end">
+				<button	id="editCookieNew"
+								label="&CookieEditDlg.saveNew.label;"
+								oncommand="coomanPlus.saveCookie(true)"
+								accesskey="&CookieEditDlg.saveNew.accesskey;"
+								hidden="true"
+								tabindex="17"
+								accessibleType="1002"
+				/>
+				<spacer/>
+				<button	id="editCookie"
+								label="&CookieEditDlg.save.label;"
+								oncommand="coomanPlus.saveCookie()"
+								accesskey="&CookieEditDlg.save.accesskey;"
+								hidden="false"
+								style="font-weight:bold;"
+								tabindex="16"
+								accessibleType="1002"
+				/>
+				<spacer/>
+				<button	label="&CookieEditDlg.close.label;"
+								oncommand="window.close()"
+								accesskey="&CookieEditDlg.close.accesskey;"
+								tabindex="18"
+								accessibleType="1002"
+				/>
+			</hbox>
+		</vbox>
+	</vbox>
+
+</window>
+

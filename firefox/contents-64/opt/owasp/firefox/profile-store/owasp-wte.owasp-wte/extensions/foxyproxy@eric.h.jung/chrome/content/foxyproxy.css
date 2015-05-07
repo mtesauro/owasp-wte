@@ -1,0 +1,376 @@
+/**
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+**/
+@import url(chrome://global/skin/);
+
+menu.menu-iconic-foxyproxy {
+  -moz-binding: url(bindings.xml#menu-iconic-foxyproxy);
+}
+
+/* specificity fixes http://foxyproxy.mozdev.org/drupal/content/empty-lines-auto-complete-input-typetextadress-bar */
+tree[id="urlsTree"], tree[id="torWizUrlsTree"], tree[id="proxyTree"], tree[id="logTree"]
+  {min-height: 50px;}
+/*treechildren::-moz-tree-row(grey) {
+  background-color: rgb(80%, 80%, 80%);
+}*/
+
+treechildren::-moz-tree-checkbox(checked) {
+  /* css for checked cells */
+  list-style-image: url("chrome://global/skin/checkbox/cbox-check.gif");
+}
+
+.treeStyling {
+  width: 5em;
+  height: 2em;
+}
+
+/* begin options.xul button icons */
+#foxyproxy-up-button, #moveUpProxyTree {
+  list-style-image: url("chrome://foxyproxy/content/images/go-up.png");
+}
+#foxyproxy-up-button[disabled="true"], #moveUpProxyTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/go-up-disabled.png");
+}
+#foxyproxy-down-button, #moveDownProxyTree {
+  list-style-image: url("chrome://foxyproxy/content/images/go-down.png");
+}
+#foxyproxy-down-button[disabled="true"], #moveDownProxyTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/go-down-disabled.png");
+}
+#foxyproxy-create-button, #createProxyFile, #createMainContext,
+#createProxyTree {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor_add.png");
+}
+#foxyproxy-settings-button, #editSettingsProxyTree {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor_edit.png");
+}
+#foxyproxy-settings-button[disabled="true"],
+#editSettingsProxyTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor_edit-disabled.png");
+}
+#foxyproxy-copy-button, #copySettingsProxyTree {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor_go.png");
+}
+#foxyproxy-copy-button[disabled="true"],
+#copySettingsProxyTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor_go-disabled.png");
+}
+#foxyproxy-deleteproxy-button, #deleteSettingsProxyTree {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor_delete.png");
+}
+#foxyproxy-deleteproxy-button[disabled="true"],
+#deleteSettingsProxyTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor_delete-disabled.png");
+}
+#foxyproxy-quickadd-pattern-button, #foxyproxy-autoadd-pattern-button,
+#foxyproxy-autoadd-block-pattern-button {
+  list-style-image: url("chrome://foxyproxy/content/images/page_edit.png"); 
+}
+#foxyproxy-clear-button[disabled="true"], #clearLogTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/edit-clear-disabled.png"); 
+}
+#foxyproxy-clear-button, #clearLogTree {
+  list-style-image: url("chrome://foxyproxy/content/images/edit-clear.png"); 
+}
+#foxyproxy-refresh-button, #refreshLogTree {
+  list-style-image: url("chrome://foxyproxy/content/images/arrow_refresh.png"); 
+}
+#foxyproxy-save-button[disabled="true"], #saveLogTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/disk-disabled.png"); 
+}
+#foxyproxy-save-button, #saveLogTree {
+  list-style-image: url("chrome://foxyproxy/content/images/disk.png"); 
+}
+#foxyproxy-set-button {
+  list-style-image: url("chrome://foxyproxy/content/images/tick.png"); 
+}
+#foxyproxy-open-tab-button, #openURLLogTree {
+  list-style-image: url("chrome://foxyproxy/content/images/tab_go.png"); 
+}
+#foxyproxy-open-tab-button[disabled="true"], #openURLLogTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/tab_go-disabled.png"); 
+}
+#foxyproxy-copy-clipboard-button, #copyURLLogTree {
+  list-style-image: url("chrome://foxyproxy/content/images/page_white_copy.png"); 
+}
+#foxyproxy-delete-button, #deleteLogTree {
+  list-style-image: url("chrome://foxyproxy/content/images/delete.png"); 
+}
+#foxyproxy-delete-button[disabled="true"], #deleteLogTree[disabled="true"] {
+  list-style-image: url("chrome://foxyproxy/content/images/delete-disabled.png"); 
+}
+#foxyproxy-donate-button {
+  list-style-image: url("chrome://foxyproxy/content/images/emblem-favorite.png"); 
+  font-weight: bold;
+}
+#foxyproxy-plus-button {
+  list-style-image: url("chrome://foxyproxy/content/images/fpplus.png");
+  font-weight: bold;
+}
+#foxyproxy-proxyservice-button {
+  list-style-image: url("chrome://foxyproxy/content/images/internet-web-browser.png");
+  font-weight: bold;
+}
+#foxyproxy-chrome-button {
+  font-weight: bold;
+}
+/* end options.xul buttons */
+
+/* begin tab icons */
+
+/* Add spacing between tab icon and tab text */
+tab[id^="foxyproxy-"] /* selectall tabs whose id have the prefix "foxyproxy-" */ .tab-icon { 
+  margin-right: .5em;
+}
+#foxyproxy-proxy-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor.png");
+}
+#foxyproxy-proxy-subscriptions-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/computer_link.png");
+}
+#foxyproxy-global-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/world.png");
+}
+#foxyproxy-quickadd-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/lightning_add.png");
+}
+#foxyproxy-autoadd-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/wand.png");
+}
+#foxyproxy-logging-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/text_align_justify.png");
+}
+#foxyproxy-urlpatterns-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/page.png");
+}
+#foxyproxy-proxydetails-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/monitor_link.png");
+}
+#foxyproxy-general-tab {
+  list-style-image: url("chrome://foxyproxy/content/images/preferences-system.png");
+}
+/* end tab icons */
+
+/* begin other stylings in options.xul */
+#subscriptionsWizard {
+  padding: 10px 50px;
+}
+/* end other stylings in options.xul */
+
+/* begin addeditproxy.xul button icons */
+#foxyproxy-add-url-pattern-button, #fpaupb, #addURLTree{
+  list-style-image: url("chrome://foxyproxy/content/images/page_add.png");
+}
+#foxyproxy-edit-url-pattern-button, #fpeupb, #editURLTree {
+  list-style-image: url("chrome://foxyproxy/content/images/page_edit.png");
+}
+#foxyproxy-copy-url-pattern-button, #fpcupb, #copyURLTree {
+  list-style-image: url("chrome://foxyproxy/content/images/page_copy.png");
+}
+#foxyproxy-delete-url-pattern-button, #fpdupb, #deleteURLTree {
+  list-style-image: url("chrome://foxyproxy/content/images/page_delete.png");
+}
+#foxyproxy-help-url-pattern-button, #fphupb, #helpURLTree, #helpFileMenu,
+#helpProxyTree, #helpMainContext {
+  list-style-image: url("chrome://foxyproxy/content/images/help-browser.png");
+}
+#foxyproxy-wildcard-url-pattern-ref-button, #fpwupb {
+  list-style-image: url("chrome://foxyproxy/content/images/dialog-information.png");
+}
+#foxyproxy-export-url-pattern-button, #fpexupb, #exportURLTree, #importURLTree,
+#foxyproxy-import-url-pattern-button, #fpimupb  {
+  list-style-image: url("chrome://foxyproxy/content/images/json-icon.png");
+}
+/* end addeditproxy.xul button icons */
+
+/* begin other stylings in addeditproxy.xul */
+#noInternalIPs, #fpniip {
+  font-weight: bold;
+}
+
+/* end other stylings in addeditproxy.xul */
+
+/* begin addeditsubscription.xul (patterns) CSS */
+#foxyproxyPatternSubscriptions {
+  width: 700px;
+}
+#addeditSubscriptionTitle, #lastStatusTitle {
+  width: 1em;
+  font-weight: bold;
+}
+#subscriptionProxyTree {
+  margin-top: .5em;
+  margin-bottom: .2em;
+}
+#refreshRow {
+  margin-top: .5em;
+}
+#zeroRefresh {
+  margin-top: -.6em;
+}
+.foxyproxy-help {
+  min-height: 10em;
+  width: 20em;
+}
+
+/* end addeditsubscription.xul (patterns) CSS */
+
+/* begin addeditsubscription.xul (proxies) CSS */
+
+#foxyproxyProxySubscriptions {
+  width: 700px;
+}
+
+/* end addeditsubcription.xul (proxies) CSS */
+
+.heading {text-decoration: underline; font-weight:bold;}
+
+.foxyproxy-ref {
+	list-style-image: url("chrome://foxyproxy/content/images/help-browser.png");
+}
+.foxyproxy-ref-border {
+  border: thin black solid;
+  margin: .1em;
+}
+.red,.invalidcolor,#foxyproxy-status-text[mode="disabled"] { color: red; }
+
+.purple, #foxyproxy-status-text[mode="roundrobin"] { color: purple; }
+.blue { color: blue; /* or #46B8DA or #65BAD7 */}
+.orange, #foxyproxy-status-text[mode="patterns"] {
+   color: #E78500;
+ }
+.grey { color: #959899; }
+.green, .validcolor, #foxyproxy-status-text[mode="random"] { color: green; /* or #69B832 */ }
+
+.foxyproxy-tooltip {
+	text-align: justify;
+	padding: .4em;
+}
+.foxyproxy-border {
+	border: thin black solid;
+}
+
+.popcolumn {
+  width: 10em;
+  margin-right: 1em;
+}
+.link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* This style MUST come before treechildren::-moz-tree-checkbox(checked)
+   otherwise it won't take effect (last tested FF 3.0 on XP). Must specify
+   this style in order for checks to disappear when specifying
+   treechildren::-moz-tree-checkbox(checked) */
+treechildren::-moz-tree-checkbox {
+  list-style-image: none;
+}
+
+/* Must specify because cbox-check.gif not on OS/X */
+treechildren::-moz-tree-checkbox(checked) {
+  list-style-image: url("chrome://foxyproxy/content/images/cbox-check.gif");
+}
+
+/* Begin SVG stuffs */
+*[svg="true"] path[child="1"] {
+	fill:#404141;
+	fill-opacity:1;
+	fill-rule:evenodd;
+}
+*[svg="true"] path[child="2"] {
+	fill:#ffffff;
+	fill-opacity:1;
+	fill-rule:evenodd;
+}
+*[svg="true"] path[child="3"][mode="disabled"] {
+  fill:#e78500;
+  fill-opacity:1;
+  fill-rule:evenodd;
+}
+*[svg="true"] path[child="3"][mode="patterns"] {
+  fill:#e78500;
+  fill-opacity:1;
+  fill-rule:evenodd;
+}
+*[svg="true"] path[child="3"][mode="random"] {
+  fill: green;
+  fill-opacity:1;
+  fill-rule:evenodd;
+}
+
+*[svg="true"] path[child="3"][mode="roundrobin"] {
+  fill: purple;
+  fill-opacity:1;
+  fill-rule:evenodd;
+}
+
+*[svg="true"] path[child="3"]{
+	fill:#e78500;
+	fill-opacity:1;
+	fill-rule:evenodd;
+}
+*[svg="true"] path[child="4"] {
+	fill:#ffffff;
+	fill-opacity:0.20392157;
+	fill-rule:evenodd;
+}
+
+g[wrapper="true"][mode="disabled"] {
+  visibility: visible;
+}
+g[wrapper="true"]:not([mode="disabled"]) {
+  visibility: hidden;
+}
+*[svg="true"] path[child="5"] {
+  fill: #c80000;
+  fill-opacity:1;
+  fill-rule:evenodd;
+  stroke:none;
+  stroke-width:1px;
+  stroke-linecap:butt;
+  stroke-linejoin:miter;
+  stroke-opacity:1
+}
+/* End SVG stuffs */
+/* Begin awesome colorpicker2 by Jesper Hansen */
+colorpicker2 {
+  -moz-binding: url("colorpicker2.xml#colorpicker2");
+  -moz-user-focus: normal;
+  -moz-user-select: all;
+}
+
+colorpicker2[type="button"] {
+  -moz-binding: url("colorpicker2.xml#colorpicker2-button");
+  width: 38px;
+  height: 24px;
+  border: 2px solid;
+  -moz-border-top-colors: ThreeDLightShadow ThreeDHighlight;
+  -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
+  -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
+  -moz-border-left-colors: ThreeDLightShadow ThreeDHighlight;
+  background-color: ThreeDFace;
+  padding: 3px;
+  -moz-user-focus: normal;
+}
+/* End awesome colorpicker2 by Jesper Hansen */
+
+/*! begin-foxyproxy-simple
+.hide-if-foxyproxy-simple {
+  display: none;
+}
+end-foxyproxy-simple !*/     
+
+/*! begin-foxyproxy-standard !*/
+.hide-if-foxyproxy-simple {
+}
+/*! end-foxyproxy-standard !*/ 
+

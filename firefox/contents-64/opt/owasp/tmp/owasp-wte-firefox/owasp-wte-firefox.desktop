@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Firefox WTE style
+Exec=wte-firefox
+Icon=owasp-wte-firefox-icon
+Categories=OWASP;

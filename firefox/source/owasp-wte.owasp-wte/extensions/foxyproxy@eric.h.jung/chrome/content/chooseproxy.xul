@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+<dialog id="foxyproxyoptions2" windowtype="foxyproxy"
+  title="&foxyproxy.standard.label; - &foxyproxy.selectproxy.label;" 
+  buttons="accept,cancel,extra2"
+  ondialogextra2="onSettings()" buttonlabelextra2="&foxyproxy.addnewproxy.label;" 
+  buttonaccesskeyextra2="&foxyproxy.addnewproxy.accesskey;"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml" persist="screenX screenY"
+  onload="onLoad();" ondialogaccept="return onOK();">
+
+  <script type="application/x-javascript;version=1.7" src="chooseproxy.js"/>
+  
+  <separator class="thin"/>
+  <description id="title" style="width: 1em;font-weight:bold;"/>
+  <separator/>
+  <tree id="proxyTree" align="stretch" enableColumnDrag="true"
+    flex="1" style="width: 35em; height: 10em;" seltype="single"
+    onclick="overlay.onTreeClick(event, this);">
+    <treecols
+      pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+      <treecol id="enabledCol" label="&foxyproxy.enabled.label;"
+        flex="1" persist="width ordinal hidden" type="checkbox" />
+      <splitter class="tree-splitter" />
+      <treecol id="colorCol" label="&foxyproxy.color.label;"
+        flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="nameCol" label="&foxyproxy.proxy.name.label;"
+        primary="true" flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="descriptionCol"
+        label="&foxyproxy.proxy.notes.label;" flex="1"
+        persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="hostCol" label="&foxyproxy.host.label.2;"
+        hidden="true" flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="portCol" label="&foxyproxy.port.label;"
+        hidden="true" flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="isSocksCol" label="&foxyproxy.issocks.label;"
+        hidden="true" flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="socksverCol"
+        label="&foxyproxy.socks.version.label;" hidden="true"
+        flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="autopacCol"
+        label="&foxyproxy.autopacurl.label;" hidden="true"
+        flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="animatedIconsCol"
+        label="&foxyproxy.animatedicons.label;" hidden="true"
+        flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="cycleCol"
+        label="&foxyproxy.includeincycle.label;" hidden="true"
+        flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+      <treecol id="remoteDNSCol"
+        label="&foxyproxy.proxydns.label4;" hidden="true"
+        flex="1" persist="width ordinal hidden" />
+      <splitter class="tree-splitter" />
+    </treecols>
+    <treechildren id="proxyTreeChildren" flex="1"
+      ondblclick="onOK();close();"/>
+  </tree>
+  <separator class="thin"/>
+  <checkbox id="reloadcurtab" label="&foxyproxy.click.reloadcurtab;"/>
+  <keyset>
+    <key id="esc-key" keycode="VK_ESCAPE" command="close();" />
+    <key id="kCloseMac" modifiers="accel" key="W" command="close()" />
+  </keyset>
+
+</dialog>

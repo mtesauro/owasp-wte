@@ -1,0 +1,29 @@
+locale inspector ru jar:chrome/inspector.jar!/locale/ru/inspector/
+overlay chrome://inspector/content/popupOverlay.xul chrome://inspector/content/viewers/dom/popupOverlay.xul
+overlay chrome://messenger/content/mailWindowOverlay.xul chrome://inspector/content/tasksOverlay-tb.xul application={3550f703-e582-4d05-9a08-453d09bdfdc6}
+overlay chrome://inspector/content/commandOverlay.xul chrome://inspector/content/viewers/styleRules/commandOverlay.xul
+overlay chrome://sunbird/content/calendar.xul chrome://inspector/content/tasksOverlay-sb.xul application={718e30fb-e89b-41dd-9da7-e25a45638b28}
+overlay chrome://inspector/content/keysetOverlay.xul chrome://inspector/content/viewers/dom/keysetOverlay.xul
+overlay chrome://inspector/content/popupOverlay.xul chrome://inspector/content/viewers/styleRules/popupOverlay.xul
+locale inspector en-GB jar:chrome/inspector.jar!/locale/en-GB/inspector/
+overlay chrome://communicator/content/pref/preferences.xul chrome://inspector/content/prefs/prefsOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+locale inspector de jar:chrome/inspector.jar!/locale/de/inspector/
+overlay chrome://browser/content/browser.xul chrome://inspector/content/tasksOverlay-mobile.xul application={a23983c0-fd0e-11dc-95ff-0800200c9a66}
+component {38293526-6b13-4d4f-a075-71939435b408} components/inspector-cmdline.js
+overlay chrome://browser/content/macBrowserOverlay.xul chrome://inspector/content/tasksOverlay-ff.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+overlay chrome://browser/content/browser.xul chrome://inspector/content/tasksOverlay-ff.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+locale inspector en-US jar:chrome/inspector.jar!/locale/en-US/inspector/
+content inspector jar:chrome/inspector.jar!/content/inspector/ xpcnativewrappers=no
+overlay chrome://chatzilla/content/chatzilla.xul chrome://inspector/content/tasksOverlay-cz.xul application={59c81df5-4b7a-477b-912d-4e0fdf64e5f2}
+overlay chrome://inspector/content/inspector.xul chrome://browser/content/baseMenuOverlay.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+overlay chrome://inspector/content/inspector.xul chrome://communicator/content/utilityOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+skin inspector modern/1.0 jar:chrome/inspector.jar!/skin/modern/inspector/
+skin inspector classic/1.0 jar:chrome/inspector.jar!/skin/classic/inspector/
+category command-line-handler m-inspector @mozilla.org/commandlinehandler/general-startup;1?type=inspector
+locale inspector sk jar:chrome/inspector.jar!/locale/sk/inspector/
+contract @mozilla.org/commandlinehandler/general-startup;1?type=inspector {38293526-6b13-4d4f-a075-71939435b408}
+overlay chrome://inspector/content/inspector.xul chrome://communicator/content/tasksOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+locale inspector pl jar:chrome/inspector.jar!/locale/pl/inspector/
+overlay chrome://browser/content/browser.xul chrome://inspector/content/tasksOverlay-ff.xul application=songbird@songbirdnest.com
+overlay chrome://communicator/content/tasksOverlay.xul chrome://inspector/content/tasksOverlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
+overlay chrome://inspector/content/commandOverlay.xul chrome://inspector/content/viewers/dom/commandOverlay.xul

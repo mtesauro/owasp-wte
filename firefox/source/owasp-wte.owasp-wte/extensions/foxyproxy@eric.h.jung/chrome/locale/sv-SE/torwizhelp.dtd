@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy: Hjälp">
+<!ENTITY help.patterns "URL-mönster">
+<!ENTITY help.ff.asks "Innan Firefox läser in en URL frågar Firefox FoxyProxy om proxy skall användas.">
+<!ENTITY help.fp.answers "FoxyProxy besvarar denna fråga genom att försöka matcha den aktuella URL:en med alla URL-mönster du anger nedan. Enklast är att ange mönster med jokertecken.">
+<!ENTITY help.a.wildcards "Jokertecken">
+<!ENTITY help.p.wildcards.are "Jokertecken är vanligt förekommande i datavärlden; du har förmodligen sett dom innan. En asterisk (*) ersätter 0 eller fler tecken och frågetecken (?) ersätter ett enstaka tecken.">
+<!ENTITY help.p.regexp "Mer avancerade matchningsregler är möjliga med reguljära uttryck. För mer information klicka på Hjälp-knappen.">
+<!ENTITY help.h4.wildcard.examples "Exempel på jokertecken">
+<!ENTITY help.th.url.pattern "URL-mönster">
+<!ENTITY help.th.some.matches "Vissa matchningar">
+<!ENTITY help.th.some.non.matches "Vissa icke-matchningar">
+<!ENTITY help.td.everything.in.y "Allt i domänen Yahoo">
+<!ENTITY help.i.matches.everything "Matchar allt">

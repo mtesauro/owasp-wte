@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy ช่วยเหลือ">
+<!ENTITY help.patterns "แบบรูปยูอาร์แอล">
+<!ENTITY help.ff.asks "ก่อนไฟร์ฟอกซ์โหลดยูอาร์แอล ไฟร์ฟอกซ์จะถาม FoxyProxy ก่อนถ้าพร็อกซีควรถูกใช้">
+<!ENTITY help.fp.answers "FoxyProxy ตอบคำถามนี้โดยพยายามจับคู่ยูอาร์แอลกับแบบรูปยูอาร์แอลทั้งหมดที่คุณระบุข้างล่าง วิธีที่ง่ายที่สุดที่จะเจาะจงแบบรูปคือใช้อักขระตัวแทน">
+<!ENTITY help.a.wildcards "อักขระตัวแทน">
+<!ENTITY help.p.wildcards.are "อักขระตัวแทน (wildcard) นิยมใช้ในการประมวลผล คุณต้องเคยเห็นมันมาก่อนแน่ๆ เครื่องหมายดอกจัน (*) แทนอักขระตัวแทนเป็นศูนย์หรืออักขระอื่นๆ และเครื่องหมายปรัศนี (?) แทนอักขระตัวแทนเป็นอักขระหนึ่งใดก็ตาม">
+<!ENTITY help.p.regexp "กฎการจับคู่แบบขั้นสูงอื่นๆทำได้โดยการใส่การแสดงออกทั่วไป คลิก &quot;เนื้อหาช่วยเหลือ&quot; เพื่อดูรายละเอียด">
+<!ENTITY help.h4.wildcard.examples "ตัวอย่างอักขระตัวแทน">
+<!ENTITY help.th.url.pattern "แบบรูปยูอาร์แอล">
+<!ENTITY help.th.some.matches "บางคู่">
+<!ENTITY help.th.some.non.matches "ไม่เข้าคู่">
+<!ENTITY help.td.everything.in.y "ทุกอย่างในโดเมนของยาฮู">
+<!ENTITY help.i.matches.everything "จับคู่ทุกอย่าง">

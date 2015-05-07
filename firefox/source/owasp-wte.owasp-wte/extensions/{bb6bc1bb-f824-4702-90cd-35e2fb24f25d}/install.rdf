@@ -1,0 +1,34 @@
+﻿<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		 xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+	<Description about="urn:mozilla:install-manifest">
+		<em:id>{bb6bc1bb-f824-4702-90cd-35e2fb24f25d}</em:id>
+		<em:version>1.5.1.1</em:version>
+
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>3.6</em:minVersion>
+				<em:maxVersion>17.0a1</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+		<em:type>2</em:type>
+		<em:unpack>true</em:unpack>
+		<!-- Front End MetaData -->
+		<em:name>Cookies Manager+</em:name>
+		<em:description>Cookies manager that allows view, edit and create cookies as well as edit multiple cookies at once and backup/restore them</em:description>
+		<em:creator>V@no</em:creator>
+		<em:homepageURL>https://addons.mozilla.org/en-US/firefox/addon/cookies-manager-plus/</em:homepageURL>
+
+		<!-- Front End Integration Hooks (used by Extension Manager)-->
+		<em:iconURL>chrome://cookiesmanagerplus/skin/images/anec32.png</em:iconURL>
+		<em:optionsURL>chrome://cookiesmanagerplus/content/options.xul</em:optionsURL>
+		<em:contributor>Michael Ryabushkin - author before v0.3</em:contributor>
+		<em:contributor>Jonathan Ely - accessibility suggestions and testing</em:contributor>
+	</Description>
+
+</RDF>
+

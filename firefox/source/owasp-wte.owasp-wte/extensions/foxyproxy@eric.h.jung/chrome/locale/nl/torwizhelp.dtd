@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy Help">
+<!ENTITY help.patterns "URL-patronen">
+<!ENTITY help.ff.asks "Voordat Firefox een URL laadt, vraagt het aan FoxyProxy of een proxy moet worden gebruikt.">
+<!ENTITY help.fp.answers "FoxyProxy beantwoordt deze vraag door de huidige URL te vergelijken met alle URL-patronen hieronder gedefinieerd. De eenvoudigste manier om een patroon te specificeren is met wildcards.">
+<!ENTITY help.a.wildcards "Wildcards">
+<!ENTITY help.p.wildcards.are "Wildcards worden in de gehele computerwereld gebruikt; waarschijnlijk hebt u ze wel eens eerder gezien. De asterisk (*) dient als wildcard karakter voor nul of meer karakters, en het vraagteken (?) dient als wildcard karakter voor een willekeurig enkel karakter.">
+<!ENTITY help.p.regexp "Meer geavanceerde vergelijkingsregels zijn mogelijk door gebruik te maken van reguliere uitdrukkingen. Klik voor details op de knop &quot;Helpinhoud&quot;.">
+<!ENTITY help.h4.wildcard.examples "Wildcardvoorbeelden">
+<!ENTITY help.th.url.pattern "URL-patroon">
+<!ENTITY help.th.some.matches "Enkele matches">
+<!ENTITY help.th.some.non.matches "Enkele niet-matches">
+<!ENTITY help.td.everything.in.y "Alles in het Yahoo-domein">
+<!ENTITY help.i.matches.everything "Matcht alles">

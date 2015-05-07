@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+
+<!-- use https://addons.mozilla.org/en-US/firefox/addon/1693 for a better
+  colorpicker -->
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<?xul-overlay href="includes.xul"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<dialog buttons="accept, cancel"
+  id="foxyproxyaddproxydlg2"
+  ondialogaccept="return onOK();"
+  onload="onLoad();"
+  ondialogcancel="onCancel();"
+  title="&foxyproxy.standard.label; - &foxyproxy.add.title;"
+  windowtype="foxyproxy"
+ 	xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  persist="screenX screenY">
+
+<script type="application/x-javascript;version=1.7" src="addeditproxy.js"/>
+<script src="colorvalidator.js"/>
+
+<vbox observes="torwiz-broadcaster" flex="1">
+  <tabbox flex="1">
+    <tabs id="tabs" style="-moz-appearance: none;">
+      <tab id="foxyproxy-general-tab" label="&foxyproxy.tab.general.label;"
+        accesskey="&foxyproxy.tab.general.accesskey;" selected="true"
+        tooltiptext="&foxyproxy.tab.general.tooltip;" class="uncram-tab"/>
+      <tab id="foxyproxy-proxydetails-tab"  label="&foxyproxy.tab.proxy.label;"
+        accesskey="&foxyproxy.tab.proxy.accesskey;"
+        tooltiptext="&foxyproxy.tab.proxy.tooltip;" class="uncram-tab"/>
+      <tab id="foxyproxy-urlpatterns-tab" label="&foxyproxy.urlpatterns.label;"
+        accesskey="&foxyproxy.urlpatterns.accesskey;"
+        tooltiptext="&foxyproxy.urlpatterns.tooltip;"
+        class="hide-if-foxyproxy-simple uncram-tab"/>
+    </tabs>
+
+    <tabpanels style="-moz-appearance: none;" flex="1">
+      <tabpanel flex="1" orient="vertical">
+        <separator class="thin" />
+        <hbox>
+          <checkbox id="proxyenabled" flex="1"
+            observes="default-proxy-broadcaster" checked="true"
+            label="&foxyproxy.enabled.label;"
+            accesskey="&foxyproxy.enabled.accesskey;"/>
+        </hbox>
+        <!--  thanks Teo! -->
+        <grid class="indent">
+          <columns>
+            <column/>
+            <column flex="1"/>
+          </columns>
+          <rows>
+            <row align="center">
+              <label value="&foxyproxy.proxy.name.label;"
+                observes="default-proxy-broadcaster" control="proxyname"
+                accesskey="&foxyproxy.proxy.name.accesskey;"
+                tooltiptext="&foxyproxy.proxy.name.tooltip;"/>
+              <textbox id="proxyname" flex="1"/>
+            </row>
+            <row align="center">
+              <label value="&foxyproxy.proxy.notes.label;" control="proxynotes"
+                accesskey="&foxyproxy.proxy.notes.accesskey;"
+                tooltiptext="&foxyproxy.proxy.notes.tooltip;"
+                observes="default-proxy-broadcaster"/>
+              <textbox id="proxynotes" flex="1" multiline="true"/>
+            </row>
+          </rows>
+        </grid>
+        <checkbox id="animatedIcons" class="indent"
+          label="&foxyproxy.animatedicons.label;"
+          accesskey="&foxyproxy.animatedicons.accesskey;"
+          tooltiptext="&foxyproxy.animatedicons.tooltip;"/>
+        <checkbox id="cycleEnabled" class="indent"
+          label="&foxyproxy.includeincycle.label;" style="width: 20em;"
+          accesskey="&foxyproxy.includeincycle.accesskey;"
+          tooltiptext="&foxyproxy.includeincycle.tooltip;"/>
+        <checkbox id="proxyDNS" class="indent"
+          label="&foxyproxy.proxydns.label3;"
+          accesskey="&foxyproxy.proxydns.accesskey;"
+          tooltiptext="&foxyproxy.proxydns.tooltip3;"/>
+        <vbox>
+          <hbox align="center">
+            <description class="indent">
+              &foxyproxy.color.description;
+            </description>
+            <textbox id="color" oninput="customcolor(this.value);"/>
+            <colorpicker2 id="colorpicker" type="button"
+              onchange="pickcolor(this.color);"/>
+            <label id="colorfalse" hidden="true" class="invalidcolor"
+              value="&foxyproxy.invalidcolor.label;"/>
+            <label id="colortrue" class="validcolor"
+              value="&foxyproxy.validcolor.label;"/>
+          </hbox>
+        </vbox>
+        <separator/>
+        <hbox>
+          <groupbox>
+            <caption label="&foxyproxy.cache.label;"/>
+            <row align="center">
+              <checkbox id="clearCacheBeforeUse" class="indent"
+                label="&foxyproxy.clearcache.label;"
+                accesskey="&foxyproxy.clearcache.accesskey;"
+                tooltiptext="&foxyproxy.clearcache.tooltip;"/>
+            </row>
+            <row align="center">
+              <checkbox id="disableCache" class="indent"
+                label="&foxyproxy.disablecache.label;"
+                accesskey="&foxyproxy.disablecache.accesskey;"
+                tooltiptext="&foxyproxy.disablecache.tooltip;"/>
+            </row>
+          </groupbox>
+          <groupbox>
+            <caption label="&foxyproxy.cookies.label;"/>
+            <row align="center">
+              <checkbox id="clearCookiesBeforeUse" class="indent"
+                label="&foxyproxy.clearcookies.label;"
+                accesskey="&foxyproxy.clearcookies.accesskey;"
+                tooltiptext="&foxyproxy.clearcookies.tooltip;"/>
+            </row>
+            <row align="center">
+              <checkbox id="rejectCookies" class="indent"
+                label="&foxyproxy.rejectcookies.label;"
+                accesskey="&foxyproxy.rejectcookies.accesskey;"
+                tooltiptext="&foxyproxy.rejectcookies.tooltip;"/>
+            </row>
+          </groupbox>
+        </hbox>
+      </tabpanel>
+      <tabpanel flex="1" orient="vertical">
+        <separator class="thin" />
+        <radiogroup id="mode">
+          <groupbox>
+            <radio id="direct" value="direct"
+              label="&foxyproxy.add.option.direct.label;"
+              oncommand="toggleMode('direct');"
+              accesskey="&foxyproxy.add.option.direct.accesskey;"
+              tooltiptext="&foxyproxy.add.option.direct.tooltip;"/>
+          </groupbox>
+          <separator class="thin"/>
+          <groupbox>
+            <radio id="manual" value="manual"
+              label="&foxyproxy.add.option.manual.label;"
+              oncommand="toggleMode('manual');"
+              accesskey="&foxyproxy.add.option.manual.accesskey;"
+              tooltiptext="&foxyproxy.add.option.manual.tooltip;"/>
+            <hbox align="center" class="indent">
+              <label value="&foxyproxy.changes.msg1;" class="text-link"
+                popup="newGUIPopup" tooltiptext="&foxyproxy.changes.msg1;"/>
+            </hbox>
+            <separator class="thin"/>
+            <hbox align="center" class="indent">
+              <label value="&foxyproxy.host.label.2;"
+                accesskey="&foxyproxy.host.accesskey;"
+                tooltiptext="&foxyproxy.host.label.2;" control="host"/>
+              <textbox id="host" flex="1" observes="disabled-broadcaster"
+                tooltiptext="&foxyproxy.host.label.2;"
+                onchange="onHostChange(this);"/>
+              <label value="&foxyproxy.port.label;" control="port"
+                accesskey="&foxyproxy.port.accesskey;"
+                tooltiptext="&foxyproxy.port.tooltip;"/>
+              <textbox id="port" size="5" observes="disabled-broadcaster"
+                oninput="if (/\D/.test(this.value)) this.value='';"
+                tooltiptext="&foxyproxy.port.tooltip;"/>
+            </hbox>
+            <hbox align="center" class="indent">
+              <checkbox id="isSocks" label="&foxyproxy.issocks.label;"
+                accesskey="&foxyproxy.issocks.accesskey;"
+                tooltiptext="&foxyproxy.issocks.tooltip;"
+                oncommand="toggleSocks();" observes="disabled-broadcaster"/>
+              <radiogroup id="socksversion" orient="horizontal">
+                <radio id="socks4" value="4" label="&foxyproxy.socks.v4;"
+                  accesskey="4" observes="socks-broadcaster"/>
+                <radio id="socks5" value="5" label="&foxyproxy.socks.v5;"
+                  accesskey="5" observes="socks-broadcaster"/>
+              </radiogroup>
+            </hbox>
+          </groupbox>
+          <separator class="thin"/>
+          <groupbox>
+            <radio id="system" value="system" label="&foxyproxy.system.label;"
+              oncommand="toggleMode('system');"
+              accesskey="&foxyproxy.system.accesskey;"
+              tooltiptext="&foxyproxy.system.tooltip2;"/>
+          </groupbox>
+          <separator class="thin"/>
+          <groupbox>
+            <radio id="auto" value="auto"
+              label="&foxyproxy.automatic.label;"
+              oncommand="toggleMode('auto');"
+              accesskey="&foxyproxy.automatic.accesskey;"
+              tooltiptext="&foxyproxy.automatic.tooltip;"/>
+            <hbox align="center" class="indent">
+              <radiogroup id="autoconfMode" orient="horizontal">
+                <radio id="wpad" value="wpad" label="&foxyproxy.wpad.label1;"
+                  oncommand="toggleMode('wpad');"
+                  observes="autoconf-broadcaster1"
+                  accesskey="&foxyproxy.wpad.accesskey;"
+                  tooltiptext="&foxyproxy.wpad.tooltip;"/>
+                <radio id="pac" value="pac" label="&foxyproxy.pac.label;"
+                  oncommand="toggleMode('pac');"
+                  observes="autoconf-broadcaster1"
+                  accesskey="&foxyproxy.pac.accesskey;"
+                  tooltiptext="&foxyproxy.pac.tooltip;"
+                  control="autoconfUrl"/>
+              </radiogroup>
+            </hbox>
+            <separator class="thin"/>
+            <hbox class="indent" align="center">
+              <label value="&foxyproxy.auto.url.label;"
+                tooltiptext="&foxyproxy.auto.url.tooltip;"/>
+              <label value="&foxyproxy.auto.url.note.label;"
+                tooltiptext="&foxyproxy.auto.url.note.tooltip;"
+                style="font-size: x-small;"/>
+            </hbox>
+            <grid class="indent" flex="1">
+              <columns>
+                <column flex="1"/>
+                <column/>
+              </columns>
+              <rows>
+                <row align="center">
+                  <textbox id="autoconfUrl" size="50"
+                    observes="autoconf-broadcaster1"
+                    tooltiptext="&foxyproxy.auto.url.tooltip;"
+                    oninput="onAutoConfUrlInput();"/>
+                  <button style="min-width: 0.5em;"
+                    oncommand="onSelectAutoConf();"
+                    label="..." tooltiptext="&foxyproxy.auto.url.tooltip;"
+                    observes="autoconf-broadcaster3"/>
+                  <button command="viewAutoConfCmd"/>
+                   <button command="testAutoConfCmd"/>
+                  <toolbarbutton class="foxyproxy-ref"
+                    popup="pacTipsPopup" tooltiptext="&foxyproxy.tip.label;"
+                    observes="autoconf-broadcaster4"/>
+                </row>
+                <row align="center">
+                  <hbox align="center">
+                    <checkbox id="autoConfURLReloadEnabled"
+                      label="&foxyproxy.wpad.reload.label;"
+                      accesskey="&foxyproxy.wpad.reload.accesskey;"
+                      tooltiptext="&foxyproxy.wpad.reload.tooltip;"
+                      observes="autoconf-broadcaster1"/>
+                    <textbox id="autoConfReloadFreq" size="3"
+                      observes="autoconf-broadcaster1"
+                      tooltiptext="&foxyproxy.wpad.reload.tooltip;"
+                      oninput="if (/\D/.test(this.value)) this.value='';"/>
+                    <label value="&foxyproxy.minutes.label;"
+                      tooltiptext="&foxyproxy.minutes.tooltip;"/>
+                  </hbox>
+                </row>
+                <separator class="thin"/>
+                <groupbox>
+                  <caption label="&foxyproxy.notifications.label;"
+                    tooltiptext="&foxyproxy.notifications.tooltip;"/>
+                  <row align="center">
+                    <checkbox id="pacLoadNotificationEnabled"
+                      label="&foxyproxy.pacloadnotification.label;"
+                      accesskey="&foxyproxy.pacloadnotification.accesskey;"
+                      tooltiptext="&foxyproxy.pacloadnotification.tooltip;"
+                      observes="autoconf-broadcaster1"/>
+                  </row>
+                  <row align="center">
+                    <checkbox id="pacErrorNotificationEnabled"
+                      label="&foxyproxy.pacerrornotification.label;"
+                      accesskey="&foxyproxy.pacerrornotification.accesskey;"
+                      tooltiptext="&foxyproxy.pacerrornotification.tooltip;"
+                      observes="autoconf-broadcaster1"/>
+                  </row>
+                </groupbox>
+              </rows>
+            </grid>
+          </groupbox>
+        </radiogroup>
+      </tabpanel>
+
+    <tabpanel flex="1" orient="vertical" class="hide-if-foxyproxy-simple">
+      <separator class="thin" />
+      <description>&foxyproxy.pattern.description;</description>
+      <separator class="thin"/>
+      <hbox>
+        <checkbox id="noInternalIPs" 
+                  command="noInternalIPsCmd"/>
+      </hbox>
+      <separator class="thin"/>
+      <hbox>
+        <button id="foxyproxy-add-url-pattern-button" command="addURLPatternCmd" flex="1" class="uncram-btn"/>
+        <button id="foxyproxy-edit-url-pattern-button" command="editURLPatternSelectionCmd" flex="1" class="uncram-btn"/>
+        <button id="foxyproxy-copy-url-pattern-button" command="copyURLPatternSelectionCmd" flex="1" class="uncram-btn"/>
+        <button id="foxyproxy-delete-url-pattern-button" command="deleteURLPatternSelectionCmd" flex="1" class="uncram-btn"/>
+        <button id="foxyproxy-help-url-pattern-button" command="helpURLPatternCmd" flex="1" class="uncram-btn"/>
+        <button id="foxyproxy-wildcard-url-pattern-ref-button" command="wildcardURLPatternReferenceCmd" flex="1" class="uncram-btn"/>
+      </hbox>
+      <hbox>
+        <button id="foxyproxy-import-url-pattern-button" 
+                command="importURLPatternCmd" class="uncram-btn"/>
+        <button id="foxyproxy-export-url-pattern-button" 
+                command="exportURLPatternCmd" class="uncram-btn"/>
+      </hbox>
+      <separator class="thin"/>
+      <hbox flex="1">
+        <tree id="urlsTree" flex="1" align="stretch" enableColumnDrag="true"
+          onselect="setButtons('urls-tree-row-selected', this);"
+          onclick="overlay.onTreeClick(event, this);" sortDirection="ascending"
+          sortResource="name" persist="sortDirection sortResource">
+          <treecols onclick="sort(this.id)" pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+            <treecol id="enabled" onclick="sort(this.id)" label="&foxyproxy.enabled.label;" type="checkbox" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+            <treecol id="name" onclick="sort(this.id)" label="&foxyproxy.pattern.name.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+            <treecol id="pattern" onclick="sort(this.id)" label="&foxyproxy.url.pattern.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+            <treecol id="isRegEx" onclick="sort(this.id)" label="&foxyproxy.pattern.type.label;" flex="1" persist="width ordinal hidden" hidden="true"/><splitter class="tree-splitter"/>
+            <treecol id="isBlackList" onclick="sort(this.id)" label="&foxyproxy.whitelist.blacklist.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+            <treecol id="caseSensitive" onclick="sort(this.id)" label="&foxyproxy.casesensitive.label;" flex="1" persist="width ordinal hidden" hidden="true"/><splitter class="tree-splitter"/>
+            <treecol id="temp" onclick="sort(this.id)" label="&foxyproxy.temp.label;" flex="1" persist="width ordinal hidden" hidden="true"/><splitter class="tree-splitter"/>
+	    <treecol id="fromSubscription" onclick="sort(this.id)" label="&foxyproxy.fromSubscription.label;" flex="1" persist="width ordinal hidden" hidden="true"/><splitter class="tree-splitter"/>
+          </treecols>
+          <treechildren context="urlsTreeContext" ondblclick="onAddEditURLPattern(false);"/>
+         </tree>
+      </hbox>
+    </tabpanel>
+  </tabpanels>
+  </tabbox>
+</vbox>
+
+<vbox height="&foxyproxy.torwiz.height;" observes="not-torwiz-broadcaster" flex="1">
+  <iframe class="foxyproxy-border" src="chrome://foxyproxy/content/torwizhelp.xhtml" flex="1"/>
+  <separator/>
+  <description>&foxyproxy.pattern.description;</description>
+  <separator class="thin"/>
+  <hbox>
+    <checkbox id="fpniip" 
+              command="noInternalIPsCmd"/>
+  </hbox>
+  <separator class="thin"/>
+  <hbox>
+    <button id="fpaupb" command="addURLPatternCmd" flex="1" class="uncram-btn"/>
+    <button id="fpeupb" command="editURLPatternSelectionCmd" flex="1" class="uncram-btn"/>
+    <button id="fpcupb" command="copyURLPatternSelectionCmd" flex="1" class="uncram-btn"/>
+    <button id="fpdupb" command="deleteURLPatternSelectionCmd" flex="1" class="uncram-btn"/>
+    <button id="fphupb" command="helpURLPatternCmd" flex="1" class="uncram-btn"/>
+    <button id="fpwupb" command="wildcardURLPatternReferenceCmd" flex="1" class="uncram-btn"/>
+  </hbox>
+  <hbox>
+    <button id="fpimupb" command="importURLPatternCmd" class="uncram-btn"/>
+    <button id="fpexupb" command="exportURLPatternCmd" class="uncram-btn"/>
+    <spacer flex="1" />
+  </hbox>
+  <separator/>
+  <hbox flex="1">
+    <tree id="torWizUrlsTree" flex="1" align="stretch" enableColumnDrag="true" seltype="single" onselect="setButtons('urls-tree-row-selected', this);"
+        onclick="overlay.onTreeClick(event, this);" persist="sortDirection sortResource" sortDirection="ascending" sortResource="name">
+      <treecols onclick="sort(this.id)" pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+        <treecol id="enabled" onclick="sort(this.id)" label="&foxyproxy.enabled.label;" type="checkbox" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+        <treecol id="name" onclick="sort(this.id)" label="&foxyproxy.pattern.name.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+        <treecol id="pattern" onclick="sort(this.id)" label="&foxyproxy.url.pattern.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+        <treecol id="isRegEx" onclick="sort(this.id)" label="&foxyproxy.pattern.type.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+        <treecol id="isBlackList" onclick="sort(this.id)" label="&foxyproxy.whitelist.blacklist.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+        <treecol id="caseSensitive" onclick="sort(this.id)" label="&foxyproxy.casesensitive.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+        <treecol id="temp" onclick="sort(this.id)" label="&foxyproxy.temp.label;" flex="1" persist="width ordinal hidden"/><splitter class="tree-splitter"/>
+      </treecols>
+      <treechildren context="urlsTreeContext" ondblclick="onAddEditURLPattern(false);"/>
+     </tree>
+  </hbox>
+</vbox>
+
+<popupset>
+  <menupopup id="wildcardURLPatternReferencePopup"/>
+	<menupopup id="newGUIPopup">
+		<vbox class="foxyproxy-border" style="height: &foxyproxy.newGUI.popup.height;; width: &foxyproxy.newGUI.popup.width;; padding: .5em;">
+			<description class="foxyproxy-tooltip">
+				&foxyproxy.newGUI1.label;</description>
+      <separator class="thin"/>
+			<description class="foxyproxy-tooltip">&foxyproxy.newGUI2.label;</description>
+      <separator class="thin"/>
+			<description class="text-link" onclick="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/settings-gui.html');">
+				&foxyproxy.newGUI4.label;</description>
+		</vbox>
+	</menupopup>
+	<menupopup id="pacTipsPopup">
+		<vbox class="foxyproxy-border foxyproxy-tooltip" height="175">
+			<label value="&foxyproxy.pactip1.label;"/>
+      <separator class="thin"/>
+      <label value="&foxyproxy.pactip2.label;"/>
+      <separator class="thin"/>
+      <label value="&foxyproxy.pactip3.label;"/>
+      <separator class="thin"/>
+			<description width="1"><!-- weirdness on ff3 if no width specified -->&foxyproxy.pactip4.label;
+      <html:a class="link"        
+        onclick="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/relativescheme.html');">&foxyproxy.pactip5.label;</html:a>&foxyproxy.pactip6.label;
+      <html:a class="link"
+        onclick="fpc.openAndReuseOneTabPerURL('http://www.mozilla.org/support/firefox/profile#locate');">&foxyproxy.pactip7.label;</html:a>
+      &foxyproxy.pactip8.label;</description>
+		</vbox>
+	</menupopup>
+  <menupopup id="urlsTreeContext" onpopupshowing="onTreeMenuPopupShowing(this.firstChild, proxy.matches, urlsTree);">
+		<menuitem id="enabledPopUpMenuItem" command="toggleURLPatternEnabledCmd" type="checkbox"/>
+    <menuseparator/>
+    <menuitem id="addURLTree" class="menuitem-iconic"
+      command="addURLPatternCmd"/>
+    <menuitem id="editURLTree" class="menuitem-iconic"
+      command="editURLPatternSelectionCmd"/>
+    <menuitem id="copyURLTree" class="menuitem-iconic"
+      command="copyURLPatternSelectionCmd"/>
+    <menuitem id="deleteURLTree" class="menuitem-iconic"
+      command="deleteURLPatternSelectionCmd"/>
+    <menuitem id="importURLTree" class="menuitem-iconic"
+      command="importURLPatternCmd"/>
+    <menuitem id="exportURLTree" class="menuitem-iconic"
+      command="exportURLPatternCmd"/>
+    <menuseparator/>
+    <menuitem id="helpURLTree" class="menuitem-iconic"
+      command="helpURLPatternCmd"/>
+    <menuitem command="closeCmd"/>
+  </menupopup>
+
+</popupset>
+
+<command id="noInternalIPsCmd"
+  oncommand="noInternalIPs();"
+  label="&foxyproxy.pattern.nointernal.label;"
+  tooltiptext="&foxyproxy.pattern.nointernal.tooltip;"
+  accesskey="&foxyproxy.pattern.nointernal.accesskey;"/>
+
+<command id="toggleURLPatternEnabledCmd"
+  label="&foxyproxy.enabled.label;"
+  tooltiptext="&foxyproxy.enabled.tooltip;"
+  accesskey="&foxyproxy.enabled.accesskey;"
+  observes="urls-tree-row-selected"
+  oncommand="toggleEnabled(proxy.matches, urlsTree);"/>
+
+<command id="addURLPatternCmd"
+  label="&foxyproxy.add.new.pattern.label;"
+  oncommand="onAddEditURLPattern(true);"
+  accesskey="&foxyproxy.add.new.pattern.accesskey;"
+  tooltiptext="&foxyproxy.add.new.pattern.tooltip;"/>
+
+<command id="deleteURLPatternSelectionCmd"
+  label="&foxyproxy.delete.selection.label;"
+  accesskey="&foxyproxy.delete.selection.accesskey;"
+  tooltiptext="&foxyproxy.delete.selection.tooltip;"
+  disabled="true"
+  observes="urls-tree-row-selected"
+  oncommand="onRemoveURLPattern();"/>
+
+<command id="editURLPatternSelectionCmd"
+  label="&foxyproxy.edit.selection.label;"
+  accesskey="&foxyproxy.edit.selection.accesskey;"
+  tooltiptext="&foxyproxy.edit.selection.tooltip;"
+  disabled="true"
+  observes="urls-tree-row-selected"
+  oncommand="onAddEditURLPattern(false);"/>
+
+<command id="copyURLPatternSelectionCmd"
+  label="&foxyproxy.copy.selection.label;"
+  accesskey="&foxyproxy.copy.selection.accesskey;"
+  tooltiptext="&foxyproxy.copy.selection.tooltip;"
+  disabled="true"
+  observes="urls-tree-row-selected"
+  oncommand="onCopyURLPattern();"/>
+
+<command id="helpURLPatternCmd"
+  label="&foxyproxy.help.label;"
+  accesskey="&foxyproxy.help.accesskey;"
+  tooltiptext="&foxyproxy.help.tooltip;"
+  oncommand="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/patterns.html');"/>
+
+<command id="wildcardURLPatternReferenceCmd"
+  label="&foxyproxy.wildcard.reference.label;"
+  accesskey="&foxyproxy.wildcard.reference.accesskey;"
+  tooltiptext="&foxyproxy.wildcard.reference.tooltip;"
+  oncommand="onWildcardReference('wildcardURLPatternReferencePopup', 'foxyproxy-wildcard-url-pattern-ref-button');"/>
+
+<command id="importURLPatternCmd"
+  label="&foxyproxy.import.pattern.label;"
+  accesskey="&foxyproxy.import.pattern.accesskey;"
+  tooltiptext="&foxyproxy.import.pattern.tooltip;"
+  disabled="false"
+  oncommand="onImportURLPattern();"/>
+
+<command id="exportURLPatternCmd"
+  label="&foxyproxy.export.pattern.label;"
+  accesskey="&foxyproxy.export.pattern.accesskey;"
+  tooltiptext="&foxyproxy.export.pattern.tooltip2;"
+  disabled="true"
+  oncommand="onExportURLPattern();"/>
+
+<command id="closeCmd"
+  label="&foxyproxy.close.label;"
+  accesskey="&foxyproxy.close.accesskey;"
+  tooltiptext="&foxyproxy.close.tooltip;"
+  oncommand="window.close();"/>
+
+<command id="viewAutoConfCmd"
+  disabled="true"
+  label="&foxyproxy.autoconfurl.view.label;"
+  accesskey="&foxyproxy.autoconfurl.view.accesskey;"
+  tooltiptext="&foxyproxy.autoconfurl.view.tooltip;"
+  oncommand="onViewAutoConf();"
+  observes="autoconf-broadcaster2"/>
+
+<command id="testAutoConfCmd"
+  disabled="true"
+  label="&foxyproxy.autoconfurl.test.label;"
+  accesskey="&foxyproxy.autoconfurl.test.accesskey;"
+  tooltiptext="&foxyproxy.autoconfurl.test.tooltip;"
+  oncommand="onTestAutoConf();"
+  observes="autoconf-broadcaster2"/>
+
+<broadcasterset>
+  <broadcaster id="autoconf-broadcaster1" disabled="true"/>
+  <broadcaster id="autoconf-broadcaster2" disabled="true"/>
+  <broadcaster id="autoconf-broadcaster3" disabled="true"/>
+  <broadcaster id="autoconf-broadcaster4" style="visibility: visible"/>
+  <broadcaster id="urls-tree-row-selected" disabled="true"/>
+  <broadcaster id="torwiz-broadcaster" hidden="false"/>
+  <broadcaster id="not-torwiz-broadcaster" hidden="true"/>
+  <broadcaster id="disabled-broadcaster" disabled="false"/>
+  <broadcaster id="socks-broadcaster" disabled="false"/>
+  <broadcaster id="default-proxy-broadcaster" disabled="false"/>
+  <broadcaster id="issocks-broadcaster" disabled="false"/>
+  <broadcaster id="direct-broadcaster" disabled="false"/>
+</broadcasterset>
+
+</dialog>

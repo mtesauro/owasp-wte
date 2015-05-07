@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Справка по FoxyProxy">
+<!ENTITY help.patterns "шаблоны URL">
+<!ENTITY help.ff.asks "Перед тем как загрузить страницу, Firefox выяснит у FoxyProxy если должен использоваться прокси.">
+<!ENTITY help.fp.answers "Для ответа на этот вопрос FoxyProxy попробует сопоставить текущий URL о всеми, определёнными ниже, URL-шаблонами. Самый простой способ определить шаблон с помощью метасимволов.">
+<!ENTITY help.a.wildcards "Метасимволы">
+<!ENTITY help.p.wildcards.are "Метасимволы широко распространены в вычислительной техники; вы скорее всего встречали их раньше. Звёздочка (*) используется как метасимвол для подстановки нуля или нескольких символов, а вопросительный знак (?) используется как метасимвол для подстановки любого одного символа.">
+<!ENTITY help.p.regexp "Более продвинутые способы использования правил соответствия и регулярных выражений. Нажмитие кнопку &quot;Справка по содержанию&quot;.">
+<!ENTITY help.h4.wildcard.examples "Пример использования метасимволов">
+<!ENTITY help.th.url.pattern "шаблон URL">
+<!ENTITY help.th.some.matches "Совпадают">
+<!ENTITY help.th.some.non.matches "Не совпадают">
+<!ENTITY help.td.everything.in.y "Всё в Yahoo-доменах">
+<!ENTITY help.i.matches.everything "Всё совпадает">

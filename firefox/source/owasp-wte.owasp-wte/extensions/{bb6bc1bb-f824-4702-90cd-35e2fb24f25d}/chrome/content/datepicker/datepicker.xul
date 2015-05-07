@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE window SYSTEM "chrome://cookiesmanagerplus/locale/CookieViewer.dtd">
+
+<?xul-overlay href="datepicker-overlay.xul"?>
+
+<window flex="1" 
+  id="datePicker"
+  title="&datepickerwindow.title.label;" 
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="user-functions.js" />
+
+
+<!-- Calendar popup overlay -->
+<popup  id="oe-date-picker-popup" position="after_start" oncommand="coomanPlus.calendarSave(this)" value=""/>
+
+<!-- Calendar date-input and calendar popup button -->
+<groupbox align="left">
+	<hbox>
+					<textbox class="date-text-class" id="start-date-text" />
+					<button label="&datepickerwindow.button.label;" onmousedown="myPrepareDatePickerFunction()" popup="oe-date-picker-popup" position="after_start" />
+	</hbox>
+</groupbox>
+
+
+
+</window>

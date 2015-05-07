@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE bindings [
+	<!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+	%globalDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xbl="http://www.mozilla.org/xbl" xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <binding id="menu-iconic-foxyproxy" extends="chrome://global/content/bindings/menu.xml#menu-base">
+		<content>
+			<xul:hbox class="menu-iconic-left" align="center" pack="center">
+				<children includes="svg"/>
+			</xul:hbox>
+			<xul:label class="menu-iconic-text" flex="1"
+				xbl:inherits="value=label,accesskey,crop" crop="right" />
+			<xul:hbox class="menu-accel-container" anonid="accel">
+				<xul:label class="menu-iconic-accel" xbl:inherits="value=acceltext" />
+			</xul:hbox>
+			<xul:hbox class="menu-right" chromedir="&locale.dir;"
+				xbl:inherits="_moz-menuactive,disabled" align="center" pack="center">
+				<xul:image />
+			</xul:hbox>
+			<children includes="menupopup|template" />
+		</content>
+	</binding>
+</bindings>

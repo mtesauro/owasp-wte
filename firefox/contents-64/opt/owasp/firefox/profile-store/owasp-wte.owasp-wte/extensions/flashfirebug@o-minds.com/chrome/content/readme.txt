@@ -1,0 +1,1 @@
+themes文件夹存放的是原先flashfirebug的皮肤资源.

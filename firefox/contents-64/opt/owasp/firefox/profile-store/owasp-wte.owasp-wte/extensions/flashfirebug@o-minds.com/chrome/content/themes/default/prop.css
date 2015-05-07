@@ -1,0 +1,83 @@
+@import "chrome://flashfirebug/content/themes/default/panel.css";
+
+ul{
+    margin:0;
+    padding:0;
+}
+
+ul.prop {
+    background: none repeat scroll 0 0 transparent;
+    margin-left: 0px;
+    margin-right: 0;
+    width: 100%;
+}
+
+ul.prop li{
+    list-style:none;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+ul.prop li .property {
+    height: 20px;
+    line-height: 20px;
+    vertical-align:top;
+    overflow:hidden;
+}
+
+ul.prop li .property span{
+    display:inline-block;
+}
+
+ul.prop li .property .name{
+    width:50%;
+    color:darkgreen;
+    vertical-align: top;
+    overflow:hidden;
+}
+
+ul.prop li .property .val{
+    width:50%;
+    vertical-align: middle;
+    overflow:hidden;
+    color: darkblue;
+}
+
+ul.prop li .expand{
+    width:20px;
+    height:20px;
+    display:inline-block;
+}
+
+ul.prop li .hasChildren .expand{
+    cursor:pointer;
+    background: url(chrome://flashfirebug/content/themes/default/images/ConClosed.png) 2px 10px no-repeat;
+}
+
+ul.prop li .hasChildren .expand.isOpened{
+    background: url(chrome://flashfirebug/content/themes/default/images/ConOpened.png) 2px 10px no-repeat;
+}
+
+ul.prop li:hover, ul.prop li.selected{
+    background-color: #CECEFF;
+    cursor: text;
+}
+
+ul.prop li.readonly{
+    background-color: #F2F2F2 !important;
+    cursor: not-allowed !important;
+}
+
+ul.prop select, ul.prop input {
+    width: 100%;
+    color: darkblue;
+    border: 1px solid #AAAAAA;
+    display: block;
+    font-size: 13px;
+}
+
+span.val.isAS3NativeType {
+    display: inline-block; 
+    min-width: 50px; 
+    height: inherit;
+}

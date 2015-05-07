@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://flashbug/locale/preferences.dtd">
+<dialog id="unlockPro-dialog" 
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept,cancel"
+  onload="init();" 
+  ondialogaccept="return unlockPro();"
+  ondialogcancel="return true;">
+  <script type="application/x-javascript" src="chrome://flashfirebug/content/lib.js" />
+  <script type="application/x-javascript" src="chrome://flashfirebug/content/unlockPro.js" />
+  <image src="chrome://flashfirebug/content/themes/default/images/pro_header.jpg" style="margin: -4px -6px -4px 4px;"/>
+
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="strings_flashbug"
+			src="chrome://flashbug/locale/flashbug.properties" />
+	</stringbundleset>
+	
+  <groupbox>
+    <caption/>
+    <vbox id="ffbug-pro-form" hidden="true">
+        <textbox id="ffbug-pro-email" emptytext="&unlockPro.email.emptyText;" />
+        <textbox id="ffbug-pro-key" emptytext="&unlockPro.key.emptyText;" />
+        <hbox flex="0" minheight="50" align="center">
+          <description class="header indent" id="ffbug-pro-status-title" flex="0" />
+          <description class="header" id="ffbug-pro-status-detail" flex="0" />
+          <description class="header" id="ffbug-pro-status-expiration-title" flex="0" />
+          <description class="header" id="ffbug-pro-status-expiration-time" flex="0" />
+        </hbox>
+        <description id="ffbug-pro-desc" width="100%" flex="1">
+          <label class="text-link" onclick="openTab('http://www.o-minds.com/payment/flashfirebug?m=1')">
+          </label>
+        </description>
+        <hbox flex="0" pack="end">
+            <button id="ffbug-pro-unlock" dlgtype="accept" label="flashbug.unlock.unlock" />
+            <button id="ffbug-pro-cancel" dlgtype="cancel" label="flashbug.unlock.cancel" />
+        </hbox>
+    </vbox>
+    <vbox id="ffbug-pro-about" hidden="true">
+    	<description id="about-pro-desc" width="100%" flex="1"></description>
+        <label value='http://www.o-minds.com/products/flashfirebug' class='text-link' onclick="openTab('http://www.o-minds.com/products/flashfirebug')"/>
+    </vbox>    
+  </groupbox>
+</dialog>

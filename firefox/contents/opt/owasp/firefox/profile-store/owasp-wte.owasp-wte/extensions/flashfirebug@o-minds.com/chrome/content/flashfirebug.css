@@ -1,0 +1,26 @@
+/* See license.txt for terms of usage */
+
+/*@import "chrome://firebug/skin/firebug.css";*/
+/*@import "chrome://firebug-os/skin/firebug.css";*/
+
+
+/*
+ * Flash identifiers.
+*/
+object[classid*=":D27CDB6E-AE6D-11cf-96B8-444553540000"],
+object[codebase*="swflash.cab"],
+object[data*=".swf"],
+object[type="application/x-shockwave-flash"],
+object[src*=".swf"],
+embed[type="application/x-shockwave-flash"],
+embed[src*=".swf"],
+embed[allowscriptaccess],
+embed[flashvars],
+embed[wmode]
+{ -moz-binding: url("chrome://flashfirebug/content/flashfirebug.xml#flash") !important; }
+
+/**
+ * 绑定broken object, 参考Flashblock的作法
+ */
+object
+{ -moz-binding: url("chrome://flashfirebug/content/flashfirebug.xml#brokenobject") !important; }

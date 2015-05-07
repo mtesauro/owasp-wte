@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+# Script written by Matt Tesauro <matt.tesauro@owasp.org>
+# as part of the OWASP Live CD project
+# 
+# This file, wte-firefox, is part of the .deb package created for use
+# in OWASP WTE.
+#
+# wte-firefox is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wte-firefox is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with wte-firefox.  If not, see <http://www.gnu.org/licenses/>.
+# 
+# Fri, 12 Oct 2012 23:24:08 -0500
+
+# Set a few variables
+PROFILE=$HOME/.mozilla/firefox/owasp-wte.owasp-wte
+INI=$HOME/.mozilla/firefox/profiles.ini
+USERID=`id | cut --delimiter="=" --fields=2 | cut --delimiter="(" --fields=1`
+GROUPID=`id | cut --delimiter="=" --fields=3 | cut --delimiter="(" --fields=1`
+
+# Check to see if the owasp-wte.owasp-wte profile is present
+if [ ! -d $PROFILE ] 
+then
+    # Notify the user of what we're doing
+    notify-send "OWASP WTE Firefox:  Installing the profile.  This may take a minute" -t 3000
+
+    # Its not present - create it for the current user
+    cp --recursive /opt/owasp/firefox/profile-store/owasp-wte.owasp-wte $PROFILE
+    
+    # Change the ownership and permissions of that profile
+    chown --recursive $USERID.$GROUPID $PROFILE
+    chmod 700 $PROFILE
+
+    # Add the profile to profiles.ini
+    PROFILE_COUNT=`cat $HOME/.mozilla/firefox/profiles.ini | grep "\[" | tail -n 1 | cut --delimiter="e" --fields=2| cut --delimiter="]" --fields=1`
+
+    # Increment the profile count
+    let PROFILE_COUNT++
+    
+    # Add profile stanza to profiles.ini
+    echo "[Profile$PROFILE_COUNT]" >> $INI
+    echo "Name=owasp-wte" >> $INI
+    echo "IsRelative=1" >> $INI
+    echo "Path=owasp-wte.owasp-wte" >> $INI
+    echo ""  >> $INI
+
+fi
+
+# Launch Firefox pointing at the owasp-wte.owasp-wte profile
+# Screen allows the process to disattach from this script and be
+# child of init
+cd /opt/owasp/firefox
+screen -d -m ./firefox -P owasp-wte
+

@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Trợ giúp FoxyProxy">
+<!ENTITY help.patterns "Mẫu URL">
+<!ENTITY help.ff.asks "Trước khi nạp một URL, Firefox sẽ hỏi FoxyProxy xem nên dùng proxy nào. ">
+<!ENTITY help.fp.answers "FoxyProxy trả lời câu hỏi này bằng cách cố gắng khớp URL hiện tại với các mẫu mà bạn định nghĩa bên dưới. Cách đơn giản nhất để xác định mẫu là dùng kí tự đại diện.">
+<!ENTITY help.a.wildcards "Kí tự đại diện">
+<!ENTITY help.p.wildcards.are "Kí tự đại diện có ở khắp nơi trong nền điện toán; có thể bạn cũng đã thấy nó trước đây rồi. Dấu sao (*) làm đại diện cho không kí tự hoặc nhiều kí tự, và dấu hỏi (?) làm đại diện cho bất kì kí tự đơn lẻ nào. ">
+<!ENTITY help.p.regexp "Có thể tạo nhiều quy tắc khớp nâng cao khác bằng biểu thức chính quy. Để biết thêm chi tiết, hãy nhấn lên nút 'Nội dung Trợ giúp'.">
+<!ENTITY help.h4.wildcard.examples "Ví dụ Kí tự đại diện">
+<!ENTITY help.th.url.pattern "Mẫu URL">
+<!ENTITY help.th.some.matches "Một vài Khớp">
+<!ENTITY help.th.some.non.matches "Một vài Không khớp">
+<!ENTITY help.td.everything.in.y "Mọi thứ trong tên miền của Yahoo">
+<!ENTITY help.i.matches.everything "Khớp mọi thứ">

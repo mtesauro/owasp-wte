@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy Hjælp">
+<!ENTITY help.patterns "URL-mønstre">
+<!ENTITY help.ff.asks "Før Firefox indlæser en URL, spørger Firefox FoxyProxy om der skal bruges en proxy.">
+<!ENTITY help.fp.answers "FoxyProxy besvarer dette spørgsmål ved at prøve at matche nuværende URL med alle URL-mønstrene du definerer herunder. Den simpleste metode til at angive mønstre er ved at bruge jokertegn.">
+<!ENTITY help.a.wildcards "Jokertegn">
+<!ENTITY help.p.wildcards.are "Jokertegn bruges overalt i computerverdenen; du er sandsynligvis stødt på dem før. Stjernen (*) gælder som jokertegn for ingen eller flere tegn, og spørgsmålstegnet (?) gælder som jokertegn for et hvilket som helst enkelt tegn.">
+<!ENTITY help.p.regexp "Det er muligt at bruge mere avancerede match-regler via regulære udtryk. For detaljer, klik på &apos;Hjælp indhold&apos; knappen.">
+<!ENTITY help.h4.wildcard.examples "Eksempler på jokertegn">
+<!ENTITY help.th.url.pattern "URL-mønster">
+<!ENTITY help.th.some.matches "Nogle matcher">
+<!ENTITY help.th.some.non.matches "Nogle ikke-matcher">
+<!ENTITY help.td.everything.in.y "Alt i Yahoos domæne">
+<!ENTITY help.i.matches.everything "Matcher alt">

@@ -1,0 +1,472 @@
+<?xml version="1.0"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<bindings id="colorpicker2Bindings"
+   xmlns="http://www.mozilla.org/xbl"
+   xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   xmlns:xbl="http://www.mozilla.org/xbl"
+   xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <binding id="colorpicker2" extends="chrome://global/content/bindings/general.xml#basecontrol">
+    <resources>
+      <stylesheet src="colorpicker2.css"/>
+    </resources>
+<!-- Big FAT Warning!
+Think before you start messing with this file -->
+    <content>
+      <xul:vbox anonID="outID">
+        <html:div class="plugID" anonid="plugID"> <!-- Carrier element -->
+          <html:div class="plugin" anonid="plugin">
+            <html:div class="plugCUR" anonid="plugCUR"></html:div>
+            <html:div><html:input type="text" size="7" onkeydown="document.getBindingParent(this).inputPosition('plugHEX',event)" oninput="document.getBindingParent(this).color=this.value" class="plugHEX" anonid="plugHEX"/></html:div>
+            <html:div class="plugTip" anonid="tip">&lt;-- click and type</html:div>
+
+            <html:div class="SV" anonid="SV" title="Saturation + Value" onmousedown="document.getBindingParent(this).HSVslide('SVslide','plugID',event)">
+              <html:div class="SVslide" anonid="SVslide" style="TOP: -4px; LEFT: -4px;"><html:br /></html:div>
+            </html:div>
+            <html:form class="H" anonid="H" onmousedown="document.getBindingParent(this).HSVslide('Hslide','plugID',event)" title="Hue">
+              <html:div class="Hslide" anonid="Hslide" style="TOP: -7px; LEFT: -8px;"><html:br /></html:div>
+              <html:div class="Hmodel" anonid="Hmodel"></html:div>
+            </html:form>
+          </html:div>
+        </html:div>
+      </xul:vbox>
+    </content>
+
+    <implementation implements="nsIDOMEventListener">
+       <property name="color">
+        <getter><![CDATA[
+          return '#'+this.color2.HSV_HEX(this.HSV);
+        ]]></getter>
+        <setter><![CDATA[
+          if (!val)
+            return val;
+          // strip any leading #
+          if (val.charAt(0) == '#')
+            val = val.substr(1,6);
+          val = val.replace(/ /g,'');
+          val = val.toUpperCase();
+
+          var re = /^([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$/;
+          var bits = re.exec(val);
+          if (bits) {
+            this.initColor(bits[0]);
+            this.setAttribute("color", "#"+bits[0]);
+
+            return "#"+bits[0];
+          }
+
+          return 'error';
+        ]]></setter>
+      </property>
+
+      <method name="within">
+        <parameter name="v"/>
+        <parameter name="a"/>
+        <parameter name="z"/>
+        <body><![CDATA[
+          return((v>=a && v<=z)?true:false);
+        ]]></body>
+      </method>
+
+      <method name="initColor"><!-- popup init color -->
+        <parameter name="aColor"/>
+        <body><![CDATA[
+        if (aColor.charAt(0) == '#')
+            aColor = aColor.substr(1,6);
+          aColor = aColor.replace(/ /g,'');
+          aColor = aColor.toUpperCase();
+          var re = /^([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$/;
+          var bits = re.exec(aColor);
+          if (!bits)
+            return('Invalid color'); // dont just assume the color is right
+          this.$('plugHEX').value = aColor;
+          var cnumR = parseInt(aColor.substring(0,2),16);
+          var cnumG = parseInt(aColor.substring(2,4),16);
+          var cnumB = parseInt(aColor.substring(4,6),16);
+          // HSV
+          var arr = new Array(cnumR/255,cnumG/255,cnumB/255);
+          function sortNumber(a,b) {
+            return a - b;
+          }
+          arr.sort(sortNumber);
+          var maxN = arr[2];
+          var minN = arr[0];
+          if (maxN==minN){
+            this.HSV.H=0;
+          } else if (maxN==(cnumR/255)) {
+            var rNum = Math.round((60*(((cnumG/255)-(cnumB/255))/(maxN-minN)))%360);
+            rNum < 0 ? rNum = 360+rNum : null;
+            this.HSV.H=rNum
+          } else if (maxN==(cnumG/255)) {
+            this.HSV.H=Math.round((60*(((cnumB/255)-(cnumR/255))/(maxN-minN)))+120);
+          } else if (maxN==(cnumB/255)) {
+            this.HSV.H=Math.round((60*(((cnumR/255)-(cnumG/255))/(maxN-minN)))+240);
+          }
+          if (maxN==0){
+            this.HSV.S=0;
+          } else {
+            this.HSV.S=Math.round((maxN-minN)/maxN*100);
+          }
+          this.HSV.V=Math.round(maxN*100);
+          var ds=this.$S('SVslide');
+          ds.left=Math.round(this.HSV.S*(162/100)-4)+"px";
+          ds.top=Math.round(162-this.HSV.V*(162/100)-4)+"px";
+          var dv=this.$S('Hslide');
+          dv.top=Math.round(162-this.HSV.H*(162/360)-7)+"px";
+          this.$S('SV').backgroundColor='#'+this.color2.HSV_HEX({H:this.HSV.H, S:100, V:100});
+          this.$S('plugCUR').background='#'+aColor;
+        ]]></body>
+      </method>
+
+       <method name="initialize">
+        <body><![CDATA[
+          this.mIsPopup = false;
+          this.mBox = document.getAnonymousNodes(this)[0];
+          this.loadSV();
+          this.$S('plugin').left=(this.$('plugID').offsetLeft+8)+'px';
+          this.$S('plugin').top=(this.$('plugID').offsetTop+8)+'px';
+          this.color=this.getAttribute('color');
+        ]]></body>
+      </method>
+
+      <field name="maxValue">({'H':360,'S':100,'V':100})</field>
+
+      <field name="HSV">({H:360, S:100, V:100})</field>
+
+      <method name="$">
+        <parameter name="v"/>
+        <body><![CDATA[
+          return this.mBox.getElementsByAttribute("anonid", v)[0];
+        ]]></body>
+      </method>
+
+      <method name="$S">
+        <parameter name="o"/>
+        <body><![CDATA[
+          o=this.$(o);
+          if(o)
+            return(o.style);
+        ]]></body>
+      </method>
+<field name="ge"></field>
+      <method name="HSVslide">
+        <parameter name="d"/>
+        <parameter name="o"/>
+        <parameter name="e"/>
+        <body><![CDATA[
+this.ge = e;
+          var self = this;
+          function mkHSV(a,b,c) {
+            return(Math.min(a,Math.max(0,Math.ceil((parseInt(c)/b)*a))));
+          }
+          function ckHSV(a,b) {
+            if(self.within(a,0,b)) {
+              return(a);
+            }else if(a>b) {
+              return(b);
+            }else if(a<0) {
+              return('-'+oo);}
+          }
+          function drag(e) {
+            if(d=='SVslide') {
+              var nX=e.layerX;
+              var nY=e.layerY;
+              ds.left=(ckHSV(e.layerX,162)-4)+'px';
+              ds.top=(ckHSV(e.layerY,162)-4)+'px';
+              self.HSV.S=mkHSV(100,162,ds.left);
+              self.HSV.V=100-mkHSV(100,162,ds.top);
+              self.HSVupdate();
+            } else if(d=='Hslide') {
+              var nX=e.layerX;
+              var nY=e.layerY;
+              var ck=ckHSV(nY,163), r=['H','S','V'], z={};
+              ds.top=(ck-8)+'px';
+              self.HSV.H=mkHSV(360,163,ck);
+              for(var i in r) {
+                i=r[i];
+                z[i]=(i=='H')?self.maxValue[i]-mkHSV(self.maxValue[i],163,ck):self.HSV[i];
+              }
+              self.HSVupdate(z);
+              self.$S('SV').backgroundColor='#'+self.color2.HSV_HEX({H:self.HSV.H, S:100, V:100});
+            } else if(d=='drag') {
+              var nX=e.layerX;
+              var nY=e.layerY;
+              ds.left=nX+'px';
+              ds.top=nY+'px';
+            }
+          }
+
+          var ds=this.$S(d!='drag'?d:o);
+          var oo=(d=='Hslide')?2:4;
+          var target =(d=='Hslide')?e.originalTarget.parentNode.parentNode:e.originalTarget; // Error here in targetting
+          target.onmousemove=function(event) { drag(event); };
+          document.onmouseup=function(e){
+            target.onmousemove='';
+            document.onmouseup='';
+          };
+//          drag(e);
+        ]]></body>
+      </method>
+
+      <method name="HSVupdate">
+        <parameter name="v"/>
+        <body><![CDATA[
+          v=this.color2.HSV_HEX(this.HSV=v?v:this.HSV);
+
+          this.setAttribute('color', '#'+v);
+          this.$('plugHEX').value=v;
+          this.$S('plugCUR').background='#'+v;
+          var self = this;
+          setTimeout(function(self) { self._fireEvent(this, "change"); }, 100, self);
+
+          return(v);
+        ]]></body>
+      </method>
+
+      <method name="loadSV">
+        <body><![CDATA[
+          for(var i=165; i>=0; i--) {
+            var tdiv = document.createElementNS("http://www.w3.org/1999/xhtml","html:div");
+            tdiv.setAttribute('style', 'BACKGROUND: #'+this.color2.HSV_HEX({H:Math.round((360/165)*i), S:100, V:100})+';');
+            var tbr = document.createElementNS("http://www.w3.org/1999/xhtml","html:br");
+            tdiv.appendChild(tbr);
+            this.$('Hmodel').appendChild(tdiv);
+          }
+        ]]></body>
+      </method>
+
+      <field name="color2"><![CDATA[
+        var self = this;
+        var color2={};
+
+        color2.HEX=function(o) { o=Math.round(Math.min(Math.max(0,o),255));
+            return("0123456789ABCDEF".charAt((o-o%16)/16)+"0123456789ABCDEF".charAt(o%16));
+        };
+
+        color2.RGB_HEX=function(o) { var fu=color2.HEX; return(fu(o.R)+fu(o.G)+fu(o.B)); };
+
+        color2.HSV_RGB=function(o) {
+            var R, G, A, B, C, F, S=o.S/100, V=o.V/100, H=o.H/360;
+            if(S>0) { if(H>=1) H=0;
+                H=6*H; F=H-Math.floor(H);
+                A=Math.round(255*V*(1-S));
+                B=Math.round(255*V*(1-(S*F)));
+                C=Math.round(255*V*(1-(S*(1-F))));
+                V=Math.round(255*V);
+
+                switch(Math.floor(H)) {
+                    case 0: R=V; G=C; B=A; break;
+                    case 1: R=B; G=V; B=A; break;
+                    case 2: R=A; G=V; B=C; break;
+                    case 3: R=A; G=B; B=V; break;
+                    case 4: R=C; G=A; B=V; break;
+                    case 5: R=V; G=A; B=B; break;
+                }
+
+                return({'R':R?R:0, 'G':G?G:0, 'B':B?B:0, 'A':1});
+            } else
+              return({'R':(V=Math.round(V*255)), 'G':V, 'B':V, 'A':1});
+        };
+
+        color2.HSV_HEX=function(o) { return(color2.RGB_HEX(color2.HSV_RGB(o))); }
+        color2;
+      ]]></field>
+
+      <method name="_fireEvent">
+        <parameter name="aTarget"/>
+        <parameter name="aEventName"/>
+        <body>
+        <![CDATA[
+          try {
+            var event = document.createEvent("Events");
+            event.initEvent(aEventName, true, true);
+            var cancel = !aTarget.dispatchEvent(event);
+            if (aTarget.hasAttribute("on" + aEventName)) {
+              var fn = new Function ("event", aTarget.getAttribute("on" + aEventName));
+              var rv = fn.call(aTarget, event);
+              if (rv == false)
+                cancel = true;
+            }
+            return !cancel;
+          }
+          catch (e) {
+//            Components.utils.reportError(e);
+          }
+          return false;
+        ]]>
+        </body>
+      </method>
+
+      <method name="inputPosition">
+        <parameter name="v"/>
+        <parameter name="e"/>
+        <body><![CDATA[
+          switch (e.keyCode) {
+            case 35: // END
+              this.$(v).selectionStart = this.$(v).value.length;
+              this.$(v).selectionEnd = this.$(v).value.length;
+              break;
+            case 36: // HOME
+              this.$(v).selectionStart = 0;
+              this.$(v).selectionEnd = 0;
+              break;
+            case 37: // LEFT
+              this.$(v).selectionStart -= 1;
+              this.$(v).selectionEnd -= 1;
+              break;
+            case 39: // RIGHT
+              this.$(v).selectionEnd += 1;
+              this.$(v).selectionStart += 1;
+              break;
+          }
+        ]]></body>
+      </method>
+
+    <constructor><![CDATA[
+        this.initialize();
+      ]]></constructor>
+
+    </implementation>
+  </binding>
+
+    <binding id="colorpicker2-button" display="xul:menu"
+           extends="chrome://global/content/bindings/general.xml#basecontrol">
+    <resources>
+      <stylesheet src="chrome://global/skin/colorpicker.css"/>
+    </resources>
+
+    <content>
+      <xul:hbox class="colorpicker-button-colorbox" anonid="colorbox" flex="1" xbl:inherits="disabled"/>
+
+      <xul:panel class="colorpicker-button-menupopup"
+                 anonid="colorpopup" noautofocus="true" level="top"
+                 onmousedown="this._colorPicker.pickerChange();event.stopPropagation()"
+                 onmousemove="this._colorPicker.pickerChange();event.stopPropagation()"
+                 onpopupshowing="this._colorPicker.onPopupShowing()"
+                 onpopuphiding="this._colorPicker.onPopupHiding()">
+        <xul:colorpicker2 xbl:inherits="palettename,disabled"  anonid="colorpicker2"/>
+      </xul:panel>
+    </content>
+
+    <implementation implements="nsIAccessibleProvider">
+      <property name="accessibleType" readonly="true">
+        <getter>
+          <![CDATA[
+            return Components.interfaces.nsIAccessibleProvider.XULColorPicker2;
+          ]]>
+        </getter>
+      </property>
+
+      <property name="open"
+                onget="return this.getAttribute('open') == 'true'"
+                onset="this.showPopup();"/>
+      <property name="color">
+        <getter><![CDATA[
+          return this.getAttribute("color");
+        ]]></getter>
+        <setter><![CDATA[
+          this.mColorBox.setAttribute("style", "background-color: " + val);
+          this.setAttribute("color", val);
+
+          return val;
+        ]]></setter>
+      </property>
+
+      <method name="initialize">
+        <body><![CDATA[
+          this.mColorBox = document.getAnonymousElementByAttribute(this, "anonid", "colorbox");
+          this.mColorBox.style.backgroundColor = this.getAttribute('color');
+
+          var popup = document.getAnonymousElementByAttribute(this, "anonid", "colorpopup");
+          popup._colorPicker = this;
+
+          this.mPicker = document.getAnonymousElementByAttribute(this, "anonid", "colorpicker2");
+          this.color = this.getAttribute('color');
+        ]]></body>
+      </method>
+
+      <method name="showPopup">
+        <body><![CDATA[
+          this.mPicker.parentNode.openPopup(this, "after_start", 0, 0, false, false);
+        ]]></body>
+      </method>
+
+      <method name="hidePopup">
+        <body><![CDATA[
+          this.mPicker.parentNode.hidePopup();
+        ]]></body>
+      </method>
+
+      <method name="onPopupShowing">
+        <body><![CDATA[
+          var self = this;
+          this.mPicker.mIsPopup = true;
+          // Initialize to current button's color
+          var cPicker = document.getAnonymousElementByAttribute(this, "anonid", "colorpicker2");
+          setTimeout(function(cPicker) { cPicker.initColor(self.getAttribute('color')); }, 100, this.mPicker);
+        ]]></body>
+      </method>
+
+      <method name="onPopupHiding">
+        <body><![CDATA[
+          var self = this;
+          // Removes the key listener
+          //document.removeEventListener("keydown", this.mPicker, true);
+          this.mPicker.mIsPopup = false;
+          this.color = this.mPicker.color;
+          this.setAttribute("color", this.mPicker.color);
+          setTimeout(function(self) { self._fireEvent(self, "change"); }, 100, self);
+        ]]></body>
+      </method>
+
+      <method name="pickerChange">
+        <body><![CDATA[
+          var self = this;
+          this.color = this.mPicker.color;
+
+          setTimeout(function(self) { self._fireEvent(self, "change"); }, 100, self);
+        ]]></body>
+      </method>
+
+      <method name="_fireEvent">
+        <parameter name="aTarget"/>
+        <parameter name="aEventName"/>
+        <body>
+        <![CDATA[
+          try {
+            var event = document.createEvent("Events");
+            event.initEvent(aEventName, true, true);
+            var cancel = !aTarget.dispatchEvent(event);
+            if (aTarget.hasAttribute("on" + aEventName)) {
+              var fn = new Function ("event", aTarget.getAttribute("on" + aEventName));
+              var rv = fn.call(aTarget, event);
+              if (rv == false)
+                cancel = true;
+            }
+            return !cancel;
+          }
+          catch (e) {
+//            dump(e);
+          }
+          return false;
+        ]]>
+        </body>
+      </method>
+
+      <constructor><![CDATA[
+        this.initialize();
+      ]]></constructor>
+
+    </implementation>
+  </binding>
+</bindings>
+

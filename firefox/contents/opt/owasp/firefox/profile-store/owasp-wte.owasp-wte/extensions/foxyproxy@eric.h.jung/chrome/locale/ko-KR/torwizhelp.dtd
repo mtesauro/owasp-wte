@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "FoxyProxy 도움말">
+<!ENTITY help.patterns "URL 패턴">
+<!ENTITY help.ff.asks "Firefox가 URL을 불러오기 전, 프록시를 사용해야 하는 경우 Firefox는 FoxyProxy를 묻습니다.">
+<!ENTITY help.fp.answers "FoxyProxy answers this question by attempting to match the current URL with all of the URL patterns you define below. The simplest way to specify patterns is with wildcards.">
+<!ENTITY help.a.wildcards "전체문자">
+<!ENTITY help.p.wildcards.are "Wildcards are pervasive throughout computing; you've most likely seen them before. The asterisk (*) substitutes as a wildcard character for zero or more characters, and the question mark (?) substitutes as a wildcard character for any one character. ">
+<!ENTITY help.p.regexp "정규표현식을 사용한 더 많은 고급 일치 규칙이 가능합니다. 자세히 알고 싶다면, '도움말 내용'버튼을 클릭하세요.">
+<!ENTITY help.h4.wildcard.examples "전체문자 예제">
+<!ENTITY help.th.url.pattern "URL 패턴">
+<!ENTITY help.th.some.matches "일부 일치">
+<!ENTITY help.th.some.non.matches "일부 불일치">
+<!ENTITY help.td.everything.in.y "Yahoo 도메인 내 모두">
+<!ENTITY help.i.matches.everything "모두 일치">

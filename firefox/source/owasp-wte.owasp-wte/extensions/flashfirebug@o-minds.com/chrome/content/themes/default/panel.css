@@ -1,0 +1,163 @@
+
+html {
+    background-color: -moz-dialog;
+}
+
+body,select,input {
+    margin: 0;
+    overflow: hidden;
+    font-family: Lucida Grande, Tahoma, sans-serif;
+    font-size: 11px;
+}
+
+h1 {
+    font-size: 17px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+a {
+    color: #0000ff;
+    color: -moz-nativehyperlinktext;    
+    cursor: pointer;
+}
+
+pre {
+    margin: 0;
+    font: inherit;
+}
+
+code {
+    display:block;
+    white-space:pre;
+}
+
+/************************************************************************************************/
+
+.jumpHighlight {
+    background-color: #C4F4FF !important;
+}
+
+/************************************************************************************************/
+
+.collapsed,
+[collapsed="true"] {
+    display: none;
+}
+
+.obscured {
+    left: -999999px !important;
+}
+
+.measureBox {
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+}
+
+/************************************************************************************************/
+
+.panelNode {
+    display: none;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.panelNode[active="true"] {
+    display: block;
+}
+
+.pluginBrowser {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin: 0;
+    border: none;
+}
+
+.panel-msg{
+    width:80%;
+    display:block;
+    vertical-align:middle;
+    margin:65px 10% 0;
+/*    padding:10px;*/
+/*    padding-left:25px;*/
+    text-align:center;
+    font-size: 12px;
+}
+
+.disabledPanelBox .descImage-ffbug  {
+    background-image: url(chrome://flashfirebug/content/themes/default/images/activation-menu-flash.png);
+    width: 105px;
+}
+
+#flashplayererror{
+    color: #D8000C;
+    padding:5px 5px 5px 25px;
+    text-align: left;
+    background: #FFBABA url("chrome://flashfirebug/content/themes/default/images/Icons/error.png") 5px center no-repeat scroll;
+}
+
+#downloadflashplayer{
+    display: block;
+    width: 158px;
+    height: 39px;
+    margin: 10px auto;
+    background:url("chrome://flashfirebug/content/themes/default/images/downloadbutton_bg.png") 0 0 repeat-x scroll;
+    outline: none;
+    cursor: pointer;
+}
+
+#downloadflashplayer:hover
+{
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.8);
+}
+
+/* pro message overlay*/
+#pro-main,#pro-overlay,#pro-msg{
+    left: 0;
+    top: 0;
+    width: 100%;    
+    height: 100%;
+    position: absolute;    
+}
+#pro-main{
+    z-index: 2147483640;    
+    text-align: center;
+}
+#pro-overlay{
+    background-color: #FEFEFE;
+    opacity: 1;
+    z-index:10;
+}
+#pro-msg{
+    z-index:20;
+}
+#pro-msg #pro-text{
+    margin-top: 65px;
+    font-size: 14px;
+}
+#pro-msg #pro-note{
+    font-size: 11px;
+}
+.text-link{
+    color: #0000ff;    
+    color: -moz-nativehyperlinktext;
+    display: inline;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#pro-link{
+    display: inline-block;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}

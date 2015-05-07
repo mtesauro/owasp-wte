@@ -1,0 +1,50 @@
+<!ENTITY	title.label										"Cookies Manager+ Options">
+<!ENTITY	options.delconfirm.label			'Display "Delete Confirmations"'>
+<!ENTITY	options.autoupdate.label			'Auto refresh'>
+<!ENTITY	options.autoupdate.info				'Automatically update list if a cookie changed'>
+<!ENTITY	options.autofilter.label			'Auto search'>
+<!ENTITY	options.autofilter.info				'Search will perform while you type'>
+<!ENTITY	options.dateformat.label			'Date format'>
+<!ENTITY	options.dateformat.info				'You can change the way date showed. Either use template on right or type in your own template'>
+<!ENTITY	options.dateformat.moreinfo		'more info'>
+<!ENTITY	options.dateformat.presets		'Date format presets'>
+<!ENTITY	options.simplehost.label			'Ignore sub-domains in sorting:'>
+<!ENTITY	options.simplehost.no					'None'>
+<!ENTITY	options.simplehost.no.desc		'sub1.domain.com &#8800; domain.com'>
+<!ENTITY	options.simplehost.root				'All'>
+<!ENTITY	options.simplehost.root.desc	'sub2.sub1.domain.com = domain.com'>
+<!ENTITY	options.simplehost.www				'Only www'>
+<!ENTITY	options.simplehost.www.desc		'www.domain.com = domain.com'>
+<!ENTITY	options.simplehost.info				'Path that starts with www will be sorted as without it, so example.com and www.example.com would be always showed near each other when sorted by path (Site)'>
+<!ENTITY	options.tab.general						'General'>
+<!ENTITY	options.tab.view							'Cookie info'>
+<!ENTITY	options.tab.export						'Export'>
+<!ENTITY	options.tab.changes						'Changes log'>
+<!ENTITY	option.export.clipboard.template 'Copy to clipboard template'>
+<!ENTITY	option.export.tab.clipboard 	'Clipboard'>
+<!ENTITY	option.export.tab.file 				'File'>
+<!ENTITY	option.export.tab.backup			'Backup'>
+<!ENTITY	option.export.file.template 	'Save to file template'>
+<!ENTITY	option.export.backup					'Enable backup encryption'>
+<!ENTITY	option.export.backup.info			'You&#39;ll be asked enter a password each time you create a backup.
+This password will be used to encrypt the backup data.
+You&#39;ll need enter that password again in order to restore cookies from that backup file.'>
+<!ENTITY	saveprefs.label								"Save and Close">
+<!ENTITY	justclose.label								"Just Close">
+<!ENTITY	result												"Result">
+<!ENTITY	options.cookieculler.label		'Enable Cookie Culler support'>
+<!ENTITY	options.cookieculler.delete.label		'Allow delete protected cookies'>
+<!ENTITY	reset													"Reset to default">
+<!ENTITY	reset.accesskey								"R">
+<!ENTITY	backup.remove.password				"Remove password from a backup file">
+<!ENTITY	backup.notencrypted						"File not encrypted">
+<!ENTITY	backup.decrypt.failed					"Error removing password">
+<!ENTITY	backup.decrypt.success				"Password was successfully removed">
+<!ENTITY	restore.file.open.error				"Error opening backup file">
+<!ENTITY	backup.already.encrypted			"Backup file already encrypted">
+<!ENTITY	backup.password.remove				"Remove password from a backup file">
+<!ENTITY	backup.password.add						"Add password to a backup file">
+<!ENTITY	backup.password.notset				"Password was not set">
+<!ENTITY	backup.password.set						"Password was successfully set">
+<!ENTITY	export.filename								"Default filename">
+<!ENTITY	export.filename.info					"Leave blank to use auto-generated name">

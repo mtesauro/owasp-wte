@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<overlay id="AdvPaneOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+    <prefpane id="paneAdvanced" onpaneload="advPane.init();" >
+		<script src="chrome://flashbug/content/preferences/advanced.js"/>
+		<groupbox flex="1" orient="vertical">
+			<caption id="mmDesc2" label="flashbug.pref.mm.title" />
+			<richlistbox id="mmView" orient="vertical" flex="1">
+				<listheader equalsize="always" style="border: 0; padding: 0; -moz-appearance: none;">
+					<treecol id="typeColumn" label="Setting" value="type" persist="sortDirection" flex="1" sortDirection="ascending" onclick="advPane.sort(event);"/>
+					<treecol id="actionColumn" label="Value" value="action" persist="sortDirection" flex="1" onclick="advPane.sort(event);" />
+				</listheader>
+			</richlistbox>
+			<hbox>
+				<image src="chrome://flashbug/skin/dialog-warning.png" height="16" width="16"/>
+				<label id="lblUndocumented" value="flashbug.pref.pane.undocumented" />
+			</hbox>
+		</groupbox>
+	</prefpane>
+</overlay>

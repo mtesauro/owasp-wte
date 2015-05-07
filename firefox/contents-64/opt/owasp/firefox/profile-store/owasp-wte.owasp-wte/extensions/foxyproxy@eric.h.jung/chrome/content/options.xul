@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<?xul-overlay href="includes.xul"?>
+<?xul-overlay href="chrome://foxyproxy/content/optionsOverlay-svg.xul"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+<!--DO NOT ADD HEIGHT AND WIDTH PERSISTANCE HERE AS SIZETOCONTENT IS CALLED! -->
+<window id="foxyproxyoptions2" windowtype="foxyproxy-options"
+  title="&foxyproxy.standard.label;"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  persist="screenX screenY"
+  onload="onLoad();" onunload="onOK();" context="mainPopup">
+
+  <script type="application/x-javascript;version=1.7" src="options.js"/>
+
+  <vbox>
+    <!-- menu -->
+    <toolbox>
+      <menubar id="menubar">
+        <menu id="file-menu" label="&foxyproxy.menubar.file.label;"
+          accesskey="&foxyproxy.menubar.file.accesskey;"
+          tooltiptext="&foxyproxy.menubar.file.tooltip;">
+          <menupopup id="file-popup">
+            <menuitem id="createProxyFile" class="menuitem-iconic" 
+              command="createProxyCmd"
+              tooltiptext="&foxyproxy.addnewproxy.tooltip;"/>
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+            <menuseparator/>
+            <menuitem command="proxyWizardCmd"
+              tooltiptext="&foxyproxy.proxy.wizard.tooltip;"/>
+            <menuitem command="torWizardCmd"
+              tooltiptext="&foxyproxy.tor.tooltip;"/>
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+            <menuseparator/>
+            <menuitem command="importSettingsCmd"
+              tooltiptext="&foxyproxy.importsettings.tooltip;"/>
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+            <menuitem command="exportSettingsCmd"
+              tooltiptext="&foxyproxy.exportsettings.tooltip;"/>
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+            <!-- <menuitem command="importListCmd"
+                 tooltiptext="&foxyproxy.importlist.tooltip;"/> -->
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+            <menuseparator/>
+            <menuitem class="menuitem-iconic" image="" command="closeCmd"
+              tooltiptext="&foxyproxy.close.tooltip;" key="esc-key"/>
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+          </menupopup>
+        </menu>
+        <menu id="help-menu" label="&foxyproxy.menubar.help.label;"
+          accesskey="&foxyproxy.menubar.help.accesskey;"
+          tooltiptext="&foxyproxy.menubar.help.tooltip;">
+          <menupopup id="edit-popup">
+            <menuitem id="helpFileMenu" class="menuitem-iconic"
+              command="helpCmd" tooltiptext="&foxyproxy.help.tooltip;"/>
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+            <menuitem command="onlineCmd"
+              tooltiptext="&foxyproxy.online.tooltip;"/>
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+            <menuitem command="aboutCmd"
+              tooltiptext="&foxyproxy.about.tooltip;"/>
+            <!-- tooltiptext is necessary for tooltip, dunno why -->
+          </menupopup>
+        </menu>
+      </menubar>
+    </toolbox>
+  </vbox>
+
+  <separator class="thin"/>
+  <hbox style="margin-left: 1em;" align="center">
+    <label value="&foxyproxy.mode.label;:"
+      tooltiptext="&foxyproxy.mode.tooltip;"
+      accesskey="&foxyproxy.mode.accesskey;" command="modeMenuPopup"/>
+    <menulist id="modeMenu" oncommand="onModeChanged(this);"
+      tooltiptext="&foxyproxy.mode.tooltip;">
+      <menupopup id="modeMenuPopup"/>
+    </menulist>
+  </hbox>
+
+  <tabbox flex="1" style="margin: .5em;">
+    <tabs id="tabs"
+      onselect="foxyproxy.selectedTabIndex=this.selectedIndex;">
+      <tab id="foxyproxy-proxy-tab" label="&foxyproxy.tab.proxies.label;"
+        accesskey="&foxyproxy.tab.proxies.accesskey;" selected="true"
+        tooltiptext="&foxyproxy.tab.proxies.tooltip;" class="uncram-tab"/>
+      <tab id="foxyproxy-proxy-subscriptions-tab" class="uncram-tab"
+        label="&foxyproxy.proxy.subscriptions.label;"
+        accesskey="&foxyproxy.proxy.subscriptions.accesskey;"
+        tooltiptext="&foxyproxy.proxy.subscriptions.tooltip;"/>
+      <tab id="foxyproxy-pattern-subscriptions-tab"/>
+      <tab id="foxyproxy-global-tab" label="&foxyproxy.tab.global.label;"
+        accesskey="&foxyproxy.tab.global.accesskey;"
+        tooltiptext="&foxyproxy.tab.global.tooltip;" class="uncram-tab"/>
+      <tab id="foxyproxy-quickadd-tab" label="&foxyproxy.quickadd.label;"
+        accesskey="&foxyproxy.quickadd.accesskey;"
+        tooltiptext="&foxyproxy.quickadd.tooltip;"
+        class="hide-if-foxyproxy-simple uncram-tab"/>
+      <tab id="foxyproxy-autoadd-tab" label="&foxyproxy.tab.autoadd.label;"
+        accesskey="&foxyproxy.tab.autoadd.accesskey;"
+        tooltiptext="&foxyproxy.tab.autoadd.tooltip;"
+        class="hide-if-foxyproxy-simple uncram-tab" />
+      <tab id="foxyproxy-logging-tab" label="&foxyproxy.tab.logging.label;"
+        accesskey="&foxyproxy.tab.logging.accesskey;"
+        tooltiptext="&foxyproxy.tab.logging.tooltip;"
+        class="hide-if-foxyproxy-simple uncram-tab"/>
+    </tabs>
+
+    <tabpanels style="-moz-appearance: none;" flex="1">
+
+      <!-- proxy tree -->
+      <tabpanel flex="1" orient="vertical">
+        <separator class="thin"/>
+
+        <hbox flex="1">
+          <tree id="proxyTree" align="stretch" enableColumnDrag="true"
+            flex="1" class="treeStyling"
+            onselect="onProxyTreeSelected();"
+            onclick="overlay.onTreeClick(event, this);">
+            <treecols
+              pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+              <treecol id="enabledCol" label="&foxyproxy.enabled.label;"
+                flex="1" persist="width ordinal hidden" type="checkbox"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="colorCol" label="&foxyproxy.color.label;"
+                flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="nameCol" label="&foxyproxy.proxy.name.label;"
+                primary="true" flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="descriptionCol"
+                label="&foxyproxy.proxy.notes.label;" flex="1"
+                persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="hostCol" label="&foxyproxy.host.label.2;"
+                hidden="true" flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="portCol" label="&foxyproxy.port.label;"
+                hidden="true" flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="isSocksCol" label="&foxyproxy.issocks.label;"
+                hidden="true" flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="socksverCol"
+                label="&foxyproxy.socks.version.label;" hidden="true"
+                flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="wpadCol"
+                label="&foxyproxy.wpad.tree.label;" hidden="true"
+                flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="autopacCol"
+                label="&foxyproxy.autopacurl.label;" hidden="true"
+                flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="animatedIconsCol"
+                label="&foxyproxy.animatedicons.label;" hidden="true"
+                flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="cycleCol"
+                label="&foxyproxy.includeincycle.label;" hidden="true"
+                flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="remoteDNSCol"
+                label="&foxyproxy.proxydns.label4;" hidden="true"
+                flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="fromSubscriptionCol" hidden="true"
+                label="&foxyproxy.fromSubscription.label;"
+                flex="1" persist="width ordinal hidden"/>
+            </treecols>
+            <treechildren id="proxyTreeChildren" flex="1"
+              ondblclick="onSettings(false);" context="proxyTreeMenu"/>
+          </tree>
+          <vbox>
+            <button id="foxyproxy-up-button" pack="start" command="moveUpCmd"
+              label=" &foxyproxy.moveup.label;"/>
+            <button id="foxyproxy-down-button" pack="start"
+              command="moveDownCmd" label=" &foxyproxy.movedown.label;"/>
+            <separator class="hide-if-foxyproxy-simple"/>
+            <button id="foxyproxy-create-button" pack="start"
+              command="createProxyCmd" class="uncram-btn"/>
+            <button id="foxyproxy-settings-button" pack="start"
+              command="settingsCmd" class="uncram-btn"/>
+            <button id="foxyproxy-copy-button" pack="start"
+              command="copySelectionCmd" class="uncram-btn"/>
+            <button id="foxyproxy-deleteproxy-button" pack="start"
+              command="deleteSelectionCmd" class="uncram-btn"/>
+          </vbox>
+        </hbox>
+      </tabpanel>
+
+      <!-- proxy subscriptions -->
+      <tabpanel flex="1" orient="vertical">
+        <description style="width: 1em;">
+          &foxyproxy.proxy.subscriptions.description;
+        </description>
+        <separator class="thin"/>
+        <hbox flex="1">
+           <tree id="proxySubscriptionsTree" class="treeStyling" align="stretch"
+             enableColumnDrag="true" flex="1" seltype="single"
+             onselect="onSubTreeSelected('proxy');">
+             <treecols
+               pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+               <treecol id="proxySubscriptionsEnabled"
+                 label="&foxyproxy.enabled.label;" flex="1"
+                 persist="width ordinal hidden" type="checkbox"/>
+               <splitter class="tree-splitter"/>
+               <treecol id="proxySubscriptionsName" primary="true"
+                 label="&foxyproxy.name.label;" flex="1"
+                 persist="width ordinal hidden"/>
+               <splitter class="tree-splitter"/>
+               <treecol id="proxySubscriptionsNotes" flex="1"
+                 label="&foxyproxy.notes.label;"
+                 persist="width ordinal hidden"/>
+               <splitter class="tree-splitter"/>
+               <treecol id="proxySubscriptionsUri" flex="1"
+                 persist="width ordinal hidden"
+                 label="&foxyproxy.tab.logging.url.label;"/>
+               <splitter class="tree-splitter"/>
+               <treecol id="proxySubscriptionsRefresh" pack="center"
+                 label="&foxyproxy.updatefrequency.label;" flex="1"
+                 persist="width ordinal hidden"/>
+               <splitter class="tree-splitter"/>
+               <treecol id="proxySubscriptionsStatus" flex="1"
+                 persist="width ordinal hidden"
+                 label="&foxyproxy.status.label;"/>
+               <splitter class="tree-splitter"/>
+               <treecol id="proxySubscriptionsLastUpdate"
+                 label="&foxyproxy.lastupdate.label;" flex="1"
+                 persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter"/>
+               <treecol id="proxySubscriptionsFormat" flex="1"
+                 persist="width ordinal hidden" hidden="true"
+                 label="&foxyproxy.format.label;"/>
+               <splitter class="tree-splitter"/>
+               <treecol id="proxySubscriptionsObfuscation"
+                 label="&foxyproxy.obfuscation.label;" flex="1"
+                 persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter"/>
+             </treecols>
+             <treechildren id="proxySubscriptionsTreeChildren" flex="1"
+               ondblclick="onDblClickSubscriptionsTree('proxy');"
+               context="proxySubTreeMenu"/>
+           </tree>
+         </hbox>
+         <hbox>
+           <!-- No hbox here as there will be a warning in the error console
+                about it due to the fact that hboxes won't work well with
+                inlined html tags -->
+           <description style="padding-top: 5px;">
+             <html:a class="link" onclick="openSubscriptionsURL('proxy');">
+               &foxyproxy.proxy.subscriptions.sharing.label;
+             </html:a>
+           </description>
+           <spacer flex="1"/>
+           <vbox>
+             <menulist id="proxyActionList" pack="start"
+               tooltiptext="&foxyproxy.proxy.subscriptions.menulist.tooltip;">
+               <menupopup>
+                 <menuitem
+                   label="&foxyproxy.proxy.subscriptions.addSubscription;"/>
+                 <menuitem
+                   label="&foxyproxy.pattern.subscriptions.editSelection;"
+                   disabled="true" observes="proxysubtree-row-selected"/>
+                 <menuitem
+                   label="&foxyproxy.pattern.subscriptions.deleteSelections;"
+                   disabled="true" observes="proxysubtree-row-selected"/>
+                 <menuitem
+                   label="&foxyproxy.pattern.subscriptions.refreshSelections;"
+                   disabled="true" observes="proxysubtree-row-selected"/>
+                 <menuitem
+                   label="&foxyproxy.proxy.subscriptions.viewSubscription;"
+                   disabled="true" observes="proxysubtree-row-selected"/>
+               </menupopup>
+             </menulist>
+           </vbox>
+           <vbox pack="start">
+             <button id="proxySubscriptionsAction"
+               onclick="onSubscriptionsAction('proxy');"
+               label="&foxyproxy.pattern.subscriptions.go.label;"
+               tooltiptext="&foxyproxy.pattern.subscriptions.go.tooltip;"/>
+           </vbox>
+         </hbox>
+      </tabpanel>
+
+      <!-- pattern subscriptions -->
+      <tabpanel flex="1" orient="vertical">
+        <description style="width: 1em;">
+          &foxyproxy.pattern.subscriptions.description;
+        </description>
+        <separator class="thin"/>
+        <hbox flex="1">
+          <!-- Do not specify row="" here (at least if you do not have enough
+               pattern subscriptions to fill it); your computer would almost
+               freeze in this case -->
+          <tree id="patternSubscriptionsTree" class="treeStyling"
+            align="stretch" enableColumnDrag="true" flex="1" seltype="single"
+            onselect="onSubTreeSelected('pattern');">
+            <treecols
+              pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+              <treecol id="patternSubscriptionsEnabled"
+                label="&foxyproxy.enabled.label;" flex="1"
+                persist="width ordinal hidden" type="checkbox"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsName" primary="true"
+                label="&foxyproxy.name.label;" flex="1"
+                persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsNotes"
+                label="&foxyproxy.notes.label;" flex="1"
+                persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsUri" flex="1"
+                persist="width ordinal hidden"
+                label="&foxyproxy.tab.logging.url.label;"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsProxy" hidden="true"
+                label="&foxyproxy.proxy.label;"
+                flex="1" persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsRefresh" pack="center"
+                label="&foxyproxy.updatefrequency.label;" flex="1"
+                persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsStatus" flex="1"
+                persist="width ordinal hidden"
+                label="&foxyproxy.status.label;"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsLastUpdate" hidden="true"
+                label="&foxyproxy.lastupdate.label;" flex="1"
+                persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsFormat" hidden="true"
+                persist="width ordinal hidden" flex="1"
+                label="&foxyproxy.format.label;"/>
+              <splitter class="tree-splitter"/>
+              <treecol id="patternSubscriptionsObfuscation" hidden="true"
+                label="&foxyproxy.obfuscation.label;" flex="1"
+                persist="width ordinal hidden"/>
+              <splitter class="tree-splitter"/>
+            </treecols>
+            <treechildren id="patternSubscriptionsTreeChildren" flex="1"
+              ondblclick="onDblClickSubscriptionsTree('pattern');"
+              context="patternSubTreeMenu"/>
+          </tree>
+        </hbox>
+        <hbox>
+          <!-- No hbox here as there will be a warning in the error console
+               about it due to the fact that hboxes won't work well with
+               inlined html tags -->
+          <description style="padding-top: 5px;">
+            <html:a class="link" onclick="openSubscriptionsURL('pattern');">
+              &foxyproxy.pattern.subscriptions.sharing.label;
+            </html:a>
+          </description>
+          <spacer flex="1"/>
+          <vbox>
+            <menulist id="patternActionList" pack="start"
+              tooltiptext="&foxyproxy.pattern.subscriptions.menulist.tooltip;">
+              <menupopup>
+                <menuitem
+                  label="&foxyproxy.pattern.subscriptions.addSubscription;"/>
+                <menuitem
+                  label="&foxyproxy.pattern.subscriptions.editSelection;"
+                  disabled="true" observes="patternsubtree-row-selected"/>
+                <menuitem
+                  label="&foxyproxy.pattern.subscriptions.deleteSelections;"
+                  disabled="true" observes="patternsubtree-row-selected"/>
+                <menuitem
+                  label="&foxyproxy.pattern.subscriptions.refreshSelections;"
+                  disabled="true" observes="patternsubtree-row-selected"/>
+                <menuitem
+                  label="&foxyproxy.pattern.subscriptions.viewSubscription;"
+                  disabled="true" observes="patternsubtree-row-selected"/>
+              </menupopup>
+            </menulist>
+          </vbox>
+          <vbox pack="start">
+            <button id="patternSubscriptionsAction"
+              onclick="onSubscriptionsAction('pattern');"
+              label="&foxyproxy.pattern.subscriptions.go.label;"
+              tooltiptext="&foxyproxy.pattern.subscriptions.go.tooltip;"/>
+          </vbox>
+        </hbox>
+      </tabpanel>
+
+      <!-- global settings -->
+      <tabpanel flex="1" orient="vertical">
+        <separator class="thin"/>
+        <grid>
+          <columns>
+            <column flex="1"/>
+            <column flex="1"/>
+          </columns>
+          <rows>
+            <row>
+              <groupbox>
+                <caption label="&foxyproxy.indicators.label;"
+                  tooltiptext="&foxyproxy.indicators.tooltip;"/>
+                <hbox align="center">
+                  <checkbox id="toolbarEnabled"
+                    label="&foxyproxy.toolbaricon.label;"
+                    accesskey="&foxyproxy.toolbaricon.accesskey;"
+                    tooltiptext="&foxyproxy.toolbaricon.tooltip;"
+                    oncommand="foxyproxy.toolbarIcon = this.checked;"/>
+                </hbox>
+                <hbox align="center">
+                  <checkbox id="statusbarIconEnabled"
+                    label="&foxyproxy.showstatusbaricon.label;"
+                    accesskey="&foxyproxy.showstatusbaricon.accesskey;"
+                    tooltiptext="&foxyproxy.showstatusbaricon.tooltip;"
+                    oncommand="foxyproxy.statusbar.iconEnabled = this.checked;"/>
+                </hbox>
+                <hbox align="center">
+                  <checkbox id="statusbarTextEnabled"
+                    label="&foxyproxy.showstatusbarmode.label;"
+                    accesskey="&foxyproxy.showstatusbarmode.accesskey;"
+                    tooltiptext="&foxyproxy.showstatusbarmode.tooltip;"
+                    oncommand="onToggleStatusBarText(this.checked);"/>
+                </hbox>
+                <hbox align="center" class="indent">
+                  <label value="&foxyproxy.statusbarwidth.label;"
+                    observes="statusBarWidthBroadcaster"/>
+                  <textbox id="statusbarWidth" size="1" type="timed"
+                    timeout="500"
+                    oncommand="foxyproxy.statusbar.width = this.value"
+                    tooltiptext="&foxyproxy.statusbarwidth.tooltip;"
+                    accesskey="&foxyproxy.statusbarwidth.accesskey;"
+                    observes="statusBarWidthBroadcaster"/>
+                  <label value="&foxyproxy.pixels;"
+                    observes="statusBarWidthBroadcaster"/>
+                  <label value="&foxyproxy.unlimited.label;"
+                    observes="statusBarWidthBroadcaster"/>
+                </hbox>
+                <hbox align="center">
+                  <checkbox id="toolsMenuEnabled"
+                    label="&foxyproxy.toolsmenu.label2;"
+                    accesskey="&foxyproxy.toolsmenu.accesskey;"
+                    tooltiptext="&foxyproxy.toolsmenu.tooltip2;"
+                    oncommand="foxyproxy.toolsMenu = this.checked;"/>
+                </hbox>
+                <hbox align="center">
+                  <checkbox id="contextMenuEnabled"
+                    label="&foxyproxy.contextmenu.label;"
+                    accesskey="&foxyproxy.contextmenu.accesskey;"
+                    tooltiptext="&foxyproxy.contextmenu.tooltip;"
+                    oncommand="foxyproxy.contextMenu = this.checked;"/>
+                </hbox>
+              </groupbox>
+              <groupbox>
+                <caption label="&foxyproxy.toolbaractivation.label;"
+                  tooltiptext="&foxyproxy.toolbaractivation.tooltip;"/>
+                <grid>
+                  <columns>
+                    <column flex="1"/>
+                    <column/>
+                  </columns>
+                  <rows>
+                    <row align="center">
+                      <label value="&foxyproxy.leftclicktb.label;"
+                        accesskey="&foxyproxy.leftclicktb.accesskey;"
+                        tooltiptext="&foxyproxy.leftclicktb.tooltip;"
+                        control="tbLeftClickMenu"/>
+                      <menulist id="tbLeftClickMenu"
+                        oncommand="foxyproxy.toolbar.leftClick=this.value;"
+                        tooltiptext="&foxyproxy.leftclicktb.tooltip;"
+                        style="width: 15em;" sizetopopup="none">
+                        <menupopup>
+                          <menuitem label="&foxyproxy.click.options;"
+                            value="options"/>
+                          <menuitem label="&foxyproxy.click.cycle;"
+                            value="cycle"/>
+                          <menuitem
+                            label="&foxyproxy.click.contextmenu;"
+                            value="contextmenu"/>
+                          <menuitem
+                            label="&foxyproxy.click.removeallcookies;"
+                            value="removeallcookies"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadcurtab;"
+                            value="reloadcurtab"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinbrowser;"
+                            value="reloadtabsinbrowser"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinallbrowsers;"
+                            value="reloadtabsinallbrowsers"/>
+                          <menuitem label="&foxyproxy.click.toggle;"
+                            value="toggle"/>
+                          <menuitem label="&foxyproxy.quickadd.label;"
+                            value="quickadd" class="hide-if-foxyproxy-simple"/>
+                        </menupopup>
+                      </menulist>
+                    </row>
+                    <row align="center">
+                      <label value="&foxyproxy.middleclicktb.label;"
+                        accesskey="&foxyproxy.middleclicktb.accesskey;"
+                        tooltiptext="&foxyproxy.middleclicktb.tooltip;"
+                        control="tbMiddleClickMenu"/>
+                      <menulist id="tbMiddleClickMenu"
+                        oncommand="foxyproxy.toolbar.middleClick=this.value;"
+                        tooltiptext="&foxyproxy.middleclicktb.tooltip;"
+                        style="width: 15em;" sizetopopup="none">
+                        <menupopup>
+                          <menuitem label="&foxyproxy.click.options;"
+                            value="options"/>
+                          <menuitem label="&foxyproxy.click.cycle;"
+                            value="cycle"/>
+                          <menuitem
+                            label="&foxyproxy.click.contextmenu;"
+                            value="contextmenu"/>
+                          <menuitem
+                            label="&foxyproxy.click.removeallcookies;"
+                            value="removeallcookies"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadcurtab;"
+                            value="reloadcurtab"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinbrowser;"
+                            value="reloadtabsinbrowser"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinallbrowsers;"
+                            value="reloadtabsinallbrowsers"/>
+                          <menuitem label="&foxyproxy.click.toggle;"
+                            value="toggle"/>
+                          <menuitem label="&foxyproxy.quickadd.label;"
+                            value="quickadd" class="hide-if-foxyproxy-simple"/>
+                        </menupopup>
+                      </menulist>
+                    </row>
+                    <row align="center">
+                      <label value="&foxyproxy.rightclicktb.label;"
+                        accesskey="&foxyproxy.rightclicktb.accesskey;"
+                        tooltiptext="&foxyproxy.rightclicktb.tooltip;"
+                        control="tbRightClickMenu"/>
+                      <menulist id="tbRightClickMenu"
+                        oncommand="foxyproxy.toolbar.rightClick=this.value;"
+                        tooltiptext="&foxyproxy.rightclicktb.tooltip;"
+                        style="width: 15em;" sizetopopup="none">
+                        <menupopup>
+                          <menuitem label="&foxyproxy.click.options;"
+                            value="options"/>
+                          <menuitem label="&foxyproxy.click.cycle;"
+                            value="cycle"/>
+                          <menuitem
+                            label="&foxyproxy.click.contextmenu;"
+                            value="contextmenu"/>
+                          <menuitem
+                            label="&foxyproxy.click.removeallcookies;"
+                            value="removeallcookies"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadcurtab;"
+                            value="reloadcurtab"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinbrowser;"
+                            value="reloadtabsinbrowser"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinallbrowsers;"
+                            value="reloadtabsinallbrowsers"/>
+                          <menuitem label="&foxyproxy.click.toggle;"
+                            value="toggle"/>
+                          <menuitem label="&foxyproxy.quickadd.label;"
+                            value="quickadd" class="hide-if-foxyproxy-simple"/>
+                        </menupopup>
+                      </menulist>
+                    </row>
+                  </rows>
+                </grid>
+              </groupbox>
+            </row>
+            <row>
+              <groupbox>
+                <caption label="&foxyproxy.misc.label;"
+                  tooltiptext="&foxyproxy.misc.tooltip;"/>
+                <row align="center">
+                  <label value="&foxyproxy.storagelocation.label.2;"
+                    accesskey="&foxyproxy.storagelocation.accesskey;"
+                    tooltiptext="&foxyproxy.storagelocation.tooltip;"/>
+                  <!-- style to simulate disabled="true" look-and-feel. We don't
+                       want to actually use disabled="true" because then the
+                       user can't scroll the textbox content, copy it into the
+                       clipboard, etc. -->
+                  <textbox id="settingsURL" flex="1" readonly="true"
+                    style="border: gray; color: gray"
+                    tooltiptext="&foxyproxy.storagelocation.tooltip;"/>
+                  <button id="settingsURLBtn" style="min-width: 0.5em;"
+                    oncommand="onSettingsURLBtn();" label="..."
+                    tooltiptext="&foxyproxy.storagelocation.tooltip;"/>
+                </row>
+                <row align="center" observes="notDefaultSettingsBroadcaster">
+                  <description>&foxyproxy.settings.not.default;
+                  <html:a class="link" style="margin: 0 .5em 0 .5em"  
+                    onclick="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/settings.html');">&foxyproxy.importantnote.label;</html:a>
+                   </description>
+                   <button command="resetSettingsCmd"
+                     label="&foxyproxy.resetlocation.label;"/>
+                </row>
+                <row align="center">
+                  <checkbox id="advancedMenusEnabled"
+                    label="&foxyproxy.advancedmenus.label;"
+                    accesskey="&foxyproxy.advancedmenus.accesskey;"
+                    tooltiptext="&foxyproxy.advancedmenus.tooltip;"
+                    oncommand="foxyproxy.advancedMenus = this.checked;"/>
+                </row>
+                <spacer class="hide-if-foxyproxy-simple" flex="1"/>
+                <row class="hide-if-foxyproxy-simple" align="center">
+                  <button label="&foxyproxy.settings.advanced.label;"
+                    tooltiptext="&foxyproxy.settings.advanced.tooltip;"
+                    oncommand="window.openDialog('chrome://foxyproxy/content/advancedSettings.xul', '', 'chrome, dialog, modal, centerscreen').focus();"/>
+                </row>
+              </groupbox>
+              <groupbox>
+                <caption label="&foxyproxy.statusbaractivation.label;"
+                  tooltiptext="&foxyproxy.statusbaractivation.tooltip;"/>
+                <grid>
+                  <columns>
+                    <column flex="1"/>
+                    <column/>
+                  </columns>
+                  <rows>
+                    <row align="center">
+                      <label value="&foxyproxy.leftclicksb.label;"
+                        accesskey="&foxyproxy.leftclicksb.accesskey;"
+                        tooltiptext="&foxyproxy.leftclicksb.tooltip;"
+                        control="sbLeftClickMenu"/>
+                      <menulist id="sbLeftClickMenu"
+                        oncommand="foxyproxy.statusbar.leftClick=this.value;"
+                        tooltiptext="&foxyproxy.leftclicksb.tooltip;"
+                        style="width: 15em;" sizetopopup="none">
+                        <menupopup>
+                          <menuitem label="&foxyproxy.click.options;"
+                            value="options"/>
+                          <menuitem label="&foxyproxy.click.cycle;"
+                            value="cycle"/>
+                          <menuitem
+                            label="&foxyproxy.click.contextmenu;"
+                            value="contextmenu"/>
+                          <menuitem
+                            label="&foxyproxy.click.removeallcookies;"
+                            value="removeallcookies"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadcurtab;"
+                            value="reloadcurtab"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinbrowser;"
+                            value="reloadtabsinbrowser"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinallbrowsers;"
+                            value="reloadtabsinallbrowsers"/>
+                          <menuitem label="&foxyproxy.click.toggle;"
+                            value="toggle"/>
+                          <menuitem label="&foxyproxy.quickadd.label;"
+                            value="quickadd" class="hide-if-foxyproxy-simple"/>
+                        </menupopup>
+                      </menulist>
+                    </row>
+                    <row align="center">
+                      <label value="&foxyproxy.middleclicksb.label;"
+                        accesskey="&foxyproxy.middleclicksb.accesskey;"
+                        tooltiptext="&foxyproxy.middleclicksb.tooltip;"
+                        control="sbMiddleClickMenu"/>
+                      <menulist id="sbMiddleClickMenu"
+                        oncommand="foxyproxy.statusbar.middleClick=this.value;"
+                        tooltiptext="&foxyproxy.middleclicksb.tooltip;"
+                        style="width: 15em;" sizetopopup="none">
+                        <menupopup>
+                          <menuitem label="&foxyproxy.click.options;"
+                            value="options"/>
+                          <menuitem label="&foxyproxy.click.cycle;"
+                            value="cycle"/>
+                          <menuitem
+                            label="&foxyproxy.click.contextmenu;"
+                            value="contextmenu"/>
+                          <menuitem
+                            label="&foxyproxy.click.removeallcookies;"
+                            value="removeallcookies"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadcurtab;"
+                            value="reloadcurtab"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinbrowser;"
+                            value="reloadtabsinbrowser"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinallbrowsers;"
+                            value="reloadtabsinallbrowsers"/>
+                          <menuitem label="&foxyproxy.click.toggle;"
+                            value="toggle"/>
+                          <menuitem label="&foxyproxy.quickadd.label;"
+                            value="quickadd" class="hide-if-foxyproxy-simple"/>
+                        </menupopup>
+                      </menulist>
+                    </row>
+                    <row align="center">
+                      <label value="&foxyproxy.rightclicksb.label;"
+                        accesskey="&foxyproxy.rightclicksb.accesskey;"
+                        tooltiptext="&foxyproxy.rightclicksb.tooltip;"
+                        control="sbRightClickMenu"/>
+                      <menulist id="sbRightClickMenu"
+                        oncommand="foxyproxy.statusbar.rightClick=this.value;"
+                        tooltiptext="&foxyproxy.rightclicksb.tooltip;"
+                        style="width: 15em;" sizetopopup="none">
+                        <menupopup>
+                          <menuitem label="&foxyproxy.click.options;"
+                            value="options"/>
+                          <menuitem label="&foxyproxy.click.cycle;"
+                            value="cycle"/>
+                          <menuitem
+                            label="&foxyproxy.click.contextmenu;"
+                            value="contextmenu"/>
+                          <menuitem
+                            label="&foxyproxy.click.removeallcookies;"
+                            value="removeallcookies"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadcurtab;"
+                            value="reloadcurtab"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinbrowser;"
+                            value="reloadtabsinbrowser"/>
+                          <menuitem
+                            label="&foxyproxy.click.reloadtabsinallbrowsers;"
+                            value="reloadtabsinallbrowsers"/>
+                          <menuitem label="&foxyproxy.click.toggle;"
+                            value="toggle"/>
+                          <menuitem label="&foxyproxy.quickadd.label;"
+                            value="quickadd" class="hide-if-foxyproxy-simple"/>
+                        </menupopup>
+                      </menulist>
+                    </row>
+                  </rows>
+                </grid>
+              </groupbox>
+            </row>
+          </rows>
+        </grid>
+      </tabpanel>
+
+      <!--<groupbox>
+        <caption label="&foxyproxy.random.settings.label;"
+        accesskey="&foxyproxy.random.settings.accesskey;"
+        tooltiptext="&foxyproxy.random.settings.tooltip;"/>
+        <row align="center">
+        <checkbox id="randomIncludeDirect"
+        label="&foxyproxy.random.includedirect.label;"
+        accesskey="&foxyproxy.random.includedirect.accesskey;"
+        tooltiptext="&foxyproxy.random.includedirect.tooltip;"
+        oncommand="onIncludeDirectInRandom();"/>
+        </row>
+        <row align="center">
+        <checkbox id="randomIncludeDisabled"
+        label="&foxyproxy.random.includedisabled.label;"
+        accesskey="&foxyproxy.random.includedisabled.accesskey;"
+        tooltiptext="&foxyproxy.random.includedisabled.tooltip;"
+        oncommand="onIncludeDisabledInRandom();"/>
+        </row>
+        </groupbox>
+        <row><separator class="thin"/></row>-->
+
+      <!-- <tabpanel flex="1" orient="vertical">
+        <separator class="thin" />
+
+        <hbox flex="1">
+          <tree id="serverSubTree" align="stretch" enableColumnDrag="true"
+            flex="1" style="width: 5em; height: 2em; " seltype="single"
+            onselect="onServerSubTreeSelected();"
+            onclick="overlay.onTreeClick(event, this);">
+            <treecols
+              pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+              <treecol id="enabledCol" label="&foxyproxy.enabled.label;"
+                flex="1" persist="width ordinal hidden" type="checkbox" />
+              <splitter class="tree-splitter"/>
+              <treecol id="nameCol" label="&foxyproxy.name.label;"
+                flex="1" persist="width ordinal hidden" />
+              <splitter class="tree-splitter" />
+              <treecol id="notesCol" label="&foxyproxy.notes.label;"
+                primary="true" flex="1" persist="width ordinal hidden" />
+              <splitter class="tree-splitter" />
+              <treecol id="notesCol" label="&foxyproxy.lastupdate.label;"
+                primary="true" flex="1" persist="width ordinal hidden" />
+              <splitter class="tree-splitter" />
+              <treecol id="notesCol" label="&foxyproxy.url.label;"
+                primary="true" flex="1" persist="width ordinal hidden" />
+              <splitter class="tree-splitter" />
+              <treecol id="notesCol" label="&foxyproxy.updatefrequency.label;"
+                primary="true" flex="1" persist="width ordinal hidden" />
+              <splitter class="tree-splitter" />
+            </treecols>
+            <treechildren id="serverSubTreeChildren" flex="1"
+              ondblclick="onSettings(false);" context="serverSubTreeMenu" />
+          </tree>
+          <vbox>
+            <button id="foxyproxy-up-button" pack="start" command="moveUpCmd"
+              label=" &foxyproxy.moveup.label;"/>
+            <button id="foxyproxy-down-button" pack="start" command="moveDownCmd"
+              label=" &foxyproxy.movedown.label;"/>
+            <separator class="hide-if-foxyproxy-simple"/>
+            <button id="foxyproxy-create-button" command="createProxyCmd" />
+            <button id="foxyproxy-settings-button" command="settingsCmd" />
+            <button id="foxyproxy-copy-button" command="copySelectionCmd" />
+            <button id="foxyproxy-deleteproxy-button" command="deleteSelectionCmd" />
+          </vbox>
+        </hbox>
+      </tabpanel>
+-->
+      <!-- quickadd tab -->
+      <tabpanel flex="1" orient="vertical" class="hide-if-foxyproxy-simple">
+        <description style="width: 1em;">&foxyproxy.quickadd.desc1;
+          <text value="&foxyproxy.keyconfig.label;" class="text-link"
+            onclick="fpc.openAndReuseOneTabPerURL('http://forums.mozillazine.org/viewtopic.php?t=72994');" />
+          &foxyproxy.quickadd.desc2;
+        </description>
+        <checkbox id="quickAddEnabled" 
+          label="&foxyproxy.enabled.label;"
+          accesskey="&foxyproxy.enabled.accesskey;"
+          tooltiptext="&foxyproxy.enabled.tooltip;"
+          oncommand="onQuickAddEnabled(this);"/>
+        <groupbox observes="quickAddBroadcaster">
+          <grid>
+            <columns>
+              <column />
+              <column />
+              <column />
+            </columns>
+            <rows>
+              <row align="center">
+                <checkbox id="quickAddReload"
+                  label="&foxyproxy.autoadd.reload.label;"
+                  accesskey="&foxyproxy.autoadd.reload.accesskey;"
+                  tooltiptext="&foxyproxy.autoadd.reload.tooltip;"                  
+                  oncommand="foxyproxy.quickadd.reload = this.checked;"/>
+                <checkbox id="quickAddNotify"
+                  label="&foxyproxy.quickadd.notify.label;"
+                  accesskey="&foxyproxy.quickadd.notify.accesskey;"
+                  tooltiptext="&foxyproxy.quickadd.notify.tooltip;"
+                  oncommand="foxyproxy.quickadd.notify = this.checked;"/>
+              </row>
+              <row align="center">
+                <checkbox id="quickAddPrompt"
+                  label="&foxyproxy.quickadd.prompt.label;"
+                  accesskey="&foxyproxy.quickadd.prompt.accesskey;"
+                  tooltiptext="&foxyproxy.quickadd.prompt.tooltip;"
+                  oncommand="foxyproxy.quickadd.prompt = this.checked;"/>
+                <checkbox id="quickAddNotifyWhenCanceled"
+                  label="&foxyproxy.quickadd.notify.whencanceled.label;"
+                  accesskey="&foxyproxy.quickadd.notify.whencanceled.accesskey;"
+                  tooltiptext="&foxyproxy.quickadd.notify.whencanceled.tooltip;"
+                  oncommand="foxyproxy.quickadd.notifyWhenCanceled = this.checked;"/>
+                <toolbarbutton class="foxyproxy-ref"
+                  popup="notifyWhenCanceledPopup" tooltiptext="&foxyproxy.whatsthis;" />
+              </row>
+            </rows>
+          </grid>
+        </groupbox>
+        <groupbox observes="quickAddBroadcaster">
+        <grid>
+          <columns>
+            <column />
+            <column flex="1" />
+          </columns>
+          <rows>
+            <row align="center">
+              <label value="&foxyproxy.quickadd.proxy.label;"
+                tooltiptext="&foxyproxy.quickadd.proxy.tooltip;"
+                accesskey="&foxyproxy.quickadd.proxy.accesskey;" />
+              <menulist id="quickAddProxyMenu"
+                tooltiptext="&foxyproxy.quickadd.proxy.tooltip;"
+                oncommand="foxyproxy.quickadd.proxyById = this.value;">
+                <menupopup />
+              </menulist>
+            </row>
+          </rows>
+        </grid>
+        <hbox align="center" observes="quickAddBroadcaster" >
+          <label value="&foxyproxy.pattern.to.quickadd.label;" control="foxyproxy-quickadd-pattern-button"/>
+          <button id="foxyproxy-quickadd-pattern-button" command="quickAddPatternCmd" label="&foxyproxy.define.label;" class="uncram-btn"/>
+        </hbox>
+      </groupbox>
+      </tabpanel>
+
+      <!-- autoadd tab -->
+      <tabpanel flex="1" orient="vertical" class="hide-if-foxyproxy-simple">
+        <description style="width: 1em;">
+          &foxyproxy.autoadd.description;
+        </description>
+        <checkbox id="autoAddEnabled" 
+          label="&foxyproxy.enabled.label;"
+          accesskey="&foxyproxy.enabled.accesskey;"
+          tooltiptext="&foxyproxy.enabled.tooltip;"
+          oncommand="onAutoAddEnabled(this);"/>
+        <groupbox observes="autoAddBroadcaster">
+          <grid>
+            <columns>
+              <column />
+              <column />
+              <column />
+            </columns>
+            <rows>
+              <row align="center">
+                <checkbox id="autoAddReload"
+                  label="&foxyproxy.autoadd.reload.label;"
+                  accesskey="&foxyproxy.autoadd.reload.accesskey;"
+                  tooltiptext="&foxyproxy.autoadd.reload.tooltip;"
+                  oncommand="foxyproxy.autoadd.reload = this.checked;"/>
+                <checkbox id="autoAddNotify"
+                  label="&foxyproxy.autoadd.notify.label;"
+                  accesskey="&foxyproxy.autoadd.notify.accesskey;"
+                  tooltiptext="&foxyproxy.autoadd.notify.tooltip2;"
+                  oncommand="foxyproxy.autoadd.notify = this.checked;"/>
+              </row>
+              <row align="center">
+                <checkbox id="autoAddPrompt"
+                  label="&foxyproxy.quickadd.prompt.label;"
+                  accesskey="&foxyproxy.quickadd.prompt.accesskey;"
+                  tooltiptext="&foxyproxy.quickadd.prompt.tooltip;"
+                  oncommand="foxyproxy.autoadd.prompt = this.checked;"/>
+              </row>
+            </rows>
+          </grid>
+        </groupbox>
+        <groupbox observes="autoAddBroadcaster">
+          <grid>
+            <columns>
+              <column />
+              <column flex="1" />
+              <column />
+            </columns>
+            <rows>
+              <row align="center">
+                <label value="&foxyproxy.autoadd.proxy.label;"
+                  tooltiptext="&foxyproxy.autoadd.proxy.tooltip;"
+                  accesskey="&foxyproxy.autoadd.proxy.accesskey;" />
+              <menulist id="autoAddProxyMenu"
+                tooltiptext="&foxyproxy.autoadd.proxy.tooltip;"
+                oncommand="foxyproxy.autoadd.proxyById = this.value;">
+                <menupopup />
+              </menulist>
+              <spacer />
+              </row>
+            </rows>
+          </grid>
+          <grid>
+            <columns><column/><column/></columns><rows>
+            <row align="center" observes="autoAddBroadcaster">
+              <label value="&foxyproxy.autoadd.pattern.label;" control="foxyproxy-autoadd-block-pattern-button"/>
+              <button id="foxyproxy-autoadd-block-pattern-button" command="blockedPagePatternCmd" label="&foxyproxy.define.label;" class="uncram-btn" pack="start"/>
+            </row>
+            <row align="center" observes="autoAddBroadcaster" >
+              <label value="&foxyproxy.pattern.to.autoadd.label;" control="foxyproxy-autoadd-pattern-button"/>
+              <button id="foxyproxy-autoadd-pattern-button" command="autoAddPatternCmd" label="&foxyproxy.define.label;" class="uncram-btn" pack="start"/>
+            </row>
+          </rows>
+          </grid>
+        </groupbox>
+      </tabpanel>
+
+      <!-- logging -->
+      <tabpanel flex="1" orient="vertical" class="hide-if-foxyproxy-simple">
+        <separator class="thin" />
+        <hbox align="center">
+          <checkbox id="enableLogging" label="&foxyproxy.enabled.label;"
+            accesskey="&foxyproxy.enabled.accesskey;"
+            tooltiptext="&foxyproxy.enabled.tooltip;"
+            oncommand="foxyproxy.logging=!foxyproxy.logging;" />
+          <button id="foxyproxy-clear-button" command="clearLogCmd" class="uncram-btn-btn"/>
+          <button id="foxyproxy-refresh-button" command="refreshLogCmd" class="uncram"/>
+          <button id="foxyproxy-save-button" command="saveLogCmd" class="uncram-btn"/>
+          <spacer flex="1" />
+          <text value="&foxyproxy.logging.maxsize.label;"
+            accesskey="&foxyproxy.logging.maxsize.accesskey;"
+            tooltiptext="&foxyproxy.logging.maxsize.tooltip;"
+            control="maxSize" />
+          <textbox id="maxSize" size="4"
+            accesskey="&foxyproxy.logging.maxsize.accesskey;"
+            tooltiptext="&foxyproxy.logging.maxsize.tooltip;" />
+          <button id="foxyproxy-set-button" command="maxSizeCmd" size="4" class="uncram-btn"/>
+        </hbox>
+
+        <hbox align="center">
+          <button id="foxyproxy-open-tab-button" command="openLogURLInNewTabCmd" class="uncram-btn"/>
+          <button id="foxyproxy-copy-clipboard-button" command="copyLogURLToClipboardCmd" class="uncram-btn"/>
+          <button id="foxyproxy-delete-button" command="deleteLogEntryCmd" class="uncram-btn"/>
+        </hbox>
+        <checkbox command="noURLsCmd" />
+        <separator class="thin"/>
+         <hbox flex="1">
+           <tree id="logTree" align="stretch" enableColumnDrag="true"
+             persist="sortDirection sortResource" sortDirection="ascending"
+             sortResource="timestamp" flex="1" class="treeStyling" 
+             onselect="updateLogButtons();">
+             <treecols
+               pickertooltiptext="&foxyproxy.tree.pickertooltiptext.label;">
+               <treecol id="timestamp"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator" sortDirection="ascending"
+                 label="&foxyproxy.tab.logging.timestamp.label;" flex="1"
+                 persist="width ordinal hidden" />
+               <splitter class="tree-splitter" />
+               <treecol id="colorCol" label="&foxyproxy.color.label;" flex="1"
+                 persist="width ordinal hidden" />
+               <splitter class="tree-splitter" />
+               <treecol id="proxyName" label="&foxyproxy.proxy.name.label;"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 flex="1" persist="width ordinal hidden" />
+               <splitter class="tree-splitter" />
+               <treecol id="proxyNotes" label="&foxyproxy.proxy.notes.label;"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 flex="1" persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter" />
+               <treecol id="uri"
+                onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 label="&foxyproxy.tab.logging.url.label;" primary="true"
+                 flex="1" persist="width ordinal hidden" />
+               <splitter class="tree-splitter" />
+               <treecol id="matchName"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 label="&foxyproxy.pattern.name.label;" flex="1"
+                 persist="width ordinal hidden"/>
+               <splitter class="tree-splitter" />
+               <treecol id="matchPattern" label="&foxyproxy.pattern.label;"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 flex="1" persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter" />
+               <treecol id="caseSensitive"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 label="&foxyproxy.casesensitive.label;" flex="1"
+                 persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter" />
+               <treecol id="matchType"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 label="&foxyproxy.pattern.type.label;" flex="1"
+                 persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter" />
+               <treecol id="whiteBlack"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 label="&foxyproxy.whitelist.blacklist.label;" flex="1"
+                 persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter" />
+               <treecol id="pacResult" label="&foxyproxy.pac.result.label;"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 flex="1" persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter" />
+               <treecol id="errMsg" label="&foxyproxy.error.msg.label;"
+   							onclick="sortlog(this.id)" class="sortDirectionIndicator"
+                 flex="1" persist="width ordinal hidden" hidden="true"/>
+               <splitter class="tree-splitter" />
+             </treecols>
+             <treechildren id="logTreeChildren" flex="1"
+               context="logTreeMenu" />
+           </tree>
+         </hbox>
+      </tabpanel>
+    </tabpanels>
+  </tabbox>
+  <hbox align="center">
+    <button id="foxyproxy-donate-button" command="donateCmd" class="uncram-btn"/>
+    <button id="foxyproxy-plus-button" command="fppCmd" class="uncram-btn"/>
+    <button id="foxyproxy-proxyservice-button" command="proxyServiceCmd" class="uncram-btn"/>
+    <button id="foxyproxy-chrome-button" command="fpChromeCmd" class="uncram-btn"/>
+    <spacer flex="1" />
+    <button command="closeCmd" class="button-icon" icon="accept"/>
+  </hbox>
+  <separator class="thin" />
+
+  <popupset>
+    <menupopup id="proxyTreeMenu"
+      onpopupshowing="onProxyTreeMenuPopupShowing();">
+      <menuitem id="enabledPopUpMenuItem" command="toggleEnabledCmd"
+        type="checkbox" />
+      <menuseparator id="menuSeperator" />
+      <menuitem command="useForAllURLsCmd" />
+      <menuseparator id="menuSeperator" />
+      <menuitem id="createProxyTree" class="menuitem-iconic"
+        command="createProxyCmd" />
+      <menuseparator />
+      <menuitem id="editSettingsProxyTree" class="menuitem-iconic"
+        command="settingsCmd" />
+      <menuitem id="copySettingsProxyTree" class="menuitem-iconic"
+        command="copySelectionCmd" />
+      <menuitem id="deleteSettingsProxyTree" class="menuitem-iconic"
+        command="deleteSelectionCmd" />
+      <menuitem id="moveUpProxyTree" class="menuitem-iconic"
+        command="moveUpCmd" label="&foxyproxy.moveup.label;" />
+      <menuitem id="moveDownProxyTree" class="menuitem-iconic"
+        command="moveDownCmd" label="&foxyproxy.movedown.label;" />
+      <menuseparator />
+      <menuitem command="proxyWizardCmd" />
+      <menuitem command="torWizardCmd" />
+      <menuseparator />
+      <menuitem command="importSettingsCmd"/>
+      <menuitem command="exportSettingsCmd"/>
+      <!-- <menuitem class="menuitem-non-iconic" command="importListCmd"/> -->
+      <menuseparator/>
+      <menuitem id="helpProxyTree" class="menuitem-iconic" command="helpCmd" />
+      <menuitem command="closeCmd" />
+    </menupopup>
+
+    <menupopup id="mainPopup">
+      <menuitem id="createMainContext" class="menuitem-iconic"
+        command="createProxyCmd" />
+      <menuseparator />
+      <menuitem command="proxyWizardCmd" />
+      <menuitem command="torWizardCmd" />
+      <menuseparator />
+      <menuitem id="helpMainContext" class="menuitem-iconic"
+        command="helpCmd" />
+      <menuitem command="closeCmd" />
+    </menupopup>
+
+    <menupopup id="logTreeMenu">
+      <menuitem id="clearLogTree" class="menuitem-iconic"
+        command="clearLogCmd" />
+      <menuitem id="refreshLogTree" class="menuitem-iconic"
+        command="refreshLogCmd" />
+      <menuitem id="saveLogTree" class="menuitem-iconic" command="saveLogCmd" />
+    <menuseparator />
+      <menuitem id="openURLLogTree" class="menuitem-iconic"
+        command="openLogURLInNewTabCmd" />
+      <menuitem id="copyURLLogTree" class="menuitem-iconic"
+        command="copyLogURLToClipboardCmd" />
+      <menuitem id="deleteLogTree" class="menuitem-iconic"
+        command="deleteLogEntryCmd" />
+    </menupopup>
+
+    <menupopup id="patternSubTreeMenu">
+      <menuitem command="addPatSubCmd"/>
+      <menuitem command="editPatSubCmd"/>
+      <menuitem command="deletePatSubCmd"/>
+      <menuitem command="refreshPatSubCmd"/>
+      <menuitem command="viewPatSubCmd"/>
+    </menupopup>
+
+    <menupopup id="proxySubTreeMenu">
+      <menuitem command="addProxSubCmd"/>
+      <menuitem command="editProxSubCmd"/>
+      <menuitem command="deleteProxSubCmd"/>
+      <menuitem command="refreshProxSubCmd"/>
+      <menuitem command="viewProxSubCmd"/>
+    </menupopup>
+  </popupset>
+
+  <command id="addProxSubCmd"
+    label="&foxyproxy.proxy.subscriptions.addSubscription;"
+    tooltiptext="&foxyproxy.proxy.subscriptions.addSubscription;"
+    oncommand="addSubscription('proxy');" />
+
+  <command id="editProxSubCmd"
+    label="&foxyproxy.pattern.subscriptions.editSelection;"
+    tooltiptext="&foxyproxy.pattern.subscriptions.editSelection;"
+    oncommand="editSubscription('proxy');"
+    disabled="true" observes="proxysubtree-row-selected" />
+
+  <command id="deleteProxSubCmd"
+    label="&foxyproxy.pattern.subscriptions.deleteSelections;"
+    tooltiptext="&foxyproxy.pattern.subscriptions.deleteSelections;"
+    oncommand="deleteSubscriptions('proxy');"
+    disabled="true" observes="proxysubtree-row-selected" />
+
+  <command id="refreshProxSubCmd"
+    label="&foxyproxy.pattern.subscriptions.refreshSelections;"
+    tooltiptext="&foxyproxy.pattern.subscriptions.refreshSelections;"
+    oncommand="refreshSubscriptions('proxy');"
+    disabled="true" observes="proxysubtree-row-selected" />
+
+  <command id="viewProxSubCmd"
+    label="&foxyproxy.proxy.subscriptions.viewSubscription;"
+    tooltiptext="&foxyproxy.proxy.subscriptions.viewSubscription;"
+    oncommand="viewSubscriptions('proxy');"
+    disabled="true" observes="proxysubtree-row-selected" />
+
+  <command id="addPatSubCmd"
+    label="&foxyproxy.pattern.subscriptions.addSubscription;"
+    tooltiptext="&foxyproxy.pattern.subscriptions.addSubscription;"
+    oncommand="addSubscription('pattern');" />
+
+  <command id="editPatSubCmd"
+    label="&foxyproxy.pattern.subscriptions.editSelection;"
+    tooltiptext="&foxyproxy.pattern.subscriptions.editSelection;"
+    oncommand="editSubscription('pattern');"
+    disabled="true" observes="patternsubtree-row-selected" />
+
+  <command id="deletePatSubCmd"
+    label="&foxyproxy.pattern.subscriptions.deleteSelections;"
+    tooltiptext="&foxyproxy.pattern.subscriptions.deleteSelections;"
+    oncommand="deleteSubscriptions('pattern');"
+    disabled="true" observes="patternsubtree-row-selected" />
+
+  <command id="refreshPatSubCmd"
+    label="&foxyproxy.pattern.subscriptions.refreshSelections;"
+    tooltiptext="&foxyproxy.pattern.subscriptions.refreshSelections;"
+    oncommand="refreshSubscriptions('pattern');"
+    disabled="true" observes="patternsubtree-row-selected" />
+
+  <command id="viewPatSubCmd"
+    label="&foxyproxy.pattern.subscriptions.viewSubscription;"
+    tooltiptext="&foxyproxy.pattern.subscriptions.viewSubscription;"
+    oncommand="viewSubscriptions('pattern');"
+    disabled="true" observes="patternsubtree-row-selected" />
+
+  <command id="clearLogCmd" label="&foxyproxy.clear.label;"
+    tooltiptext="&foxyproxy.clear.label;"
+    accesskey="&foxyproxy.clear.accesskey;"
+    oncommand="foxyproxy.logg.clear();_updateLogView(false);" />
+
+  <command id="refreshLogCmd" label="&foxyproxy.refresh.label;"
+    tooltiptext="&foxyproxy.refresh.tooltip;"
+    accesskey="&foxyproxy.refresh.accesskey;"
+    oncommand="_updateLogView(true);" />
+
+  <command id="saveLogCmd" label="&foxyproxy.save.label;"
+    tooltiptext="&foxyproxy.save.tooltip;"
+    accesskey="&foxyproxy.save.accesskey;"
+    oncommand="_updateLogView(true);saveLog();" />
+
+  <command id="openLogURLInNewTabCmd" label="&foxyproxy.openurlinnewtab.label;"
+    tooltiptext="&foxyproxy.openurlinnewtab.tooltip;"
+    accesskey="&foxyproxy.openurlinnewtab.accesskey;"
+    oncommand="openLogURLInNewTab();" observes="logtree-row-selected"
+    disabled="true" />
+
+  <command id="copyLogURLToClipboardCmd" label="&foxyproxy.copyurltoclipboard.label;"
+    tooltiptext="&foxyproxy.copyurltoclipboard.tooltip;"
+    accesskey="&foxyproxy.copyurltoclipboard.accesskey;"
+    oncommand="copyLogURLToClipboard();" observes="logtree-row-selected"
+    disabled="true" />
+
+  <command id="deleteLogEntryCmd" label="&foxyproxy.delete.selection.label;"
+    tooltiptext="&foxyproxy.delete.selection.tooltip;"
+    accesskey="&foxyproxy.delete.selection.accesskey;"
+    oncommand="deleteLogEntry();" observes="logtree-row-selected"
+    disabled="true" />
+
+  <command id="maxSizeCmd"
+    label="&foxyproxy.logging.maxsize.button.label;"
+    tooltiptext="&foxyproxy.logging.maxsize.button.tooltip;"
+    accesskey="&foxyproxy.logging.maxsize.button.accesskey;"
+    oncommand="onMaxSize();" />
+
+  <command id="noURLsCmd" label="&foxyproxy.logging.noURLs.label;"
+    accesskey="&foxyproxy.logging.noURLs.accesskey;"
+    tooltiptext="&foxyproxy.logging.noURLs.tooltip;"
+    oncommand="overlay.onToggleNoURLs(window);" />
+
+  <command id="toggleEnabledCmd" label="&foxyproxy.enabled.label;"
+    tooltiptext="&foxyproxy.enabled.tooltip;"
+    accesskey="&foxyproxy.enabled.accesskey;"
+    oncommand="toggleEnabled();" />
+
+  <command id="useForAllURLsCmd" label="&foxyproxy.useselectedforallurls.label;"
+    tooltiptext="&foxyproxy.useselectedforallurls.tooltip;"
+    accesskey="&foxyproxy.useselectedforallurls.accesskey;"
+    oncommand="useSelectedForAllURLs();" />
+
+  <command id="createProxyCmd" label="&foxyproxy.addnewproxy.label;"
+    tooltiptext="&foxyproxy.addnewproxy.tooltip;"
+    accesskey="&foxyproxy.addnewproxy.accesskey;"
+    oncommand="onSettings(true);" />
+
+  <command id="moveUpCmd" tooltiptext="&foxyproxy.moveup.tooltip;"
+    accesskey="&foxyproxy.moveup.accesskey;" oncommand="onMove('up');"
+    disabled="true" />
+
+  <command id="moveDownCmd" tooltiptext="&foxyproxy.movedown.tooltip;"
+    accesskey="&foxyproxy.movedown.accesskey;" oncommand="onMove('down');"
+    disabled="true" />
+
+  <command id="copySelectionCmd"
+    label="&foxyproxy.copy.selection.label;"
+    accesskey="&foxyproxy.copy.selection.accesskey;"
+    tooltiptext="&foxyproxy.copy.selection.tooltip;"
+    oncommand="onCopySelection();" observes="tree-row-selected"
+    disabled="true" />
+
+  <command id="deleteSelectionCmd"
+    label="&foxyproxy.delete.selection.label;"
+    accesskey="&foxyproxy.delete.selection.accesskey;"
+    tooltiptext="&foxyproxy.delete.selection.tooltip;"
+    oncommand="onDeleteSelection();" observes="tree-row-selected"
+    disabled="true" />
+
+  <command id="settingsCmd" label="&foxyproxy.edit.selection.label;"
+    accesskey="&foxyproxy.edit.selection.accesskey;"
+    tooltiptext="&foxyproxy.edit.selection.tooltip;"
+    oncommand="onSettings(false);" observes="tree-row-selected"
+    disabled="true" />
+
+  <command id="closeCmd" label="&foxyproxy.close.label;"
+    accesskey="&foxyproxy.close.accesskey;"
+    tooltiptext="&foxyproxy.close.tooltip;" oncommand="window.close()" />
+
+  <command id="donateCmd" label="&foxyproxy.please.donate.label;"
+    accesskey="&foxyproxy.please.donate.accesskey;"
+    tooltiptext="&foxyproxy.please.donate.label;"
+    oncommand="fpc.openAndReuseOneTabPerURL('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=7145571');"/>
+
+  <command id="fppCmd" label="&foxyproxy.getfoxyproxyplus.label;"
+    tooltiptext="&foxyproxy.getfoxyproxyplus.label;"
+    oncommand="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/fpplus');"/>
+
+  <command id="proxyServiceCmd" label="&foxyproxy.proxyservice.label;"
+    accesskey="&foxyproxy.proxyservice.accesskey;"
+    tooltiptext="&foxyproxy.proxyservice.tooltip;"
+    oncommand="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/proxyservice/');"/>
+
+  <command id="fpChromeCmd" label="&foxyproxy.foxyproxychrome.label;"
+    accesskey="&foxyproxy.foxyproxychrome.accesskey;"
+    tooltiptext="&foxyproxy.foxyproxychrome.tooltip;"
+    oncommand="fpc.openAndReuseOneTabPerURL('https://chrome.google.com/webstore/detail/gcknhkkoolaabfmlnjonogaaifnjlfnp');"/>
+
+  <command id="importSettingsCmd"
+    label="&foxyproxy.importsettings.label2;"
+    accesskey="&foxyproxy.importsettings.accesskey;"
+    oncommand="importSettings();" />
+
+  <command id="exportSettingsCmd"
+    label="&foxyproxy.exportsettings.label2;"
+    accesskey="&foxyproxy.exportsettings.accesskey;"
+    oncommand="exportSettings();" />
+
+  <!--<command id="importListCmd" label="&foxyproxy.importlist.label;"
+    accesskey="&foxyproxy.importlist.accesskey;"
+    tooltiptext="&foxyproxy.importlist.tooltip;"
+    oncommand="importProxyList();" />-->
+
+  <command id="aboutCmd" label="&foxyproxy.about.label;"
+    accesskey="&foxyproxy.about.accesskey;"
+    oncommand="window.openDialog('chrome://foxyproxy/content/about.xul', '', 'chrome, dialog, resizable=no, modal, centerscreen', {inn:{overlay:overlay}}).focus();" />
+
+  <command id="onlineCmd" label="&foxyproxy.online.label;"
+    accesskey="&foxyproxy.online.accesskey;"
+    oncommand="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/');" />
+  <command id="helpCmd" label="&foxyproxy.help.label;"
+    accesskey="&foxyproxy.help.accesskey;"
+    oncommand="fpc.openAndReuseOneTabPerURL('http://getfoxyproxy.org/' + (foxyproxy.isFoxyProxySimple() ? 'basic/' : '') + 'help.html');" />
+
+  <command id="proxyWizardCmd" label="&foxyproxy.proxy.wizard.label;"
+    accesskey="&foxyproxy.proxy.wizard.accesskey;"
+    oncommand="proxyWizard();" />
+
+  <command id="torWizardCmd" label="&foxyproxy.tor.label;"
+    accesskey="&foxyproxy.tor.accesskey;"
+    oncommand="overlay.torWizard();" />
+
+  <command id="autoAddPatternCmd" label="&foxyproxy.define.label;"
+    accesskey="&foxyproxy.define.accesskey;"
+    tooltiptext="&foxyproxy.define.tooltip;"
+    oncommand="onDefinePattern(foxyproxy.autoadd)"/>
+
+  <command id="blockedPagePatternCmd" label="&foxyproxy.define.label;"
+    accesskey="&foxyproxy.define.accesskey;"
+    tooltiptext="&foxyproxy.define.tooltip;"
+    oncommand="onBlockedPagePattern();"/>
+
+  <command id="quickAddPatternCmd" label="&foxyproxy.define.label;"
+    accesskey="&foxyproxy.define.accesskey;"
+    tooltiptext="&foxyproxy.define.tooltip;"
+    oncommand="onDefinePattern(foxyproxy.quickadd)"/>
+
+  <command id="resetSettingsCmd" label="&foxyproxy.resetlocation.label;"
+    accesskey="&foxyproxy.resetlocation.accesskey;"
+    tooltiptext="&foxyproxy.resetlocation.tooltip;"
+    oncommand="onResetSettingsURL()"/>
+
+  <broadcasterset>
+    <broadcaster id="tree-row-selected" disabled="true"/>
+    <broadcaster id="logtree-row-selected" disabled="true"/>
+    <broadcaster id="proxysubtree-row-selected" disabled="true"/>
+    <broadcaster id="patternsubtree-row-selected" disabled="true"/>
+    <broadcaster id="statusBarWidthBroadcaster" disabled="true"/>
+    <broadcaster id="autoAddBroadcaster" hidden="true"/>
+    <broadcaster id="quickAddBroadcaster" hidden="true"/>
+    <broadcaster id="notDefaultSettingsBroadcaster" hidden="true"/>
+  </broadcasterset>
+
+  <popupset>
+    <menupopup id="notifyWhenCanceledPopup"/>
+  </popupset>
+
+  <keyset>
+    <key id="esc-key" keycode="VK_ESCAPE" command="closeCmd"/>
+    <key id="kCloseMac" modifiers="accel" key="W" command="close()"/>
+  </keyset>
+</window>

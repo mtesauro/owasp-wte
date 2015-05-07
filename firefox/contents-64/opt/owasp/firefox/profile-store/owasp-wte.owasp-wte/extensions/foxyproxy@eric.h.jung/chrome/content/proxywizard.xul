@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<dialog windowtype="foxyproxy" id="proxywizard" buttons="accept,cancel"
+  ondialogaccept="return onOK();" ondialogcancel="return onCancel();"
+  title="&foxyproxy.standard.label; - &foxyproxy.proxy.wizard.label;"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  persist="screenX screenY" onload="onLoad();">
+
+  <script type="application/x-javascript;version=1.7" src="proxywizard.js"/>
+
+  <vbox>
+    <description width="600">
+      &foxyproxy.proxy.wizard.description1;
+      <html:a class="link" onclick="openLocationURL();">
+        &foxyproxy.proxy.wizard.description2;</html:a>.
+    </description>
+    <separator class="thin"/>
+    <vbox>
+      <label value="&foxyproxy.proxy.wizard.subscriptionID.label;"
+        control="subscriptionID"
+        tooltiptext="&foxyproxy.proxy.wizard.subscriptionID.tooltip;"/>
+      <textbox id="subscriptionID" flex="1"/>
+      <separator class="thin"/>
+      <label value="&foxyproxy.proxy.wizard.loading.label;" collapsed="true"
+        id="loadHint"/>
+    </vbox>
+  </vbox>
+</dialog>

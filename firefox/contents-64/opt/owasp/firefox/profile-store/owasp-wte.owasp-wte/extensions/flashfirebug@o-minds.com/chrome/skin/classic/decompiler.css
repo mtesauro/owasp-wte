@@ -1,0 +1,378 @@
+.isSpecial {
+	border-color: #f0f;
+	background-color: #f0f !important;
+}
+
+.flb-dec-InfoBody {
+	margin:10px;
+}
+
+.flb-dec-twisty {
+	display:inline-block;
+	width: 11px;
+	height: 11px;
+	background-image: url(chrome://firebug/skin/win/twistyOpen.png);
+    background-repeat: no-repeat;
+	padding-left: 5px;
+}
+
+.flb-dec-twisty.closed {
+	background-image: url(chrome://firebug/skin/win/twistyClosed.png);
+}
+
+.flb-dec-clear {
+	clear:both;
+	font-size: 1px;
+	height: 0;
+	line-height: 0;
+}
+
+.flb-dec-hidden {
+	visibility:collapse;
+}
+
+.flb-dec-loading {
+    width: 16px;
+    height: 16px;
+    background: url(chrome://firebug/skin/loading_16.gif) no-repeat;
+	padding-left: 20px;
+	white-space:nowrap;
+}
+
+.flb-dec-text {
+	font: 13px Georgia,Times, 'Liberation Serif', serif;
+	font-weight:bold;
+	color: #333;
+	margin:5px;
+}
+.flb-dec-textGroup {
+	margin-bottom: 10px;
+}
+
+.flb-dec-swatchTitle {
+	display:inline;
+}
+.flb-dec-swatch {
+	border:1px solid #ccc;
+	margin:0 5px 0 5px;
+    width: 10px;
+    height: 10px;
+    display:inline-block;
+}
+
+.flb-dec-font-row {
+	padding: 0 10px 10px 0;
+    font-family: Lucida Grande, Tahoma, sans-serif;
+    font-weight: bold;
+    vertical-align: top;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.flb-dec-font-box {
+	margin:0;
+}
+
+.flb-dec-font-copy {
+	color: #666666;
+    font-weight: normal;
+}
+
+.flb-dec-morph-box {
+	min-width: 100px;
+    text-align: center;
+	margin:10px;
+	float:left;
+	display:block;
+	padding:2px;
+	border:1px solid #CCC;
+}
+
+.flb-dec-thumb-box {
+    min-width: 100px;
+	/*min-height: 85px;
+    height: 140px;*/
+    text-align: center;
+	margin:10px;
+	float:left;
+	display:block;
+	padding:2px;
+	border:1px solid #E8E8E8;
+}
+
+/* Hard to find tags */
+.flb-dec-thumb-box[title=defineMorphShape2],
+.flb-dec-thumb-box[title=defineBitsJPEG4],
+.flb-dec-thumb-box[title=defineSound_0],
+.flb-dec-thumb-box[title=defineSound_11],
+.flb-dec-thumb-box[title=defineVideoStream_6],
+.flb-dec-thumb-box[title=defineVideoStream_7] {
+	background-color: #FEFC9C;
+}
+
+/* Unsupported tags */
+/*.flb-dec-thumb-box[title=defineVideoStream_6],
+.flb-dec-thumb-box[title=defineVideoStream_7],
+.flb-dec-thumb-box[title=defineSound_1],
+.flb-dec-thumb-box[title=defineSound_4],
+.flb-dec-thumb-box[title=defineSound_5],
+.flb-dec-thumb-box[title=defineSound_6] {
+	background-color: #FF8080;
+}*/
+
+.flb-dec-thumb-caption {
+    font: message-box;
+}
+
+.flb-dec-thumb-export {
+	display: inline-block;
+	background: -moz-linear-gradient(#6991D4, #3366BB, #3366BB) repeat scroll 0 0 transparent;
+	border-color: #3388FF #3366BB #163C7D;
+    border-left: 1px solid #3366BB;
+    border-radius: 3px 3px 3px 3px;
+    border-right: 1px solid #3366BB;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+	cursor: pointer;
+	font-family: Arial,Verdana,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 5px;
+    padding: 0 9px;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.flb-dec-thumb-export:hover {
+    background: -moz-linear-gradient(#ADDB71, #88BB44, #88BB44, #88BB44) repeat scroll 0 0 transparent;
+    border-color: #9CC861 #88BB44 #6C9339;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.flb-dec-thumb-unsupported {
+    color: red;
+    font-weight: normal;
+}
+
+.flb-dec-sound-control {
+	width: 300px;
+	overflow: hidden;
+	height: 40px;
+}
+
+.flb-dec-sound-control audio {
+	margin-top: 12px;
+}
+
+.flb-dec-thumb-box2 {
+	display:inline;
+}
+
+.flb-dec-image-box {
+	display:inline-block;
+	padding: 10px;
+	background: url(chrome://flashbug/skin/checkerboard.png);
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Flash Panel Firebug */
+
+.disabledPanelBoxIcon {
+	background-image: url(chrome://flashbug/skin/icon32.png);
+}
+
+/* API Panel */
+
+
+
+
+/* Flash Panel */
+
+ul#base {
+	background:none repeat scroll 0 0 transparent;
+	display:table;
+	margin-left:0;
+	margin-right:0;
+	min-width:100%;
+    -moz-user-select:none;
+}
+
+ul#base object, ul#base img, ul#base a {
+	outline:none;
+}
+
+ul.flash-dec-tree {
+	list-style-type:none;
+	margin:0 0 0 5px;
+	padding:0;
+	/*background:url(chrome://flashbug/skin/inspector/dot.gif) 6px 1px repeat-y;*/
+}
+
+.flash-dec-tree li {
+	clear:both;
+	display:table;
+	line-height:18px;
+	margin:-2px 0;
+	min-height:18px;
+	padding:2px 0 2px 10px;
+	/*background:url(chrome://flashbug/skin/inspector/dots.png) 6px 1px no-repeat;
+	background-color: transparent;*/
+}
+
+/* Twisty */
+.flash-dec-tree li.hasChildren > .flash-dec-twisty {
+	background-image: url(chrome://firebug/skin/win/twistyClosed.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px;
+	display:inline-block;
+	width:15px;
+	height:15px;
+	min-height: 12px;
+}
+.flash-dec-tree li.hasChildren.opened > .flash-dec-twisty {
+	background-image: url(chrome://firebug/skin/win/twistyOpen.png);
+}
+
+/* Twisty */
+.tree li.hasChildren > .twisty2 {
+	background-image: url(chrome://firebug/skin/win/twistyClosed.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px;
+	display:inline-block;
+	width:15px;
+	height:15px;
+	min-height: 12px;
+}
+.tree li.hasChildren.opened > .twisty2 {
+	background-image: url(chrome://firebug/skin/win/twistyOpen.png);
+}
+
+/* Loading */
+.flb-dec-loading {
+	background-image: url(chrome://firebug/skin/loading_16.gif);
+	background-repeat: no-repeat;
+	width:16px;
+	height:16px;
+	min-height: 16px;
+	margin-left: 20px;
+}
+
+/* Children */
+.flash-dec-tree li.hasChildren > ul {
+	display:none;
+}
+.flash-dec-tree li.hasChildren.opened > ul {
+	display:block;
+	padding: 0;
+}
+
+.flash-dec-tree li:last-child {
+	overflow:visible;
+	float:left;
+    background-color: #FFF;
+}
+
+.flash-dec-tree li a { 
+	color:black;
+	display:inline-block;
+	height:16px;
+	line-height:16px;
+	margin:0;
+	padding:3px 3px;
+	text-decoration:none;
+	white-space:nowrap;
+	padding-left: 20px;
+	-moz-border-radius: 3px;
+	background:transparent url(chrome://flashbug/skin/inspector/default.png) 0 center no-repeat;
+}
+
+.flash-dec-tree li a:hover, .flash-dec-tree li a.selected {
+	border-color: #39f;
+	background-color: #39f !important;
+	color: #fff;
+}
+
+.flash-dec-tree li a.hovered {
+	border:2px solid #39f !important;
+	background-color: #C4F4FF !important;
+	color: #000 !important;
+}
+
+/*----------------------------------------- icons --------------------------------------------------------------*/
+
+.flash-dec-tree li a.none { background: transparent; }
+.flash-dec-tree li a.Folder { background: transparent url(chrome://flashbug/skin/inspector/folder.png) center left no-repeat; }
+.flash-dec-tree li.hasChildren.opened > a.Folder {
+	background-image: url(chrome://flashbug/skin/inspector/folder_open.png);
+}
+.flash-dec-tree li a.Frame { background: transparent url(chrome://flashbug/skin/inspector/Frame.png) center left no-repeat; }
+
+
+/* Files Icons */
+.flash-dec-tree li a.swf 			{ background: transparent url(chrome://flashbug/skin/inspector/SWF.png) center left no-repeat; }
+.flash-dec-tree li a.swc 			{ background: transparent url(chrome://flashbug/skin/inspector/SWC.png) center left no-repeat; }
+.flash-dec-tree li a.swz 			{ background: transparent url(chrome://flashbug/skin/inspector/SWZ.png) center left no-repeat; }
+.flash-dec-tree li a.PixelBender 	{ background: transparent url(chrome://flashbug/skin/inspector/PixelBender.png) center left no-repeat; }
+.flash-dec-tree li a.fla 			{ background: transparent url(chrome://flashbug/skin/inspector/fla.png) center left no-repeat; }
+.flash-dec-tree li a.swfdis 		{ background: transparent url(chrome://flashbug/skin/inspector/swfdis.png) center left no-repeat; }
+.flash-dec-tree li a.Error 		{ background: transparent url(chrome://flashbug/skin/dialog-warning.png) center left no-repeat; }
+.flash-dec-tree li a.XML 			{ background: transparent url(chrome://flashbug/skin/xml.png) center left no-repeat; }
+.flash-dec-tree li a.BinaryBitmap 			{ background: transparent url(chrome://flashbug/skin/inspector/Bitmap.png) center left no-repeat; }
+
+/* Main Display Objects Type Icons */
+.flash-dec-tree li a.Font { background: transparent url(chrome://flashbug/skin/inspector/Font.png) center left no-repeat; }
+.flash-dec-tree li a.Sprite { background: transparent url(chrome://flashbug/skin/inspector/Sprite.png) center left no-repeat; }
+.flash-dec-tree li a.MovieClip { background: transparent url(chrome://flashbug/skin/inspector/MovieClip.png) center left no-repeat; }
+.flash-dec-tree li a.SimpleButton { background: transparent url(chrome://flashbug/skin/inspector/SimpleButton.png) center left no-repeat; }
+.flash-dec-tree li a.TextField { background: transparent url(chrome://flashbug/skin/inspector/TextField.png) center left no-repeat; }
+.flash-dec-tree li a.StaticText { background: transparent url(chrome://flashbug/skin/inspector/StaticText.png) center left no-repeat; }
+.flash-dec-tree li a.Shape { background: transparent url(chrome://flashbug/skin/inspector/Shape.png) center left no-repeat; }
+.flash-dec-tree li a.MorphShape { background: transparent url(chrome://flashbug/skin/inspector/MorphShape.png) center left no-repeat; }
+.flash-dec-tree li a.Bitmap { background: transparent url(chrome://flashbug/skin/inspector/Bitmap.png) center left no-repeat; }
+.flash-dec-tree li a.Loader { background: transparent url(chrome://flashbug/skin/inspector/fla.png) center left no-repeat; }
+.flash-dec-tree li a.Video { background: transparent url(chrome://flashbug/skin/inspector/Video.png) center left no-repeat; }
+.flash-dec-tree li a.Sound { background: transparent url(chrome://flashbug/skin/inspector/Sound.png) center left no-repeat; }
+.flash-dec-tree li a.StreamSound { background: transparent url(chrome://flashbug/skin/inspector/Sound.png) center left no-repeat; }
+
+
+/* UI Components Type Icons */
+.flash-dec-tree li a.Button { background-image: url(chrome://flashbug/skin/inspector/UIComponents/Button.png) }
+.flash-dec-tree li a.CheckBox { background-image: url(chrome://flashbug/skin/inspector/UIComponents/CheckBox.png) }
+.flash-dec-tree li a.Label { background-image: url(chrome://flashbug/skin/inspector/UIComponents/Label.gif) }
+.flash-dec-tree li a.ColorPicker { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ColorPicker.gif) }
+.flash-dec-tree li a.ComboBox { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ComboBox.gif) }
+.flash-dec-tree li a.DataGrid { background-image: url(chrome://flashbug/skin/inspector/UIComponents/DataGrid.gif) }
+.flash-dec-tree li a.List { background-image: url(chrome://flashbug/skin/inspector/UIComponents/List.png) }
+.flash-dec-tree li a.NumericStepper { background-image: url(chrome://flashbug/skin/inspector/UIComponents/NumericStepper.gif) }
+.flash-dec-tree li a.ProgressBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ProgressBar.gif) }
+.flash-dec-tree li a.VolumeBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/VolumeBar.png) }
+.flash-dec-tree li a.RadioButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/RadioButton.gif) }
+.flash-dec-tree li a.ScrollPane { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ScrollPane.gif) }
+.flash-dec-tree li a.Slider { background-image: url(chrome://flashbug/skin/inspector/UIComponents/Slider.gif) }
+.flash-dec-tree li a.TextArea { background-image: url(chrome://flashbug/skin/inspector/UIComponents/TextArea.gif) }
+.flash-dec-tree li a.TextInput { background-image: url(chrome://flashbug/skin/inspector/UIComponents/TextInput.gif) }
+.flash-dec-tree li a.TileList { background-image: url(chrome://flashbug/skin/inspector/UIComponents/TileList.gif) }
+.flash-dec-tree li a.UILoader { background-image: url(chrome://flashbug/skin/inspector/UIComponents/UILoader.gif) }
+.flash-dec-tree li a.UIScrollBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/UIScrollBar.gif) }
+.flash-dec-tree li a.PauseButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/PauseButton.png) }
+.flash-dec-tree li a.PlayButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/PlayButton.png) }
+.flash-dec-tree li a.PlayPauseButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/PlayPauseButton.png) }
+.flash-dec-tree li a.StopButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/StopButton.png) }
+.flash-dec-tree li a.BackButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/BackButton.png) }
+.flash-dec-tree li a.ForwardButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/ForwardButton.png) }
+.flash-dec-tree li a.MuteButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/MuteButton.png) }
+.flash-dec-tree li a.CaptionButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/CaptionButton.png) }
+.flash-dec-tree li a.FullScreenButton { background-image: url(chrome://flashbug/skin/inspector/UIComponents/FullScreenButton.png) }
+.flash-dec-tree li a.BufferingBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/BufferingBar.png) }
+.flash-dec-tree li a.SeekBar { background-image: url(chrome://flashbug/skin/inspector/UIComponents/SeekBar.png) }
+.flash-dec-tree li a.FLVPlayback { background-image: url(chrome://flashbug/skin/inspector/UIComponents/FLVPlayback.gif) }
+.flash-dec-tree li a.FLVPlaybackCaptioning { background-image: url(chrome://flashbug/skin/inspector/UIComponents/FLVPlaybackCaptioning.gif) }
+
+/* wait */
+.flash-dec-tree li a.wait { background: url(chrome://firebug/skin/loading_16.gif) no-repeat; }

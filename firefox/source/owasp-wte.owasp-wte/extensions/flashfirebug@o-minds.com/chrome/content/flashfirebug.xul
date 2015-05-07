@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://flashbug/skin/flashbug.css"?>
+
+<overlay xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script type="application/x-javascript" src="chrome://flashbug/content/lib/jquery.js" />
+	<script type="application/x-javascript"
+		src="chrome://flashbug/content/lib/jquery.autocomplete.js" />
+	<script type="application/x-javascript">
+		$FQuery = jQuery.noConflict();
+        </script>
+        <script type="application/x-javascript" src="chrome://flashbug/content/lib.js" />
+	<!-- Used for SWF, AMF and SOL -->
+	<script type="application/x-javascript" src="chrome://flashbug/content/lib/ByteArrayString.js" />
+
+	<!-- Used for AMF and SOL -->
+	<script type="application/x-javascript" src="chrome://flashbug/content/lib/AMF3.js" />
+	<script type="application/x-javascript" src="chrome://flashbug/content/lib/AMF0.js" />
+
+	<!-- Output Panel(原Flashbug的Console Panel) -->
+	<script type="application/x-javascript" src="chrome://flashbug/content/ConsolePanel.js" />
+
+	<!-- Shared Object Panel -->
+	<script type="application/x-javascript" src="chrome://flashbug/content/SharedObjectPanel.js" />
+
+	<!-- AMF Tab -->
+	<script type="application/x-javascript" src="chrome://flashbug/content/AMFInfoTab.js" />
+
+	<!--flashinspector工具 -->
+	<script type="application/x-javascript" src="chrome://flashbug/content/lib/tracelistener.js" />
+	<script type="application/x-javascript" src="chrome://flashbug/content/lib/JSInjector.js" />
+	<!-- <script type="application/x-javascript" src="chrome://flashbug/content/output.js" 
+		/> -->
+        <script type="application/x-javascript" src="chrome://flashbug/content/console.js" />
+	<script type="application/x-javascript" src="chrome://flashbug/content/properties.js" />
+	<script type="application/x-javascript" src="chrome://flashbug/content/general.js" />
+	<!--********************** -->
+
+	<!-- Decompile Panel -->
+	<script type="application/x-javascript" src="chrome://flashbug/content/DecompilePanel.js" />
+	<script type="application/x-javascript" src="chrome://flashbug/content/DecompileTreePanel.js" />
+
+	<!-- flashfirebug, rule them all -->
+	<script type="application/x-javascript" src="chrome://flashbug/content/flashfirebug.js" />
+
+	<script type="application/x-javascript">
+		function
+		flashfirebug_activatePro(isDebug, isPro,email,key,sender, oldUser, expDate, callOrder){
+		Firebug.FlashModule.activatePro({isDebug: isDebug,isPro:isPro,email:email,key:key,sender:sender,oldUser:oldUser,expDate:expDate,callOrder:callOrder});
+		}
+	</script>
+        <script type="application/x-javascript" src="chrome://flashbug/content/InspectorPanel.js" />
+
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="strings_flashbug"
+			src="chrome://flashbug/locale/flashbug.properties" />
+	</stringbundleset>
+
+	<commandset id="mainCommandSet">
+		<command id="cmd_flbClear"
+			oncommand="Firebug.ConsoleModule.onClear(Flashbug.getContext())" />
+		<command id="cmd_flbPause"
+			oncommand="Firebug.ConsoleModule.onPause(Flashbug.getContext())" />
+		<command id="cmd_flbPlay"
+			oncommand="Firebug.ConsoleModule.onPlay(Flashbug.getContext())" />
+		<command id="cmd_flbOpen"
+			oncommand="Firebug.ConsoleModule.onOpen(Flashbug.getContext())" />
+		<command id="cmd_flbAutoscroll"
+			oncommand="Firebug.ConsoleModule.toggleAutoScroll(Firebug.chrome.$('flbAutoscroll').checked)" />
+		<command id="cmd_flbRefresh" oncommand="Firebug.SOLModule.refresh(Flashbug.getContext())" />
+		<command id="cmd_flbDelete"
+			oncommand="Firebug.SOLModule.deleteAll(Flashbug.getContext())" />
+		<command id="cmd_flbInspect" oncommand="Firebug.FlashModule.toggleInspect()" />
+
+		<command id="cmd_ffbUpgrade" oncommand="Firebug.FlashfirebugModel.upgrade()" />
+		<command id="cmd_ffbInspectTool" oncommand="Firebug.FlashfirebugModel.switchToTool('ffbug')" />
+		<command id="cmd_ffbDecompileTool"
+			oncommand="Firebug.FlashfirebugModel.switchToTool('flashDecompiler')" />
+		<command id="cmd_ffbSOLTool"
+			oncommand="Firebug.FlashfirebugModel.switchToTool('flashSharedObjects')" />
+		<command id="cmd_ffbOutputTool"
+			oncommand="Firebug.FlashfirebugModel.switchToTool('flashConsole')" />
+
+		<command id="cmd_flashInspector" oncommand="Firebug.FlashModule.toggleInspector()" />
+                <command id="cmd_flashProfiler" oncommand="Firebug.FlashModule.toggleProfiler()" />
+		<command id="cmd_flashTranfomer" oncommand="Firebug.FlashModule.toggleTransformer()" />
+		<command id="cmd_flashWatch" oncommand="Firebug.FlashModule.toggleWatch()" />
+		<command id="cmd_flashConnect"
+			oncommand="Firebug.FlashModule.connectFlash(FBL.getTabBrowser().contentDocument)" />
+		<command id="cmd_flashActivate"
+			oncommand="Firebug.FlashModule.unlockPro()" />
+	</commandset>
+
+	<hbox id="fbToolbarInner" insertbefore="fbDetachButton" class="innerToolbar"
+		flex="1" align="center">
+		<!--flashfirebug的三个工具按钮:Inspector, Decompiler, SharedObject -->
+		<hbox id="fbFlashfirebugButtons" insertafter="fbNetButtons"
+			collapsed="true">
+			<toolbarbutton id="ffbUpgradeButton" label="flashbug.tool.upgrade.label"
+				class="toolbar-text-button upgrade-button" tooltiptext="flashbug.tool.upgrade.tooltip"
+				command="cmd_ffbUpgrade" />
+			<toolbarbutton id="ffbInspectToolButton" label="flashbug.tool.inspector.label"
+				class="toolbar-text-button" tooltiptext="flashbug.tool.inspector.tooltip"
+				command="cmd_ffbInspectTool" />
+			<toolbarbutton id="ffbDecompileToolButton" label="flashbug.tool.decompiler.label"
+				class="toolbar-text-button" tooltiptext="flashbug.tool.decompiler.tooltip" command="cmd_ffbDecompileTool" />
+			<toolbarbutton id="ffbSOLToolButton" label="flashbug.tool.sol.label"
+				class="toolbar-text-button" tooltiptext="flashbug.tool.sol.tooltip" command="cmd_ffbSOLTool" />
+			<toolbarbutton id="ffbOutputToolButton" label="flashbug.tool.output.label"
+				class="toolbar-text-button" tooltiptext="flashbug.tool.output.tooltip" command="cmd_ffbOutputTool" />
+			<toolbarseparator />
+		</hbox>
+
+		<hbox id="fbFlashbugSOButtons" insertafter="fbFlashfirebugButtons"
+			collapsed="true">
+			<toolbarbutton id="flbRefresh" label="flashbug.menu.refresh"
+				class="toolbar-text-button" tooltiptext="flashbug.menu.refreshToolTip"
+				command="cmd_flbRefresh" />
+			<toolbarbutton id="flbDeleteAll" label="flashbug.menu.delete"
+				class="toolbar-text-button" tooltiptext="flashbug.menu.deleteToolTip"
+				command="cmd_flbDelete" />
+		</hbox>
+
+		<hbox id="fbFlashbugVersion" insertafter="fbDebuggerButtons"
+			collapsed="true" flex="1" align="right">
+			<description id="flbVersion" value="flashbug.menu.detecting"
+				disabled="true" style="padding-top: 4px;" />
+			<label id="fbFlashbugDownload" value="flashbug.menu.getdebugger"
+				class="text-link" href="http://www.adobe.com/support/flashplayer/downloads.html" />
+		</hbox>
+
+		<!--Flashfirebug的inspector -->
+		<hbox id="fbFlashbugInspectButtons" insertafter="fbFlashfirebugButtons"
+			collapsed="true">
+			<toolbarbutton id="ffbugversion" collapsed="true"
+				insertafter="flashInspector" disabled="true">
+			</toolbarbutton>
+			<toolbarbutton id="flashInspector"
+				tooltiptext="flashbug.tool.inspector.inspect.tooltip"
+				command="cmd_flashInspector" disabled="true"
+				image="chrome://flashbug/content/themes/default/images/inspectordis.png" />
+			<toolbarbutton id="flashProfiler"
+				tooltiptext="flashbug.tool.inspector.profile.tooltip"
+				command="cmd_flashProfiler" disabled="true"
+				image="chrome://flashbug/content/themes/default/images/profiler_tool_dis.png" />
+			<toolbarbutton id="flashTransformer"
+				tooltiptext="flashbug.tool.inspector.transform.tooltip" command="cmd_flashTranfomer"
+				disabled="true"
+				image="chrome://flashbug/content/themes/default/images/transform_tooldis.png" />
+			<toolbarbutton id="flashWatcher"
+				tooltiptext="flashbug.tool.inspector.watcher.tooltip"
+				command="cmd_flashWatch" disabled="true"
+				image="chrome://flashbug/content/themes/default/images/flash_watchdis.png" />
+			<toolbarbutton id="flashConnect" tooltiptext="flashbug.tool.inspector.connect.tooltip"
+				command="cmd_flashConnect" disabled="false"
+				image="chrome://flashbug/content/themes/default/images/flash_connect.png" />
+			<toolbarbutton id="flashActivate" tooltiptext="flashbug.tool.inspector.activate.tooltip"
+				command="cmd_flashActivate" disabled="false"
+				image="chrome://flashbug/content/themes/default/images/flash_activate.png" />
+		</hbox>
+
+		<!--原来Flashbug的output界面 -->
+		<hbox id="fbFlashbugButtons" insertafter="fbFlashfirebugButtons"
+			collapsed="true">
+			<toolbarbutton id="flbPlay" class="" tooltiptext="flashbug.logPanel.toolbar.play"
+				collapsed="true" image="chrome://flashbug/skin/play.png" command="cmd_flbPlay" />
+			<toolbarbutton id="flbPause" class="" tooltiptext="flashbug.logPanel.toolbar.pause"
+				collapsed="false" image="chrome://flashbug/skin/pause.png" command="cmd_flbPause" />
+			<toolbarbutton id="flbClear" label="flashbug.menu.clear"
+				class="toolbar-text-button" tooltiptext="flashbug.menu.clearToolTip"
+				command="cmd_flbClear" />
+			<toolbarbutton id="flbOpen" label="flashbug.menu.open"
+				class="toolbar-text-button" tooltiptext="flashbug.menu.openToolTip"
+				command="cmd_flbOpen" />
+			<hbox id="fbFlashbugButtonsFilter" class="noTabStop">
+				<toolbarseparator />
+				<toolbarbutton id="flashbugLogFilter-trace" label="flashbug.menu.trace"
+					type="radio" class="toolbar-text-button" tooltiptext="flashbug.menu.traceToolTip"
+					group="flashbugLogFilter" checked="true"
+					oncommand="Firebug.ConsoleModule.onSelectLog(Flashbug.getContext(), 
+			'Trace')" />
+				<toolbarbutton id="flashbugLogFilter-policy" label="flashbug.menu.policy"
+					type="radio" class="toolbar-text-button" tooltiptext="flashbug.menu.policyToolTip"
+					group="flashbugLogFilter"
+					oncommand="Firebug.ConsoleModule.onSelectLog(Flashbug.getContext(), 
+			'Policy')" />
+			</hbox>
+			<toolbarseparator></toolbarseparator>
+			<checkbox label="Auto Scroll" id="flbAutoscroll" command="cmd_flbAutoscroll"></checkbox>
+		</hbox>
+	</hbox>
+
+    <popupset id="mainPopupSet">
+        <menupopup id="ffbConsoleContextMenu" position="at_pointer" onpopupshowing="Firebug.FlashModuleConsole.onConsoleContextMenu()">
+            <menuitem label="copy" accesskey="" oncommand="Firebug.FlashModuleConsole.onSelectConsoleContextMenuItem('copy')"/>
+        </menupopup>
+    </popupset>
+</overlay>

@@ -1,0 +1,10 @@
+Package: owasp-wte-firefox
+Section: misc
+Priority: 
+Maintainer: Matt Tesauro <matt.tesauro@owasp.org>
+Architecture: i386
+Version: 21.0
+Depends: firefox | iceweasel, screen, libnotify-bin
+Description: The WTE version of Firefox comes packed with App Sec addons.
+ It is also preconfigured for all the reverse proxies which are among the 
+ packages created for OWASP Web Testing Environment (WTE).

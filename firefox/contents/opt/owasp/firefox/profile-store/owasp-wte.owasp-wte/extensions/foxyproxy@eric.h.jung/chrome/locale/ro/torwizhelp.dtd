@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Ajutor FoxyProxy">
+<!ENTITY help.patterns "Șabloane adresă">
+<!ENTITY help.ff.asks "Înainte de a se încărca o adresă, dacă ar trebui să fie utilizat un proxy, Firefox va interoga FoxyProxy.">
+<!ENTITY help.fp.answers "FoxyProxy răspunde la această interogare încercând să potrivească adresa curentă cu toate șabloanele de adresă definite mai jos. Cel mai simplu mod de a specifica șabloane este cel cu metacaractere (*, ?).">
+<!ENTITY help.a.wildcards "Metacaractere">
+<!ENTITY help.p.wildcards.are "Metacaracterele sunt omniprezente pretutindeni în lumea calculatoarelor, cel mai probabil le-ați mai văzut înainte. Asteriscul (*) înlocuiește ca metacaracter zero sau mai multe caractere, iar semnul de întrebare (?) înlocuiește un singur caracter.">
+<!ENTITY help.p.regexp "Reguli mai avansate de potrivire sunt posibile folosind expresii regulate. Pentru detalii, faceți clic pe butonul „Ajutor“.">
+<!ENTITY help.h4.wildcard.examples "Exemple cu metacaractere">
+<!ENTITY help.th.url.pattern "Șablon adresă">
+<!ENTITY help.th.some.matches "Câteva potriviri">
+<!ENTITY help.th.some.non.matches "Câteva nepotriviri">
+<!ENTITY help.td.everything.in.y "Orice în domeniul Yahoo">
+<!ENTITY help.i.matches.everything "Potrivire cu orice">

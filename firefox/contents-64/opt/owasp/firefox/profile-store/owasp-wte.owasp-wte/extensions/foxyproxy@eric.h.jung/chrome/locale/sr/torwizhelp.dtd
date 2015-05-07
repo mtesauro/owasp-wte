@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Помоћ за Фоксипрокси">
+<!ENTITY help.patterns "URL шаблони">
+<!ENTITY help.ff.asks "Пре него Фајерфокс учита URL, прво пита Фоксипроксија да ли треба користити прокси.">
+<!ENTITY help.fp.answers "Фоксипрокси одговара тако што покушава да пронађе подударање тренутног URL-а и задатог шаблона URL-а. Најједноставније је користити џокер знаке.">
+<!ENTITY help.a.wildcards "Џокер знаци">
+<!ENTITY help.p.wildcards.are "Џокер знаци се често користе на рачунарима, па сте их, вероватно, већ видели. Звездица (*) замењује један или више џокер знакова, а упитник (?) замењује било који знак.">
+<!ENTITY help.p.regexp "Могуће је користити напредна правила коришћењем регуларних израза. За више детаља, притисните дугме „Помоћ”.">
+<!ENTITY help.h4.wildcard.examples "Примери џокер знакова">
+<!ENTITY help.th.url.pattern "URL шаблон">
+<!ENTITY help.th.some.matches "Нека поклапања">
+<!ENTITY help.th.some.non.matches "Нека непоклапања">
+<!ENTITY help.td.everything.in.y "Све у Yahoo-овом домену">
+<!ENTITY help.i.matches.everything "Поклапање свега">

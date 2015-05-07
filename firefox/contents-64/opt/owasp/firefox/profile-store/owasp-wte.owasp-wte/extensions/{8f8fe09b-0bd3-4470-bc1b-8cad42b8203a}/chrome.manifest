@@ -1,0 +1,38 @@
+
+overlay	chrome://navigator/content/pageInfo.xul	chrome://livehttpheaders/content/PageInfoOverlay.xul
+overlay	chrome://navigator/content/pageinfo/pageInfo.xul	chrome://livehttpheaders/content/PageInfoOverlay.xul
+overlay	chrome://communicator/content/tasksOverlay.xul	chrome://livehttpheaders/content/TasksOverlay.xul
+overlay	chrome://browser/content/pageInfo.xul	chrome://livehttpheaders/content/PageInfoOverlay.xul
+overlay chrome://browser/content/pageinfo/pageInfo.xul chrome://livehttpheaders/content/PageInfoOverlay.xul 
+overlay	chrome://browser/content/browser.xul	chrome://livehttpheaders/content/TasksOverlay.xul
+
+content	livehttpheaders	jar:chrome/livehttpheaders.jar!/content/
+style chrome://global/content/customizeToolbar.xul chrome://livehttpheaders/skin/livehttpheaders.css
+style chrome://browser/content/pageinfo/pageInfo.xul chrome://livehttpheaders/skin/livehttpheaders.css
+
+skin	livehttpheaders	classic/1.0	jar:chrome/livehttpheaders.jar!/skin/
+
+locale	livehttpheaders	en-US	jar:chrome/livehttpheaders.jar!/locale/en-US/livehttpheaders/
+
+locale	livehttpheaders	fr-FR	jar:chrome/livehttpheaders.jar!/locale/fr-FR/livehttpheaders/
+
+locale	livehttpheaders	de-AT	jar:chrome/livehttpheaders.jar!/locale/de-AT/livehttpheaders/
+
+locale	livehttpheaders	es-ES	jar:chrome/livehttpheaders.jar!/locale/es-ES/livehttpheaders/
+
+locale	livehttpheaders	cs-CZ	jar:chrome/livehttpheaders.jar!/locale/cs-CZ/livehttpheaders/
+
+locale	livehttpheaders	nl-NL	jar:chrome/livehttpheaders.jar!/locale/nl-NL/livehttpheaders/
+
+locale	livehttpheaders	ru-RU	jar:chrome/livehttpheaders.jar!/locale/ru-RU/livehttpheaders/
+
+locale	livehttpheaders	da-DK	jar:chrome/livehttpheaders.jar!/locale/da-DK/livehttpheaders/
+
+locale	livehttpheaders	ja	jar:chrome/livehttpheaders.jar!/locale/ja-JP/livehttpheaders/
+
+locale	livehttpheaders	hu-HU	jar:chrome/livehttpheaders.jar!/locale/hu-HU/livehttpheaders/
+
+component {d5598f0d-5eba-43bc-b8e1-342a23bce3ea} components/nsHeaderInfo.js
+contract @livehttpheaders.org/js_headerinfo;1 {d5598f0d-5eba-43bc-b8e1-342a23bce3ea}
+category profile-after-change nsHeaderInfoModule4 @livehttpheaders.org/js_headerinfo;1
+

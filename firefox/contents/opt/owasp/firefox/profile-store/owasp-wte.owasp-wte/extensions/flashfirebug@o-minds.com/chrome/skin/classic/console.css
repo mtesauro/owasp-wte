@@ -1,0 +1,95 @@
+/* Disabled panel instructions icon */
+.disabledPanelBox .descImage-flbConsole {
+	background-image: url(chrome://flashbug/skin/activation-menu-console.png);
+	width: 105px;
+}
+
+/* Firebug Panel */
+.panelNode-flbConsole {
+    overflow-x: hidden;
+}
+
+/* Log text blocks */
+.flb-trace-text {
+    display: none;
+	height: 100%;
+	overflow:auto;
+	position: relative;
+	z-index: 2;
+}
+
+.flb-trace-text[selected=true] {
+    display: block;
+}
+
+.flb-trace-disabled {
+	color: rgb(128, 128, 128);
+	position:absolute;
+	top:0px;
+	z-index: 1;
+
+	font-family: Monaco, monospace;
+	margin: 0;
+	padding: 2px 4px 1px 6px;
+}
+
+.flb-trace-panel {
+	position:relative;
+}
+
+/* Trace Row Styles */
+.flb-trace-row {
+	font-family: Monaco, monospace;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	position: relative;
+	margin: 0;
+	border-bottom: 1px solid #D7D7D7;
+	padding: 2px 4px 1px 6px;
+	background-color: #FFFFFF;
+	min-height:12px;
+}
+
+.flb-trace-row:hover {
+    background-color: #E8E8E8;
+}
+
+.flb-trace-info,
+.flb-trace-warning,
+.flb-trace-error {
+    padding-left: 22px;
+    background-repeat: no-repeat;
+    background-position: 4px 2px;
+}
+
+.flb-trace-info {
+	background-color: #EBF5FF;
+	background-image: url(chrome://firebug/skin/infoIcon.png);
+}
+
+.flb-trace-warning {
+	background-color: #FFFFC8;
+	background-image: url(chrome://firebug/skin/warningIcon.png);
+}
+
+.flb-trace-error {
+	color: #FF0000;
+	background-color: #FFEBEB;
+}
+
+.flb-trace-no-bottom-line {
+	border-bottom: 0px !important;
+}
+
+.flb-trace-error-icon {
+	background-image: url(chrome://firebug/skin/errorIcon.png);
+}
+
+.flb-trace-error-xml {
+    color: red;
+    padding-bottom: 15px;
+}
+
+.flb-trace-error-xml-source {
+    color: gray;
+}

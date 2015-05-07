@@ -1,0 +1,26 @@
+/**
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+**/
+/* CSS rules needed to style FoxyProxy appropriately for Songbird */
+treechildren::-moz-tree-checkbox(checked) {
+	list-style-image: url("chrome://songbird/skin/checkbox/checkbox-checkmark.png");
+}
+
+#foxyproxy-toolsmenu-popup menuitem[checked="true"], #foxyproxy-contextmenu-popup menuitem[checked="true"] {
+	list-style-image: url("chrome://songbird/skin/checkbox/menu-checkmark.png");
+}
+#foxyproxy-toolsmenu-popup menuitem:not([checked="true"]), #foxyproxy-contextmenu-popup menuitem:not([checked="true"]) {
+	list-style-image: none;
+}
+
+#foxyproxy-status-text {
+  min-height: 1.5em;
+  vertical-align: top;
+}

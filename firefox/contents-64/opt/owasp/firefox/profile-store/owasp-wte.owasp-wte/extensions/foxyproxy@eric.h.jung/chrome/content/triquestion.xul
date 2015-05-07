@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<window title="&foxyproxy.standard.label;" orient="vertical"
+  autostretch="always" onload="onLoad();"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:svg="http://www.w3.org/2000/svg" windowtype="foxyproxy"
+  style="margin: 1em;">
+
+  <script src="triquestion.js"/>
+
+  <description id="title" style="max-width: 40em;min-width: 40em;width:40em;"/>
+  <separator class="thin"/>
+  <box>
+    <spacer flex="1"/>
+    <button id="1" onclick="onOK(0)"/>
+    <button id="2" onclick="onOK(1)"/>
+    <button id="3" onclick="onOK(2)"/>
+  </box>
+
+  <keyset>
+    <key id="esc-key" keycode="VK_ESCAPE" command="close();" />
+    <key id="kCloseMac" modifiers="accel" key="W" command="close()" />
+  </keyset>
+    
+</window>

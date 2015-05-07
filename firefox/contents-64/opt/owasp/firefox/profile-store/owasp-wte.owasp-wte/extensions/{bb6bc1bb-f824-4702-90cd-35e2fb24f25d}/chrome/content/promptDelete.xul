@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<dialog	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+				onload="coomanPlus.load()"
+				ondialogextra2="coomanPlus.action(1)"
+				ondialogaccept="coomanPlus.action(2)"
+				ondialoghelp="coomanPlus.action(3)"
+				ondialogcancel="coomanPlus.action(0)"
+				ondialogextra1="coomanPlus.action(4)"
+				buttons="accept,extra1,help,extra2"
+				defaultButton="extra2"
+				buttonpack="center"
+				align="center"
+>
+	<stringbundle id="cookieBundle" src="chrome://cookiesmanagerplus/locale/coomanPlusPromptDelete.properties"/>
+	<script src="chrome://cookiesmanagerplus/content/promptDelete.js"/>
+
+	<vbox align="center">
+		<hbox>
+			<label id="warning_left"/>
+			<label id="warning_name" style="margin-left:0; margin-right: 0; font-weight:bold;"/>
+			<label id="warning_right"/>
+		</hbox>
+	</vbox>
+	<hbox>
+		<checkbox id="block" accessibleType="1003"/>
+	</hbox>
+	<hbox>
+		<checkbox id="dontshow" accessibleType="1003"/>
+	</hbox>
+</dialog>

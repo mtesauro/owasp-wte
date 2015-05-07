@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<?xul-overlay href="includes.xul"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+<dialog buttons="accept,cancel"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	id="foxyproxyquickadddlg2"
+  title="&foxyproxy.quickadd.label;"
+  ondialogaccept="return onOK();"
+  onload="onLoad();"
+  persist="screenX screenY"
+  windowtype="foxyproxy-superadd">
+
+<script src="superadd.js"/>
+  
+<groupbox>
+  
+<grid>
+	<columns>
+		<column/><column/><column/>
+	</columns>
+	<rows>  
+		<row align="center">              
+			<checkbox id="reload"
+				label="&foxyproxy.autoadd.reload.label;"
+				accesskey="&foxyproxy.autoadd.reload.accesskey;"
+				tooltiptext="&foxyproxy.autoadd.reload.tooltip;"/>
+      <checkbox id="notify"
+        label="&foxyproxy.quickadd.notify.label;"
+        accesskey="&foxyproxy.quickadd.notify.accesskey;"
+        tooltiptext="&foxyproxy.quickadd.notify.tooltip;"/>
+    </row>
+    <row align="center">						
+			<checkbox id="prompt"
+				label="&foxyproxy.quickadd.prompt.label;"
+				accesskey="&foxyproxy.quickadd.prompt.accesskey;"
+				tooltiptext="&foxyproxy.quickadd.prompt.tooltip;"/>
+      <checkbox id="notifyWhenCanceled" observes="autoAddBroadcaster"
+        label="&foxyproxy.quickadd.notify.whencanceled.label;"
+        accesskey="&foxyproxy.quickadd.notify.whencanceled.accesskey;"
+        tooltiptext="&foxyproxy.quickadd.notify.whencanceled.tooltip;"/>
+      <toolbarbutton class="foxyproxy-ref" observes="autoAddBroadcaster"
+        popup="notifyWhenCanceledPopup" tooltiptext="&foxyproxy.whatsthis;"/>   
+    </row>
+	</rows>
+</grid>
+</groupbox>
+<groupbox>
+	<grid>
+		<columns>
+		  <column/>
+			<column flex="1"/>
+			<column/>
+      <column/>
+		</columns>
+		<rows>
+			<row align="center">
+				<label
+					value="&foxyproxy.quickadd.proxy.label;"
+					tooltiptext="&foxyproxy.quickadd.proxy.tooltip;"
+					accesskey="&foxyproxy.quickadd.proxy.accesskey;"/>
+				<menulist id="proxyMenu" tooltiptext="&foxyproxy.quickadd.proxy.tooltip;">
+					<menupopup/>
+				</menulist>
+        <spacer/>
+        <spacer/>         
+			</row>
+			<row align="center">
+				<label value="&foxyproxy.pattern.template.currenturl.label;"
+					control="url" tooltiptext="&foxyproxy.pattern.template.currenturl.tooltip;" accesskey="&foxyproxy.pattern.template.currenturl.accesskey;"/>
+				<textbox id="url" tooltiptext="&foxyproxy.pattern.template.currenturl.tooltip;" type="timed" timeout="500"
+          oncommand="updateGeneratedPattern()"/>
+        <spacer/>
+			</row>
+			<row align="center">
+				<label value="&foxyproxy.pattern.template.generatedpattern.label;"
+					control="generatedPattern" tooltiptext="&foxyproxy.pattern.template.generatedpattern.tooltip;" accesskey="&foxyproxy.pattern.template.generatedpattern.accesskey;"/>
+				<textbox id="generatedPattern" tooltiptext="&foxyproxy.pattern.template.generatedpattern.tooltip;" style="font-weight: bold;"/>
+        <toolbarbutton class="foxyproxy-ref" popup="wildcardURLPatternReferencePopup" tooltiptext="&foxyproxy.wildcard.reference.tooltip;"/>
+			</row> 
+		</rows>
+	</grid>
+  <hbox align="center" observes="quickAddBroadcaster">
+    <label value="&foxyproxy.pattern.to.quickadd.label;" control="foxyproxy-quickadd-pattern-button"/>
+    <button id="foxyproxy-quickadd-pattern-button" command="patternCmd" label="&foxyproxy.define.label;" class="uncram-btn"/>
+  </hbox>
+</groupbox>
+
+<popupset>
+  <menupopup id="wildcardURLPatternReferencePopup"/>
+  <menupopup id="notifyWhenCanceledPopup"/>
+</popupset>
+
+<broadcasterset>
+  <broadcaster id="autoAddBroadcaster" hidden="false"/>  
+</broadcasterset>
+<command id="patternCmd" label="&foxyproxy.pattern.label;" oncommand="onPattern()"/>
+</dialog>

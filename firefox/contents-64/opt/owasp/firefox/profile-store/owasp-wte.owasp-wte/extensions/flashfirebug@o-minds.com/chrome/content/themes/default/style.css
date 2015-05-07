@@ -1,0 +1,159 @@
+@import "chrome://flashfirebug/content/themes/default/panel.css";
+/* ---------------------------------------------------------- tree */
+.panel-msg{
+    margin:50px 10% 0;
+}
+
+#connect-flash{
+	padding:0 0 0 20px;
+	background:url("chrome://flashfirebug/content/themes/default/images/flash_connect.png") no-repeat;
+}
+
+ul#base,ul#base ul{
+    list-style-type:none;
+/*    margin:0 0 0 5px;*/
+    padding:0;
+    /*background:url("chrome://flashfirebug/content/themes/default/images/dot.gif") 6px 1px repeat-y;*/
+}
+
+ul#base {
+    margin-top: 5px;
+    background-image:none;
+    -moz-user-select:none;
+}
+
+ul#base object,ul#base img,ul#base a{
+    outline:none;
+}
+
+ul#base li {
+    clear:both;
+    display:block;
+    line-height:18px;
+    /*margin:0;*/
+    min-height:18px;
+    padding:0 0 0 15px;
+    /*background:url("chrome://flashfirebug/content/themes/default/images/dots.png") 6px 1px no-repeat;*/
+    background-color: transparent;
+}
+
+ul#base li a:hover,ul#base li a.selected,ul#base li a.hover {
+    background-color:#CECEFF;
+}
+
+ul#base li:last-child{
+    overflow:visible;
+    float:left;
+    background-color: #FFF;
+}
+
+ul#base li a{ 
+    color:black;
+    display:inline-block;
+    height:16px;
+    line-height:16px;
+    margin:0;
+    padding:1px 4px;
+    text-decoration:none;
+    white-space:nowrap;
+}
+
+ul#base span.obj-class{
+    color: #777;
+}
+ul#base a:hover span,ul#base a.selected span,ul#base a.hover span{
+    display: inline;
+}
+
+ul#base li.hasChildren {
+    background: url(chrome://flashfirebug/content/themes/default/images/ConClosed.png) 2px 4px no-repeat; 
+}
+ul#base li.hasChildren.isOpened{
+    background: url(chrome://flashfirebug/content/themes/default/images/ConOpened.png) 2px 4px no-repeat; 
+}
+
+ul#base li.hasChildren > ul {
+    display:none;
+}
+
+ul#base li.byffbug {
+    opacity:0.7;
+}
+
+ul#base li.byffbug a,ul#base li.byffbug a:hover{
+    background-color: transparent !important;
+    cursor: default;
+}
+/*----------------------------------------- icons --------------------------------------------------------------*/
+
+/* Default */
+ul#base li ins{  
+    display:inline-block;
+    height:16px;
+    text-decoration:none;
+    width:16px;
+    margin:0 2px 0 0;
+    background:transparent url(chrome://flashfirebug/content/themes/default/images/default.png) 0 center no-repeat;
+}
+
+/* Default icon */
+ul#base li > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/Sprite.png) }
+
+/* Files Icons */
+ul#base li.swf > a > ins{ background-image: url(chrome://flashfirebug/content/themes/default/images/Files/swf.png);}
+ul#base li.swfdis > a > ins{ background-image: url(chrome://flashfirebug/content/themes/default/images/Files/swfdis.png);}
+
+/* Main Display Objects Type Icons */
+/*Sprite, MovieClip, Bitmap, Shape, TextField, Loader, Video, AVM1Movie, StaticText, MorphShape, SimpleButton, Stage, DisplayObject*/
+ul#base li.Stage > a > ins{ background-image: url(chrome://flashfirebug/content/themes/default/images/Files/fla.png);}
+ul#base li.Sprite > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/Sprite.png) }
+ul#base li.MovieClip > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/MovieClip.gif) }
+ul#base li.SimpleButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/SimpleButton.gif) }
+ul#base li.TextField > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/TextField.gif) }
+ul#base li.StaticText > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/StaticText.gif) }
+ul#base li.Shape > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/Shape.gif) }
+ul#base li.Bitmap > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/Bitmap.gif) }
+ul#base li.Loader > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/Files/swf.png) }
+
+/* UI Components Type Icons */
+ul#base li.Button > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/Button.gif) }
+ul#base li.CheckBox > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/CheckBox.gif) }
+ul#base li.Label > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/Label.gif) }
+ul#base li.ColorPicker > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/ColorPicker.gif) }
+ul#base li.ComboBox > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/ComboBox.gif) }
+ul#base li.DataGrid > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/DataGrid.gif) }
+ul#base li.List > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/List.gif) }
+ul#base li.NumericStepper > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/NumericStepper.gif) }
+ul#base li.ProgressBar > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/ProgressBar.gif) }
+ul#base li.VolumeBar > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/VolumeBar.png) }
+ul#base li.RadioButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/RadioButton.gif) }
+ul#base li.ScrollPane > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/ScrollPane.gif) }
+ul#base li.Slider > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/Slider.gif) }
+ul#base li.TextArea > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/TextArea.gif) }
+ul#base li.TextInput > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/TextInput.gif) }
+ul#base li.TileList > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/TileList.gif) }
+ul#base li.UILoader > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/UILoader.gif) }
+ul#base li.UIScrollBar > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/UIScrollBar.gif) }
+ul#base li.PauseButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/PauseButton.png) }
+ul#base li.PlayButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/PlayButton.png) }
+ul#base li.PlayPauseButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/PlayPauseButton.png) }
+ul#base li.StopButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/StopButton.png) }
+ul#base li.BackButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/BackButton.png) }
+ul#base li.ForwardButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/ForwardButton.png) }
+ul#base li.MuteButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/MuteButton.png) }
+ul#base li.CaptionButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/CaptionButton.png) }
+ul#base li.FullScreenButton > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/FullScreenButton.png) }
+ul#base li.BufferingBar > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/BufferingBar.png) }
+ul#base li.SeekBar > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/SeekBar.png) }
+ul#base li.FLVPlayback > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/FLVPlayback.gif) }
+ul#base li.FLVPlaybackCaptioning > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/UIComponents/FLVPlaybackCaptioning.gif) }
+
+/* wait */
+ul#base li.wait > a > ins{ background-image: url(chrome://flashfirebug/content/themes/default/images/Files/spinner.gif);}
+
+/*disabled*/
+ul#base li.byffbug > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/Sprite_dis.gif) }
+ul#base li.Sprite.byffbug > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/Sprite_dis.gif) }
+ul#base li.MovieClip.byffbug > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/MovieClip_dis.gif) }
+ul#base li.Shape.byffbug > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/Shape_dis.gif) }
+ul#base li.error > a > ins { background-image: url(chrome://flashfirebug/content/themes/default/images/error_dis.png) }

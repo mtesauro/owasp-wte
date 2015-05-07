@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+
+<dialog id="advancedSettings" windowtype="foxyproxy-advancedSettings"
+  onload="onLoad();" ondialogaccept="onOK();"
+  title="&foxyproxy.standard.label; - &foxyproxy.settings.advanced.label;"
+  ondialogcancel="onCancel();" buttons="accept, cancel"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  persist="screenX screenY width height">
+
+  <script type="application/x-javascript;version=1.7"
+    src="advancedSettings.js"/>
+
+  <box>
+    <description id="compatibilityCheckString" style="width: 600px;"/>
+    <toolbarbutton class="foxyproxy-ref" popup="compatibilityCheckHelp"
+      tooltiptext="&foxyproxy.whatsthis;"/>
+  </box>
+  <box>
+    <menulist id="proxyForCompatibilityCheckMenu"
+      oncommand="onModeChanged(this);"
+      tooltiptext="&foxyproxy.compatibilitycheck.proxy.tooltip;">
+      <menupopup/>
+    </menulist>
+  </box>
+
+  <popupset>
+    <menupopup id="compatibilityCheckHelp">
+      <vbox class="foxyproxy-border foxyproxy-tooltip foxyproxy-help">
+        <description>
+          &foxyproxy.compatibilitycheck.proxy.help;
+        </description>
+      </vbox>
+    </menupopup>
+  </popupset>
+</dialog>

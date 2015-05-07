@@ -1,0 +1,38 @@
+<!ENTITY	CookieEditDlg.title.label			"Cookies Manager+">
+<!ENTITY	CookieEditDlg.titleEdit.label	"Edit Cookie+">
+<!ENTITY	CookieEditDlg.save.label			"Save">
+<!ENTITY	CookieEditDlg.save.accesskey	"S">
+<!ENTITY	CookieEditDlg.saveNew.label		"Save as new">
+<!ENTITY	CookieEditDlg.saveNew.accesskey "N">
+<!ENTITY	CookieEditDlg.close.label			"Close">
+<!ENTITY	CookieEditDlg.close.accesskey	"C">
+<!ENTITY	CookieEditDlg.moreinfo.label	"More info">
+<!ENTITY	CookieEditor.warning.expired	"WARNING! This cookie is expired">
+
+<!ENTITY	months.january.label					"January">
+<!ENTITY	months.february.label					"February">
+<!ENTITY	months.march.label						"March">
+<!ENTITY	months.april.label						"April">
+<!ENTITY	months.may.label							"May">
+<!ENTITY	months.june.label							"June">
+<!ENTITY	months.july.label							"July">
+<!ENTITY	months.august.label						"August">
+<!ENTITY	months.september.label				"September">
+<!ENTITY	months.october.label					"October">
+<!ENTITY	months.november.label					"November">
+<!ENTITY	months.december.label					"December">
+
+<!ENTITY	optoins.expire.session.label	"at end of session">
+<!ENTITY	optoins.expire.date.label			"date">
+<!ENTITY	optoins.expire.date.months		"Months">
+<!ENTITY	optoins.expire.date.year			"Year">
+<!ENTITY	optoins.expire.date.day				"Day">
+<!ENTITY	optoins.expire.date.hours			"Hours">
+<!ENTITY	optoins.expire.date.minutes		"Minutes">
+<!ENTITY	optoins.expire.date.seconds		"Seconds">
+<!ENTITY	optoins.expire.date.time			"Time">
+
+
+<!ENTITY	props.isHttpOnly.label				"Http Only:">
+<!ENTITY	props.isHttpOnly.yes					"Yes">
+<!ENTITY	props.isHttpOnly.no						"No">

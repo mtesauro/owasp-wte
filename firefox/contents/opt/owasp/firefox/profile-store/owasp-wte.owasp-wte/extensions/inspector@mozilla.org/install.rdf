@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>inspector@mozilla.org</em:id>
+    <em:version>2.0.14</em:version>
+
+    <!-- DOM Inspector supports Gecko 1.9.0 and higher.
+         All applications listed below are the subset of supported versions
+         which also use an appropriate version of Gecko. -->
+    <!-- For maxVersion of applications that follow the rapid cycle pattern,
+         use '(x)a1' (*-central) on default,
+         and '(x-1).*' (*-aurora/beta/release) for branches. -->
+
+    <!-- Fennec -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</em:id>
+        <em:minVersion>1.0a1</em:minVersion>
+        <em:maxVersion>1.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Firefox
+         3.0 is Gecko 1.9.0
+         3.5 is Gecko 1.9.1
+         3.6 is Gecko 1.9.2
+         4.0 is Gecko 2.0
+         5.0 is Gecko 5.0
+         x.0 is Gecko x.0, where x is greater than 5 -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>3.0a1</em:minVersion>
+        <em:maxVersion>23.0a1</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- SeaMonkey
+         2.0 is Gecko 1.9.1
+         2.1 is Gecko 2.0
+         2.2 is Gecko 5.0
+         2.x is Gecko (x+3).0, where x is greater than 2 -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+        <em:minVersion>2.0a1pre</em:minVersion>
+        <em:maxVersion>2.20a1</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Sunbird -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{718e30fb-e89b-41dd-9da7-e25a45638b28}</em:id>
+        <em:minVersion>1.0b1pre</em:minVersion>
+        <em:maxVersion>5.0b2pre</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Thunderbird
+         3.0 is Gecko 1.9.1
+         3.1 is Gecko 1.9.2
+         5.0 is Gecko 5.0
+         x.0 is Gecko x.0, where x is greater than 5 -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+        <em:minVersion>3.0a1pre</em:minVersion>
+        <em:maxVersion>23.0a1</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Gecko Toolkit
+         version 1.9.0 and higher -->
+    <em:targetApplication>
+      <Description>
+        <em:id>toolkit@mozilla.org</em:id>
+        <em:minVersion>1.9a1</em:minVersion>
+        <em:maxVersion>23.0a1</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- front-end metadata -->
+    <em:name>DOM Inspector</em:name>
+    <em:description>Inspects the structure and properties of a window and its contents.</em:description>
+    <em:creator>mozilla.org</em:creator>
+    <em:homepageURL>http://www.mozilla.org/projects/inspector/</em:homepageURL>
+
+    <em:localized>
+      <Description>
+        <em:locale>sk</em:locale>
+        <em:name>DOM Inspector</em:name>
+        <em:description>Umožní preskúmať štruktúru a vlastnosti okna a jeho obsahu.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>sv-SE</em:locale>
+        <em:name>DOM-granskaren (DOM Inspector)</em:name>
+        <em:description>Granskar strukturen och egenskaperna för ett fönster och dess innehåll.</em:description>
+      </Description>
+    </em:localized>
+
+    <!-- Force unpack the xpi, otherwise window icons do not work
+         on Gecko 2.0 and higher. -->
+    <em:unpack>true</em:unpack>
+  </Description>
+</RDF>

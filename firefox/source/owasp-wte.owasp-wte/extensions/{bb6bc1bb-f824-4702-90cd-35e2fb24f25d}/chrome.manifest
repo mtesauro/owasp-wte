@@ -1,0 +1,9 @@
+content		cookiesmanagerplus																chrome/content/
+resource	cookiesmanagerplus																chrome/modules/
+skin			cookiesmanagerplus						classic/1.0					chrome/skin/classic/
+style			chrome://global/content/customizeToolbar.xul			chrome://cookiesmanagerplus/skin/anecOverlay.css
+style			chrome://browser/content/browser.xul							chrome://cookiesmanagerplus/skin/anecOverlay.css
+
+overlay		chrome://browser/content/browser.xul							chrome://cookiesmanagerplus/content/sysOverlay.xul
+overlay		chrome://browser/content/preferences/cookies.xul	chrome://cookiesmanagerplus/content/cookiesOverlay.xul
+locale		cookiesmanagerplus						en-US								chrome/locale/en-US/

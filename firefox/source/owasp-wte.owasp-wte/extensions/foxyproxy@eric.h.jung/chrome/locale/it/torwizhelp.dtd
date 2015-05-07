@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Contenuti guida di FoxyProxy">
+<!ENTITY help.patterns "Modelli URL">
+<!ENTITY help.ff.asks "Prima che Firefox carichi un indirizzo web, viene richiesto a FoxyProxy quale proxy usare. ">
+<!ENTITY help.fp.answers "FoxyProxy risponde tentando di abbinare l&apos;indirizzo web attuale con tutti i modelli definiti qui sotto. Il metodo più semplice di specificare i modelli è usando caratteri jolly">
+<!ENTITY help.a.wildcards "Caratteri jolly">
+<!ENTITY help.p.wildcards.are "I caratteri jolly sono pervasivi in tutto l&apos;ambito dell&apos;uso o del funzionamento dei computer. L&apos;asterisco (*) sostituisce come carattere jolly lo zero o più caratteri insieme, ed il punto interrogativo (?) sostituisce come carattere jolly qualsiasi carattere. ">
+<!ENTITY help.p.regexp "Si possono ottenere regole di corrispondenza più avanzate usando le espressioni regolari. Per ulteriori dettagli, fare clic sul pulsante &quot;Contenuti guida&quot;">
+<!ENTITY help.h4.wildcard.examples "Esempi di caratteri jolly">
+<!ENTITY help.th.url.pattern "Modelli URL">
+<!ENTITY help.th.some.matches "Alcuni abbinamenti">
+<!ENTITY help.th.some.non.matches "Alcuni non abbinamenti">
+<!ENTITY help.td.everything.in.y "Ogni cosa nel dominio di Yahoo">
+<!ENTITY help.i.matches.everything "Corrisponde tutto">

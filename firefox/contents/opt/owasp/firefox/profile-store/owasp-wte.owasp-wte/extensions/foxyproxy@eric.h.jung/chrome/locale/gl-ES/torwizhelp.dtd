@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Axuda do FoxyProxy">
+<!ENTITY help.patterns "Patróns de enderezo">
+<!ENTITY help.ff.asks "Antes de cargar un enderezo, o Firefox pregúntalle ao FoxyProxy se debe usar ou non un proxy.">
+<!ENTITY help.fp.answers "FoxyProxy responde a esta pregunta tratando de contrastar o URL actual con tódolos patróns de enderezo que podes definir aquí debaixo. O xeito máis simple para escribir patróns é empregando comodíns.">
+<!ENTITY help.a.wildcards "Comodíns">
+<!ENTITY help.p.wildcards.are "Os comodíns sonche moi frecuentes en programación; probablemente xa os viras antes, ou se cadra non. O asterisco (*) substitúe como comodín a cero ou máis caracteres, e o signo de interrogación (?) substitúe como comodín un caracter calquera.">
+<!ENTITY help.p.regexp "É posible facer regras máis avanzadas usando expresións regulares. Para máis detalles, dalle ao botón &quot;Contido da Axuda&quot;.">
+<!ENTITY help.h4.wildcard.examples "Exemplos de Comodíns">
+<!ENTITY help.th.url.pattern "Patrón de Enderezo">
+<!ENTITY help.th.some.matches "Algunhas Correspondencias">
+<!ENTITY help.th.some.non.matches "Algunhas Non Correspondencias">
+<!ENTITY help.td.everything.in.y "Todo no dominio do Yahoo">
+<!ENTITY help.i.matches.everything "Corresponde con todo">

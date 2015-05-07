@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://cookiesmanagerplus/skin/options.css" type="text/css"?>
+
+<!DOCTYPE window [
+	<!ENTITY % coomanPlusDTD SYSTEM "chrome://cookiesmanagerplus/locale/coomanPlusMain.dtd"> %coomanPlusDTD;
+	<!ENTITY % optionsDTD SYSTEM "chrome://cookiesmanagerplus/locale/coomanPlusOptions.dtd"> %optionsDTD;
+]>
+
+
+<prefwindow id="coomanPlusWindowOptions"
+				title="&title.label;"
+				xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+				onload="coomanPlus.load()"
+				onunload="coomanPlus.unload()"
+				persist="screenX screenY"
+>
+
+	<script type="application/javascript" src="chrome://cookiesmanagerplus/content/options.js"/>
+	<script type="application/javascript" src="chrome://cookiesmanagerplus/content/common.js"/>
+	<script type="application/javascript" src="chrome://cookiesmanagerplus/content/commonFunc.js"/>
+	<script type="application/javascript" src="chrome://cookiesmanagerplus/content/export.js"/>
+	<script type="application/javascript" src="chrome://cookiesmanagerplus/content/date.js"/>
+	<script type="application/javascript" src="chrome://cookiesmanagerplus/content/libOut.js"/>
+	<script type="application/javascript" src="chrome://cookiesmanagerplus/content/base64.js"/>
+	<stringbundle id="cookieBundle" src="chrome://browser/locale/preferences/preferences.properties"/>
+	<stringbundle id="pippkiBundle" src="chrome://pippki/locale/pippki.properties"/>
+	<script>
+		coomanPlus.strings = {
+			restore_file_open:								"&restore.file.open;",
+			password_incorrect:								"&password.incorrect;",
+			backup_corrupted:									"&backup.corrupted;",
+			backup_notencrypted:							"&backup.notencrypted;",
+			backup_decrypt_failed:						"&backup.decrypt.failed;",
+			backup_decrypt_success:						"&backup.decrypt.success;",
+			restore_file_open_error:					"&restore.file.open.error;",
+			backup_already_encrypted:					"&backup.already.encrypted;",
+			password_notset:									"&backup.password.notset;",
+			password_set:											"&backup.password.set;",
+			backup_protected:									"&backup.protected;",
+		};
+	</script>
+	<prefpane id="prefpane" flex="1">
+		<preferences>
+			<preference id="delconf" name="extensions.cookiesmanagerplus.delconfirm" type="bool" />
+			<preference id="autofilter" name="extensions.cookiesmanagerplus.autofilter" type="bool" />
+			<preference id="topmost" name="extensions.cookiesmanagerplus.topmost" type="bool" />
+			<preference id="autoupdate" name="extensions.cookiesmanagerplus.autoupdate" type="bool" />
+			<preference id="dateformat" name="extensions.cookiesmanagerplus.dateformat" type="string" />
+			<preference id="simplehost" name="extensions.cookiesmanagerplus.simplehost" type="int" />
+			<preference id="expireprogress" name="extensions.cookiesmanagerplus.expireprogress" type="bool" />
+			<preference id="expirecountdown" name="extensions.cookiesmanagerplus.expirecountdown" type="bool" />
+			<preference id="cookieculler" name="extensions.cookiesmanagerplus.cookieculler" type="bool" />
+			<preference id="cookiecullerdelete" name="extensions.cookiesmanagerplus.cookiecullerdelete" type="bool" />
+			<preference id="templateclipboard" name="extensions.cookiesmanagerplus.templateclipboard" type="unichar" />
+			<preference id="templatefile" name="extensions.cookiesmanagerplus.templatefile" type="unichar" />
+			<preference id="backupencrypt" name="extensions.cookiesmanagerplus.backupencrypt" type="bool" />
+			<preference id="backupfilename" name="extensions.cookiesmanagerplus.backupfilename" type="unichar" />
+		</preferences>
+		<vbox>
+			<tabbox id="options">
+				<tabs>
+					<tab	id="general"	label="&options.tab.general;"	linkedpanel="panelGeneral" default="true"/>
+					<tab	id="export"		label="&options.tab.export;"	linkedpanel="panelExport"/>
+					<tab	id="changes"	label="&options.tab.changes;"	linkedpanel="panelChanges"/>
+				</tabs>
+				<tabpanels>
+					<tabpanel id="panelGeneral" flex="1">
+						<vbox>
+							<hbox>
+								<checkbox preference="autofilter" label='&options.autofilter.label;' tooltiptext="&options.autofilter.info;" style="cursor: help" accessibleType="1003"/>
+							</hbox>
+							<hbox>
+								<checkbox preference="autoupdate" label='&options.autoupdate.label;' tooltiptext="&options.autoupdate.info;" style="cursor: help" accessibleType="1003"/>
+							</hbox>
+							<hbox>
+								<checkbox preference="topmost" label='&options.topmost.label;' tooltiptext="&options.topmost.info;" style="cursor: help" accessibleType="1003"/>
+							</hbox>
+							<hbox>
+								<checkbox preference="delconf" label='&options.delconfirm.label;' accessibleType="1003"/>
+							</hbox>
+							<hbox id="cookiecullerbox">
+								<vbox>
+									<checkbox id="cookiecullerCheckbox" preference="cookieculler" label='&options.cookieculler.label;' accessibleType="1003"/>
+									<checkbox id="cookiecullerdeleteCheckbox" preference="cookiecullerdelete" label='&options.cookieculler.delete.label;' style="margin:0;margin-left: 16px;" accessibleType="1003"/>
+								</vbox>
+							</hbox>
+							<hbox tooltiptext="&options.simplehost.info;">
+								<groupbox flex="1">
+									<caption>
+										<label value="&options.simplehost.label;" style="cursor: help;" control="simplehostmenu"/>
+									</caption>
+									<hbox>
+										<menulist id="simplehostmenu" preference="simplehost" flex="0" sizetopopup="none" style="cursor: pointer;" label="&options.simplehost.label;" accessibleType="100F">
+											<menupopup>
+												<menuitem value="0" label="&options.simplehost.no;" description=" (&options.simplehost.no.desc;)" accessibleType="100E"/>
+												<menuitem value="1" label="&options.simplehost.www;" description=" (&options.simplehost.www.desc;)" accessibleType="100E"/>
+												<menuitem value="2" label="&options.simplehost.root;" description=" (&options.simplehost.root.desc;)" accessibleType="100E"/>
+											</menupopup>
+										</menulist>
+									</hbox>
+								</groupbox>
+							</hbox>
+							<groupbox>
+								<caption>
+									<label value='&options.dateformat.label;' style="overflow:hidden;cursor: help" flex="0" tooltiptext="&options.dateformat.info;" control="format"/>
+									<text value="("/>
+									<button label="&options.dateformat.moreinfo;" oncommand="coomanPlus.openLink(event);" class="text-link link" accessibleType="100A"/>
+									<text value=")"/>
+								</caption>
+								<hbox flex="1">
+									<textbox id="format" preference="dateformat" onkeyup="coomanPlus.test(this)" label='&options.dateformat.label;'/>
+									<button id="presets" type="menu" class="menubutton" label="&options.dateformat.presets;" tooltiptext="&options.dateformat.presets;">
+										<menupopup id="preset" oncommand="coomanPlus.template(event)" control="test" accessibleType="100F">
+											<menuitem value="" default="true" accessibleType="100E"/>
+											<menuitem value="m-d-Y h:i:s a" accessibleType="100E"/>
+											<menuitem value="F d, Y h:i:s a" accessibleType="100E"/>
+											<menuitem value="l, F d, Y h:i:s a" accessibleType="100E"/>
+											<menuitem value="m/d/Y h:i:s a" accessibleType="100E"/>
+											<menuitem value="d-m-Y H:i:s" accessibleType="100E"/>
+											<menuitem value="d/m/Y H:i:s" accessibleType="100E"/>
+											<menuitem value="Y-m-d H:i:s" accessibleType="100E"/>
+											<menuitem value="Y/m/d H:i:s" accessibleType="100E"/>
+										</menupopup>
+									</button>
+								</hbox>
+								<hbox style="overflow:hidden; max-width: 20em; width: 20em; margin-right: 5px;" flex="1" align="center">
+									<textbox id="test" value="" tooltiptext="&result;" label="&result;" readonly="true" flex="1"/>
+								</hbox>
+							</groupbox>
+						</vbox>
+					</tabpanel>
+					<tabpanel id="panelExport" orient="vertical" flex="1">
+						<tabbox flex="1">
+							<tabs>
+								<tab id="backup" label="&option.export.tab.backup;" linkedpanel="panelBackup"/>
+								<tab id="clipboard" label="&option.export.tab.clipboard;" linkedpanel="panelClipboard"/>
+								<tab id="file" label="&option.export.tab.file;" linkedpanel="panelFile"/>
+							</tabs>
+							<tabpanels flex="1">
+								<tabpanel id="panelBackup" flex="1" orient="vertical">
+									<hbox align="center">
+										<label value="&export.filename;" control="fieldBackupfilename" style="cursor: help;" tooltiptext="&export.filename.info;"/>
+										<textbox id="fieldBackupfilename" label="&export.filename;" preference="backupfilename" tooltiptext="&export.filename.info;" flex="1"/>
+									</hbox>
+									<hbox>
+										<checkbox preference="backupencrypt" label='&option.export.backup;' tooltiptext="&option.export.backup.info;" accessibleType="1003"/>
+									</hbox>
+									<textbox value="&option.export.backup.info;" class="plain" flex="1" disabled="true" multiline="true" label="&option.export.backup.info;"/>
+									<hbox>
+										<button label="&backup.password.add;" oncommand="coomanPlus.backupEncrypt()" class="text-link link" align="end"/>
+									</hbox>
+									<hbox>
+										<button label="&backup.password.remove;" oncommand="coomanPlus.backupDecrypt()" class="text-link link"/>
+									</hbox>
+								</tabpanel>
+								<tabpanel id="panelClipboard" flex="1" orient="vertical">
+									<label value="&option.export.clipboard.template;"/>
+									<textbox	id="templateclipboardinput"
+														preference="templateclipboard"
+														label="&option.export.clipboard.template;"
+														multiline="true"
+														wrap="off"
+														cols="40"
+														flex="1"
+									/>
+									<hbox>
+										<button label="&reset;" oncommand="coomanPlus.templateReset('clipboard')" class="text-link link"/>
+									</hbox>
+								</tabpanel>
+								<tabpanel id="panelFile" flex="1" orient="vertical">
+									<label value="&option.export.file.template;"/>
+									<textbox	id="templatefileinput"
+														preference="templatefile"
+														label="&option.export.file.template;"
+														multiline="true"
+														wrap="off"
+														cols="40"
+														flex="1"
+									/>
+									<hbox>
+										<button label="&reset;" oncommand="coomanPlus.templateReset('file')" class="text-link link"/>
+									</hbox>
+								</tabpanel>
+							</tabpanels>
+						</tabbox>
+					</tabpanel>
+					<tabpanel id="panelChanges" orient="vertical" flex="1">
+						<textbox id="changesLog" label="&options.tab.changes;" readonly="true" flex="1" multiline="true" wrap="off"/>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</vbox>
+	</prefpane>
+</prefwindow>

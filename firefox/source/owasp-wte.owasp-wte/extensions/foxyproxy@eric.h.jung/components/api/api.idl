@@ -1,0 +1,75 @@
+#include "nsISupports.idl"
+#include "nsIDOMNode.idl"
+
+[scriptable, uuid(c5a3caf1-d6bf-43be-8de6-e508ad02ca36)]
+interface foxyProxyConfig : nsISupports {
+  readonly attribute unsigned long id;
+  attribute AString name;
+  attribute AString notes;
+  attribute AString color;
+  attribute AString mode;
+  attribute boolean enabled;
+  attribute long selectedTabIndex;
+  attribute boolean animatedIcons;
+  attribute boolean includeInCycle;
+  attribute boolean clearCacheBeforeUse;
+  attribute boolean disableCache;
+  attribute boolean clearCookiesBeforeUse;
+  attribute boolean rejectCookies;
+  attribute boolean proxyDNS;
+  attribute jsval manualConfig;
+  attribute jsval autoConfig;
+};
+
+[scriptable, uuid(40c327cd-c8d4-4753-9441-6c60fe6ea461)]
+interface foxyProxyConfigs : nsISupports {
+
+  readonly attribute long length;
+
+  // Create and return a new ProxyConfig with smart defaults.
+  // Use |addProxyConfig()| to add it to the current list of proxies.
+  foxyProxyConfig createProxyConfig();
+
+  // Adds the specified ProxyConfig. If |index| is not specified,
+  // its added to the top/front of the list; otherwise, at the specified zero-
+  // based index. An "empty" ProxyConfig can be created using
+  // |createProxyConfig()|. Manipulate its properties, then call this function
+  // to add it to the list of ProxyConfigs.
+  boolean addProxyConfig(in foxyProxyConfig p, [optional] in long index);
+  jsval getAll();
+  foxyProxyConfig getById(in long id);
+  foxyProxyConfig getByIndex(in long index);
+  foxyProxyConfig getByName(in AString name);
+  boolean deleteById(in long id);
+
+  // TODO: implement
+  //boolean deleteByIndex(in long index);
+  //long deleteFirstWithName(in AString name);
+  //jsval deleteAllWithName(in AString name);
+};
+
+[scriptable, uuid(26e128d0-542c-11e1-b86c-0800200c9a66)]
+interface foxyProxyApi : nsISupports {
+
+  // Setter without callback
+  attribute nsIDOMNode settings;
+
+  // Setter with callback
+  void setSettings(in nsIDOMNode foxyProxyNode, in jsval callback);
+
+  // Setter without callback
+  attribute AString mode;
+
+  // Setter with callback
+  void setMode(in AString newMode, in jsval callback);
+
+  // This is a getter only
+  readonly attribute boolean apiDisabled;
+
+  // This is a getter only
+  readonly attribute AString version;
+
+  // Get the proxyConfigs object in order to add, edit, delete proxyConfigs
+  void getProxyConfigs(in jsval callback);
+};
+

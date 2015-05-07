@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>{8f8fe09b-0bd3-4470-bc1b-8cad42b8203a}</em:id>
+    <em:version>0.17</em:version>
+    <em:unpack>true</em:unpack>
+    <em:type>2</em:type>
+   
+    <!-- Target Application this extension can install into, 
+         with minimum and maximum supported versions. --> 
+    <!-- Firefox -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.8</em:minVersion>
+        <em:maxVersion>4.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    <!-- Flock -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{a463f10c-3994-11da-9945-000d60ca027b}</em:id>
+        <em:minVersion>0.5.9</em:minVersion>
+        <em:maxVersion>0.7.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    <!-- Seamonkey -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+        <em:minVersion>1.0</em:minVersion>
+        <em:maxVersion>2.1.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    
+    <!-- Front End MetaData -->
+    <em:name>Live HTTP Headers</em:name>
+    <em:description>View HTTP headers of a page and while browsing.</em:description>
+    <em:creator>Daniel Savard</em:creator>
+    <em:homepageURL>http://livehttpheaders.mozdev.org/</em:homepageURL>
+    <!--em:updateURL>http://www.cosmicat.com/extensions/update.php?id=%ITEM_ID%&amp;version=%ITEM_VERSION%</em:updateURL-->
+    <em:localized>
+      <Description>
+        <em:locale>cs-CZ</em:locale>
+        <em:name>Hlavičky HTTP</em:name>
+        <em:description>View HTTP headers of a page and while browsing.</em:description>
+      </Description>
+      <Description>
+        <em:locale>da-DK</em:locale>
+        <em:name>Live HTTP headers</em:name>
+        <em:description>Se HTTP headere for en side og imens man surfer.</em:description>
+      </Description>
+      <Description>
+        <em:locale>de-AT</em:locale>
+        <em:name>Live HTTP headers</em:name>
+        <em:description>Zeigt die HTTP Header einer Seite.</em:description>
+      </Description>
+      <Description>
+        <em:locale>en-US</em:locale>
+        <em:name>Live HTTP headers</em:name>
+        <em:description>View HTTP headers of a page and while browsing.</em:description>
+      </Description>
+      <Description>
+        <em:locale>es-ES</em:locale>
+        <em:name>Live HTTP headers</em:name>
+        <em:description>View HTTP headers of a page and while browsing.</em:description>
+      </Description>
+      <Description>
+        <em:locale>fr-FR</em:locale>
+        <em:name>En-têtes HTTP en direct</em:name>
+        <em:description>Affiche les en-têtes HTTP des pages pendant votre navigation.</em:description>
+      </Description>
+      <Description>
+        <em:locale>hu-HU</em:locale>
+        <em:name>HTTP kérések fejlécei</em:name>
+        <em:description>View HTTP headers of a page and while browsing.</em:description>
+      </Description>
+      <Description>
+        <em:locale>ja-JP</em:locale>
+        <em:name>Live HTTP headers</em:name>
+        <em:description>ウェブページとブラウジング中の HTTP ヘッダを表示します。</em:description>
+      </Description>
+      <Description>
+        <em:locale>nl-NL</em:locale>
+        <em:name>Live HTTP headers</em:name>
+        <em:description>Bekijk de HTTP headers van een pagina tijdens het surfen.</em:description>
+      </Description>
+      <Description>
+        <em:locale>ru-RU</em:locale>
+        <em:name>Просмотр HTTP заголовков</em:name>
+        <em:description>Просмотр HTTP - заголовков в реальном времени.</em:description>
+      </Description>
+    </em:localized>
+    
+
+    <!-- Front End Integration Hooks (used by Extension Manager)-->
+    <em:iconURL>chrome://livehttpheaders/skin/img/Logo_32.png</em:iconURL>
+    <em:optionsURL>chrome://livehttpheaders/content/LiveHTTPHeaders.xul</em:optionsURL>
+    <em:contributor>Alex Pleiner</em:contributor>
+    <em:contributor>Balogh Tibor</em:contributor>
+    <em:contributor>Bernardo A. de la Ossa Pérez</em:contributor>
+    <em:contributor>Boris Zbarsky</em:contributor>
+    <em:contributor>Christopher Cook</em:contributor>
+    <em:contributor>Daniel Brooks</em:contributor>
+    <em:contributor>David Boswell</em:contributor>
+    <em:contributor>Ere Maijala</em:contributor>
+    <em:contributor>FenyX at ShareStation.com</em:contributor>
+    <em:contributor>François Constantineau</em:contributor>
+    <em:contributor>Grégoire Lejeune</em:contributor>
+    <em:contributor>Henrik Gemal</em:contributor>
+    <em:contributor>Joshua Hewitt</em:contributor>
+    <em:contributor>Lionello Lunesu</em:contributor>
+    <em:contributor>Lolilolicon</em:contributor>
+    <em:contributor>Macarie Neculai</em:contributor>
+    <em:contributor>Mandeep Singh</em:contributor>
+    <em:contributor>Manuel Garcia</em:contributor>
+    <em:contributor>Mathieu Hautot</em:contributor>
+    <em:contributor>Michal Kec</em:contributor>
+    <em:contributor>Mook</em:contributor>
+    <em:contributor>Nathan Fain</em:contributor>
+    <em:contributor>Nikolas Coukouma</em:contributor>
+    <em:contributor>Nils Maier</em:contributor>
+    <em:contributor>Paul Lacourse</em:contributor>
+    <em:contributor>Pavel Franc</em:contributor>
+    <em:contributor>Philip Chee</em:contributor>
+    <em:contributor>Richard Marti</em:contributor>
+    <em:contributor>Richard Mlynarik</em:contributor>
+    <em:contributor>Stanimir Stamenkov</em:contributor>
+    <em:contributor>Stefan Trcek</em:contributor>
+    <em:contributor>Sven Anders</em:contributor>
+    <em:contributor>Takanori Matsuura</em:contributor>
+    <em:contributor>Todd Knarr</em:contributor>
+    <em:contributor>Wladimir Palant</em:contributor>
+    <em:contributor>Wojtek Meler</em:contributor>
+    <!--em:aboutURL></em:aboutURL-->
+
+    <!-- Packages, Skins and Locales that this extension registers -->
+    <em:file>
+      <Description about="urn:mozilla:extension:file:livehttpheaders.jar">
+        <em:package>content/</em:package>
+        <em:locale>locale/en-US/livehttpheaders/</em:locale>
+        <em:locale>locale/fr-FR/livehttpheaders/</em:locale>
+        <em:locale>locale/de-AT/livehttpheaders/</em:locale>
+        <em:locale>locale/es-ES/livehttpheaders/</em:locale>
+        <em:locale>locale/cs-CZ/livehttpheaders/</em:locale>
+        <em:locale>locale/nl-NL/livehttpheaders/</em:locale>
+        <em:locale>locale/ru-RU/livehttpheaders/</em:locale>
+        <em:locale>locale/da-DK/livehttpheaders/</em:locale>
+        <em:locale>locale/ja-JP/livehttpheaders/</em:locale>
+        <em:locale>locale/hu-HU/livehttpheaders/</em:locale>
+        <em:skin>skin/</em:skin>
+      </Description>
+    </em:file>
+  </Description>
+
+</RDF>

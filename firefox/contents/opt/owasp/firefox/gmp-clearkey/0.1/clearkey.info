@@ -1,0 +1,5 @@
+Name: clearkey
+Description: ClearKey Gecko Media Plugin
+Version: 1
+APIs: eme-decrypt-v6[org.w3.clearkey]
+Libraries:

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'
+[
+<!ENTITY % foxyproxyDTD SYSTEM "chrome://foxyproxy/locale/torwizhelp.dtd" >
+%foxyproxyDTD;
+]>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>&help.title.foxyproxy.help;</title>
+  <style type="text/css">
+    table {
+    	border-width: 0px;
+    	border-spacing: 2px;
+    	border-style: none;
+    	border-color: white;
+    	border-collapse: separate;
+    	background-color: rgb(250, 240, 230);
+    	font-size: x-small;
+    	font-family: verdana, sans-serif;
+    }
+    table td,table th {
+    	border-width: 1px;
+    	padding: 1px;
+    	border-style: groove;
+    	border-color: green;
+    	background-color: rgb(250, 240, 230);
+      vertical-align: top;    	
+		  font-size: x-small; 
+		  font-family: verdana, sans-serif;
+    }    
+    p {background-color: white; font-size: x-small; font-family: verdana, sans-serif;}
+    body {font-family: verdana, sans-serif;}
+    h3 {font-size: small;}
+    h4 {font-size: x-small;}
+  </style>
+  </head>
+<body>
+  <h3>&help.patterns;</h3>
+  <p>&help.ff.asks;
+    &help.fp.answers;</p>        
+   <h4><a name="wildcards">&help.a.wildcards;</a></h4>
+   <p>&help.p.wildcards.are;
+   &help.p.regexp;</p>
+   
+   <h4>&help.h4.wildcard.examples;</h4>
+   <table>
+     <thead><tr><th>&help.th.url.pattern;</th><th>&help.th.some.matches;</th><th>&help.th.some.non.matches;</th></tr></thead>
+     <tr><td>*://*.yahoo.com/*</td><td>&help.td.everything.in.y;</td><td>http://mail.google.com/</td></tr>      
+     <tr><td>*://mail.yahoo.com/*</td><td>http://mail.yahoo.com/<br />http://mail.yahoo.com/clownshoes/<br />http://mail.yahoo.com/inbox/123.html<br />ftp://mail.yahoo.com</td><td>http://maps.yahoo.com</td></tr>
+     <tr><td>http://??.wikipedia.org/wiki/Clown</td><td>http://en.wikipedia.org/wiki/Clown<br />http://de.wikipedia.org/wiki/Clown<br />http://cs.wikipedia.org/wiki/Clown</td><td>https://en.wikipedia.org/wiki/Clown<br />http://de.wikipedia.org/wiki/Clown/<br />ftp://en.wikipedia.org/wiki/Clown</td></tr>
+     <tr><td>http://digg.com/</td><td>http://digg.com/</td><td>http://digg.com<br />http://www.digg.com/</td></tr>      
+     <tr><td>*://*.asimov.???/*</td><td>ftp://ftp.asimov.net/<br />ftp://ftp.asimov.com/theory.html<br />http://bear.asimov.net/mom/<br />https://isaac.asimov.org/hercules<br />gopher://asimov.net/</td>
+       <td>ftp://ftp.asimov.co.uk<br />http://isaac.home.com/tin.php</td></tr>     
+     <tr><td>*</td><td><i>&help.i.matches.everything;</i></td><td> </td></tr>            
+   </table>
+</body>
+</html>

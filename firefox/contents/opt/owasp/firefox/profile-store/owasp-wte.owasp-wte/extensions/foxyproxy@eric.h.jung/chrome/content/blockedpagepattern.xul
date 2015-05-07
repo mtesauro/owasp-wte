@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+  
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+-->
+<?xml-stylesheet href="foxyproxy.css" type="text/css"?>
+<?xul-overlay href="includes.xul"?>
+<!DOCTYPE overlay SYSTEM "chrome://foxyproxy/locale/foxyproxy.dtd">
+<dialog
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  id="foxyproxyblockedpagesdlg"
+  title="&foxyproxy.standard.label; - &foxyproxy.addeditpattern.title;"
+  ondialogaccept="return onOK();" onload="onLoad();"
+  persist="screenX screenY" windowtype="foxyproxy">
+
+  <script src="blockedpagepattern.js" />
+  <hbox align="center">
+    <label value="&foxyproxy.autoadd.pattern.label;"
+      control="pattern"
+      tooltiptext="&foxyproxy.autoadd.pattern.tooltip;"
+      accesskey="&foxyproxy.autoadd.pattern.accesskey;" />
+    <textbox id="pattern" flex="1"
+      tooltiptext="&foxyproxy.autoadd.pattern.tooltip;"
+      accesskey="&foxyproxy.autoadd.pattern.accesskey;"/>
+    <checkbox id="caseSensitive"
+      label="&foxyproxy.casesensitive.label;"
+      accesskey="&foxyproxy.casesensitive.accesskey;"
+      tooltiptext="&foxyproxy.casesensitive.tooltip;"/>
+  </hbox>
+  <radiogroup id="matchtype" />
+
+  <popupset>
+    <menupopup id="wildcardURLPatternReferencePopup" />
+  </popupset>
+
+</dialog>

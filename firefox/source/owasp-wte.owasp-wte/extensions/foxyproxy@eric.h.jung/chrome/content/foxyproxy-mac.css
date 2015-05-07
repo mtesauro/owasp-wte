@@ -1,0 +1,29 @@
+/**
+  FoxyProxy
+  Copyright (C) 2006-2013 Eric H. Jung and FoxyProxy, Inc.
+  http://getfoxyproxy.org/
+  eric.jung@yahoo.com
+
+  This source code is released under the GPL license,
+  available in the LICENSE file at the root of this installation
+  and also online at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+**/
+@import url(chrome://global/skin/);
+
+/* the svg icon is messing with the tab on MacOS */
+
+
+#foxyproxy-pattern-subscriptions-tab {
+  padding-right: 5px; 
+  padding-bottom: 2px;
+}
+
+#patterns-svg {
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 2px;
+}
+
+#pattern-tab-label {
+  padding-top: 1px;
+}

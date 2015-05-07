@@ -1,0 +1,13 @@
+<!ENTITY help.title.foxyproxy.help "Aide de FoxyProxy">
+<!ENTITY help.patterns "Motifs d&apos;URL">
+<!ENTITY help.ff.asks "Avant que Firefox ne charge une URL, il demande à FoxyProxy s&apos;il faut utiliser un proxy.">
+<!ENTITY help.fp.answers "FoxyProxy répond à cette question en comparant l&apos;URL courante avec tous les motifs de correspondance que vous avez définis ci-dessous. Le moyen le plus simple de spécifier des motifs de correspondance est d&apos;utiliser des jokers.">
+<!ENTITY help.a.wildcards "Jokers">
+<!ENTITY help.p.wildcards.are "Les jokers sont fréquemment utilisés en programmation ; vous les avez sûrement déjà rencontrés. L&apos;astérisque (*) remplace zéro ou plusieurs caractères et le point d&apos;interrogation (?) remplace un seul caractère.">
+<!ENTITY help.p.regexp "La confection d&apos;autres règles de correspondance est possible en utilisant les expressions régulières. Pour davantage d&apos;informations, cliquez sur le bouton « Contenu de l&apos;aide ».">
+<!ENTITY help.h4.wildcard.examples "Exemples de jokers">
+<!ENTITY help.th.url.pattern "Motif d&apos;URL">
+<!ENTITY help.th.some.matches "Quelques correspondances">
+<!ENTITY help.th.some.non.matches "Quelques adresses ne correspondant pas">
+<!ENTITY help.td.everything.in.y "Tout ce qui se trouve dans le domaine de Yahoo">
+<!ENTITY help.i.matches.everything "Correspondance avec tout">

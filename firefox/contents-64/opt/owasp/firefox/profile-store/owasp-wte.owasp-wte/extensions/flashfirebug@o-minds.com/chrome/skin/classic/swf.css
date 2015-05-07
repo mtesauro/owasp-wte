@@ -1,0 +1,131 @@
+.flb-swf-twisty {
+	display:inline-block;
+	width: 11px;
+	height: 11px;
+	background-image: url(chrome://firebug/skin/win/twistyOpen.png);
+    background-repeat: no-repeat;
+	padding-left: 5px;
+}
+
+.flb-swf-twisty.closed {
+	background-image: url(chrome://firebug/skin/win/twistyClosed.png);
+}
+
+.flb-swf-clear {
+	clear:both;
+	font-size: 1px;
+	height: 0;
+	line-height: 0;
+}
+
+.flb-swf-hidden {
+	visibility:collapse;
+}
+
+.flb-swf-loading {
+    width: 16px;
+    height: 16px;
+    background: url(chrome://firebug/skin/loading_16.gif) no-repeat;
+}
+
+.flb-swf-swatch {
+	border:1px solid #ccc;
+	margin:0 5px 0 5px;
+    width: 10px;
+    height: 10px;
+    display:inline-block;
+}
+
+.flb-swf-font-row {
+	padding: 0 10px 10px 0;
+    font-family: Lucida Grande, Tahoma, sans-serif;
+    font-weight: bold;
+    vertical-align: top;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.flb-swf-font-box {
+	margin:0;
+}
+
+.flb-swf-font-copy {
+	color: #666666;
+    font-weight: normal;
+}
+
+.flb-swf-morph-box {
+	min-width: 100px;
+    text-align: center;
+	margin:10px;
+	float:left;
+	display:block;
+	padding:2px;
+	border:1px solid #CCC;
+}
+
+.flb-swf-thumb-box {
+    min-width: 100px;
+	/*min-height: 85px;
+    height: 140px;*/
+    text-align: center;
+	margin:10px;
+	float:left;
+	display:block;
+	padding:2px;
+	border:1px solid #E8E8E8;
+}
+
+/* Hard to find tags */
+.flb-swf-thumb-box[title=defineMorphShape2],
+.flb-swf-thumb-box[title=defineBitsJPEG4],
+.flb-swf-thumb-box[title=defineSound_0],
+.flb-swf-thumb-box[title=defineSound_11],
+.flb-swf-thumb-box[title=defineVideoStream_6],
+.flb-swf-thumb-box[title=defineVideoStream_7] {
+	background-color: #FEFC9C;
+}
+
+/* Unsupported tags */
+/*.flb-swf-thumb-box[title=defineVideoStream_6],
+.flb-swf-thumb-box[title=defineVideoStream_7],
+.flb-swf-thumb-box[title=defineSound_1],
+.flb-swf-thumb-box[title=defineSound_4],
+.flb-swf-thumb-box[title=defineSound_5],
+.flb-swf-thumb-box[title=defineSound_6] {
+	background-color: #FF8080;
+}*/
+
+.flb-swf-thumb-caption {
+    font: message-box;
+}
+
+.flb-swf-thumb-export {
+    color: #bdbdbd;
+    font-weight: normal;
+}
+
+.flb-swf-thumb-export:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.flb-swf-thumb-unsupported {
+    color: red;
+    font-weight: normal;
+}
+
+.flb-swf-sound-control {
+	width: 300px;
+	overflow: hidden;
+	height: 40px;
+}
+
+.flb-swf-sound-control audio {
+	margin-top: 12px;
+}
+
+.flb-swf-image-box {
+	display:block;
+	background: url(chrome://flashbug/skin/checkerboard.png);
+}
