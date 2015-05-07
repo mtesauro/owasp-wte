@@ -27,6 +27,7 @@ $ mv tmp opt/owasp
 ```
 $ ls
 DEBIAN  opt  usr
+$ mkdir contents
 $ mv opt contents/
 $ mv usr contents/
 ```
@@ -46,7 +47,7 @@ $ cd ..
 $ vi ./README.md  (or use your favorite text editor)
 ```
 
-(7) Create a build script called build-[package name] - use another one from the repo as a starter file.  Use the comments in that script to help you decide how to convert it to this package.  Mostly, it setting several bash variables.
+(7) Create a build script called build-[package name] - use another one from the repo as a starter file.  Use the comments in that script to help you decide how to convert it to this package.  Mostly, it is setting several bash variables.
 
 ```
 $ cp ../zap/build-zap ./build-webgoat
