@@ -1,3 +1,0 @@
-
-This is the initial commit of OWASP WTE's source in GitHub.
-
