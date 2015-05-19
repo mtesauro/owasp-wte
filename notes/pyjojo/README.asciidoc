@@ -1,3 +1,5 @@
+Thanks to the pyjojo project at https://github.com/atarola/pyjojo
+
 Installing pyjojo
 
 ----
