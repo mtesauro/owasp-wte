@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=mini-rest
+Exec=launch-mini-rest
+Icon=owasp-wte-mini-rest-icon
+Categories=OWASP;

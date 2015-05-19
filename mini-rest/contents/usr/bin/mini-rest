@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if hash pyjojo 2>/dev/null; then
+    # Run pyjojo
+    sudo pyjojo -d
+else
+    # Install pyjojo - first time run
+    sudo pip install pyjojo
+    sudo pyjojo -d
+fi

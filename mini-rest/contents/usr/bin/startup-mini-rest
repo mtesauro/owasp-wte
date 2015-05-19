@@ -1,0 +1,25 @@
+#/bin/sh
+
+echo ""
+echo "           _       _       ____  _____ ____ _____ "
+echo " _ __ ___ (_)_ __ (_)     |  _ \| ____/ ___|_   _|"
+echo "| '_ \` _ \| | '_ \| |_____| |_) |  _| \___ \ | |  "
+echo "| | | | | | | | | | |_____|  _ <| |___ ___) || |  "
+echo "|_| |_| |_|_|_| |_|_|     |_| \_\_____|____/ |_|  "
+echo ""
+echo "             mini-REST - Silly simple REST API "
+echo "                (part of OWASP WTE)"
+echo " "
+echo " Type 'mini-rest' to start a very simple REST service"
+echo " "
+echo " Example of making requests can be found at"
+echo " https://github.com/mtesauro/owasp-wte/tree/master/notes/pyjojo"
+echo " "
+echo " When you run mini-rest it will ask for your user password"
+echo " to be able able to run the REST service"
+echo " "
+
+bash
+
+
+
