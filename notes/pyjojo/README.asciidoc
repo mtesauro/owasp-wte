@@ -16,15 +16,83 @@ Get jq at http://stedolan.github.io/jq/download/
 Example curl commands:
 
 ----
-curl -X POST http://localhost:3000/scripts/uptime -H "Content-Type: application/json" -H "Accept: application/json" --proxy=http://localhost:8080 -d '{"text": "hello world!"}' 
+$ curl -X POST http://localhost:3000/scripts/uptime -H "Content-Type: application/json" -H "Accept: application/json" -d '{"text": "hello world!"}'
+{"retcode": 0, "return_values": {"uptime": "09:09:46 up  7:11,  5 users,  load average: 0.32, 0.34, 0.27"}, "stderr": [], "stdout": ["echo'd text:  09:09:46 up  7:11,  5 users,  load average: 0.32, 0.34, 0.27", "jojo_return_value uptime= 09:09:46 up  7:11,  5 users,  load average: 0.32, 0.34, 0.27"]}
 
-curl -X POST http://localhost:3000/scripts/kernel -H "Content-Type: application/json" 
+$ curl -X POST http://localhost:3000/scripts/kernel -H "Content-Type: application/json" 
+{"retcode": 0, "return_values": {"machine": "x86_64", "kernel": "Linux 3.19.0-16-generic", "operating-system": "GNU/Linux"}, "stderr": [], "stdout": ["jojo_return_value kernel=Linux 3.19.0-16-generic", "jojo_return_value machine=x86_64", "jojo_return_value operating-system=GNU/Linux"]}
 ----
 
 With pretty printing:
 
 ----
-curl -X POST http://localhost:3000/scripts/echo -H "Content-Type: application/json" -d '{"text": "hello world!"}' | jq .
+$ curl -X POST http://localhost:3000/scripts/uptime -H "Content-Type: application/json" -H "Accept: application/json" -d '{"text": "hello world!"}' | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   325  100   301  100    24  20551   1638 --:--:-- --:--:-- --:--:-- 21500
+{
+  "retcode": 0,
+  "return_values": {
+    "uptime": "09:11:35 up  7:13,  5 users,  load average: 0.10, 0.25, 0.24"
+  },
+  "stderr": [],
+  "stdout": [
+    "echo'd text:  09:11:35 up  7:13,  5 users,  load average: 0.10, 0.25, 0.24",
+    "jojo_return_value uptime= 09:11:35 up  7:13,  5 users,  load average: 0.10, 0.25, 0.24"
+  ]
+}
+
+$ curl -X POST http://localhost:3000/scripts/kernel -H "Content-Type: application/json" | jq .  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   286  100   286    0     0  15051      0 --:--:-- --:--:-- --:--:-- 15888
+{
+  "retcode": 0,
+  "return_values": {
+    "machine": "x86_64",
+    "kernel": "Linux 3.19.0-16-generic",
+    "operating-system": "GNU/Linux"
+  },
+  "stderr": [],
+  "stdout": [
+    "jojo_return_value kernel=Linux 3.19.0-16-generic",
+    "jojo_return_value machine=x86_64",
+    "jojo_return_value operating-system=GNU/Linux"
+  ]
+}
 
 ----
 
+jerry-curl examples:
+
+----
+$ echo '{"text": "hello world!"}' > testdata
+
+$ jerry-curl -X POST -u /uptime -d @testdata | jq .
+{
+  "retcode": 0,
+  "return_values": {
+    "uptime": "09:15:04 up  7:16,  5 users,  load average: 0.14, 0.19, 0.22"
+  },
+  "stderr": [],
+  "stdout": [
+    "echo'd text:  09:15:04 up  7:16,  5 users,  load average: 0.14, 0.19, 0.22",
+    "jojo_return_value uptime= 09:15:04 up  7:16,  5 users,  load average: 0.14, 0.19, 0.22"
+  ]
+}
+
+$ jerry-curl -u /kernel -X POST | jq .
+{
+  "retcode": 0,
+  "return_values": {
+    "machine": "x86_64",
+    "kernel": "Linux 3.19.0-16-generic",
+    "operating-system": "GNU/Linux"
+  },
+  "stderr": [],
+  "stdout": [
+    "jojo_return_value kernel=Linux 3.19.0-16-generic",
+    "jojo_return_value machine=x86_64",
+    "jojo_return_value operating-system=GNU/Linux"
+  ]
+}
+----
