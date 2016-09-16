@@ -2,7 +2,7 @@
 
 aka We Test Everything
 
-TLDL install instructions for the impatient - just 3 easy steps:  
+TLDR install instructions for the impatient - just 3 easy steps:  
 ```
 $ sudo echo "deb http://appseclive.org/apt/14.04 trusty main" > /etc/apt/sources.list.d/owasp-wte.list
 $ wget -q -O - http://appseclive.org/apt/owasp-wte.gpg.key | apt-key add -
