@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Bash script used to build the app from source in a build docker
+
+# Create this the first time you make the package and store it here for reuse later.
+
