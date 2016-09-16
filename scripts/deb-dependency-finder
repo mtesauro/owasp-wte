@@ -1,0 +1,133 @@
+#!/bin/bash
+
+# Script to determine which libraries are needed 
+# for a binary using ldd and apt-file
+
+# Setup some functions
+usage() {
+	echo ""
+	echo ' ../../scripts/deb-dependency-finder [path]'
+	echo ""
+	echo " where [path] is the path to the binary to check"
+	echo " e.g. ../../scripts/deb-dependency-finder /bin/ls"
+	echo ""
+}
+
+# Check that the needed packages are installed
+# ldd - this is an essential package so this code should never error out on normal circumstances
+command -v ldd >/dev/null 2>&1 || { echo -e "\nYou need ldd for this, install the libc-bin package\n" >&2; exit 1; }
+# awk - usually installed by gawk package and symlinked to awk by alternatives
+command -v awk >/dev/null 2>&1 || { echo -e "\nYou need awk for this, install the gawk package\n" >&2; exit 1; }
+# apt-file - usually not installed
+command -v apt-file >/dev/null 2>&1 || { echo -e "\nYou need apt-file for this, install the apt-file package and run 'apt-file update' first.\n" >&2; exit 1; }
+# sed - this is an essential package so this code should never error out on normal circumstances
+command -v sed >/dev/null 2>&1 || { echo -e "\nYou need sed for this, install the sed package\n" >&2; exit 1; }
+# sort - this is an essential package so this code should never error out on normal circumstances
+command -v sort >/dev/null 2>&1 || { echo -e "\nYou need sort for this, install the coreutils package\n" >&2; exit 1; }
+# uniq - this is an essential package so this code should never error out on normal circumstances
+command -v uniq >/dev/null 2>&1 || { echo -e "\nYou need uniq for this, install the core-utils package\n" >&2; exit 1; }
+
+# Check that we only have a single argument
+if [ $# -eq 0 ] ||
+   [ $# -gt 1 ] 
+then
+  echo -e "\nERROR: This script only accepts a single argument\n"
+  usage
+  exit 1
+fi
+
+# Use ldd and friends to figure out what packages are required by the binary
+ldd "$1" | awk '/=>/{print $(NF-1)}' | while read n; do apt-file search $n; done | awk '{print $1}' | sed 's/://' | sort | uniq
+
+exit
+
+## TODO - output of this needs some work.  Ideally it would provide an 
+## list of packages with versions or an apt-get -s install [all of them]
+## Maybe even figuring out which are 'essential' so shouldn't be in depends
+
+## Example of dealing with what comes out of that command:
+$ cat list 
+chise-db
+libc6
+libffi6
+libgcc1
+libgcc1-dbg
+libgmp10
+libgnutls30
+libhogweed4
+libidn11
+libnettle6
+libp11-kit0
+libstdc++6
+libstdc++6-5-dbg
+libtasn1-6
+libuuid1
+nettle-dbg
+zlib1g
+$ for i in `cat list`; do dpkg-query -S $i; done
+dpkg-query: no path found matching pattern *chise-db*
+libc6:i386, libc6:amd64: /usr/share/doc/libc6/NEWS.Debian.gz
+libc6:i386, libc6:amd64: /usr/share/doc/libc6/changelog.Debian.gz
+libc6-dev:amd64: /usr/share/doc/libc6-dev/copyright
+libc6-dev:amd64: /usr/share/doc/libc6-dev/NAMESPACE
+libc6:i386, libc6:amd64: /usr/share/doc/libc6/README.Debian.gz
+libc6:i386, libc6:amd64: /usr/share/doc/libc6/NEWS.gz
+libc6-dev:amd64: /usr/share/doc/libc6-dev/CONFORMANCE.gz
+libc6-dbg:amd64: /usr/share/doc/libc6-dbg/changelog.Debian.gz
+libc6-dev:amd64: /usr/share/doc/libc6-dev
+libc6-dbg:amd64: /usr/share/doc/libc6-dbg/copyright
+libc6:i386, libc6:amd64: /usr/share/doc/libc6
+libc6:i386, libc6:amd64: /usr/share/doc/libc6/BUGS
+libc6-dev:amd64: /usr/share/doc/libc6-dev/changelog.Debian.gz
+libc6:i386, libc6:amd64: /usr/share/lintian/overrides/libc6
+libc6-dbg:amd64: /usr/share/doc/libc6-dbg
+libc6-dev:amd64: /usr/share/lintian/overrides/libc6-dev
+libc6:i386, libc6:amd64: /usr/share/doc/libc6/copyright
+libc6:i386, libc6:amd64: /usr/share/doc/libc6/README.hesiod.gz
+libffi6:amd64, libffi6:i386: /usr/share/doc/libffi6/copyright
+libffi6:amd64, libffi6:i386: /usr/share/doc/libffi6/changelog.Debian.gz
+libffi6:amd64, libffi6:i386: /usr/share/doc/libffi6
+libgcc1:amd64, libgcc1:i386: /usr/share/lintian/overrides/libgcc1
+libgcc1:amd64, libgcc1:i386: /usr/share/doc/libgcc1
+dpkg-query: no path found matching pattern *libgcc1-dbg*
+libgmp10:i386, libgmp10:amd64: /usr/share/doc/libgmp10/changelog.Debian.gz
+libgmp10:i386, libgmp10:amd64: /usr/share/doc/libgmp10/copyright
+libgmp10:i386, libgmp10:amd64: /usr/share/doc/libgmp10/README.Debian
+libgmp10:i386, libgmp10:amd64: /usr/share/doc/libgmp10
+libgnutls30:amd64, libgnutls30:i386: /usr/share/doc/libgnutls30/THANKS.gz
+libgnutls30:amd64, libgnutls30:i386: /usr/share/doc/libgnutls30/copyright
+libgnutls30:amd64, libgnutls30:i386: /usr/share/doc/libgnutls30/changelog.Debian.gz
+libgnutls30:amd64, libgnutls30:i386: /usr/share/doc/libgnutls30/NEWS.Debian.gz
+libgnutls30:amd64, libgnutls30:i386: /usr/share/doc/libgnutls30/AUTHORS
+libgnutls30:amd64, libgnutls30:i386: /usr/share/doc/libgnutls30
+libgnutls30:amd64, libgnutls30:i386: /usr/share/doc/libgnutls30/NEWS.gz
+libgnutls30:amd64, libgnutls30:i386: /usr/share/doc/libgnutls30/README.gz
+libhogweed4:amd64, libhogweed4:i386: /usr/share/doc/libhogweed4
+libidn11:amd64, libidn11:i386: /usr/share/doc/libidn11
+libidn11:amd64, libidn11:i386: /usr/share/doc/libidn11/changelog.Debian.gz
+libidn11:amd64, libidn11:i386: /usr/share/doc/libidn11/copyright
+libnettle6:amd64, libnettle6:i386: /usr/share/doc/libnettle6/changelog.Debian.gz
+libnettle6:amd64, libnettle6:i386: /usr/share/doc/libnettle6/copyright
+libnettle6:amd64, libnettle6:i386: /usr/share/doc/libnettle6
+libp11-kit0:amd64, libp11-kit0:i386: /usr/share/doc/libp11-kit0
+libp11-kit0:amd64, libp11-kit0:i386: /usr/share/doc/libp11-kit0/examples
+libp11-kit0:amd64, libp11-kit0:i386: /usr/share/doc/libp11-kit0/changelog.Debian.gz
+libp11-kit0:amd64, libp11-kit0:i386: /usr/share/doc/libp11-kit0/examples/pkcs11.conf.example
+libp11-kit0:amd64, libp11-kit0:i386: /usr/share/doc/libp11-kit0/copyright
+libstdc++6:amd64, libstdc++6:i386: /usr/share/doc/libstdc++6
+dpkg-query: no path found matching pattern *libstdc++6-5-dbg*
+libtasn1-6:i386, libtasn1-6:amd64: /usr/share/doc/libtasn1-6/AUTHORS
+libtasn1-6:i386, libtasn1-6:amd64: /usr/share/doc/libtasn1-6/NEWS.gz
+libtasn1-6:i386, libtasn1-6:amd64: /usr/share/doc/libtasn1-6/README
+libtasn1-6:i386, libtasn1-6:amd64: /usr/share/doc/libtasn1-6
+libtasn1-6:i386, libtasn1-6:amd64: /usr/share/doc/libtasn1-6/THANKS
+libtasn1-6:i386, libtasn1-6:amd64: /usr/share/doc/libtasn1-6/changelog.Debian.gz
+libtasn1-6:i386, libtasn1-6:amd64: /usr/share/doc/libtasn1-6/copyright
+libuuid1:amd64, libuuid1:i386: /usr/share/doc/libuuid1/changelog.Debian.gz
+libuuid1:amd64, libuuid1:i386: /usr/share/doc/libuuid1
+libuuid1:amd64, libuuid1:i386: /usr/share/doc/libuuid1/copyright
+dpkg-query: no path found matching pattern *nettle-dbg*
+zlib1g:i386, zlib1g:amd64: /usr/share/doc/zlib1g/copyright
+zlib1g:i386, zlib1g:amd64: /usr/share/doc/zlib1g/changelog.Debian.gz
+zlib1g:i386, zlib1g:amd64: /usr/share/doc/zlib1g
+

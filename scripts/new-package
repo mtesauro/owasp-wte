@@ -1,0 +1,196 @@
+#!/bin/bash
+
+# This script will setup a new app to be packaged
+# according to the OWASP WTE & mtesauro packaging conventions
+# This includes a directory structure of:
+# .
+# ├── apps
+# │   └── example
+# │       ├── build-example
+# │       ├── make-example-packages
+# │       ├── packages
+# │       ├── pkg-root
+# │       ├── README.md
+# │       ├── references
+# │       ├── scripts
+# │       └── source
+# ├── docker
+# ├── docs
+# └── scripts
+#     ├── launch-docker
+#     ├── make-package
+#     └── new-package
+
+
+# Non-bash package requirements - below is for Debian-based systems
+# coreutils for basename, dirname
+
+# Setup some useful vars
+WKDIR=`pwd`
+SUBDIR=`basename $WKDIR`
+REPOBASE=`dirname $WKDIR`
+
+usage() {
+	echo ""
+	echo ' ../../scripts/new-package [name of app to package]'
+	echo ""
+	echo " where [name of app to package] is the thing you want to package"
+	echo " e.g. ../../scripts/new-package taskwarrior"
+	echo ""
+}
+
+setup-app-dir() {
+	# Create the default directories to create a package
+	BASE="$REPOBASE/$SUBDIR"
+	PKG="$1"
+	FP="$BASE/$PKG"
+	echo "Creating directory structure for $PKG..."
+	# Make sure the directory for the package doesn't already exist
+	if [ -d "$FP" ]
+	then
+	  echo -e "\nERROR: sDirectory already exists for $PKG\n"
+	  echo -e "Exiting...\n"
+	  exit 1
+	fi
+	# Create needed dirs
+	mkdir "$FP" "$FP/pkg-root" "$FP/source" "$FP/scripts" "$FP/packages" "$FP/references"
+	# Create template readme file
+	cat > "$FP/README.md" << EOF
+[Put a short description of what this app is that you're packaging]
+
+More info at [Link to the app's website/webpage]
+
+Apps repository is at [Link to apps repository]
+
+Download at [Link to the app's download page]
+
+EOF
+	# Create template script for building the app from source in docker
+	echo '#!/bin/bash
+
+# Bash script used to build the app from source in a build docker
+
+# Create this the first time you make the package and store it here for reuse later.
+'> "$FP/build-$PKG"
+	# Create template script for making the app with
+	echo '#!/bin/bash
+
+LIB="../../scripts"
+
+if [[ ! -d "$LIB" ]]; then
+  echo "Cannot file scripts directory."
+  echo "  Are you in the root directory of the tool you want to package?"
+  exit 1
+fi
+
+# Set values needed to build debs and rpms with FPM
+TOOLNAME="EDIT" # What tool are you working on?
+VERSION="EDIT"  # What version of that tool are you packaging?
+# Description of the tool that is being packaged.
+DESCRIPT="EDIT"
+# Version of the actual deb/rpm is this - if not fixing a packaging bug, then 00, else increment this by 1
+ITER="00" 
+# What packages are needed to install this on Debian/Ubuntu systems? 
+# e.g. --depends "firefox | iceweasel"
+DEBDEPENDS=""
+# What packages are needed to install this on RedHat/CentOS/Fedora systems? 
+# e.g. --depends firefox
+RPMDEPENDS=""
+# Architechture this packge is built for? Choose from: all, native, i386, amd64
+ARCH="EDIT"
+# Scripts to run before or after installation.  Once script per option below
+# --after-install FILE - A script to be run after package installation
+# --before-install FILE - A script to be run before package installation
+# e.g. INSTALLSCRIPTS="--before-install scripts/preinst"
+INSTALLSCRIPTS=""
+# Simlar to INSTALLSCRIPTS but occur when the package is removed.  Options are:
+# --after-remove FILE - A script to be run after package removal
+# --before-remove FILE - A script to be run before package removal
+# e.g. REMOVESCRIPTS="--after-remove scripts/postrm"
+REMOVESCRIPTS=""
+# Additional .deb or .rpm FPM arguments
+# e.g. ADDDEB="--deb-recommends owasp-wte-firefox"
+ADDDEB=""
+ADDRPM=""
+
+# Call the global build script
+source $LIB/make-package
+
+# Check for the packages directory
+if [[ ! -d "./packages" ]]; then
+  echo "Cannot find packages directory - creating it now."
+  mkdir ./packages
+fi
+
+# Make sure the package creation worked as expected
+COUNT=`ls ./$PACKAGER$SEP* | wc -l`
+if [ $COUNT -eq 2 ] 
+then
+  # Move packages into subdirectory
+  mv *.deb ./packages/
+  mv *.rpm ./packages/
+  echo "Debian and RPM files moved to ./packages/"
+elif [ $COUNT -gt 2 ] 
+then
+  echo "ERROR: Something wonky happened.  It appears that more then just .deb and .rpms were created"
+else
+  echo "ERROR: Both .deb and .rpm were not created.  Any package files created were left in the current directory."
+fi'  > "$FP/make-$PKG-packages" 
+	echo 'Add any references needed to help build and package this app' > "$FP/references/todo.md" 
+	echo -e "\nThe app $PKG is ready for packaging at $FP\n\nGo forth and conquer\n"
+}
+
+# Check that the script is called in the apps directory
+if [ "$SUBDIR" = "apps" ]
+then
+  # Make sure the 'right' directories are in the parent
+  if [ ! -d "$REPOBASE/apps" ]    ||
+     [ ! -d "$REPOBASE/docker" ]  ||
+     [ ! -d "$REPOBASE/docs" ]    || 
+     [ ! -d "$REPOBASE/scripts" ]
+  then
+    # Error out if we're not in a packaging repo
+    echo -e "\nERROR: This script need to be called in a packaging repo\n"
+    usage
+    exit 1
+  fi
+else 
+  # Error out if we're not in the apps directory of a packaging repo
+  echo -e "\nERROR: This script needs to be called in the apps directory\n"
+  usage
+  exit 1
+fi
+
+# Check that we only have a single argument
+if [ $# -eq 0 ] ||
+   [ $# -gt 1 ] 
+then
+  echo -e "\nERROR: This script only accepts a single argument\n"
+  usage
+  exit 1
+fi
+
+# Get the pacakge name as the first argument to this script
+APP=$1
+# and verify its correct e.g. $ new-package taskwarrior
+echo ""
+echo -n "You want to create a package for $APP.  Is this correct? [y/n]: "
+read VERIFY
+
+case $VERIFY in
+  y|Y|Yes|yes ) 
+      echo "";
+      setup-app-dir $APP;;
+  * ) 
+      echo -e "\nHalting with no action taken due to lack of confirmation";
+      echo "Exiting...";
+      exit 1;;
+esac
+
+
+## If correct, create a directory of that name - switch out spaces???
+
+## Create the necessary directories under the $APP directory
+## pkg-root, source, scripts, packages, references
+
+## Create README.md, build-$APP script, make-$APP-packages script skeleton files

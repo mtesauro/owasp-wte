@@ -1,0 +1,131 @@
+#!/bin/bash
+
+# A script that take arguements of build or fpm which
+# launches either a build docker or the FPM docker
+# This allows your build machine to keep free of build cruft
+
+# Assumes BASH 4.0+ 
+# Non-bash package requirements - below is for Debian-based systems
+# coreutils for basename, dirname
+
+# Setup some useful vars
+WKDIR=`pwd`
+SUBDIR=`basename $WKDIR`
+APPSPATH=`dirname $WKDIR`
+APPSDIR=`basename $APPSPATH`
+REPOBASE=`dirname $APPSPATH`
+BLDDOCKER="ubuntu:16.04"
+FPMDOCKER="mtesauro/fpm:v1.5.0"
+
+# Setup some functions
+usage() {
+	echo ""
+	echo ' ../../scripts/launch-docker [type]'
+	echo ""
+	echo " where [type] is either 'build' or 'fpm'"
+	echo " e.g. ../../scripts/launch-docker build"
+	echo ""
+}
+
+# Check that the script is called in the correct directory
+if [ "$APPSDIR" = "apps" ]
+then
+  # Make sure the 'right' directories are in the parent
+  if [ ! -d "$REPOBASE/apps" ]    ||
+     [ ! -d "$REPOBASE/docker" ]  ||
+     [ ! -d "$REPOBASE/docs" ]    || 
+     [ ! -d "$REPOBASE/scripts" ]
+  then
+    # Error out if we're not in a packaging repo
+    echo -e "\nERROR: This script need to be called in a packaging repo\n"
+    usage
+    exit 1
+  fi
+else 
+  # Error out if we're not in the apps directory of a packaging repo
+  echo -e "\nERROR: This script needs to be called in the directory for the app you want to package\n"
+  usage
+  exit 1
+fi
+
+# Check that we only have a single argument
+if [ $# -eq 0 ] ||
+   [ $# -gt 1 ] 
+then
+  echo -e "\nERROR: This script only accepts a single argument\n"
+  usage
+  exit 1
+fi
+
+# Check that docker is in the path
+#if command -v docker >/dev/null 2>&1 
+if ! docker_loc="$(type -p "docker")" || [ -z "$docker_loc" ]
+then
+  echo -e "ERROR: Docker required but not installed. Please install Docker first." 
+  echo "Exiting..."
+  exit 1
+fi
+
+# Run a docker command based on the type argument sent to the script
+TYPE=$1
+case $TYPE in
+  build ) 
+      echo "";
+      echo "Entering Build Docker $BLDDOCKER";
+      docker run -v $WKDIR:/opt/$SUBDIR -it --name build-$SUBDIR $BLDDOCKER bash
+      echo "";
+      echo "Exited Build Docker ";
+      echo "";;
+  fpm ) 
+      echo "";
+      echo "Entering FPM Docker $FPMDOCKER";
+      echo "Exit with CTRL+p then CTRK+q";
+      docker run -v $WKDIR:/opt/$SUBDIR -it --name fpm-$SUBDIR $FPMDOCKER bash
+      echo "";
+      echo "Exited FPM Docker ";
+      echo "";;
+  * ) 
+      echo -e "\nHalting with no no Docker launched - please choose build or fpm as arguments to $0";
+      echo "Exiting...";
+      exit 1;;
+esac
+
+# Prompt for cleaning up docker image
+echo -n "Do you want to clean up (delete) the docker $TYPE image? [y/n]: "
+read CLEANUP
+
+case $CLEANUP in
+  y|Y|Yes|yes ) 
+      echo "";
+      echo "Stopping the $TYPE-$SUBDIR docker";
+      docker stop $TYPE-$SUBDIR
+      echo "Deleting the $TYPE-$SUBDIR docker";
+      docker rm $TYPE-$SUBDIR
+      echo "";;
+  * ) 
+      echo -e "\nDocker image left running on system  To clear later run:";
+      echo "  docker stop $TYPE-$SUBDIR";
+      echo "    and";
+      echo "  docker rm $TYPE-$SUBDIR";
+      echo "Exiting...";
+      exit 1;;
+esac
+
+## Ask to correct file premissions from Docker work as root
+echo "Files created in the Docker image will be owned by root."
+echo -n "Do you want to change ownership to your user? [y/n]: "
+read CHOWN
+
+case $CHOWN in 
+  y|Y|Yes|yes ) 
+      echo "";
+      echo "Resetting file ownership to $USER";
+      sudo chown -R $USER $WKDIR
+      echo "";;
+  * ) 
+      echo -e "\nFile permissions left as owned by root.";
+      echo "";;
+esac
+
+echo "All done - go have a cookie"
+echo ""

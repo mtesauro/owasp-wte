@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Default values used for all OWASP WTE packages
+PACKAGER="owasp-wte"
+SEP="-"
+NAME="$PACKAGER$SEP$TOOLNAME"
+MAINT="Matt Tesauro <matt.tesauro@owasp.org>"
+URL="http://appseclive.org"
+VENDOR="OWASP WTE"
+LICENSE="GPLv3"
+EPOCH="0"
+DIR="pkg-root"
+
+# Check for fpm in path
+if hash fpm 2>/dev/null; then
+  VER=`fpm --version`
+  echo "Using FPM version $VER to build packages"
+else
+  echo "fpm not found.  Please install fpm before continuing."
+fi
+
+echo "Building packages for $TOOLNAME version $VERSION"
+
+# Handle when there are separate builds for different architectures
+if [ "$i386" = true ] ; then
+  echo "Building for 32-bit systems"
+  DIR="pkg-root-32"
+  echo "Add some code first to switch to a 32-bit docker image"
+  echo "After I test that out to make sure it works"
+  echo "So for now, exit here"
+  echo "32-bit support not added yet, sorry"
+  exit 1
+fi
+
+echo "Building .deb"
+
+DEB="fpm -t deb --name \"$NAME\" --iteration $ITER $DEBDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" $ADDDEB -s dir ./$DIR/=/"
+
+# Run the FPM command to build the Debian package
+eval $DEB
+
+echo "Building .rpm"
+
+RPM="fpm -t rpm --name \"$NAME\" --iteration $ITER $RPMDEPENDS --architecture $ARCH --maintainer \"$MAINT\" --description \"$DESCRIPT\" $INSTALLSCRIPTS $REMOVESCRIPTS --rpm-os linux --url \"$URL\" --license $LICENSE --version $VERSION --vendor \"$VENDOR\" --epoch $EPOCH $ADDRPM -s dir ./$DIR/=/"
+
+# Run the FPM command to build the RPM package
+eval $RPM
