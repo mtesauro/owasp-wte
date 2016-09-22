@@ -1,45 +1,51 @@
 #!/bin/bash
 
-LIB="../../scripts"
+# Install any needed packages first
+source ./scripts/fpm-preinstalls
+
+LIB="."
 
 if [[ ! -d "$LIB" ]]; then
-  echo "Cannot file scripts directory."
+  echo "Cannot find scripts directory."
   echo "  Are you in the root directory of the tool you want to package?"
   exit 1
 fi
 
+# Setup the package scripts path
+PS="./scripts/DEBIAN"
+
 # Set values needed to build debs and rpms with FPM
-TOOLNAME="EDIT" # What tool are you working on?
-VERSION="EDIT"  # What version of that tool are you packaging?
+TOOLNAME="burpsuite" # What tool are you working on?
+VERSION="1.7.06"  # What version of that tool are you packaging?
 # Description of the tool that is being packaged.
-DESCRIPT="EDIT"
+DESCRIPT="Burp Suite is an integrated platform for attacking web applications. It contains all of the Burp tools with numerous interfaces between them designed to facilitate and speed up the process of attacking an application. This package is for the free version of Burp Suite."
 # Version of the actual deb/rpm is this - if not fixing a packaging bug, then 00, else increment this by 1
 ITER="00" 
 # What packages are needed to install this on Debian/Ubuntu systems? 
 # e.g. --depends "firefox | iceweasel"
-DEBDEPENDS=""
+DEBDEPENDS='--depends "openjdk-8-jre | sun-java6-jre" --depends zenity --depends xdg-utils'
 # What packages are needed to install this on RedHat/CentOS/Fedora systems? 
 # e.g. --depends firefox
-RPMDEPENDS=""
+RPMDEPENDS='--depends "openjdk-8-jre" --depends zenity --depends xdg-utils'
 # Architechture this packge is built for? Choose from: all, native, i386, amd64
-ARCH="EDIT"
+ARCH="all"
 # Scripts to run before or after installation.  Once script per option below
 # --after-install FILE - A script to be run after package installation
 # --before-install FILE - A script to be run before package installation
 # e.g. INSTALLSCRIPTS="--before-install scripts/preinst"
-INSTALLSCRIPTS=""
+INSTALLSCRIPTS="--after-install $PS/postinst"
 # Simlar to INSTALLSCRIPTS but occur when the package is removed.  Options are:
 # --after-remove FILE - A script to be run after package removal
 # --before-remove FILE - A script to be run before package removal
 # e.g. REMOVESCRIPTS="--after-remove scripts/postrm"
-REMOVESCRIPTS=""
+REMOVESCRIPTS="--before-remove $PS/postrm --after-remove $PS/postrm"
 # Additional .deb or .rpm FPM arguments
 # e.g. ADDDEB="--deb-recommends owasp-wte-firefox"
-ADDDEB=""
-ADDRPM=""
+ADDDEB="--deb-recommends owasp-wte-firefox"
+ADDRPM=""  
 
 # Call the global build script
-source $LIB/make-package
+source $LIB/packaging-library
 
 # Check for the packages directory
 if [[ ! -d "./packages" ]]; then

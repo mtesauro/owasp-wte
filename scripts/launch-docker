@@ -77,12 +77,16 @@ case $TYPE in
       echo "Exited Build Docker ";
       echo "";;
   fpm ) 
+      # Copy make-package into working dir so its available in Docker
+      cp -a "$REPOBASE/scripts/packaging-library" "$WKDIR/" 
       echo "";
       echo "Entering FPM Docker $FPMDOCKER";
       echo "Exit with CTRL+p then CTRK+q";
       docker run -v $WKDIR:/opt/$SUBDIR -it --name fpm-$SUBDIR $FPMDOCKER bash
       echo "";
       echo "Exited FPM Docker ";
+      # Remove make-packages from the current apps directory
+      rm "$WKDIR/packaging-library"
       echo "";;
   * ) 
       echo -e "\nHalting with no no Docker launched - please choose build or fpm as arguments to $0";

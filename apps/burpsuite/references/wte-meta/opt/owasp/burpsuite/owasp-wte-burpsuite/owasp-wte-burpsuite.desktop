@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Burpsuite
+Exec=burpsuite
+Icon=owasp-wte-burpsuite-icon
+Categories=Proxies;

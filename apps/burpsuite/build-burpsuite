@@ -2,5 +2,34 @@
 
 # Bash script used to build the app from source in a build docker
 
-# Create this the first time you make the package and store it here for reuse later.
+# Make sure this is run from the same directory it is located in
+cd "$(dirname "$0")"
+BASE=`pwd`
 
+# Do the necessary installs to get a build environment
+echo "Creating the build environment"
+source "$BASE/scripts/docker-preinstalls"
+
+# Download, verify and then extract the source
+echo "Downloading and extracting source"
+source "$BASE/scripts/source-download-and-check" "$BASE"
+
+# Return to where the script is
+cd $BASE
+
+R="$BASE/pkg-root"
+S="$BASE/source"
+O="$R/opt/owasp/burpsuite"
+M="$BASE/references/wte-meta"
+F=`cat $S/filename`
+
+# Start setting up pkg-root by moving the WTE meta contents over
+echo "Moving over OWASP WTE files added to this app for packaging"
+cp -a "$M/opt" "$R"
+cp -a "$M/usr" "$R"
+
+# Copy the burpsuite binary to the right place
+echo "Adding the non-OWASP WTE files built for this app for packaging"
+cp -a "$S/$F" "$O/"
+
+echo "Burpsuite is now ready for packaging"

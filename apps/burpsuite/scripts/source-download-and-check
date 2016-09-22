@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Set some variables which are likely to change
+URL="https://portswigger.net/Burp/Releases/Download?productId=100&version=1.7.06&type=Jar"
+SUM="749e3d23d1d486c823d189da155d5637785de9ff6c5763f23fb54aa128e8a38f" # SHA256
+FILE="burpsuite_free_v1.7.06.jar"
+DIR=""
+
+# Generated variables
+APP=`basename $1`
+SRC="$1/source"
+
+# Change to the source directory
+cd "$SRC"
+
+# Note the filename downloaded for later use
+echo "$FILE" > filename
+
+# Download source
+echo "Downloading $FILE source..."
+wget -O $FILE $URL
+###USEME###wget -q -O $FILE $URL
+
+# Verify source sum
+echo "Verifying hash for $FILE source..."
+echo "$SUM  $FILE" > "sum-for-$FILE"
+sha256sum $FILE > check-sum
+
+# 0 return for no differences
+diff "sum-for-$FILE" check-sum > /dev/null
+DIFF="$?"
+
+if [ ! $DIFF -eq 0 ]
+then
+  echo "Checksum on downloads failed to match - something wonky happened"
+  echo "Exiting for safety reasons"
+  exit 1
+fi
+

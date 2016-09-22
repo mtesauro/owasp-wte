@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Register the icons needed for Burpsuite and the OWASP menu
+xdg-icon-resource install --size 64 /opt/owasp/burpsuite/owasp-wte-burpsuite/owasp-wte-menu-icon.png owasp-wte-menu-icon
+xdg-icon-resource install --size 64 /opt/owasp/burpsuite/owasp-wte-burpsuite/owasp-wte-burpsuite-icon.png owasp-wte-burpsuite-icon 
+
+# Check if OWASP WTE website menu item exists and add it if needed to ensure installs
+# of only sub-menu items still appear properly in the menu
+if [ ! -f /usr/share/applications/owasp-wte-site.desktop ]; then
+    echo "[Desktop Entry]" >> /usr/share/applications/owasp-wte-site.desktop
+    echo "Type=Application"  >> /usr/share/applications/owasp-wte-site.desktop
+    echo "Name=OWASP WTE Website"  >> /usr/share/applications/owasp-wte-site.desktop
+    echo "Exec=firefox http://appseclive.org"  >> /usr/share/applications/owasp-wte-site.desktop
+    echo "Icon=owasp-wte-menu-icon:"  >> /usr/share/applications/owasp-wte-site.desktop
+    echo "Categories=OWASP;"  >> /usr/share/applications/owasp-wte-site.desktop
+    xdg-desktop-menu install /opt/owasp/burpsuite/owasp-wte-burpsuite/owasp-owasp.directory \
+                             /usr/share/applications/owasp-wte-site.desktop
+fi
+
+# Create the necessary menu entries
+xdg-desktop-menu install /opt/owasp/burpsuite/owasp-wte-burpsuite/owasp-owasp.directory \
+                         /opt/owasp/burpsuite/owasp-wte-burpsuite/owasp-proxies.directory \
+                         /opt/owasp/burpsuite/owasp-wte-burpsuite/owasp-wte-burpsuite.desktop
+
+# Create a symbolic link to the currently installed burp version
+ln -sf /opt/owasp/burpsuite/burpsuite_free_v1.7.06.jar /opt/owasp/burpsuite/burpsuite
+

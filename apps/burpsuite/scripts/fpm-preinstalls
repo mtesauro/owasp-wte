@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# These are packages that are needed in the build Docker beyond the base image
+
+# Target version = Ubuntu 16.04 LTS
+
+apt-get update
+apt-get -y install vim rpm

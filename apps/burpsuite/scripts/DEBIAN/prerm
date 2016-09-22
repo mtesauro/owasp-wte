@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Remove symlink created in postinst script
+rm /opt/owasp/burpsuite/burpsuite

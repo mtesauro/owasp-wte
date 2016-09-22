@@ -1,0 +1,30 @@
+## Clean-up any of the build artifacts
+
+# Get the directory where this script is located
+cd "$(dirname "$0")"
+SCR=`pwd`
+
+BASE=`dirname $SCR`
+
+# Prompt before deleting any files
+echo ""
+echo "There are build artifacts that are no longer needed in:"
+echo "  $BASE/pkg-root/"
+echo ""
+echo -n "Do you want to clean aka delete all build artifacts? [y/n]: "
+read VERIFY
+
+case $VERIFY in
+  y|Y|Yes|yes ) 
+      echo "";
+      rm -rf "$SCR/../pkg-root/*"
+      echo "Build artifacts removed";;
+      echo "This directory is used to house the temporary root used to create the .deb and .rpm packages.  It can be cleaned out between builds." >> "$SCR/../pkg-root/*"
+      echo "This directory is used to house the temporary source files used to build the application.  It can be cleaned out between builds." >> "$SCR/../pkg-root/*"
+  * ) 
+      echo -e "\nNothing removed - build artifacts still in place";
+      echo "Exiting...";
+      exit;;
+esac
+
+echo ""
