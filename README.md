@@ -2,6 +2,8 @@
 
 aka We Test Everything
 
+[![OWASP Flagship](https://img.shields.io/badge/OWASP%20Foundation-Flagship%20Project-blue.svg)](https://www.owasp.org/index.php/OWASP_Web_Testing_Environment_Project)
+
 TLDR install instructions for the impatient - just 3 easy steps:  
 ```
 $ sudo echo "deb http://appseclive.org/apt/14.04 trusty main" > /etc/apt/sources.list.d/owasp-wte.list
