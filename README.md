@@ -14,7 +14,7 @@ $ apt-get update && apt-get -y install owasp-wte-*
 
 ### So what is OWASP WTE anyway?
 
-OWASP WTE is primarily a bunch of easy to install AppSec tools, apps and documentation.  Currently, there's a ready-to-use Debian/Ubuntu repository of .deb packages and some very beta RPMs (not tested as of 2015-05-13).  You can either install these packages ala carte on a Linux system of your choice or download an OWASP WTE VM which bundles all the packages together with some extra bling in a turn-key VM.  VMs are provided in VirtualBox (.vdi), VMware (.vmdk) and Open Virtual Appliance (.ova) formats compressed with 7zip.  VMs can be downloaded from [here](http://appseclive.org/apt/downloads/) - **Don't forget to check the SHA sums**
+OWASP WTE is primarily a bunch of easy to install AppSec tools, apps and documentation.  Currently, there's a ready-to-use Debian/Ubuntu repository of .deb packages and some very beta RPMs (not tested as of 2015-05-13).  You can either install these packages ala carte on a Linux system of your choice or download an OWASP WTE VM which bundles all the packages together with some extra bling in a turn-key VM.  VMs are provided in VirtualBox (.vdi), VMware (.vmdk) and Open Virtual Appliance (.ova) formats compressed with 7zip.  VMs can be downloaded from [here](https://www.appsecpipeline.org/apt/downloads/) - **Don't forget to check the SHA sums**
 
 A .deb repository of i386 and amd64 packages which were targeted at Ubuntu 14.04 LTS though they should also work on other Debian-based Linux systems like Debian, Linux Mint, Xubuntu, Ubuntu Gnome, Kubuntu, Lubuntu, ...
 
